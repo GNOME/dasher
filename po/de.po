@@ -110,40 +110,40 @@ msgstr "Schriften _zurücksetzen"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
 #: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>Anpassung</b>"
+msgid "Adaptation"
+msgstr "Anpassung"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
 #: ../Data/GUI/dasher.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Alphabetauswahl</b>"
+msgid "Alphabet Selection"
+msgstr "Alphabetauswahl"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Farbwahl</b>"
+msgid "Color Scheme"
+msgstr "Farbwahl"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>Bildschirmgröße</b>"
+msgid "Display Size"
+msgstr "Bildschirmgröße"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
 #: ../Data/GUI/dasher.preferences.ui.h:13
-msgid "<b>Language Model</b>"
-msgstr "<b>Sprachmodell</b>"
+msgid "Language Model"
+msgstr "Sprachmodell"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>Ausrichtung</b>"
+msgid "Orientation"
+msgstr "Ausrichtung"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
 #: ../Data/GUI/dasher.preferences.ui.h:14
-msgid "<b>Smoothing</b>"
-msgstr "<b>Glättung</b>"
+msgid "Smoothing"
+msgstr "Glättung"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
 #: ../Data/GUI/dasher.preferences.ui.h:15
-msgid "<b>Speed</b>"
-msgstr "<b>Geschwindigkeit</b>"
+msgid "Speed"
+msgstr "Geschwindigkeit"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:9
 #: ../Data/GUI/dasher.preferences.ui.h:18
@@ -244,46 +244,46 @@ msgid "Please Wait…"
 msgstr "Bitte warten …"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
-msgid "<b>Appearance Options</b>"
-msgstr "<b>Ansichtseinstellungen</b>"
+msgid "Appearance Options"
+msgstr "Ansichtseinstellungen"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Application Options</b>"
-msgstr "<b>Anwendungs-Einstellungen</b>"
+msgid "Application Options"
+msgstr "Anwendungs-Einstellungen"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Style</b>"
-msgstr "<b>Anwendungsstil</b>"
+msgid "Application Style"
+msgstr "Anwendungsstil"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>Farbwahl</b>"
+msgid "Colour Scheme"
+msgstr "Farbwahl"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:8
-msgid "<b>Control Style</b>"
-msgstr "<b>Eingabemodus</b>"
+msgid "Control Style"
+msgstr "Eingabemodus"
 
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Dasher-Schriftart</b>"
+msgid "Dasher Font"
+msgstr "Dasher-Schriftart"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Direction</b>"
-msgstr "<b>Ausrichtung</b>"
+msgid "Direction"
+msgstr "Ausrichtung"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Editor Font</b>"
-msgstr "<b>Editor-Schriftart</b>"
+msgid "Editor Font"
+msgstr "Editor-Schriftart"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Input Device</b>"
-msgstr "<b>Eingabegerät</b>"
+msgid "Input Device"
+msgstr "Eingabegerät"
 
 # CHECK
 #: ../Data/GUI/dasher.preferences.ui.h:16
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>Starten und Stoppen</b>"
+msgid "Starting and Stopping"
+msgstr "Starten und Stoppen"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
 msgid "A_pplication"
@@ -1272,8 +1272,8 @@ msgstr "- Eine Anwendung zur barrierefreien Texteingabe"
 #~ msgid "Well done!"
 #~ msgstr "Gut gemacht!"
 
-#~ msgid "<b>Actions</b>"
-#~ msgstr "<b>Aktionen</b>"
+#~ msgid "Actions"
+#~ msgstr "Aktionen"
 
 #~ msgid "Automatic calibration"
 #~ msgstr "Automatische Kalibrierung"

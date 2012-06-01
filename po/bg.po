@@ -209,74 +209,74 @@ msgid "_Import Training Text…"
 msgstr "_Внасяне на текст за обучение…"
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>Действия</b>"
+msgid "Actions"
+msgstr "Действия"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>Адаптиране</b>"
+msgid "Adaptation"
+msgstr "Адаптиране"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Избор на азбука</b>"
+msgid "Alphabet Selection"
+msgstr "Избор на азбука"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Appearance Options</b>"
-msgstr "<b>Настройки на външния вид</b>"
+msgid "Appearance Options"
+msgstr "Настройки на външния вид"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Options</b>"
-msgstr "<b>Настройки на програмата</b>"
+msgid "Application Options"
+msgstr "Настройки на програмата"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Application Style</b>"
-msgstr "<b>Начин на адаптиране</b>"
+msgid "Application Style"
+msgstr "Начин на адаптиране"
 
 #: ../Data/GUI/dasher.preferences.ui.h:7
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>Цветова схема</b>"
+msgid "Colour Scheme"
+msgstr "Цветова схема"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Control Style</b>"
-msgstr "<b>Стил на управлението</b>"
+msgid "Control Style"
+msgstr "Стил на управлението"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Шрифт на Dasher</b>"
+msgid "Dasher Font"
+msgstr "Шрифт на Dasher"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Direction</b>"
-msgstr "<b>Посока</b>"
+msgid "Direction"
+msgstr "Посока"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Editor Font</b>"
-msgstr "<b>Шрифт на редактора</b>"
+msgid "Editor Font"
+msgstr "Шрифт на редактора"
 
 #: ../Data/GUI/dasher.preferences.ui.h:13
-msgid "<b>Input Device</b>"
-msgstr "<b>Входящо устройство</b>"
+msgid "Input Device"
+msgstr "Входящо устройство"
 
 #: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>Модел на езика</b>"
+msgid "Language Model"
+msgstr "Модел на езика"
 
 #: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>Заглаждане</b>"
+msgid "Smoothing"
+msgstr "Заглаждане"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>Скорост</b>"
+msgid "Speed"
+msgstr "Скорост"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>Стартиране и спиране</b>"
+msgid "Starting and Stopping"
+msgstr "Стартиране и спиране"
 
 #: ../Data/GUI/dasher.preferences.ui.h:18
 msgid "A_pplication"
@@ -485,16 +485,16 @@ msgid "P"
 msgstr "П"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Цветова схема</b>"
+msgid "Color Scheme"
+msgstr "Цветова схема"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>Размер на екрана</b>"
+msgid "Display Size"
+msgstr "Размер на екрана"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>Ориентация</b>"
+msgid "Orientation"
+msgstr "Ориентация"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"

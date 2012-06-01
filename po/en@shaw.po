@@ -210,74 +210,74 @@ msgid "_Import Training Text…"
 msgstr "_Import 𐑑𐑮𐑱𐑯𐑦𐑙 𐑑𐑧𐑒𐑕𐑑…"
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>𐑨𐑒𐑖𐑩𐑯𐑟</b>"
+msgid "Actions"
+msgstr "𐑨𐑒𐑖𐑩𐑯𐑟"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>𐑨𐑛𐑩𐑐𐑑𐑱𐑖𐑩𐑯</b>"
+msgid "Adaptation"
+msgstr "𐑨𐑛𐑩𐑐𐑑𐑱𐑖𐑩𐑯"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>𐑨𐑤𐑓𐑩𐑚𐑧𐑑 𐑕𐑦𐑤𐑧𐑒𐑖𐑩𐑯</b>"
+msgid "Alphabet Selection"
+msgstr "𐑨𐑤𐑓𐑩𐑚𐑧𐑑 𐑕𐑦𐑤𐑧𐑒𐑖𐑩𐑯"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Appearance Options</b>"
-msgstr "<b>𐑩𐑐𐑽𐑩𐑯𐑕 𐑪𐑐𐑖𐑩𐑯𐑟</b>"
+msgid "Appearance Options"
+msgstr "𐑩𐑐𐑽𐑩𐑯𐑕 𐑪𐑐𐑖𐑩𐑯𐑟"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Options</b>"
-msgstr "<b>𐑩𐑐𐑤𐑦𐑒𐑱𐑕𐑩𐑯 𐑪𐑐𐑖𐑩𐑯𐑟</b>"
+msgid "Application Options"
+msgstr "𐑩𐑐𐑤𐑦𐑒𐑱𐑕𐑩𐑯 𐑪𐑐𐑖𐑩𐑯𐑟"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Application Style</b>"
-msgstr "<b>𐑩𐑐𐑤𐑦𐑒𐑱𐑕𐑩𐑯 𐑕𐑑𐑲𐑤</b>"
+msgid "Application Style"
+msgstr "𐑩𐑐𐑤𐑦𐑒𐑱𐑕𐑩𐑯 𐑕𐑑𐑲𐑤"
 
 #: ../Data/GUI/dasher.preferences.ui.h:7
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>𐑒𐑳𐑤𐑼 𐑕𐑒𐑰𐑥</b>"
+msgid "Colour Scheme"
+msgstr "𐑒𐑳𐑤𐑼 𐑕𐑒𐑰𐑥"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Control Style</b>"
-msgstr "<b>𐑒𐑩𐑯𐑑𐑮𐑴𐑤 𐑕𐑑𐑲𐑤</b>"
+msgid "Control Style"
+msgstr "𐑒𐑩𐑯𐑑𐑮𐑴𐑤 𐑕𐑑𐑲𐑤"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Dasher Font</b>"
-msgstr "<b>·𐑛𐑨𐑖𐑼 𐑓𐑪𐑯𐑑</b>"
+msgid "Dasher Font"
+msgstr "·𐑛𐑨𐑖𐑼 𐑓𐑪𐑯𐑑"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Direction</b>"
-msgstr "<b>𐑛𐑦𐑮𐑧𐑒𐑖𐑩𐑯</b>"
+msgid "Direction"
+msgstr "𐑛𐑦𐑮𐑧𐑒𐑖𐑩𐑯"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Editor Font</b>"
-msgstr "<b>𐑧𐑛𐑦𐑑𐑹 𐑓𐑪𐑯𐑑</b>"
+msgid "Editor Font"
+msgstr "𐑧𐑛𐑦𐑑𐑹 𐑓𐑪𐑯𐑑"
 
 #: ../Data/GUI/dasher.preferences.ui.h:13
-msgid "<b>Input Device</b>"
-msgstr "<b>𐑦𐑯𐑐𐑫𐑑 𐑛𐑦𐑝𐑲𐑕</b>"
+msgid "Input Device"
+msgstr "𐑦𐑯𐑐𐑫𐑑 𐑛𐑦𐑝𐑲𐑕"
 
 #: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>𐑤𐑨𐑙𐑜𐑢𐑩𐑡 𐑥𐑪𐑛𐑩𐑤</b>"
+msgid "Language Model"
+msgstr "𐑤𐑨𐑙𐑜𐑢𐑩𐑡 𐑥𐑪𐑛𐑩𐑤"
 
 #: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>𐑕𐑥𐑵𐑞𐑦𐑙</b>"
+msgid "Smoothing"
+msgstr "𐑕𐑥𐑵𐑞𐑦𐑙"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>𐑕𐑐𐑰𐑛</b>"
+msgid "Speed"
+msgstr "𐑕𐑐𐑰𐑛"
 
 #, fuzzy
 #: ../Data/GUI/dasher.preferences.ui.h:17
-msgid "<b>Starting and Stopping</b>"
+msgid "Starting and Stopping"
 msgstr "<𐑚𐑰>𐑕𐑑𐑸𐑑𐑦𐑙 𐑯 𐑕𐑑𐑪𐑐𐑦𐑙</𐑚𐑰>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:18
@@ -489,16 +489,16 @@ msgid "P"
 msgstr "𐑐"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>𐑒𐑳𐑤𐑼 𐑕𐑒𐑰𐑥</b>"
+msgid "Color Scheme"
+msgstr "𐑒𐑳𐑤𐑼 𐑕𐑒𐑰𐑥"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>𐑛𐑩𐑕𐑐𐑤𐑱 𐑕𐑲𐑟</b>"
+msgid "Display Size"
+msgstr "𐑛𐑩𐑕𐑐𐑤𐑱 𐑕𐑲𐑟"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>𐑪𐑮𐑦𐑩𐑯𐑑𐑱𐑖𐑩𐑯</b>"
+msgid "Orientation"
+msgstr "𐑪𐑮𐑦𐑩𐑯𐑑𐑱𐑖𐑩𐑯"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"

@@ -220,70 +220,70 @@ msgstr "Eğitim Metnini _İçe Aktar..."
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>Adaptasyon</b>"
+msgid "Adaptation"
+msgstr "Adaptasyon"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Alfabe Seçimi</b>"
+msgid "Alphabet Selection"
+msgstr "Alfabe Seçimi"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
-msgid "<b>Appearance Options</b>"
-msgstr "<b>Görünüm Seçenekleri</b>"
+msgid "Appearance Options"
+msgstr "Görünüm Seçenekleri"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Application Options</b>"
-msgstr "<b>Uygulama Seçenekleri</b>"
+msgid "Application Options"
+msgstr "Uygulama Seçenekleri"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Style</b>"
-msgstr "<b>Uygulama Biçemi</b>"
+msgid "Application Style"
+msgstr "Uygulama Biçemi"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>Renk Şeması</b>"
+msgid "Colour Scheme"
+msgstr "Renk Şeması"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:8
-msgid "<b>Control Style</b>"
-msgstr "<b>Kontrol Biçemi</b>"
+msgid "Control Style"
+msgstr "Kontrol Biçemi"
 
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Dasher Yazıtipi</b>"
+msgid "Dasher Font"
+msgstr "Dasher Yazıtipi"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Direction</b>"
-msgstr "<b>Yön</b>"
+msgid "Direction"
+msgstr "Yön"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Editor Font</b>"
-msgstr "<b>Düzenleyici Yazıtipi</b>"
+msgid "Editor Font"
+msgstr "Düzenleyici Yazıtipi"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Input Device</b>"
-msgstr "<b>Girdi Aygıtı</b>"
+msgid "Input Device"
+msgstr "Girdi Aygıtı"
 
 #: ../Data/GUI/dasher.preferences.ui.h:13
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>Dil Modeli</b>"
+msgid "Language Model"
+msgstr "Dil Modeli"
 
 #: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>Yumuşatma</b>"
+msgid "Smoothing"
+msgstr "Yumuşatma"
 
 #: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>Hız</b>"
+msgid "Speed"
+msgstr "Hız"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
-#| msgid "<b>Starting And Stopping</b>"
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>Başlatma ve Bitirme</b>"
+#| msgid "Starting And Stopping"
+msgid "Starting and Stopping"
+msgstr "Başlatma ve Bitirme"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
 #| msgid "Application"
@@ -528,16 +528,16 @@ msgid "P"
 msgstr "P"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Renk Şeması</b>"
+msgid "Color Scheme"
+msgstr "Renk Şeması"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>Görüntüleme Boyutu</b>"
+msgid "Display Size"
+msgstr "Görüntüleme Boyutu"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>Yönlendirme</b>"
+msgid "Orientation"
+msgstr "Yönlendirme"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"
@@ -1220,8 +1220,8 @@ msgstr "- Erişilebilirliği yücelden bir metin giriş uygulaması"
 #~ msgid "_Import Training Text..."
 #~ msgstr "_Eğitim Metnini Aktar..."
 
-#~ msgid "<b>Actions</b>"
-#~ msgstr "<b>Eylemler</b>"
+#~ msgid "Actions"
+#~ msgstr "Eylemler"
 
 #~ msgid "Dock application window"
 #~ msgstr "Uygulama penceresini sabitle"
@@ -1277,5 +1277,5 @@ msgstr "- Erişilebilirliği yücelden bir metin giriş uygulaması"
 #~ msgid "Dasher - %s"
 #~ msgstr "Dasher - %s"
 
-#~ msgid "<b>Prediction:</b>"
-#~ msgstr "<b>Tahmin:</b>"
+#~ msgid "Prediction:"
+#~ msgstr "Tahmin:"

@@ -207,74 +207,74 @@ msgid "_Import Training Text…"
 msgstr "_Importer treningstekst …"
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>Handlingar</b>"
+msgid "Actions"
+msgstr "Handlingar"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>Tilpassing</b>"
+msgid "Adaptation"
+msgstr "Tilpassing"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Alfabetval</b>"
+msgid "Alphabet Selection"
+msgstr "Alfabetval"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Appearance Options</b>"
-msgstr "<b>Val om utsjånad</b>"
+msgid "Appearance Options"
+msgstr "Val om utsjånad"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Options</b>"
-msgstr "<b>Programval</b>"
+msgid "Application Options"
+msgstr "Programval"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Application Style</b>"
-msgstr "<b>Programstil</b>"
+msgid "Application Style"
+msgstr "Programstil"
 
 #: ../Data/GUI/dasher.preferences.ui.h:7
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>Fargedrakt</b>"
+msgid "Colour Scheme"
+msgstr "Fargedrakt"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Control Style</b>"
-msgstr "<b>Kontrollstil</b>"
+msgid "Control Style"
+msgstr "Kontrollstil"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Skriftype i Dasher</b>"
+msgid "Dasher Font"
+msgstr "Skriftype i Dasher"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Direction</b>"
-msgstr "<b>Retning</b>"
+msgid "Direction"
+msgstr "Retning"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Editor Font</b>"
-msgstr "<b>Skrifttype i tekstredigering</b>"
+msgid "Editor Font"
+msgstr "Skrifttype i tekstredigering"
 
 #: ../Data/GUI/dasher.preferences.ui.h:13
-msgid "<b>Input Device</b>"
-msgstr "<b>Inndataeining</b>"
+msgid "Input Device"
+msgstr "Inndataeining"
 
 #: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>Språkmodell</b>"
+msgid "Language Model"
+msgstr "Språkmodell"
 
 #: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>Utjamning</b>"
+msgid "Smoothing"
+msgstr "Utjamning"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>Fart</b>"
+msgid "Speed"
+msgstr "Fart"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>Start og stopp</b>"
+msgid "Starting and Stopping"
+msgstr "Start og stopp"
 
 #: ../Data/GUI/dasher.preferences.ui.h:18
 #| msgid "Application"
@@ -487,16 +487,16 @@ msgid "P"
 msgstr "P"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Fargedrakt</b>"
+msgid "Color Scheme"
+msgstr "Fargedrakt"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>Storleik på vindauget</b>"
+msgid "Display Size"
+msgstr "Storleik på vindauget"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>Retning</b>"
+msgid "Orientation"
+msgstr "Retning"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"
@@ -1032,8 +1032,8 @@ msgstr "Skildra «--options»."
 msgid "- A text input application honouring accessibility"
 msgstr "- Eit program for tekstmanipulering som støttar tilgjenge"
 
-#~ msgid "<b>Prediction:</b>"
-#~ msgstr "<b>Ordgjetting:</b>"
+#~ msgid "Prediction:"
+#~ msgstr "Ordgjetting:"
 
 #~ msgid "abcdefghijk ABCDEFGHIJK"
 #~ msgstr "abcdefghijkæøå ABCDEFGHIJKÆØÅ"

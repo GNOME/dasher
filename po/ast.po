@@ -242,73 +242,73 @@ msgid "_Import Training Text…"
 msgstr "_Importar testu d'entrenamientu…"
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>Aiciones</b>"
+msgid "Actions"
+msgstr "Aiciones"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>Adautación</b>"
+msgid "Adaptation"
+msgstr "Adautación"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Escoyeta del alfabetu</b>"
+msgid "Alphabet Selection"
+msgstr "Escoyeta del alfabetu"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Appearance Options</b>"
-msgstr "<b>Opciones d'aspeutu</b>"
+msgid "Appearance Options"
+msgstr "Opciones d'aspeutu"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Options</b>"
-msgstr "<b>Opciones de l'aplicación</b>"
+msgid "Application Options"
+msgstr "Opciones de l'aplicación"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Application Style</b>"
-msgstr "<b>Estilu de l'aplicación</b>"
+msgid "Application Style"
+msgstr "Estilu de l'aplicación"
 
 #: ../Data/GUI/dasher.preferences.ui.h:7
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>Esquema de color</b>"
+msgid "Colour Scheme"
+msgstr "Esquema de color"
 
 #: ../Data/GUI/dasher.preferences.ui.h:8
-msgid "<b>Control Style</b>"
-msgstr "<b>Estilu de control</b>"
+msgid "Control Style"
+msgstr "Estilu de control"
 
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Fonte de Dasher</b>"
+msgid "Dasher Font"
+msgstr "Fonte de Dasher"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Direction</b>"
-msgstr "<b>Direición</b>"
+msgid "Direction"
+msgstr "Direición"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Editor Font</b>"
-msgstr "<b>Fonte del editor</b>"
+msgid "Editor Font"
+msgstr "Fonte del editor"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Input Device</b>"
-msgstr "<b>Preseos de entrada</b>"
+msgid "Input Device"
+msgstr "Preseos de entrada"
 
 #: ../Data/GUI/dasher.preferences.ui.h:13
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>Modelu de llingua</b>"
+msgid "Language Model"
+msgstr "Modelu de llingua"
 
 #: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>Suavizáu</b>"
+msgid "Smoothing"
+msgstr "Suavizáu"
 
 #: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>Velocidá</b>"
+msgid "Speed"
+msgstr "Velocidá"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>Aniciu y detención</b>"
+msgid "Starting and Stopping"
+msgstr "Aniciu y detención"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
 #: ../Data/GUI/dashermaemo.preferences.ui.h:9
@@ -512,16 +512,16 @@ msgid "P"
 msgstr "P"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Esquema de color</b>"
+msgid "Color Scheme"
+msgstr "Esquema de color"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>Tamañu de la pantalla</b>"
+msgid "Display Size"
+msgstr "Tamañu de la pantalla"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>Orientación</b>"
+msgid "Orientation"
+msgstr "Orientación"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"

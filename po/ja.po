@@ -103,40 +103,40 @@ msgstr "フォントのリセット(_R)"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
 #: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>適応性</b>"
+msgid "Adaptation"
+msgstr "適応性"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
 #: ../Data/GUI/dasher.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>アルファベットの選択</b>"
+msgid "Alphabet Selection"
+msgstr "アルファベットの選択"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>色のスキーム</b>"
+msgid "Color Scheme"
+msgstr "色のスキーム"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>ディスプレイの大きさ</b>"
+msgid "Display Size"
+msgstr "ディスプレイの大きさ"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
 #: ../Data/GUI/dasher.preferences.ui.h:13
-msgid "<b>Language Model</b>"
-msgstr "<b>言語モデル</b>"
+msgid "Language Model"
+msgstr "言語モデル"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>向き</b>"
+msgid "Orientation"
+msgstr "向き"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
 #: ../Data/GUI/dasher.preferences.ui.h:14
-msgid "<b>Smoothing</b>"
-msgstr "<b>スムージング</b>"
+msgid "Smoothing"
+msgstr "スムージング"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
 #: ../Data/GUI/dasher.preferences.ui.h:15
-msgid "<b>Speed</b>"
-msgstr "<b>速度</b>"
+msgid "Speed"
+msgstr "速度"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:9
 #: ../Data/GUI/dasher.preferences.ui.h:18
@@ -237,45 +237,45 @@ msgid "Please Wait…"
 msgstr "しばらくお待ちください…"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
-msgid "<b>Appearance Options</b>"
-msgstr "<b>外観のオプション</b>"
+msgid "Appearance Options"
+msgstr "外観のオプション"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Application Options</b>"
-msgstr "<b>アプリのオプション</b>"
+msgid "Application Options"
+msgstr "アプリのオプション"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Style</b>"
-msgstr "<b>アプリのスタイル</b>"
+msgid "Application Style"
+msgstr "アプリのスタイル"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>色のスキーム</b>"
+msgid "Colour Scheme"
+msgstr "色のスキーム"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:8
-msgid "<b>Control Style</b>"
-msgstr "<b>制御モード</b>"
+msgid "Control Style"
+msgstr "制御モード"
 
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Dasher Font</b>"
-msgstr "<b>表示用のフォント</b>"
+msgid "Dasher Font"
+msgstr "表示用のフォント"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Direction</b>"
-msgstr "<b>向き</b>"
+msgid "Direction"
+msgstr "向き"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Editor Font</b>"
-msgstr "<b>エディターのフォント</b>"
+msgid "Editor Font"
+msgstr "エディターのフォント"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Input Device</b>"
-msgstr "<b>入力デバイス</b>"
+msgid "Input Device"
+msgstr "入力デバイス"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>開始と停止</b>"
+msgid "Starting and Stopping"
+msgstr "開始と停止"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
 msgid "A_pplication"
@@ -1277,8 +1277,8 @@ msgstr "- アクセシビリティに対応した文字入力のアプリケー�
 #~ msgid "Score:"
 #~ msgstr "得点:"
 
-#~ msgid "<b>Actions</b>"
-#~ msgstr "<b>アクション</b>"
+#~ msgid "Actions"
+#~ msgstr "アクション"
 
 #~ msgid "Dock application window"
 #~ msgstr "ウィンドウをドックに格納する"

@@ -209,74 +209,74 @@ msgid "_Import Training Text…"
 msgstr "훈련 텍스트 가져오기(_I)…"
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>동작</b>"
+msgid "Actions"
+msgstr "동작"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>맞춰가기</b>"
+msgid "Adaptation"
+msgstr "맞춰가기"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>알파벳 선택</b>"
+msgid "Alphabet Selection"
+msgstr "알파벳 선택"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Appearance Options</b>"
-msgstr "<b>모양 옵션</b>"
+msgid "Appearance Options"
+msgstr "모양 옵션"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Options</b>"
-msgstr "<b>프로그램 옵션</b>"
+msgid "Application Options"
+msgstr "프로그램 옵션"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Application Style</b>"
-msgstr "<b>프로그램 방식</b>"
+msgid "Application Style"
+msgstr "프로그램 방식"
 
 #: ../Data/GUI/dasher.preferences.ui.h:7
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>색 선택</b>"
+msgid "Colour Scheme"
+msgstr "색 선택"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Control Style</b>"
-msgstr "<b>컨트롤 방식</b>"
+msgid "Control Style"
+msgstr "컨트롤 방식"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Dasher Font</b>"
-msgstr "<b>대셔 글꼴</b>"
+msgid "Dasher Font"
+msgstr "대셔 글꼴"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Direction</b>"
-msgstr "<b>방향</b>"
+msgid "Direction"
+msgstr "방향"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Editor Font</b>"
-msgstr "<b>편집기 글꼴</b>"
+msgid "Editor Font"
+msgstr "편집기 글꼴"
 
 #: ../Data/GUI/dasher.preferences.ui.h:13
-msgid "<b>Input Device</b>"
-msgstr "<b>입력 장치</b>"
+msgid "Input Device"
+msgstr "입력 장치"
 
 #: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>언어 모델</b>"
+msgid "Language Model"
+msgstr "언어 모델"
 
 #: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>부드럽게</b>"
+msgid "Smoothing"
+msgstr "부드럽게"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>속도</b>"
+msgid "Speed"
+msgstr "속도"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>시작 및 중지</b>"
+msgid "Starting and Stopping"
+msgstr "시작 및 중지"
 
 #: ../Data/GUI/dasher.preferences.ui.h:18
 msgid "A_pplication"
@@ -484,16 +484,16 @@ msgid "P"
 msgstr "P"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>색 선택</b>"
+msgid "Color Scheme"
+msgstr "색 선택"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>표시 크기</b>"
+msgid "Display Size"
+msgstr "표시 크기"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>방향</b>"
+msgid "Orientation"
+msgstr "방향"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"

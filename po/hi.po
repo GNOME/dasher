@@ -229,88 +229,88 @@ msgid "_Import Training Text..."
 msgstr "प्रशिक्षण पाठ आयात करें (_I)..."
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
-#| msgid "<b>Actions:</b>"
-msgid "<b>Actions</b>"
-msgstr "<b>क्रिया</b>"
+#| msgid "Actions:"
+msgid "Actions"
+msgstr "क्रिया"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-#| msgid "<b>Adaptation:</b>"
-msgid "<b>Adaptation</b>"
-msgstr "<b>अनुकूलन</b>"
+#| msgid "Adaptation:"
+msgid "Adaptation"
+msgstr "अनुकूलन"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
-#| msgid "<b>Alphabet Selection:</b>"
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>वर्णमाला चयन</b>"
+#| msgid "Alphabet Selection:"
+msgid "Alphabet Selection"
+msgstr "वर्णमाला चयन"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-#| msgid "<b>View Options:</b>"
-msgid "<b>Appearance Options</b>"
-msgstr "<b>प्रकटन विकल्प/b>"
+#| msgid "View Options:"
+msgid "Appearance Options"
+msgstr "प्रकटन विकल्प/b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-#| msgid "<b>Application Style:</b>"
-msgid "<b>Application Options</b>"
-msgstr "<b>अनुप्रयोग विकल्प</b>"
+#| msgid "Application Style:"
+msgid "Application Options"
+msgstr "अनुप्रयोग विकल्प"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-#| msgid "<b>Application Style:</b>"
-msgid "<b>Application Style</b>"
-msgstr "<b>अनुप्रयोग शैली</b>"
+#| msgid "Application Style:"
+msgid "Application Style"
+msgstr "अनुप्रयोग शैली"
 
 #: ../Data/GUI/dasher.preferences.ui.h:7
-#| msgid "<b>Color Selection:</b>"
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>रंग चयन</b>"
+#| msgid "Color Selection:"
+msgid "Colour Scheme"
+msgstr "रंग चयन"
 
 #: ../Data/GUI/dasher.preferences.ui.h:8
-#| msgid "<b>Control Style:</b>"
-msgid "<b>Control Style</b>"
-msgstr "<b>नियंत्रण शैली</b>"
+#| msgid "Control Style:"
+msgid "Control Style"
+msgstr "नियंत्रण शैली"
 
 #: ../Data/GUI/dasher.preferences.ui.h:9
 #| msgid "_Dasher Font"
-msgid "<b>Dasher Font</b>"
-msgstr "<b>डैशर फ़ॉन्ट</b>"
+msgid "Dasher Font"
+msgstr "डैशर फ़ॉन्ट"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-#| msgid "<b>Actions:</b>"
-msgid "<b>Direction</b>"
-msgstr "<b>दिशा</b>"
+#| msgid "Actions:"
+msgid "Direction"
+msgstr "दिशा"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
 #| msgid "_Edit Font"
-msgid "<b>Editor Font</b>"
-msgstr "<b>संपादक फ़ॉन्ट</b>"
+msgid "Editor Font"
+msgstr "संपादक फ़ॉन्ट"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-#| msgid "<b>Input Device:</b>"
-msgid "<b>Input Device</b>"
-msgstr "<b>इनपुट युक्ति</b>"
+#| msgid "Input Device:"
+msgid "Input Device"
+msgstr "इनपुट युक्ति"
 
 #: ../Data/GUI/dasher.preferences.ui.h:13
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
-#| msgid "<b>Language Model:</b>"
-msgid "<b>Language Model</b>"
-msgstr "<b>भाषा मॉडल</b>"
+#| msgid "Language Model:"
+msgid "Language Model"
+msgstr "भाषा मॉडल"
 
 #: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
-#| msgid "<b>Smoothing:</b>"
-msgid "<b>Smoothing</b>"
-msgstr "<b>चिकनापन</b>"
+#| msgid "Smoothing:"
+msgid "Smoothing"
+msgstr "चिकनापन"
 
 #: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>गति</b>"
+msgid "Speed"
+msgstr "गति"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
-#| msgid "<b>Starting And Stopping:</b>"
-msgid "<b>Starting And Stopping</b>"
-msgstr "<b>आरंभ और रोक रहा है</b>"
+#| msgid "Starting And Stopping:"
+msgid "Starting And Stopping"
+msgstr "आरंभ और रोक रहा है"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
 #: ../Data/GUI/dashermaemo.preferences.ui.h:9
@@ -327,7 +327,7 @@ msgid "Appearance"
 msgstr "रूप"
 
 #: ../Data/GUI/dasher.preferences.ui.h:20
-#| msgid "<b>Application Style:</b>"
+#| msgid "Application Style:"
 msgid "Application"
 msgstr "अनुप्रयोग"
 
@@ -533,19 +533,19 @@ msgid "P"
 msgstr "पी"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-#| msgid "<b>Color Selection:</b>"
-msgid "<b>Color Scheme</b>"
-msgstr "<b>रंग चयन</b>"
+#| msgid "Color Selection:"
+msgid "Color Scheme"
+msgstr "रंग चयन"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-#| msgid "<b>Display Size:</b>"
-msgid "<b>Display Size</b>"
-msgstr "<b>प्रदर्शन आकार</b>"
+#| msgid "Display Size:"
+msgid "Display Size"
+msgstr "प्रदर्शन आकार"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-#| msgid "<b>Orientation:</b>"
-msgid "<b>Orientation</b>"
-msgstr "<b>अभिमुखन</b>"
+#| msgid "Orientation:"
+msgid "Orientation"
+msgstr "अभिमुखन"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"
@@ -598,7 +598,7 @@ msgstr "फोंट फिर से सेट करें (_R)"
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:28
 #: ../Src/DasherCore/ButtonMode.cpp:28 ../Src/DasherCore/CompassMode.cpp:28
-#| msgid "<b>Zoom steps</b>"
+#| msgid "Zoom steps"
 msgid "Zoom steps"
 msgstr "जूम चरण"
 
@@ -653,7 +653,7 @@ msgstr "दाहिना जूम"
 
 #. bMenu
 #: ../Src/DasherCore/CompassMode.cpp:38
-#| msgid "<b>Compass Mode</b>"
+#| msgid "Compass Mode"
 msgid "Compass Mode"
 msgstr "कंपास मोड"
 
@@ -737,7 +737,7 @@ msgid "Percentage by which to decrease speed upon reverse"
 msgstr "प्रतिशत जिसके द्वारा गति को लौटाने पर घटाना है"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:44
-#| msgid "<b>One-Button Dynamic Mode</b>"
+#| msgid "One-Button Dynamic Mode"
 msgid "One Button Dynamic Mode"
 msgstr "एक बटन गतिशील मोड"
 
@@ -829,7 +829,7 @@ msgid "Print socket-related debugging information to console:"
 msgstr "सॉकेट से जुड़ा डिबगिंग सूचना कंसोल में छापें:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:38
-#| msgid "<b>Socket Input</b>"
+#| msgid "Socket Input"
 msgid "Socket Input"
 msgstr "सॉकेट इनपुट"
 
@@ -862,7 +862,7 @@ msgid "Double-click is opposite up/down - triple to reverse"
 msgstr "दोगुना क्लिक विपरीत है ऊपर/नीचे - उलटा होने पर तिगुना"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:52
-#| msgid "<b>One-Button Dynamic Mode</b>"
+#| msgid "One-Button Dynamic Mode"
 msgid "Two Button Dynamic Mode"
 msgstr "दो बटन गतिशील मोड"
 

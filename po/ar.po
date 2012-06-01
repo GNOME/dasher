@@ -215,73 +215,73 @@ msgid "_Import Training Text..."
 msgstr "استو_رد نص التدريب"
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>أفعال</b>"
+msgid "Actions"
+msgstr "أفعال"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>التأقلم</b>"
+msgid "Adaptation"
+msgstr "التأقلم"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>الحرف المنتقى</b>"
+msgid "Alphabet Selection"
+msgstr "الحرف المنتقى"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Appearance Options</b>"
-msgstr "<b>خيارات العرض</b>"
+msgid "Appearance Options"
+msgstr "خيارات العرض"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Options</b>"
-msgstr "<b>خيارات البرنامج</b>"
+msgid "Application Options"
+msgstr "خيارات البرنامج"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Application Style</b>"
-msgstr "<b>مظهر البرنامج</b>"
+msgid "Application Style"
+msgstr "مظهر البرنامج"
 
 #: ../Data/GUI/dasher.preferences.ui.h:7
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>مخطط اللون</b>"
+msgid "Colour Scheme"
+msgstr "مخطط اللون"
 
 #: ../Data/GUI/dasher.preferences.ui.h:8
-msgid "<b>Control Style</b>"
-msgstr "<b>أسلوب التحكّم</b>"
+msgid "Control Style"
+msgstr "أسلوب التحكّم"
 
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Dasher Font</b>"
-msgstr "<b>خط داشر</b>"
+msgid "Dasher Font"
+msgstr "خط داشر"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Direction</b>"
-msgstr "<b>الاتجاه</b>"
+msgid "Direction"
+msgstr "الاتجاه"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Editor Font</b>"
-msgstr "<b>خط المحرر</b>"
+msgid "Editor Font"
+msgstr "خط المحرر"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Input Device</b>"
-msgstr "<b>جهاز الإدخال</b>"
+msgid "Input Device"
+msgstr "جهاز الإدخال"
 
 #: ../Data/GUI/dasher.preferences.ui.h:13
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>نسق اللغة</b>"
+msgid "Language Model"
+msgstr "نسق اللغة"
 
 #: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>التنعيم</b>"
+msgid "Smoothing"
+msgstr "التنعيم"
 
 #: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>السرعة</b>"
+msgid "Speed"
+msgstr "السرعة"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
-msgid "<b>Starting And Stopping</b>"
-msgstr "<b>البدء و الإيقاف</b>"
+msgid "Starting And Stopping"
+msgstr "البدء و الإيقاف"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
 #: ../Data/GUI/dashermaemo.preferences.ui.h:9
@@ -489,16 +489,16 @@ msgid "P"
 msgstr "P"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>مخطط اللون:</b>"
+msgid "Color Scheme"
+msgstr "مخطط اللون:"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>حجم العرض:</b>"
+msgid "Display Size"
+msgstr "حجم العرض:"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>الاتجاه:</b>"
+msgid "Orientation"
+msgstr "الاتجاه:"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"
@@ -1028,8 +1028,8 @@ msgstr "- تطبيق إدخال النص للمعاقين"
 #~ msgid "Dasher - %s"
 #~ msgstr "داشر - %s"
 
-#~ msgid "<b>Prediction:</b>"
-#~ msgstr "<b>التوقع:</b>"
+#~ msgid "Prediction:"
+#~ msgstr "التوقع:"
 
 #~ msgid "(Message Placeholder - no need to translate)"
 #~ msgstr " (Message Placeholder - no need to translate)"

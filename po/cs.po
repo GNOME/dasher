@@ -109,40 +109,40 @@ msgstr "_Vrátit písma na výchozí"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
 #: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>Adaptace</b>"
+msgid "Adaptation"
+msgstr "Adaptace"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
 #: ../Data/GUI/dasher.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Výběr abecedy</b>"
+msgid "Alphabet Selection"
+msgstr "Výběr abecedy"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Schéma barev</b>"
+msgid "Color Scheme"
+msgstr "Schéma barev"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>Velikost obrazovky</b>"
+msgid "Display Size"
+msgstr "Velikost obrazovky"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
 #: ../Data/GUI/dasher.preferences.ui.h:13
-msgid "<b>Language Model</b>"
-msgstr "<b>Model jazyka</b>"
+msgid "Language Model"
+msgstr "Model jazyka"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>Orientace</b>"
+msgid "Orientation"
+msgstr "Orientace"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
 #: ../Data/GUI/dasher.preferences.ui.h:14
-msgid "<b>Smoothing</b>"
-msgstr "<b>Vyhlazování</b>"
+msgid "Smoothing"
+msgstr "Vyhlazování"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
 #: ../Data/GUI/dasher.preferences.ui.h:15
-msgid "<b>Speed</b>"
-msgstr "<b>Rychlost</b>"
+msgid "Speed"
+msgstr "Rychlost"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:9
 #: ../Data/GUI/dasher.preferences.ui.h:18
@@ -243,45 +243,45 @@ msgid "Please Wait…"
 msgstr "Čekejte prosím…"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
-msgid "<b>Appearance Options</b>"
-msgstr "<b>Možnosti vzhledu</b>"
+msgid "Appearance Options"
+msgstr "Možnosti vzhledu"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Application Options</b>"
-msgstr "<b>Možnosti aplikace</b>"
+msgid "Application Options"
+msgstr "Možnosti aplikace"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Style</b>"
-msgstr "<b>Styl aplikace</b>"
+msgid "Application Style"
+msgstr "Styl aplikace"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>Schéma barev</b>"
+msgid "Colour Scheme"
+msgstr "Schéma barev"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:8
-msgid "<b>Control Style</b>"
-msgstr "<b>Styl barev</b>"
+msgid "Control Style"
+msgstr "Styl barev"
 
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Písmo Dasheru</b>"
+msgid "Dasher Font"
+msgstr "Písmo Dasheru"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Direction</b>"
-msgstr "<b>Směr</b>"
+msgid "Direction"
+msgstr "Směr"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Editor Font</b>"
-msgstr "<b>Písmo editoru</b>"
+msgid "Editor Font"
+msgstr "Písmo editoru"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Input Device</b>"
-msgstr "<b>Vstupní zařízení</b>"
+msgid "Input Device"
+msgstr "Vstupní zařízení"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>Spouštění a zastavování</b>"
+msgid "Starting and Stopping"
+msgstr "Spouštění a zastavování"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
 msgid "A_pplication"

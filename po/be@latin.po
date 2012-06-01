@@ -250,73 +250,73 @@ msgid "_Import Training Text..."
 msgstr "_Impartuj vyvučany tekst..."
 
 #: ../Data/glade/dasher.preferences.glade.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>Dziejańni</b>"
+msgid "Actions"
+msgstr "Dziejańni"
 
 #: ../Data/glade/dasher.preferences.glade.h:2
 #: ../Data/glade/dashermaemo.preferences.glade.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>Prystasavańnie</b>"
+msgid "Adaptation"
+msgstr "Prystasavańnie"
 
 #: ../Data/glade/dasher.preferences.glade.h:3
 #: ../Data/glade/dashermaemo.preferences.glade.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Vybar alfabetu</b>"
+msgid "Alphabet Selection"
+msgstr "Vybar alfabetu"
 
 #: ../Data/glade/dasher.preferences.glade.h:4
-msgid "<b>Appearance Options</b>"
-msgstr "<b>Opcyi vyhladu</b>"
+msgid "Appearance Options"
+msgstr "Opcyi vyhladu"
 
 #: ../Data/glade/dasher.preferences.glade.h:5
-msgid "<b>Application Options</b>"
-msgstr "<b>Opcyi aplikacyi</b>"
+msgid "Application Options"
+msgstr "Opcyi aplikacyi"
 
 #: ../Data/glade/dasher.preferences.glade.h:6
-msgid "<b>Application Style</b>"
-msgstr "<b>Styl aplikacyi</b>"
+msgid "Application Style"
+msgstr "Styl aplikacyi"
 
 #: ../Data/glade/dasher.preferences.glade.h:7
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>Schiema koleraŭ</b>"
+msgid "Colour Scheme"
+msgstr "Schiema koleraŭ"
 
 #: ../Data/glade/dasher.preferences.glade.h:8
-msgid "<b>Control Style</b>"
-msgstr "<b>Styl kiravańnia</b>"
+msgid "Control Style"
+msgstr "Styl kiravańnia"
 
 #: ../Data/glade/dasher.preferences.glade.h:9
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Šryft Dashera</b>"
+msgid "Dasher Font"
+msgstr "Šryft Dashera"
 
 #: ../Data/glade/dasher.preferences.glade.h:10
-msgid "<b>Direction</b>"
-msgstr "<b>Kirunak</b>"
+msgid "Direction"
+msgstr "Kirunak"
 
 #: ../Data/glade/dasher.preferences.glade.h:11
-msgid "<b>Editor Font</b>"
-msgstr "<b>Šryft redaktara</b>"
+msgid "Editor Font"
+msgstr "Šryft redaktara"
 
 #: ../Data/glade/dasher.preferences.glade.h:12
-msgid "<b>Input Device</b>"
-msgstr "<b>Pryłada ŭvodu</b>"
+msgid "Input Device"
+msgstr "Pryłada ŭvodu"
 
 #: ../Data/glade/dasher.preferences.glade.h:13
 #: ../Data/glade/dashermaemo.preferences.glade.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>Madel movy</b>"
+msgid "Language Model"
+msgstr "Madel movy"
 
 #: ../Data/glade/dasher.preferences.glade.h:14
 #: ../Data/glade/dashermaemo.preferences.glade.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>Vyładžvańnie</b>"
+msgid "Smoothing"
+msgstr "Vyładžvańnie"
 
 #: ../Data/glade/dasher.preferences.glade.h:15
 #: ../Data/glade/dashermaemo.preferences.glade.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>Chutkaść</b>"
+msgid "Speed"
+msgstr "Chutkaść"
 
 #: ../Data/glade/dasher.preferences.glade.h:16
-msgid "<b>Starting And Stopping</b>"
-msgstr "<b>Uruchamleńnie j spynieńnie</b>"
+msgid "Starting And Stopping"
+msgstr "Uruchamleńnie j spynieńnie"
 
 #: ../Data/glade/dasher.preferences.glade.h:17
 #: ../Data/glade/dashermaemo.preferences.glade.h:9
@@ -528,16 +528,16 @@ msgid "P"
 msgstr "P"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Schiema koleraŭ</b>"
+msgid "Color Scheme"
+msgstr "Schiema koleraŭ"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>Pamiery ekranu</b>"
+msgid "Display Size"
+msgstr "Pamiery ekranu"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>Aryjentacyja</b>"
+msgid "Orientation"
+msgstr "Aryjentacyja"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:10
 msgid "Alphabet"
@@ -980,5 +980,5 @@ msgstr "Apišy \"--options\"."
 msgid "- A text input application honouring accessibility"
 msgstr "- Aplikacyja dla pisańnia tekstu dla invalidaŭ"
 
-#~ msgid "<b>Prediction:</b>"
-#~ msgstr "<b>Pradkazańnie:</b>"
+#~ msgid "Prediction:"
+#~ msgstr "Pradkazańnie:"

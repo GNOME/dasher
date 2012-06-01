@@ -243,74 +243,74 @@ msgid "_Import Training Text…"
 msgstr "_Impor Teks Pelatihan..."
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>Aksi</b>"
+msgid "Actions"
+msgstr "Aksi"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>Adaptasi</b>"
+msgid "Adaptation"
+msgstr "Adaptasi"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Pilihan Alfabet</b>"
+msgid "Alphabet Selection"
+msgstr "Pilihan Alfabet"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Appearance Options</b>"
-msgstr "<b>Opsi Penampilan</b>"
+msgid "Appearance Options"
+msgstr "Opsi Penampilan"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Options</b>"
-msgstr "<b>Opsi Aplikasi</b>"
+msgid "Application Options"
+msgstr "Opsi Aplikasi"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Application Style</b>"
-msgstr "<b>Gaya Aplikasi</b>"
+msgid "Application Style"
+msgstr "Gaya Aplikasi"
 
 #: ../Data/GUI/dasher.preferences.ui.h:7
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>Skema Warna</b>"
+msgid "Colour Scheme"
+msgstr "Skema Warna"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Control Style</b>"
-msgstr "<b>Gaya Kendali</b>"
+msgid "Control Style"
+msgstr "Gaya Kendali"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Fonta Dasher</b>"
+msgid "Dasher Font"
+msgstr "Fonta Dasher"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Direction</b>"
-msgstr "<b>Arah</b>"
+msgid "Direction"
+msgstr "Arah"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Editor Font</b>"
-msgstr "<b>Fonta Penyunting</b>"
+msgid "Editor Font"
+msgstr "Fonta Penyunting"
 
 #: ../Data/GUI/dasher.preferences.ui.h:13
-msgid "<b>Input Device</b>"
-msgstr "<b>Perangkat Masukan</b>"
+msgid "Input Device"
+msgstr "Perangkat Masukan"
 
 #: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>Model Bahasa</b>"
+msgid "Language Model"
+msgstr "Model Bahasa"
 
 #: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>Penghalusan</b>"
+msgid "Smoothing"
+msgstr "Penghalusan"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>Kecepatan</b>"
+msgid "Speed"
+msgstr "Kecepatan"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>Memulai dan Menghentikan</b>"
+msgid "Starting and Stopping"
+msgstr "Memulai dan Menghentikan"
 
 #: ../Data/GUI/dasher.preferences.ui.h:18
 #: ../Data/GUI/dashermaemo.preferences.ui.h:9
@@ -521,16 +521,16 @@ msgid "P"
 msgstr "P"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Skema warna</b>"
+msgid "Color Scheme"
+msgstr "Skema warna"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>Ukuran Tampilan</b>"
+msgid "Display Size"
+msgstr "Ukuran Tampilan"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>Orientasi</b>"
+msgid "Orientation"
+msgstr "Orientasi"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"

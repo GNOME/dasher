@@ -214,73 +214,73 @@ msgid "_Import Training Text..."
 msgstr "తర్ఫీదు పాఠ్యమును దిగుమతిచేయి(_I)..."
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>చర్యలు</b>"
+msgid "Actions"
+msgstr "చర్యలు"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>దత్తత</b>"
+msgid "Adaptation"
+msgstr "దత్తత"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>అక్షరముల ఎంపిక</b>"
+msgid "Alphabet Selection"
+msgstr "అక్షరముల ఎంపిక"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Appearance Options</b>"
-msgstr "<b>కనిపించురీతి ఐచ్చికాలు</b>"
+msgid "Appearance Options"
+msgstr "కనిపించురీతి ఐచ్చికాలు"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Options</b>"
-msgstr "<b>అనువర్తనం ఐచ్చికాలు</b>"
+msgid "Application Options"
+msgstr "అనువర్తనం ఐచ్చికాలు"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Application Style</b>"
-msgstr "<b>అనువర్తనం శైలి</b>"
+msgid "Application Style"
+msgstr "అనువర్తనం శైలి"
 
 #: ../Data/GUI/dasher.preferences.ui.h:7
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>వర్ణము స్కీమ్</b>"
+msgid "Colour Scheme"
+msgstr "వర్ణము స్కీమ్"
 
 #: ../Data/GUI/dasher.preferences.ui.h:8
-msgid "<b>Control Style</b>"
-msgstr "<b>నియంత్రణ శైలి</b>"
+msgid "Control Style"
+msgstr "నియంత్రణ శైలి"
 
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Dasher Font</b>"
-msgstr "<b>డాషర్ ఫాంట్</b>"
+msgid "Dasher Font"
+msgstr "డాషర్ ఫాంట్"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Direction</b>"
-msgstr "<b>దిశ</b>"
+msgid "Direction"
+msgstr "దిశ"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Editor Font</b>"
-msgstr "<b>ఎడిటర్ ఫాంట్</b>"
+msgid "Editor Font"
+msgstr "ఎడిటర్ ఫాంట్"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Input Device</b>"
-msgstr "<b>ఇన్‌పుట్ పరికరం</b>"
+msgid "Input Device"
+msgstr "ఇన్‌పుట్ పరికరం"
 
 #: ../Data/GUI/dasher.preferences.ui.h:13
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>భాష రీతి</b>"
+msgid "Language Model"
+msgstr "భాష రీతి"
 
 #: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>స్మూత్నింగ్</b>"
+msgid "Smoothing"
+msgstr "స్మూత్నింగ్"
 
 #: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>వేగము</b>"
+msgid "Speed"
+msgstr "వేగము"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
-msgid "<b>Starting And Stopping</b>"
-msgstr "<b>ప్రారంభించుట మరియు ఆపివేయుట</b>"
+msgid "Starting And Stopping"
+msgstr "ప్రారంభించుట మరియు ఆపివేయుట"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
 #: ../Data/GUI/dashermaemo.preferences.ui.h:9
@@ -495,16 +495,16 @@ msgid "P"
 msgstr "P"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>వర్ణము స్కీమ్</b>"
+msgid "Color Scheme"
+msgstr "వర్ణము స్కీమ్"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>ప్రదర్శనం పరిమాణం</b>"
+msgid "Display Size"
+msgstr "ప్రదర్శనం పరిమాణం"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>సర్దుబాటు</b>"
+msgid "Orientation"
+msgstr "సర్దుబాటు"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"

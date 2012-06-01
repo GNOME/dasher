@@ -209,69 +209,69 @@ msgstr "_Імпортувати навчальний текст…"
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>Адаптація</b>"
+msgid "Adaptation"
+msgstr "Адаптація"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Вибір алфавіту</b>"
+msgid "Alphabet Selection"
+msgstr "Вибір алфавіту"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
-msgid "<b>Appearance Options</b>"
-msgstr "<b>Параметри зовнішнього вигляду</b>"
+msgid "Appearance Options"
+msgstr "Параметри зовнішнього вигляду"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Application Options</b>"
-msgstr "<b>Параметри програми</b>"
+msgid "Application Options"
+msgstr "Параметри програми"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Style</b>"
-msgstr "<b>Стиль програми</b>"
+msgid "Application Style"
+msgstr "Стиль програми"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>Схема кольорів</b>"
+msgid "Colour Scheme"
+msgstr "Схема кольорів"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:8
-msgid "<b>Control Style</b>"
-msgstr "<b>Стиль елемента керування</b>"
+msgid "Control Style"
+msgstr "Стиль елемента керування"
 
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Шрифт Dasher</b>"
+msgid "Dasher Font"
+msgstr "Шрифт Dasher"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Direction</b>"
-msgstr "<b>Напрямок</b>"
+msgid "Direction"
+msgstr "Напрямок"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Editor Font</b>"
-msgstr "<b>Шрифт редактора</b>"
+msgid "Editor Font"
+msgstr "Шрифт редактора"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Input Device</b>"
-msgstr "<b>Вхідний пристрій</b>"
+msgid "Input Device"
+msgstr "Вхідний пристрій"
 
 #: ../Data/GUI/dasher.preferences.ui.h:13
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>Модель мови</b>"
+msgid "Language Model"
+msgstr "Модель мови"
 
 #: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>Вирівнювання</b>"
+msgid "Smoothing"
+msgstr "Вирівнювання"
 
 #: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>Швидкість</b>"
+msgid "Speed"
+msgstr "Швидкість"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>Запуск та зупинка</b>"
+msgid "Starting and Stopping"
+msgstr "Запуск та зупинка"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
 msgid "A_pplication"
@@ -508,16 +508,16 @@ msgid "P"
 msgstr "P"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Схема кольорів</b>"
+msgid "Color Scheme"
+msgstr "Схема кольорів"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>Розмір дисплею</b>"
+msgid "Display Size"
+msgstr "Розмір дисплею"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>Орієнтація</b>"
+msgid "Orientation"
+msgstr "Орієнтація"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"
@@ -1013,8 +1013,8 @@ msgstr "Описати «--options»."
 msgid "- A text input application honouring accessibility"
 msgstr "- Допоміжні програми для вводу тексту"
 
-#~ msgid "<b>Actions</b>"
-#~ msgstr "<b>Дії</b>"
+#~ msgid "Actions"
+#~ msgstr "Дії"
 
 #~ msgid "Automatic calibration"
 #~ msgstr "Автоматичне калібрування"

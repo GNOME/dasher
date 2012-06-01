@@ -251,73 +251,73 @@ msgid "_Import Training Text..."
 msgstr "...روزن ليکنه دننول_"
 
 #: ../Data/glade/dasher.preferences.glade.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>چارې</b>"
+msgid "Actions"
+msgstr "چارې"
 
 #: ../Data/glade/dasher.preferences.glade.h:2
 #: ../Data/glade/dashermaemo.preferences.glade.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>اخيستل</b>"
+msgid "Adaptation"
+msgstr "اخيستل"
 
 #: ../Data/glade/dasher.preferences.glade.h:3
 #: ../Data/glade/dashermaemo.preferences.glade.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>ابېڅې ټاکنه</b>"
+msgid "Alphabet Selection"
+msgstr "ابېڅې ټاکنه"
 
 #: ../Data/glade/dasher.preferences.glade.h:4
-msgid "<b>Appearance Options</b>"
-msgstr "<b>ښکارېدو غوراوي</b>"
+msgid "Appearance Options"
+msgstr "ښکارېدو غوراوي"
 
 #: ../Data/glade/dasher.preferences.glade.h:5
-msgid "<b>Application Options</b>"
-msgstr "<b>کاريال غوراوي</b>"
+msgid "Application Options"
+msgstr "کاريال غوراوي"
 
 #: ../Data/glade/dasher.preferences.glade.h:6
-msgid "<b>Application Style</b>"
-msgstr "<b>کاريال ډول</b>"
+msgid "Application Style"
+msgstr "کاريال ډول"
 
 #: ../Data/glade/dasher.preferences.glade.h:7
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>رنګبندي</b>"
+msgid "Colour Scheme"
+msgstr "رنګبندي"
 
 #: ../Data/glade/dasher.preferences.glade.h:8
-msgid "<b>Control Style</b>"
-msgstr "<b>مهار ډول</b>"
+msgid "Control Style"
+msgstr "مهار ډول"
 
 #: ../Data/glade/dasher.preferences.glade.h:9
-msgid "<b>Dasher Font</b>"
-msgstr "<b>ډېشر ليکبڼه</b>"
+msgid "Dasher Font"
+msgstr "ډېشر ليکبڼه"
 
 #: ../Data/glade/dasher.preferences.glade.h:10
-msgid "<b>Direction</b>"
-msgstr "<b>لور</b>"
+msgid "Direction"
+msgstr "لور"
 
 #: ../Data/glade/dasher.preferences.glade.h:11
-msgid "<b>Editor Font</b>"
-msgstr "<b>د سمونګر ليکبڼه</b>"
+msgid "Editor Font"
+msgstr "د سمونګر ليکبڼه"
 
 #: ../Data/glade/dasher.preferences.glade.h:12
-msgid "<b>Input Device</b>"
-msgstr "<b>ننوتۍ وزله</b>"
+msgid "Input Device"
+msgstr "ننوتۍ وزله"
 
 #: ../Data/glade/dasher.preferences.glade.h:13
 #: ../Data/glade/dashermaemo.preferences.glade.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>د ژبې بېلګه</b>"
+msgid "Language Model"
+msgstr "د ژبې بېلګه"
 
 #: ../Data/glade/dasher.preferences.glade.h:14
 #: ../Data/glade/dashermaemo.preferences.glade.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>ښويونه</b>"
+msgid "Smoothing"
+msgstr "ښويونه"
 
 #: ../Data/glade/dasher.preferences.glade.h:15
 #: ../Data/glade/dashermaemo.preferences.glade.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>چټکتيا</b>"
+msgid "Speed"
+msgstr "چټکتيا"
 
 #: ../Data/glade/dasher.preferences.glade.h:16
-msgid "<b>Starting And Stopping</b>"
-msgstr "<b>پېلول او تمول</b>"
+msgid "Starting And Stopping"
+msgstr "پېلول او تمول"
 
 #: ../Data/glade/dasher.preferences.glade.h:17
 #: ../Data/glade/dashermaemo.preferences.glade.h:9
@@ -524,16 +524,16 @@ msgid "P"
 msgstr "پ"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>رنګبندي</b>"
+msgid "Color Scheme"
+msgstr "رنګبندي"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>کچ ښودل</b>"
+msgid "Display Size"
+msgstr "کچ ښودل"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>لورموندنه</b>"
+msgid "Orientation"
+msgstr "لورموندنه"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:10
 msgid "Alphabet"

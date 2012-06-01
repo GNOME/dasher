@@ -248,74 +248,74 @@ msgid "_Import Training Text…"
 msgstr "Nhập _văn bản huấn luyện..."
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>Hành động</b>"
+msgid "Actions"
+msgstr "Hành động"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>Thích nghi</b>"
+msgid "Adaptation"
+msgstr "Thích nghi"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Chọn bảng chữ cái</b>"
+msgid "Alphabet Selection"
+msgstr "Chọn bảng chữ cái"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Appearance Options</b>"
-msgstr "<b>Tuỳ chọn Diện mạo</b>"
+msgid "Appearance Options"
+msgstr "Tuỳ chọn Diện mạo"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Options</b>"
-msgstr "<b>Tuỳ chọn Ứng dụng</b>"
+msgid "Application Options"
+msgstr "Tuỳ chọn Ứng dụng"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Application Style</b>"
-msgstr "<b>Kiểu dáng Ứng dụng</b>"
+msgid "Application Style"
+msgstr "Kiểu dáng Ứng dụng"
 
 #: ../Data/GUI/dasher.preferences.ui.h:7
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>Lược đồ Màu</b>"
+msgid "Colour Scheme"
+msgstr "Lược đồ Màu"
 
 #: ../Data/GUI/dasher.preferences.ui.h:8
-msgid "<b>Control Style</b>"
-msgstr "<b>Kiểu dáng Điều khiển</b>"
+msgid "Control Style"
+msgstr "Kiểu dáng Điều khiển"
 
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Phông Dasher</b>"
+msgid "Dasher Font"
+msgstr "Phông Dasher"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Direction</b>"
-msgstr "<b>Hướng</b>"
+msgid "Direction"
+msgstr "Hướng"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Editor Font</b>"
-msgstr "<b>Phông soạn thảo</b>"
+msgid "Editor Font"
+msgstr "Phông soạn thảo"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Input Device</b>"
-msgstr "<b>Thiết bị nhập</b>"
+msgid "Input Device"
+msgstr "Thiết bị nhập"
 
 #: ../Data/GUI/dasher.preferences.ui.h:13
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>Mẫu ngôn ngữ</b>"
+msgid "Language Model"
+msgstr "Mẫu ngôn ngữ"
 
 #: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>Làm mịn</b>"
+msgid "Smoothing"
+msgstr "Làm mịn"
 
 #: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>Tốc độ</b>"
+msgid "Speed"
+msgstr "Tốc độ"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
-#| msgid "<b>Starting And Stopping</b>"
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>Khởi/Dừng chạy</b>"
+#| msgid "Starting And Stopping"
+msgid "Starting and Stopping"
+msgstr "Khởi/Dừng chạy"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
 #: ../Data/GUI/dashermaemo.preferences.ui.h:9
@@ -526,16 +526,16 @@ msgid "P"
 msgstr "P"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Lược đồ Màu</b>"
+msgid "Color Scheme"
+msgstr "Lược đồ Màu"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>Kích cỡ Hiển thị</b>"
+msgid "Display Size"
+msgstr "Kích cỡ Hiển thị"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>Hướng</b>"
+msgid "Orientation"
+msgstr "Hướng"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"

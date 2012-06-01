@@ -116,12 +116,12 @@ msgstr "Preferencias de Dasher"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Selección de alfabeto</b>"
+msgid "Alphabet Selection"
+msgstr "Selección de alfabeto"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Esquema de cor</b>"
+msgid "Color Scheme"
+msgstr "Esquema de cor"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
 #: ../Data/GUI/dasher.preferences.ui.h:42
@@ -134,8 +134,8 @@ msgstr "Alfabeto"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
 #: ../Data/GUI/dasher.preferences.ui.h:32
-msgid "<b>Speed</b>"
-msgstr "<b>Velocidade</b>"
+msgid "Speed"
+msgstr "Velocidade"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
 #: ../Data/GUI/dasher.preferences.ui.h:33
@@ -148,16 +148,16 @@ msgid "Control"
 msgstr "Control"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
-msgid "<b>Display Size</b>"
-msgstr "<b>Tamaño da pantalla</b>"
+msgid "Display Size"
+msgstr "Tamaño da pantalla"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:11
 msgid "Enlarge input window"
 msgstr "Ampliar a xanela de entrada"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:12
-msgid "<b>Orientation</b>"
-msgstr "<b>Orientación</b>"
+msgid "Orientation"
+msgstr "Orientación"
 
 #. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
 #: ../Data/GUI/dashermaemo.preferences.ui.h:13
@@ -191,8 +191,8 @@ msgstr "Ver"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:20
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>Modelo de idioma</b>"
+msgid "Language Model"
+msgstr "Modelo de idioma"
 
 #. PPM = Prediction by Partial Match, a statistical language model.
 #: ../Data/GUI/dashermaemo.preferences.ui.h:21
@@ -219,8 +219,8 @@ msgstr "Xaponés"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:25
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Adaptation</b>"
-msgstr "<b>Adaptación</b>"
+msgid "Adaptation"
+msgstr "Adaptación"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:26
 #: ../Data/GUI/dasher.preferences.ui.h:13
@@ -229,8 +229,8 @@ msgstr "O modelo de idioma adáptase a medida que escribe."
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:27
 #: ../Data/GUI/dasher.preferences.ui.h:14
-msgid "<b>Smoothing</b>"
-msgstr "<b>Suavizado</b>"
+msgid "Smoothing"
+msgstr "Suavizado"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:28
 msgid "Prediction"
@@ -265,8 +265,8 @@ msgstr ""
 "valores altos reducirase a velocidade de escritura."
 
 #: ../Data/GUI/dasher.preferences.ui.h:19
-msgid "<b>Direction</b>"
-msgstr "<b>Dirección</b>"
+msgid "Direction"
+msgstr "Dirección"
 
 #. This means that you always want to write left-to-right regardless of the normal direction for the alphabet you are using
 #: ../Data/GUI/dasher.preferences.ui.h:23
@@ -291,20 +291,20 @@ msgstr "_Idioma"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:29
-msgid "<b>Control Style</b>"
-msgstr "<b>Estilo de control</b>"
+msgid "Control Style"
+msgstr "Estilo de control"
 
 #: ../Data/GUI/dasher.preferences.ui.h:30
 msgid "Options"
 msgstr "Opcións"
 
 #: ../Data/GUI/dasher.preferences.ui.h:31
-msgid "<b>Input Device</b>"
-msgstr "<b>Dispositivo de entrada</b>"
+msgid "Input Device"
+msgstr "Dispositivo de entrada"
 
 #: ../Data/GUI/dasher.preferences.ui.h:34
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>Inicio e detención</b>"
+msgid "Starting and Stopping"
+msgstr "Inicio e detención"
 
 #: ../Data/GUI/dasher.preferences.ui.h:35
 msgid "Start on left mouse button"
@@ -328,12 +328,12 @@ msgid "C_ontrol"
 msgstr "C_ontrol"
 
 #: ../Data/GUI/dasher.preferences.ui.h:41
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>Esquema de cor</b>"
+msgid "Colour Scheme"
+msgstr "Esquema de cor"
 
 #: ../Data/GUI/dasher.preferences.ui.h:43
-msgid "<b>Appearance Options</b>"
-msgstr "<b>Opcións de aparencia</b>"
+msgid "Appearance Options"
+msgstr "Opcións de aparencia"
 
 #: ../Data/GUI/dasher.preferences.ui.h:44
 msgid "Show mouse position"
@@ -352,8 +352,8 @@ msgid "Draw box outlines"
 msgstr "Debuxar os bordos das caixas"
 
 #: ../Data/GUI/dasher.preferences.ui.h:48
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Tipo de letra de Dasher</b>"
+msgid "Dasher Font"
+msgstr "Tipo de letra de Dasher"
 
 #: ../Data/GUI/dasher.preferences.ui.h:49
 msgid "Select Dasher Font"
@@ -376,8 +376,8 @@ msgid "_Appearance"
 msgstr "_Aparencia"
 
 #: ../Data/GUI/dasher.preferences.ui.h:54
-msgid "<b>Application Options</b>"
-msgstr "<b>Opcións do aplicativo</b>"
+msgid "Application Options"
+msgstr "Opcións do aplicativo"
 
 #: ../Data/GUI/dasher.preferences.ui.h:55
 msgid "Timestamp new files"
@@ -424,16 +424,16 @@ msgid "Speak words as you write"
 msgstr "Falar as palabras ao escribilas"
 
 #: ../Data/GUI/dasher.preferences.ui.h:66
-msgid "<b>Editor Font</b>"
-msgstr "<b>Tipo de letra do editor</b>"
+msgid "Editor Font"
+msgstr "Tipo de letra do editor"
 
 #: ../Data/GUI/dasher.preferences.ui.h:67
 msgid "Select Editor Font"
 msgstr "Seleccionar o tipo de letra do editor"
 
 #: ../Data/GUI/dasher.preferences.ui.h:68
-msgid "<b>Application Style</b>"
-msgstr "<b>Estilo do aplicativo</b>"
+msgid "Application Style"
+msgstr "Estilo do aplicativo"
 
 #: ../Data/GUI/dasher.preferences.ui.h:69
 msgid "Stand-alone"
@@ -1327,8 +1327,8 @@ msgstr "- Un aplicativo de entrada de texto que respecta a accesibilidade"
 #~ msgid "Score:"
 #~ msgstr "Puntuación:"
 
-#~ msgid "<b>Actions</b>"
-#~ msgstr "<b>Accións</b>"
+#~ msgid "Actions"
+#~ msgstr "Accións"
 
 #~ msgid "Dock application window"
 #~ msgstr "Ancorar a xanela do aplicativo"

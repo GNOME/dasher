@@ -143,54 +143,54 @@ msgstr "_Sisukord…"
 msgid "_Import Training Text…"
 msgstr "_Impordi harjutustekst…"
 
-msgid "<b>Actions</b>"
-msgstr "<b>Toimingud</b>"
+msgid "Actions"
+msgstr "Toimingud"
 
-msgid "<b>Adaptation</b>"
-msgstr "<b>Õppimine</b>"
+msgid "Adaptation"
+msgstr "Õppimine"
 
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Tähestiku valimine</b>"
+msgid "Alphabet Selection"
+msgstr "Tähestiku valimine"
 
-msgid "<b>Appearance Options</b>"
-msgstr "<b>Välimuse valikud</b>"
+msgid "Appearance Options"
+msgstr "Välimuse valikud"
 
-msgid "<b>Application Options</b>"
-msgstr "<b>Rakenduse valikud</b>"
+msgid "Application Options"
+msgstr "Rakenduse valikud"
 
-msgid "<b>Application Style</b>"
-msgstr "<b>Rakenduse laad</b>"
+msgid "Application Style"
+msgstr "Rakenduse laad"
 
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>Värviskeem</b>"
+msgid "Colour Scheme"
+msgstr "Värviskeem"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
-msgid "<b>Control Style</b>"
-msgstr "<b>Juhtimislaad</b>"
+msgid "Control Style"
+msgstr "Juhtimislaad"
 
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Dasheri kirjatüüp</b>"
+msgid "Dasher Font"
+msgstr "Dasheri kirjatüüp"
 
-msgid "<b>Direction</b>"
-msgstr "<b>Suund</b>"
+msgid "Direction"
+msgstr "Suund"
 
-msgid "<b>Editor Font</b>"
-msgstr "<b>Redaktori kirjatüüp</b>"
+msgid "Editor Font"
+msgstr "Redaktori kirjatüüp"
 
-msgid "<b>Input Device</b>"
-msgstr "<b>Sisendseade</b>"
+msgid "Input Device"
+msgstr "Sisendseade"
 
-msgid "<b>Language Model</b>"
-msgstr "<b>Keelemudel</b>"
+msgid "Language Model"
+msgstr "Keelemudel"
 
-msgid "<b>Smoothing</b>"
-msgstr "<b>Pehmendamine</b>"
+msgid "Smoothing"
+msgstr "Pehmendamine"
 
-msgid "<b>Speed</b>"
-msgstr "<b>Kiirus</b>"
+msgid "Speed"
+msgstr "Kiirus"
 
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>Käivitamine ja seiskamine</b>"
+msgid "Starting and Stopping"
+msgstr "Käivitamine ja seiskamine"
 
 msgid "A_pplication"
 msgstr "_Rakendus"
@@ -339,14 +339,14 @@ msgstr "_Keel"
 msgid "P"
 msgstr "E"
 
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Värviskeem</b>"
+msgid "Color Scheme"
+msgstr "Värviskeem"
 
-msgid "<b>Display Size</b>"
-msgstr "<b>Kuva suurus</b>"
+msgid "Display Size"
+msgstr "Kuva suurus"
 
-msgid "<b>Orientation</b>"
-msgstr "<b>Suund</b>"
+msgid "Orientation"
+msgstr "Suund"
 
 msgid "Alphabet"
 msgstr "Tähestik"

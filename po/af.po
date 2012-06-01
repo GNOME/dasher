@@ -213,75 +213,75 @@ msgid "_Import Training Text…"
 msgstr "Voer _opleidingsteks in…"
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>Aksies</b>"
+msgid "Actions"
+msgstr "Aksies"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>Aanpassing</b>"
+msgid "Adaptation"
+msgstr "Aanpassing"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Alfabetkeuse</b>"
+msgid "Alphabet Selection"
+msgstr "Alfabetkeuse"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Appearance Options</b>"
-msgstr "<b>Voorkomskeuses</b>"
+msgid "Appearance Options"
+msgstr "Voorkomskeuses"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Options</b>"
-msgstr "<b>Toepassingkeuses</b>"
+msgid "Application Options"
+msgstr "Toepassingkeuses"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Application Style</b>"
-msgstr "<b>Toepassingstyl</b>"
+msgid "Application Style"
+msgstr "Toepassingstyl"
 
 #: ../Data/GUI/dasher.preferences.ui.h:7
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>Kleurskema</b>"
+msgid "Colour Scheme"
+msgstr "Kleurskema"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Control Style</b>"
-msgstr "<b>Beheerstyl</b>"
+msgid "Control Style"
+msgstr "Beheerstyl"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Dasher-skriftipe</b>"
+msgid "Dasher Font"
+msgstr "Dasher-skriftipe"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Direction</b>"
-msgstr "<b>Rigting</b>"
+msgid "Direction"
+msgstr "Rigting"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Editor Font</b>"
-msgstr "<b>Skriftipe se redigeerder</b>"
+msgid "Editor Font"
+msgstr "Skriftipe se redigeerder"
 
 #: ../Data/GUI/dasher.preferences.ui.h:13
-msgid "<b>Input Device</b>"
-msgstr "<b>Toevoertoestel</b>"
+msgid "Input Device"
+msgstr "Toevoertoestel"
 
 #: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>Taalmodel</b>"
+msgid "Language Model"
+msgstr "Taalmodel"
 
 #: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
+msgid "Smoothing"
 msgstr ""
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>Spoed</b>"
+msgid "Speed"
+msgstr "Spoed"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
-#| msgid "<b>Starting And Stopping</b>"
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>Begin en stop</b>"
+#| msgid "Starting And Stopping"
+msgid "Starting and Stopping"
+msgstr "Begin en stop"
 
 #: ../Data/GUI/dasher.preferences.ui.h:18
 #| msgid "Application"
@@ -502,16 +502,16 @@ msgid "P"
 msgstr "V"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Kleurskema</b>"
+msgid "Color Scheme"
+msgstr "Kleurskema"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>Vertoongrootte</b>"
+msgid "Display Size"
+msgstr "Vertoongrootte"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>Oriëntasie</b>"
+msgid "Orientation"
+msgstr "Oriëntasie"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"

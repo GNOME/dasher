@@ -208,74 +208,74 @@ msgid "_Import Training Text…"
 msgstr "_Importa el text d'entrenament…"
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>Accions</b>"
+msgid "Actions"
+msgstr "Accions"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>Adaptació</b>"
+msgid "Adaptation"
+msgstr "Adaptació"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Selecció de l'alfabet</b>"
+msgid "Alphabet Selection"
+msgstr "Selecció de l'alfabet"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Appearance Options</b>"
-msgstr "<b>Opcions d'aparença</b>"
+msgid "Appearance Options"
+msgstr "Opcions d'aparença"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Options</b>"
-msgstr "<b>Opcions de l'aplicació</b>"
+msgid "Application Options"
+msgstr "Opcions de l'aplicació"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Application Style</b>"
-msgstr "<b>Estil de l'aplicació</b>"
+msgid "Application Style"
+msgstr "Estil de l'aplicació"
 
 #: ../Data/GUI/dasher.preferences.ui.h:7
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>Esquema de color</b>"
+msgid "Colour Scheme"
+msgstr "Esquema de color"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Control Style</b>"
-msgstr "<b>Estil del control</b>"
+msgid "Control Style"
+msgstr "Estil del control"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Tipus de lletra del Dasher</b>"
+msgid "Dasher Font"
+msgstr "Tipus de lletra del Dasher"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Direction</b>"
-msgstr "<b>Direcció</b>"
+msgid "Direction"
+msgstr "Direcció"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Editor Font</b>"
-msgstr "<b>Tipus de lletra de l'editor</b>"
+msgid "Editor Font"
+msgstr "Tipus de lletra de l'editor"
 
 #: ../Data/GUI/dasher.preferences.ui.h:13
-msgid "<b>Input Device</b>"
-msgstr "<b>Dispositiu d'entrada</b>"
+msgid "Input Device"
+msgstr "Dispositiu d'entrada"
 
 #: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>Model de l'idioma</b>"
+msgid "Language Model"
+msgstr "Model de l'idioma"
 
 #: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>Suavitzat</b>"
+msgid "Smoothing"
+msgstr "Suavitzat"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>Velocitat</b>"
+msgid "Speed"
+msgstr "Velocitat"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>Inici i aturada</b>"
+msgid "Starting and Stopping"
+msgstr "Inici i aturada"
 
 #: ../Data/GUI/dasher.preferences.ui.h:18
 msgid "A_pplication"
@@ -485,16 +485,16 @@ msgid "P"
 msgstr "P"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Esquema de color</b>"
+msgid "Color Scheme"
+msgstr "Esquema de color"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>Mida de la pantalla</b>"
+msgid "Display Size"
+msgstr "Mida de la pantalla"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>Orientació</b>"
+msgid "Orientation"
+msgstr "Orientació"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"
@@ -1078,8 +1078,8 @@ msgstr "- Una aplicació d'entrada de text que respecta l'accessibilitat"
 #~ msgid "Dasher - %s"
 #~ msgstr "Dasher - %s"
 
-#~ msgid "<b>Prediction:</b>"
-#~ msgstr "<b>Predicció:</b>"
+#~ msgid "Prediction:"
+#~ msgstr "Predicció:"
 
 #~ msgid "button33"
 #~ msgstr "botó33"
@@ -1105,29 +1105,29 @@ msgstr "- Una aplicació d'entrada de text que respecta l'accessibilitat"
 #~ msgid "Training Dasher... please wait"
 #~ msgstr "El Dasher s'està entrenant, espereu"
 
-#~ msgid "<b>Advanced Settings:</b>"
-#~ msgstr "<b>Paràmetres avançats:</b>"
+#~ msgid "Advanced Settings:"
+#~ msgstr "Paràmetres avançats:"
 
-#~ msgid "<b>Button modes:</b>"
-#~ msgstr "<b>Modes de botó:</b>"
+#~ msgid "Button modes:"
+#~ msgstr "Modes de botó:"
 
-#~ msgid "<b>Direct Mode And Menu Mode</b>"
-#~ msgstr "<b>Mode directe i mode de menú</b>"
+#~ msgid "Direct Mode And Menu Mode"
+#~ msgstr "Mode directe i mode de menú"
 
-#~ msgid "<b>Miscellaneous Options:</b>"
-#~ msgstr "<b>Opcions variades:</b>"
+#~ msgid "Miscellaneous Options:"
+#~ msgstr "Opcions variades:"
 
-#~ msgid "<b>One-Button Static Mode</b>"
-#~ msgstr "<b>Mode estàtic d'un botó</b>"
+#~ msgid "One-Button Static Mode"
+#~ msgstr "Mode estàtic d'un botó"
 
-#~ msgid "<b>X Coordinate</b>"
-#~ msgstr "<b>Coordenada X</b>"
+#~ msgid "X Coordinate"
+#~ msgstr "Coordenada X"
 
-#~ msgid "<b>Y Axis Options:</b>"
-#~ msgstr "<b>Opcions de l'eix Y:</b>"
+#~ msgid "Y Axis Options:"
+#~ msgstr "Opcions de l'eix Y:"
 
-#~ msgid "<b>Y Coordinate</b>"
-#~ msgstr "<b>Coordenada Y</b>"
+#~ msgid "Y Coordinate"
+#~ msgstr "Coordenada Y"
 
 #~ msgid "Advanced Settings"
 #~ msgstr "Paràmetres avançats"

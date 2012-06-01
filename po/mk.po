@@ -251,73 +251,73 @@ msgid "_Import Training Text..."
 msgstr "_Увези текст за тренирање..."
 
 #: ../Data/glade/dasher.preferences.glade.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>Дејства</b>"
+msgid "Actions"
+msgstr "Дејства"
 
 #: ../Data/glade/dasher.preferences.glade.h:2
 #: ../Data/glade/dashermaemo.preferences.glade.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>Адаптација</b>"
+msgid "Adaptation"
+msgstr "Адаптација"
 
 #: ../Data/glade/dasher.preferences.glade.h:3
 #: ../Data/glade/dashermaemo.preferences.glade.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Избор на азбука</b>"
+msgid "Alphabet Selection"
+msgstr "Избор на азбука"
 
 #: ../Data/glade/dasher.preferences.glade.h:4
-msgid "<b>Appearance Options</b>"
-msgstr "<b>Опции за изгледот</b>"
+msgid "Appearance Options"
+msgstr "Опции за изгледот"
 
 #: ../Data/glade/dasher.preferences.glade.h:5
-msgid "<b>Application Options</b>"
-msgstr "<b>Опции за апликацијата</b>"
+msgid "Application Options"
+msgstr "Опции за апликацијата"
 
 #: ../Data/glade/dasher.preferences.glade.h:6
-msgid "<b>Application Style</b>"
-msgstr "<b>Стил на апликација</b>"
+msgid "Application Style"
+msgstr "Стил на апликација"
 
 #: ../Data/glade/dasher.preferences.glade.h:7
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>Шема за боја</b>"
+msgid "Colour Scheme"
+msgstr "Шема за боја"
 
 #: ../Data/glade/dasher.preferences.glade.h:8
-msgid "<b>Control Style</b>"
-msgstr "<b>Стил на контрола</b>"
+msgid "Control Style"
+msgstr "Стил на контрола"
 
 #: ../Data/glade/dasher.preferences.glade.h:9
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Фонт за dasher</b>"
+msgid "Dasher Font"
+msgstr "Фонт за dasher"
 
 #: ../Data/glade/dasher.preferences.glade.h:10
-msgid "<b>Direction</b>"
-msgstr "<b>Насока</b>"
+msgid "Direction"
+msgstr "Насока"
 
 #: ../Data/glade/dasher.preferences.glade.h:11
-msgid "<b>Editor Font</b>"
-msgstr "<b>Фонт на уредувач</b>"
+msgid "Editor Font"
+msgstr "Фонт на уредувач"
 
 #: ../Data/glade/dasher.preferences.glade.h:12
-msgid "<b>Input Device</b>"
-msgstr "<b>Влезен уред</b>"
+msgid "Input Device"
+msgstr "Влезен уред"
 
 #: ../Data/glade/dasher.preferences.glade.h:13
 #: ../Data/glade/dashermaemo.preferences.glade.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>Модел за јазик</b>"
+msgid "Language Model"
+msgstr "Модел за јазик"
 
 #: ../Data/glade/dasher.preferences.glade.h:14
 #: ../Data/glade/dashermaemo.preferences.glade.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>Заматување</b>"
+msgid "Smoothing"
+msgstr "Заматување"
 
 #: ../Data/glade/dasher.preferences.glade.h:15
 #: ../Data/glade/dashermaemo.preferences.glade.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>Брзина</b>"
+msgid "Speed"
+msgstr "Брзина"
 
 #: ../Data/glade/dasher.preferences.glade.h:16
-msgid "<b>Starting And Stopping</b>"
-msgstr "<b>Подигнување и стопирање</b>"
+msgid "Starting And Stopping"
+msgstr "Подигнување и стопирање"
 
 #: ../Data/glade/dasher.preferences.glade.h:17
 #: ../Data/glade/dashermaemo.preferences.glade.h:9
@@ -529,16 +529,16 @@ msgid "P"
 msgstr "P"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Шема за боја</b>"
+msgid "Color Scheme"
+msgstr "Шема за боја"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>Големина на приказ</b>"
+msgid "Display Size"
+msgstr "Големина на приказ"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>Ориентација</b>"
+msgid "Orientation"
+msgstr "Ориентација"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:10
 msgid "Alphabet"

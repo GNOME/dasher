@@ -207,74 +207,74 @@ msgid "_Import Training Text…"
 msgstr "_Importa testo di allenamento..."
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>Azioni</b>"
+msgid "Actions"
+msgstr "Azioni"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>Adattamento</b>"
+msgid "Adaptation"
+msgstr "Adattamento"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Selezione alfabeto</b>"
+msgid "Alphabet Selection"
+msgstr "Selezione alfabeto"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Appearance Options</b>"
-msgstr "<b>Opzioni dell'aspetto</b>"
+msgid "Appearance Options"
+msgstr "Opzioni dell'aspetto"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Options</b>"
-msgstr "<b>Opzioni dell'applicazione</b>"
+msgid "Application Options"
+msgstr "Opzioni dell'applicazione"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Application Style</b>"
-msgstr "<b>Stile dell'applicazione</b>"
+msgid "Application Style"
+msgstr "Stile dell'applicazione"
 
 #: ../Data/GUI/dasher.preferences.ui.h:7
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>Schema colore</b>"
+msgid "Colour Scheme"
+msgstr "Schema colore"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Control Style</b>"
-msgstr "<b>Stile controllo</b>"
+msgid "Control Style"
+msgstr "Stile controllo"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Tipo di carattere di Dasher</b>"
+msgid "Dasher Font"
+msgstr "Tipo di carattere di Dasher"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Direction</b>"
-msgstr "<b>Direzione</b>"
+msgid "Direction"
+msgstr "Direzione"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Editor Font</b>"
-msgstr "<b>Tipo di carattere dell'editor</b>"
+msgid "Editor Font"
+msgstr "Tipo di carattere dell'editor"
 
 #: ../Data/GUI/dasher.preferences.ui.h:13
-msgid "<b>Input Device</b>"
-msgstr "<b>Dispositivo di input</b>"
+msgid "Input Device"
+msgstr "Dispositivo di input"
 
 #: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>Modello linguistico</b>"
+msgid "Language Model"
+msgstr "Modello linguistico"
 
 #: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>Sfumatura</b>"
+msgid "Smoothing"
+msgstr "Sfumatura"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>Velocità</b>"
+msgid "Speed"
+msgstr "Velocità"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>Avvio e arresto</b>"
+msgid "Starting and Stopping"
+msgstr "Avvio e arresto"
 
 #: ../Data/GUI/dasher.preferences.ui.h:18
 msgid "A_pplication"
@@ -493,20 +493,20 @@ msgid "P"
 msgstr "P"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Schema colore</b>"
+msgid "Color Scheme"
+msgstr "Schema colore"
 
 # (ndt) questo è il titolo di una sezione nelle preferenze
 # subito sotto c'è "Enlarge input window", ora resta da capire come
 # rendere display, se è inteso come dimensione dello schermo del
 # dispositivo o come dimensione dell'are di utilizzo del programma 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>Dimensioni schermo</b>"
+msgid "Display Size"
+msgstr "Dimensioni schermo"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>Orientazione</b>"
+msgid "Orientation"
+msgstr "Orientazione"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"

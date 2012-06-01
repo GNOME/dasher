@@ -243,69 +243,69 @@ msgstr "_Importera träningstext..."
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>Anpassning</b>"
+msgid "Adaptation"
+msgstr "Anpassning"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Val av alfabet</b>"
+msgid "Alphabet Selection"
+msgstr "Val av alfabet"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
-msgid "<b>Appearance Options</b>"
-msgstr "<b>Utseendealternativ</b>"
+msgid "Appearance Options"
+msgstr "Utseendealternativ"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Application Options</b>"
-msgstr "<b>Programalternativ</b>"
+msgid "Application Options"
+msgstr "Programalternativ"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Style</b>"
-msgstr "<b>Programstil</b>"
+msgid "Application Style"
+msgstr "Programstil"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>Färgschema</b>"
+msgid "Colour Scheme"
+msgstr "Färgschema"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:8
-msgid "<b>Control Style</b>"
-msgstr "<b>Styrningsstil</b>"
+msgid "Control Style"
+msgstr "Styrningsstil"
 
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Dasher-typsnitt</b>"
+msgid "Dasher Font"
+msgstr "Dasher-typsnitt"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Direction</b>"
-msgstr "<b>Riktning</b>"
+msgid "Direction"
+msgstr "Riktning"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Editor Font</b>"
-msgstr "<b>Redigerartypsnitt</b>"
+msgid "Editor Font"
+msgstr "Redigerartypsnitt"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Input Device</b>"
-msgstr "<b>Inmatningsenhet</b>"
+msgid "Input Device"
+msgstr "Inmatningsenhet"
 
 #: ../Data/GUI/dasher.preferences.ui.h:13
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>Språkmodell</b>"
+msgid "Language Model"
+msgstr "Språkmodell"
 
 #: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>Utjämning</b>"
+msgid "Smoothing"
+msgstr "Utjämning"
 
 #: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>Hastighet</b>"
+msgid "Speed"
+msgstr "Hastighet"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>Start och stopp</b>"
+msgid "Starting and Stopping"
+msgstr "Start och stopp"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
 msgid "A_pplication"
@@ -542,16 +542,16 @@ msgid "P"
 msgstr "P"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Färgschema</b>"
+msgid "Color Scheme"
+msgstr "Färgschema"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>Visningsstorlek</b>"
+msgid "Display Size"
+msgstr "Visningsstorlek"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>Orientering</b>"
+msgid "Orientation"
+msgstr "Orientering"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"
@@ -1055,8 +1055,8 @@ msgstr "Beskriv \"--options\"."
 msgid "- A text input application honouring accessibility"
 msgstr "- Ett textinmatningsprogram som använder hjälpmedelsfunktioner"
 
-#~ msgid "<b>Actions</b>"
-#~ msgstr "<b>Åtgärder</b>"
+#~ msgid "Actions"
+#~ msgstr "Åtgärder"
 #~ msgid "Automatic calibration"
 #~ msgstr "Automatisk kalibrering"
 #~ msgid "Eyetracker Mode"
@@ -1103,8 +1103,8 @@ msgstr "- Ett textinmatningsprogram som använder hjälpmedelsfunktioner"
 #~ msgstr "Tröskelvärde för automatisk hastighet"
 #~ msgid "Dasher - %s"
 #~ msgstr "Dasher - %s"
-#~ msgid "<b>Prediction:</b>"
-#~ msgstr "<b>Prediktion:</b>"
+#~ msgid "Prediction:"
+#~ msgstr "Prediktion:"
 #~ msgid "button33"
 #~ msgstr "knapp33"
 #~ msgid "button34"
@@ -1120,31 +1120,31 @@ msgstr "- Ett textinmatningsprogram som använder hjälpmedelsfunktioner"
 #~ msgid "Training Dasher... please wait"
 #~ msgstr "Tränar Dasher... var vänlig vänta"
 #~ msgid ""
-#~ "<b><i>gconf-editor Not Found</i></b>\n"
+#~ "<i>gconf-editor Not Found</i>\n"
 #~ "You must have gconf-editor installed and available in your path in order "
 #~ "to access these settings."
 #~ msgstr ""
-#~ "<b><i>gconf-editor hittades inte</i></b>\n"
+#~ "<i>gconf-editor hittades inte</i>\n"
 #~ "Du måste ha gconf-editor installerad och tillgänglig i din sökväg för att "
 #~ "kunna komma åt dessa inställningar."
-#~ msgid "<b>Advanced Settings:</b>"
-#~ msgstr "<b>Avancerade inställningar:</b>"
-#~ msgid "<b>Direct Mode And Menu Mode</b>"
-#~ msgstr "<b>Direktläge och Menyläge</b>"
-#~ msgid "<b>Docking:</b>"
-#~ msgstr "<b>Dockning:</b>"
-#~ msgid "<b>Keyboard options</b>"
-#~ msgstr "<b>Tangentbordsalternativ</b>"
-#~ msgid "<b>Miscellaneous Options:</b>"
-#~ msgstr "<b>Diverse alternativ:</b>"
-#~ msgid "<b>One-Button Static Mode</b>"
-#~ msgstr "<b>En-knapps statiskt läge</b>"
-#~ msgid "<b>X Coordinate</b>"
-#~ msgstr "<b>X-koordinat</b>"
-#~ msgid "<b>Y Axis Options:</b>"
-#~ msgstr "<b>Y-axelalternativ:</b>"
-#~ msgid "<b>Y Coordinate</b>"
-#~ msgstr "<b>Y-koordinat</b>"
+#~ msgid "Advanced Settings:"
+#~ msgstr "Avancerade inställningar:"
+#~ msgid "Direct Mode And Menu Mode"
+#~ msgstr "Direktläge och Menyläge"
+#~ msgid "Docking:"
+#~ msgstr "Dockning:"
+#~ msgid "Keyboard options"
+#~ msgstr "Tangentbordsalternativ"
+#~ msgid "Miscellaneous Options:"
+#~ msgstr "Diverse alternativ:"
+#~ msgid "One-Button Static Mode"
+#~ msgstr "En-knapps statiskt läge"
+#~ msgid "X Coordinate"
+#~ msgstr "X-koordinat"
+#~ msgid "Y Axis Options:"
+#~ msgstr "Y-axelalternativ:"
+#~ msgid "Y Coordinate"
+#~ msgstr "Y-koordinat"
 #~ msgid ""
 #~ "Additional settings can be accessed directly using the GConf "
 #~ "configuration database. Please note that these settings are intended for "

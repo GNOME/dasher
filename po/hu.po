@@ -207,74 +207,74 @@ msgid "_Import Training Text…"
 msgstr "Gyakorlószöveg _importálása…"
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>Műveletek</b>"
+msgid "Actions"
+msgstr "Műveletek"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>Alkalmazkodás</b>"
+msgid "Adaptation"
+msgstr "Alkalmazkodás"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Ábécéválasztás</b>"
+msgid "Alphabet Selection"
+msgstr "Ábécéválasztás"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Appearance Options</b>"
-msgstr "<b>Megjelenés beállításai</b>"
+msgid "Appearance Options"
+msgstr "Megjelenés beállításai"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Options</b>"
-msgstr "<b>Alkalmazás beállításai</b>"
+msgid "Application Options"
+msgstr "Alkalmazás beállításai"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Application Style</b>"
-msgstr "<b>Alkalmazás stílusa</b>"
+msgid "Application Style"
+msgstr "Alkalmazás stílusa"
 
 #: ../Data/GUI/dasher.preferences.ui.h:7
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>Színséma</b>"
+msgid "Colour Scheme"
+msgstr "Színséma"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Control Style</b>"
-msgstr "<b>Vezérlőelem stílusa</b>"
+msgid "Control Style"
+msgstr "Vezérlőelem stílusa"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Dasher betűkészlete</b>"
+msgid "Dasher Font"
+msgstr "Dasher betűkészlete"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Direction</b>"
-msgstr "<b>Irány</b>"
+msgid "Direction"
+msgstr "Irány"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Editor Font</b>"
-msgstr "<b>Szerkesztő betűkészlete</b>"
+msgid "Editor Font"
+msgstr "Szerkesztő betűkészlete"
 
 #: ../Data/GUI/dasher.preferences.ui.h:13
-msgid "<b>Input Device</b>"
-msgstr "<b>Beviteli eszköz</b>"
+msgid "Input Device"
+msgstr "Beviteli eszköz"
 
 #: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>Nyelvmodell</b>"
+msgid "Language Model"
+msgstr "Nyelvmodell"
 
 #: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>Simítás</b>"
+msgid "Smoothing"
+msgstr "Simítás"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>Sebesség</b>"
+msgid "Speed"
+msgstr "Sebesség"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>Indítás és leállítás</b>"
+msgid "Starting and Stopping"
+msgstr "Indítás és leállítás"
 
 #: ../Data/GUI/dasher.preferences.ui.h:18
 msgid "A_pplication"
@@ -483,16 +483,16 @@ msgid "P"
 msgstr "P"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Színséma</b>"
+msgid "Color Scheme"
+msgstr "Színséma"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>Megjelenítő mérete</b>"
+msgid "Display Size"
+msgstr "Megjelenítő mérete"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>Tájolás</b>"
+msgid "Orientation"
+msgstr "Tájolás"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"

@@ -205,74 +205,74 @@ msgid "_Import Training Text…"
 msgstr "匯入訓練文字(_I)…"
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>動作</b>"
+msgid "Actions"
+msgstr "動作"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>適應性</b>"
+msgid "Adaptation"
+msgstr "適應性"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>字母選定範圍</b>"
+msgid "Alphabet Selection"
+msgstr "字母選定範圍"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Appearance Options</b>"
-msgstr "<b>外觀選項</b>"
+msgid "Appearance Options"
+msgstr "外觀選項"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Options</b>"
-msgstr "<b>應用程式選項</b>"
+msgid "Application Options"
+msgstr "應用程式選項"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Application Style</b>"
-msgstr "<b>應用程式風格</b>"
+msgid "Application Style"
+msgstr "應用程式風格"
 
 #: ../Data/GUI/dasher.preferences.ui.h:7
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>色彩配置</b>"
+msgid "Colour Scheme"
+msgstr "色彩配置"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Control Style</b>"
-msgstr "<b>控制風格</b>"
+msgid "Control Style"
+msgstr "控制風格"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Dasher 字型</b>"
+msgid "Dasher Font"
+msgstr "Dasher 字型"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Direction</b>"
-msgstr "<b>方向</b>"
+msgid "Direction"
+msgstr "方向"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Editor Font</b>"
-msgstr "<b>編輯器字型</b>"
+msgid "Editor Font"
+msgstr "編輯器字型"
 
 #: ../Data/GUI/dasher.preferences.ui.h:13
-msgid "<b>Input Device</b>"
-msgstr "<b>輸入裝置</b>"
+msgid "Input Device"
+msgstr "輸入裝置"
 
 #: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>語言模型</b>"
+msgid "Language Model"
+msgstr "語言模型"
 
 #: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>平滑化</b>"
+msgid "Smoothing"
+msgstr "平滑化"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>速度</b>"
+msgid "Speed"
+msgstr "速度"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>開始與停止</b>"
+msgid "Starting and Stopping"
+msgstr "開始與停止"
 
 #: ../Data/GUI/dasher.preferences.ui.h:18
 msgid "A_pplication"
@@ -481,16 +481,16 @@ msgid "P"
 msgstr "P"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>色彩配置</b>"
+msgid "Color Scheme"
+msgstr "色彩配置"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>畫面大小</b>"
+msgid "Display Size"
+msgstr "畫面大小"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>定向</b>"
+msgid "Orientation"
+msgstr "定向"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"
@@ -1063,8 +1063,8 @@ msgstr "- 具無障礙功能的文字輸入程式"
 #~ msgid "Dasher - %s"
 #~ msgstr "Dasher - %s"
 
-#~ msgid "<b>Prediction:</b>"
-#~ msgstr "<b>預測：</b>"
+#~ msgid "Prediction:"
+#~ msgstr "預測："
 
 #~ msgid "button33"
 #~ msgstr "button33"
