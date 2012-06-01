@@ -55,8 +55,10 @@
                           <object class="GtkLabel" id="label112">
                             <property name="visible">True</property>
                             <property name="xalign">0</property>
-                            <property name="label" translatable="yes">&lt;b&gt;Alphabet Selection&lt;/b&gt;</property>
-                            <property name="use_markup">True</property>
+                            <property name="label" translatable="yes">Alphabet Selection</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -102,8 +104,10 @@
                               <object class="GtkLabel" id="label113">
                                 <property name="visible">True</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">&lt;b&gt;Language Model&lt;/b&gt;</property>
-                                <property name="use_markup">True</property>
+                                <property name="label" translatable="yes">Language Model</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -198,8 +202,10 @@
                               <object class="GtkLabel" id="label37">
                                 <property name="visible">True</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">&lt;b&gt;Adaptation&lt;/b&gt;</property>
-                                <property name="use_markup">True</property>
+                                <property name="label" translatable="yes">Adaptation</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -248,8 +254,10 @@
                               <object class="GtkLabel" id="label39">
                                 <property name="visible">True</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">&lt;b&gt;Smoothing&lt;/b&gt;</property>
-                                <property name="use_markup">True</property>
+                                <property name="label" translatable="yes">Smoothing</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -311,8 +319,10 @@ your writing speed.</property>
                               <object class="GtkLabel" id="label119">
                                 <property name="visible">True</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">&lt;b&gt;Direction&lt;/b&gt;</property>
-                                <property name="use_markup">True</property>
+                                <property name="label" translatable="yes">Direction</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -450,8 +460,10 @@ your writing speed.</property>
                           <object class="GtkLabel" id="label115">
                             <property name="visible">True</property>
                             <property name="xalign">0</property>
-                            <property name="label" translatable="yes" comments="The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.">&lt;b&gt;Control Style&lt;/b&gt;</property>
-                            <property name="use_markup">True</property>
+                            <property name="label" translatable="yes" comments="The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.">Control Style</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -526,8 +538,10 @@ your writing speed.</property>
                               <object class="GtkLabel" id="label116">
                                 <property name="visible">True</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">&lt;b&gt;Input Device&lt;/b&gt;</property>
-                                <property name="use_markup">True</property>
+                                <property name="label" translatable="yes">Input Device</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -598,8 +612,10 @@ your writing speed.</property>
                               <object class="GtkLabel" id="label125">
                                 <property name="visible">True</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">&lt;b&gt;Speed&lt;/b&gt;</property>
-                                <property name="use_markup">True</property>
+                                <property name="label" translatable="yes">Speed</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -658,8 +674,10 @@ your writing speed.</property>
                               <object class="GtkLabel" id="label126">
                                 <property name="visible">True</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">&lt;b&gt;Starting and Stopping&lt;/b&gt;</property>
-                                <property name="use_markup">True</property>
+                                <property name="label" translatable="yes">Starting and Stopping</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -804,8 +822,10 @@ your writing speed.</property>
                           <object class="GtkLabel" id="label118">
                             <property name="visible">True</property>
                             <property name="xalign">0</property>
-                            <property name="label" translatable="yes">&lt;b&gt;Colour Scheme&lt;/b&gt;</property>
-                            <property name="use_markup">True</property>
+                            <property name="label" translatable="yes">Colour Scheme</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -875,8 +895,10 @@ your writing speed.</property>
                               <object class="GtkLabel" id="label120">
                                 <property name="visible">True</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">&lt;b&gt;Appearance Options&lt;/b&gt;</property>
-                                <property name="use_markup">True</property>
+                                <property name="label" translatable="yes">Appearance Options</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -978,8 +1000,10 @@ your writing speed.</property>
                               <object class="GtkLabel" id="label128">
                                 <property name="visible">True</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">&lt;b&gt;Dasher Font&lt;/b&gt;</property>
-                                <property name="use_markup">True</property>
+                                <property name="label" translatable="yes">Dasher Font</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -1108,8 +1132,10 @@ your writing speed.</property>
                                   <object class="GtkLabel" id="label124">
                                     <property name="visible">True</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;Application Options&lt;/b&gt;</property>
-                                    <property name="use_markup">True</property>
+                                    <property name="label" translatable="yes">Application Options</property>
+                                    <attributes>
+                                      <attribute name="weight" value="bold"/>
+                                    </attributes>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -1332,8 +1358,10 @@ your writing speed.</property>
                                   <object class="GtkLabel" id="label129">
                                     <property name="visible">True</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;Editor Font&lt;/b&gt;</property>
-                                    <property name="use_markup">True</property>
+                                    <property name="label" translatable="yes">Editor Font</property>
+                                    <attributes>
+                                      <attribute name="weight" value="bold"/>
+                                    </attributes>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -1376,8 +1404,10 @@ your writing speed.</property>
                                   <object class="GtkLabel" id="label123">
                                     <property name="visible">True</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;Application Style&lt;/b&gt;</property>
-                                    <property name="use_markup">True</property>
+                                    <property name="label" translatable="yes">Application Style</property>
+                                    <attributes>
+                                      <attribute name="weight" value="bold"/>
+                                    </attributes>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
