@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher"
 "&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-01-03 21:30+0000\n"
-"PO-Revision-Date: 2012-03-01 12:06+0200\n"
+"POT-Creation-Date: 2012-06-01 17:24+0000\n"
+"PO-Revision-Date: 2012-06-02 08:09+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -24,270 +24,251 @@ msgstr ""
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
-#: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:2
-#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:6
-#: ../Src/Gtk2/dasher_main.cpp:899
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:14
+#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:21
+#: ../Src/Gtk2/dasher_main.cpp:884
 msgid "Dasher"
 msgstr "Јуришник"
 
 #: ../Data/dasher.desktop.in.in.h:2
-msgid "Enter text without a keyboard"
-msgstr "Уносите текст без употребе тастатуре"
-
-#: ../Data/dasher.desktop.in.in.h:3
 msgid "Predictive text entry"
 msgstr "Унос предвидивог текста"
 
+#: ../Data/dasher.desktop.in.in.h:3
+msgid "Enter text without a keyboard"
+msgstr "Уносите текст без употребе тастатуре"
+
 #: ../Data/GUI/dashermaemofullscreen.ui.h:1
-#: ../Data/GUI/dasher.traditional.ui.h:4
-msgid "Copy _All"
-msgstr "Умножи _све"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:3
-msgid "Large"
-msgstr "Велико"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:4
-msgid "Normal"
-msgstr "Обично"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:5 ../Data/GUI/dashermaemo.ui.h:5
-#: ../Src/Gtk2/dasher_editor_internal.cpp:813
-#: ../Src/Gtk2/dasher_editor_internal.cpp:847 ../Src/Gtk2/dasher_main.cpp:914
-msgid "Select File"
-msgstr "Изабери датотеку"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:6 ../Data/GUI/dashermaemo.ui.h:6
-msgid "Select Font"
-msgstr "Изабери словни лик"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:7
-msgid "Very Large"
-msgstr "Веома велика"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:8
-msgid "_About"
-msgstr "_О програму"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:9
-msgid "_Dasher Font"
-msgstr "_Словни лик Јуришника"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:10
-msgid "_Dasher Font Size"
-msgstr "Величина словног лика _Јуришника"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:11
-#: ../Data/GUI/dasher.traditional.ui.h:20
-msgid "_Edit"
-msgstr "_Уређивање"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:12
-msgid "_Edit Font"
-msgstr "У_реди словни лик"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:13
-#: ../Data/GUI/dasher.traditional.ui.h:21
+#: ../Data/GUI/dasher.traditional.ui.h:1
 msgid "_File"
 msgstr "_Датотека"
 
-#: ../Data/GUI/dashermaemofullscreen.ui.h:14
-#: ../Data/GUI/dasher.traditional.ui.h:23
-msgid "_Help"
-msgstr "_Помоћ"
+#: ../Data/GUI/dashermaemofullscreen.ui.h:2
+#: ../Data/GUI/dasher.traditional.ui.h:9
+msgid "_Edit"
+msgstr "_Уређивање"
 
-#: ../Data/GUI/dashermaemofullscreen.ui.h:15
+#: ../Data/GUI/dashermaemofullscreen.ui.h:3
+#: ../Data/GUI/dasher.traditional.ui.h:12
+msgid "Copy _All"
+msgstr "Умножи _све"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:4
 msgid "_Options"
 msgstr "_Могућности"
 
-#: ../Data/GUI/dashermaemofullscreen.ui.h:16
+#: ../Data/GUI/dashermaemofullscreen.ui.h:5
+msgid "_Edit Font"
+msgstr "У_реди словни лик"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:6
+msgid "_Dasher Font"
+msgstr "_Словни лик Јуришника"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:7
+msgid "_Dasher Font Size"
+msgstr "Величина словног лика _Јуришника"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:8
+msgid "Normal"
+msgstr "Обично"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:9
+msgid "Large"
+msgstr "Велико"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:10
+msgid "Very Large"
+msgstr "Веома велика"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:11
 msgid "_Reset fonts"
 msgstr "_Врати словне ликове"
 
+#: ../Data/GUI/dashermaemofullscreen.ui.h:12
+#: ../Data/GUI/dasher.traditional.ui.h:16
+msgid "_Help"
+msgstr "_Помоћ"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:13
+msgid "_About"
+msgstr "_О програму"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:15 ../Data/GUI/dashermaemo.ui.h:4
+#: ../Src/Gtk2/dasher_editor.cpp:817 ../Src/Gtk2/dasher_editor.cpp:851
+#: ../Src/Gtk2/dasher_main.cpp:899
+msgid "Select File"
+msgstr "Изабери датотеку"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:16 ../Data/GUI/dashermaemo.ui.h:5
+msgid "Select Font"
+msgstr "Изабери словни лик"
+
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-#: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>Прилагођавање</b>"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:2
-#: ../Data/GUI/dasher.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Избор писма</b>"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Боје</b>"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>Величина приказа</b>"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:5
-#: ../Data/GUI/dasher.preferences.ui.h:13
-msgid "<b>Language Model</b>"
-msgstr "<b>Модел језика</b>"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>Усмерење</b>"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:7
-#: ../Data/GUI/dasher.preferences.ui.h:14
-msgid "<b>Smoothing</b>"
-msgstr "<b>Умекшавање</b>"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:8
-#: ../Data/GUI/dasher.preferences.ui.h:15
-msgid "<b>Speed</b>"
-msgstr "<b>Брзина</b>"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:9
-#: ../Data/GUI/dasher.preferences.ui.h:18
-msgid "Adapt speed automatically"
-msgstr "Самостално прилагоди брзину"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:10
-msgid "Alphabet"
-msgstr "Писмо"
-
-#. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
-#: ../Data/GUI/dashermaemo.preferences.ui.h:11
-#: ../Data/GUI/dasher.preferences.ui.h:20
-msgid "Alphabet Default"
-msgstr "Подразумевано писмо"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:12
-msgid "Bottom to Top"
-msgstr "Одоздо на горе"
-
-#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
-#: ../Data/GUI/dashermaemo.preferences.ui.h:14
-msgid "Control"
-msgstr "Управљање"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:15
-msgid "Custom"
-msgstr "Произвољно"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:16
-#: ../Data/GUI/dasher.preferences.ui.h:32
-msgid "Custom colour scheme:"
-msgstr "Произвољне боје:"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:17
-#: ../Data/GUI/dasher.preferences.ui.h:33
+#: ../Data/GUI/dasher.preferences.ui.h:3
 msgid "Dasher Preferences"
 msgstr "Поставке Јуришника"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:18
+#: ../Data/GUI/dashermaemo.preferences.ui.h:2
+#: ../Data/GUI/dasher.preferences.ui.h:4
+#| msgid "<b>Alphabet Selection</b>"
+msgid "Alphabet Selection"
+msgstr "Избор писма"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:3
+#| msgid "<b>Color Scheme</b>"
+msgid "Color Scheme"
+msgstr "Боје"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:4
+#: ../Data/GUI/dasher.preferences.ui.h:42
+msgid "Custom colour scheme:"
+msgstr "Произвољне боје:"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:5
+msgid "Alphabet"
+msgstr "Писмо"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:6
+#: ../Data/GUI/dasher.preferences.ui.h:32
+#| msgid "Speed:"
+msgid "Speed"
+msgstr "Брзина"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:7
+#: ../Data/GUI/dasher.preferences.ui.h:33
+msgid "Adapt speed automatically"
+msgstr "Самостално прилагоди брзину"
+
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:9
+msgid "Control"
+msgstr "Управљање"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:10
+#| msgid "<b>Display Size</b>"
+msgid "Display Size"
+msgstr "Величина приказа"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:11
 msgid "Enlarge input window"
 msgstr "Повећај прозор за унос"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:19
-#: ../Data/GUI/dasher.preferences.ui.h:43
-msgid "Japanese"
-msgstr "Јапански"
+#: ../Data/GUI/dashermaemo.preferences.ui.h:12
+msgid "Orientation"
+msgstr "Усмерење"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:20
-#: ../Data/GUI/dasher.preferences.ui.h:44
-msgid "Language model adapts as you write."
-msgstr "Језички модел се прилагођава како пишете."
+#. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:13
+#: ../Data/GUI/dasher.preferences.ui.h:21
+msgid "Alphabet Default"
+msgstr "Подразумевано писмо"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:21
+#: ../Data/GUI/dashermaemo.preferences.ui.h:14
+msgid "Custom"
+msgstr "Произвољно"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:15
 msgid "Left to Right"
 msgstr "Слева на десно"
 
-#. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dashermaemo.preferences.ui.h:22
-#: ../Data/GUI/dasher.preferences.ui.h:47
-msgid "Mixture model (PPM/dictionary)"
-msgstr "Мешани модел (ППМ/речник)"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:23
-msgid "Prediction"
-msgstr "Предвиђање"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:24
+#: ../Data/GUI/dashermaemo.preferences.ui.h:16
 msgid "Right to Left"
 msgstr "Са десна на лево"
 
-#. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dashermaemo.preferences.ui.h:25
-#: ../Data/GUI/dasher.preferences.ui.h:60
-msgid "Standard letter-based PPM"
-msgstr "Стандардни ППМ заснован на писму"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:26
+#: ../Data/GUI/dashermaemo.preferences.ui.h:17
 msgid "Top to Bottom"
 msgstr "Одозго на доле"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:27
+#: ../Data/GUI/dashermaemo.preferences.ui.h:18
+msgid "Bottom to Top"
+msgstr "Одоздо на горе"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:19
 msgid "View"
 msgstr "Преглед"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:28
-#: ../Data/GUI/dasher.preferences.ui.h:71
+#: ../Data/GUI/dashermaemo.preferences.ui.h:20
+#: ../Data/GUI/dasher.preferences.ui.h:5
+#| msgid "<b>Language Model</b>"
+msgid "Language Model"
+msgstr "Модел језика"
+
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:21
+#: ../Data/GUI/dasher.preferences.ui.h:7
+msgid "Standard letter-based PPM"
+msgstr "Стандардни ППМ заснован на писму"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:22
+#: ../Data/GUI/dasher.preferences.ui.h:8
 msgid "Word-based model"
 msgstr "Модел заснован на речима"
+
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:23
+#: ../Data/GUI/dasher.preferences.ui.h:10
+msgid "Mixture model (PPM/dictionary)"
+msgstr "Мешани модел (ППМ/речник)"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:24
+#: ../Data/GUI/dasher.preferences.ui.h:11
+msgid "Japanese"
+msgstr "Јапански"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:25
+#: ../Data/GUI/dasher.preferences.ui.h:12
+#| msgid "<b>Adaptation</b>"
+msgid "Adaptation"
+msgstr "Прилагођавање"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:26
+#: ../Data/GUI/dasher.preferences.ui.h:13
+msgid "Language model adapts as you write."
+msgstr "Језички модел се прилагођава како пишете."
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:27
+#: ../Data/GUI/dasher.preferences.ui.h:14
+#| msgid "<b>Smoothing</b>"
+msgid "Smoothing"
+msgstr "Умекшавање"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:28
+msgid "Prediction"
+msgstr "Предвиђање"
 
 #. Abbreviation for Preferences
 #: ../Data/GUI/dashermaemo.ui.h:3
 msgid "P"
 msgstr "П"
 
-#: ../Data/GUI/dashermaemo.ui.h:4 ../Data/GUI/dasher.traditional.ui.h:11
+#: ../Data/GUI/dashermaemo.ui.h:6 ../Data/GUI/dasher.traditional.ui.h:24
 msgid "Please Wait…"
-msgstr "Сачекајте..."
+msgstr "Сачекајте…"
 
-# bug: View the Options or Options of the View
-#: ../Data/GUI/dasher.preferences.ui.h:3
-msgid "<b>Appearance Options</b>"
-msgstr "<b>Опције изгледа</b>"
+#: ../Data/GUI/dasher.preferences.ui.h:1
+msgid "Centre circle"
+msgstr "Из центра круга"
 
-#: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Application Options</b>"
-msgstr "<b>Опције програма</b>"
+#: ../Data/GUI/dasher.preferences.ui.h:2
+msgid "Two box"
+msgstr "Две кућице"
 
-#: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Style</b>"
-msgstr "<b>Стил програма</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>Боје</b>"
-
-#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
-#: ../Data/GUI/dasher.preferences.ui.h:8
-msgid "<b>Control Style</b>"
-msgstr "<b>Стил управљања</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Dasher Font</b>"
-msgstr "<b>Писмо Јуришника</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Direction</b>"
-msgstr "<b>Усмерење</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Editor Font</b>"
-msgstr "<b>Писмо уређивача</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Input Device</b>"
-msgstr "<b>Улазни уређај</b>"
-
+#. Line wrapping not necessary, but looks better for English
 #: ../Data/GUI/dasher.preferences.ui.h:16
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>Покретање и заустављање</b>"
+msgid ""
+"Use this control to adjust the relative sizes of the\n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+"Користите ову контролу да прилагодите релативне \n"
+"величине кућица слова. Избор великих вредности ће \n"
+"смањити брзину уписа."
 
-#: ../Data/GUI/dasher.preferences.ui.h:17
-msgid "A_pplication"
-msgstr "_Програм"
-
-#: ../Data/GUI/dasher.preferences.ui.h:21
-msgid "Always Bottom-to-Top"
-msgstr "Увек одоздо на горе"
+#: ../Data/GUI/dasher.preferences.ui.h:19
+#| msgid "Prediction"
+msgid "Direction"
+msgstr "Правац"
 
 #. This means that you always want to write left-to-right regardless of the normal direction for the alphabet you are using
 #: ../Data/GUI/dasher.preferences.ui.h:23
@@ -302,234 +283,269 @@ msgstr "Увек сдесна на лево"
 msgid "Always Top-to-Bottom"
 msgstr "Увек одозго на доле"
 
-#. Abbreviation for Control Style
+#: ../Data/GUI/dasher.preferences.ui.h:26
+msgid "Always Bottom-to-Top"
+msgstr "Увек одоздо на горе"
+
 #: ../Data/GUI/dasher.preferences.ui.h:27
-msgid "C_ontrol"
-msgstr "_Управљање"
-
-#: ../Data/GUI/dasher.preferences.ui.h:28
-msgid "Centre circle"
-msgstr "Из центра круга"
-
-#: ../Data/GUI/dasher.preferences.ui.h:29
-msgid "Composition"
-msgstr "Композиција"
-
-#: ../Data/GUI/dasher.preferences.ui.h:30
-msgid "Control mode"
-msgstr "Режим управљања"
-
-#: ../Data/GUI/dasher.preferences.ui.h:31
-msgid "Copy All on stop"
-msgstr "Умножи све при заустављању"
-
-#: ../Data/GUI/dasher.preferences.ui.h:34
-msgid "Direct entry"
-msgstr "Директан унос"
-
-#: ../Data/GUI/dasher.preferences.ui.h:35
-msgid "Draw box outlines"
-msgstr "Цртај обрисе оквира"
-
-#: ../Data/GUI/dasher.preferences.ui.h:36
-msgid "Draw line between crosshairs and mouse"
-msgstr "Цртај линију између нишана и миша"
-
-#: ../Data/GUI/dasher.preferences.ui.h:37
-msgid "Force to have Halt command"
-msgstr "Присили зарад наредбе „Прекини“"
-
-#: ../Data/GUI/dasher.preferences.ui.h:38
-msgid "Full Screen"
-msgstr "Цео екран"
-
-#: ../Data/GUI/dasher.preferences.ui.h:39
-msgid "Include Clipboard commands"
-msgstr "Укључи наредбе бележнице"
-
-#: ../Data/GUI/dasher.preferences.ui.h:40
-msgid "Include Editing commands"
-msgstr "Укључи наредбе уређивања"
-
-#: ../Data/GUI/dasher.preferences.ui.h:41
-msgid "Include Speech commands"
-msgstr "Укључи наредбе говора"
-
-#: ../Data/GUI/dasher.preferences.ui.h:42
-msgid "Increase line thickness"
-msgstr "Повећај дебљину линије"
-
-#: ../Data/GUI/dasher.preferences.ui.h:45
-msgid "Large font "
-msgstr "Велико писмо "
-
-#: ../Data/GUI/dasher.preferences.ui.h:48
-msgid "Options"
-msgstr "Опције"
-
-#: ../Data/GUI/dasher.preferences.ui.h:49
-msgid "Pause outside of canvas"
-msgstr "Паузирај изван платна"
-
-#: ../Data/GUI/dasher.preferences.ui.h:50
-msgid "Select Dasher Font"
-msgstr "Изаберите фонт за Јуришника"
-
-#: ../Data/GUI/dasher.preferences.ui.h:51
-msgid "Select Editor Font"
-msgstr "Изаберите фонт за уредника"
-
-#: ../Data/GUI/dasher.preferences.ui.h:52
-msgid "Show mouse position"
-msgstr "Прикажи положај миша"
-
-#: ../Data/GUI/dasher.preferences.ui.h:53
-msgid "Show speed slider"
-msgstr "Прикажи клизача брзине"
-
-#: ../Data/GUI/dasher.preferences.ui.h:54
-msgid "Show toolbar"
-msgstr "Прикажи линију алата"
-
-#: ../Data/GUI/dasher.preferences.ui.h:55
-msgid "Small font"
-msgstr "Мали фонт"
-
-#: ../Data/GUI/dasher.preferences.ui.h:56
-msgid "Speak All on stop"
-msgstr "Изговори све при заустављању"
-
-#: ../Data/GUI/dasher.preferences.ui.h:57
-msgid "Speak words as you write"
-msgstr "Изговара речи чим их напишете"
-
-#: ../Data/GUI/dasher.preferences.ui.h:58
-msgid "Stand-alone"
-msgstr "Самостално"
-
-#: ../Data/GUI/dasher.preferences.ui.h:61
-msgid "Start on left mouse button"
-msgstr "Почни на притисак левог дугмета миша"
-
-#: ../Data/GUI/dasher.preferences.ui.h:62
-msgid "Start on space bar"
-msgstr "Почни на притисак размака"
-
-#: ../Data/GUI/dasher.preferences.ui.h:63
-msgid "Start with mouse position:"
-msgstr "Почни са положајем миша:"
-
-#: ../Data/GUI/dasher.preferences.ui.h:64
-msgid "Timestamp new files"
-msgstr "Датум и време нових датотека"
-
-#: ../Data/GUI/dasher.preferences.ui.h:65
-msgid "Two box"
-msgstr "Две кућице"
-
-#. Line wrapping not necessary, but looks better for English
-#: ../Data/GUI/dasher.preferences.ui.h:67
-msgid ""
-"Use this control to adjust the relative sizes of the\n"
-"letter boxes. Note that selecting high values will slow\n"
-"your writing speed."
-msgstr ""
-"Користите ову контролу да прилагодите релативне \n"
-"величине кућица слова. Избор великих вредности ће \n"
-"смањити брзину уписа."
-
-#: ../Data/GUI/dasher.preferences.ui.h:70
-msgid "Very large font"
-msgstr "Веома велики фонт"
-
-#: ../Data/GUI/dasher.preferences.ui.h:72
-msgid "_Appearance"
-msgstr "_Изглед"
-
-#: ../Data/GUI/dasher.preferences.ui.h:73
 msgid "_Language"
 msgstr "_Језик"
 
-#: ../Data/GUI/dasher.traditional.ui.h:1
-msgid "A_ppend to file…"
-msgstr "_Додај у датотеку..."
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
+#: ../Data/GUI/dasher.preferences.ui.h:29
+#| msgid "<b>Control Style</b>"
+msgid "Control Style"
+msgstr "Стил управљања"
+
+#: ../Data/GUI/dasher.preferences.ui.h:30
+msgid "Options"
+msgstr "Опције"
+
+#: ../Data/GUI/dasher.preferences.ui.h:31
+#| msgid "<b>Input Device</b>"
+msgid "Input Device"
+msgstr "Улазни уређај"
+
+#: ../Data/GUI/dasher.preferences.ui.h:34
+#| msgid "<b>Starting and Stopping</b>"
+msgid "Starting and Stopping"
+msgstr "Покретање и заустављање"
+
+#: ../Data/GUI/dasher.preferences.ui.h:35
+msgid "Start on left mouse button"
+msgstr "Почни на притисак левог дугмета миша"
+
+#: ../Data/GUI/dasher.preferences.ui.h:36
+msgid "Start on space bar"
+msgstr "Почни на притисак размака"
+
+#: ../Data/GUI/dasher.preferences.ui.h:37
+msgid "Start with mouse position:"
+msgstr "Почни са положајем миша:"
+
+#: ../Data/GUI/dasher.preferences.ui.h:38
+msgid "Pause outside of canvas"
+msgstr "Паузирај изван платна"
+
+#. Abbreviation for Control Style
+#: ../Data/GUI/dasher.preferences.ui.h:40
+msgid "C_ontrol"
+msgstr "_Управљање"
+
+#: ../Data/GUI/dasher.preferences.ui.h:41
+#| msgid "<b>Colour Scheme</b>"
+msgid "Colour Scheme"
+msgstr "Боје"
+
+# bug: View the Options or Options of the View
+#: ../Data/GUI/dasher.preferences.ui.h:43
+#| msgid "<b>Appearance Options</b>"
+msgid "Appearance Options"
+msgstr "Опције изгледа"
+
+#: ../Data/GUI/dasher.preferences.ui.h:44
+msgid "Show mouse position"
+msgstr "Прикажи положај миша"
+
+#: ../Data/GUI/dasher.preferences.ui.h:45
+msgid "Draw line between crosshairs and mouse"
+msgstr "Цртај линију између нишана и миша"
+
+#: ../Data/GUI/dasher.preferences.ui.h:46
+msgid "Increase line thickness"
+msgstr "Повећај дебљину линије"
+
+#: ../Data/GUI/dasher.preferences.ui.h:47
+msgid "Draw box outlines"
+msgstr "Цртај обрисе оквира"
+
+#: ../Data/GUI/dasher.preferences.ui.h:48
+#| msgid "_Dasher Font"
+msgid "Dasher Font"
+msgstr "Словни лик"
+
+#: ../Data/GUI/dasher.preferences.ui.h:49
+msgid "Select Dasher Font"
+msgstr "Изаберите фонт за Јуришника"
+
+#: ../Data/GUI/dasher.preferences.ui.h:50
+msgid "Small font"
+msgstr "Мали фонт"
+
+#: ../Data/GUI/dasher.preferences.ui.h:51
+msgid "Large font "
+msgstr "Велико писмо "
+
+#: ../Data/GUI/dasher.preferences.ui.h:52
+msgid "Very large font"
+msgstr "Веома велики фонт"
+
+#: ../Data/GUI/dasher.preferences.ui.h:53
+msgid "_Appearance"
+msgstr "_Изглед"
+
+#: ../Data/GUI/dasher.preferences.ui.h:54
+#| msgid "<b>Application Options</b>"
+msgid "Application Options"
+msgstr "Опције програма"
+
+#: ../Data/GUI/dasher.preferences.ui.h:55
+msgid "Timestamp new files"
+msgstr "Датум и време нових датотека"
+
+#: ../Data/GUI/dasher.preferences.ui.h:56
+msgid "Show toolbar"
+msgstr "Прикажи линију алата"
+
+#: ../Data/GUI/dasher.preferences.ui.h:57
+msgid "Show speed slider"
+msgstr "Прикажи клизача брзине"
+
+#: ../Data/GUI/dasher.preferences.ui.h:58
+msgid "Control mode"
+msgstr "Режим управљања"
+
+#: ../Data/GUI/dasher.preferences.ui.h:59
+msgid "Include Clipboard commands"
+msgstr "Укључи наредбе бележнице"
+
+#: ../Data/GUI/dasher.preferences.ui.h:60
+msgid "Include Speech commands"
+msgstr "Укључи наредбе говора"
+
+#: ../Data/GUI/dasher.preferences.ui.h:61
+msgid "Force to have Halt command"
+msgstr "Присили зарад наредбе „Прекини“"
+
+#: ../Data/GUI/dasher.preferences.ui.h:62
+msgid "Include Editing commands"
+msgstr "Укључи наредбе уређивања"
+
+#: ../Data/GUI/dasher.preferences.ui.h:63
+msgid "Copy All on stop"
+msgstr "Умножи све при заустављању"
+
+#: ../Data/GUI/dasher.preferences.ui.h:64
+msgid "Speak All on stop"
+msgstr "Изговори све при заустављању"
+
+#: ../Data/GUI/dasher.preferences.ui.h:65
+msgid "Speak words as you write"
+msgstr "Изговара речи чим их напишете"
+
+#: ../Data/GUI/dasher.preferences.ui.h:66
+#| msgid "_Edit Font"
+msgid "Editor Font"
+msgstr "Словни лик уређивача"
+
+#: ../Data/GUI/dasher.preferences.ui.h:67
+msgid "Select Editor Font"
+msgstr "Изаберите фонт за уредника"
+
+#: ../Data/GUI/dasher.preferences.ui.h:68
+#| msgid "<b>Application Style</b>"
+msgid "Application Style"
+msgstr "Стил програма"
+
+#: ../Data/GUI/dasher.preferences.ui.h:69
+msgid "Stand-alone"
+msgstr "Самостално"
+
+#: ../Data/GUI/dasher.preferences.ui.h:70
+msgid "Composition"
+msgstr "Композиција"
+
+#: ../Data/GUI/dasher.preferences.ui.h:71
+msgid "Direct entry"
+msgstr "Директан унос"
+
+#: ../Data/GUI/dasher.preferences.ui.h:72
+msgid "Full Screen"
+msgstr "Цео екран"
+
+#: ../Data/GUI/dasher.preferences.ui.h:73
+msgid "A_pplication"
+msgstr "_Програм"
 
 #: ../Data/GUI/dasher.traditional.ui.h:2
-msgid "Alphabet:"
-msgstr "Писмо:"
-
-#: ../Data/GUI/dasher.traditional.ui.h:3
-msgid "Copy"
-msgstr "Умножи"
-
-#: ../Data/GUI/dasher.traditional.ui.h:5
-msgid "Cut"
-msgstr "Исеци"
-
-#: ../Data/GUI/dasher.traditional.ui.h:7
-msgid "Help"
-msgstr "Помоћ"
-
-#: ../Data/GUI/dasher.traditional.ui.h:8
 msgid "New file"
 msgstr "Нова датотека"
 
-#: ../Data/GUI/dasher.traditional.ui.h:9
+#: ../Data/GUI/dasher.traditional.ui.h:3
 msgid "Open file"
 msgstr "Отвори датотеку"
 
-#: ../Data/GUI/dasher.traditional.ui.h:10
-msgid "Paste"
-msgstr "Убаци"
-
-#: ../Data/GUI/dasher.traditional.ui.h:12
-msgid "Pr_eferences…"
-msgstr "_Поставке..."
-
-#: ../Data/GUI/dasher.traditional.ui.h:13
-msgid "Preferences"
-msgstr "Поставке"
-
-#: ../Data/GUI/dasher.traditional.ui.h:14 ../Src/Gtk2/dasher_main.cpp:992
-msgid "Quit"
-msgstr "Изађи"
-
-#: ../Data/GUI/dasher.traditional.ui.h:15
+#: ../Data/GUI/dasher.traditional.ui.h:4
 msgid "Save file"
 msgstr "Сачувај датотеку"
 
-#: ../Data/GUI/dasher.traditional.ui.h:16
+#: ../Data/GUI/dasher.traditional.ui.h:5
 msgid "Save file as"
 msgstr "Сачувај датотеку као"
 
+#: ../Data/GUI/dasher.traditional.ui.h:6
+msgid "A_ppend to file…"
+msgstr "_Додај у датотеку…"
+
+#: ../Data/GUI/dasher.traditional.ui.h:7
+msgid "_Import Training Text…"
+msgstr "_Увези текст за увежбавање…"
+
+#: ../Data/GUI/dasher.traditional.ui.h:8 ../Src/Gtk2/dasher_main.cpp:977
+msgid "Quit"
+msgstr "Изађи"
+
+#: ../Data/GUI/dasher.traditional.ui.h:10
+msgid "Cut"
+msgstr "Исеци"
+
+#: ../Data/GUI/dasher.traditional.ui.h:11
+msgid "Copy"
+msgstr "Умножи"
+
+#: ../Data/GUI/dasher.traditional.ui.h:13
+msgid "Paste"
+msgstr "Убаци"
+
+#: ../Data/GUI/dasher.traditional.ui.h:14
+msgid "Pr_eferences…"
+msgstr "_Поставке…"
+
+#: ../Data/GUI/dasher.traditional.ui.h:15
+msgid "Preferences"
+msgstr "Поставке"
+
 #: ../Data/GUI/dasher.traditional.ui.h:17
-msgid "Speed:"
-msgstr "Брзина:"
-
-#: ../Data/GUI/dasher.traditional.ui.h:18
-msgid "_About…"
-msgstr "_О програму…"
-
-#: ../Data/GUI/dasher.traditional.ui.h:19
 msgid "_Contents…"
 msgstr "_Садржај…"
 
-#: ../Data/GUI/dasher.traditional.ui.h:22
+#: ../Data/GUI/dasher.traditional.ui.h:18
+msgid "Help"
+msgstr "Помоћ"
+
+#: ../Data/GUI/dasher.traditional.ui.h:19
+msgid "_About…"
+msgstr "_О програму…"
+
+#: ../Data/GUI/dasher.traditional.ui.h:20
 msgid "_Game Mode"
 msgstr "Режим _игре"
 
-#: ../Data/GUI/dasher.traditional.ui.h:24
-msgid "_Import Training Text…"
-msgstr "_Увези текст за увежбавање…"
+#: ../Data/GUI/dasher.traditional.ui.h:22
+msgid "Speed:"
+msgstr "Брзина:"
+
+#: ../Data/GUI/dasher.traditional.ui.h:23
+msgid "Alphabet:"
+msgstr "Писмо:"
 
 #. think XML_LChar==char, depends on preprocessor variables...
 #. /TRANSLATORS: the first string is the error message from the XML Parser;
 #. / the second is the URL of the file we're trying to read.
 #: ../Src/DasherCore/AbstractXMLParser.cpp:63
 #, c-format
-#| msgid "XML Error %s in file %s somewhere in block: %s"
 msgid "XML Error %s in file %s "
-msgstr "иКсМЛ грешка „%s“ у датотеци „%s“"
+msgstr "иКсМЛ грешка „%s“ у датотеци „%s“ "
 
 #: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:116
 #, c-format
@@ -561,7 +577,6 @@ msgstr ""
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:28
 #: ../Src/DasherCore/ButtonMode.cpp:28 ../Src/DasherCore/CompassMode.cpp:28
 #: ../Src/DasherCore/StylusFilter.cpp:11
-#| msgid "Factor by which to zoom in"
 msgid "Frames over which to perform zoom"
 msgstr "Број кадрова преко којих се увећава"
 
@@ -591,7 +606,6 @@ msgid "Scan time in menu mode (0 to not scan)"
 msgstr "Време скенирања у режиму изборника (0 — искључује)"
 
 #: ../Src/DasherCore/ButtonMode.cpp:30
-#| msgid "Number of boxes"
 msgid "Number of forward boxes"
 msgstr "Број кућица за напред"
 
@@ -742,9 +756,6 @@ msgstr ""
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:176
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:128
 #, c-format
-#| msgid ""
-#| "Warning: faulty alphabet definition, escape sequence %s must be a single "
-#| "unicode character. This may worsen Dasher's text prediction."
 msgid ""
 "Warning: faulty alphabet definition: training-start delimiter %s must be a "
 "single unicode character. May be unable to process training file."
@@ -1036,7 +1047,6 @@ msgstr ""
 
 #: ../Src/DasherCore/Trainer.cpp:101
 #, c-format
-#| msgid "Unable to open file \"%f\" for reading"
 msgid "Unable to open file \"%s\" for reading"
 msgstr "Не могу да отворим датотеку „%s“ за читање"
 
@@ -1128,16 +1138,16 @@ msgid "String parameters"
 msgstr "Знаковни параметри"
 
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
-#: ../Src/Gtk2/dasher_main.cpp:248
+#: ../Src/Gtk2/dasher_main.cpp:246
 msgid "option setting is missing \"=\"."
 msgstr "подешавању опција недостаје „=“."
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
-#: ../Src/Gtk2/dasher_main.cpp:264
+#: ../Src/Gtk2/dasher_main.cpp:262
 msgid "Invalid option string specified"
 msgstr "Дат је неисправна ниска опције"
 
-#: ../Src/Gtk2/dasher_main.cpp:620
+#: ../Src/Gtk2/dasher_main.cpp:604
 msgid ""
 "Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering "
 "text in Dasher. Please select a training text to play with:"
@@ -1146,19 +1156,19 @@ msgstr ""
 "уношење текста у Јуришнику. Изаберите текст за увежбавање који ћете "
 "користити за игру:"
 
-#: ../Src/Gtk2/dasher_main.cpp:622
+#: ../Src/Gtk2/dasher_main.cpp:606
 msgid "Use Default"
 msgstr "Користи основно"
 
-#: ../Src/Gtk2/dasher_main.cpp:623
+#: ../Src/Gtk2/dasher_main.cpp:607
 msgid "Choose File..."
 msgstr "Изабери датотеку..."
 
-#: ../Src/Gtk2/dasher_main.cpp:624
+#: ../Src/Gtk2/dasher_main.cpp:608
 msgid "Cancel"
 msgstr "Поништи"
 
-#: ../Src/Gtk2/dasher_main.cpp:647
+#: ../Src/Gtk2/dasher_main.cpp:631
 msgid ""
 "Are you sure you wish to turn off game mode? All unsaved changes will be "
 "lost."
@@ -1166,7 +1176,7 @@ msgstr ""
 "Да ли сте сигурни да желите да искључите режим игре? Све несачуване измене "
 "ће бити изгубљене."
 
-#: ../Src/Gtk2/dasher_main.cpp:954
+#: ../Src/Gtk2/dasher_main.cpp:939
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1177,7 +1187,7 @@ msgstr ""
 "\n"
 "Уколико их не сачувате, оне ће бити изгубљене."
 
-#: ../Src/Gtk2/dasher_main.cpp:961
+#: ../Src/Gtk2/dasher_main.cpp:946
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1187,31 +1197,31 @@ msgstr ""
 "\n"
 "Уколико их не сачувате, оне ће бити изгубљене."
 
-#: ../Src/Gtk2/dasher_main.cpp:967
+#: ../Src/Gtk2/dasher_main.cpp:952
 msgid "Don't save"
 msgstr "Не чувај"
 
-#: ../Src/Gtk2/dasher_main.cpp:968 ../Src/Gtk2/dasher_main.cpp:991
+#: ../Src/Gtk2/dasher_main.cpp:953 ../Src/Gtk2/dasher_main.cpp:976
 msgid "Don't quit"
 msgstr "Не излази"
 
-#: ../Src/Gtk2/dasher_main.cpp:969
+#: ../Src/Gtk2/dasher_main.cpp:954
 msgid "Save and quit"
 msgstr "Сачувај и изађи"
 
-#: ../Src/Gtk2/dasher_main.cpp:988
+#: ../Src/Gtk2/dasher_main.cpp:973
 msgid "Are you sure you wish to quit?"
 msgstr "Да ли сигурно желите да изађете?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1030
+#: ../Src/Gtk2/dasher_main.cpp:1015
 msgid "Unable to open help file"
 msgstr "Не могу да отворим датотеку за помоћ"
 
-#: ../Src/Gtk2/dasher_main.cpp:1082
+#: ../Src/Gtk2/dasher_main.cpp:1067
 msgid "Dasher is a predictive text entry application"
 msgstr "Јуришник служи за предвидиво уношење текста"
 
-#: ../Src/Gtk2/dasher_main.cpp:1087
+#: ../Src/Gtk2/dasher_main.cpp:1072
 msgid "translator-credits"
 msgstr ""
 "Данило Шеган <danilo@gnome.org>\n"
@@ -1281,6 +1291,21 @@ msgstr "Опис за „--options“."
 #: ../Src/main.cc:177
 msgid "- A text input application honouring accessibility"
 msgstr "— Програм за приступачнији унос текста"
+
+#~ msgid "<b>Orientation</b>"
+#~ msgstr "<b>Усмерење</b>"
+
+#~ msgid "<b>Speed</b>"
+#~ msgstr "<b>Брзина</b>"
+
+#~ msgid "<b>Dasher Font</b>"
+#~ msgstr "<b>Писмо Јуришника</b>"
+
+#~ msgid "<b>Direction</b>"
+#~ msgstr "<b>Усмерење</b>"
+
+#~ msgid "<b>Editor Font</b>"
+#~ msgstr "<b>Писмо уређивача</b>"
 
 #~ msgid "Zoom steps"
 #~ msgstr "Кораци увећања"
@@ -1633,9 +1658,6 @@ msgstr "— Програм за приступачнији унос текста
 
 #~ msgid "Number of pixels that should cover the entire Y range:"
 #~ msgstr "Број тачака које покривају читав усправни опсег:"
-
-#~ msgid "Orientation"
-#~ msgstr "Усмерење"
 
 #~ msgid ""
 #~ "Use this control to adjust the relative sizes of the letter boxes. Note "
