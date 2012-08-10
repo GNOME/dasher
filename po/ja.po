@@ -1,18 +1,19 @@
-# Copyright (C) 2004-2010 Free Software Foundation, Inc.
+# Copyright (C) 2004-2010, 2012 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dasher package.
 # Takeshi AIHANA <takeshi.aihana@gmail.com>, 2004-2008.
 # Satoru SATOH <ss@gnome.gr.jp>, 2006.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2009, 2010.
 # Hideki Yamane (Debian-JP) <henrich@debian.or.jp>, 2009.
 # OKANO Takayoshi <kano@na.rim.or.jp>, 2010.
+# Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-06-01 17:24+0000\n"
-"PO-Revision-Date: 2012-01-01 19:55+0900\n"
-"Last-Translator: Jiro Matsuzawa <jmatsuzawa@src.gnome.org>\n"
+"PO-Revision-Date: 2012-08-10 22:52+0900\n"
+"Last-Translator: Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -89,7 +90,7 @@ msgstr "ヘルプ(_H)"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:13
 msgid "_About"
-msgstr "情報(_A)"
+msgstr "このアプリケーションについて(_A)"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:15 ../Data/GUI/dashermaemo.ui.h:4
 #: ../Src/Gtk2/dasher_editor.cpp:817 ../Src/Gtk2/dasher_editor.cpp:851
@@ -516,7 +517,7 @@ msgstr "ヘルプを表示します"
 
 #: ../Data/GUI/dasher.traditional.ui.h:19
 msgid "_About…"
-msgstr "情報(_A)…"
+msgstr "このアプリケーションについて(_A)…"
 
 #: ../Data/GUI/dasher.traditional.ui.h:20
 #, fuzzy
