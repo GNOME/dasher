@@ -1,502 +1,252 @@
 # Indonesia translation of dasher.
 # Copyright (C) 2004 THE dasher'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the dasher package.
-# Mohammad DAMT <mdamt@bisnisweb.com>
-# Ahmad Riza H Nst <ari@160c.afraid.org> 20040607
-#
+# Mohammad DAMT <mdamt@bisnisweb.com>, 2004
+# Ahmad Riza H Nst <ari@160c.afraid.org> 2004, 2006
+# Andika Triwidada <andika@gmail.com>, 2010, 2012
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&component=general\n"
-"POT-Creation-Date: 2010-04-22 21:50+0000\n"
-"PO-Revision-Date: 2010-04-24 17:04+0700\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=dasher&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2012-06-01 17:24+0000\n"
+"PO-Revision-Date: 2012-09-09 15:26+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: GNOME Indonesian Translation Team <gnome@i15n.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Indonesian\n"
-"X-Poedit-Country: Indonesia\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: id\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
-#: ../Data/dasher.desktop.in.in.h:1
-#: ../Data/GUI/dasher.compose.ui.h:6
-#: ../Data/GUI/dasher.direct.ui.h:2
-#: ../Data/GUI/dasher.fullscreen.ui.h:1
-#: ../Data/GUI/dasher.gameWIP.ui.h:6
-#: ../Data/GUI/dasher.traditional.ui.h:6
-#: ../Data/GUI/dashermaemo.ui.h:1
-#: ../Data/GUI/dashermaemofullscreen.ui.h:2
-#: ../Src/Gtk2/dasher_main.cpp:953
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:14
+#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:21
+#: ../Src/Gtk2/dasher_main.cpp:884
 msgid "Dasher"
 msgstr "Dasher"
 
 #: ../Data/dasher.desktop.in.in.h:2
-msgid "Enter text without a keyboard"
-msgstr "Masukan teks tanpa papan tik"
-
-#: ../Data/dasher.desktop.in.in.h:3
 msgid "Predictive text entry"
 msgstr "Isian teks yang prediktif"
 
-#: ../Data/GUI/dasher.compose.ui.h:1
-msgid "A_ppend to file"
-msgstr "_Tambahkan ke berkas"
+#: ../Data/dasher.desktop.in.in.h:3
+msgid "Enter text without a keyboard"
+msgstr "Masukan teks tanpa papan tik"
 
-#: ../Data/GUI/dasher.compose.ui.h:2
-#: ../Data/GUI/dasher.direct.ui.h:1
-#: ../Data/GUI/dasher.gameWIP.ui.h:2
-#: ../Data/GUI/dasher.traditional.ui.h:2
-msgid "Alphabet:"
-msgstr "Alfabet:"
-
-#: ../Data/GUI/dasher.compose.ui.h:3
-#: ../Data/GUI/dasher.gameWIP.ui.h:3
-#: ../Data/GUI/dasher.traditional.ui.h:3
-msgid "Copy"
-msgstr "Salin"
-
-#: ../Data/GUI/dasher.compose.ui.h:4
-#: ../Data/GUI/dasher.gameWIP.ui.h:4
-#: ../Data/GUI/dasher.traditional.ui.h:4
 #: ../Data/GUI/dashermaemofullscreen.ui.h:1
-msgid "Copy _All"
-msgstr "Salin Semu_a"
-
-#: ../Data/GUI/dasher.compose.ui.h:5
-#: ../Data/GUI/dasher.gameWIP.ui.h:5
-#: ../Data/GUI/dasher.traditional.ui.h:5
-msgid "Cut"
-msgstr "Potong"
-
-#: ../Data/GUI/dasher.compose.ui.h:7
-msgid "Dasher _Tutorial"
-msgstr "_Tutorial Dasher"
-
-#: ../Data/GUI/dasher.compose.ui.h:8
-#: ../Data/GUI/dasher.gameWIP.ui.h:12
-#: ../Data/GUI/dasher.traditional.ui.h:8
-msgid "New file"
-msgstr "Berkas baru"
-
-#: ../Data/GUI/dasher.compose.ui.h:9
-#: ../Data/GUI/dasher.gameWIP.ui.h:14
-#: ../Data/GUI/dasher.traditional.ui.h:9
-msgid "Open file"
-msgstr "Buka berkas"
-
-#: ../Data/GUI/dasher.compose.ui.h:10
-#: ../Data/GUI/dasher.gameWIP.ui.h:15
-#: ../Data/GUI/dasher.traditional.ui.h:10
-msgid "Paste"
-msgstr "Tempel"
-
-#: ../Data/GUI/dasher.compose.ui.h:11
-#: ../Data/GUI/dasher.direct.ui.h:3
-#: ../Data/GUI/dasher.fullscreen.ui.h:2
-#: ../Data/GUI/dasher.gameWIP.ui.h:16
-#: ../Data/GUI/dasher.traditional.ui.h:11
-#: ../Data/GUI/dashermaemo.ui.h:4
-msgid "Please Wait…"
-msgstr "Silakan Tunggu..."
-
-#: ../Data/GUI/dasher.compose.ui.h:12
-msgid "Pr_eferences"
-msgstr "Pr_eferensi"
-
-#: ../Data/GUI/dasher.compose.ui.h:13
-#: ../Data/GUI/dasher.gameWIP.ui.h:20
-#: ../Data/GUI/dasher.traditional.ui.h:15
-msgid "Save file"
-msgstr "Simpan berkas"
-
-#: ../Data/GUI/dasher.compose.ui.h:14
-#: ../Data/GUI/dasher.gameWIP.ui.h:21
-#: ../Data/GUI/dasher.traditional.ui.h:16
-msgid "Save file as"
-msgstr "Simpan berkas sebagai"
-
-#: ../Data/GUI/dasher.compose.ui.h:15
-#: ../Data/GUI/dasher.fullscreen.ui.h:3
-#: ../Data/GUI/dasher.gameWIP.ui.h:23
-#: ../Data/GUI/dashermaemo.ui.h:5
-#: ../Data/GUI/dashermaemofullscreen.ui.h:5
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1320
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1354
-#: ../Src/Gtk2/dasher_main.cpp:968
-msgid "Select File"
-msgstr "Pilih Berkas"
-
-#: ../Data/GUI/dasher.compose.ui.h:16
-#: ../Data/GUI/dasher.fullscreen.ui.h:4
-#: ../Data/GUI/dashermaemo.ui.h:6
-#: ../Data/GUI/dashermaemofullscreen.ui.h:6
-msgid "Select Font"
-msgstr "Pilih Fonta"
-
-#: ../Data/GUI/dasher.compose.ui.h:17
-#: ../Data/GUI/dasher.direct.ui.h:4
-#: ../Data/GUI/dasher.gameWIP.ui.h:24
-#: ../Data/GUI/dasher.traditional.ui.h:17
-msgid "Speed:"
-msgstr "Kecepatan:"
-
-#: ../Data/GUI/dasher.compose.ui.h:18
-#: ../Data/GUI/dashermaemofullscreen.ui.h:8
-msgid "_About"
-msgstr "Tent_ang"
-
-#: ../Data/GUI/dasher.compose.ui.h:19
-msgid "_Contents"
-msgstr "_Isi"
-
-#: ../Data/GUI/dasher.compose.ui.h:20
-#: ../Data/GUI/dasher.gameWIP.ui.h:27
-#: ../Data/GUI/dasher.traditional.ui.h:20
-#: ../Data/GUI/dashermaemofullscreen.ui.h:11
-msgid "_Edit"
-msgstr "_Edit"
-
-#: ../Data/GUI/dasher.compose.ui.h:21
-#: ../Data/GUI/dasher.gameWIP.ui.h:28
-#: ../Data/GUI/dasher.traditional.ui.h:21
-#: ../Data/GUI/dashermaemofullscreen.ui.h:13
+#: ../Data/GUI/dasher.traditional.ui.h:1
 msgid "_File"
 msgstr "_Berkas"
 
-#: ../Data/GUI/dasher.compose.ui.h:22
-#: ../Data/GUI/dasher.gameWIP.ui.h:29
-#: ../Data/GUI/dasher.traditional.ui.h:22
-#: ../Data/GUI/dashermaemofullscreen.ui.h:14
+#: ../Data/GUI/dashermaemofullscreen.ui.h:2
+#: ../Data/GUI/dasher.traditional.ui.h:9
+msgid "_Edit"
+msgstr "_Edit"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:3
+#: ../Data/GUI/dasher.traditional.ui.h:12
+msgid "Copy _All"
+msgstr "Salin Semu_a"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:4
+msgid "_Options"
+msgstr "_Pilihan"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:5
+msgid "_Edit Font"
+msgstr "_Edit Huruf"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:6
+msgid "_Dasher Font"
+msgstr "Huruf _Dasher"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:7
+msgid "_Dasher Font Size"
+msgstr "Ukuran Huruf _Dasher"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:8
+msgid "Normal"
+msgstr "Normal"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:9
+msgid "Large"
+msgstr "Besar"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:10
+msgid "Very Large"
+msgstr "Besar Sekali"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:11
+msgid "_Reset fonts"
+msgstr "_Reset Huruf"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:12
+#: ../Data/GUI/dasher.traditional.ui.h:16
 msgid "_Help"
 msgstr "Ba_ntuan"
 
-#: ../Data/GUI/dasher.compose.ui.h:23
-msgid "_Import Training Text"
-msgstr "_Import Teks Pelatihan"
+#: ../Data/GUI/dashermaemofullscreen.ui.h:13
+msgid "_About"
+msgstr "Tent_ang"
 
-#: ../Data/GUI/dasher.gameWIP.ui.h:1
-#: ../Data/GUI/dasher.traditional.ui.h:1
-msgid "A_ppend to file…"
-msgstr "_Tambahkan ke berkas..."
+#: ../Data/GUI/dashermaemofullscreen.ui.h:15 ../Data/GUI/dashermaemo.ui.h:4
+#: ../Src/Gtk2/dasher_editor.cpp:817 ../Src/Gtk2/dasher_editor.cpp:851
+#: ../Src/Gtk2/dasher_main.cpp:899
+msgid "Select File"
+msgstr "Pilih Berkas"
 
-#: ../Data/GUI/dasher.gameWIP.ui.h:7
-msgid "Demo!"
-msgstr "Demo!"
+#: ../Data/GUI/dashermaemofullscreen.ui.h:16 ../Data/GUI/dashermaemo.ui.h:5
+msgid "Select Font"
+msgstr "Pilih Fonta"
 
-#: ../Data/GUI/dasher.gameWIP.ui.h:8
-msgid "Full Demo"
-msgstr "Demo Penuh"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:9
-#: ../Data/GUI/dasher.traditional.ui.h:7
-msgid "Help"
-msgstr "Bantuan"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:10
-msgid "Launch Dasher Game & Demo mode!"
-msgstr "Luncurkan Permainan Dasher & moda Demo!"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:11
-msgid "Level:"
-msgstr "Tingkat:"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:13
-msgid "New sentence"
-msgstr "Kalimat baru"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:17
-#: ../Data/GUI/dasher.traditional.ui.h:12
-msgid "Pr_eferences…"
-msgstr "Pr_eferensi…"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:18
-#: ../Data/GUI/dasher.traditional.ui.h:13
-msgid "Preferences"
-msgstr "Preferensi"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:19
-#: ../Data/GUI/dasher.traditional.ui.h:14
-#: ../Src/Gtk2/dasher_main.cpp:1046
-msgid "Quit"
-msgstr "Keluar"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:22
-msgid "Score:"
-msgstr "Nilai:"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:25
-#: ../Data/GUI/dasher.traditional.ui.h:18
-msgid "_About…"
-msgstr "Tent_ang..."
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:26
-#: ../Data/GUI/dasher.traditional.ui.h:19
-msgid "_Contents…"
-msgstr "_Isi..."
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:30
-#: ../Data/GUI/dasher.traditional.ui.h:23
-msgid "_Import Training Text…"
-msgstr "_Impor Teks Pelatihan..."
-
-#: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "Actions"
-msgstr "Aksi"
-
-#: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-msgid "Adaptation"
-msgstr "Adaptasi"
-
 #: ../Data/GUI/dasher.preferences.ui.h:3
-#: ../Data/GUI/dashermaemo.preferences.ui.h:2
-msgid "Alphabet Selection"
-msgstr "Pilihan Alfabet"
-
-#: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "Appearance Options"
-msgstr "Opsi Penampilan"
-
-#: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "Application Options"
-msgstr "Opsi Aplikasi"
-
-#: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "Application Style"
-msgstr "Gaya Aplikasi"
-
-#: ../Data/GUI/dasher.preferences.ui.h:7
-msgid "Colour Scheme"
-msgstr "Skema Warna"
-
-#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
-#: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "Control Style"
-msgstr "Gaya Kendali"
-
-#: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "Dasher Font"
-msgstr "Fonta Dasher"
-
-#: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "Direction"
-msgstr "Arah"
-
-#: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "Editor Font"
-msgstr "Fonta Penyunting"
-
-#: ../Data/GUI/dasher.preferences.ui.h:13
-msgid "Input Device"
-msgstr "Perangkat Masukan"
-
-#: ../Data/GUI/dasher.preferences.ui.h:14
-#: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "Language Model"
-msgstr "Model Bahasa"
-
-#: ../Data/GUI/dasher.preferences.ui.h:15
-#: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "Smoothing"
-msgstr "Penghalusan"
-
-#: ../Data/GUI/dasher.preferences.ui.h:16
-#: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "Speed"
-msgstr "Kecepatan"
-
-#: ../Data/GUI/dasher.preferences.ui.h:17
-msgid "Starting and Stopping"
-msgstr "Memulai dan Menghentikan"
-
-#: ../Data/GUI/dasher.preferences.ui.h:18
-#: ../Data/GUI/dashermaemo.preferences.ui.h:9
-msgid "Adapt speed automatically"
-msgstr "Adaptasikan kecepatan secara otomatis"
-
-#. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
-#: ../Data/GUI/dasher.preferences.ui.h:20
-#: ../Data/GUI/dashermaemo.preferences.ui.h:11
-msgid "Alphabet Default"
-msgstr "Alfabet Default"
-
-#: ../Data/GUI/dasher.preferences.ui.h:21
-msgid "Appearance"
-msgstr "Penampilan"
-
-#: ../Data/GUI/dasher.preferences.ui.h:22
-msgid "Application"
-msgstr "Aplikasi"
-
-#: ../Data/GUI/dasher.preferences.ui.h:23
-#: ../Data/GUI/dashermaemo.preferences.ui.h:12
-msgid "Bottom to Top"
-msgstr "Bawah ke Atas"
-
-#: ../Data/GUI/dasher.preferences.ui.h:24
-msgid "Centre circle"
-msgstr "Lingkaran tengah"
-
-#: ../Data/GUI/dasher.preferences.ui.h:25
-msgid "Composition"
-msgstr "Komposisi"
-
-#. Abbreviation for Control Style
-#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
-#: ../Data/GUI/dasher.preferences.ui.h:27
-#: ../Data/GUI/dashermaemo.preferences.ui.h:14
-msgid "Control"
-msgstr "Kontrol"
-
-#: ../Data/GUI/dasher.preferences.ui.h:28
-msgid "Control mode"
-msgstr "Moda kendali"
-
-#: ../Data/GUI/dasher.preferences.ui.h:29
-#: ../Data/GUI/dashermaemo.preferences.ui.h:15
-msgid "Custom"
-msgstr "Gubahan"
-
-#: ../Data/GUI/dasher.preferences.ui.h:30
-#: ../Data/GUI/dashermaemo.preferences.ui.h:16
-msgid "Custom colour scheme:"
-msgstr "Sesuaikan susunan warna:"
-
-#: ../Data/GUI/dasher.preferences.ui.h:31
-#: ../Data/GUI/dashermaemo.preferences.ui.h:17
 msgid "Dasher Preferences"
 msgstr "Mengatur Dasher"
 
-#: ../Data/GUI/dasher.preferences.ui.h:32
-msgid "Direct entry"
-msgstr "Masukan langsung"
+#: ../Data/GUI/dashermaemo.preferences.ui.h:2
+#: ../Data/GUI/dasher.preferences.ui.h:4
+msgid "Alphabet Selection"
+msgstr "Pilihan Alfabet"
 
-#: ../Data/GUI/dasher.preferences.ui.h:33
-msgid "Dock application window"
-msgstr "Labuhkan jendela aplikasi"
+#: ../Data/GUI/dashermaemo.preferences.ui.h:3
+msgid "Color Scheme"
+msgstr "Skema warna"
 
-#: ../Data/GUI/dasher.preferences.ui.h:34
-msgid "Draw box outlines"
-msgstr "Gambar garis luar kotak"
-
-#: ../Data/GUI/dasher.preferences.ui.h:35
-msgid "Draw line between crosshairs and mouse"
-msgstr "Gambar garis antara pembidik dan mouse"
-
-#: ../Data/GUI/dasher.preferences.ui.h:36
-msgid "Full Screen"
-msgstr "Layar Penuh"
-
-#: ../Data/GUI/dasher.preferences.ui.h:37
-msgid "Increase line thickness"
-msgstr "Tambah ketebalan garis"
-
-#: ../Data/GUI/dasher.preferences.ui.h:38
-#: ../Data/GUI/dashermaemo.preferences.ui.h:19
-msgid "Japanese"
-msgstr "Jepang"
-
-#: ../Data/GUI/dasher.preferences.ui.h:39
-msgid "Language"
-msgstr "Bahasa"
-
-#: ../Data/GUI/dasher.preferences.ui.h:40
-#: ../Data/GUI/dashermaemo.preferences.ui.h:20
-msgid "Language model adapts as you write."
-msgstr "Mode bahasa akan mengadaptasi sewaktu anda menulis."
-
-#: ../Data/GUI/dasher.preferences.ui.h:41
-msgid "Large font "
-msgstr "Huruf Ukuran Besar "
-
+#: ../Data/GUI/dashermaemo.preferences.ui.h:4
 #: ../Data/GUI/dasher.preferences.ui.h:42
-#: ../Data/GUI/dashermaemo.preferences.ui.h:21
+msgid "Custom colour scheme:"
+msgstr "Sesuaikan susunan warna:"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:5
+msgid "Alphabet"
+msgstr "Alfabet"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:6
+#: ../Data/GUI/dasher.preferences.ui.h:32
+msgid "Speed"
+msgstr "Kecepatan"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:7
+#: ../Data/GUI/dasher.preferences.ui.h:33
+msgid "Adapt speed automatically"
+msgstr "Adaptasikan kecepatan secara otomatis"
+
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:9
+msgid "Control"
+msgstr "Kontrol"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:10
+msgid "Display Size"
+msgstr "Ukuran Tampilan"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:11
+msgid "Enlarge input window"
+msgstr "Perbesar jendela masukan"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:12
+msgid "Orientation"
+msgstr "Orientasi"
+
+#. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:13
+#: ../Data/GUI/dasher.preferences.ui.h:21
+msgid "Alphabet Default"
+msgstr "Alfabet Default"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:14
+msgid "Custom"
+msgstr "Gubahan"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:15
 msgid "Left to Right"
 msgstr "Kiri ke kanan"
 
-#. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dasher.preferences.ui.h:44
-#: ../Data/GUI/dashermaemo.preferences.ui.h:22
-msgid "Mixture model (PPM/dictionary)"
-msgstr "Mode campuran (PPM/kamus)"
-
-#: ../Data/GUI/dasher.preferences.ui.h:45
-msgid "Options"
-msgstr "Pilihan"
-
-#: ../Data/GUI/dasher.preferences.ui.h:46
-msgid "Pause outside of canvas"
-msgstr "Istirahat di luar kanvas"
-
-#: ../Data/GUI/dasher.preferences.ui.h:47
-#: ../Data/GUI/dashermaemo.preferences.ui.h:24
+#: ../Data/GUI/dashermaemo.preferences.ui.h:16
 msgid "Right to Left"
 msgstr "Kanan ke Kiri"
 
-#: ../Data/GUI/dasher.preferences.ui.h:48
-msgid "Select Dasher Font"
-msgstr "Pilih Fonta Dasher"
-
-#: ../Data/GUI/dasher.preferences.ui.h:49
-msgid "Select Editor Font"
-msgstr "Pilih Fonta Penyunting"
-
-#: ../Data/GUI/dasher.preferences.ui.h:50
-msgid "Show mouse position"
-msgstr "Tampilkan posisi mouse"
-
-#: ../Data/GUI/dasher.preferences.ui.h:51
-msgid "Show speed slider"
-msgstr "Tampilkan kecepatan penggeser"
-
-#: ../Data/GUI/dasher.preferences.ui.h:52
-msgid "Show toolbar"
-msgstr "Tampilkan batang tombol"
-
-#: ../Data/GUI/dasher.preferences.ui.h:53
-msgid "Small font"
-msgstr "Huruf ukuran kecil"
-
-#: ../Data/GUI/dasher.preferences.ui.h:54
-msgid "Stand-alone"
-msgstr "Berdiri sendiri"
-
-#. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dasher.preferences.ui.h:56
-#: ../Data/GUI/dashermaemo.preferences.ui.h:25
-msgid "Standard letter-based PPM"
-msgstr "Surat standard berbasis PPM"
-
-#: ../Data/GUI/dasher.preferences.ui.h:57
-msgid "Start on left mouse button"
-msgstr "Mulai pada tombol mouse kiri"
-
-#: ../Data/GUI/dasher.preferences.ui.h:58
-msgid "Start on space bar"
-msgstr "Mulai pada spasi"
-
-#: ../Data/GUI/dasher.preferences.ui.h:59
-msgid "Start with mouse position:"
-msgstr "Mulai dengan posisi mouse:"
-
-#: ../Data/GUI/dasher.preferences.ui.h:60
-msgid "Timestamp new files"
-msgstr "Timestamp file baru"
-
-#: ../Data/GUI/dasher.preferences.ui.h:61
-#: ../Data/GUI/dashermaemo.preferences.ui.h:26
+#: ../Data/GUI/dashermaemo.preferences.ui.h:17
 msgid "Top to Bottom"
 msgstr "Atas ke bawah"
 
-#: ../Data/GUI/dasher.preferences.ui.h:62
+#: ../Data/GUI/dashermaemo.preferences.ui.h:18
+msgid "Bottom to Top"
+msgstr "Bawah ke Atas"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:19
+msgid "View"
+msgstr "Tampilan"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:20
+#: ../Data/GUI/dasher.preferences.ui.h:5
+msgid "Language Model"
+msgstr "Model Bahasa"
+
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:21
+#: ../Data/GUI/dasher.preferences.ui.h:7
+msgid "Standard letter-based PPM"
+msgstr "Surat standard berbasis PPM"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:22
+#: ../Data/GUI/dasher.preferences.ui.h:8
+msgid "Word-based model"
+msgstr "Model berdasarkan-kata"
+
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:23
+#: ../Data/GUI/dasher.preferences.ui.h:10
+msgid "Mixture model (PPM/dictionary)"
+msgstr "Mode campuran (PPM/kamus)"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:24
+#: ../Data/GUI/dasher.preferences.ui.h:11
+msgid "Japanese"
+msgstr "Jepang"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:25
+#: ../Data/GUI/dasher.preferences.ui.h:12
+msgid "Adaptation"
+msgstr "Adaptasi"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:26
+#: ../Data/GUI/dasher.preferences.ui.h:13
+msgid "Language model adapts as you write."
+msgstr "Mode bahasa akan mengadaptasi sewaktu anda menulis."
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:27
+#: ../Data/GUI/dasher.preferences.ui.h:14
+msgid "Smoothing"
+msgstr "Penghalusan"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:28
+msgid "Prediction"
+msgstr "Prediksi"
+
+#. Abbreviation for Preferences
+#: ../Data/GUI/dashermaemo.ui.h:3
+msgid "P"
+msgstr "P"
+
+#: ../Data/GUI/dashermaemo.ui.h:6 ../Data/GUI/dasher.traditional.ui.h:24
+msgid "Please Wait…"
+msgstr "Silakan Tunggu…"
+
+#: ../Data/GUI/dasher.preferences.ui.h:1
+msgid "Centre circle"
+msgstr "Lingkaran tengah"
+
+#: ../Data/GUI/dasher.preferences.ui.h:2
 msgid "Two box"
 msgstr "Dua kotak"
 
 #. Line wrapping not necessary, but looks better for English
-#: ../Data/GUI/dasher.preferences.ui.h:64
+#: ../Data/GUI/dasher.preferences.ui.h:16
 msgid ""
 "Use this control to adjust the relative sizes of the\n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -506,91 +256,325 @@ msgstr ""
 "kotak huruf. Perhatikan bahwa dengan memilih nilai tinggi\n"
 "akan memperlambat kecepatan tulis Anda."
 
-#: ../Data/GUI/dasher.preferences.ui.h:67
+#: ../Data/GUI/dasher.preferences.ui.h:19
+msgid "Direction"
+msgstr "Arah"
+
+#. This means that you always want to write left-to-right regardless of the normal direction for the alphabet you are using
+#: ../Data/GUI/dasher.preferences.ui.h:23
+#| msgid "Left to Right"
+msgid "Always Left-to-Right"
+msgstr "Selalu Kiri-ke-Kanan"
+
+#: ../Data/GUI/dasher.preferences.ui.h:24
+#| msgid "Right to Left"
+msgid "Always Right-to-Left"
+msgstr "Selalu Kanan-ke-Kiri"
+
+#: ../Data/GUI/dasher.preferences.ui.h:25
+#| msgid "Top to Bottom"
+msgid "Always Top-to-Bottom"
+msgstr "Selalu Atas-ke-Bawah"
+
+#: ../Data/GUI/dasher.preferences.ui.h:26
+#| msgid "Bottom to Top"
+msgid "Always Bottom-to-Top"
+msgstr "Selalu Bawah-ke-Atas"
+
+#: ../Data/GUI/dasher.preferences.ui.h:27
+#| msgid "Language"
+msgid "_Language"
+msgstr "_Bahasa"
+
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
+#: ../Data/GUI/dasher.preferences.ui.h:29
+msgid "Control Style"
+msgstr "Gaya Kendali"
+
+#: ../Data/GUI/dasher.preferences.ui.h:30
+msgid "Options"
+msgstr "Pilihan"
+
+#: ../Data/GUI/dasher.preferences.ui.h:31
+msgid "Input Device"
+msgstr "Perangkat Masukan"
+
+#: ../Data/GUI/dasher.preferences.ui.h:34
+msgid "Starting and Stopping"
+msgstr "Memulai dan Menghentikan"
+
+#: ../Data/GUI/dasher.preferences.ui.h:35
+msgid "Start on left mouse button"
+msgstr "Mulai pada tombol mouse kiri"
+
+#: ../Data/GUI/dasher.preferences.ui.h:36
+msgid "Start on space bar"
+msgstr "Mulai pada spasi"
+
+#: ../Data/GUI/dasher.preferences.ui.h:37
+msgid "Start with mouse position:"
+msgstr "Mulai dengan posisi mouse:"
+
+#: ../Data/GUI/dasher.preferences.ui.h:38
+msgid "Pause outside of canvas"
+msgstr "Istirahat di luar kanvas"
+
+#. Abbreviation for Control Style
+#: ../Data/GUI/dasher.preferences.ui.h:40
+#| msgid "Control"
+msgid "C_ontrol"
+msgstr "_Kontrol"
+
+#: ../Data/GUI/dasher.preferences.ui.h:41
+msgid "Colour Scheme"
+msgstr "Skema Warna"
+
+#: ../Data/GUI/dasher.preferences.ui.h:43
+msgid "Appearance Options"
+msgstr "Opsi Penampilan"
+
+#: ../Data/GUI/dasher.preferences.ui.h:44
+msgid "Show mouse position"
+msgstr "Tampilkan posisi mouse"
+
+#: ../Data/GUI/dasher.preferences.ui.h:45
+msgid "Draw line between crosshairs and mouse"
+msgstr "Gambar garis antara pembidik dan mouse"
+
+#: ../Data/GUI/dasher.preferences.ui.h:46
+msgid "Increase line thickness"
+msgstr "Tambah ketebalan garis"
+
+#: ../Data/GUI/dasher.preferences.ui.h:47
+msgid "Draw box outlines"
+msgstr "Gambar garis luar kotak"
+
+#: ../Data/GUI/dasher.preferences.ui.h:48
+msgid "Dasher Font"
+msgstr "Fonta Dasher"
+
+#: ../Data/GUI/dasher.preferences.ui.h:49
+msgid "Select Dasher Font"
+msgstr "Pilih Fonta Dasher"
+
+#: ../Data/GUI/dasher.preferences.ui.h:50
+msgid "Small font"
+msgstr "Huruf ukuran kecil"
+
+#: ../Data/GUI/dasher.preferences.ui.h:51
+msgid "Large font "
+msgstr "Huruf Ukuran Besar "
+
+#: ../Data/GUI/dasher.preferences.ui.h:52
 msgid "Very large font"
 msgstr "Huruf ukuran besar sekali"
 
+#: ../Data/GUI/dasher.preferences.ui.h:53
+#| msgid "Appearance"
+msgid "_Appearance"
+msgstr "Pen_ampilan"
+
+#: ../Data/GUI/dasher.preferences.ui.h:54
+msgid "Application Options"
+msgstr "Opsi Aplikasi"
+
+#: ../Data/GUI/dasher.preferences.ui.h:55
+msgid "Timestamp new files"
+msgstr "Timestamp file baru"
+
+#: ../Data/GUI/dasher.preferences.ui.h:56
+msgid "Show toolbar"
+msgstr "Tampilkan batang tombol"
+
+#: ../Data/GUI/dasher.preferences.ui.h:57
+msgid "Show speed slider"
+msgstr "Tampilkan kecepatan penggeser"
+
+#: ../Data/GUI/dasher.preferences.ui.h:58
+msgid "Control mode"
+msgstr "Moda kendali"
+
+#: ../Data/GUI/dasher.preferences.ui.h:59
+msgid "Include Clipboard commands"
+msgstr "Sertakan perintah Papan Klip"
+
+#: ../Data/GUI/dasher.preferences.ui.h:60
+msgid "Include Speech commands"
+msgstr "Sertakan perintah Bicara"
+
+#: ../Data/GUI/dasher.preferences.ui.h:61
+msgid "Force to have Halt command"
+msgstr "Paksakan punya perintah Halt"
+
+#: ../Data/GUI/dasher.preferences.ui.h:62
+msgid "Include Editing commands"
+msgstr "Sertakan perintah Penyuntingan"
+
+#: ../Data/GUI/dasher.preferences.ui.h:63
+#| msgid "Copy _All"
+msgid "Copy All on stop"
+msgstr "Salin Semua saat berhenti"
+
+#: ../Data/GUI/dasher.preferences.ui.h:64
+msgid "Speak All on stop"
+msgstr "Ucapkan Semua saat berhenti"
+
+#: ../Data/GUI/dasher.preferences.ui.h:65
+#| msgid "Language model adapts as you write."
+msgid "Speak words as you write"
+msgstr "Ucapkan kata sewaktu Anda menulis"
+
+#: ../Data/GUI/dasher.preferences.ui.h:66
+msgid "Editor Font"
+msgstr "Fonta Penyunting"
+
+#: ../Data/GUI/dasher.preferences.ui.h:67
+msgid "Select Editor Font"
+msgstr "Pilih Fonta Penyunting"
+
 #: ../Data/GUI/dasher.preferences.ui.h:68
-#: ../Data/GUI/dashermaemo.preferences.ui.h:28
-msgid "Word-based model"
-msgstr "Model berdasarkan-kata"
+msgid "Application Style"
+msgstr "Gaya Aplikasi"
 
-#. Abbreviation for Preferences
-#: ../Data/GUI/dashermaemo.ui.h:3
-msgid "P"
-msgstr "P"
+#: ../Data/GUI/dasher.preferences.ui.h:69
+msgid "Stand-alone"
+msgstr "Berdiri sendiri"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "Color Scheme"
-msgstr "Skema warna"
+#: ../Data/GUI/dasher.preferences.ui.h:70
+msgid "Composition"
+msgstr "Komposisi"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "Display Size"
-msgstr "Ukuran Tampilan"
+#: ../Data/GUI/dasher.preferences.ui.h:71
+msgid "Direct entry"
+msgstr "Masukan langsung"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "Orientation"
-msgstr "Orientasi"
+#: ../Data/GUI/dasher.preferences.ui.h:72
+msgid "Full Screen"
+msgstr "Layar Penuh"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:10
-msgid "Alphabet"
-msgstr "Alfabet"
+#: ../Data/GUI/dasher.preferences.ui.h:73
+#| msgid "Application"
+msgid "A_pplication"
+msgstr "A_plikasi"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:18
-msgid "Enlarge input window"
-msgstr "Perbesar jendela masukan"
+#: ../Data/GUI/dasher.traditional.ui.h:2
+msgid "New file"
+msgstr "Berkas baru"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:23
-msgid "Prediction"
-msgstr "Prediksi"
+#: ../Data/GUI/dasher.traditional.ui.h:3
+msgid "Open file"
+msgstr "Buka berkas"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:27
-msgid "View"
-msgstr "Tampilan"
+#: ../Data/GUI/dasher.traditional.ui.h:4
+msgid "Save file"
+msgstr "Simpan berkas"
 
-#: ../Data/GUI/dashermaemofullscreen.ui.h:3
-msgid "Large"
-msgstr "Besar"
+#: ../Data/GUI/dasher.traditional.ui.h:5
+msgid "Save file as"
+msgstr "Simpan berkas sebagai"
 
-#: ../Data/GUI/dashermaemofullscreen.ui.h:4
-msgid "Normal"
-msgstr "Normal"
+#: ../Data/GUI/dasher.traditional.ui.h:6
+msgid "A_ppend to file…"
+msgstr "_Tambahkan ke berkas…"
 
-#: ../Data/GUI/dashermaemofullscreen.ui.h:7
-msgid "Very Large"
-msgstr "Besar Sekali"
+#: ../Data/GUI/dasher.traditional.ui.h:7
+msgid "_Import Training Text…"
+msgstr "_Impor Teks Pelatihan…"
 
-#: ../Data/GUI/dashermaemofullscreen.ui.h:9
-msgid "_Dasher Font"
-msgstr "Huruf _Dasher"
+#: ../Data/GUI/dasher.traditional.ui.h:8 ../Src/Gtk2/dasher_main.cpp:977
+msgid "Quit"
+msgstr "Keluar"
 
-#: ../Data/GUI/dashermaemofullscreen.ui.h:10
-msgid "_Dasher Font Size"
-msgstr "Ukuran Huruf _Dasher"
+#: ../Data/GUI/dasher.traditional.ui.h:10
+msgid "Cut"
+msgstr "Potong"
 
-#: ../Data/GUI/dashermaemofullscreen.ui.h:12
-msgid "_Edit Font"
-msgstr "_Edit Huruf"
+#: ../Data/GUI/dasher.traditional.ui.h:11
+msgid "Copy"
+msgstr "Salin"
 
-#: ../Data/GUI/dashermaemofullscreen.ui.h:15
-msgid "_Options"
-msgstr "_Pilihan"
+#: ../Data/GUI/dasher.traditional.ui.h:13
+msgid "Paste"
+msgstr "Tempel"
 
-#: ../Data/GUI/dashermaemofullscreen.ui.h:16
-msgid "_Reset fonts"
-msgstr "_Reset Huruf"
+#: ../Data/GUI/dasher.traditional.ui.h:14
+msgid "Pr_eferences…"
+msgstr "Pr_eferensi…"
+
+#: ../Data/GUI/dasher.traditional.ui.h:15
+msgid "Preferences"
+msgstr "Preferensi"
+
+#: ../Data/GUI/dasher.traditional.ui.h:17
+msgid "_Contents…"
+msgstr "_Isi…"
+
+#: ../Data/GUI/dasher.traditional.ui.h:18
+msgid "Help"
+msgstr "Bantuan"
+
+#: ../Data/GUI/dasher.traditional.ui.h:19
+msgid "_About…"
+msgstr "Tent_ang…"
+
+#: ../Data/GUI/dasher.traditional.ui.h:20
+#| msgid "Menu Mode"
+msgid "_Game Mode"
+msgstr "Mode _Permainan"
+
+#: ../Data/GUI/dasher.traditional.ui.h:22
+msgid "Speed:"
+msgstr "Kecepatan:"
+
+#: ../Data/GUI/dasher.traditional.ui.h:23
+msgid "Alphabet:"
+msgstr "Alfabet:"
+
+#. think XML_LChar==char, depends on preprocessor variables...
+#. /TRANSLATORS: the first string is the error message from the XML Parser;
+#. / the second is the URL of the file we're trying to read.
+#: ../Src/DasherCore/AbstractXMLParser.cpp:63
+#, c-format
+msgid "XML Error %s in file %s "
+msgstr "Galat XML %s dalam berkas %s "
+
+#: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:116
+#, c-format
+msgid ""
+"File ends with incomplete UTF-8 character beginning 0x%x (expecting %i bytes "
+"but only %i)"
+msgstr ""
+"Berkas berakhir dengan karakter UTF-8 yang tak lengkap dimulai dengan 0x%x "
+"(mengharapkan %i bita tapi hanya %i)"
+
+#: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:127
+#, c-format
+msgid "Read invalid UTF-8 character 0x%x"
+msgstr "Membaca karakter UTF-8 0x%x yang tak valid"
+
+#. /TRANSLATORS: the string "GameTextFile" is the name of a setting in gsettings
+#. / (or equivalent), and should not be translated. The %s is the value of that
+#. / setting (this message displayed only if the user has provided a value)
+#: ../Src/DasherCore/AlphabetManager.cpp:213
+#, c-format
+msgid ""
+"Note: GameTextFile setting specifies game sentences file '%s' but this does "
+"not exist"
+msgstr ""
+"Catatan: Pengaturan GameTextFile menyatakan berkas kalimat permainan '%s' "
+"tapi itu tak ada"
 
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:28
-#: ../Src/DasherCore/ButtonMode.cpp:28
-#: ../Src/DasherCore/CompassMode.cpp:28
-msgid "Zoom steps"
-msgstr "Tahapan zoom"
+#: ../Src/DasherCore/ButtonMode.cpp:28 ../Src/DasherCore/CompassMode.cpp:28
+#: ../Src/DasherCore/StylusFilter.cpp:11
+#| msgid "Factor by which to zoom in"
+msgid "Frames over which to perform zoom"
+msgstr "Kerangka tempat melakukan zum"
 
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:30
-#: ../Src/DasherCore/ButtonMode.cpp:39
-#: ../Src/DasherCore/CompassMode.cpp:32
+#: ../Src/DasherCore/ButtonMode.cpp:39 ../Src/DasherCore/CompassMode.cpp:32
 msgid "Global keyboard grab"
 msgstr "Cegat papan tik global"
 
@@ -599,13 +583,24 @@ msgstr "Cegat papan tik global"
 msgid "Alternating Direct Mode"
 msgstr "Moda Langsung Berganti-ganti"
 
+#: ../Src/DasherCore/AutoSpeedControl.cpp:213
+#, c-format
+msgid "Auto-increasing speed to %0.2f"
+msgstr "Menaikkan kecepatan otomatis ke %0.2f"
+
+#: ../Src/DasherCore/AutoSpeedControl.cpp:213
+#, c-format
+msgid "Auto-decreasing speed to %0.2f"
+msgstr "Menurunkan kecepatan otomatis ke %0.2f"
+
 #: ../Src/DasherCore/ButtonMode.cpp:29
 msgid "Scan time in menu mode (0 to not scan)"
 msgstr "Waktu pindai pada moda menu (0 tak memindai)"
 
 #: ../Src/DasherCore/ButtonMode.cpp:30
-msgid "Number of boxes"
-msgstr "Cacah kotak"
+#| msgid "Number of boxes"
+msgid "Number of forward boxes"
+msgstr "Cacah kotak maju"
 
 #: ../Src/DasherCore/ButtonMode.cpp:31
 msgid "Safety margin"
@@ -624,7 +619,24 @@ msgstr "Ketidak-seragaman kotak"
 msgid "Maximum Zoom"
 msgstr "Zum Maksimum"
 
-#: ../Src/DasherCore/ClickFilter.h:12
+#. TRANSLATORS: In click mode, when you click with the mouse, you select
+#. a piece of y-axis to be zoomed to, based on the mouse coordinates. The
+#. "guides" are lines from the mouse position to the edges of the piece of
+#. y-axis.
+#: ../Src/DasherCore/ClickFilter.cpp:15
+msgid "Draw guides on screen to show area into which a click will zoom"
+msgstr ""
+"Gambarkan panduan pada layar untuk menunjukkan area tempat klik akan menzum"
+
+#. TRANSLATORS: As dasher's on-screen coordinate space is not flat,
+#. the straight guide lines should in fact really be curved. This option
+#. draws the guides as correct, though possibly more confusing, curves.
+#: ../Src/DasherCore/ClickFilter.cpp:19
+msgid "Curve lines to follow the non-linearity of the view transform"
+msgstr ""
+"Lengkungkan garis untuk mengikuti nonlinieritas dari transformasi tilikan"
+
+#: ../Src/DasherCore/ClickFilter.h:23
 msgid "Click Mode"
 msgstr "Moda Klik"
 
@@ -638,39 +650,216 @@ msgstr "Zoom kanan"
 msgid "Compass Mode"
 msgstr "Moda Kompas"
 
-#: ../Src/DasherCore/DasherGameMode.cpp:636
-msgid "Well done!"
-msgstr "Bagus!"
+#: ../Src/DasherCore/ControlManager.cpp:249
+msgid "Done"
+msgstr "Selesai"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:910
+#. /TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
+#. / refers to a setting name in gsettings or equivalent, and should not be translated.
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:315
+#, c-format
+msgid ""
+"Could not find game sentences file for %s - check alphabet definition, or "
+"override with GameTextFile setting"
+msgstr ""
+"Tak bisa temukan berkas kalimat permainan bagi %s - periksa definisi "
+"alfabet, atau timpa dengan pengaturan GameTextFile"
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:790
 msgid "Normal Control"
 msgstr "Kendali Normal"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:926
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:806
 msgid "Menu Mode"
 msgstr "Moda Menu"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:927
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:807
 msgid "Direct Mode"
 msgstr "Moda Langsung"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:931
-msgid "Stylus Control"
-msgstr "Kendali Stylus"
+#: ../Src/DasherCore/DefaultFilter.cpp:14
+msgid "Vertical distance from mouse/gaze to target (400=screen height)"
+msgstr "Jarak vertikal dari tetikus/pandangan ke target(400=tinggi layar)"
 
-#: ../Src/DasherCore/EyetrackerFilter.cpp:9
-msgid "Automatic calibration"
-msgstr "Kalibrasi otomatis"
+#: ../Src/DasherCore/DefaultFilter.cpp:15
+msgid "Learn offset (previous) automatically, e.g. gazetrackers"
+msgstr "Pelajari ofset (sebelumnya) secara otomatis, mis. pelacak pandangan"
 
-#: ../Src/DasherCore/EyetrackerFilter.cpp:13
-msgid "Eyetracker Mode"
-msgstr "Moda Pelacak Mata"
+#: ../Src/DasherCore/DefaultFilter.cpp:16
+msgid ""
+"At top and bottom, scroll more and translate less (makes error-correcting "
+"easier)"
+msgstr ""
+"Di puncak dan dasar, lebih banyak menggulung dan lebih sedikit menggeser "
+"(membuat perbaikan kesalahan lebih mudah)"
+
+#: ../Src/DasherCore/DefaultFilter.cpp:17
+msgid ""
+"Screen geometry (mostly for tall thin screens) - 0=old-style, 1=square no-"
+"xhair, 2=squish, 3=squish+log"
+msgstr ""
+"Geometri layar (kebanyakan untuk layar tipis tinggi) - 0=gaya lama, 1=kotak "
+"tanpa pembidik silang, 2=squish, 3=squish+log"
+
+#: ../Src/DasherCore/DefaultFilter.cpp:18
+msgid ""
+"Shape type: 0=disjoint rects, 1=overlapping, 2=triangles, 3=trunc-tris, "
+"4=quadrics, 5=circles"
+msgstr ""
+"Tipe bentuk: 0=persegi tak menyambung, 1=bertindihan, 2=segitiga, 3=segitiga "
+"terpotong, 4=kuadrik, 5=lingkaran"
+
+#: ../Src/DasherCore/DefaultFilter.cpp:19
+msgid ""
+"Distance from right-hand-side Y-axis, at which maximum speed is reached. "
+"(2048=xhair)"
+msgstr ""
+"Jarak dari sumbu-Y sisi kanan, tempat kecepatan maksimum dicapai. "
+"(2048=pembidik silang)"
+
+#: ../Src/DasherCore/DefaultFilter.cpp:20
+msgid "Hold right mouse button / key 1 to go 3/4 faster"
+msgstr "Tahan tombol kanan tetikus / tombol 1 untuk lebih cepat ¾"
+
+#: ../Src/DasherCore/DefaultFilter.cpp:21
+msgid "Use exact computation of per-frame movement (slower)"
+msgstr "Pakai komputasi eksak pergerakan per rangka (lebih lambat)"
+
+#: ../Src/DasherCore/DemoFilter.cpp:15
+msgid "Demo Mode (no input)"
+msgstr "Mode Demo (tanpa masukan)"
+
+#: ../Src/DasherCore/GameModule.cpp:8
+msgid "Filename of sentences to enter"
+msgstr "Nama berkas kalimat yang akan dimasukkan"
+
+#: ../Src/DasherCore/GameModule.cpp:9
+msgid "Distance of sentence from center to decide user needs help"
+msgstr ""
+"Jarak kalimat dari pusat untuk menentukan apakah pengguna perlu bantuan"
+
+#: ../Src/DasherCore/GameModule.cpp:10
+msgid "Time for which user must need help before help drawn"
+msgstr "Waktu dimana pengguna mesti perlu bantuan sebelum bantuan digambar"
+
+#: ../Src/DasherCore/GameModule.cpp:11
+msgid "When we give help, show the shortest path to the target sentence?"
+msgstr ""
+"Ketika kami memberi bantuan, tampilkan path terpendek ke kalimat target?"
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:176
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:128
+#, c-format
+msgid ""
+"Warning: faulty alphabet definition: training-start delimiter %s must be a "
+"single unicode character. May be unable to process training file."
+msgstr ""
+"Peringatan: definisi alfabet rusak: pembatas awal latihan %s mesti berupa "
+"karakter unicode tunggal. Mungkin tak bisa memroses berkas latihan."
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:186
+#, c-format
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"no group of that name contains the character; ignoring group specifier"
+msgstr ""
+"Peringatan: berkas latihan memuat karakter '%s' sebagai bagian dari grup "
+"'%s', tapi tak ada grup bernama demikian yang memuat karakter; mengabaikan "
+"penspesifikasi grup"
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:199
+#, c-format
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"no group of that name contains the character. Dasher will not be able to "
+"learn how you want to write this character."
+msgstr ""
+"Peringatan: berkas latihan memuat karakter '%s' sebagai bagian dari grup "
+"'%s',  tapi tak ada grup bernama demikian yang memuat karakter. Dasher tak "
+"akan bisa belajar bagaimana Anda ingin menulis karakter ini."
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:200
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:147
+#, c-format
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"alphabet contains several such groups. Dasher will not be able to learn how "
+"you want to write this character."
+msgstr ""
+"Peringatan: berkas latihan memuat karakter '%s' sebagai bagian dari grup "
+"'%s',  tapi alfabet memuat beberapa grup demikian. Dasher tak akan bisa "
+"belajar bagaimana Anda ingin menulis karakter ini."
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:220
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:164
+#, c-format
+msgid ""
+"Warning: in training file, annotation '<%s>' is followed by another "
+"annotation and will be ignored"
+msgstr ""
+"Peringatan: dalam berkas latihan, anotasi '<%s>' diikuti oleh anotasi lain "
+"dan akan diabaikan"
+
+#. /TRANSLATORS: first string will be the filename; after the end of the string,
+#. / some number of output (e.g. Chinese) characters will be appended,
+#. / the number of which is the integer here
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:244
+#, c-format
+msgid ""
+"In file %s, the following %i symbols appeared without annotations saying how "
+"they should be entered, but each can be entered in several ways. Dasher will "
+"not be able to learn how you want to enter these symbols:"
+msgstr ""
+"Dalam berkas %s, simbol %i berikut muncul tanpa anotasi yang menyatakan "
+"bagaimana mereka mesti dimasukkan, tapi masing-masing dapat dimasukkan dalam "
+"beberapa cara. Dasher tak akan bisa belajar bagaimana Anda ingin menulis "
+"karakter ini."
+
+#: ../Src/DasherCore/NodeCreationManager.cpp:33
+#| msgid "_Import Training Text"
+msgid "Training on User Text"
+msgstr "Latihan pada Teks Pengguna"
+
+#: ../Src/DasherCore/NodeCreationManager.cpp:33
+msgid "Training on System Text"
+msgstr "Latihan pada Teks Sistem"
+
+#. /TRANSLATORS: These 3 messages will be displayed when the user has just chosen a new alphabet. The %s parameter will be the name of the alphabet.
+#: ../Src/DasherCore/NodeCreationManager.cpp:101
+#, c-format
+msgid ""
+"No user training text found - if you have written in \"%s\" before, this "
+"means Dasher may not be learning from previous sessions"
+msgstr ""
+"Teks latihan pengguna tak ditemukan - bila Anda telah menulis dalam \"%s\" "
+"sebelumnya, ini berarti Dasher mungkin tak belajar dari sesi sebelumnya"
+
+#: ../Src/DasherCore/NodeCreationManager.cpp:102
+#, c-format
+msgid ""
+"No training text (user or system) found for \"%s\". Dasher will still work "
+"but entry will be slower. We suggest downloading a training text file from "
+"the Dasher website, or constructing your own."
+msgstr ""
+"Tak ada teks latihan (pengguna atau sistem) yang ditemukan bagi \"%s\". "
+"Dasher masih akan bekerja tapi entri akan lebih lambat. Kami sarankan untuk "
+"mengunduh berkas teks latihan dari situs web Dasher atau membangun sendiri "
+"milik Anda."
+
+#: ../Src/DasherCore/NodeCreationManager.cpp:108
+#, c-format
+msgid ""
+"\"%s\" does not specify training file. Dasher will work but entry will be "
+"slower. Check you have the latest version of the alphabet definition."
+msgstr ""
+"\"%s\" tak menyatakan berkas latihan. Dasher akan bekerja tapi entri akan "
+"lebih lambat. Periksa apakah Anda memiliki versi terakhir dari definisi "
+"alfabet."
 
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:35
 msgid "Long press time"
 msgstr "Waktu tekan lama"
 
@@ -686,7 +875,7 @@ msgstr "Aktifkan tombol mundur"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:37
 msgid "Slow startup"
 msgstr "Awalan lambat"
 
@@ -697,19 +886,19 @@ msgstr "Waktu awalan"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
 msgid "Percentage by which to automatically increase speed"
 msgstr "Persentase untuk otomatis meningkatkan kecepatan"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
 msgid "Time after which to automatically increase speed (secs)"
 msgstr "Waktu sebelum otomatis meningkatkan kecepatan (detik)"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:40
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:48
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
 msgid "Percentage by which to decrease speed upon reverse"
 msgstr "Persentase untuk menurunkan kecepatan ketika berbalik"
 
@@ -717,57 +906,62 @@ msgstr "Persentase untuk menurunkan kecepatan ketika berbalik"
 msgid "One Button Dynamic Mode"
 msgstr "Moda Satu-Tombol Dinamis"
 
-#: ../Src/DasherCore/OneButtonFilter.cpp:11
+#: ../Src/DasherCore/OneButtonFilter.cpp:12
 msgid "Scan time (each direction), in ms"
 msgstr "Waktu pindai (setiap arah), dalam ms"
 
-#: ../Src/DasherCore/OneButtonFilter.cpp:12
+#: ../Src/DasherCore/OneButtonFilter.cpp:13
 msgid "Factor by which to zoom in"
 msgstr "Faktor perbesaran zum"
 
-#: ../Src/DasherCore/OneButtonFilter.cpp:13
+#: ../Src/DasherCore/OneButtonFilter.cpp:14
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
 msgid "Lag before user actually pushes button (ms)"
 msgstr "Lag sebelum pengguna benar-benar menekan tombol (ms)"
 
-#. COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
+#. COneDimensionalFilter(CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
 #: ../Src/DasherCore/OneDimensionalFilter.h:12
 msgid "One Dimensional Mode"
 msgstr "Moda Satu Dimensi"
 
-#: ../Src/DasherCore/SettingsStore.cpp:76
-#: ../Src/Gtk2/DasherAppSettings.cpp:523
-#: ../Src/Gtk2/DasherAppSettings.cpp:557
-#: ../Src/Gtk2/DasherAppSettings.cpp:561
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:146
+#, c-format
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"no group of that name contains the character. Ignoring group specifier."
+msgstr ""
+"Peringatan: berkas latihan memuat karakter '%s' sebagai bagian dari grup "
+"'%s', tapi tak ada grup bernama demikian yang memuat karakter. Mengabaikan "
+"penspesifikasi grup."
+
+#: ../Src/DasherCore/SettingsStore.cpp:75
+#: ../Src/Gtk2/DasherAppSettings.cpp:540 ../Src/Gtk2/DasherAppSettings.cpp:574
+#: ../Src/Gtk2/DasherAppSettings.cpp:578
 msgid "true"
 msgstr "true"
 
-#: ../Src/DasherCore/SettingsStore.cpp:78
-#: ../Src/Gtk2/DasherAppSettings.cpp:525
-#: ../Src/Gtk2/DasherAppSettings.cpp:557
-#: ../Src/Gtk2/DasherAppSettings.cpp:561
+#: ../Src/DasherCore/SettingsStore.cpp:77
+#: ../Src/Gtk2/DasherAppSettings.cpp:542 ../Src/Gtk2/DasherAppSettings.cpp:574
+#: ../Src/Gtk2/DasherAppSettings.cpp:578
 msgid "false"
 msgstr "false"
 
 #. Note to translators: This message will be output for a command line
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but
 #. "VAL" is not true or false.
-#: ../Src/DasherCore/SettingsStore.cpp:84
-#: ../Src/Gtk2/DasherAppSettings.cpp:528
+#: ../Src/DasherCore/SettingsStore.cpp:83
+#: ../Src/Gtk2/DasherAppSettings.cpp:545
 msgid "boolean value must be specified as 'true' or 'false'."
-msgstr "nilai boolean mesti dinyatakan sebagai 'true' (benar) atau 'false' (salah)."
+msgstr ""
+"nilai boolean mesti dinyatakan sebagai 'true' (benar) atau 'false' (salah)."
 
 #. Note to translators: This is output when command line "--options" doesn't
 #. specify a known option.
-#: ../Src/DasherCore/SettingsStore.cpp:104
+#: ../Src/DasherCore/SettingsStore.cpp:103
 msgid "unknown option, use \"--help-options\" for more information."
-msgstr "opsi tak dikenal, gunakan \"--help-options\" untuk informasi lebih banyak."
-
-#. TODO should probably pop up a Gtk error message and think about how to do i18n:
-#: ../Src/DasherCore/SocketInput.cpp:34
-msgid "Dasher socket input: failed to launch reader thread."
-msgstr "Masukan socket Dasher: gagal untuk meluncurkan pembaca."
+msgstr ""
+"opsi tak dikenal, gunakan \"--help-options\" untuk informasi lebih banyak."
 
 #: ../Src/DasherCore/SocketInputBase.cpp:27
 msgid "Port:"
@@ -805,6 +999,58 @@ msgstr "Cetak informasi debug yang berhubungan dengan socket ke layar:"
 msgid "Socket Input"
 msgstr "Masukan Soket"
 
+#. TODO This is not a very good error message even in English...???
+#: ../Src/DasherCore/SocketInputBase.cpp:108
+msgid "Error creating socket"
+msgstr "Galat saat membuat soket"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:116
+msgid "Error binding to socket - already in use?"
+msgstr "Galat saat mengikat ke soket - sudah dipakai?"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:169
+#, c-format
+msgid "Warning truncating socket input label '%s' to %i characters."
+msgstr "Peringatan memotong label '%s' masukan soket ke %i karakter."
+
+#: ../Src/DasherCore/SocketInputBase.cpp:195
+msgid "Socket input: Error reading from socket"
+msgstr "Masukan soket: Galat saat membaca dari soket"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:297
+#, c-format
+msgid "Dasher Socket Input error: %s: %s"
+msgstr "Galat Masukan Soket Dasher: %s: %s"
+
+#. TODO should probably pop up a Gtk error message and think about how to do i18n:
+#: ../Src/DasherCore/SocketInput.cpp:34
+msgid "Dasher socket input: failed to launch reader thread."
+msgstr "Masukan socket Dasher: gagal untuk meluncurkan pembaca."
+
+#: ../Src/DasherCore/StylusFilter.cpp:10
+msgid "Max time for a 'tap' (anything longer is held)"
+msgstr "Waktu maks untuk 'menyentuh' (apapun yang lebih lama adalah menahan)"
+
+#: ../Src/DasherCore/StylusFilter.h:12
+msgid "Stylus Control"
+msgstr "Kendali Stylus"
+
+#. no context switch commands will be executed!
+#: ../Src/DasherCore/Trainer.cpp:34
+#, c-format
+msgid ""
+"Warning: faulty alphabet definition, escape sequence %s must be a single "
+"unicode character. This may worsen Dasher's text prediction."
+msgstr ""
+"Peringatan: definisi alfabet rusak, urutan escape %s mesti berupa karakter "
+"unicode tunggal. Ini mungkin memperburuk prediksi teks Dasher."
+
+#: ../Src/DasherCore/Trainer.cpp:101
+#, c-format
+#| msgid "Unable to open help file"
+msgid "Unable to open file \"%s\" for reading"
+msgstr "Tidak dapat membuka berkas \"%s\" untuk dibaca"
+
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
 msgid "Button offset"
 msgstr "Offset tombol"
@@ -817,7 +1063,7 @@ msgstr "Selang waktu tekan berganda"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:37
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:36
 msgid "Enable backoff and start/stop buttons"
 msgstr "Aktifkan tombol mundur dan mulai/berhenti"
 
@@ -843,120 +1089,96 @@ msgstr "Offset bagi tombol luar (kedua)"
 #. divisor
 #. step
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
-msgid "Distance for 1st button UP"
-msgstr "Jarak bagi tombol pertama NAIK"
+msgid "Distance between down markers (long gap)"
+msgstr "Jarak antar penanda turun (celah panjang)"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:32
-msgid "Distance for 1st button DOWN"
-msgstr "Jarak bagi tombol pertama TURUN"
+msgid "Distance between up markers, as percentage of long gap"
+msgstr "Jarak antara penanda naik, sebagai persentase dari celah panjang"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
 msgstr "Toleransi bagi pewaktu tak akurat atas penekanan tombol (ms)"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:34
+msgid ""
+"Use push and release times of single press rather than push times of two "
+"presses"
+msgstr ""
+"Gunakan waktu tekan dan lepas dari penekanan tunggal bukan waktu penekanan "
+"dari dua kali menekan"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
 msgid "Slow startup time"
 msgstr "Waktu awalan lambat"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:47
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:46
 msgid "Two-push Dynamic Mode (New One Button)"
 msgstr "Moda Dinamik Dua-Sentuhan (Tombol Satu Baru)"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:554
+#: ../Src/Gtk2/DasherAppSettings.cpp:571
 msgid "Boolean parameters"
 msgstr "Parameter boolean"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:554
-#: ../Src/Gtk2/DasherAppSettings.cpp:565
-#: ../Src/Gtk2/DasherAppSettings.cpp:576
+#: ../Src/Gtk2/DasherAppSettings.cpp:571 ../Src/Gtk2/DasherAppSettings.cpp:582
+#: ../Src/Gtk2/DasherAppSettings.cpp:593
 msgid "Default"
 msgstr "Baku"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:554
-#: ../Src/Gtk2/DasherAppSettings.cpp:565
-#: ../Src/Gtk2/DasherAppSettings.cpp:576
+#: ../Src/Gtk2/DasherAppSettings.cpp:571 ../Src/Gtk2/DasherAppSettings.cpp:582
+#: ../Src/Gtk2/DasherAppSettings.cpp:593
 msgid "Description"
 msgstr "Keterangan"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:565
+#: ../Src/Gtk2/DasherAppSettings.cpp:582
 msgid "Integer parameters"
 msgstr "Parameter bilangan bulat"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:576
+#: ../Src/Gtk2/DasherAppSettings.cpp:593
 msgid "String parameters"
 msgstr "Parameter string"
 
-#: ../Src/Gtk2/Preferences.cpp:437
-#: ../Src/Gtk2/Preferences.cpp:1008
-msgid "Action"
-msgstr "Aksi"
-
-#. TRANSLATORS: Show a button for the selected action in the Dasher window.
-#: ../Src/Gtk2/Preferences.cpp:1015
-msgid "Show Button"
-msgstr "Tampilkan Tombol"
-
-#: ../Src/Gtk2/Preferences.cpp:1020
-msgid "Control Mode"
-msgstr "Moda Kendali"
-
-#. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
-#: ../Src/Gtk2/Preferences.cpp:1026
-msgid "Auto On Stop"
-msgstr "Otomatis Saat Berhenti"
-
-#: ../Src/Gtk2/dasher_action_keyboard.cpp:62
-#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:96
-msgid "Enter Text"
-msgstr "Masukkan Teks"
-
-#: ../Src/Gtk2/dasher_action_script.cpp:91
-msgid "Script"
-msgstr "Skrip"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:137
-msgid "Speak"
-msgstr "Bicara"
-
-#. TRANSLATORS: Send all text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:150
-msgid "All"
-msgstr "Semua"
-
-#. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:153
-msgid "Last"
-msgstr "Terakhir"
-
-#. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:156
-msgid "Repeat"
-msgstr "Ulangi"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:174
-#, c-format
-msgid "Unable to initialize speech support\n"
-msgstr "Tidak bisa membuka komponen pengenal suara\n"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:197
-msgid "Unable to initialize voices\n"
-msgstr "Tidak bisa mengenali suara\n"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:209
-msgid "Warning: unable to set speech parameters\n"
-msgstr "Awas: Tidak bisa menetapkan parameter percakapan\n"
-
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
-#: ../Src/Gtk2/dasher_main.cpp:266
+#: ../Src/Gtk2/dasher_main.cpp:246
 msgid "option setting is missing \"=\"."
 msgstr "tatanan opsi hilang \"=\"."
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
-#: ../Src/Gtk2/dasher_main.cpp:282
+#: ../Src/Gtk2/dasher_main.cpp:262
 msgid "Invalid option string specified"
 msgstr "String opsi yang dinyatakan tak valid"
 
-#: ../Src/Gtk2/dasher_main.cpp:1008
+#: ../Src/Gtk2/dasher_main.cpp:604
+msgid ""
+"Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering "
+"text in Dasher. Please select a training text to play with:"
+msgstr ""
+"Selamat Datang ke Mode Permainan Dasher! Mode Permainan adalah cara menarik "
+"untuk berlatih memasukkan teks dalam Dasher. Harap pilih teks latihan untuk "
+"dimainkan:"
+
+#: ../Src/Gtk2/dasher_main.cpp:606
+#| msgid "Default"
+msgid "Use Default"
+msgstr "Pakai Baku"
+
+#: ../Src/Gtk2/dasher_main.cpp:607
+msgid "Choose File..."
+msgstr "Pilih Berkas..."
+
+#: ../Src/Gtk2/dasher_main.cpp:608
+msgid "Cancel"
+msgstr "Batal"
+
+#: ../Src/Gtk2/dasher_main.cpp:631
+msgid ""
+"Are you sure you wish to turn off game mode? All unsaved changes will be "
+"lost."
+msgstr ""
+"Anda yakin hendak mematikan mode permainan? Semua perubahan yang belum "
+"disimpan akan hilang."
+
+#: ../Src/Gtk2/dasher_main.cpp:939
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -967,7 +1189,7 @@ msgstr ""
 "\n"
 "Perubahan yang anda lakukan akan hilang jika anda tidak menyimpannya."
 
-#: ../Src/Gtk2/dasher_main.cpp:1015
+#: ../Src/Gtk2/dasher_main.cpp:946
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -977,37 +1199,48 @@ msgstr ""
 "\n"
 "Perubahan·yang·anda·lakukan·akan·hilang·jika·anda·tidak·menyimpannya."
 
-#: ../Src/Gtk2/dasher_main.cpp:1021
+#: ../Src/Gtk2/dasher_main.cpp:952
 msgid "Don't save"
 msgstr "Jangan simpan"
 
-#: ../Src/Gtk2/dasher_main.cpp:1022
-#: ../Src/Gtk2/dasher_main.cpp:1045
+#: ../Src/Gtk2/dasher_main.cpp:953 ../Src/Gtk2/dasher_main.cpp:976
 msgid "Don't quit"
 msgstr "Jangan keluar"
 
-#: ../Src/Gtk2/dasher_main.cpp:1023
+#: ../Src/Gtk2/dasher_main.cpp:954
 msgid "Save and quit"
 msgstr "Simpan dan keluar"
 
-#: ../Src/Gtk2/dasher_main.cpp:1042
+#: ../Src/Gtk2/dasher_main.cpp:973
 msgid "Are you sure you wish to quit?"
 msgstr "Anda yakin ingin keluar?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1089
+#: ../Src/Gtk2/dasher_main.cpp:1015
 msgid "Unable to open help file"
 msgstr "Tak bisa membuka berkas bantuan"
 
-#: ../Src/Gtk2/dasher_main.cpp:1141
+#: ../Src/Gtk2/dasher_main.cpp:1067
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher adalah aplikasi isian teks yang prediktif"
 
-#: ../Src/Gtk2/dasher_main.cpp:1146
+#: ../Src/Gtk2/dasher_main.cpp:1072
 msgid "translator-credits"
 msgstr ""
-"Ahmad Riza H Nst  <rizahnst@eriagempita.co.id>\n"
-"Mohammad DAMT  <mdamt@gnome.org>\n"
-"Andika Triwidada <andika@gmail.com>, 2010"
+"Ahmad Riza H Nst <rizahnst@eriagempita.co.id>i, 2004, 2006\n"
+"Mohammad DAMT <mdamt@gnome.org>, 2004\n"
+"Andika Triwidada <andika@gmail.com>, 2010, 2012"
+
+#: ../Src/Gtk2/GnomeSpeech.cpp:28
+msgid "Unable to initialize speech support\n"
+msgstr "Tidak bisa membuka komponen pengenal suara\n"
+
+#: ../Src/Gtk2/GnomeSpeech.cpp:59
+msgid "Warning: unable to set speech parameters\n"
+msgstr "Awas: Tidak bisa menetapkan parameter percakapan\n"
+
+#: ../Src/Gtk2/GnomeSpeech.cpp:70
+msgid "Unable to initialize voices\n"
+msgstr "Tidak bisa mengenali suara\n"
 
 #: ../Src/Gtk2/module_settings_window.cpp:88
 msgid "Dasher Module Options"
@@ -1018,40 +1251,43 @@ msgstr "Opsi Modul Dasher"
 msgid "%s Options:"
 msgstr "Opsi %s:"
 
-#: ../Src/Gtk2/mouse_input.h:15
+#: ../Src/Gtk2/mouse_input.h:14
 msgid "Mouse Input"
 msgstr "Masukan Tetikus"
 
-#: ../Src/Gtk2/mouse_input.h:51
+#: ../Src/Gtk2/mouse_input.h:44
 msgid "Pixels covering Y range"
 msgstr "Piksel yang mencakup jangkauan Y"
 
 #. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
-#: ../Src/Gtk2/mouse_input.h:58
+#: ../Src/Gtk2/mouse_input.h:51
 msgid "One Dimensional Mouse Input"
 msgstr "Masukan Tetikus Satu Dimensi"
+
+#: ../Src/Gtk2/Preferences.cpp:440
+msgid "Action"
+msgstr "Aksi"
 
 #. {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
 #. {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
-#: ../Src/main.cc:171
+#: ../Src/main.cc:166
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr "Gaya aplikasi (tradisional, langsung, compose, atau layar penuh)"
 
 #. Note to translators: This is the help string for "--options"
-#: ../Src/main.cc:173
+#: ../Src/main.cc:168
 msgid "Override stored options"
 msgstr "Timpa opsi tersimpan"
 
 #. Note to translators: This is the help string for "--help-options"
-#: ../Src/main.cc:175
+#: ../Src/main.cc:170
 msgid "Describe \"--options\"."
 msgstr "Jelaskan \"--options\"."
 
 #. Note to translators: This is the "--help" description of dasher.
-#: ../Src/main.cc:182
+#: ../Src/main.cc:177
 msgid "- A text input application honouring accessibility"
 msgstr "- Suatu aplikasi masukan teks yang menghormati aksesibilitas"
-
