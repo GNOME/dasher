@@ -129,8 +129,16 @@
           </object>
         </child>
         <child>
+          <object class="GtkToggleAction" id="action_toggle_direct_mode">
+            <property name="stock_id">gtk-connect</property>
+            <property name="tooltip" translatable="yes">Direct Mode</property>
+            <property name="label" translatable="yes">_Direct Mode</property>
+            <signal name="toggled" handler="dasher_main_cb_toggle_direct_mode"/>
+          </object>
+        </child>
+        <child>
           <object class="GtkToggleAction" id="action_toggle_game_mode">
-			<property name="label" translatable="yes">_Game Mode</property>
+            <property name="label" translatable="yes">_Game Mode</property>
             <signal name="activate" handler="dasher_main_cb_toggle_game_mode"/>
           </object>
         </child>
@@ -144,6 +152,7 @@
           <menuitem action="action_save"/>
           <menuitem action="action_saveas"/>
           <menuitem action="action_append"/>
+          <menuitem action="action_toggle_direct_mode"/>
           <menuitem action="action_toggle_game_mode"/>
           <separator/>
           <menuitem action="action_import"/>
@@ -171,6 +180,7 @@
         <toolitem action="action_cut"/>
         <toolitem action="action_copy"/>
         <toolitem action="action_paste"/>
+        <toolitem action="action_toggle_direct_mode"/>
         <separator/>
         <toolitem action="action_preferences"/>
         <toolitem action="action_help"/>

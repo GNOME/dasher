@@ -91,6 +91,7 @@ static void dasher_main_command_preferences(DasherMain *pSelf);
 static void dasher_main_command_preferences_alphabet(DasherMain *pSelf);
 static void dasher_main_command_help(DasherMain *pSelf);
 static void dasher_main_command_about(DasherMain *pSelf);
+static void dasher_main_command_toggle_direct_mode(DasherMain*);
 static void dasher_main_command_toggle_game_mode(DasherMain*);
 
 /* c.f. WRAP_CPP_CB below */
@@ -99,6 +100,7 @@ extern "C" void dasher_main_cb_quit(GtkAction*, DasherMain*);
 extern "C" void dasher_main_cb_preferences(GtkAction*, DasherMain*);
 extern "C" void dasher_main_cb_help(GtkAction*, DasherMain*);
 extern "C" void dasher_main_cb_about(GtkAction*, DasherMain*);
+extern "C" void dasher_main_cb_toggle_direct_mode(GtkAction*, DasherMain*);
 extern "C" void dasher_main_cb_toggle_game_mode(GtkAction*, DasherMain*);
 
 static gboolean dasher_main_speed_changed(DasherMain *pSelf);
@@ -361,6 +363,7 @@ WRAP_CPP_CB(quit)
 WRAP_CPP_CB(preferences)
 WRAP_CPP_CB(help)
 WRAP_CPP_CB(about)
+WRAP_CPP_CB(toggle_direct_mode)
 WRAP_CPP_CB(toggle_game_mode)
 
 extern "C" void
@@ -584,6 +587,16 @@ void show_game_file_dialog(GtkWidget *pButton, GtkWidget *pWidget, gpointer pDat
 		gtk_dasher_control_set_game_mode(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), true);
 	}
 	gtk_widget_destroy(GTK_WIDGET(objRefs->first));
+}
+
+void dasher_main_command_toggle_direct_mode(DasherMain *pSelf) {
+	DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
+
+	if (dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) == APP_STYLE_DIRECT) {
+		dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, APP_STYLE_TRAD);
+	} else {
+		dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, APP_STYLE_DIRECT);
+	}
 }
 
 /**
