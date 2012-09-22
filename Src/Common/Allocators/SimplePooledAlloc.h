@@ -9,13 +9,14 @@
 // Alloc returns a default-constructed T*
 // Memory is only freed on destruction of the allocator
 
+#include <cstddef>
 #include <vector>
 
 template<typename T>
 class CSimplePooledAlloc {
 public:
   // Construct with given block size
-  CSimplePooledAlloc(size_t iBlockSize);
+  CSimplePooledAlloc(std::size_t iBlockSize);
 
   ~CSimplePooledAlloc();
 
@@ -25,7 +26,7 @@ public:
 private:
   class CPool {
   public:
-  CPool(size_t iSize):m_iCurrent(0), m_iSize(iSize) {
+    CPool(std::size_t iSize):m_iCurrent(0), m_iSize(iSize) {
       m_pData = new T[m_iSize];
     }
     ~CPool() {
@@ -35,24 +36,25 @@ private:
       if(m_iCurrent < m_iSize)
         return &m_pData[m_iCurrent++];
       return NULL;
-  } private:
-      mutable size_t m_iCurrent;
-    size_t m_iSize;
+    }
+  private:
+    mutable std::size_t m_iCurrent;
+    std::size_t m_iSize;
     T *m_pData;
   };
 
   std::vector < CPool * >m_vPool;
 
-  size_t m_iBlockSize;
+  std::size_t m_iBlockSize;
   int m_iCurrent;
 };
 
-template < typename T > CSimplePooledAlloc < T >::CSimplePooledAlloc(size_t iSize):m_iBlockSize(iSize), m_iCurrent(0) {
+template < typename T > CSimplePooledAlloc < T >::CSimplePooledAlloc(std::size_t iSize):m_iBlockSize(iSize), m_iCurrent(0) {
   m_vPool.push_back(new CPool(m_iBlockSize));
 }
 
 template < typename T > CSimplePooledAlloc < T >::~CSimplePooledAlloc() {
-  for(size_t i = 0; i < m_vPool.size(); i++)
+  for(std::size_t i = 0; i < m_vPool.size(); i++)
     delete m_vPool[i];
 }
 
