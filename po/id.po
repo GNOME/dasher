@@ -10,21 +10,22 @@ msgstr ""
 "Project-Id-Version: dasher master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-06-01 17:24+0000\n"
-"PO-Revision-Date: 2012-09-09 15:26+0700\n"
+"POT-Creation-Date: 2012-09-20 16:50+0000\n"
+"PO-Revision-Date: 2012-09-24 13:22+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: GNOME Indonesian Translation Team <gnome@i15n.org>\n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"Language: id\n"
+"X-Generator: Poedit 1.5.3\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
 #: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:14
-#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:21
-#: ../Src/Gtk2/dasher_main.cpp:884
+#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:23
+#: ../Src/Gtk2/dasher_main.cpp:897
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -94,7 +95,7 @@ msgstr "Tent_ang"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:15 ../Data/GUI/dashermaemo.ui.h:4
 #: ../Src/Gtk2/dasher_editor.cpp:817 ../Src/Gtk2/dasher_editor.cpp:851
-#: ../Src/Gtk2/dasher_main.cpp:899
+#: ../Src/Gtk2/dasher_main.cpp:912
 msgid "Select File"
 msgstr "Pilih Berkas"
 
@@ -233,7 +234,7 @@ msgstr "Prediksi"
 msgid "P"
 msgstr "P"
 
-#: ../Data/GUI/dashermaemo.ui.h:6 ../Data/GUI/dasher.traditional.ui.h:24
+#: ../Data/GUI/dashermaemo.ui.h:6 ../Data/GUI/dasher.traditional.ui.h:26
 msgid "Please Wait…"
 msgstr "Silakan Tunggu…"
 
@@ -262,27 +263,22 @@ msgstr "Arah"
 
 #. This means that you always want to write left-to-right regardless of the normal direction for the alphabet you are using
 #: ../Data/GUI/dasher.preferences.ui.h:23
-#| msgid "Left to Right"
 msgid "Always Left-to-Right"
 msgstr "Selalu Kiri-ke-Kanan"
 
 #: ../Data/GUI/dasher.preferences.ui.h:24
-#| msgid "Right to Left"
 msgid "Always Right-to-Left"
 msgstr "Selalu Kanan-ke-Kiri"
 
 #: ../Data/GUI/dasher.preferences.ui.h:25
-#| msgid "Top to Bottom"
 msgid "Always Top-to-Bottom"
 msgstr "Selalu Atas-ke-Bawah"
 
 #: ../Data/GUI/dasher.preferences.ui.h:26
-#| msgid "Bottom to Top"
 msgid "Always Bottom-to-Top"
 msgstr "Selalu Bawah-ke-Atas"
 
 #: ../Data/GUI/dasher.preferences.ui.h:27
-#| msgid "Language"
 msgid "_Language"
 msgstr "_Bahasa"
 
@@ -321,7 +317,6 @@ msgstr "Istirahat di luar kanvas"
 
 #. Abbreviation for Control Style
 #: ../Data/GUI/dasher.preferences.ui.h:40
-#| msgid "Control"
 msgid "C_ontrol"
 msgstr "_Kontrol"
 
@@ -370,7 +365,6 @@ msgid "Very large font"
 msgstr "Huruf ukuran besar sekali"
 
 #: ../Data/GUI/dasher.preferences.ui.h:53
-#| msgid "Appearance"
 msgid "_Appearance"
 msgstr "Pen_ampilan"
 
@@ -411,7 +405,6 @@ msgid "Include Editing commands"
 msgstr "Sertakan perintah Penyuntingan"
 
 #: ../Data/GUI/dasher.preferences.ui.h:63
-#| msgid "Copy _All"
 msgid "Copy All on stop"
 msgstr "Salin Semua saat berhenti"
 
@@ -420,7 +413,6 @@ msgid "Speak All on stop"
 msgstr "Ucapkan Semua saat berhenti"
 
 #: ../Data/GUI/dasher.preferences.ui.h:65
-#| msgid "Language model adapts as you write."
 msgid "Speak words as you write"
 msgstr "Ucapkan kata sewaktu Anda menulis"
 
@@ -453,7 +445,6 @@ msgid "Full Screen"
 msgstr "Layar Penuh"
 
 #: ../Data/GUI/dasher.preferences.ui.h:73
-#| msgid "Application"
 msgid "A_pplication"
 msgstr "A_plikasi"
 
@@ -481,7 +472,7 @@ msgstr "_Tambahkan ke berkas…"
 msgid "_Import Training Text…"
 msgstr "_Impor Teks Pelatihan…"
 
-#: ../Data/GUI/dasher.traditional.ui.h:8 ../Src/Gtk2/dasher_main.cpp:977
+#: ../Data/GUI/dasher.traditional.ui.h:8 ../Src/Gtk2/dasher_main.cpp:990
 msgid "Quit"
 msgstr "Keluar"
 
@@ -518,15 +509,24 @@ msgid "_About…"
 msgstr "Tent_ang…"
 
 #: ../Data/GUI/dasher.traditional.ui.h:20
-#| msgid "Menu Mode"
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:807
+msgid "Direct Mode"
+msgstr "Moda Langsung"
+
+#: ../Data/GUI/dasher.traditional.ui.h:21
+#| msgid "Direct Mode"
+msgid "_Direct Mode"
+msgstr "Mo_de Langsung"
+
+#: ../Data/GUI/dasher.traditional.ui.h:22
 msgid "_Game Mode"
 msgstr "Mode _Permainan"
 
-#: ../Data/GUI/dasher.traditional.ui.h:22
+#: ../Data/GUI/dasher.traditional.ui.h:24
 msgid "Speed:"
 msgstr "Kecepatan:"
 
-#: ../Data/GUI/dasher.traditional.ui.h:23
+#: ../Data/GUI/dasher.traditional.ui.h:25
 msgid "Alphabet:"
 msgstr "Alfabet:"
 
@@ -568,7 +568,6 @@ msgstr ""
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:28
 #: ../Src/DasherCore/ButtonMode.cpp:28 ../Src/DasherCore/CompassMode.cpp:28
 #: ../Src/DasherCore/StylusFilter.cpp:11
-#| msgid "Factor by which to zoom in"
 msgid "Frames over which to perform zoom"
 msgstr "Kerangka tempat melakukan zum"
 
@@ -598,7 +597,6 @@ msgid "Scan time in menu mode (0 to not scan)"
 msgstr "Waktu pindai pada moda menu (0 tak memindai)"
 
 #: ../Src/DasherCore/ButtonMode.cpp:30
-#| msgid "Number of boxes"
 msgid "Number of forward boxes"
 msgstr "Cacah kotak maju"
 
@@ -673,10 +671,6 @@ msgstr "Kendali Normal"
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:806
 msgid "Menu Mode"
 msgstr "Moda Menu"
-
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:807
-msgid "Direct Mode"
-msgstr "Moda Langsung"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:14
 msgid "Vertical distance from mouse/gaze to target (400=screen height)"
@@ -817,7 +811,6 @@ msgstr ""
 "karakter ini."
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:33
-#| msgid "_Import Training Text"
 msgid "Training on User Text"
 msgstr "Latihan pada Teks Pengguna"
 
@@ -1047,7 +1040,6 @@ msgstr ""
 
 #: ../Src/DasherCore/Trainer.cpp:101
 #, c-format
-#| msgid "Unable to open help file"
 msgid "Unable to open file \"%s\" for reading"
 msgstr "Tidak dapat membuka berkas \"%s\" untuk dibaca"
 
@@ -1139,16 +1131,16 @@ msgid "String parameters"
 msgstr "Parameter string"
 
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
-#: ../Src/Gtk2/dasher_main.cpp:246
+#: ../Src/Gtk2/dasher_main.cpp:248
 msgid "option setting is missing \"=\"."
 msgstr "tatanan opsi hilang \"=\"."
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
-#: ../Src/Gtk2/dasher_main.cpp:262
+#: ../Src/Gtk2/dasher_main.cpp:264
 msgid "Invalid option string specified"
 msgstr "String opsi yang dinyatakan tak valid"
 
-#: ../Src/Gtk2/dasher_main.cpp:604
+#: ../Src/Gtk2/dasher_main.cpp:617
 msgid ""
 "Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering "
 "text in Dasher. Please select a training text to play with:"
@@ -1157,20 +1149,19 @@ msgstr ""
 "untuk berlatih memasukkan teks dalam Dasher. Harap pilih teks latihan untuk "
 "dimainkan:"
 
-#: ../Src/Gtk2/dasher_main.cpp:606
-#| msgid "Default"
+#: ../Src/Gtk2/dasher_main.cpp:619
 msgid "Use Default"
 msgstr "Pakai Baku"
 
-#: ../Src/Gtk2/dasher_main.cpp:607
+#: ../Src/Gtk2/dasher_main.cpp:620
 msgid "Choose File..."
 msgstr "Pilih Berkas..."
 
-#: ../Src/Gtk2/dasher_main.cpp:608
+#: ../Src/Gtk2/dasher_main.cpp:621
 msgid "Cancel"
 msgstr "Batal"
 
-#: ../Src/Gtk2/dasher_main.cpp:631
+#: ../Src/Gtk2/dasher_main.cpp:644
 msgid ""
 "Are you sure you wish to turn off game mode? All unsaved changes will be "
 "lost."
@@ -1178,7 +1169,7 @@ msgstr ""
 "Anda yakin hendak mematikan mode permainan? Semua perubahan yang belum "
 "disimpan akan hilang."
 
-#: ../Src/Gtk2/dasher_main.cpp:939
+#: ../Src/Gtk2/dasher_main.cpp:952
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1189,7 +1180,7 @@ msgstr ""
 "\n"
 "Perubahan yang anda lakukan akan hilang jika anda tidak menyimpannya."
 
-#: ../Src/Gtk2/dasher_main.cpp:946
+#: ../Src/Gtk2/dasher_main.cpp:959
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1199,34 +1190,34 @@ msgstr ""
 "\n"
 "Perubahan·yang·anda·lakukan·akan·hilang·jika·anda·tidak·menyimpannya."
 
-#: ../Src/Gtk2/dasher_main.cpp:952
+#: ../Src/Gtk2/dasher_main.cpp:965
 msgid "Don't save"
 msgstr "Jangan simpan"
 
-#: ../Src/Gtk2/dasher_main.cpp:953 ../Src/Gtk2/dasher_main.cpp:976
+#: ../Src/Gtk2/dasher_main.cpp:966 ../Src/Gtk2/dasher_main.cpp:989
 msgid "Don't quit"
 msgstr "Jangan keluar"
 
-#: ../Src/Gtk2/dasher_main.cpp:954
+#: ../Src/Gtk2/dasher_main.cpp:967
 msgid "Save and quit"
 msgstr "Simpan dan keluar"
 
-#: ../Src/Gtk2/dasher_main.cpp:973
+#: ../Src/Gtk2/dasher_main.cpp:986
 msgid "Are you sure you wish to quit?"
 msgstr "Anda yakin ingin keluar?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1015
+#: ../Src/Gtk2/dasher_main.cpp:1028
 msgid "Unable to open help file"
 msgstr "Tak bisa membuka berkas bantuan"
 
-#: ../Src/Gtk2/dasher_main.cpp:1067
+#: ../Src/Gtk2/dasher_main.cpp:1080
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher adalah aplikasi isian teks yang prediktif"
 
-#: ../Src/Gtk2/dasher_main.cpp:1072
+#: ../Src/Gtk2/dasher_main.cpp:1085
 msgid "translator-credits"
 msgstr ""
-"Ahmad Riza H Nst <rizahnst@eriagempita.co.id>i, 2004, 2006\n"
+"Ahmad Riza H Nst <rizahnst@eriagempita.co.id>, 2004, 2006\n"
 "Mohammad DAMT <mdamt@gnome.org>, 2004\n"
 "Andika Triwidada <andika@gmail.com>, 2010, 2012"
 
