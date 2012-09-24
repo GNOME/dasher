@@ -57,13 +57,13 @@ ConversionResult ConvertUTF16toUTF8 (
 
 void WinUTF8::UTF8string_to_wstring(const std::string &UTF8string, std::wstring &Output) {
   // Optimization - use the stack for small strings
-  const int iStackBufferSize = 32;
+  const std::size_t iStackBufferSize = 32;
   wchar_t StackBuffer[iStackBufferSize];
   wchar_t *pBuffer = StackBuffer;
 
   bool bNewed = false;
 
-  const unsigned int BufferSize = UTF8string.size() + 1;
+  const std::size_t BufferSize = UTF8string.size() + 1;
   if(BufferSize > iStackBufferSize) {
     pBuffer = new wchar_t[BufferSize];
     bNewed = true;
@@ -95,10 +95,10 @@ std::wstring WinUTF8::UTF8string_to_wstring(const std::string &utf8string) {
 
 void WinUTF8::wstring_to_UTF8string(const wstring &Input, string &Output) {
 
-  const unsigned int BufferSize = Input.size() + 1;
+  const std::size_t BufferSize = Input.size() + 1;
   const wchar_t *Buffer = Input.c_str();
 
-  const unsigned int BufferSize2 = BufferSize * 2;
+  const std::size_t BufferSize2 = BufferSize * 2;
   char *Buffer2 = new char[BufferSize2];
 
 #ifdef CP_UTF8
