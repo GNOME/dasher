@@ -10,9 +10,6 @@
 #include "SocketInputBase.h"
 
 #include <pthread.h>
-#include <libintl.h>
-
-#include "../Common/I18n.h"
 
 using namespace Dasher;
 
@@ -39,6 +36,3 @@ bool CSocketInput::LaunchReaderThread() {
 void CSocketInput::CancelReaderThread() {
   pthread_cancel(readerThread);
 }
-
-
-
