@@ -18,11 +18,7 @@ void SetOutputLeaksToFile()
 #ifdef _DEBUG
   HANDLE hLogFile;
 
-#ifdef _UNICODE
-  hLogFile = CreateFile(L"memory_leak.log", 
-#else
   hLogFile = CreateFile(TEXT("memory_leak.log"), 
-#endif
     GENERIC_WRITE, 
     FILE_SHARE_WRITE, 
     NULL, 
