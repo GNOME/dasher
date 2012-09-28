@@ -10,7 +10,7 @@
 #ifndef __AlphabetMap_h__
 #define __AlphabetMap_h__
 
-#ifndef DASHER_WIN32
+#ifndef _WIN32
 #include <sys/types.h>
 #endif
 

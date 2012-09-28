@@ -21,7 +21,7 @@ using namespace std;
 // static TCHAR debug[256];
 typedef unsigned long ulong;
 
-#ifdef DASHER_WIN32
+#ifdef _WIN32
 #define snprintf _snprintf
 #endif
 

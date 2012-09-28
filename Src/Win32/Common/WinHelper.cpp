@@ -61,7 +61,7 @@ void WinHelper::GetUserDirectory(Tstring *Output) {
 #ifdef 	OriginalWin95
   // Not a lot else I can do :(
   GetAppDirectory(Output);
-#elif  defined DASHER_WINCE
+#elif  defined _WIN32_WCE
   GetAppDirectory(Output);
 #else
 

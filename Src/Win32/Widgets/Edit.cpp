@@ -453,7 +453,7 @@ void CEdit::output(const std::string &sText) {
     else {    
       for(std::wstring::iterator it(String.begin()); it != String.end(); ++it) {
         fakekey[0].type = INPUT_KEYBOARD;
-#ifdef DASHER_WINCE
+#ifdef _WIN32_WCE
         fakekey[0].ki.dwFlags = KEYEVENTF_KEYUP;
 #else
         fakekey[0].ki.dwFlags = KEYEVENTF_UNICODE;

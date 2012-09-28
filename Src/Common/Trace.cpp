@@ -5,7 +5,6 @@
 #include "Common.h"
 
 #include "Trace.h"
-#include "Platform.h"
 
 // Track memory leaks on Windows to the line that new'd the memory
 #ifdef _WIN32
@@ -19,7 +18,7 @@ static char THIS_FILE[] = __FILE__;
 
 // Customize behaviour of Trace here
 
-#ifdef DASHER_WIN32
+#ifdef _WIN32
 
         // On Windows, send Trace to the Debug window in DevStudio
         // The ATL/MFC Trace application also picks up Trace when running

@@ -5,8 +5,6 @@
 #ifndef __Random_h__
 #define __Random_h__
 
-#include "Platform.h"
-
 // Provide platform-independent interfaces for random number generation
 
 // int RandomInt()

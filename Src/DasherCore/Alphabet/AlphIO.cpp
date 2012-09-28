@@ -131,7 +131,7 @@ CAlphInfo *CAlphIO::CreateDefault() {
   // than their index into m_vCharacters... (as "unknown symbol" 0 does not appear in vector)
   Default.iParagraphCharacter = Chars.size()+1;
   Default.m_vCharacters[Chars.size()].Display = "¶";
-#ifdef WIN32
+#ifdef _WIN32
   Default.m_vCharacters[Chars.size()].Text = "\r\n";
 #else
   Default.m_vCharacters[Chars.size()].Text = "\n";
@@ -219,7 +219,7 @@ void CAlphIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
   if(strcmp(name, "paragraph") == 0) {
     if (!ParagraphCharacter) ParagraphCharacter=new CAlphInfo::character();
     ReadCharAtts(atts,*ParagraphCharacter);
-#ifdef WIN32
+#ifdef _WIN32
         ParagraphCharacter->Text = "\r\n";
 #else
         ParagraphCharacter->Text = "\n";

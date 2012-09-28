@@ -9,7 +9,7 @@
 #ifndef __Platform_stdminmax__
 #define __Platform_stdminmax__
 
-#if ( defined DASHER_WIN32 ) && ( DASHER_WIN32 < 1300 )
+#if _MSC_VER < 1300
 
 namespace std {
   template < typename T > inline T min(T t1, T t2) {
@@ -21,4 +21,4 @@ namespace std {
 };
 #endif
 
-#endif // __include__
+#endif // __Platform_stdminmax__

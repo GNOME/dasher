@@ -54,7 +54,7 @@ const Tstring CFilenameGUI::Empty = TEXT("");
 CFilenameGUI::CFilenameGUI(HWND WindowWithTitlebar, Tstring AppName, bool NewWithDate)
 :WindowWithTitlebar(WindowWithTitlebar), AppName(AppName), NewWithDate(NewWithDate), Dirty(false), FileAndPath(TEXT("")) {
 
-#ifndef DASHER_WINCE
+#ifndef _WIN32_WCE
   TCHAR CurrentDirectory[_MAX_DIR];
   if(GetCurrentDirectory(_MAX_DIR, CurrentDirectory) > 0) {
     OriginalPath = CurrentDirectory;
@@ -181,7 +181,7 @@ void CFilenameGUI::SetDirty(bool Value) {
 void CFilenameGUI::SetWindowTitle() {
   Tstring TitleText;
 
-#ifndef DASHER_WINCE
+#ifndef _WIN32_WCE
   TCHAR PrettyName[_MAX_FNAME];
   if(GetFileTitle(FileAndPath.c_str(), PrettyName, _MAX_FNAME) == 0)
     TitleText = PrettyName;

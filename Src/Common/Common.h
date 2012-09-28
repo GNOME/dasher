@@ -19,12 +19,9 @@
 #include <config.h>
 #endif
 
-// Deduce the platform, setting macros of the form DASHER_......
-#include "Platform.h"
-
 /////////////////////////////////////////////////////////////////////////////
 
-#ifdef DASHER_WIN32
+#ifdef _WIN32
 #include "MSVC_Unannoy.h"
 #endif
 
@@ -32,7 +29,7 @@
 
 // Set up any platform deficiencies
 
-#if DASHER_WIN32 < 1300
+#if _MSC_VER < 1300
 #include "Platform/stdminmax.h"
 #endif
 

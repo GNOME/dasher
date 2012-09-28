@@ -12,7 +12,6 @@ libdashermisc_a_SOURCES = \
 		mydebug.h \
 		ModuleSettings.h \
 		NoClones.h \
-		Platform.h \
 		Random.h \
                 Trace.cpp \
 		Trace.h \

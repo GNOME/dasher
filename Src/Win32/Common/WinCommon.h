@@ -90,7 +90,7 @@ namespace WinHelper {
 
 #include "WinLocalisation.h"
 
-#if DASHER_WIN32 <= 1300
+#if _MSC_VER <= 1300
 namespace stdext = std;
 #endif
 

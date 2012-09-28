@@ -9,9 +9,7 @@
 #ifndef __int_h__
 #define __int_h__
 
-#include "../Platform.h"
-
-#ifdef DASHER_WIN32
+#ifdef _WIN32
 
 typedef __int64 int64;
 typedef unsigned __int64 uint64;

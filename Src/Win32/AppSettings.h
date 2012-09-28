@@ -47,7 +47,7 @@ public:
   void ResetParamater(int iParameter);
   void GetPermittedValues(int iParameter, std::vector<std::string> &vList);
 
-  #ifndef DASHER_WINCE
+  #ifndef _WIN32_WCE
   bool LoadSetting(const std::string & Key, LPWINDOWPLACEMENT pwp);
   void SaveSetting(const std::string & Key, const LPWINDOWPLACEMENT pwp);
 #endif

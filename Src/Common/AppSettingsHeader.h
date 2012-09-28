@@ -26,7 +26,7 @@ enum {
 
 enum {
   APP_SP_EDIT_FONT = END_OF_APP_LPS, 
-#ifndef DASHER_WINCE
+#ifndef _WIN32_WCE
   APP_SP_WINDOW_STATE, 
 #endif
   END_OF_APP_SPS

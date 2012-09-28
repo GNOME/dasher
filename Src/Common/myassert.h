@@ -21,8 +21,6 @@
 #ifndef __assert_h__
 #define __assert_h__
 
-#include "Platform.h"
-
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -31,8 +29,8 @@
 // In non-debug debug builds - no check is done
 
 #ifdef DEBUG
-#ifdef DASHER_WIN32
-#ifdef DASHER_WINCE
+#ifdef _WIN32
+#ifdef _WIN32_WCE
 
 // Windows CE
 void __cdecl __debugbreak(void);
@@ -44,7 +42,7 @@ void __cdecl __debugbreak(void);
 #include <crtdbg.h>
 #define DASHER_ASSERT(expr) _ASSERT(expr)
 
-#endif // DASHER_WINCE
+#endif // _WIN32_WCE
 
 #else 
 
@@ -52,7 +50,7 @@ void __cdecl __debugbreak(void);
 #include <cassert>
 #define DASHER_ASSERT(expr) assert(expr)
 
-#endif // DASHER_WIN32
+#endif // _WIN32
 
 #else
 
@@ -78,7 +76,7 @@ template <> struct CompileTimeError <true > {
 // DASHER_ASSERT_VALIDPTR_RW(p) asserts that a pointer is valid for read and write
 // DASHER_ASSERT_VALIDPTR_R(p) asserts that a pointer is valid for read
 
-#if DASHER_WIN32 >= 1300
+#if _MSC_VER >= 1300
 #define DASHER_ASSERT_VALIDPTR_RW(p)	DASHER_ASSERT(_CrtIsValidPointer(p, sizeof(p), 1))
 #define DASHER_ASSERT_VALIDPTR_R(p)		DASHER_ASSERT(_CrtIsValidPointer(p, sizeof(p), 0))
 #else
@@ -91,4 +89,4 @@ template <> struct CompileTimeError <true > {
 
 #endif
 
-#endif // __include__
+#endif // __assert_h__

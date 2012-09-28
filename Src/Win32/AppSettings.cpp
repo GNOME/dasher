@@ -234,7 +234,7 @@ bool CAppSettings::LoadSetting(const std::string &Key, std::string *Value) {
 static TCHAR FormatWindowPlacement[] = TEXT("%u,%u,%d,%d,%d,%d,%d,%d,%d,%d");
 
 /////////////////////////////////////////////////////////////////////////////
-#ifndef DASHER_WINCE
+#ifndef _WIN32_WCE
 
 void CAppSettings::SaveSetting(const std::string &Key, const LPWINDOWPLACEMENT pwp) {
   DASHER_ASSERT(pwp != NULL);

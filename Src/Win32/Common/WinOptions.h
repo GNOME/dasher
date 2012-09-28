@@ -22,7 +22,7 @@ public:
   CWinOptions(const std::string & Group, const std::string & Product);
    ~CWinOptions();
 
-#ifndef DASHER_WINCE
+#ifndef _WIN32_WCE
   bool LoadSetting(const std::string & Key, LPWINDOWPLACEMENT pwp);
   void SaveSetting(const std::string & Key, const LPWINDOWPLACEMENT pwp);
 #endif

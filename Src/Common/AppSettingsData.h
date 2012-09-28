@@ -87,7 +87,7 @@ app_sp_table app_stringparamtable[] = {
 #else
   {APP_SP_EDIT_FONT, "EditFont", PERS, "Sans 10", NULL, "EditFont"},
 #endif
-#ifndef DASHER_WINCE
+#ifndef _WIN32_WCE
   {APP_SP_WINDOW_STATE, "WindowState", PERS, "", NULL, "WindowState"},
 #endif
 };

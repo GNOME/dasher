@@ -182,7 +182,7 @@ void CDasherWindow::Show(int nCmdShow) {
 }
 
 void CDasherWindow::SaveWindowState() const {
-#ifndef DASHER_WINCE
+#ifndef _WIN32_WCE
   WINDOWPLACEMENT wp;
   wp.length = sizeof(WINDOWPLACEMENT);
   
@@ -193,7 +193,7 @@ void CDasherWindow::SaveWindowState() const {
 }
 
 bool CDasherWindow::LoadWindowState() {
-#ifndef DASHER_WINCE
+#ifndef _WIN32_WCE
   WINDOWPLACEMENT wp;
   
   if(m_pAppSettings->LoadSetting("WindowState", &wp)) {
