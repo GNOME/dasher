@@ -14,7 +14,7 @@
 #include "KanjiConversion.h"
 #ifdef HAVE_LIBCANNA
 #include "KanjiConversionCanna.h"
-#elif WIN32
+#elif _WIN32
 #include "KanjiConversionIME.h"
 #endif
 
@@ -111,7 +111,7 @@ void CJapaneseLanguageModel::GetProbs(Context context, std::vector<unsigned int>
       //TODO: Write a conversion code here
 #ifdef HAVE_LIBCANNA
       CKanjiConversionCanna canna;
-#elif WIN32
+#elif _WIN32
       CKanjiConversionIME canna;
 #else
       CKanjiConversion canna;

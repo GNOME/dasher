@@ -11,7 +11,7 @@
 #include <string.h>
 #include <errno.h>
 #include <stdarg.h>
-#ifdef WIN32
+#ifdef _WIN32
 #include <winsock2.h>
 #define DASHER_SOCKET_CLOSE_FUNCTION closesocket
 #else

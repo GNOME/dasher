@@ -64,7 +64,7 @@ CNodeCreationManager::CNodeCreationManager(CSettingsUser *pCreateFrom,
     case 1: {
       // Japanese
       CConversionManager *pConversionManager =
-#ifdef WIN32
+#ifdef _WIN32
       new CIMEConversionHelper;
 #else
       new CCannaConversionHelper(this, pAlphInfo, GetLongParameter(LP_CONVERSION_TYPE), GetLongParameter(LP_CONVERSION_ORDER));

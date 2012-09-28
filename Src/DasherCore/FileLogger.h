@@ -62,7 +62,7 @@
   if (g_pLogger != NULL)\
     g_pLogger->LogCritical s ;
 
-#ifdef WIN32
+#ifdef _WIN32
 // Types required by our high resolution WIN32 timing routines
 
 typedef  struct _BinInt32
@@ -126,7 +126,7 @@ public:
 
     void LogFunctionEntry(const std::string& strFunctionName);                  // Used by FunctionLogger to log entry to a function
     void LogFunctionExit(const std::string& strFunctionName);                   // Used by FunctionLogger to log exit from a function
-#ifdef WIN32
+#ifdef _WIN32
     void LogFunctionTicks(const std::string& strFunctionName, __int64 iTicks);  // Used by FunctionLogger to log how long was spent in a function
 #endif
     bool GetFunctionTiming();
@@ -147,7 +147,7 @@ private:
     std::string     GetIndentedString(const std::string& strText);
     std::string     GetTimeDateStamp();
 
-#ifdef WIN32
+#ifdef _WIN32
     MAP_STRING_INT64    m_mapFunctionTicks;     // Keeps track of how many ticks spent in each of our functions (who create a CFunctionLogger object)
 #endif
 
@@ -165,7 +165,7 @@ private:
     std::string     m_strFunctionName;          // Name of the function this object is logging
     CFileLogger*    m_pLogger;                  // Pointer to the logging object to use 
     
-#ifdef WIN32
+#ifdef _WIN32
     BigInt          m_iStartTicks;              // Tick count at start of timing
 #endif
 

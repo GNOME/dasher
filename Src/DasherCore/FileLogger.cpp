@@ -77,7 +77,7 @@ CFileLogger::CFileLogger(const std::string& strFilenamePath, eLogLevel iLogLevel
 
 CFileLogger::~CFileLogger()
 {
-#ifdef WIN32
+#ifdef _WIN32
   if (m_bFunctionTiming)
   {
     // Dump the results of our function timing logging
@@ -342,7 +342,7 @@ void CFileLogger::LogFunctionExit(const std::string& strFunctionName)
   }
 }
 
-#ifdef WIN32
+#ifdef _WIN32
 void CFileLogger::LogFunctionTicks(const std::string& strFunctionName, __int64 iTicks)
 {
   __int64 iCurrent;
@@ -437,7 +437,7 @@ CFunctionLogger::CFunctionLogger(const std::string& strFunctionName, CFileLogger
       m_pLogger->LogFunctionEntry(m_strFunctionName);
     else
     {
-#ifdef WIN32
+#ifdef _WIN32
       BigInt iStartTicks;
       _asm
       {
@@ -460,7 +460,7 @@ CFunctionLogger::~CFunctionLogger()
       m_pLogger->LogFunctionExit(m_strFunctionName);
     else
     {
-#ifdef WIN32
+#ifdef _WIN32
       BigInt iEndTicks;
 
       _asm
