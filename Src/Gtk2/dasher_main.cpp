@@ -313,12 +313,6 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     dasher_lock_dialogue_new(pPrivate->pXML, 0);
 #endif
 
-    g_object_unref(pPrivate->pXML);
-    pPrivate->pXML = 0;
-
-    g_object_unref(pPrivate->pPrefXML);
-    pPrivate->pPrefXML = 0;
-
     /* Set up various bits and pieces */
     dasher_main_set_window_title(pDasherMain);
     dasher_main_populate_controls(pDasherMain);
@@ -592,9 +586,24 @@ void show_game_file_dialog(GtkWidget *pButton, GtkWidget *pWidget, gpointer pDat
 void dasher_main_command_toggle_direct_mode(DasherMain *pSelf) {
 	DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 
+	// Question of style: we could hide/show in
+	// dasher_main_handle_parameter_change()
 	if (dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) == APP_STYLE_DIRECT) {
+		// Opposite of direct mode
+		gtk_widget_show(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "DasherEditor")));
+		gtk_window_set_keep_above(GTK_WINDOW(pPrivate->pMainWindow), false);
+		gtk_window_set_accept_focus(GTK_WINDOW(pPrivate->pMainWindow), true);
+		gtk_window_unstick(GTK_WINDOW(pPrivate->pMainWindow));
 		dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, APP_STYLE_TRAD);
 	} else {
+		// Hide text window
+		gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "DasherEditor")));
+		// Direct mode - set always on top
+		gtk_window_set_keep_above(GTK_WINDOW(pPrivate->pMainWindow), true);
+		// Refuse focus
+		gtk_window_set_accept_focus(GTK_WINDOW(pPrivate->pMainWindow), false);
+		// Stick on all desktops
+		gtk_window_stick(GTK_WINDOW(pPrivate->pMainWindow));
 		dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, APP_STYLE_DIRECT);
 	}
 }
