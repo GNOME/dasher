@@ -12,105 +12,106 @@ msgstr ""
 "Project-Id-Version: dasher.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-01-17 13:09+0000\n"
-"PO-Revision-Date: 2012-01-18 16:37+0100\n"
+"POT-Creation-Date: 2012-09-20 16:50+0000\n"
+"PO-Revision-Date: 2012-09-30 12:19+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: Español <gnome-es-list@gnome.org>\n"
+"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Gtranslator 2.91.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
-#: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:2
-#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:6
-#: ../Src/Gtk2/dasher_main.cpp:899
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:14
+#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:23
+#: ../Src/Gtk2/dasher_main.cpp:897
 msgid "Dasher"
 msgstr "Dasher"
 
 #: ../Data/dasher.desktop.in.in.h:2
-msgid "Enter text without a keyboard"
-msgstr "Introduzca texto sin un teclado"
-
-#: ../Data/dasher.desktop.in.in.h:3
 msgid "Predictive text entry"
 msgstr "Entrada de texto predictivo"
 
+#: ../Data/dasher.desktop.in.in.h:3
+msgid "Enter text without a keyboard"
+msgstr "Introduzca texto sin un teclado"
+
 #: ../Data/GUI/dashermaemofullscreen.ui.h:1
-#: ../Data/GUI/dasher.traditional.ui.h:4
-msgid "Copy _All"
-msgstr "Copiar _todo"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:3
-msgid "Large"
-msgstr "Grande"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:4
-msgid "Normal"
-msgstr "Normal"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:5 ../Data/GUI/dashermaemo.ui.h:5
-#: ../Src/Gtk2/dasher_editor_internal.cpp:813
-#: ../Src/Gtk2/dasher_editor_internal.cpp:847 ../Src/Gtk2/dasher_main.cpp:914
-msgid "Select File"
-msgstr "Seleccionar archivo"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:6 ../Data/GUI/dashermaemo.ui.h:6
-msgid "Select Font"
-msgstr "Seleccione una tipografía"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:7
-msgid "Very Large"
-msgstr "Enorme"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:8
-msgid "_About"
-msgstr "A_cerca de"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:9
-msgid "_Dasher Font"
-msgstr "Tipografía de _Dasher"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:10
-msgid "_Dasher Font Size"
-msgstr "Tamaño de tipografía de _Dasher"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:11
-#: ../Data/GUI/dasher.traditional.ui.h:20
-msgid "_Edit"
-msgstr "_Editar"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:12
-msgid "_Edit Font"
-msgstr "Tipografía de _edición"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:13
-#: ../Data/GUI/dasher.traditional.ui.h:21
+#: ../Data/GUI/dasher.traditional.ui.h:1
 msgid "_File"
 msgstr "_Archivo"
 
-#: ../Data/GUI/dashermaemofullscreen.ui.h:14
-#: ../Data/GUI/dasher.traditional.ui.h:23
-msgid "_Help"
-msgstr "Ay_uda"
+#: ../Data/GUI/dashermaemofullscreen.ui.h:2
+#: ../Data/GUI/dasher.traditional.ui.h:9
+msgid "_Edit"
+msgstr "_Editar"
 
-#: ../Data/GUI/dashermaemofullscreen.ui.h:15
+#: ../Data/GUI/dashermaemofullscreen.ui.h:3
+#: ../Data/GUI/dasher.traditional.ui.h:12
+msgid "Copy _All"
+msgstr "Copiar _todo"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:4
 msgid "_Options"
 msgstr "_Opciones"
 
-#: ../Data/GUI/dashermaemofullscreen.ui.h:16
+#: ../Data/GUI/dashermaemofullscreen.ui.h:5
+msgid "_Edit Font"
+msgstr "Tipografía de _edición"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:6
+msgid "_Dasher Font"
+msgstr "Tipografía de _Dasher"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:7
+msgid "_Dasher Font Size"
+msgstr "Tamaño de tipografía de _Dasher"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:8
+msgid "Normal"
+msgstr "Normal"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:9
+msgid "Large"
+msgstr "Grande"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:10
+msgid "Very Large"
+msgstr "Enorme"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:11
 msgid "_Reset fonts"
 msgstr "_Reiniciar tipografías"
 
+#: ../Data/GUI/dashermaemofullscreen.ui.h:12
+#: ../Data/GUI/dasher.traditional.ui.h:16
+msgid "_Help"
+msgstr "Ay_uda"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:13
+msgid "_About"
+msgstr "A_cerca de"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:15 ../Data/GUI/dashermaemo.ui.h:4
+#: ../Src/Gtk2/dasher_editor.cpp:817 ../Src/Gtk2/dasher_editor.cpp:851
+#: ../Src/Gtk2/dasher_main.cpp:912
+msgid "Select File"
+msgstr "Seleccionar archivo"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:16 ../Data/GUI/dashermaemo.ui.h:5
+msgid "Select Font"
+msgstr "Seleccione una tipografía"
+
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
-#: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "Adaptation"
-msgstr "Adaptación"
+#: ../Data/GUI/dasher.preferences.ui.h:3
+msgid "Dasher Preferences"
+msgstr "Preferencias de Dasher"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
-#: ../Data/GUI/dasher.preferences.ui.h:2
+#: ../Data/GUI/dasher.preferences.ui.h:4
 msgid "Alphabet Selection"
 msgstr "Selección del alfabeto"
 
@@ -119,174 +120,148 @@ msgid "Color Scheme"
 msgstr "Esquema de color"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
+#: ../Data/GUI/dasher.preferences.ui.h:42
+msgid "Custom colour scheme:"
+msgstr "Esquema de colores personalizado:"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:5
+msgid "Alphabet"
+msgstr "Alfabeto"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:6
+#: ../Data/GUI/dasher.preferences.ui.h:32
+msgid "Speed"
+msgstr "Velocidad"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:7
+#: ../Data/GUI/dasher.preferences.ui.h:33
+msgid "Adapt speed automatically"
+msgstr "Adaptar la velocidad automáticamente"
+
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:9
+msgid "Control"
+msgstr "Control"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Display Size"
 msgstr "Tamaño de la pantalla"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:5
-#: ../Data/GUI/dasher.preferences.ui.h:13
-msgid "Language Model"
-msgstr "Modelo de idioma"
+#: ../Data/GUI/dashermaemo.preferences.ui.h:11
+msgid "Enlarge input window"
+msgstr "Alargar la ventana de entrada"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:6
+#: ../Data/GUI/dashermaemo.preferences.ui.h:12
 msgid "Orientation"
 msgstr "Orientación"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:7
+#. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:13
+#: ../Data/GUI/dasher.preferences.ui.h:21
+msgid "Alphabet Default"
+msgstr "Alfabeto predeterminado"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:14
+msgid "Custom"
+msgstr "Personalizado"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:15
+msgid "Left to Right"
+msgstr "Izquierda a derecha"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:16
+msgid "Right to Left"
+msgstr "Derecha a izquierda"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:17
+msgid "Top to Bottom"
+msgstr "De arriba a abajo"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:18
+msgid "Bottom to Top"
+msgstr "De abajo a arriba"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:19
+msgid "View"
+msgstr "Vista"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:20
+#: ../Data/GUI/dasher.preferences.ui.h:5
+msgid "Language Model"
+msgstr "Modelo de idioma"
+
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:21
+#: ../Data/GUI/dasher.preferences.ui.h:7
+msgid "Standard letter-based PPM"
+msgstr "PPM basado en carta estándar"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:22
+#: ../Data/GUI/dasher.preferences.ui.h:8
+msgid "Word-based model"
+msgstr "Modelo basado en palabras"
+
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:23
+#: ../Data/GUI/dasher.preferences.ui.h:10
+msgid "Mixture model (PPM/dictionary)"
+msgstr "Modelo de mezcla (PPM/diccionario)"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:24
+#: ../Data/GUI/dasher.preferences.ui.h:11
+msgid "Japanese"
+msgstr "Japonés"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:25
+#: ../Data/GUI/dasher.preferences.ui.h:12
+msgid "Adaptation"
+msgstr "Adaptación"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:26
+#: ../Data/GUI/dasher.preferences.ui.h:13
+msgid "Language model adapts as you write."
+msgstr "El modelo de idioma se adapta a como escribe."
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:27
 #: ../Data/GUI/dasher.preferences.ui.h:14
 msgid "Smoothing"
 msgstr "Suavizado"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:8
-#: ../Data/GUI/dasher.preferences.ui.h:15
-msgid "Speed"
-msgstr "Velocidad"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:9
-#: ../Data/GUI/dasher.preferences.ui.h:18
-msgid "Adapt speed automatically"
-msgstr "Adaptar la velocidad automáticamente"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:10
-msgid "Alphabet"
-msgstr "Alfabeto"
-
-#. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
-#: ../Data/GUI/dashermaemo.preferences.ui.h:11
-#: ../Data/GUI/dasher.preferences.ui.h:20
-msgid "Alphabet Default"
-msgstr "Alfabeto predeterminado"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:12
-msgid "Bottom to Top"
-msgstr "De abajo a arriba"
-
-#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
-#: ../Data/GUI/dashermaemo.preferences.ui.h:14
-msgid "Control"
-msgstr "Control"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:15
-msgid "Custom"
-msgstr "Personalizado"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:16
-#: ../Data/GUI/dasher.preferences.ui.h:32
-msgid "Custom colour scheme:"
-msgstr "Esquema de colores personalizado:"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:17
-#: ../Data/GUI/dasher.preferences.ui.h:33
-msgid "Dasher Preferences"
-msgstr "Preferencias de Dasher"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:18
-msgid "Enlarge input window"
-msgstr "Alargar la ventana de entrada"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:19
-#: ../Data/GUI/dasher.preferences.ui.h:43
-msgid "Japanese"
-msgstr "Japonés"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:20
-#: ../Data/GUI/dasher.preferences.ui.h:44
-msgid "Language model adapts as you write."
-msgstr "El modelo de idioma se adapta a como escribe."
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:21
-msgid "Left to Right"
-msgstr "Izquierda a derecha"
-
-#. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dashermaemo.preferences.ui.h:22
-#: ../Data/GUI/dasher.preferences.ui.h:47
-msgid "Mixture model (PPM/dictionary)"
-msgstr "Modelo de mezcla (PPM/diccionario)"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:23
+#: ../Data/GUI/dashermaemo.preferences.ui.h:28
 msgid "Prediction"
 msgstr "Predicción"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:24
-msgid "Right to Left"
-msgstr "Derecha a izquierda"
-
-#. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dashermaemo.preferences.ui.h:25
-#: ../Data/GUI/dasher.preferences.ui.h:60
-msgid "Standard letter-based PPM"
-msgstr "PPM basado en carta estándar"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:26
-msgid "Top to Bottom"
-msgstr "De arriba a abajo"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:27
-msgid "View"
-msgstr "Vista"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:28
-#: ../Data/GUI/dasher.preferences.ui.h:71
-msgid "Word-based model"
-msgstr "Modelo basado en palabras"
 
 #. Abbreviation for Preferences
 #: ../Data/GUI/dashermaemo.ui.h:3
 msgid "P"
 msgstr "P"
 
-#: ../Data/GUI/dashermaemo.ui.h:4 ../Data/GUI/dasher.traditional.ui.h:11
+#: ../Data/GUI/dashermaemo.ui.h:6 ../Data/GUI/dasher.traditional.ui.h:26
 msgid "Please Wait…"
 msgstr "Espere…"
 
-#: ../Data/GUI/dasher.preferences.ui.h:3
-msgid "Appearance Options"
-msgstr "Opciones de apariencia"
+#: ../Data/GUI/dasher.preferences.ui.h:1
+msgid "Centre circle"
+msgstr "Centrar círculo"
 
-#: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "Application Options"
-msgstr "Opciones de la aplicación"
+#: ../Data/GUI/dasher.preferences.ui.h:2
+msgid "Two box"
+msgstr "Dos cajas"
 
-#: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "Application Style"
-msgstr "Estilo de la aplicación"
+#. Line wrapping not necessary, but looks better for English
+#: ../Data/GUI/dasher.preferences.ui.h:16
+msgid ""
+"Use this control to adjust the relative sizes of the\n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+"Use este control para ajustar los tamaños relativos de \n"
+"las cajas de letras. Tenga en cuenta que seleccionar valores \n"
+"grandes reducirá su velocidad de escritura."
 
-#: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "Colour Scheme"
-msgstr "Esquema de color"
-
-#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
-#: ../Data/GUI/dasher.preferences.ui.h:8
-msgid "Control Style"
-msgstr "Estilo de control"
-
-#: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "Dasher Font"
-msgstr "Tipografía de Dasher"
-
-#: ../Data/GUI/dasher.preferences.ui.h:10
+#: ../Data/GUI/dasher.preferences.ui.h:19
 msgid "Direction"
 msgstr "Dirección"
-
-#: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "Editor Font"
-msgstr "Tipografía del editor"
-
-#: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "Input Device"
-msgstr "Dispositivo de entrada"
-
-#: ../Data/GUI/dasher.preferences.ui.h:16
-msgid "Starting and Stopping"
-msgstr "Inicio y detención"
-
-#: ../Data/GUI/dasher.preferences.ui.h:17
-msgid "A_pplication"
-msgstr "Aplicació_n"
-
-#: ../Data/GUI/dasher.preferences.ui.h:21
-msgid "Always Bottom-to-Top"
-msgstr "Siempre de abajo a arriba"
 
 #. This means that you always want to write left-to-right regardless of the normal direction for the alphabet you are using
 #: ../Data/GUI/dasher.preferences.ui.h:23
@@ -301,225 +276,261 @@ msgstr "Siempre de derecha a izquierda"
 msgid "Always Top-to-Bottom"
 msgstr "Siempre de arriba a abajo"
 
-#. Abbreviation for Control Style
+#: ../Data/GUI/dasher.preferences.ui.h:26
+msgid "Always Bottom-to-Top"
+msgstr "Siempre de abajo a arriba"
+
 #: ../Data/GUI/dasher.preferences.ui.h:27
-msgid "C_ontrol"
-msgstr "C_ontrol"
-
-#: ../Data/GUI/dasher.preferences.ui.h:28
-msgid "Centre circle"
-msgstr "Centrar círculo"
-
-#: ../Data/GUI/dasher.preferences.ui.h:29
-msgid "Composition"
-msgstr "Composición"
-
-#: ../Data/GUI/dasher.preferences.ui.h:30
-msgid "Control mode"
-msgstr "Modo de control"
-
-#: ../Data/GUI/dasher.preferences.ui.h:31
-msgid "Copy All on stop"
-msgstr "Copiar todo al parar"
-
-#: ../Data/GUI/dasher.preferences.ui.h:34
-msgid "Direct entry"
-msgstr "Entrada directa"
-
-#: ../Data/GUI/dasher.preferences.ui.h:35
-msgid "Draw box outlines"
-msgstr "Dibujar bordes de las cajas"
-
-#: ../Data/GUI/dasher.preferences.ui.h:36
-msgid "Draw line between crosshairs and mouse"
-msgstr "Dibujar línea entre las cruces y el ratón"
-
-#: ../Data/GUI/dasher.preferences.ui.h:37
-msgid "Force to have Halt command"
-msgstr "Forzar tener un comando para parar"
-
-#: ../Data/GUI/dasher.preferences.ui.h:38
-msgid "Full Screen"
-msgstr "Pantalla completa"
-
-#: ../Data/GUI/dasher.preferences.ui.h:39
-msgid "Include Clipboard commands"
-msgstr "Incluir comandos del portapapeles"
-
-#: ../Data/GUI/dasher.preferences.ui.h:40
-msgid "Include Editing commands"
-msgstr "Incluir comandos de edición"
-
-#: ../Data/GUI/dasher.preferences.ui.h:41
-msgid "Include Speech commands"
-msgstr "Incluir comandos de habla"
-
-#: ../Data/GUI/dasher.preferences.ui.h:42
-msgid "Increase line thickness"
-msgstr "Incrementar el grosor de la línea"
-
-#: ../Data/GUI/dasher.preferences.ui.h:45
-msgid "Large font "
-msgstr "Tipografía grande"
-
-#: ../Data/GUI/dasher.preferences.ui.h:48
-msgid "Options"
-msgstr "Opciones"
-
-#: ../Data/GUI/dasher.preferences.ui.h:49
-msgid "Pause outside of canvas"
-msgstr "Pausar fuera del lienzo"
-
-#: ../Data/GUI/dasher.preferences.ui.h:50
-msgid "Select Dasher Font"
-msgstr "Seleccione la tipografía para Dasher"
-
-#: ../Data/GUI/dasher.preferences.ui.h:51
-msgid "Select Editor Font"
-msgstr "Seleccione una tipografía para el editor"
-
-#: ../Data/GUI/dasher.preferences.ui.h:52
-msgid "Show mouse position"
-msgstr "Mostrar la posición del ratón"
-
-#: ../Data/GUI/dasher.preferences.ui.h:53
-msgid "Show speed slider"
-msgstr "Mostrar el deslizador de velocidad"
-
-#: ../Data/GUI/dasher.preferences.ui.h:54
-msgid "Show toolbar"
-msgstr "Mostrar la barra de herramientas"
-
-#: ../Data/GUI/dasher.preferences.ui.h:55
-msgid "Small font"
-msgstr "Tipografía pequeña"
-
-#: ../Data/GUI/dasher.preferences.ui.h:56
-msgid "Speak All on stop"
-msgstr "Hablar todo al parar"
-
-#: ../Data/GUI/dasher.preferences.ui.h:57
-msgid "Speak words as you write"
-msgstr "Hablar las palabras al escribirlas"
-
-#: ../Data/GUI/dasher.preferences.ui.h:58
-msgid "Stand-alone"
-msgstr "Solitario"
-
-#: ../Data/GUI/dasher.preferences.ui.h:61
-msgid "Start on left mouse button"
-msgstr "Iniciar con el botón izquierdo del ratón"
-
-#: ../Data/GUI/dasher.preferences.ui.h:62
-msgid "Start on space bar"
-msgstr "Iniciar en la barra de tareas"
-
-#: ../Data/GUI/dasher.preferences.ui.h:63
-msgid "Start with mouse position:"
-msgstr "Iniciar con posición del ratón:"
-
-#: ../Data/GUI/dasher.preferences.ui.h:64
-msgid "Timestamp new files"
-msgstr "Marca temporal en los archivos nuevos"
-
-#: ../Data/GUI/dasher.preferences.ui.h:65
-msgid "Two box"
-msgstr "Dos cajas"
-
-#. Line wrapping not necessary, but looks better for English
-#: ../Data/GUI/dasher.preferences.ui.h:67
-msgid ""
-"Use this control to adjust the relative sizes of the\n"
-"letter boxes. Note that selecting high values will slow\n"
-"your writing speed."
-msgstr ""
-"Use este control para ajustar los tamaños relativos de \n"
-"las cajas de letras. Tenga en cuenta que seleccionar valores \n"
-"grandes reducirá su velocidad de escritura."
-
-#: ../Data/GUI/dasher.preferences.ui.h:70
-msgid "Very large font"
-msgstr "Tipografía muy grande"
-
-#: ../Data/GUI/dasher.preferences.ui.h:72
-msgid "_Appearance"
-msgstr "_Apariencia"
-
-#: ../Data/GUI/dasher.preferences.ui.h:73
 msgid "_Language"
 msgstr "_Idioma"
 
-#: ../Data/GUI/dasher.traditional.ui.h:1
-msgid "A_ppend to file…"
-msgstr "_Añadir al archivo…"
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
+#: ../Data/GUI/dasher.preferences.ui.h:29
+msgid "Control Style"
+msgstr "Estilo de control"
+
+#: ../Data/GUI/dasher.preferences.ui.h:30
+msgid "Options"
+msgstr "Opciones"
+
+#: ../Data/GUI/dasher.preferences.ui.h:31
+msgid "Input Device"
+msgstr "Dispositivo de entrada"
+
+#: ../Data/GUI/dasher.preferences.ui.h:34
+msgid "Starting and Stopping"
+msgstr "Inicio y detención"
+
+#: ../Data/GUI/dasher.preferences.ui.h:35
+msgid "Start on left mouse button"
+msgstr "Iniciar con el botón izquierdo del ratón"
+
+#: ../Data/GUI/dasher.preferences.ui.h:36
+msgid "Start on space bar"
+msgstr "Iniciar en la barra de tareas"
+
+#: ../Data/GUI/dasher.preferences.ui.h:37
+msgid "Start with mouse position:"
+msgstr "Iniciar con posición del ratón:"
+
+#: ../Data/GUI/dasher.preferences.ui.h:38
+msgid "Pause outside of canvas"
+msgstr "Pausar fuera del lienzo"
+
+#. Abbreviation for Control Style
+#: ../Data/GUI/dasher.preferences.ui.h:40
+msgid "C_ontrol"
+msgstr "C_ontrol"
+
+#: ../Data/GUI/dasher.preferences.ui.h:41
+msgid "Colour Scheme"
+msgstr "Esquema de color"
+
+#: ../Data/GUI/dasher.preferences.ui.h:43
+msgid "Appearance Options"
+msgstr "Opciones de apariencia"
+
+#: ../Data/GUI/dasher.preferences.ui.h:44
+msgid "Show mouse position"
+msgstr "Mostrar la posición del ratón"
+
+#: ../Data/GUI/dasher.preferences.ui.h:45
+msgid "Draw line between crosshairs and mouse"
+msgstr "Dibujar línea entre las cruces y el ratón"
+
+#: ../Data/GUI/dasher.preferences.ui.h:46
+msgid "Increase line thickness"
+msgstr "Incrementar el grosor de la línea"
+
+#: ../Data/GUI/dasher.preferences.ui.h:47
+msgid "Draw box outlines"
+msgstr "Dibujar bordes de las cajas"
+
+#: ../Data/GUI/dasher.preferences.ui.h:48
+msgid "Dasher Font"
+msgstr "Tipografía de Dasher"
+
+#: ../Data/GUI/dasher.preferences.ui.h:49
+msgid "Select Dasher Font"
+msgstr "Seleccione la tipografía para Dasher"
+
+#: ../Data/GUI/dasher.preferences.ui.h:50
+msgid "Small font"
+msgstr "Tipografía pequeña"
+
+#: ../Data/GUI/dasher.preferences.ui.h:51
+msgid "Large font "
+msgstr "Tipografía grande"
+
+#: ../Data/GUI/dasher.preferences.ui.h:52
+msgid "Very large font"
+msgstr "Tipografía muy grande"
+
+#: ../Data/GUI/dasher.preferences.ui.h:53
+msgid "_Appearance"
+msgstr "_Apariencia"
+
+#: ../Data/GUI/dasher.preferences.ui.h:54
+msgid "Application Options"
+msgstr "Opciones de la aplicación"
+
+#: ../Data/GUI/dasher.preferences.ui.h:55
+msgid "Timestamp new files"
+msgstr "Marca temporal en los archivos nuevos"
+
+#: ../Data/GUI/dasher.preferences.ui.h:56
+msgid "Show toolbar"
+msgstr "Mostrar la barra de herramientas"
+
+#: ../Data/GUI/dasher.preferences.ui.h:57
+msgid "Show speed slider"
+msgstr "Mostrar el deslizador de velocidad"
+
+#: ../Data/GUI/dasher.preferences.ui.h:58
+msgid "Control mode"
+msgstr "Modo de control"
+
+#: ../Data/GUI/dasher.preferences.ui.h:59
+msgid "Include Clipboard commands"
+msgstr "Incluir comandos del portapapeles"
+
+#: ../Data/GUI/dasher.preferences.ui.h:60
+msgid "Include Speech commands"
+msgstr "Incluir comandos de habla"
+
+#: ../Data/GUI/dasher.preferences.ui.h:61
+msgid "Force to have Halt command"
+msgstr "Forzar tener un comando para parar"
+
+#: ../Data/GUI/dasher.preferences.ui.h:62
+msgid "Include Editing commands"
+msgstr "Incluir comandos de edición"
+
+#: ../Data/GUI/dasher.preferences.ui.h:63
+msgid "Copy All on stop"
+msgstr "Copiar todo al parar"
+
+#: ../Data/GUI/dasher.preferences.ui.h:64
+msgid "Speak All on stop"
+msgstr "Hablar todo al parar"
+
+#: ../Data/GUI/dasher.preferences.ui.h:65
+msgid "Speak words as you write"
+msgstr "Hablar las palabras al escribirlas"
+
+#: ../Data/GUI/dasher.preferences.ui.h:66
+msgid "Editor Font"
+msgstr "Tipografía del editor"
+
+#: ../Data/GUI/dasher.preferences.ui.h:67
+msgid "Select Editor Font"
+msgstr "Seleccione una tipografía para el editor"
+
+#: ../Data/GUI/dasher.preferences.ui.h:68
+msgid "Application Style"
+msgstr "Estilo de la aplicación"
+
+#: ../Data/GUI/dasher.preferences.ui.h:69
+msgid "Stand-alone"
+msgstr "Solitario"
+
+#: ../Data/GUI/dasher.preferences.ui.h:70
+msgid "Composition"
+msgstr "Composición"
+
+#: ../Data/GUI/dasher.preferences.ui.h:71
+msgid "Direct entry"
+msgstr "Entrada directa"
+
+#: ../Data/GUI/dasher.preferences.ui.h:72
+msgid "Full Screen"
+msgstr "Pantalla completa"
+
+#: ../Data/GUI/dasher.preferences.ui.h:73
+msgid "A_pplication"
+msgstr "Aplicació_n"
 
 #: ../Data/GUI/dasher.traditional.ui.h:2
-msgid "Alphabet:"
-msgstr "Alfabeto:"
-
-#: ../Data/GUI/dasher.traditional.ui.h:3
-msgid "Copy"
-msgstr "Copiar"
-
-#: ../Data/GUI/dasher.traditional.ui.h:5
-msgid "Cut"
-msgstr "Cortar"
-
-#: ../Data/GUI/dasher.traditional.ui.h:7
-msgid "Help"
-msgstr "Ayuda"
-
-#: ../Data/GUI/dasher.traditional.ui.h:8
 msgid "New file"
 msgstr "Archivo nuevo"
 
-#: ../Data/GUI/dasher.traditional.ui.h:9
+#: ../Data/GUI/dasher.traditional.ui.h:3
 msgid "Open file"
 msgstr "Abrir archivo"
 
-#: ../Data/GUI/dasher.traditional.ui.h:10
-msgid "Paste"
-msgstr "Pegar"
-
-#: ../Data/GUI/dasher.traditional.ui.h:12
-msgid "Pr_eferences…"
-msgstr "Prefere_ncias"
-
-#: ../Data/GUI/dasher.traditional.ui.h:13
-msgid "Preferences"
-msgstr "Preferencias"
-
-#: ../Data/GUI/dasher.traditional.ui.h:14 ../Src/Gtk2/dasher_main.cpp:992
-msgid "Quit"
-msgstr "Salir"
-
-#: ../Data/GUI/dasher.traditional.ui.h:15
+#: ../Data/GUI/dasher.traditional.ui.h:4
 msgid "Save file"
 msgstr "Guardar archivo"
 
-#: ../Data/GUI/dasher.traditional.ui.h:16
+#: ../Data/GUI/dasher.traditional.ui.h:5
 msgid "Save file as"
 msgstr "Guardar archivo como"
 
+#: ../Data/GUI/dasher.traditional.ui.h:6
+msgid "A_ppend to file…"
+msgstr "_Añadir al archivo…"
+
+#: ../Data/GUI/dasher.traditional.ui.h:7
+msgid "_Import Training Text…"
+msgstr "_Importar texto de entrenamiento…"
+
+#: ../Data/GUI/dasher.traditional.ui.h:8 ../Src/Gtk2/dasher_main.cpp:990
+msgid "Quit"
+msgstr "Salir"
+
+#: ../Data/GUI/dasher.traditional.ui.h:10
+msgid "Cut"
+msgstr "Cortar"
+
+#: ../Data/GUI/dasher.traditional.ui.h:11
+msgid "Copy"
+msgstr "Copiar"
+
+#: ../Data/GUI/dasher.traditional.ui.h:13
+msgid "Paste"
+msgstr "Pegar"
+
+#: ../Data/GUI/dasher.traditional.ui.h:14
+msgid "Pr_eferences…"
+msgstr "Prefere_ncias"
+
+#: ../Data/GUI/dasher.traditional.ui.h:15
+msgid "Preferences"
+msgstr "Preferencias"
+
 #: ../Data/GUI/dasher.traditional.ui.h:17
-msgid "Speed:"
-msgstr "Velocidad:"
+msgid "_Contents…"
+msgstr "_Contenido…"
 
 #: ../Data/GUI/dasher.traditional.ui.h:18
+msgid "Help"
+msgstr "Ayuda"
+
+#: ../Data/GUI/dasher.traditional.ui.h:19
 msgid "_About…"
 msgstr "A_cerca de…"
 
-#: ../Data/GUI/dasher.traditional.ui.h:19
-msgid "_Contents…"
-msgstr "_Contenido…"
+#: ../Data/GUI/dasher.traditional.ui.h:20
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:807
+msgid "Direct Mode"
+msgstr "Modo directo"
+
+#: ../Data/GUI/dasher.traditional.ui.h:21
+#| msgid "Direct Mode"
+msgid "_Direct Mode"
+msgstr "Modo _directo"
 
 #: ../Data/GUI/dasher.traditional.ui.h:22
 msgid "_Game Mode"
 msgstr "Modo j_uego"
 
 #: ../Data/GUI/dasher.traditional.ui.h:24
-msgid "_Import Training Text…"
-msgstr "_Importar texto de entrenamiento…"
+msgid "Speed:"
+msgstr "Velocidad:"
+
+#: ../Data/GUI/dasher.traditional.ui.h:25
+msgid "Alphabet:"
+msgstr "Alfabeto:"
 
 #. think XML_LChar==char, depends on preprocessor variables...
 #. /TRANSLATORS: the first string is the error message from the XML Parser;
@@ -588,7 +599,6 @@ msgid "Scan time in menu mode (0 to not scan)"
 msgstr "Tiempo de análisis en el modo menú (0 para no analizar)"
 
 #: ../Src/DasherCore/ButtonMode.cpp:30
-#| msgid "Number of boxes"
 msgid "Number of forward boxes"
 msgstr "Número de cajas"
 
@@ -666,10 +676,6 @@ msgstr "Control normal"
 msgid "Menu Mode"
 msgstr "Modo menú"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:807
-msgid "Direct Mode"
-msgstr "Modo directo"
-
 #: ../Src/DasherCore/DefaultFilter.cpp:14
 msgid "Vertical distance from mouse/gaze to target (400=screen height)"
 msgstr ""
@@ -746,9 +752,6 @@ msgstr "Al ayudar, ¿mostrar el camino más corto a la sentencia objetivo?"
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:176
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:128
 #, c-format
-#| msgid ""
-#| "Warning: faulty alphabet definition, escape sequence %s must be a single "
-#| "unicode character. This may worsen Dasher's text prediction."
 msgid ""
 "Warning: faulty alphabet definition: training-start delimiter %s must be a "
 "single unicode character. May be unable to process training file."
@@ -797,8 +800,8 @@ msgid ""
 "Warning: in training file, annotation '<%s>' is followed by another "
 "annotation and will be ignored"
 msgstr ""
-"Advertencia: en el archivo de entrenamiento, la anotación «<%s>» está seguida "
-"de otra y se ignorará"
+"Advertencia: en el archivo de entrenamiento, la anotación «<%s>» está "
+"seguida de otra y se ignorará"
 
 #. /TRANSLATORS: first string will be the filename; after the end of the string,
 #. / some number of output (e.g. Chinese) characters will be appended,
@@ -1011,7 +1014,8 @@ msgstr "Error al asociar el socket; ¿ya está en uso?"
 #, c-format
 msgid "Warning truncating socket input label '%s' to %i characters."
 msgstr ""
-"Advertencia al truncar la etiqueta de entrada del socket «%s» a %i caracteres."
+"Advertencia al truncar la etiqueta de entrada del socket «%s» a %i "
+"caracteres."
 
 #: ../Src/DasherCore/SocketInputBase.cpp:195
 msgid "Socket input: Error reading from socket"
@@ -1151,7 +1155,7 @@ msgstr "falta el ajuste de la opción «=»."
 msgid "Invalid option string specified"
 msgstr "Cadena de opción especificada no válida"
 
-#: ../Src/Gtk2/dasher_main.cpp:620
+#: ../Src/Gtk2/dasher_main.cpp:617
 msgid ""
 "Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering "
 "text in Dasher. Please select a training text to play with:"
@@ -1160,19 +1164,19 @@ msgstr ""
 "introducir texto en Dasher. Seleccione un texto de entrenamiento con el que "
 "jugar:"
 
-#: ../Src/Gtk2/dasher_main.cpp:622
+#: ../Src/Gtk2/dasher_main.cpp:619
 msgid "Use Default"
 msgstr "Usar predeterminados"
 
-#: ../Src/Gtk2/dasher_main.cpp:623
+#: ../Src/Gtk2/dasher_main.cpp:620
 msgid "Choose File..."
 msgstr "Elegir archivo…"
 
-#: ../Src/Gtk2/dasher_main.cpp:624
+#: ../Src/Gtk2/dasher_main.cpp:621
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ../Src/Gtk2/dasher_main.cpp:647
+#: ../Src/Gtk2/dasher_main.cpp:644
 msgid ""
 "Are you sure you wish to turn off game mode? All unsaved changes will be "
 "lost."
@@ -1180,7 +1184,7 @@ msgstr ""
 "¿Está seguro de que quiere desactiva el modo juego? Se perderán todos los "
 "cambios no guardados."
 
-#: ../Src/Gtk2/dasher_main.cpp:954
+#: ../Src/Gtk2/dasher_main.cpp:952
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1191,7 +1195,7 @@ msgstr ""
 "\n"
 "Los cambios se perderán si no los guarda."
 
-#: ../Src/Gtk2/dasher_main.cpp:961
+#: ../Src/Gtk2/dasher_main.cpp:959
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1201,31 +1205,31 @@ msgstr ""
 "\n"
 "Los cambios se perderán si no los guarda."
 
-#: ../Src/Gtk2/dasher_main.cpp:967
+#: ../Src/Gtk2/dasher_main.cpp:965
 msgid "Don't save"
 msgstr "No guardar"
 
-#: ../Src/Gtk2/dasher_main.cpp:968 ../Src/Gtk2/dasher_main.cpp:991
+#: ../Src/Gtk2/dasher_main.cpp:966 ../Src/Gtk2/dasher_main.cpp:989
 msgid "Don't quit"
 msgstr "No salir"
 
-#: ../Src/Gtk2/dasher_main.cpp:969
+#: ../Src/Gtk2/dasher_main.cpp:967
 msgid "Save and quit"
 msgstr "Guardar y salir"
 
-#: ../Src/Gtk2/dasher_main.cpp:988
+#: ../Src/Gtk2/dasher_main.cpp:986
 msgid "Are you sure you wish to quit?"
 msgstr "¿Seguro que quiere salir?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1030
+#: ../Src/Gtk2/dasher_main.cpp:1028
 msgid "Unable to open help file"
 msgstr "No se pudo abrir el archivo de ayuda"
 
-#: ../Src/Gtk2/dasher_main.cpp:1082
+#: ../Src/Gtk2/dasher_main.cpp:1080
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher es una aplicación de entrada de texto predictivo"
 
-#: ../Src/Gtk2/dasher_main.cpp:1087
+#: ../Src/Gtk2/dasher_main.cpp:1085
 msgid "translator-credits"
 msgstr ""
 "Jorge González <jorgegonz@svn.gnome.org>, 2007-2010\n"
