@@ -23,15 +23,13 @@
 
 #ifdef _WIN32
 #include "MSVC_Unannoy.h"
-#endif
-
-/////////////////////////////////////////////////////////////////////////////
-
-// Set up any platform deficiencies
 
 #if _MSC_VER < 1300
 #include "Platform/stdminmax.h"
 #endif
+
+#endif
+
 
 #include "myassert.h"
 
