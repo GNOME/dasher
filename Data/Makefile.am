@@ -50,7 +50,7 @@ if USE_GSETTINGS
 schemasdir = $(datadir)/glib-2.0/schemas
 schemas_DATA = dasher.gschema.xml
 
-check-local: check-schmemas
+check-local: check-schemas
 
 dasher.gschema.xml: $(top_builddir)/Src/Gtk2/generate-schema
 	echo -n "Generating GSettings schema ... "; \
