@@ -1,10 +1,8 @@
 # translation of dasher to Galician
 # This file is distributed under the same license as the Dasher package.
 # Copyright (C) 2009, 2010 Fran Diéguez.
-#
 # Proxecto Trasno - Adaptación do software libre á lingua galega:  Se desexas
 # colaborar connosco, podes atopar máis información en <http://trasno.net>
-#
 # Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2005, 2006.
 # Ignacio Casal Quinteiro <icq@cvs.gnome.org>, 2007, 2008.
 # Mancomún - Centro de Referencia e Servizos de Software Libre <g11n@mancomun.org>, 2009.
@@ -12,26 +10,26 @@
 # Leandro Regueiro <leandro.regueiro@gmail.com>, 2009, 2010.
 # Fran Diéguez <frandieguez@ubuntu.com>, 2009, 2010.
 # Fran Dieguez <frandieguez@gnome.org>, 2012.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher-master-po-gl-29113\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-25 18:25+0200\n"
-"PO-Revision-Date: 2012-03-25 18:39+0200\n"
+"POT-Creation-Date: 2012-10-12 00:52+0200\n"
+"PO-Revision-Date: 2012-10-12 00:53+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
-"Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
+"Language-Team: gnome-l10n-gl@gnome.org\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
 #: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:14
-#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:21
-#: ../Src/Gtk2/dasher_main.cpp:899
+#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:23
+#: ../Src/Gtk2/dasher_main.cpp:906
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -100,8 +98,8 @@ msgid "_About"
 msgstr "_Sobre"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:15 ../Data/GUI/dashermaemo.ui.h:4
-#: ../Src/Gtk2/dasher_editor_internal.cpp:813
-#: ../Src/Gtk2/dasher_editor_internal.cpp:847 ../Src/Gtk2/dasher_main.cpp:914
+#: ../Src/Gtk2/dasher_editor.cpp:817 ../Src/Gtk2/dasher_editor.cpp:851
+#: ../Src/Gtk2/dasher_main.cpp:921
 msgid "Select File"
 msgstr "Seleccionar o ficheiro"
 
@@ -241,7 +239,7 @@ msgstr "Predición"
 msgid "P"
 msgstr "P"
 
-#: ../Data/GUI/dashermaemo.ui.h:6 ../Data/GUI/dasher.traditional.ui.h:24
+#: ../Data/GUI/dashermaemo.ui.h:6 ../Data/GUI/dasher.traditional.ui.h:26
 msgid "Please Wait…"
 msgstr "Agarde..."
 
@@ -479,7 +477,7 @@ msgstr "_Engadir ao ficheiro..."
 msgid "_Import Training Text…"
 msgstr "_Importar o texto de proba..."
 
-#: ../Data/GUI/dasher.traditional.ui.h:8 ../Src/Gtk2/dasher_main.cpp:992
+#: ../Data/GUI/dasher.traditional.ui.h:8 ../Src/Gtk2/dasher_main.cpp:999
 msgid "Quit"
 msgstr "Saír"
 
@@ -516,14 +514,23 @@ msgid "_About…"
 msgstr "_Sobre..."
 
 #: ../Data/GUI/dasher.traditional.ui.h:20
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:807
+msgid "Direct Mode"
+msgstr "Modo directo"
+
+#: ../Data/GUI/dasher.traditional.ui.h:21
+msgid "_Direct Mode"
+msgstr "Modo _directo"
+
+#: ../Data/GUI/dasher.traditional.ui.h:22
 msgid "_Game Mode"
 msgstr "Modo x_ogo"
 
-#: ../Data/GUI/dasher.traditional.ui.h:22
+#: ../Data/GUI/dasher.traditional.ui.h:24
 msgid "Speed:"
 msgstr "Velocidade:"
 
-#: ../Data/GUI/dasher.traditional.ui.h:23
+#: ../Data/GUI/dasher.traditional.ui.h:25
 msgid "Alphabet:"
 msgstr "Alfabeto:"
 
@@ -668,10 +675,6 @@ msgstr "Control normal"
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:806
 msgid "Menu Mode"
 msgstr "Modo de menú"
-
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:807
-msgid "Direct Mode"
-msgstr "Modo directo"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:14
 msgid "Vertical distance from mouse/gaze to target (400=screen height)"
@@ -1019,7 +1022,7 @@ msgid "Dasher Socket Input error: %s: %s"
 msgstr "Erro de entrada no socket de Dasher: %s: %s"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
-#: ../Src/DasherCore/SocketInput.cpp:34
+#: ../Src/DasherCore/SocketInput.cpp:31
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr ""
 "Entrada de conectador de Dasher: produciuse un erro ao iniciar o fío do "
@@ -1147,7 +1150,7 @@ msgstr "Fáltalle o «=» á definición da opción."
 msgid "Invalid option string specified"
 msgstr "Especificouse unha cadea de opción incorrecta"
 
-#: ../Src/Gtk2/dasher_main.cpp:620
+#: ../Src/Gtk2/dasher_main.cpp:626
 msgid ""
 "Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering "
 "text in Dasher. Please select a training text to play with:"
@@ -1155,19 +1158,19 @@ msgstr ""
 "Benvido ao modo xogo de Dasher. O modo xogo é unha maneira divertida de "
 "introducir texto en Dasher. Seleccione un texto de entrenamento co que xogar:"
 
-#: ../Src/Gtk2/dasher_main.cpp:622
+#: ../Src/Gtk2/dasher_main.cpp:628
 msgid "Use Default"
 msgstr "Usar predeterminados"
 
-#: ../Src/Gtk2/dasher_main.cpp:623
+#: ../Src/Gtk2/dasher_main.cpp:629
 msgid "Choose File..."
 msgstr "Escoller ficheiro…"
 
-#: ../Src/Gtk2/dasher_main.cpp:624
+#: ../Src/Gtk2/dasher_main.cpp:630
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ../Src/Gtk2/dasher_main.cpp:647
+#: ../Src/Gtk2/dasher_main.cpp:653
 msgid ""
 "Are you sure you wish to turn off game mode? All unsaved changes will be "
 "lost."
@@ -1175,7 +1178,7 @@ msgstr ""
 "Ten certeza de que quere desactivar o modo xogo? Perderanse todos os cambios "
 "non gardados."
 
-#: ../Src/Gtk2/dasher_main.cpp:954
+#: ../Src/Gtk2/dasher_main.cpp:961
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1186,7 +1189,7 @@ msgstr ""
 "\n"
 "Perderá os cambios se non os garda."
 
-#: ../Src/Gtk2/dasher_main.cpp:961
+#: ../Src/Gtk2/dasher_main.cpp:968
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1196,31 +1199,31 @@ msgstr ""
 "\n"
 "Perderá os cambios se non os garda."
 
-#: ../Src/Gtk2/dasher_main.cpp:967
+#: ../Src/Gtk2/dasher_main.cpp:974
 msgid "Don't save"
 msgstr "Non gardar"
 
-#: ../Src/Gtk2/dasher_main.cpp:968 ../Src/Gtk2/dasher_main.cpp:991
+#: ../Src/Gtk2/dasher_main.cpp:975 ../Src/Gtk2/dasher_main.cpp:998
 msgid "Don't quit"
 msgstr "Non saír"
 
-#: ../Src/Gtk2/dasher_main.cpp:969
+#: ../Src/Gtk2/dasher_main.cpp:976
 msgid "Save and quit"
 msgstr "Gardar e saír"
 
-#: ../Src/Gtk2/dasher_main.cpp:988
+#: ../Src/Gtk2/dasher_main.cpp:995
 msgid "Are you sure you wish to quit?"
 msgstr "Está seguro de que desexa saír?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1030
+#: ../Src/Gtk2/dasher_main.cpp:1037
 msgid "Unable to open help file"
 msgstr "Non foi posíbel abrir o ficheiro de axuda"
 
-#: ../Src/Gtk2/dasher_main.cpp:1082
+#: ../Src/Gtk2/dasher_main.cpp:1089
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher é un aplicativo de entrada preditiva de texto"
 
-#: ../Src/Gtk2/dasher_main.cpp:1087
+#: ../Src/Gtk2/dasher_main.cpp:1094
 msgid "translator-credits"
 msgstr ""
 "Fran Diéguez <frandieguez@ubuntu.com>, 2009, 2010.\n"
