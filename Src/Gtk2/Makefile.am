@@ -71,10 +71,7 @@ libdashergtk_la_SOURCES = \
 		Preferences.cpp \
 		Preferences.h \
 		dasher.h \
-		DasherSpi.h \
-		DasherSpi.cpp \
 		dasher_editor_external.h \
-		dasher_editor_external.cpp \
 		dasher_editor_private.h \
 		dasher_editor.cpp \
 		dasher_editor.h \
@@ -84,5 +81,13 @@ libdashergtk_la_SOURCES = \
 		dasher_main.h \
 		module_settings_window.cpp \
 		module_settings_window.h
+
+if GNOME_A11Y
+libdashergtk_la_SOURCES += \
+		dasher_editor_external_cspi.cpp
+else
+libdashergtk_la_SOURCES += \
+		dasher_editor_external_xtest.cpp
+endif
 
 AM_CXXFLAGS = -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" $(GTKBUILD_CFLAGS) 

@@ -1,43 +1,30 @@
-#include "DasherSpi.h"
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
-#ifdef GNOME_A11Y
+#include <glib/gi18n.h>
+#include <gtk/gtk.h>
 
-#include <cspi/spi.h>
-#include <string.h>
-
-enum {
-  NOT_INIT,
-  INIT_SUCCESS,
-  INIT_FAIL
-}  status = NOT_INIT;
-
-bool initSPI() {
-  if (status == NOT_INIT) {
-    status = (SPI_init()==2) ? INIT_FAIL : INIT_SUCCESS;
-  }
-  return (status==INIT_SUCCESS);
-}
-
-#else
 #include <X11/X.h>
 #include <X11/Xlib.h>
 #include <X11/extensions/XTest.h>
 #include <gdk/gdkx.h>
-#endif
 
-void sendText(const char *szText) {
-#ifdef GNOME_A11Y
-  if(!initSPI())
-    return;
+#include <X11/keysym.h>
+#include <algorithm>
 
-  char *szNewText;
-  szNewText = new char[strlen(szText) + 1];
-  strcpy(szNewText, szText);
-  
-  SPI_generateKeyboardEvent(0, szNewText, SPI_KEY_STRING);
-  
-  delete[] szNewText;
-#else
+#include "dasher_editor_external.h"
+#include "dasher_editor_private.h"
+#include "dasher_lock_dialogue.h"
+#include "dasher_main.h"
+#include "../DasherCore/ControlManager.h"
+
+void
+dasher_editor_external_create_buffer(DasherEditor *pSelf) {
+}
+
+void
+dasher_editor_external_output(DasherEditor *pSelf, const gchar *szText, int iOffset /* unused */) {
   glong numoutput;
   int numcodes;
   Display *dpy = gdk_x11_get_default_xdisplay();
@@ -103,5 +90,27 @@ void sendText(const char *szText) {
     XSync(dpy, true);
     g_free(wideoutput);
   }
-#endif
+}
+
+void
+dasher_editor_external_delete(DasherEditor *pSelf, int iLength, int iOffset) {
+  Display *dpy;
+  dpy = gdk_x11_get_default_xdisplay();
+  KeyCode code;
+  code = XKeysymToKeycode(dpy, XK_BackSpace);
+  for(int i = 0; i < iLength; i++) {
+    XTestFakeKeyEvent(dpy, code, True, 0);
+    XTestFakeKeyEvent(dpy, code, False, 0);
+  }
+  XFlush(dpy);
+}
+
+const gchar *
+dasher_editor_external_get_context(DasherEditor *pSelf, int iOffset, int iLength) {
+  return "";
+}
+
+gint
+dasher_editor_external_get_offset(DasherEditor *pSelf) {
+  return 0;
 }

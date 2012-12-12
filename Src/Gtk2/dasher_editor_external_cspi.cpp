@@ -5,14 +5,7 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
-#ifdef GNOME_A11Y
 #include <cspi/spi.h>
-#else
-#include <X11/X.h>
-#include <X11/Xlib.h>
-#include <X11/extensions/XTest.h>
-#include <gdk/gdkx.h>
-#endif
 
 #include <X11/keysym.h>
 #include <algorithm>
@@ -22,21 +15,30 @@
 #include "dasher_lock_dialogue.h"
 #include "dasher_main.h"
 #include "../DasherCore/ControlManager.h"
-#include "DasherSpi.h"
 
-#ifdef GNOME_A11Y
 void dasher_editor_external_handle_focus(DasherEditor *pSelf, const AccessibleEvent *pEvent);
 void dasher_editor_external_handle_caret(DasherEditor *pSelf, const AccessibleEvent *pEvent);
 
 void focus_listener(const AccessibleEvent *pEvent, void *pUserData);
 void caret_listener(const AccessibleEvent *pEvent, void *pUserData);
-#endif
+
+enum {
+  NOT_INIT,
+  INIT_SUCCESS,
+  INIT_FAIL
+}  status = NOT_INIT;
+
+bool initSPI() {
+  if (status == NOT_INIT) {
+    status = (SPI_init()==2) ? INIT_FAIL : INIT_SUCCESS;
+  }
+  return (status==INIT_SUCCESS);
+}
 
 void
 dasher_editor_external_create_buffer(DasherEditor *pSelf) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
 
-#ifdef GNOME_A11Y
 
   if(!initSPI()) {
     g_message("Could not initialise SPI - accessibility options disabled");
@@ -55,49 +57,40 @@ dasher_editor_external_create_buffer(DasherEditor *pSelf) {
   }    
 
   pPrivate->pAccessibleText = 0;
-#endif
 }
 
 void
-dasher_editor_external_output(DasherEditor *pSelf, const gchar *szText, int iOffset) {
-  sendText(szText);
+dasher_editor_external_output(DasherEditor *pSelf, const gchar *szText, int iOffset /* unused */) {
+  if(!initSPI())
+    return;
+
+  char *szNewText;
+  szNewText = new char[strlen(szText) + 1];
+  strcpy(szNewText, szText);
+  
+  SPI_generateKeyboardEvent(0, szNewText, SPI_KEY_STRING);
+  
+  delete[] szNewText;
 }
 
 void
 dasher_editor_external_delete(DasherEditor *pSelf, int iLength, int iOffset) {
-#ifdef GNOME_A11Y
   if(!initSPI()) return;
 
   SPI_generateKeyboardEvent(XK_BackSpace, NULL, SPI_KEY_SYM);
-#else
-  Display *dpy;
-  dpy = gdk_x11_get_default_xdisplay();
-  KeyCode code;
-  code = XKeysymToKeycode(dpy, XK_BackSpace);
-  for(int i = 0; i < iLength; i++) {
-    XTestFakeKeyEvent(dpy, code, True, 0);
-    XTestFakeKeyEvent(dpy, code, False, 0);
-  }
-  XFlush(dpy);
-#endif
 }
 
 const gchar *
 dasher_editor_external_get_context(DasherEditor *pSelf, int iOffset, int iLength) {
-#ifdef GNOME_A11Y
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
   if(pPrivate->pAccessibleText)
     return AccessibleText_getText(pPrivate->pAccessibleText, iOffset, iOffset + iLength);
   else
     return "";
-#else
-  return "";
-#endif
 }
 
 gint
 dasher_editor_external_get_offset(DasherEditor *pSelf) {
-#ifdef GNOME_A11Y
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
   
   if(!pPrivate->pAccessibleText)
@@ -107,12 +100,8 @@ dasher_editor_external_get_offset(DasherEditor *pSelf) {
   long int start,end;
   AccessibleText_getSelection(pPrivate->pAccessibleText, 0, &start, &end);
   return std::min(start,end);
-#else
-  return 0;
-#endif
 }
 
-#ifdef GNOME_A11Y
 void dasher_editor_external_handle_focus(DasherEditor *pSelf, const AccessibleEvent *pEvent) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
 
@@ -217,5 +206,3 @@ void focus_listener(const AccessibleEvent *pEvent, void *pUserData) {
 void caret_listener(const AccessibleEvent *pEvent, void *pUserData) {
   dasher_editor_external_handle_caret((DasherEditor *)pUserData, pEvent);
 }
-
-#endif
