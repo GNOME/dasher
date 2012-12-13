@@ -1,11 +1,13 @@
-#ifndef __dasher_editor_external_h__
-#define __dasher_editor_external_h__
+#ifndef DASHER_EDITOR_EXTERNAL_H
+#define DASHER_EDITOR_EXTERNAL_H
 
 typedef struct _DasherEditor DasherEditor;
 struct _DasherEditor;
+typedef struct _GObject GObject;
+struct _GObject;
 
+void dasher_editor_external_finalize(GObject*);
 void dasher_editor_external_create_buffer(DasherEditor*); //  for dasher_editor_external_initialise, and calls focus bits
-/* dasher_editor_external_output just calls SPI sendText */
 void dasher_editor_external_output(DasherEditor *pSelf, const gchar *szText, int iOffset);
 void dasher_editor_external_delete(DasherEditor *pSelf, int iLength, int iOffset);
 const gchar * dasher_editor_external_get_context(DasherEditor *pSelf, int iOffset, int iLength);

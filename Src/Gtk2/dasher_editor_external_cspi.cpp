@@ -1,7 +1,3 @@
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
@@ -16,6 +12,14 @@
 #include "dasher_main.h"
 #include "../DasherCore/ControlManager.h"
 
+typedef struct _DasherEditorExternalPrivate DasherEditorExternalPrivate;
+
+struct _DasherEditorExternalPrivate {
+  AccessibleEventListener *pFocusListener;
+  AccessibleEventListener *pCaretListener;
+  AccessibleText *pAccessibleText;
+};
+
 void dasher_editor_external_handle_focus(DasherEditor *pSelf, const AccessibleEvent *pEvent);
 void dasher_editor_external_handle_caret(DasherEditor *pSelf, const AccessibleEvent *pEvent);
 
@@ -26,13 +30,21 @@ enum {
   NOT_INIT,
   INIT_SUCCESS,
   INIT_FAIL
-}  status = NOT_INIT;
+} status = NOT_INIT;
 
 bool initSPI() {
   if (status == NOT_INIT) {
     status = (SPI_init()==2) ? INIT_FAIL : INIT_SUCCESS;
   }
   return (status==INIT_SUCCESS);
+}
+
+void
+dasher_editor_external_finalize(GObject *pSelf) {
+  DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
+
+  SPI_deregisterGlobalEventListener(pPrivate->pExtPrivate->pFocusListener, "focus:");
+  SPI_deregisterGlobalEventListener(pPrivate->pExtPrivate->pCaretListener, "object:text-caret-moved");
 }
 
 void
@@ -43,20 +55,20 @@ dasher_editor_external_create_buffer(DasherEditor *pSelf) {
   if(!initSPI()) {
     g_message("Could not initialise SPI - accessibility options disabled");
   } else {
-    pPrivate->pFocusListener = SPI_createAccessibleEventListener(focus_listener, pSelf);
-    pPrivate->pCaretListener = SPI_createAccessibleEventListener(caret_listener, pSelf);
+    pPrivate->pExtPrivate->pFocusListener = SPI_createAccessibleEventListener(focus_listener, pSelf);
+    pPrivate->pExtPrivate->pCaretListener = SPI_createAccessibleEventListener(caret_listener, pSelf);
     
     // TODO: Need to deregister these on destruction
     
-    if(pPrivate->pFocusListener && pPrivate->pCaretListener) {
-      SPI_registerGlobalEventListener(pPrivate->pFocusListener, "focus:");
-      SPI_registerGlobalEventListener(pPrivate->pCaretListener, "object:text-caret-moved");
+    if(pPrivate->pExtPrivate->pFocusListener && pPrivate->pExtPrivate->pCaretListener) {
+      SPI_registerGlobalEventListener(pPrivate->pExtPrivate->pFocusListener, "focus:");
+      SPI_registerGlobalEventListener(pPrivate->pExtPrivate->pCaretListener, "object:text-caret-moved");
     } else {
       g_message("Could not obtain an SPI listener");
     }
   }    
 
-  pPrivate->pAccessibleText = 0;
+  pPrivate->pExtPrivate->pAccessibleText = 0;
 }
 
 void
@@ -83,8 +95,8 @@ dasher_editor_external_delete(DasherEditor *pSelf, int iLength, int iOffset) {
 const gchar *
 dasher_editor_external_get_context(DasherEditor *pSelf, int iOffset, int iLength) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
-  if(pPrivate->pAccessibleText)
-    return AccessibleText_getText(pPrivate->pAccessibleText, iOffset, iOffset + iLength);
+  if(pPrivate->pExtPrivate->pAccessibleText)
+    return AccessibleText_getText(pPrivate->pExtPrivate->pAccessibleText, iOffset, iOffset + iLength);
   else
     return "";
 }
@@ -93,12 +105,12 @@ gint
 dasher_editor_external_get_offset(DasherEditor *pSelf) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
   
-  if(!pPrivate->pAccessibleText)
+  if(!pPrivate->pExtPrivate->pAccessibleText)
     return 0;
-  if (AccessibleText_getNSelections(pPrivate->pAccessibleText)==0)
-    return AccessibleText_getCaretOffset(pPrivate->pAccessibleText);
+  if (AccessibleText_getNSelections(pPrivate->pExtPrivate->pAccessibleText)==0)
+    return AccessibleText_getCaretOffset(pPrivate->pExtPrivate->pAccessibleText);
   long int start,end;
-  AccessibleText_getSelection(pPrivate->pAccessibleText, 0, &start, &end);
+  AccessibleText_getSelection(pPrivate->pExtPrivate->pAccessibleText, 0, &start, &end);
   return std::min(start,end);
 }
 
@@ -107,9 +119,9 @@ void dasher_editor_external_handle_focus(DasherEditor *pSelf, const AccessibleEv
 
   //  g_message("Focus");
   
-  if(pPrivate->pAccessibleText) {
-    AccessibleText_unref(pPrivate->pAccessibleText);
-    pPrivate->pAccessibleText = 0;
+  if(pPrivate->pExtPrivate->pAccessibleText) {
+    AccessibleText_unref(pPrivate->pExtPrivate->pAccessibleText);
+    pPrivate->pExtPrivate->pAccessibleText = 0;
   }
   
   Accessible *accessible = pEvent->source;
@@ -120,10 +132,10 @@ void dasher_editor_external_handle_focus(DasherEditor *pSelf, const AccessibleEv
   //g_message("%s", Accessible_getDescription(accessible));
 
   if(Accessible_isText(accessible) || Accessible_isEditableText(accessible)) {
-    pPrivate->pAccessibleText = Accessible_getText(accessible);
-    AccessibleText_ref(pPrivate->pAccessibleText);
+    pPrivate->pExtPrivate->pAccessibleText = Accessible_getText(accessible);
+    AccessibleText_ref(pPrivate->pExtPrivate->pAccessibleText);
 
-//     g_iExpectedPosition = AccessibleText_getCaretOffset(pPrivate->pAccessibleText);
+//     g_iExpectedPosition = AccessibleText_getCaretOffset(pPrivate->pExtPrivate->pAccessibleText);
 //     g_iOldPosition = g_iExpectedPosition;
 
     //ACL: in old code, external_buffer emitted signal, for which the editor_external had
@@ -146,9 +158,9 @@ void dasher_editor_external_handle_caret(DasherEditor *pSelf, const AccessibleEv
 
  //  g_message("Focus");
   
-  if(pPrivate->pAccessibleText) {
-    AccessibleText_unref(pPrivate->pAccessibleText);
-    pPrivate->pAccessibleText = 0;
+  if(pPrivate->pExtPrivate->pAccessibleText) {
+    AccessibleText_unref(pPrivate->pExtPrivate->pAccessibleText);
+    pPrivate->pExtPrivate->pAccessibleText = 0;
   }
   
   Accessible *accessible = pEvent->source;
@@ -159,10 +171,10 @@ void dasher_editor_external_handle_caret(DasherEditor *pSelf, const AccessibleEv
   //g_message("%s", Accessible_getDescription(accessible));
 
   if(Accessible_isText(accessible) || Accessible_isEditableText(accessible)) {
-    pPrivate->pAccessibleText = Accessible_getText(accessible);
-    AccessibleText_ref(pPrivate->pAccessibleText);
+    pPrivate->pExtPrivate->pAccessibleText = Accessible_getText(accessible);
+    AccessibleText_ref(pPrivate->pExtPrivate->pAccessibleText);
 
-//     g_iExpectedPosition = AccessibleText_getCaretOffset(pPrivate->pAccessibleText);
+//     g_iExpectedPosition = AccessibleText_getCaretOffset(pPrivate->pExtPrivate->pAccessibleText);
 //     g_iOldPosition = g_iExpectedPosition;
 
     //ACL: in old code, dasher_external_buffer emitted offset_changed signal,

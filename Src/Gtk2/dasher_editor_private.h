@@ -6,6 +6,8 @@ typedef struct _DasherAppSettings DasherAppSettings;
 struct _DasherAppSettings;
 typedef struct _GtkDasherControl GtkDasherControl;
 struct _GtkDasherControl;
+typedef struct _DasherEditorExternalPrivate DasherEditorExternalPrivate;
+struct _DasherEditorExternalPrivate;
 
 typedef struct _DasherEditorPrivate DasherEditorPrivate;
 
@@ -29,11 +31,7 @@ struct _DasherEditorPrivate {
   gint iCurrentState; // 0 = unconverted, 1 = converted
 
   // for direct mode:
-#ifdef GNOME_A11Y
-  AccessibleEventListener *pFocusListener;
-  AccessibleEventListener *pCaretListener;
-  AccessibleText *pAccessibleText;
-#endif
+  DasherEditorExternalPrivate *pExtPrivate;
 
   //Paralleling the previous approach in dasher_main, we _don't_ send context_changed
   // events if we're in the middle of executing a control action (as this would rebuild

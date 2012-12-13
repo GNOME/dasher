@@ -9,10 +9,6 @@
 #endif
 #include <gtk/gtk.h>
 
-#ifdef GNOME_A11Y
-#include <cspi/spi.h>
-#endif
-
 #include "dasher_editor.h"
 #include "dasher_editor_private.h"
 #include "dasher_editor_external.h"
@@ -190,10 +186,7 @@ static void
 dasher_editor_finalize(GObject *pObject) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pObject);
 
-#ifdef GNOME_A11Y
-  SPI_deregisterGlobalEventListener(pPrivate->pFocusListener, "focus:");
-  SPI_deregisterGlobalEventListener(pPrivate->pCaretListener, "object:text-caret-moved");
-#endif
+  dasher_editor_external_finalize(pObject);
 
   if(pPrivate->szFilename)
     g_free(pPrivate->szFilename);
