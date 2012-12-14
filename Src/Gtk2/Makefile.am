@@ -61,8 +61,8 @@ if USE_SPEECHDISPATCHER
 libdashercontrol_la_SOURCES += SpeechDispatcher.cpp
 endif
 libdashercontrol_la_CPPFLAGS = @SPEECH_CPPFLAGS@
-libdashercontrol_la_LDFLAGS = @SPEECH_LDFLAGS@
-libdashercontrol_la_LIBADD = @SPEECH_LIBS@
+libdashercontrol_la_LDFLAGS  = @SPEECH_LDFLAGS@
+libdashercontrol_la_LIBADD   = @SPEECH_LIBS@
 
 libdashergtk_la_SOURCES = \
 		DasherAppSettings.cpp \
@@ -82,9 +82,12 @@ libdashergtk_la_SOURCES = \
 		module_settings_window.cpp \
 		module_settings_window.h
 
-if GNOME_A11Y
+if USE_CSPI
 libdashergtk_la_SOURCES += \
 		dasher_editor_external_cspi.cpp
+libdashergtk_la_CPPFLAGS = @CSPI_CFLAGS@
+libdashergtk_la_LDFLAGS  = @CSPI_LIBS@
+libdashergtk_la_LIBADD   = @CSPI_LIBS@
 else
 libdashergtk_la_SOURCES += \
 		dasher_editor_external_xtest.cpp

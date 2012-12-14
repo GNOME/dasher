@@ -18,7 +18,7 @@
 #endif
 
 // TODO: This shouldn't need to be here
-#if (defined GNOME_SPEECH || defined GNOME_A11Y)
+#if (defined GNOME_SPEECH || defined USE_CSPI)
 #include <libbonobo.h>
 #endif
 
@@ -201,7 +201,7 @@ int main(int argc, char *argv[]) {
   osso_context = osso_initialize("dasher", PACKAGE_VERSION, TRUE, NULL);
 #endif
 
-#if (defined GNOME_SPEECH || defined GNOME_A11Y)
+#if (defined GNOME_SPEECH || defined USE_CSPI)
   if(!bonobo_is_initialized()) {
     if(!bonobo_init(&argc, argv)) {
       g_error("Can't initialize Bonobo...\n");

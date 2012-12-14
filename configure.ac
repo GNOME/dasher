@@ -310,15 +310,6 @@ AC_SUBST(SPEECH_CPPFLAGS)
 AC_SUBST(SPEECH_LDFLAGS)
 AC_SUBST(SPEECH_LIBS)
 
-AS_IF(	[test x"$enable_a11y" != xno],
-	[PKG_CHECK_MODULES([gnome_a11y],
-		[bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0 cspi-1.0 atk],
-		[AC_DEFINE([GNOME_A11Y], 1, [cspi library is present])
-		 enable_a11y=yes],
-		[AS_IF([test x"$enable_a11y" = xyes],
-			[AC_MSG_ERROR([cspi requested but not found])])
-		 enable_a11y=no])])
-
 AC_PATH_XTRA
 AC_CHECK_LIB(expat, XML_Parse,,[
 	if test	x$no_x = xyes ; then
@@ -331,22 +322,32 @@ AC_CHECK_LIB(expat, XML_Parse,,[
 		             [AC_MSG_ERROR([Expat library not found.])])
 	fi
 ])
-if test x"$WITHQTE" != xtrue -a x"$enable_a11y" != xyes; then
-	if test	x$no_x = xyes ; then
-		AC_MSG_ERROR([X development libraries not found])
-	else
-		X_LIBS="$X_LIBS $X_PRE_LIBS -lX11 $X_EXTRA_LIBS"
-	fi
 
-	save_LIBS="$LIBS"
-	AC_CHECK_LIB([Xtst], [XTestFakeKeyEvent],
-	             [X_LIBS="$X_LIBS -lXtst"
-	              AC_DEFINE(HAVE_XTST, 1, [The XTest extension is present])],
-	             [AC_MSG_ERROR([Couldn't find the Xtst library. Check config.log for details])],
-	             $X_LIBS)
-	LIBS="$save_LIBS"
-	AC_SUBST(X_LIBS)
-fi
+PKG_CHECK_MODULES([CSPI],
+	[bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0 cspi-1.0 atk],
+ 	[have_libcspi=yes],
+ 	[have_libcspi=no])
+
+AS_IF(	[test x$no_x = xyes],
+	[AC_MSG_WARN([X development libraries not found])],
+	[X_LIBS="$X_LIBS $X_PRE_LIBS -lX11 $X_EXTRA_LIBS"])
+
+AC_CHECK_LIB([Xtst], [XTestFakeKeyEvent],
+	[have_libxtst=yes],
+	[have_libxtst=no],
+	[$X_LIBS])
+
+AS_IF(	[test $have_libcspi = yes -a x$enable_a11y != xno],
+		[connect_using=libcspi
+		 AC_DEFINE([USE_CSPI], 1, [Use the libcspi for direct mode])],
+	[test $have_libcspi = no -a x$enable_a11y = xyes],
+		[AC_MSG_ERROR([cspi requested but not found])],
+	[test $have_libxtst = yes],
+		[connect_using=libxtst
+		 X_LIBS="$X_LIBS -lXtst"],
+	[AC_MSG_ERROR([No method to send characters into another application found])])
+
+AM_CONDITIONAL(USE_CSPI, test $connect_using = libcspi)
 
 if test x"$WITHJAPANESE" = xtrue; then
 	AC_DEFINE([JAPANESE], 1, [Japanese support enabled])
@@ -392,9 +393,6 @@ if test x"$BUILDGTK" = xtrue; then
 	PKG_CHECK_MODULES(gthread, gthread-2.0)
 fi
 
-AC_SUBST(gnome_a11y_LIBS)
-AC_SUBST(gnome_a11y_CFLAGS)
-
 AC_SUBST(gthread_LIBS)
 AC_SUBST(gthread_CFLAGS)
 
@@ -409,7 +407,6 @@ AM_CONDITIONAL(DOGTK, test x$BUILDGTK = xtrue)
 AM_CONDITIONAL(DOQTE, test x$WITHQTE = xtrue)
 AM_CONDITIONAL(USE_GNOMESPEECH, test $speech_module = gnomespeech)
 AM_CONDITIONAL(USE_SPEECHDISPATCHER, test $speech_module = speechdispatcher)
-AM_CONDITIONAL(GNOME_A11Y, test $enable_a11y = yes)
 AM_CONDITIONAL(GNOME_HELP, test x$WITHGNOME = xtrue)
 AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
 AM_CONDITIONAL(WITH_MAEMO, test x$WITHMAEMO = xtrue)
@@ -425,9 +422,9 @@ if test x"$WITHGPE" = xtrue ; then
 	SETTINGS_LIBS="-lgpewidget -lXsettings-client -lXsettings"
 fi
 
-GTKBUILD_CFLAGS="$GTK_CFLAGS $GIO_CFLAGS $SETTINGS_CFLAGS $gthread_CFLAGS $gnome_a11y_CFLAGS $hildon_CFLAGS"
+GTKBUILD_CFLAGS="$GTK_CFLAGS $GIO_CFLAGS $SETTINGS_CFLAGS $gthread_CFLAGS $hildon_CFLAGS"
 
-GTKBUILD_LIBS="$X_LIBS $GTK_LIBS $GIO_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_a11y_LIBS $hildon_LIBS"
+GTKBUILD_LIBS="$X_LIBS $GTK_LIBS $GIO_LIBS $SETTINGS_LIBS $gthread_LIBS $hildon_LIBS"
 
 AC_SUBST(GTKBUILD_CFLAGS)
 AC_SUBST(GTKBUILD_LIBS)
