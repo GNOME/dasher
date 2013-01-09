@@ -154,13 +154,13 @@ dasher_editor_init(DasherEditor *pSelf) {
   pPrivate->pTextView = GTK_TEXT_VIEW(gtk_text_view_new());
     gtk_text_view_set_wrap_mode(pPrivate->pTextView, GTK_WRAP_WORD);
   pPrivate->pBuffer = gtk_text_view_get_buffer(pPrivate->pTextView);
-  pPrivate->szFilename = NULL;
   pPrivate->pTextClipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
   pPrivate->pPrimarySelection = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
   GtkTextIter oStartIter;
   gtk_text_buffer_get_start_iter(pPrivate->pBuffer, &oStartIter);
   pPrivate->pNewMark =
        gtk_text_buffer_create_mark(pPrivate->pBuffer, NULL, &oStartIter, TRUE);
+  pPrivate->szFilename = NULL;
   pPrivate->bFileModified = FALSE;
   pPrivate->bInControlAction = FALSE;
 
@@ -211,11 +211,9 @@ dasher_editor_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, G
 				     dasher_app_settings_get_string(pPrivate->pAppSettings,
 								    APP_SP_EDIT_FONT));
 
-  if (isdirect(pAppSettings))
-    dasher_editor_external_create_buffer(pSelf);
-  else
-    // TODO: is this still needed?
-    dasher_editor_internal_create_buffer(pSelf);
+  dasher_editor_external_create_buffer(pSelf);
+  // TODO: is this still needed?
+  dasher_editor_internal_create_buffer(pSelf);
 
   // TODO: see note in command_new method
   if(szFullPath)

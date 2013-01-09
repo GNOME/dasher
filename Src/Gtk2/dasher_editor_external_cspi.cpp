@@ -45,6 +45,9 @@ dasher_editor_external_finalize(GObject *pSelf) {
 
   SPI_deregisterGlobalEventListener(pPrivate->pExtPrivate->pFocusListener, "focus:");
   SPI_deregisterGlobalEventListener(pPrivate->pExtPrivate->pCaretListener, "object:text-caret-moved");
+  AccessibleEventListener_unref(pPrivate->pExtPrivate->pFocusListener);
+  AccessibleEventListener_unref(pPrivate->pExtPrivate->pCaretListener);
+  delete pPrivate->pExtPrivate;
 }
 
 void
@@ -55,6 +58,7 @@ dasher_editor_external_create_buffer(DasherEditor *pSelf) {
   if(!initSPI()) {
     g_message("Could not initialise SPI - accessibility options disabled");
   } else {
+    pPrivate->pExtPrivate = new DasherEditorExternalPrivate;
     pPrivate->pExtPrivate->pFocusListener = SPI_createAccessibleEventListener(focus_listener, pSelf);
     pPrivate->pExtPrivate->pCaretListener = SPI_createAccessibleEventListener(caret_listener, pSelf);
     
