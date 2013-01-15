@@ -1,4 +1,4 @@
-Copyright (C) 2008 The Dasher Project
+Copyright (C) 2013 The Dasher Project
  
 This file is free documentation; the Dasher Project gives unlimited
 permission to copy, distribute and modify it.
@@ -11,17 +11,15 @@ etc.), which are described in the 'INSTALL' file.  The following is
 specific to building and installing Dasher on Linux.  The Dasher
 maintainer documentation is at http://live.gnome.org/Dasher.
 
-If you are building sources from the Subversion then you must first
-install all the packages required to build Dasher.  On Debian based
-distributions the following can be used.
+If you are building sources from the Git repository then you must
+first install all the packages required to build Dasher.  On Debian
+based distributions the following can be used.
 
   packages="g++
-	    gnome-common
-	    gnome-doc-utils
-	    libatspi-dev
-	    libgconf2-dev
-	    libgtk2.0-dev
-	    libxtst-dev"
+            gnome-common
+            gnome-doc-utils
+            libatspi2.0-dev
+            libgtk-3-dev"
   sudo apt-get install $packages
 
 Then autogen:
@@ -35,14 +33,16 @@ following configure-time options are specific to Dasher (see section
 Options
 =======
 
-   --without-gnome     Disable features which require the GNOME core
-                       libraries (enabled by default).
+   --disable-speech    Disable speech support (speech dispatcher and
+                       GNOME speech).
 
-   --with-speech       Enable GNOME-Speech support (disabled by default).
+   --disable-a11y      Disable support for GNOME 2 accessibility features
+                       (enabled by default).
 
-   --disable-a11y      Disable support for GNOME accessibility features
-                       (enabled by default). You should probably specify
-                       this as well if you're using --without-gnome.
+   --disable-atspi     Disable support for GNOME 3 accessibility features
+                       (enabled by default). This flag is just useful
+                       for debugging, as accessibility is now built-in
+                       and doesn't bring in more dependencies.
 
    The following options include code which is significantly out of
 date and currently untested. It is likely that these options will not

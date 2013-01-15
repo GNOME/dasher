@@ -1,6 +1,8 @@
 #ifndef DASHER_EDITOR_PRIVATE_H
 #define DASHER_EDITOR_PRIVATE_H
 
+#include <gtk/gtk.h>
+
 // Forward declarations
 typedef struct _DasherAppSettings DasherAppSettings;
 struct _DasherAppSettings;

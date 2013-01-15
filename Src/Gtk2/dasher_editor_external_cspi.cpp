@@ -61,8 +61,7 @@ dasher_editor_external_create_buffer(DasherEditor *pSelf) {
     pPrivate->pExtPrivate = new DasherEditorExternalPrivate;
     pPrivate->pExtPrivate->pFocusListener = SPI_createAccessibleEventListener(focus_listener, pSelf);
     pPrivate->pExtPrivate->pCaretListener = SPI_createAccessibleEventListener(caret_listener, pSelf);
-    
-    // TODO: Need to deregister these on destruction
+    pPrivate->pExtPrivate->pAccessibleText = NULL;
     
     if(pPrivate->pExtPrivate->pFocusListener && pPrivate->pExtPrivate->pCaretListener) {
       SPI_registerGlobalEventListener(pPrivate->pExtPrivate->pFocusListener, "focus:");
@@ -71,8 +70,6 @@ dasher_editor_external_create_buffer(DasherEditor *pSelf) {
       g_message("Could not obtain an SPI listener");
     }
   }    
-
-  pPrivate->pExtPrivate->pAccessibleText = 0;
 }
 
 void
@@ -125,7 +122,7 @@ void dasher_editor_external_handle_focus(DasherEditor *pSelf, const AccessibleEv
   
   if(pPrivate->pExtPrivate->pAccessibleText) {
     AccessibleText_unref(pPrivate->pExtPrivate->pAccessibleText);
-    pPrivate->pExtPrivate->pAccessibleText = 0;
+    pPrivate->pExtPrivate->pAccessibleText = NULL;
   }
   
   Accessible *accessible = pEvent->source;
@@ -164,7 +161,7 @@ void dasher_editor_external_handle_caret(DasherEditor *pSelf, const AccessibleEv
   
   if(pPrivate->pExtPrivate->pAccessibleText) {
     AccessibleText_unref(pPrivate->pExtPrivate->pAccessibleText);
-    pPrivate->pExtPrivate->pAccessibleText = 0;
+    pPrivate->pExtPrivate->pAccessibleText = NULL;
   }
   
   Accessible *accessible = pEvent->source;

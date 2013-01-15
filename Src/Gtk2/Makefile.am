@@ -82,6 +82,13 @@ libdashergtk_la_SOURCES = \
 		module_settings_window.cpp \
 		module_settings_window.h
 
+if USE_ATSPI
+libdashergtk_la_SOURCES += \
+		dasher_editor_external_atspi.cpp
+libdashergtk_la_CPPFLAGS = @ATSPI_CFLAGS@
+libdashergtk_la_LDFLAGS  = @ATSPI_LIBS@
+libdashergtk_la_LIBADD   = @ATSPI_LIBS@
+else
 if USE_CSPI
 libdashergtk_la_SOURCES += \
 		dasher_editor_external_cspi.cpp
@@ -91,6 +98,7 @@ libdashergtk_la_LIBADD   = @CSPI_LIBS@
 else
 libdashergtk_la_SOURCES += \
 		dasher_editor_external_xtest.cpp
+endif
 endif
 
 AM_CXXFLAGS = -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" $(GTKBUILD_CFLAGS) 

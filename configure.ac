@@ -98,7 +98,10 @@ AC_ARG_WITH([gpe],
 
 AC_ARG_ENABLE([a11y],
 	[AS_HELP_STRING([--enable-a11y],
-		[use cspi rather than Xtst for direct entry mode if found])])
+		[with Gtk2 use cspi rather than Xtst for direct entry mode if found (default is YES)])])
+AC_ARG_ENABLE([atspi],
+	[AS_HELP_STRING([--enable-atspi],
+		[with Gtk3 use atspi rather than Xtst for direct entry mode if found (default is YES)])])
 
 AC_ARG_ENABLE([japanese],
 	 AS_HELP_STRING([--enable-japanese],[build with support for Japanese Kanji entry (experimental -- default is NO)]),
@@ -323,10 +326,15 @@ AC_CHECK_LIB(expat, XML_Parse,,[
 	fi
 ])
 
+PKG_CHECK_MODULES([ATSPI],
+	[atspi-2],
+	[have_libatspi=yes],
+	[have_libatspi=no])
+
 PKG_CHECK_MODULES([CSPI],
 	[bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0 cspi-1.0 atk],
- 	[have_libcspi=yes],
- 	[have_libcspi=no])
+	[have_libcspi=yes],
+	[have_libcspi=no])
 
 AS_IF(	[test x$no_x = xyes],
 	[AC_MSG_WARN([X development libraries not found])],
@@ -337,7 +345,11 @@ AC_CHECK_LIB([Xtst], [XTestFakeKeyEvent],
 	[have_libxtst=no],
 	[$X_LIBS])
 
-AS_IF(	[test $have_libcspi = yes -a x$enable_a11y != xno],
+AS_IF(	[test $have_libatspi = yes -a x$enable_atspi != xno],
+		[connect_using=libatspi],
+	[test $have_libatspi = no -a x$enable_atspi = xyes],
+		[AC_MSG_ERROR([atspi 2 requested but not found])],
+	[test $have_libcspi = yes -a x$enable_a11y != xno],
 		[connect_using=libcspi
 		 AC_DEFINE([USE_CSPI], 1, [Use the libcspi for direct mode])],
 	[test $have_libcspi = no -a x$enable_a11y = xyes],
@@ -347,7 +359,8 @@ AS_IF(	[test $have_libcspi = yes -a x$enable_a11y != xno],
 		 X_LIBS="$X_LIBS -lXtst"],
 	[AC_MSG_ERROR([No method to send characters into another application found])])
 
-AM_CONDITIONAL(USE_CSPI, test $connect_using = libcspi)
+AM_CONDITIONAL(USE_CSPI,  test $connect_using = libcspi)
+AM_CONDITIONAL(USE_ATSPI, test $connect_using = libatspi)
 
 if test x"$WITHJAPANESE" = xtrue; then
 	AC_DEFINE([JAPANESE], 1, [Japanese support enabled])
