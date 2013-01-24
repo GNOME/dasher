@@ -1,6 +1,8 @@
 #include <X11/keysym.h>
 
-#include <atspi/atspi.h>
+extern "C" {
+  #include <atspi/atspi.h>
+}
 
 #include "dasher_editor_external.h"
 #include "dasher_editor_private.h"
