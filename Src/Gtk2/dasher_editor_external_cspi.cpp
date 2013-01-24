@@ -26,6 +26,9 @@ void dasher_editor_external_handle_caret(DasherEditor *pSelf, const AccessibleEv
 void focus_listener(const AccessibleEvent *pEvent, void *pUserData);
 void caret_listener(const AccessibleEvent *pEvent, void *pUserData);
 
+static void listen_to_bus(DasherEditor *);
+static void unlisten_to_bus(DasherEditor *);
+
 enum {
   NOT_INIT,
   INIT_SUCCESS,
@@ -43,8 +46,7 @@ void
 dasher_editor_external_finalize(GObject *pSelf) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
 
-  SPI_deregisterGlobalEventListener(pPrivate->pExtPrivate->pFocusListener, "focus:");
-  SPI_deregisterGlobalEventListener(pPrivate->pExtPrivate->pCaretListener, "object:text-caret-moved");
+  unlisten_to_bus(DASHER_EDITOR(pSelf));
   AccessibleEventListener_unref(pPrivate->pExtPrivate->pFocusListener);
   AccessibleEventListener_unref(pPrivate->pExtPrivate->pCaretListener);
   delete pPrivate->pExtPrivate;
@@ -63,13 +65,32 @@ dasher_editor_external_create_buffer(DasherEditor *pSelf) {
     pPrivate->pExtPrivate->pCaretListener = SPI_createAccessibleEventListener(caret_listener, pSelf);
     pPrivate->pExtPrivate->pAccessibleText = NULL;
     
-    if(pPrivate->pExtPrivate->pFocusListener && pPrivate->pExtPrivate->pCaretListener) {
-      SPI_registerGlobalEventListener(pPrivate->pExtPrivate->pFocusListener, "focus:");
-      SPI_registerGlobalEventListener(pPrivate->pExtPrivate->pCaretListener, "object:text-caret-moved");
-    } else {
+    if(!(pPrivate->pExtPrivate->pFocusListener && pPrivate->pExtPrivate->pCaretListener)) {
       g_message("Could not obtain an SPI listener");
     }
   }    
+}
+
+static void
+listen_to_bus(DasherEditor *pSelf) {
+  DasherEditorPrivate *p = DASHER_EDITOR_GET_PRIVATE(pSelf);
+  SPI_registerGlobalEventListener(p->pExtPrivate->pFocusListener, "focus:");
+  SPI_registerGlobalEventListener(p->pExtPrivate->pCaretListener, "object:text-caret-moved");
+}
+ 
+static void
+unlisten_to_bus(DasherEditor *pSelf) {
+  DasherEditorPrivate *p = DASHER_EDITOR_GET_PRIVATE(pSelf);
+  SPI_deregisterGlobalEventListener(p->pExtPrivate->pFocusListener, "focus:");
+  SPI_deregisterGlobalEventListener(p->pExtPrivate->pCaretListener, "object:text-caret-moved");
+}
+
+void
+dasher_editor_external_toggle_direct_mode(DasherEditor *pSelf, bool direct) {
+  if (direct)
+    listen_to_bus(pSelf);
+  else
+    unlisten_to_bus(pSelf);
 }
 
 void

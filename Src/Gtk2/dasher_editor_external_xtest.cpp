@@ -24,6 +24,10 @@ dasher_editor_external_create_buffer(DasherEditor *pSelf) {
 }
 
 void
+dasher_editor_external_toggle_direct_mode(DasherEditor *pSelf, bool direct) {
+}
+
+void
 dasher_editor_external_output(DasherEditor *pSelf, const gchar *szText, int iOffset /* unused */) {
   glong numoutput;
   int numcodes;

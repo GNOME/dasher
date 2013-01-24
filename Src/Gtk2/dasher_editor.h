@@ -88,6 +88,7 @@ void dasher_editor_edit_protect(DasherEditor *pSelf);
 void dasher_editor_handle_parameter_change(DasherEditor *pSelf, gint iParameter);
 void dasher_editor_handle_stop(DasherEditor *pSelf);
 void dasher_editor_handle_start(DasherEditor *pSelf);
+void dasher_editor_toggle_direct_mode(DasherEditor *);
 
 /* Functions needed to maintain application UI */
 void dasher_editor_grab_focus(DasherEditor *pSelf);

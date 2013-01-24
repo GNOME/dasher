@@ -276,6 +276,15 @@ dasher_editor_handle_start(DasherEditor *pSelf) {
   //  set_mark();
 }
 
+void
+dasher_editor_toggle_direct_mode(DasherEditor *pSelf) {
+  // Should be able to play function pointer games here to avoid
+  // isdirect() calls in dasher_editor_output() and friends.
+
+  DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
+
+  dasher_editor_external_toggle_direct_mode(pSelf, isdirect(pPrivate->pAppSettings));
+}
 
 void
 dasher_editor_clear(DasherEditor *pSelf) {

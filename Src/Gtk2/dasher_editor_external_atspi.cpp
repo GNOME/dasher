@@ -19,6 +19,9 @@ void dasher_editor_external_handle_caret(DasherEditor *pSelf, const AtspiEvent *
 void focus_listener(const AtspiEvent *pEvent, void *pUserData);
 void caret_listener(const AtspiEvent *pEvent, void *pUserData);
 
+static void listen_to_bus(DasherEditor *);
+static void unlisten_to_bus(DasherEditor *);
+
 bool
 initSPI() {
 #ifdef DEBUG_ATSPI
@@ -39,8 +42,7 @@ dasher_editor_external_finalize(GObject *pSelf) {
   printf("dasher_editor_external_finalize()\n");
 #endif
 
-  atspi_event_listener_deregister(p->pFocusListener, "focus:", NULL);
-  atspi_event_listener_deregister(p->pCaretListener, "object:text-caret-moved", NULL);
+  unlisten_to_bus(DASHER_EDITOR(pSelf));
 
   g_object_unref(p->pFocusListener);
   g_object_unref(p->pCaretListener);
@@ -70,9 +72,28 @@ dasher_editor_external_create_buffer(DasherEditor *pSelf) {
 #ifdef DEBUG_ATSPI
   printf("dasher_editor_external_create_buffer: pPrivate=%p, pExtPrivate=%p\n", pPrivate, p);
 #endif
+}
 
-  atspi_event_listener_register(p->pFocusListener, "focus:", NULL);
-  atspi_event_listener_register(p->pCaretListener, "object:text-caret-moved", NULL);
+static void
+listen_to_bus(DasherEditor *pSelf) {
+  DasherEditorPrivate *p = DASHER_EDITOR_GET_PRIVATE(pSelf);
+  atspi_event_listener_register(p->pExtPrivate->pFocusListener, "focus:", NULL);
+  atspi_event_listener_register(p->pExtPrivate->pCaretListener, "object:text-caret-moved", NULL);
+}
+
+static void
+unlisten_to_bus(DasherEditor *pSelf) {
+  DasherEditorPrivate *p = DASHER_EDITOR_GET_PRIVATE(pSelf);
+  atspi_event_listener_deregister(p->pExtPrivate->pFocusListener, "focus:", NULL);
+  atspi_event_listener_deregister(p->pExtPrivate->pCaretListener, "object:text-caret-moved", NULL);
+}
+
+void
+dasher_editor_external_toggle_direct_mode(DasherEditor *pSelf, bool direct) {
+  if (direct)
+    listen_to_bus(pSelf);
+  else
+    unlisten_to_bus(pSelf);
 }
 
 void

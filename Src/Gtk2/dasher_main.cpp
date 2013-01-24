@@ -606,6 +606,8 @@ void dasher_main_command_toggle_direct_mode(DasherMain *pSelf) {
 		gtk_window_stick(GTK_WINDOW(pPrivate->pMainWindow));
 		dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, APP_STYLE_DIRECT);
 	}
+
+	dasher_editor_toggle_direct_mode(pPrivate->pEditor);
 }
 
 /**
