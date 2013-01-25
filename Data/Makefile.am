@@ -33,7 +33,7 @@ install-data-local: install-schemas
 # if configure is told not to install schemas.
 
 dasher.schemas: $(top_builddir)/Src/Gtk2/generate-schema
-	echo -n "Generating GConf schema ... "; \
+	@echo -n "Generating GConf schema ... "; \
 	$(top_builddir)/Src/Gtk2/generate-schema -c > dasher.schemas; \
 	echo "done.";
 
@@ -53,7 +53,7 @@ schemas_DATA = dasher.gschema.xml
 check-local: check-schemas
 
 dasher.gschema.xml: $(top_builddir)/Src/Gtk2/generate-schema
-	echo -n "Generating GSettings schema ... "; \
+	@echo -n "Generating GSettings schema ... "; \
 	$(top_builddir)/Src/Gtk2/generate-schema -s > dasher.gschema.xml; \
 	echo "done.";
 
