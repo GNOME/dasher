@@ -241,7 +241,9 @@ void CMandarinAlphMgr::CMandarinTrainer::Train(CAlphabetMap::SymbolStream &syms)
     ///TRANSLATORS: first string will be the filename; after the end of the string,
     /// some number of output (e.g. Chinese) characters will be appended,
     /// the number of which is the integer here
-    const char* msg = _("In file %s, the following %i symbols appeared without annotations saying how they should be entered, but each can be entered in several ways. Dasher will not be able to learn how you want to enter these symbols:");
+    const char* msg = ngettext("In file %s, the following %i symbol appeared without annotations saying how it should be entered, but it can be entered in several ways. Dasher will not be able to learn how you want to enter this symbol:",
+                               "In file %s, the following %i symbols appeared without annotations saying how they should be entered, but each can be entered in several ways. Dasher will not be able to learn how you want to enter these symbols:",
+                               unannotated.size());
     char *buf(new char[strlen(msg) + GetDesc().length() + 10]);
     sprintf(buf, msg, GetDesc().c_str(), unannotated.size());
     ostringstream withChars;
