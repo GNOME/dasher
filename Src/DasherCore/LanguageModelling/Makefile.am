@@ -1,6 +1,6 @@
-noinst_LIBRARIES = libdasherlm.a
+noinst_LTLIBRARIES = libdasherlm.la
 
-libdasherlm_a_SOURCES = \
+libdasherlm_la_SOURCES = \
 		CTWLanguageModel.cpp \
 		CTWLanguageModel.h \
 		DictLanguageModel.cpp \

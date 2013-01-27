@@ -30,6 +30,9 @@
 
 #endif
 
+#ifndef HAVE_ROUND
+#include "round.h"
+#endif
 
 #include "myassert.h"
 

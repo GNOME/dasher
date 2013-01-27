@@ -17,6 +17,7 @@ AC_CONFIG_SRCDIR([Src/main.cc])
 AC_CONFIG_HEADERS(config.h)
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_LIBOBJ_DIR([Src/Common])
 
 AM_INIT_AUTOMAKE([1.8 gnu check-news dist-bzip2])
 AM_MAINTAINER_MODE
@@ -51,6 +52,7 @@ PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.6)
 AC_LANG_PUSH(C++)
 AC_CHECK_FUNCS(lldiv)
 AC_CHECK_FUNC(socket,,[AC_CHECK_LIB(socket,socket)])
+AC_REPLACE_FUNCS([round])
 AC_LANG_POP(C++)
 
 AC_ARG_ENABLE(debug,

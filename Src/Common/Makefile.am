@@ -1,5 +1,5 @@
-noinst_LIBRARIES = libdashermisc.a
-libdashermisc_a_SOURCES = \
+noinst_LTLIBRARIES = libdashermisc.la
+libdashermisc_la_SOURCES = \
                 AppSettingsData.h \
                 AppSettingsHeader.h \
 		Common.h \
@@ -24,6 +24,8 @@ libdashermisc_a_SOURCES = \
 
 #		IOstreamDasherEdit.cc   I have no idea what this does, but it's broken now
 #		IOstreamDasherEdit.h 
+
+libdashermisc_la_LIBADD = $(LTLIBOBJS)
 
 AM_CXXFLAGS = -I$(srcdir)/../DasherCore
 

@@ -156,21 +156,6 @@ private:
   /// @param pOutput The innermost node covering the crosshair (if any)
   void NewRender(CDasherNode * Render, myint y1, myint y2, CTextString *prevText, CExpansionPolicy &policy, double dMaxCost, CDasherNode *&pOutput);
 
-#ifdef _WIN32
-  ///
-  /// FIXME - couldn't find windows version of round(double) so here's one!
-  /// \param number to be rounded
-  ///
-  double round(double d)
-  {
-    if(d - floor(d) < 0.5)
- 	   return floor(d);
-    else
- 	   return ceil(d);
-
-  };
-#endif
-
   /// @name Nonlinearity
   /// Implements the non-linear part of the coordinate space mapping
 

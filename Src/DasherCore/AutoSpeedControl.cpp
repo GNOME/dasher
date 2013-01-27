@@ -8,20 +8,7 @@
 
 #include <cmath>
 #include <cfloat>
-
-#include <string.h>
-
-#ifndef WITH_DARWIN
-double round(double dVal) {
-  double dF = floor(dVal);
-  double dC = ceil(dVal);
-
-  if(dVal - dF < dC - dVal)
-    return dF;
-  else
-    return dC;
-}
-#endif
+#include <cstring>
 
 using namespace Dasher;
 

@@ -27,12 +27,11 @@ AM_CXXFLAGS += @CSPI_CFLAGS@
 endif
 
 dasher_LDADD = \
-	Common/libdashermisc.a \
 	Gtk2/libdashergtk.la \
 	Gtk2/libdashercontrol.la \
-	DasherCore/libdashercore.a \
-	DasherCore/libdasherprefs.a \
-	DasherCore/LanguageModelling/libdasherlm.a \
+	DasherCore/libdashercore.la \
+	DasherCore/libdasherprefs.la \
+	DasherCore/LanguageModelling/libdasherlm.la \
 	$(GTKBUILD_LIBS) \
 	$(SPEECH_LIBS) \
 	-lexpat

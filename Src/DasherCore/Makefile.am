@@ -1,14 +1,14 @@
 SUBDIRS = LanguageModelling
 
-noinst_LIBRARIES = libdashercore.a libdasherprefs.a
+noinst_LTLIBRARIES = libdashercore.la libdasherprefs.la
 
-libdasherprefs_a_SOURCES = \
+libdasherprefs_la_SOURCES = \
 		Parameters.h \
 		Parameters.cpp \
 		SettingsStore.cpp \
 		SettingsStore.h 
 
-libdashercore_a_SOURCES = \
+libdashercore_la_SOURCES = \
 		AbstractXMLParser.cpp \
 		AbstractXMLParser.h \
 		Alphabet/AlphIO.cpp \
@@ -147,10 +147,10 @@ libdashercore_a_SOURCES = \
 		XMLUtil.cpp \
 		XMLUtil.h
 
-libdashercore_a_LIBADD = @JAPANESE_SOURCES@
-libdashercore_a_DEPENDENCIES = @JAPANESE_SOURCES@
+libdashercore_la_LIBADD = @JAPANESE_SOURCES@ ../Common/libdashermisc.la
+libdashercore_la_DEPENDENCIES = @JAPANESE_SOURCES@
 
-EXTRA_libdashercore_a_SOURCES = \
+EXTRA_libdashercore_la_SOURCES = \
 		CannaConversionHelper.cpp \
 		CannaConversionHelper.h
 
