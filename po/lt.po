@@ -8,28 +8,30 @@
 # Žygimantas Beručka <zygis@gnome.org>, 2004-2006.
 # Justina Klingaitė <justina.klingaite@gmail.com>, 2005.
 # Gintautas Miliauskas <gintas@akl.lt>, 2006, 2007, 2009.
+# Aurimas Černius <aurisc4@gmail.com>, 2013.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: lt\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-09-20 16:50+0000\n"
-"PO-Revision-Date: 2012-09-29 00:28+0300\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=dasher&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2013-01-25 16:22+0000\n"
+"PO-Revision-Date: 2013-01-29 22:45+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
-"Language-Team: Lithuanian <gnome-lt@lists.akl.lt>\n"
+"Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Gtranslator 2.91.6\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
-#: ../Data/dasher.desktop.in.in.h:1
-#: ../Data/GUI/dashermaemofullscreen.ui.h:14
-#: ../Data/GUI/dashermaemo.ui.h:1
-#: ../Data/GUI/dasher.traditional.ui.h:23
-#: ../Src/Gtk2/dasher_main.cpp:897
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:14
+#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:23
+#: ../Src/Gtk2/dasher_main.cpp:908
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -97,16 +99,13 @@ msgstr "_Žinynas"
 msgid "_About"
 msgstr "_Apie"
 
-#: ../Data/GUI/dashermaemofullscreen.ui.h:15
-#: ../Data/GUI/dashermaemo.ui.h:4
-#: ../Src/Gtk2/dasher_editor.cpp:817
-#: ../Src/Gtk2/dasher_editor.cpp:851
-#: ../Src/Gtk2/dasher_main.cpp:912
+#: ../Data/GUI/dashermaemofullscreen.ui.h:15 ../Data/GUI/dashermaemo.ui.h:4
+#: ../Src/Gtk2/dasher_editor.cpp:817 ../Src/Gtk2/dasher_editor.cpp:851
+#: ../Src/Gtk2/dasher_main.cpp:923
 msgid "Select File"
 msgstr "Pasirinkti failą"
 
-#: ../Data/GUI/dashermaemofullscreen.ui.h:16
-#: ../Data/GUI/dashermaemo.ui.h:5
+#: ../Data/GUI/dashermaemofullscreen.ui.h:16 ../Data/GUI/dashermaemo.ui.h:5
 msgid "Select Font"
 msgstr "Pasirinkti šriftą"
 
@@ -241,9 +240,7 @@ msgstr "Prognozė"
 msgid "P"
 msgstr "P"
 
-#: ../Data/GUI/dashermaemo.ui.h:6
-#: ../Data/GUI/dasher.traditional.ui.h:26
-#| msgid "Please Wait..."
+#: ../Data/GUI/dashermaemo.ui.h:6 ../Data/GUI/dasher.traditional.ui.h:26
 msgid "Please Wait…"
 msgstr "Palaukite..."
 
@@ -272,27 +269,22 @@ msgstr "Kryptis"
 
 #. This means that you always want to write left-to-right regardless of the normal direction for the alphabet you are using
 #: ../Data/GUI/dasher.preferences.ui.h:23
-#| msgid "Left to Right"
 msgid "Always Left-to-Right"
 msgstr "Visada iš kairės į dešinę"
 
 #: ../Data/GUI/dasher.preferences.ui.h:24
-#| msgid "Right to Left"
 msgid "Always Right-to-Left"
 msgstr "Visada iš dešinės į kairę"
 
 #: ../Data/GUI/dasher.preferences.ui.h:25
-#| msgid "Top to Bottom"
 msgid "Always Top-to-Bottom"
 msgstr "Visada iš viršaus į apačią"
 
 #: ../Data/GUI/dasher.preferences.ui.h:26
-#| msgid "Bottom to Top"
 msgid "Always Bottom-to-Top"
 msgstr "Visada iš apačios į viršų"
 
 #: ../Data/GUI/dasher.preferences.ui.h:27
-#| msgid "Language"
 msgid "_Language"
 msgstr "Ka_lba"
 
@@ -310,7 +302,6 @@ msgid "Input Device"
 msgstr "Įvedimo įrenginys"
 
 #: ../Data/GUI/dasher.preferences.ui.h:34
-#| msgid "Starting And Stopping"
 msgid "Starting and Stopping"
 msgstr "Pradėjimas ir pabaigimas"
 
@@ -332,7 +323,6 @@ msgstr "Sustabdyti, išėjus už ribų"
 
 #. Abbreviation for Control Style
 #: ../Data/GUI/dasher.preferences.ui.h:40
-#| msgid "Control"
 msgid "C_ontrol"
 msgstr "_Valdymas"
 
@@ -381,7 +371,6 @@ msgid "Very large font"
 msgstr "Labai didelis šriftas"
 
 #: ../Data/GUI/dasher.preferences.ui.h:53
-#| msgid "Appearance"
 msgid "_Appearance"
 msgstr "Išv_aizda"
 
@@ -422,7 +411,6 @@ msgid "Include Editing commands"
 msgstr "Įtraukti redagavimo komandas"
 
 #: ../Data/GUI/dasher.preferences.ui.h:63
-#| msgid "Copy _All"
 msgid "Copy All on stop"
 msgstr "Kopijuoti viską sustojant"
 
@@ -431,7 +419,6 @@ msgid "Speak All on stop"
 msgstr "Pasakyti viską sustojant"
 
 #: ../Data/GUI/dasher.preferences.ui.h:65
-#| msgid "Language model adapts as you write."
 msgid "Speak words as you write"
 msgstr "Kalbos modelis prisitaiko įvedimo metu"
 
@@ -464,7 +451,6 @@ msgid "Full Screen"
 msgstr "Visame ekrane"
 
 #: ../Data/GUI/dasher.preferences.ui.h:73
-#| msgid "Application"
 msgid "A_pplication"
 msgstr "_Programa"
 
@@ -485,17 +471,14 @@ msgid "Save file as"
 msgstr "Išsaugoti failą kaip"
 
 #: ../Data/GUI/dasher.traditional.ui.h:6
-#| msgid "_Append to file"
 msgid "A_ppend to file…"
 msgstr "_Pridėti prie failo..."
 
 #: ../Data/GUI/dasher.traditional.ui.h:7
-#| msgid "_Import Training Text"
 msgid "_Import Training Text…"
 msgstr "_Importuoti treniruočių tekstą..."
 
-#: ../Data/GUI/dasher.traditional.ui.h:8
-#: ../Src/Gtk2/dasher_main.cpp:990
+#: ../Data/GUI/dasher.traditional.ui.h:8 ../Src/Gtk2/dasher_main.cpp:1001
 msgid "Quit"
 msgstr "Išeiti"
 
@@ -512,7 +495,6 @@ msgid "Paste"
 msgstr "Įdėti"
 
 #: ../Data/GUI/dasher.traditional.ui.h:14
-#| msgid "Pr_eferences"
 msgid "Pr_eferences…"
 msgstr "_Nustatymai..."
 
@@ -521,7 +503,6 @@ msgid "Preferences"
 msgstr "Nustatymai"
 
 #: ../Data/GUI/dasher.traditional.ui.h:17
-#| msgid "_Contents"
 msgid "_Contents…"
 msgstr "_Turinys..."
 
@@ -530,7 +511,6 @@ msgid "Help"
 msgstr "Žinynas"
 
 #: ../Data/GUI/dasher.traditional.ui.h:19
-#| msgid "_About"
 msgid "_About…"
 msgstr "_Apie..."
 
@@ -540,12 +520,10 @@ msgid "Direct Mode"
 msgstr "Tiesioginė veiksena"
 
 #: ../Data/GUI/dasher.traditional.ui.h:21
-#| msgid "Direct Mode"
 msgid "_Direct Mode"
 msgstr "_Tiesioginė veiksena"
 
 #: ../Data/GUI/dasher.traditional.ui.h:22
-#| msgid "Menu Mode"
 msgid "_Game Mode"
 msgstr "_Žaidimo veiksena"
 
@@ -567,8 +545,12 @@ msgstr "XML klaida %s faile %s"
 
 #: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:116
 #, c-format
-msgid "File ends with incomplete UTF-8 character beginning 0x%x (expecting %i bytes but only %i)"
-msgstr "Failas baigiasi nepilnu UTF-8 simboliu, prasidedančiu 0x%x (tikimasi %i baitų, bet gauta tik %i)"
+msgid ""
+"File ends with incomplete UTF-8 character beginning 0x%x (expecting %i bytes "
+"but only %i)"
+msgstr ""
+"Failas baigiasi nepilnu UTF-8 simboliu, prasidedančiu 0x%x (tikimasi %i "
+"baitų, bet gauta tik %i)"
 
 #: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:127
 #, c-format
@@ -580,21 +562,23 @@ msgstr "Perskaitytas netinkamas UTF-8 simbolis 0x%x"
 #. / setting (this message displayed only if the user has provided a value)
 #: ../Src/DasherCore/AlphabetManager.cpp:213
 #, c-format
-msgid "Note: GameTextFile setting specifies game sentences file '%s' but this does not exist"
-msgstr "Pastaba: GameTextFile nustatymas nurodo žaidimo sakinių failą „%s), bet šis neegzistuoja"
+msgid ""
+"Note: GameTextFile setting specifies game sentences file '%s' but this does "
+"not exist"
+msgstr ""
+"Pastaba: GameTextFile nustatymas nurodo žaidimo sakinių failą „%s), bet šis "
+"neegzistuoja"
 
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:28
-#: ../Src/DasherCore/ButtonMode.cpp:28
-#: ../Src/DasherCore/CompassMode.cpp:28
+#: ../Src/DasherCore/ButtonMode.cpp:28 ../Src/DasherCore/CompassMode.cpp:28
 #: ../Src/DasherCore/StylusFilter.cpp:11
 msgid "Frames over which to perform zoom"
 msgstr "Kadrai, per kuriuos atlikti pritraukimą"
 
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:30
-#: ../Src/DasherCore/ButtonMode.cpp:39
-#: ../Src/DasherCore/CompassMode.cpp:32
+#: ../Src/DasherCore/ButtonMode.cpp:39 ../Src/DasherCore/CompassMode.cpp:32
 msgid "Global keyboard grab"
 msgstr "Bendras klaviatūros pagriebimas"
 
@@ -618,7 +602,6 @@ msgid "Scan time in menu mode (0 to not scan)"
 msgstr "Skaitymo laikas meniu veiksenoje (0 neskaitymui)"
 
 #: ../Src/DasherCore/ButtonMode.cpp:30
-#| msgid "Number of boxes"
 msgid "Number of forward boxes"
 msgstr "Priekinių dėžių skaičius"
 
@@ -676,8 +659,12 @@ msgstr "Atlikta"
 #. / refers to a setting name in gsettings or equivalent, and should not be translated.
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:315
 #, c-format
-msgid "Could not find game sentences file for %s - check alphabet definition, or override with GameTextFile setting"
-msgstr "Nepavyko rasti žaidimo sakinių failo %s - patikrinkite abėcėlės apibrėžimą arba perrašykite GameTextFile nustatymą"
+msgid ""
+"Could not find game sentences file for %s - check alphabet definition, or "
+"override with GameTextFile setting"
+msgstr ""
+"Nepavyko rasti žaidimo sakinių failo %s - patikrinkite abėcėlės apibrėžimą "
+"arba perrašykite GameTextFile nustatymą"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:790
 msgid "Normal Control"
@@ -697,20 +684,36 @@ msgid "Learn offset (previous) automatically, e.g. gazetrackers"
 msgstr "Automatiškai išmokti poslinkį (ankstesnį), pvz. gazetrackers"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:16
-msgid "At top and bottom, scroll more and translate less (makes error-correcting easier)"
-msgstr "Viršuje ir apačioje slinkti daugiau, transliuoti mažiau (padaro paprastesnį klaidų taisymą)"
+msgid ""
+"At top and bottom, scroll more and translate less (makes error-correcting "
+"easier)"
+msgstr ""
+"Viršuje ir apačioje slinkti daugiau, transliuoti mažiau (padaro paprastesnį "
+"klaidų taisymą)"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:17
-msgid "Screen geometry (mostly for tall thin screens) - 0=old-style, 1=square no-xhair, 2=squish, 3=squish+log"
-msgstr "Ekrano geometrija (dažniausiai visiems ploniems ekranams) - 0=seno stiliaus, 1=kvadratas be taikiklio, 2=squish, 3=squish+log"
+msgid ""
+"Screen geometry (mostly for tall thin screens) - 0=old-style, 1=square no-"
+"xhair, 2=squish, 3=squish+log"
+msgstr ""
+"Ekrano geometrija (dažniausiai visiems ploniems ekranams) - 0=seno stiliaus, "
+"1=kvadratas be taikiklio, 2=squish, 3=squish+log"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:18
-msgid "Shape type: 0=disjoint rects, 1=overlapping, 2=triangles, 3=trunc-tris, 4=quadrics, 5=circles"
-msgstr "Figūros tipas: 0=atskiri stačiakampiai, 1=persidengiančios, 2=trikampiai, 3=trunc-tris, 4=keturkampiai, 5=apskritimai"
+msgid ""
+"Shape type: 0=disjoint rects, 1=overlapping, 2=triangles, 3=trunc-tris, "
+"4=quadrics, 5=circles"
+msgstr ""
+"Figūros tipas: 0=atskiri stačiakampiai, 1=persidengiančios, 2=trikampiai, "
+"3=trunc-tris, 4=keturkampiai, 5=apskritimai"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:19
-msgid "Distance from right-hand-side Y-axis, at which maximum speed is reached. (2048=xhair)"
-msgstr "Atstumas nuo dešinės Y ašies, kur pasiekiamas didžiausias greitis. (2048=xhair)"
+msgid ""
+"Distance from right-hand-side Y-axis, at which maximum speed is reached. "
+"(2048=xhair)"
+msgstr ""
+"Atstumas nuo dešinės Y ašies, kur pasiekiamas didžiausias greitis. "
+"(2048=xhair)"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:20
 msgid "Hold right mouse button / key 1 to go 3/4 faster"
@@ -730,7 +733,8 @@ msgstr "Įvedamų sakinių failo pavadinimas"
 
 #: ../Src/DasherCore/GameModule.cpp:9
 msgid "Distance of sentence from center to decide user needs help"
-msgstr "Sakinio atstumas nuo centro nusprendimui, kad naudotojui reikia pagalbos"
+msgstr ""
+"Sakinio atstumas nuo centro nusprendimui, kad naudotojui reikia pagalbos"
 
 #: ../Src/DasherCore/GameModule.cpp:10
 msgid "Time for which user must need help before help drawn"
@@ -743,41 +747,86 @@ msgstr "Kada pateikti pagalbą, rodyti trumpiausią kelią iki tikslo sakinio?"
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:176
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:128
 #, c-format
-msgid "Warning: faulty alphabet definition: training-start delimiter %s must be a single unicode character. May be unable to process training file."
-msgstr "Įspėjimas: klaidingas abėcėlės apibrėžimas: training-start užbaigimas %s turi būti vienas unikodo simbolis. Gali nepavykti apdoroti treniruotės failo."
+msgid ""
+"Warning: faulty alphabet definition: training-start delimiter %s must be a "
+"single unicode character. May be unable to process training file."
+msgstr ""
+"Įspėjimas: klaidingas abėcėlės apibrėžimas: training-start užbaigimas %s "
+"turi būti vienas unikodo simbolis. Gali nepavykti apdoroti treniruotės failo."
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:186
 #, c-format
-msgid "Warning: training file contains character '%s' as member of group '%s', but no group of that name contains the character; ignoring group specifier"
-msgstr "Įspėjimas: treniruotės failas turi simbolį „%s“ kaip grupės „%s“ narį, bet jokia grupė tokiu pavadinimu neturi simbolio; nepaisoma grupės"
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"no group of that name contains the character; ignoring group specifier"
+msgstr ""
+"Įspėjimas: treniruotės failas turi simbolį „%s“ kaip grupės „%s“ narį, bet "
+"jokia grupė tokiu pavadinimu neturi simbolio; nepaisoma grupės"
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:199
 #, c-format
-msgid "Warning: training file contains character '%s' as member of group '%s', but no group of that name contains the character. Dasher will not be able to learn how you want to write this character."
-msgstr "Įspėjimas: treniruotės failas turi simbolį „%s“ kaip grupės „%s“ narį, bet jokia grupė tokiu pavadinimu neturi simbolio. Dasher nesugebės išmokti, kaip jūs norite rašyti šį simbolį."
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"no group of that name contains the character. Dasher will not be able to "
+"learn how you want to write this character."
+msgstr ""
+"Įspėjimas: treniruotės failas turi simbolį „%s“ kaip grupės „%s“ narį, bet "
+"jokia grupė tokiu pavadinimu neturi simbolio. Dasher nesugebės išmokti, kaip "
+"jūs norite rašyti šį simbolį."
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:200
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:147
 #, c-format
-msgid "Warning: training file contains character '%s' as member of group '%s', but alphabet contains several such groups. Dasher will not be able to learn how you want to write this character."
-msgstr "Įspėjimas: treniruotės failas turi simbolį „%s“ kaip grupės „%s“ narį, bet abėcėlė turi kelias tokias grupes. Dasher nesugebės išmokti, kaip jūs norite rašyti šį simbolį."
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"alphabet contains several such groups. Dasher will not be able to learn how "
+"you want to write this character."
+msgstr ""
+"Įspėjimas: treniruotės failas turi simbolį „%s“ kaip grupės „%s“ narį, bet "
+"abėcėlė turi kelias tokias grupes. Dasher nesugebės išmokti, kaip jūs norite "
+"rašyti šį simbolį."
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:220
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:164
 #, c-format
-msgid "Warning: in training file, annotation '<%s>' is followed by another annotation and will be ignored"
-msgstr "Įspėjimas: treniruotės faile po anotacijos „<%s>“ eina kita anotacija ir jos bus nepaisoma"
+msgid ""
+"Warning: in training file, annotation '<%s>' is followed by another "
+"annotation and will be ignored"
+msgstr ""
+"Įspėjimas: treniruotės faile po anotacijos „<%s>“ eina kita anotacija ir jos "
+"bus nepaisoma"
 
 #. /TRANSLATORS: first string will be the filename; after the end of the string,
 #. / some number of output (e.g. Chinese) characters will be appended,
 #. / the number of which is the integer here
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:244
 #, c-format
-msgid "In file %s, the following %i symbols appeared without annotations saying how they should be entered, but each can be entered in several ways. Dasher will not be able to learn how you want to enter these symbols:"
-msgstr "Faile %s šie %i simboliai pasirodė be anotacijų, sakantys, kaip juos reikia įvesti, bet kiekvienas gali būti įvestas keliais būdais. Dasher nesugebės išmokti, kaip jūs norite rašyti šiuos simbolius:"
+#| msgid ""
+#| "In file %s, the following %i symbols appeared without annotations saying "
+#| "how they should be entered, but each can be entered in several ways. "
+#| "Dasher will not be able to learn how you want to enter these symbols:"
+msgid ""
+"In file %s, the following %i symbol appeared without annotations saying how "
+"it should be entered, but it can be entered in several ways. Dasher will not "
+"be able to learn how you want to enter this symbol:"
+msgid_plural ""
+"In file %s, the following %i symbols appeared without annotations saying how "
+"they should be entered, but each can be entered in several ways. Dasher will "
+"not be able to learn how you want to enter these symbols:"
+msgstr[0] ""
+"Faile %s šis %i simbolis pasirodė be anotacijų, sakančių, kaip reikia "
+"įvesti, bet kiekvienas gali būti įvestas keliais būdais. Dasher nesugebės "
+"išmokti, kaip jūs norite rašyti šiuos simbolius:"
+msgstr[1] ""
+"Faile %s šie %i simboliai pasirodė be anotacijų, sakančių, kaip juos reikia "
+"įvesti, bet kiekvienas gali būti įvestas keliais būdais. Dasher nesugebės "
+"išmokti, kaip jūs norite rašyti šiuos simbolius:"
+msgstr[2] ""
+"Faile %s šie %i simbolių pasirodė be anotacijų, sakančių, kaip juos reikia "
+"įvesti, bet kiekvienas gali būti įvestas keliais būdais. Dasher nesugebės "
+"išmokti, kaip jūs norite rašyti šiuos simbolius:"
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:33
-#| msgid "_Import Training Text"
 msgid "Training on User Text"
 msgstr "Treniruotė naudojimo tekstu"
 
@@ -788,18 +837,32 @@ msgstr "Treniruojamasi sisteminiu tekstu"
 #. /TRANSLATORS: These 3 messages will be displayed when the user has just chosen a new alphabet. The %s parameter will be the name of the alphabet.
 #: ../Src/DasherCore/NodeCreationManager.cpp:101
 #, c-format
-msgid "No user training text found - if you have written in \"%s\" before, this means Dasher may not be learning from previous sessions"
-msgstr "Nerastas naudotojo treniruočių tekstas - jei anksčiau rašėte į „%s“, tai reiškia, kad Dasher galbūt nesimoko iš ankstesnių seansų"
+msgid ""
+"No user training text found - if you have written in \"%s\" before, this "
+"means Dasher may not be learning from previous sessions"
+msgstr ""
+"Nerastas naudotojo treniruočių tekstas - jei anksčiau rašėte į „%s“, tai "
+"reiškia, kad Dasher galbūt nesimoko iš ankstesnių seansų"
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:102
 #, c-format
-msgid "No training text (user or system) found for \"%s\". Dasher will still work but entry will be slower. We suggest downloading a training text file from the Dasher website, or constructing your own."
-msgstr "Nerasta treniruočių teksto (naudotojo ar sisteminio) „%s“. Dasher vis dar veiks, bet įvedimas bus lėtesnis. Siūlome parsisiųsti treniruočių failą iš Dasher tinklapio arba pasidaryti savo."
+msgid ""
+"No training text (user or system) found for \"%s\". Dasher will still work "
+"but entry will be slower. We suggest downloading a training text file from "
+"the Dasher website, or constructing your own."
+msgstr ""
+"Nerasta treniruočių teksto (naudotojo ar sisteminio) „%s“. Dasher vis dar "
+"veiks, bet įvedimas bus lėtesnis. Siūlome parsisiųsti treniruočių failą iš "
+"Dasher tinklapio arba pasidaryti savo."
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:108
 #, c-format
-msgid "\"%s\" does not specify training file. Dasher will work but entry will be slower. Check you have the latest version of the alphabet definition."
-msgstr "„%s“ nenurodo treniruočių failo. Dasher veiks, bet įvedimas bus lėtesnis. Patikrinkite, kad turite paskutinį abėcėlės apibrėžimą."
+msgid ""
+"\"%s\" does not specify training file. Dasher will work but entry will be "
+"slower. Check you have the latest version of the alphabet definition."
+msgstr ""
+"„%s“ nenurodo treniruočių failo. Dasher veiks, bet įvedimas bus lėtesnis. "
+"Patikrinkite, kad turite paskutinį abėcėlės apibrėžimą."
 
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
@@ -871,19 +934,21 @@ msgstr "Vienos dimensijos veiksena"
 
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:146
 #, c-format
-msgid "Warning: training file contains character '%s' as member of group '%s', but no group of that name contains the character. Ignoring group specifier."
-msgstr "Įspėjimas: treniruočių failas turi simbolį „%s“ kaip grupės „%s“ narį, bet jokia grupė šiuo pavadinimu neturi simbolio. Nepaisoma grupės."
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"no group of that name contains the character. Ignoring group specifier."
+msgstr ""
+"Įspėjimas: treniruočių failas turi simbolį „%s“ kaip grupės „%s“ narį, bet "
+"jokia grupė šiuo pavadinimu neturi simbolio. Nepaisoma grupės."
 
 #: ../Src/DasherCore/SettingsStore.cpp:75
-#: ../Src/Gtk2/DasherAppSettings.cpp:540
-#: ../Src/Gtk2/DasherAppSettings.cpp:574
+#: ../Src/Gtk2/DasherAppSettings.cpp:540 ../Src/Gtk2/DasherAppSettings.cpp:574
 #: ../Src/Gtk2/DasherAppSettings.cpp:578
 msgid "true"
 msgstr "true"
 
 #: ../Src/DasherCore/SettingsStore.cpp:77
-#: ../Src/Gtk2/DasherAppSettings.cpp:542
-#: ../Src/Gtk2/DasherAppSettings.cpp:574
+#: ../Src/Gtk2/DasherAppSettings.cpp:542 ../Src/Gtk2/DasherAppSettings.cpp:574
 #: ../Src/Gtk2/DasherAppSettings.cpp:578
 msgid "false"
 msgstr "false"
@@ -962,7 +1027,7 @@ msgid "Dasher Socket Input error: %s: %s"
 msgstr "Dasher lizdo įvesties klaida: %s: %s"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
-#: ../Src/DasherCore/SocketInput.cpp:34
+#: ../Src/DasherCore/SocketInput.cpp:31
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Dasher lizdo įvestis: nepavyko paleisti skaityklės gijos."
 
@@ -977,12 +1042,15 @@ msgstr "Stiliaus valdiklis"
 #. no context switch commands will be executed!
 #: ../Src/DasherCore/Trainer.cpp:34
 #, c-format
-msgid "Warning: faulty alphabet definition, escape sequence %s must be a single unicode character. This may worsen Dasher's text prediction."
-msgstr "Įspėjimas: klaidingas abėcėlės apibrėžimas, kaitos seka %s turi būti vienas unikodo simbolis. Tai gali pabloginti Dasher teksto spėjimą."
+msgid ""
+"Warning: faulty alphabet definition, escape sequence %s must be a single "
+"unicode character. This may worsen Dasher's text prediction."
+msgstr ""
+"Įspėjimas: klaidingas abėcėlės apibrėžimas, kaitos seka %s turi būti vienas "
+"unikodo simbolis. Tai gali pabloginti Dasher teksto spėjimą."
 
 #: ../Src/DasherCore/Trainer.cpp:101
 #, c-format
-#| msgid "Unable to open help file"
 msgid "Unable to open file \"%s\" for reading"
 msgstr "Nepavyko atverti „%s“ failo skaitymui"
 
@@ -1036,8 +1104,12 @@ msgid "Tolerance for inaccurate timing of button pushes (in ms)"
 msgstr "Netikslaus mygtukų paspaudimo laiko toleravimas (ms)"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:34
-msgid "Use push and release times of single press rather than push times of two presses"
-msgstr "Naudoti paspaudimo ir atleidimo laikus vienam paspaudimui vietoj paspaudimo laikų dviem paspaudimams"
+msgid ""
+"Use push and release times of single press rather than push times of two "
+"presses"
+msgstr ""
+"Naudoti paspaudimo ir atleidimo laikus vienam paspaudimui vietoj paspaudimo "
+"laikų dviem paspaudimams"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
 msgid "Slow startup time"
@@ -1051,14 +1123,12 @@ msgstr "Dviejų paspaudimų dinaminė veiksena (naujas vienas mygtukas)"
 msgid "Boolean parameters"
 msgstr "Dviejų būsenų parametrai"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:571
-#: ../Src/Gtk2/DasherAppSettings.cpp:582
+#: ../Src/Gtk2/DasherAppSettings.cpp:571 ../Src/Gtk2/DasherAppSettings.cpp:582
 #: ../Src/Gtk2/DasherAppSettings.cpp:593
 msgid "Default"
 msgstr "Numatytasis"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:571
-#: ../Src/Gtk2/DasherAppSettings.cpp:582
+#: ../Src/Gtk2/DasherAppSettings.cpp:571 ../Src/Gtk2/DasherAppSettings.cpp:582
 #: ../Src/Gtk2/DasherAppSettings.cpp:593
 msgid "Description"
 msgstr "Aprašymas"
@@ -1081,28 +1151,36 @@ msgstr "Opcijos nustatymas \"=\" nerastas"
 msgid "Invalid option string specified"
 msgstr "Negaliojama nustatymo sudėtis"
 
-#: ../Src/Gtk2/dasher_main.cpp:617
-msgid "Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering text in Dasher. Please select a training text to play with:"
-msgstr "Sveiki atvykę į Dasher žaidimo veikseną! Žaidimo veiksena yra linksmas būdas treniruotis įvedinėti tekstą į Dasher. Pasirinkite treniruočių tekstą žaidimui:"
+#: ../Src/Gtk2/dasher_main.cpp:628
+msgid ""
+"Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering "
+"text in Dasher. Please select a training text to play with:"
+msgstr ""
+"Sveiki atvykę į Dasher žaidimo veikseną! Žaidimo veiksena yra linksmas būdas "
+"treniruotis įvedinėti tekstą į Dasher. Pasirinkite treniruočių tekstą "
+"žaidimui:"
 
-#: ../Src/Gtk2/dasher_main.cpp:619
-#| msgid "Default"
+#: ../Src/Gtk2/dasher_main.cpp:630
 msgid "Use Default"
 msgstr "Naudoti numatytąjį"
 
-#: ../Src/Gtk2/dasher_main.cpp:620
+#: ../Src/Gtk2/dasher_main.cpp:631
 msgid "Choose File..."
 msgstr "Pasirinkite failą..."
 
-#: ../Src/Gtk2/dasher_main.cpp:621
+#: ../Src/Gtk2/dasher_main.cpp:632
 msgid "Cancel"
 msgstr "Atsisakyti"
 
-#: ../Src/Gtk2/dasher_main.cpp:644
-msgid "Are you sure you wish to turn off game mode? All unsaved changes will be lost."
-msgstr "Ar tikrai norite išjungti žaidimo veikseną? Visi neįrašyti pakeitimai bus prarasti."
+#: ../Src/Gtk2/dasher_main.cpp:655
+msgid ""
+"Are you sure you wish to turn off game mode? All unsaved changes will be "
+"lost."
+msgstr ""
+"Ar tikrai norite išjungti žaidimo veikseną? Visi neįrašyti pakeitimai bus "
+"prarasti."
 
-#: ../Src/Gtk2/dasher_main.cpp:952
+#: ../Src/Gtk2/dasher_main.cpp:963
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1113,7 +1191,7 @@ msgstr ""
 "\n"
 "Jeigu neišsaugosite, pakeitimai bus prarasti."
 
-#: ../Src/Gtk2/dasher_main.cpp:959
+#: ../Src/Gtk2/dasher_main.cpp:970
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1123,32 +1201,31 @@ msgstr ""
 "\n"
 "Jeigu neišsaugosite, pakeitimai bus prarasti."
 
-#: ../Src/Gtk2/dasher_main.cpp:965
+#: ../Src/Gtk2/dasher_main.cpp:976
 msgid "Don't save"
 msgstr "Nesaugoti"
 
-#: ../Src/Gtk2/dasher_main.cpp:966
-#: ../Src/Gtk2/dasher_main.cpp:989
+#: ../Src/Gtk2/dasher_main.cpp:977 ../Src/Gtk2/dasher_main.cpp:1000
 msgid "Don't quit"
 msgstr "Neišeiti"
 
-#: ../Src/Gtk2/dasher_main.cpp:967
+#: ../Src/Gtk2/dasher_main.cpp:978
 msgid "Save and quit"
 msgstr "Išsaugoti ir išeiti"
 
-#: ../Src/Gtk2/dasher_main.cpp:986
+#: ../Src/Gtk2/dasher_main.cpp:997
 msgid "Are you sure you wish to quit?"
 msgstr "Ar tikrai norite išeiti?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1028
+#: ../Src/Gtk2/dasher_main.cpp:1039
 msgid "Unable to open help file"
 msgstr "Nepavyko atverti žinyno failo"
 
-#: ../Src/Gtk2/dasher_main.cpp:1080
+#: ../Src/Gtk2/dasher_main.cpp:1091
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher yra prognozuojamo teksto įvedimo programa"
 
-#: ../Src/Gtk2/dasher_main.cpp:1085
+#: ../Src/Gtk2/dasher_main.cpp:1096
 msgid "translator-credits"
 msgstr ""
 "Išvertė:\n"
@@ -1217,4 +1294,3 @@ msgstr "Apibūdinti \"--options\"."
 #: ../Src/main.cc:177
 msgid "- A text input application honouring accessibility"
 msgstr "Teksto įvesties programa turinti gerą prieinamumą"
-
