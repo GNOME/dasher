@@ -816,12 +816,12 @@ void CDasherInterfaceBase::GetPermittedValues(int iParameter, std::vector<std::s
   // TODO: Deprecate direct calls to these functions
   switch (iParameter) {
   case SP_ALPHABET_ID:
-    if(m_AlphIO)
-      m_AlphIO->GetAlphabets(&vList);
+    DASHER_ASSERT(m_AlphIO != NULL);
+    m_AlphIO->GetAlphabets(&vList);
     break;
   case SP_COLOUR_ID:
-    if(m_ColourIO)
-      m_ColourIO->GetColours(&vList);
+    DASHER_ASSERT(m_ColourIO != NULL);
+    m_ColourIO->GetColours(&vList);
     break;
   case SP_INPUT_FILTER:
     m_oModuleManager.ListModules(1, vList);
