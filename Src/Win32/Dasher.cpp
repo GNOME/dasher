@@ -165,13 +165,13 @@ bool Dasher::CDasher::GetWindowSize(int* pTop, int* pLeft, int* pBottom, int* pR
 }
 
 void Dasher::CDasher::WriteTrainFile(const std::string &filename, const std::string &strNewText) {
-  const std::string TrainFile = GetStringParameter(SP_USER_LOC) + filename;
-
   if(strNewText.size() == 0)
     return;
 
-  Tstring TTrainFile;
-  UTF8string_to_wstring(TrainFile, TTrainFile);
+  Tstring UserDataDir, Tfilename, TTrainFile;
+  UTF8string_to_wstring(filename, Tfilename);
+  WinHelper::GetUserDirectory(&UserDataDir);
+  TTrainFile = UserDataDir + Tfilename;
 
   HANDLE hFile = CreateFile(TTrainFile.c_str(),
                             GENERIC_WRITE, 0, NULL, 
