@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-25 19:39+0100\n"
-"PO-Revision-Date: 2013-01-25 19:40+0100\n"
+"POT-Creation-Date: 2013-02-02 02:43+0100\n"
+"PO-Revision-Date: 2013-02-02 02:44+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -585,12 +585,12 @@ msgstr "Globalne przejęcie klawiatury"
 msgid "Alternating Direct Mode"
 msgstr "Tryb zmienny bezpośredni"
 
-#: ../Src/DasherCore/AutoSpeedControl.cpp:213
+#: ../Src/DasherCore/AutoSpeedControl.cpp:200
 #, c-format
 msgid "Auto-increasing speed to %0.2f"
 msgstr "Automatyczne zwiększenie prędkości do %0.2f"
 
-#: ../Src/DasherCore/AutoSpeedControl.cpp:213
+#: ../Src/DasherCore/AutoSpeedControl.cpp:200
 #, c-format
 msgid "Auto-decreasing speed to %0.2f"
 msgstr "Automatyczne zmniejszenie prędkości do %0.2f"
@@ -797,10 +797,7 @@ msgstr ""
 "Ostrzeżenie: w pliku treningu adnotacja \"<%s>\" znajduje się za inną "
 "adnotacją i zostanie zignorowana"
 
-#. /TRANSLATORS: first string will be the filename; after the end of the string,
-#. / some number of output (e.g. Chinese) characters will be appended,
-#. / the number of which is the integer here
-#: ../Src/DasherCore/MandarinAlphMgr.cpp:244
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:247
 #, c-format
 msgid ""
 "In file %s, the following %i symbol appeared without annotations saying how "
@@ -819,6 +816,17 @@ msgstr[1] ""
 "sposób ich wprowadzania, a każdy może być wprowadzany na kilka sposób. "
 "Program Dasher nie będzie mógł nauczyć się, jak wprowadzane są te symbole:"
 msgstr[2] ""
+"W pliku %s następujące symbole %i pojawiają się bez adnotacji wyjaśniającej "
+"sposób ich wprowadzania, a każdy może być wprowadzany na kilka sposób. "
+"Program Dasher nie będzie mógł nauczyć się, jak wprowadzane są te symbole:"
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:251
+#, c-format
+msgid ""
+"In file %s, the following %i symbols appeared without annotations saying how "
+"they should be entered, but each can be entered in several ways. Dasher will "
+"not be able to learn how you want to enter these symbols:"
+msgstr ""
 "W pliku %s następujące symbole %i pojawiają się bez adnotacji wyjaśniającej "
 "sposób ich wprowadzania, a każdy może być wprowadzany na kilka sposób. "
 "Program Dasher nie będzie mógł nauczyć się, jak wprowadzane są te symbole:"
