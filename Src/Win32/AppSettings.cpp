@@ -154,6 +154,7 @@ void CAppSettings::ResetParamater(int iParameter) {
 void CAppSettings::GetPermittedValues(int iParameter, vector<string> &vList) {
   //Don't think there are any app-specific string parameters with permitted values?
   DASHER_ASSERT(iParameter>=FIRST_SP && iParameter < END_OF_SPS);
+  DASHER_ASSERT(m_pDasher != NULL);
   m_pDasher->GetPermittedValues(iParameter,vList);
 }
 

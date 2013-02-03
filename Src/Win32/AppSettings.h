@@ -93,7 +93,7 @@ private:
   Dasher::CDasher *m_pDasher;
   HWND m_hWnd;
 
-   bool LoadSetting(const std::string & Key, bool * Value);
+  bool LoadSetting(const std::string & Key, bool * Value);
   bool LoadSetting(const std::string & Key, long *Value);
   bool LoadSetting(const std::string & Key, std::string * Value);
   bool LoadSettingT(const std::string & Key, Tstring * Value);

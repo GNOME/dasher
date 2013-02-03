@@ -93,19 +93,16 @@ HWND CDasherWindow::Create() {
   hWnd = CWindowImpl<CDasherWindow, CWindow, CWinTraits<WS_CLIPCHILDREN | WS_CLIPSIBLINGS> >::Create(NULL);
 #endif
 
-
-
-
-  // Create a CAppSettings
-  m_pAppSettings->SetHwnd(hWnd);
-  m_pAppSettings->SetDasher(m_pDasher);
-
   // Create Widgets
   m_pEdit = new CEdit(m_pAppSettings);
   m_pEdit->Create(hWnd, m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
   m_pEdit->SetFont(m_pAppSettings->GetStringParameter(APP_SP_EDIT_FONT), m_pAppSettings->GetLongParameter(APP_LP_EDIT_FONT_SIZE));
  
   m_pDasher = new CDasher(hWnd, this, m_pEdit);
+
+  // Create a CAppSettings
+  m_pAppSettings->SetHwnd(hWnd);
+  m_pAppSettings->SetDasher(m_pDasher);
 
 #ifdef PJC_EXPERIMENTAL
   g_hWnd = m_pEdit->GetHwnd();
@@ -222,11 +219,14 @@ void CDasherWindow::HandleParameterChange(int iParameter) {
   case LP_MAX_BITRATE:
     // TODO: reimplement
     break;
+// XXXPW
+#if 0
   case BP_GAME_MODE: {
 	  int iNewState(m_pDasher->GetBoolParameter(BP_GAME_MODE) ? MF_CHECKED : MF_UNCHECKED);
 	  DWORD iPrevState = CheckMenuItem(m_hMenu, ID_GAMEMODE, MF_BYCOMMAND | iNewState);
 	  DASHER_ASSERT( iPrevState != -1 ); //-1 = item does not exist (i.e. params to previous incorrect!)
   }
+#endif
   default:
     break;
   }
@@ -263,12 +263,15 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
     HtmlHelp(m_hWnd, L"Dasher.chm", HH_DISPLAY_INDEX, NULL);
     return 0;
 #endif
+// XXXPW
+#if 0
   case ID_GAMEMODE: {
 	  unsigned int checkState(GetMenuState(m_hMenu, ID_GAMEMODE, MF_BYCOMMAND));
 	  DASHER_ASSERT(checkState==-1); //"specified item does not exist" - presumably, params to above aren't right...
 	  m_pDasher->SetBoolParameter(BP_GAME_MODE, (checkState & MF_CHECKED) ? false : true);
     return 0;
   }
+#endif
   case IDM_EXIT:
     DestroyWindow();
     return 0;

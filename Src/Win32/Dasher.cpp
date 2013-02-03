@@ -148,11 +148,11 @@ unsigned int Dasher::CDasher::ctrlDelete(bool bForwards, CControlManager::EditDi
 
 // Gets the size of the window in screen coordinates.  
 bool Dasher::CDasher::GetWindowSize(int* pTop, int* pLeft, int* pBottom, int* pRight) {
-	if ((pTop == NULL) || (pLeft == NULL) || (pBottom == NULL) || (pRight == NULL))
-		return false;
+  if ((pTop == NULL)||(pLeft == NULL)||(pBottom == NULL)||(pRight == NULL))
+    return false;
 
-	RECT sWindowRect;
-	if (GetWindowRect(m_hParent, &sWindowRect))
+  RECT sWindowRect;
+  if (GetWindowRect(m_hParent, &sWindowRect))
   {
     *pTop    = sWindowRect.top;
     *pLeft   = sWindowRect.left;
@@ -185,7 +185,7 @@ void Dasher::CDasher::WriteTrainFile(const std::string &filename, const std::str
     DWORD NumberOfBytesWritten;
     SetFilePointer(hFile, 0, NULL, FILE_END);
 
-  //// Surely there are better ways to write to files than this??
+  // Surely there are better ways to write to files than this??
 
     for(unsigned int i = 0; i < strNewText.size(); i++) {
       WriteFile(hFile, &strNewText[i], 1, &NumberOfBytesWritten, NULL);
@@ -226,7 +226,7 @@ void CDasher::ScanFiles(AbstractParser *parser, const std::string &strPattern) {
   Tstring AppData;
   GetAppDirectory(&AppData);
   AppData += TEXT("system.rc\\");
-  CreateDirectory(AppData.c_str(), NULL);       // to do any harm if they already exist.
+  CreateDirectory(AppData.c_str(), NULL);// TODO: Any harm if they already exist
   string sysDir;
   wstring_to_UTF8string(AppData,sysDir);
   AppData += pattern;
