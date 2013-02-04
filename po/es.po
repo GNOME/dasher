@@ -12,16 +12,16 @@ msgstr ""
 "Project-Id-Version: dasher.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-01-25 16:22+0000\n"
-"PO-Revision-Date: 2013-01-27 12:58+0100\n"
+"POT-Creation-Date: 2013-02-01 19:09+0000\n"
+"PO-Revision-Date: 2013-02-04 17:45+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
+"Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Gtranslator 2.91.5\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
@@ -583,12 +583,12 @@ msgstr "Obtención global del teclado"
 msgid "Alternating Direct Mode"
 msgstr "Modo directo alternante"
 
-#: ../Src/DasherCore/AutoSpeedControl.cpp:213
+#: ../Src/DasherCore/AutoSpeedControl.cpp:200
 #, c-format
 msgid "Auto-increasing speed to %0.2f"
 msgstr "Aumentar la velocidad automáticamente a %0.2f"
 
-#: ../Src/DasherCore/AutoSpeedControl.cpp:213
+#: ../Src/DasherCore/AutoSpeedControl.cpp:200
 #, c-format
 msgid "Auto-decreasing speed to %0.2f"
 msgstr "Reducir la velocidad automáticamente a %0.2f"
@@ -799,18 +799,11 @@ msgid ""
 "Warning: in training file, annotation '<%s>' is followed by another "
 "annotation and will be ignored"
 msgstr ""
-"Advertencia: en el archivo de entrenamiento, la anotación «<%s>» está "
-"seguida de otra y se ignorará"
+"Advertencia: en el archivo de entrenamiento, la anotación «<%s>» está seguida "
+"de otra y se ignorará"
 
-#. /TRANSLATORS: first string will be the filename; after the end of the string,
-#. / some number of output (e.g. Chinese) characters will be appended,
-#. / the number of which is the integer here
-#: ../Src/DasherCore/MandarinAlphMgr.cpp:244
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:247
 #, c-format
-#| msgid ""
-#| "In file %s, the following %i symbols appeared without annotations saying "
-#| "how they should be entered, but each can be entered in several ways. "
-#| "Dasher will not be able to learn how you want to enter these symbols:"
 msgid ""
 "In file %s, the following %i symbol appeared without annotations saying how "
 "it should be entered, but it can be entered in several ways. Dasher will not "
@@ -828,6 +821,25 @@ msgstr[1] ""
 "indiquen cómo se deben introducir, pero cada uno de ellos se puede "
 "introducir de varias maneras. Dasher no podrá aprender cómo quiere escribir "
 "estos símbolos:"
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:251
+#, c-format
+#| msgid ""
+#| "In file %s, the following %i symbol appeared without annotations saying "
+#| "how it should be entered, but it can be entered in several ways. Dasher "
+#| "will not be able to learn how you want to enter this symbol:"
+#| msgid_plural ""
+#| "In file %s, the following %i symbols appeared without annotations saying "
+#| "how they should be entered, but each can be entered in several ways. "
+#| "Dasher will not be able to learn how you want to enter these symbols:"
+msgid ""
+"In file %s, the following %i symbols appeared without annotations saying how "
+"they should be entered, but each can be entered in several ways. Dasher will "
+"not be able to learn how you want to enter these symbols:"
+msgstr ""
+"En el archivo %s, los siguientes %i símbolos aparecen sin anotaciones que "
+"indiquen cómo se deben introducir, pero se pueden introducir de varias "
+"maneras. Dasher no podrá aprender cómo quiere escribir estos símbolos:"
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:33
 msgid "Training on User Text"
@@ -1025,8 +1037,7 @@ msgstr "Error al asociar el socket; ¿ya está en uso?"
 #, c-format
 msgid "Warning truncating socket input label '%s' to %i characters."
 msgstr ""
-"Advertencia al truncar la etiqueta de entrada del socket «%s» a %i "
-"caracteres."
+"Advertencia al truncar la etiqueta de entrada del socket «%s» a %i caracteres."
 
 #: ../Src/DasherCore/SocketInputBase.cpp:195
 msgid "Socket input: Error reading from socket"
