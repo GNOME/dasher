@@ -83,7 +83,7 @@ CStartHandler *COneDimensionalFilter::MakeStartHandler() {
       CDasherScreen::point CircleCenter(CDasherView *pView) {
         if (m_iScreenRadius==-1) {//if we need to recompute
           CCircleStartHandler::CircleCenter(pView); //that does the radius
-          const myint rad(GetLongParameter(LP_CIRCLE_PERCENT) * CDasherModel::ORIGIN_Y / 100); //~~rad/2 in dasher-coords
+          const myint rad(static_cast<myint>(GetLongParameter(LP_CIRCLE_PERCENT)) * CDasherModel::ORIGIN_Y / 100); //~~rad/2 in dasher-coords
           m_pView->Dasher2Screen(CDasherModel::ORIGIN_X-static_cast<COneDimensionalFilter*>(m_pFilter)->forwardmax+rad, CDasherModel::ORIGIN_Y,m_fwdCenter.x, m_fwdCenter.y);
         }
         if (!static_cast<COneDimensionalFilter*>(m_pFilter)->isPaused()) return CCircleStartHandler::CircleCenter(pView);

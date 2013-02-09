@@ -66,7 +66,7 @@ void CScreenGameModule::DrawText(CDasherView *pView) {
     //Of course, this may be a bit academic, if platforms have their own game displays...
     for (bool bIncreased=false;;) {
       m_pLabEntered = pScreen->MakeLabel(m_strEntered, uFontSize);
-      int w = pScreen->TextSize(m_pLabEntered, uFontSize).first;
+      screenint w = pScreen->TextSize(m_pLabEntered, uFontSize).first;
       if (w < maxX/3 && m_iFirstSym) {
         m_strEntered = m_pAlph->GetText(targetSyms()[--m_iFirstSym]) + m_strEntered;
         bIncreased = true;
@@ -78,7 +78,7 @@ void CScreenGameModule::DrawText(CDasherView *pView) {
     }
     for (bool bIncreased=false;;) {
       m_pLabTarget = pScreen->MakeLabel(m_strTarget, uFontSize);
-      int w = pScreen->TextSize(m_pLabTarget, uFontSize).first;
+      screenint w = pScreen->TextSize(m_pLabTarget, uFontSize).first;
       if (w < 2*maxX/3 && m_iLastSym < targetSyms().size()-1) {
         m_strTarget += m_pAlph->GetText(targetSyms()[m_iLastSym++]);
         bIncreased = true;

@@ -174,8 +174,7 @@ bool CControlPage::Apply()
 		return FALSE; // TODO notify user
 	}
 
-  double NewSpeed;
-  NewSpeed = SendMessage(SB_slider, TBM_GETPOS, 0, 0);
+  int NewSpeed = SendMessage(SB_slider, TBM_GETPOS, 0, 0);
   m_pAppSettings->SetLongParameter( LP_MAX_BITRATE, NewSpeed);
 
   if(SendMessage(GetDlgItem(m_hwnd, IDC_MOUSEPOS), BM_GETCHECK, 0, 0) == BST_CHECKED ) {

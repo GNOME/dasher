@@ -53,7 +53,7 @@ void CFrameRate::RecordFrame(unsigned long Time)
 void CFrameRate::HandleEvent(int iParameter) {
   switch (iParameter) {
     case LP_X_LIMIT_SPEED:
-      m_dBitsAtLimX = (log(CDasherModel::MAX_Y) - log (2*GetLongParameter(LP_X_LIMIT_SPEED)))/log(2);
+      m_dBitsAtLimX = (log(static_cast<double>(CDasherModel::MAX_Y)) - log (2.*GetLongParameter(LP_X_LIMIT_SPEED)))/log(2.);
       //fallthrough
     case LP_MAX_BITRATE:
     case LP_FRAMERATE:

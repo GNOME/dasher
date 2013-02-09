@@ -20,7 +20,7 @@ inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, scr
 
 #ifndef _WIN32_WCE
 
-  if(GetWidth() != -1) {
+  if(GetWidth() != (screenint)-1) {
 
     point aPoints[5];
 
