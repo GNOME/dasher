@@ -259,9 +259,9 @@ void CAlphIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
       atts += 2;
     }
 
-    SGroupInfo *&prevSibling((m_vGroups.empty() ? InputInfo : m_vGroups.back())->pChild);
+    SGroupInfo *&prevSibling = (m_vGroups.empty() ? InputInfo->pChild : m_vGroups.back()->pChild);
 
-    if (pNewGroup->iColour==-1 && pNewGroup->bVisible) {
+	if (pNewGroup->iColour==-1 && pNewGroup->bVisible) {
       //no colour specified. Try to colour cycle, but make sure we choose
       // a different colour from both its parent and any previous sibling
       SGroupInfo *parent=NULL;
