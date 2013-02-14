@@ -18,6 +18,7 @@ public:
 /// listeners.
 template <typename T> class Observable {
 public:
+  Observable();
   void Register(Observer<T> *pLstnr, bool bLast=false);
   void Unregister(Observer<T> *pLstnr);
 protected:
@@ -28,6 +29,11 @@ private:
   ListenerList m_vListeners;
   int m_iInHandler;
 };
+
+template <typename T> Observable<T>::Observable()
+{
+  m_iInHandler = 0;
+}
 
 ///Utility class for Observers which register with an Observable at construction
 /// and deregister at destruction. (I.e. which are strictly shorter-lived, than the
@@ -68,6 +74,9 @@ template <typename T> void Observable<T>::Unregister(Observer<T> *pListener) {
 
 template <typename T> void Observable<T>::DispatchEvent(T evt) {
   
+  // Speed up start-up before any listeners are registered
+  if (m_vListeners.empty()) return;
+
   // We may end up here recursively, so keep track of how far down we
   // are, and only permit new handlers to be registered after all
   // messages are processed.
