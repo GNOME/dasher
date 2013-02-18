@@ -35,7 +35,7 @@ public:
 
   /// Constructor
   ///
-  /// \param DasherScreen Pointer to creen to which the view will render.
+  /// \param DasherScreen Pointer to screen to which the view will render.
   /// \todo Don't cache screen and model locally - screen can be
   /// passed as parameter to the drawing functions, and data structure
   /// can be extracted from the model and passed too.
