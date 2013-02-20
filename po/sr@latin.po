@@ -4,14 +4,14 @@
 # Maintainer: Danilo Šegan <dsegan@gmx.net>
 # Reviewed on 2005-07-15 by: Igor Nestorović <igor@prevod.org>
 # Slobodan D. Sredojević <slobo@akrep.be>, 2010.
-# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2011, 2012.
+# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2011, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher"
 "&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-09-20 16:50+0000\n"
-"PO-Revision-Date: 2012-09-29 05:58+0200\n"
+"POT-Creation-Date: 2013-02-01 19:09+0000\n"
+"PO-Revision-Date: 2013-02-20 11:48+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -26,7 +26,7 @@ msgstr ""
 #. in a window title.
 #: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:14
 #: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:23
-#: ../Src/Gtk2/dasher_main.cpp:897
+#: ../Src/Gtk2/dasher_main.cpp:908
 msgid "Dasher"
 msgstr "Jurišnik"
 
@@ -96,7 +96,7 @@ msgstr "_O programu"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:15 ../Data/GUI/dashermaemo.ui.h:4
 #: ../Src/Gtk2/dasher_editor.cpp:817 ../Src/Gtk2/dasher_editor.cpp:851
-#: ../Src/Gtk2/dasher_main.cpp:912
+#: ../Src/Gtk2/dasher_main.cpp:923
 msgid "Select File"
 msgstr "Izaberi datoteku"
 
@@ -474,7 +474,7 @@ msgstr "_Dodaj u datoteku…"
 msgid "_Import Training Text…"
 msgstr "_Uvezi tekst za uvežbavanje…"
 
-#: ../Data/GUI/dasher.traditional.ui.h:8 ../Src/Gtk2/dasher_main.cpp:990
+#: ../Data/GUI/dasher.traditional.ui.h:8 ../Src/Gtk2/dasher_main.cpp:1001
 msgid "Quit"
 msgstr "Izađi"
 
@@ -516,7 +516,6 @@ msgid "Direct Mode"
 msgstr "Direktan režim"
 
 #: ../Data/GUI/dasher.traditional.ui.h:21
-#| msgid "Direct Mode"
 msgid "_Direct Mode"
 msgstr "_Direktan režim"
 
@@ -584,12 +583,12 @@ msgstr "Hvatanje sa tastature"
 msgid "Alternating Direct Mode"
 msgstr "Prilagođavanje direktnog režima"
 
-#: ../Src/DasherCore/AutoSpeedControl.cpp:213
+#: ../Src/DasherCore/AutoSpeedControl.cpp:200
 #, c-format
 msgid "Auto-increasing speed to %0.2f"
 msgstr "Samostalno povećaj brzinu na %0.2f"
 
-#: ../Src/DasherCore/AutoSpeedControl.cpp:213
+#: ../Src/DasherCore/AutoSpeedControl.cpp:200
 #, c-format
 msgid "Auto-decreasing speed to %0.2f"
 msgstr "Samostalno smanji brzinu na %0.2f"
@@ -795,10 +794,38 @@ msgstr ""
 "Upozorenje: u datoteci uvežbavanja, za pribeleškom „<%s>“ sledi druga "
 "pribeleška i zato će biti zanemarena"
 
-#. /TRANSLATORS: first string will be the filename; after the end of the string,
-#. / some number of output (e.g. Chinese) characters will be appended,
-#. / the number of which is the integer here
-#: ../Src/DasherCore/MandarinAlphMgr.cpp:244
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:247
+#, c-format
+#| msgid ""
+#| "In file %s, the following %i symbols appeared without annotations saying "
+#| "how they should be entered, but each can be entered in several ways. "
+#| "Dasher will not be able to learn how you want to enter these symbols:"
+msgid ""
+"In file %s, the following %i symbol appeared without annotations saying how "
+"it should be entered, but it can be entered in several ways. Dasher will not "
+"be able to learn how you want to enter this symbol:"
+msgid_plural ""
+"In file %s, the following %i symbols appeared without annotations saying how "
+"they should be entered, but each can be entered in several ways. Dasher will "
+"not be able to learn how you want to enter these symbols:"
+msgstr[0] ""
+"U datoteci „%s“, pojavio se %i sledeći simbol bez pribeleški govoreći kako "
+"bi trebao da bude unesen, ali može biti unesen na nekoliko načina. Jurišnik "
+"neće biti u mogućnosti da nauči kako želite da unesete taj simbol:"
+msgstr[1] ""
+"U datoteci „%s“, pojavila su se %i sledeća simbola bez pribeleški govoreći "
+"kako bi trebali da budu uneseni, ali mogu biti uneseni na nekoliko načina. "
+"Jurišnik neće biti u mogućnosti da nauči kako želite da unesete ove simbole:"
+msgstr[2] ""
+"U datoteci „%s“, pojavilo se %i sledećih simbola bez pribeleški govoreći "
+"kako bi trebali da budu uneseni, ali mogu biti uneseni na nekoliko načina. "
+"Jurišnik neće biti u mogućnosti da nauči kako želite da unesete ove simbole:"
+msgstr[3] ""
+"U datoteci „%s“, pojavio se %i sledeći simbol bez pribeleški govoreći kako "
+"bi trebao da bude unesen, ali može biti unesen na nekoliko načina. Jurišnik "
+"neće biti u mogućnosti da nauči kako želite da unesete taj simbol:"
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:251
 #, c-format
 msgid ""
 "In file %s, the following %i symbols appeared without annotations saying how "
@@ -1012,7 +1039,7 @@ msgid "Dasher Socket Input error: %s: %s"
 msgstr "Greška unosa utičnice Jurišnika: „%s“: %s"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
-#: ../Src/DasherCore/SocketInput.cpp:34
+#: ../Src/DasherCore/SocketInput.cpp:31
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Unos utičnice Jurišnika : nisam uspeo da pokrenem nit čitača."
 
@@ -1136,7 +1163,7 @@ msgstr "podešavanju opcija nedostaje „=“."
 msgid "Invalid option string specified"
 msgstr "Dat je neispravna niska opcije"
 
-#: ../Src/Gtk2/dasher_main.cpp:617
+#: ../Src/Gtk2/dasher_main.cpp:628
 msgid ""
 "Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering "
 "text in Dasher. Please select a training text to play with:"
@@ -1145,19 +1172,19 @@ msgstr ""
 "unošenje teksta u Jurišniku. Izaberite tekst za uvežbavanje koji ćete "
 "koristiti za igru:"
 
-#: ../Src/Gtk2/dasher_main.cpp:619
+#: ../Src/Gtk2/dasher_main.cpp:630
 msgid "Use Default"
 msgstr "Koristi osnovno"
 
-#: ../Src/Gtk2/dasher_main.cpp:620
+#: ../Src/Gtk2/dasher_main.cpp:631
 msgid "Choose File..."
 msgstr "Izaberi datoteku..."
 
-#: ../Src/Gtk2/dasher_main.cpp:621
+#: ../Src/Gtk2/dasher_main.cpp:632
 msgid "Cancel"
 msgstr "Poništi"
 
-#: ../Src/Gtk2/dasher_main.cpp:644
+#: ../Src/Gtk2/dasher_main.cpp:655
 msgid ""
 "Are you sure you wish to turn off game mode? All unsaved changes will be "
 "lost."
@@ -1165,7 +1192,7 @@ msgstr ""
 "Da li ste sigurni da želite da isključite režim igre? Sve nesačuvane izmene "
 "će biti izgubljene."
 
-#: ../Src/Gtk2/dasher_main.cpp:952
+#: ../Src/Gtk2/dasher_main.cpp:963
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1176,7 +1203,7 @@ msgstr ""
 "\n"
 "Ukoliko ih ne sačuvate, one će biti izgubljene."
 
-#: ../Src/Gtk2/dasher_main.cpp:959
+#: ../Src/Gtk2/dasher_main.cpp:970
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1186,31 +1213,31 @@ msgstr ""
 "\n"
 "Ukoliko ih ne sačuvate, one će biti izgubljene."
 
-#: ../Src/Gtk2/dasher_main.cpp:965
+#: ../Src/Gtk2/dasher_main.cpp:976
 msgid "Don't save"
 msgstr "Ne čuvaj"
 
-#: ../Src/Gtk2/dasher_main.cpp:966 ../Src/Gtk2/dasher_main.cpp:989
+#: ../Src/Gtk2/dasher_main.cpp:977 ../Src/Gtk2/dasher_main.cpp:1000
 msgid "Don't quit"
 msgstr "Ne izlazi"
 
-#: ../Src/Gtk2/dasher_main.cpp:967
+#: ../Src/Gtk2/dasher_main.cpp:978
 msgid "Save and quit"
 msgstr "Sačuvaj i izađi"
 
-#: ../Src/Gtk2/dasher_main.cpp:986
+#: ../Src/Gtk2/dasher_main.cpp:997
 msgid "Are you sure you wish to quit?"
 msgstr "Da li sigurno želite da izađete?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1028
+#: ../Src/Gtk2/dasher_main.cpp:1039
 msgid "Unable to open help file"
 msgstr "Ne mogu da otvorim datoteku za pomoć"
 
-#: ../Src/Gtk2/dasher_main.cpp:1080
+#: ../Src/Gtk2/dasher_main.cpp:1091
 msgid "Dasher is a predictive text entry application"
 msgstr "Jurišnik služi za predvidivo unošenje teksta"
 
-#: ../Src/Gtk2/dasher_main.cpp:1085
+#: ../Src/Gtk2/dasher_main.cpp:1096
 msgid "translator-credits"
 msgstr ""
 "Danilo Šegan <danilo@gnome.org>\n"
@@ -1280,391 +1307,3 @@ msgstr "Opis za „--options“."
 #: ../Src/main.cc:177
 msgid "- A text input application honouring accessibility"
 msgstr "— Program za pristupačniji unos teksta"
-
-#~ msgid "<b>Orientation</b>"
-#~ msgstr "<b>Usmerenje</b>"
-
-#~ msgid "<b>Speed</b>"
-#~ msgstr "<b>Brzina</b>"
-
-#~ msgid "<b>Dasher Font</b>"
-#~ msgstr "<b>Pismo Jurišnika</b>"
-
-#~ msgid "<b>Direction</b>"
-#~ msgstr "<b>Usmerenje</b>"
-
-#~ msgid "<b>Editor Font</b>"
-#~ msgstr "<b>Pismo uređivača</b>"
-
-#~ msgid "Zoom steps"
-#~ msgstr "Koraci uvećanja"
-
-#~ msgid "Training file contains unknown source alphabet character %s"
-#~ msgstr "Datoteka za uvežbavanje sadrži nepoznati izvorni znak alfabeta „%s“"
-
-#~ msgid "Training file contains unknown target alphabet character %s"
-#~ msgstr "Datoteka za uvežbavanje sadrži nepoznati ciljni znak alfabeta „%s“"
-
-#~ msgid "Distance for 1st button UP"
-#~ msgstr "Udaljenost za prvo dugme GORE"
-
-#~ msgid "Distance for 1st button DOWN"
-#~ msgstr "Udaljenost za prvo dugme DOLE"
-
-#~ msgid "A_ppend to file"
-#~ msgstr "_Dodaj u datoteku"
-
-#~ msgid "Dasher _Tutorial"
-#~ msgstr "_Uputstvo za jurišnika"
-
-#~ msgid "Pr_eferences"
-#~ msgstr "_Postavke"
-
-#~ msgid "_Contents"
-#~ msgstr "_Sadržaj"
-
-#~ msgid "_Import Training Text"
-#~ msgstr "_Uvezi tekst za uvežbavanje"
-
-#~ msgid "Demo!"
-#~ msgstr "Proba!"
-
-#~ msgid "Full Demo"
-#~ msgstr "Potpuna proba"
-
-#~ msgid "Launch Dasher Game & Demo mode!"
-#~ msgstr "Pokreni igricu Jurišnika i probni režim!"
-
-#~ msgid "Level:"
-#~ msgstr "Nivo:"
-
-#~ msgid "New sentence"
-#~ msgstr "Nova rečenica"
-
-#~ msgid "Score:"
-#~ msgstr "Razultat:"
-
-#~ msgid "Enter Text"
-#~ msgstr "Unos teksta"
-
-#~ msgid "Script"
-#~ msgstr "Skripta"
-
-#~ msgid "<b>Actions</b>"
-#~ msgstr "<b>Radnje</b>"
-
-#~ msgid "Dock application window"
-#~ msgstr "Prozor prikačivog programa"
-
-#~ msgid "Well done!"
-#~ msgstr "Svaka čast!"
-
-#~ msgid "Automatic calibration"
-#~ msgstr "Samo-kalibracija"
-
-#~ msgid "Eyetracker Mode"
-#~ msgstr "Režim praćenja oka"
-
-#~ msgid "Show Button"
-#~ msgstr "Prikaži dugmad"
-
-#~ msgid "Control Mode"
-#~ msgstr "Režim upravljanja"
-
-#~ msgid "Auto On Stop"
-#~ msgstr "Automatski po prestanku"
-
-#~ msgid "Speak"
-#~ msgstr "Izgovori"
-
-#~ msgid "All"
-#~ msgstr "Sve"
-
-#~ msgid "Last"
-#~ msgstr "Poslednje"
-
-#~ msgid "Repeat"
-#~ msgstr "Ponovi"
-
-#~ msgid "Training Dasher... please wait"
-#~ msgstr "Uvežbavanje Jurišnika je u toku... molim sačekajte"
-
-#~ msgid "Panels"
-#~ msgstr "Paneli"
-
-#~ msgid "Menus"
-#~ msgstr "Meniji"
-
-#~ msgid "Text"
-#~ msgstr "Tekst"
-
-#~ msgid "Windows"
-#~ msgstr "Prozori"
-
-#~ msgid "Stop"
-#~ msgstr "Stani"
-
-#~ msgid "Move"
-#~ msgstr "Premesti"
-
-#~ msgid "<"
-#~ msgstr "<"
-
-#~ msgid ">"
-#~ msgstr ">"
-
-#~ msgid "<<<"
-#~ msgstr "<<<"
-
-#~ msgid ">>>"
-#~ msgstr ">>>"
-
-#~ msgid "Everything"
-#~ msgstr "Sve"
-
-#~ msgid "New"
-#~ msgstr "Novo"
-
-#~ msgid "1"
-#~ msgstr "1"
-
-#~ msgid "2"
-#~ msgstr "2"
-
-#~ msgid "3"
-#~ msgstr "3"
-
-#~ msgid "4"
-#~ msgstr "4"
-
-#~ msgid "5"
-#~ msgstr "5"
-
-#~ msgid "6"
-#~ msgstr "6"
-
-#~ msgid "7"
-#~ msgstr "7"
-
-#~ msgid "8"
-#~ msgstr "8"
-
-#~ msgid "9"
-#~ msgstr "9"
-
-#~ msgid "10"
-#~ msgstr "10"
-
-#~ msgid "Character"
-#~ msgstr "Znak"
-
-#~ msgid "Word"
-#~ msgstr "Reč"
-
-#~ msgid "Line"
-#~ msgstr "Red"
-
-#~ msgid "Unknown"
-#~ msgstr "Nepoznato"
-
-#~ msgid "5:"
-#~ msgstr "5:"
-
-#~ msgid "6:"
-#~ msgstr "6:"
-
-#~ msgid "7:"
-#~ msgstr "7:"
-
-#~ msgid "8:"
-#~ msgstr "8:"
-
-#~ msgid "9:"
-#~ msgstr "9:"
-
-#~ msgid "<b>Advanced Settings:</b>"
-#~ msgstr "<b>Napredna podešavanja:</b>"
-
-#~ msgid "<b>Button control setup</b>"
-#~ msgstr "<b>Podešavanje upravljanja dugmadima</b>"
-
-#~ msgid "<b>Button modes:</b>"
-#~ msgstr "<b>Režimi dugmeta:</b>"
-
-# note(slobo): :)
-#~ msgid "<b>Compass Mode</b>"
-#~ msgstr "<b>Režim busole</b>"
-
-#~ msgid "<b>Direct Mode And Menu Mode</b>"
-#~ msgstr "<b>Direktni režim i režim menija</b>"
-
-#~ msgid "<b>Miscellaneous Options:</b>"
-#~ msgstr "<b>Razne mogućnosti:</b>"
-
-#~ msgid "<b>One-Button Static Mode</b>"
-#~ msgstr "<b>Statički režim sa jednim dugmetom</b>"
-
-#~ msgid "<b>Toggle button Mode:</b>"
-#~ msgstr "<b>Izmeni režim dugmeta:</b>"
-
-#~ msgid "<b>X Coordinate</b>"
-#~ msgstr "<b>X koordinata</b>"
-
-#~ msgid "<b>X/Y Coordinates:</b>"
-#~ msgstr "<b>X/Y koordinate:</b>"
-
-#~ msgid "<b>Y Coordinate</b>"
-#~ msgstr "<b>Y koordinata</b>"
-
-#~ msgid "Advanced Settings"
-#~ msgstr "Napredna podešavanja"
-
-#~ msgid "Button control setup"
-#~ msgstr "Postavke upravljanja dugmadima"
-
-#~ msgid "Button mode"
-#~ msgstr "Režim dugmeta"
-
-#~ msgid "Button:"
-#~ msgstr "Dugme:"
-
-#~ msgid "Control dasher from network socket instead of mouse (advanced)"
-#~ msgstr ""
-#~ "Upravlja Jurišnikom preko mrežne utičnice umesto preko miša (napredno)"
-
-#~ msgid "Cyclical button mode"
-#~ msgstr "Kružni režim dugmadi"
-
-#~ msgid "Distance from centerline for start on mouse position:"
-#~ msgstr "Rastojanje od središnje linije za početak kod položaja miša:"
-
-#~ msgid "Down/3:"
-#~ msgstr "Dole/3:"
-
-#~ msgid "Drop time:  "
-#~ msgstr "Vreme otpusta:  "
-
-#~ msgid "Four-button direct mode"
-#~ msgstr "Direktan režim sa četiri dugmeta"
-
-#~ msgid "General"
-#~ msgstr "Opšte"
-
-#~ msgid ""
-#~ "If this mode is selected, up and down will\n"
-#~ "cycle backwards and forwards between coordinates and right will confirm "
-#~ "the choice"
-#~ msgstr ""
-#~ "Ukoliko je izabran ovaj režim, gore  i dole će\n"
-#~ "ići u krug napred i nazad po koordinatama, a desno će potvrditi izbor"
-
-#~ msgid "Left/2:"
-#~ msgstr "Levo/2:"
-
-#~ msgid "Max"
-#~ msgstr "Najviše"
-
-#~ msgid "Min"
-#~ msgstr "Najmanje"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Razno"
-
-#~ msgid "Number of \"zoom-out boxes\":"
-#~ msgstr "Broj „kućica za udaljavanje“:"
-
-#~ msgid "One-button dynamic mode"
-#~ msgstr "Dinamički režim sa jednim dugmetom"
-
-#~ msgid "One-button static mode"
-#~ msgstr "Nepokretan režim sa jednim dugmetom"
-
-#~ msgid "Ordinary control"
-#~ msgstr "Obično upravljanje"
-
-#~ msgid "Pulsing mode"
-#~ msgstr "Režim pulsiranja"
-
-#~ msgid "Right/4:"
-#~ msgstr "Desno/4:"
-
-#~ msgid "Scaling amount (1D mode):"
-#~ msgstr "Količina uvećanja (za jednodimenzioni režim):"
-
-#~ msgid "Show Advanced Settings"
-#~ msgstr "Prikaži napredna podešavanja"
-
-#~ msgid "Socket Options"
-#~ msgstr "Mogućnosti utičnice"
-
-#~ msgid "Socket Preferences"
-#~ msgstr "Postavke utičnice"
-
-#~ msgid "Static menu mode"
-#~ msgstr "Statični režim menija"
-
-# bug(slobo): proveri
-#~ msgid "Steady mode"
-#~ msgstr "Ravnomeran režim"
-
-#~ msgid "Training"
-#~ msgstr "Uvežbavanje"
-
-#~ msgid "Up/1:"
-#~ msgstr "Gore/1:"
-
-#~ msgid "X:"
-#~ msgstr "X:"
-
-#~ msgid "Y:"
-#~ msgstr "Y:"
-
-#~ msgid "Zoom:"
-#~ msgstr "Uvećanje:"
-
-#~ msgid "abcdefghijk ABCDEFGHIJK"
-#~ msgstr "abvgdđežzij ABVGDĐEŽZIJ"
-
-#~ msgid "Advanced"
-#~ msgstr "Napredno"
-
-# bug: American or British English?
-#~ msgid "Change color scheme automatically"
-#~ msgstr "Sam izmeni šemu boja"
-
-#~ msgid "Color"
-#~ msgstr "Boja"
-
-#~ msgid "Edit Button-control options"
-#~ msgstr "Uredi opcije upravljanja dugmadima"
-
-#~ msgid ""
-#~ "If this mode is selected, up and down will cycle backwards and forwards "
-#~ "between coordinates and right will confirm the choice"
-#~ msgstr ""
-#~ "Ukoliko je izabran ovaj režim, gore i dole će ići u krug napred i nazad "
-#~ "po koordinatama, a desno će potvrditi izbor"
-
-#~ msgid "Number of pixels that should cover the entire Y range:"
-#~ msgstr "Broj tačaka koje pokrivaju čitav uspravni opseg:"
-
-#~ msgid ""
-#~ "Use this control to adjust the relative sizes of the letter boxes. Note "
-#~ "that selecting high values will slow your writing speed."
-#~ msgstr ""
-#~ "Koristite ovu kontrolu za prilagođavanje relativnih veličina kućica slova. "
-#~ "Primetite da će izbor velikih vrednosti usporiti vašu brzinu pisanja."
-
-#~ msgid ""
-#~ "If this mode is selected, up  and down will\n"
-#~ "cycle backwards and forwards between coordinates and right will confirm "
-#~ "the choice"
-#~ msgstr ""
-#~ "Ukoliko je izabran ovaj režim, gore  i dole će\n"
-#~ "ići u krug napred i nazad po koordinatama, a desno će potvrditi izbor"
-
-#~ msgid "Socket"
-#~ msgstr "Utičnica"
-
-#~ msgid "Three-button direct mode"
-#~ msgstr "Direktni režim sa tru dugmeta"
