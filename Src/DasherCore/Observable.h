@@ -73,6 +73,10 @@ template <typename T> void Observable<T>::DispatchEvent(T evt) {
   // Speed up start-up before any listeners are registered
   if (m_vListeners.empty()) return;
 
+  // Just in case the same event handler was registered twice.
+  if (m_iInHandler == 0)
+    m_vListeners.unique();
+
   // We may end up here recursively, so keep track of how far down we
   // are, and only permit new handlers to be registered after all
   // messages are processed.
@@ -92,7 +96,6 @@ template <typename T> void Observable<T>::DispatchEvent(T evt) {
   if (m_iInHandler == 0) {
     m_vListeners.remove(NULL);
     m_vListeners.splice(m_vListeners.end(), m_vListenersToAdd);
-    m_vListeners.unique();
   }
 }
 #endif
