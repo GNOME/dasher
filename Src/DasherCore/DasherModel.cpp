@@ -226,7 +226,7 @@ void CDasherModel::SetNode(CDasherNode *pNewRoot) {
 
 int CDasherModel::GetOffset() {
   return m_pLastOutput ? m_pLastOutput->offset()+1 : m_Root ? m_Root->offset()+1 : 0;
-};
+}
 
 CDasherNode *CDasherModel::Get_node_under_crosshair() {
   return m_pLastOutput;

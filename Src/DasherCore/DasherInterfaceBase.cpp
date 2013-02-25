@@ -206,7 +206,6 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
 }
 
 void CDasherInterfaceBase::PreSetNotify(int iParameter, const std::string &sNewValue) {
-
   // FIXME - make this a more general 'pre-set' event in the message
   // infrastructure
 
@@ -215,17 +214,14 @@ void CDasherInterfaceBase::PreSetNotify(int iParameter, const std::string &sNewV
     // Cycle the alphabet history
     if(GetStringParameter(SP_ALPHABET_ID) != sNewValue) {
       if(GetStringParameter(SP_ALPHABET_1) != sNewValue) {
-	if(GetStringParameter(SP_ALPHABET_2) != sNewValue) {
-	  if(GetStringParameter(SP_ALPHABET_3) != sNewValue)
-	    SetStringParameter(SP_ALPHABET_4, GetStringParameter(SP_ALPHABET_3));
-
-	  SetStringParameter(SP_ALPHABET_3, GetStringParameter(SP_ALPHABET_2));
-	}
-
-	SetStringParameter(SP_ALPHABET_2, GetStringParameter(SP_ALPHABET_1));
+        if(GetStringParameter(SP_ALPHABET_2) != sNewValue) {
+          if(GetStringParameter(SP_ALPHABET_3) != sNewValue)
+            SetStringParameter(SP_ALPHABET_4, GetStringParameter(SP_ALPHABET_3));
+          SetStringParameter(SP_ALPHABET_3, GetStringParameter(SP_ALPHABET_2));
+        }
+        SetStringParameter(SP_ALPHABET_2, GetStringParameter(SP_ALPHABET_1));
       }
-
-      SetStringParameter(SP_ALPHABET_1, GetStringParameter(SP_ALPHABET_ID));
+	  SetStringParameter(SP_ALPHABET_1, GetStringParameter(SP_ALPHABET_ID));
     }
 
     break;
@@ -571,8 +567,10 @@ bool CDasherInterfaceBase::Redraw(unsigned long ulTime, bool bRedrawNodes, CExpa
     m_pDasherView->Screen()->SendMarker(0);
     if (m_pDasherModel) {
       m_pDasherModel->RenderToView(m_pDasherView,policy);
-      if (policy.apply()) //if anything was expanded or collapsed
-        ScheduleRedraw(); //render at least one more frame after this
+      // if anything was expanded or collapsed render at least one more
+      // frame after this
+      if (policy.apply())
+        ScheduleRedraw();
     }
     if(m_pGameModule) {
       m_pGameModule->DecorateView(ulTime, m_pDasherView, m_pDasherModel);
