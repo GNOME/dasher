@@ -87,7 +87,7 @@ static char THIS_FILE[] = __FILE__;
 
 CDasherInterfaceBase::CDasherInterfaceBase(CSettingsStore *pSettingsStore) : CSettingsUser(pSettingsStore), m_pSettingsStore(pSettingsStore), m_pDasherModel(new CDasherModel()), m_pFramerate(new CFrameRate(this)), m_pLockLabel(NULL) {
   
-  pSettingsStore->Register(this, true);
+  pSettingsStore->Register(this);
   
   // Ensure that pointers to 'owned' objects are set to NULL.
   m_DasherScreen = NULL;
