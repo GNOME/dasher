@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: lt\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-01-25 16:22+0000\n"
-"PO-Revision-Date: 2013-01-29 22:45+0200\n"
+"POT-Creation-Date: 2013-02-01 19:09+0000\n"
+"PO-Revision-Date: 2013-02-27 22:44+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -587,12 +587,12 @@ msgstr "Bendras klaviatūros pagriebimas"
 msgid "Alternating Direct Mode"
 msgstr "Kintamos srovės veiksena"
 
-#: ../Src/DasherCore/AutoSpeedControl.cpp:213
+#: ../Src/DasherCore/AutoSpeedControl.cpp:200
 #, c-format
 msgid "Auto-increasing speed to %0.2f"
 msgstr "Automatiškai padidinamas greitis iki %0.2f"
 
-#: ../Src/DasherCore/AutoSpeedControl.cpp:213
+#: ../Src/DasherCore/AutoSpeedControl.cpp:200
 #, c-format
 msgid "Auto-decreasing speed to %0.2f"
 msgstr "Automatiškai sumažinamas greitis iki %0.2f"
@@ -796,15 +796,8 @@ msgstr ""
 "Įspėjimas: treniruotės faile po anotacijos „<%s>“ eina kita anotacija ir jos "
 "bus nepaisoma"
 
-#. /TRANSLATORS: first string will be the filename; after the end of the string,
-#. / some number of output (e.g. Chinese) characters will be appended,
-#. / the number of which is the integer here
-#: ../Src/DasherCore/MandarinAlphMgr.cpp:244
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:247
 #, c-format
-#| msgid ""
-#| "In file %s, the following %i symbols appeared without annotations saying "
-#| "how they should be entered, but each can be entered in several ways. "
-#| "Dasher will not be able to learn how you want to enter these symbols:"
 msgid ""
 "In file %s, the following %i symbol appeared without annotations saying how "
 "it should be entered, but it can be entered in several ways. Dasher will not "
@@ -823,6 +816,25 @@ msgstr[1] ""
 "išmokti, kaip jūs norite rašyti šiuos simbolius:"
 msgstr[2] ""
 "Faile %s šie %i simbolių pasirodė be anotacijų, sakančių, kaip juos reikia "
+"įvesti, bet kiekvienas gali būti įvestas keliais būdais. Dasher nesugebės "
+"išmokti, kaip jūs norite rašyti šiuos simbolius:"
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:251
+#, c-format
+#| msgid ""
+#| "In file %s, the following %i symbol appeared without annotations saying "
+#| "how it should be entered, but it can be entered in several ways. Dasher "
+#| "will not be able to learn how you want to enter this symbol:"
+#| msgid_plural ""
+#| "In file %s, the following %i symbols appeared without annotations saying "
+#| "how they should be entered, but each can be entered in several ways. "
+#| "Dasher will not be able to learn how you want to enter these symbols:"
+msgid ""
+"In file %s, the following %i symbols appeared without annotations saying how "
+"they should be entered, but each can be entered in several ways. Dasher will "
+"not be able to learn how you want to enter these symbols:"
+msgstr ""
+"Faile %s šie %i simboliai pasirodė be anotacijų, sakančių, kaip juos reikia "
 "įvesti, bet kiekvienas gali būti įvestas keliais būdais. Dasher nesugebės "
 "išmokti, kaip jūs norite rašyti šiuos simbolius:"
 
