@@ -386,19 +386,17 @@ LRESULT CCanvas::OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& b
 }
 
 #ifndef _WIN32_WCE
+// PRLW: These two functions are called on Tablet PCs when the stylus comes
+// within or leaves the detection range of screen. Make these appear as mouse
+// clicks to start/stop on mouse click. (XXX Ideally we would prefer start/stop
+// outside of canvas...)
 LRESULT CCanvas::OnCursorInRange(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
 	OutputDebugString(TEXT("CursorInRange\n"));
 
 	bHandled = TRUE;
 
-	//SetFocus();
-
-	if ( m_pDasherInterface->GetBoolParameter(BP_START_MOUSE) ) 
-	{
-		if (m_pDasherInterface->GetBoolParameter(BP_DASHER_PAUSED))
-			m_pDasherInterface->Unpause(GetTickCount());
-	}
+	m_pDasherInterface->KeyDown(GetTickCount(), 100);
 
 	return 0;
 }
@@ -409,12 +407,8 @@ LRESULT CCanvas::OnCursorOutOfRange(UINT message, WPARAM wParam, LPARAM lParam, 
 	OutputDebugString(TEXT("CursorOutOfRange\n"));
 
 	bHandled = TRUE;
-	if ( m_pDasherInterface->GetBoolParameter(BP_START_MOUSE) ) 
-	{
-		//TODO check, does this do something the standard BR_STOP_OUTSIDE in DefaultFilter doesn't?
-		if (!m_pDasherInterface->GetBoolParameter(BP_DASHER_PAUSED))
-			m_pDasherInterface->Stop();
-	}
+
+	m_pDasherInterface->KeyUp(GetTickCount(), 100);
 
 	return 0;
 }
@@ -491,6 +485,9 @@ LRESULT CCanvas::OnTimer(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHand
 
 void CCanvas::DoFrame()
 {
+// PRLW This function appears to implement pausing dasher after a period
+// of idleness based on a boolean parameter which cannot be set from the GUI
+#if 0
 	//POINT mousepos2;
 	//GetCursorPos(&mousepos2);
 
@@ -516,6 +513,7 @@ void CCanvas::DoFrame()
 			}
 		}
 	}
+#endif
 }
 
 // void CCanvas::centrecursor() {
