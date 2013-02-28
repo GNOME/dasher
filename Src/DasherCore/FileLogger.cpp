@@ -15,11 +15,6 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 
-
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
 #ifdef _WIN32
 #include <sys/timeb.h>
 #else
@@ -436,18 +431,9 @@ CFunctionLogger::CFunctionLogger(const std::string& strFunctionName, CFileLogger
     if (!m_pLogger->GetFunctionTiming())
       m_pLogger->LogFunctionEntry(m_strFunctionName);
     else
-    {
 #ifdef _WIN32
-      BigInt iStartTicks;
-      _asm
-      {
-        RDTSC
-          mov iStartTicks.int32val.i32[0], eax
-          mov iStartTicks.int32val.i32[4], edx
-      }
-      m_iStartTicks  = iStartTicks;
+      QueryPerformanceCounter(&m_iStartTicks);
 #endif
-    }
   }
 
 }
@@ -461,20 +447,13 @@ CFunctionLogger::~CFunctionLogger()
     else
     {
 #ifdef _WIN32
-      BigInt iEndTicks;
-
-      _asm
-      {
-        RDTSC
-          mov iEndTicks.int32val.i32[0], eax
-          mov iEndTicks.int32val.i32[4], edx
-      }
+      LARGE_INTEGER iEndTicks;
+      QueryPerformanceCounter(&iEndTicks);
       // Add our total ticks to the tracking map object in the logger object
-      m_pLogger->LogFunctionTicks(m_strFunctionName, 
-                                  iEndTicks.int64val.i64 - m_iStartTicks.int64val.i64);
+	  m_pLogger->LogFunctionTicks(m_strFunctionName,
+		  iEndTicks.QuadPart - m_iStartTicks.QuadPart);
 #endif
     }
-
   }
 }
 

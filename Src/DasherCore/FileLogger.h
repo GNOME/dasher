@@ -64,23 +64,7 @@
 
 #ifdef _WIN32
 // Types required by our high resolution WIN32 timing routines
-
-typedef  struct _BinInt32
-{
-    __int32 i32[2];
-} BigInt32;
-
-typedef  struct _BigInt64
-{
-    __int64 i64;
-} BigInt64;
-
-typedef union _bigInt
-{
-    BigInt32 int32val;
-    BigInt64 int64val;
-} BigInt;
-
+#include "WinCommon.h"
 typedef std::map<std::string, __int64> MAP_STRING_INT64;
 
 #endif
@@ -166,7 +150,7 @@ private:
     CFileLogger*    m_pLogger;                  // Pointer to the logging object to use 
     
 #ifdef _WIN32
-    BigInt          m_iStartTicks;              // Tick count at start of timing
+    LARGE_INTEGER   m_iStartTicks;              // Tick count at start of timing
 #endif
 
 };
