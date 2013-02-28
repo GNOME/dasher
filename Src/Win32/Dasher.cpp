@@ -171,6 +171,7 @@ void Dasher::CDasher::WriteTrainFile(const std::string &filename, const std::str
   Tstring UserDataDir, Tfilename, TTrainFile;
   UTF8string_to_wstring(filename, Tfilename);
   WinHelper::GetUserDirectory(&UserDataDir);
+  UserDataDir += TEXT("dasher.rc\\");
   TTrainFile = UserDataDir + Tfilename;
 
   HANDLE hFile = CreateFile(TTrainFile.c_str(),
