@@ -221,7 +221,7 @@ void CDasherInterfaceBase::PreSetNotify(int iParameter, const std::string &sNewV
         }
         SetStringParameter(SP_ALPHABET_2, GetStringParameter(SP_ALPHABET_1));
       }
-	  SetStringParameter(SP_ALPHABET_1, GetStringParameter(SP_ALPHABET_ID));
+      SetStringParameter(SP_ALPHABET_1, GetStringParameter(SP_ALPHABET_ID));
     }
 
     break;

@@ -33,6 +33,7 @@ struct menuentry {
 // List of menu items that will be displayed in the General Preferences
 static menuentry menutable[] = {
   {BP_START_MOUSE, IDC_LEFT},
+  {BP_START_SPACE, IDC_SPACE},
   {BP_STOP_IDLE, IDC_STOPIDLE},
   {BP_STOP_OUTSIDE, IDC_WINDOWPAUSE},
   {BP_AUTO_SPEEDCONTROL, IDC_AUTOSPEED},
@@ -102,8 +103,6 @@ void CControlPage::PopulateList() {
   // List entries:
 
   for(int i(0); i<sizeof(listtable)/sizeof(menuentry); ++i) {
- // {
-//    int i(0);
     std::vector<std::string> vValues;
     m_pAppSettings->GetPermittedValues(listtable[i].paramNum, vValues);
 
