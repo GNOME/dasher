@@ -430,10 +430,11 @@ CFunctionLogger::CFunctionLogger(const std::string& strFunctionName, CFileLogger
 
     if (!m_pLogger->GetFunctionTiming())
       m_pLogger->LogFunctionEntry(m_strFunctionName);
-    else
+    else {
 #ifdef _WIN32
       QueryPerformanceCounter(&m_iStartTicks);
 #endif
+    }
   }
 
 }
