@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: dasher master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-01-27 12:14+0000\n"
-"PO-Revision-Date: 2013-01-28 13:35+0100\n"
+"POT-Creation-Date: 2013-03-05 12:24+0000\n"
+"PO-Revision-Date: 2013-03-07 21:37+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -511,7 +511,7 @@ msgid "_About…"
 msgstr "_O programu ..."
 
 #: ../Data/GUI/dasher.traditional.ui.h:20
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:807
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:805
 msgid "Direct Mode"
 msgstr "Neposreden način"
 
@@ -654,7 +654,7 @@ msgstr "Končano"
 
 #. /TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
 #. / refers to a setting name in gsettings or equivalent, and should not be translated.
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:315
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:311
 #, c-format
 msgid ""
 "Could not find game sentences file for %s - check alphabet definition, or "
@@ -663,12 +663,12 @@ msgstr ""
 "Datoteke s stavki za uporabo %s v načinu igre ni mogoče najti - preverite "
 "določila abecede ali pa izbor datoteke določite med nastavitvami"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:790
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:788
 msgid "Normal Control"
 msgstr "Običajni nadzor"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:806
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:804
 msgid "Menu Mode"
 msgstr "Menijski način"
 
@@ -794,10 +794,7 @@ msgstr ""
 "Opozorilo: v datoteki z besedilom za urjenje zabeležki <%s> sledi druga "
 "zabeležka, ki bo prezrta"
 
-#. /TRANSLATORS: first string will be the filename; after the end of the string,
-#. / some number of output (e.g. Chinese) characters will be appended,
-#. / the number of which is the integer here
-#: ../Src/DasherCore/MandarinAlphMgr.cpp:244
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:247
 #, c-format
 msgid ""
 "In file %s, the following %i symbol appeared without annotations saying how "
@@ -823,6 +820,17 @@ msgstr[3] ""
 "V datoteki %s navedeni simboli (%i) ne vsebujejo zabeležk o predlaganem "
 "načinu vnosa, vsak znak pa je mogoče vnesti na več načinov. Program ne more "
 "predvideti prednostnega oziroma predlaganega načina za vnos:"
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:251
+#, c-format
+msgid ""
+"In file %s, the following %i symbols appeared without annotations saying how "
+"they should be entered, but each can be entered in several ways. Dasher will "
+"not be able to learn how you want to enter these symbols:"
+msgstr ""
+"V datoteki %s so navedeni simboli %i brez oznak o načinu vnosa, vsakega pa "
+"je mogoče vnesti na več načinov. S programom ne bo mogoče samodejno zaznati, "
+"kako želite vnesti znake:"
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:33
 msgid "Training on User Text"
