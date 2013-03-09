@@ -549,7 +549,7 @@ void CAlphabetManager::IterateChildGroups(CAlphNode *pParent, const SGroupInfo *
   DASHER_ASSERT((*pCProb)[0] == 0);
   const int iMin(pParentGroup->iStart);
   const int iMax(pParentGroup->iEnd);
-  unsigned int iRange(((*pCProb)[iMax-1] - (*pCProb)[iMin-1]));
+  unsigned int iRange(pParentGroup == m_pBaseGroup ? CDasherModel::NORMALIZATION : ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]));
 
   // TODO: Think through alphabet file formats etc. to make this class easier.
   // TODO: Throw a warning if parent node already has children
@@ -586,7 +586,7 @@ void CAlphabetManager::IterateChildGroups(CAlphNode *pParent, const SGroupInfo *
     pNewChild->Reparent(pParent, iLbnd, iHbnd);
   }
 
-  if (!pParentGroup) m_pNCManager->AddExtras(pParent);
+  if (pParentGroup == m_pBaseGroup) m_pNCManager->AddExtras(pParent);
   pParent->SetFlag(NF_ALLCHILDREN, true);
 }
 
