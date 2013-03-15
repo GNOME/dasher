@@ -53,8 +53,6 @@ EXTRA_DIST = \
 		Widgets/Screen.cpp \
 		Widgets/Screen.h \
 		Widgets/Screen.inl \
-		Widgets/Slidebar.cpp \
-		Widgets/Slidebar.h \
 		Widgets/SocketPage.cpp \
 		Widgets/SocketPage.h \
 		Widgets/SplashScreen.cpp \

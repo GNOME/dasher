@@ -28,7 +28,6 @@
 #include "Widgets/Prefs.h"
 #endif
 
-#include "Widgets/Slidebar.h"
 #include "Widgets/Toolbar.h"
 #include "WinCommon.h"
 
@@ -501,8 +500,6 @@ void CDasherWindow::Layout() {
       // ...with the bottom bar just below it.
       if(m_pSpeedAlphabetBar)
         m_pSpeedAlphabetBar->MoveWindow(0, Height - SpeedAlphabetHeight, Width, SpeedAlphabetHeight);
-      //  m_pSlidebar->MoveWindow(2, Height - SlidebarHeight, Width-4, SlidebarHeight);
-
     }
   }
 }

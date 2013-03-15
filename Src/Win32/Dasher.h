@@ -20,7 +20,6 @@ extern CONST UINT WM_DASHER_FOCUS;
 #define _WM_DASHER_FOCUS (LPCWSTR)"wm_dasher_focus"
 
 class CCanvas;
-class CSlidebar;
 class CEdit;
 class CDasherWindow;
 
