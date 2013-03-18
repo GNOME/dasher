@@ -1,10 +1,10 @@
 # Danish translation of dasher.
-# Copyright (C) 2004-10 Free Software Foundation, Inc.
+# Copyright (C) 2023 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dasher package.
 # Ole Laursen <olau@hardworking.dk>, 2004.
 # Martin Willemoes Hansen <mwh@sysrq.dk>, 2004-05.
 # Kenneth Nielsen <k.nielsen81@gmail.com>, 2007-10.
-# Joe Hansen <joedalton2@yahoo.dk>, 2011.
+# Joe Hansen <joedalton2@yahoo.dk>, 2011, 2013.
 #
 # Husk at tilføje dig i credit-listen (besked id "translator_credits")
 #
@@ -26,14 +26,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-12 21:14+0100\n"
-"PO-Revision-Date: 2011-09-24 19:56+0200\n"
+"POT-Creation-Date: 2013-03-19 00:23+0100\n"
+"PO-Revision-Date: 2013-03-12 19:56+0200\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
@@ -124,14 +125,12 @@ msgstr "Indstillinger for Dasher"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
 #: ../Data/GUI/dasher.preferences.ui.h:4
-#, fuzzy
 msgid "Alphabet Selection"
-msgstr "<b>Alfabetvalg</b>"
+msgstr "Alfabetvalg"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
-#, fuzzy
 msgid "Color Scheme"
-msgstr "<b>Farveskema</b>"
+msgstr "Farveskema"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
 #: ../Data/GUI/dasher.preferences.ui.h:42
@@ -144,9 +143,8 @@ msgstr "Alfabet"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
 #: ../Data/GUI/dasher.preferences.ui.h:32
-#, fuzzy
 msgid "Speed"
-msgstr "Hastighed:"
+msgstr "Hastighed"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
 #: ../Data/GUI/dasher.preferences.ui.h:33
@@ -159,18 +157,16 @@ msgid "Control"
 msgstr "Kontrol"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
-#, fuzzy
 msgid "Display Size"
-msgstr "<b>Visningsstørrelse</b>"
+msgstr "Visningsstørrelse"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:11
 msgid "Enlarge input window"
 msgstr "Forstør inputvindue"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:12
-#, fuzzy
 msgid "Orientation"
-msgstr "<b>Orientering</b>"
+msgstr "Orientering"
 
 #. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
 #: ../Data/GUI/dashermaemo.preferences.ui.h:13
@@ -204,9 +200,8 @@ msgstr "Vis"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:20
 #: ../Data/GUI/dasher.preferences.ui.h:5
-#, fuzzy
 msgid "Language Model"
-msgstr "<b>Sprogmodel</b>"
+msgstr "Sprogmodel"
 
 #. PPM = Prediction by Partial Match, a statistical language model.
 #: ../Data/GUI/dashermaemo.preferences.ui.h:21
@@ -232,9 +227,8 @@ msgstr "Japansk"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:25
 #: ../Data/GUI/dasher.preferences.ui.h:12
-#, fuzzy
 msgid "Adaptation"
-msgstr "<b>Tilpasning</b>"
+msgstr "Tilpasning"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:26
 #: ../Data/GUI/dasher.preferences.ui.h:13
@@ -243,9 +237,8 @@ msgstr "Sprogmodellen tilpasses mens du skriver."
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:27
 #: ../Data/GUI/dasher.preferences.ui.h:14
-#, fuzzy
 msgid "Smoothing"
-msgstr "<b>Udjævning</b>"
+msgstr "Udjævning"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:28
 msgid "Prediction"
@@ -280,9 +273,8 @@ msgstr ""
 "skrivehastighed langsommere."
 
 #: ../Data/GUI/dasher.preferences.ui.h:19
-#, fuzzy
 msgid "Direction"
-msgstr "Forudsigelse"
+msgstr "Retning"
 
 #. This means that you always want to write left-to-right regardless of the normal direction for the alphabet you are using
 #: ../Data/GUI/dasher.preferences.ui.h:23
@@ -307,23 +299,20 @@ msgstr "_Sprog"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:29
-#, fuzzy
 msgid "Control Style"
-msgstr "<b>Kontrolstil</b>"
+msgstr "Kontrolstil"
 
 #: ../Data/GUI/dasher.preferences.ui.h:30
 msgid "Options"
 msgstr "Indstillinger"
 
 #: ../Data/GUI/dasher.preferences.ui.h:31
-#, fuzzy
 msgid "Input Device"
-msgstr "<b>Inputenhed</b>"
+msgstr "Inputenhed"
 
 #: ../Data/GUI/dasher.preferences.ui.h:34
-#, fuzzy
 msgid "Starting and Stopping"
-msgstr "<b>Starter og stopper</b>"
+msgstr "Starter og stopper"
 
 #: ../Data/GUI/dasher.preferences.ui.h:35
 msgid "Start on left mouse button"
@@ -347,14 +336,12 @@ msgid "C_ontrol"
 msgstr "K_ontrol"
 
 #: ../Data/GUI/dasher.preferences.ui.h:41
-#, fuzzy
 msgid "Colour Scheme"
-msgstr "<b>Farveskema</b>"
+msgstr "Farveskema"
 
 #: ../Data/GUI/dasher.preferences.ui.h:43
-#, fuzzy
 msgid "Appearance Options"
-msgstr "<b>Visningsindstillinger</b>"
+msgstr "Visningsindstillinger"
 
 #: ../Data/GUI/dasher.preferences.ui.h:44
 msgid "Show mouse position"
@@ -373,9 +360,8 @@ msgid "Draw box outlines"
 msgstr "Tegn boksomrids"
 
 #: ../Data/GUI/dasher.preferences.ui.h:48
-#, fuzzy
 msgid "Dasher Font"
-msgstr "_Dasher-skrifttype"
+msgstr "Dasher-skrifttype"
 
 #: ../Data/GUI/dasher.preferences.ui.h:49
 msgid "Select Dasher Font"
@@ -398,9 +384,8 @@ msgid "_Appearance"
 msgstr "_Visning"
 
 #: ../Data/GUI/dasher.preferences.ui.h:54
-#, fuzzy
 msgid "Application Options"
-msgstr "<b>Programindstillinger</b>"
+msgstr "Programindstillinger"
 
 #: ../Data/GUI/dasher.preferences.ui.h:55
 msgid "Timestamp new files"
@@ -447,18 +432,16 @@ msgid "Speak words as you write"
 msgstr "Oplæs ord mens du skriver"
 
 #: ../Data/GUI/dasher.preferences.ui.h:66
-#, fuzzy
 msgid "Editor Font"
-msgstr "_Redigér skrifttype"
+msgstr "Skrifttype for redigeringsprogram"
 
 #: ../Data/GUI/dasher.preferences.ui.h:67
 msgid "Select Editor Font"
 msgstr "Vælg skrifttype ved redigering"
 
 #: ../Data/GUI/dasher.preferences.ui.h:68
-#, fuzzy
 msgid "Application Style"
-msgstr "<b>Programstil</b>"
+msgstr "Programstil"
 
 #: ../Data/GUI/dasher.preferences.ui.h:69
 msgid "Stand-alone"
@@ -546,9 +529,8 @@ msgid "Direct Mode"
 msgstr "Direkte-tilstand"
 
 #: ../Data/GUI/dasher.traditional.ui.h:21
-#, fuzzy
 msgid "_Direct Mode"
-msgstr "Direkte-tilstand"
+msgstr "_Direkte tilstand"
 
 #: ../Data/GUI/dasher.traditional.ui.h:22
 msgid "_Game Mode"
@@ -566,9 +548,9 @@ msgstr "Alfabet:"
 #. /TRANSLATORS: the first string is the error message from the XML Parser;
 #. / the second is the URL of the file we're trying to read.
 #: ../Src/DasherCore/AbstractXMLParser.cpp:63
-#, fuzzy, c-format
+#, c-format
 msgid "XML Error %s in file %s "
-msgstr "XML-fejl %s i fil %s et sted i blok: %s"
+msgstr "XML-fejl %s i filen %s "
 
 # mangler engelsk ikke noget her?
 #: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:116
@@ -601,9 +583,8 @@ msgstr ""
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:28
 #: ../Src/DasherCore/ButtonMode.cpp:28 ../Src/DasherCore/CompassMode.cpp:28
 #: ../Src/DasherCore/StylusFilter.cpp:11
-#, fuzzy
 msgid "Frames over which to perform zoom"
-msgstr "Faktor som der skal zoomes ind med"
+msgstr "Billeder som der skal zoomes ind over"
 
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:30
@@ -632,9 +613,8 @@ msgid "Scan time in menu mode (0 to not scan)"
 msgstr "Skantid i menutilstand (0 for ikke at skanne)"
 
 #: ../Src/DasherCore/ButtonMode.cpp:30
-#, fuzzy
 msgid "Number of forward boxes"
-msgstr "Antallet af kasser"
+msgstr "Antallet af vidersendelseskasser"
 
 #: ../Src/DasherCore/ButtonMode.cpp:31
 msgid "Safety margin"
@@ -688,7 +668,7 @@ msgstr "Kompas-tilstand"
 
 #: ../Src/DasherCore/ControlManager.cpp:249
 msgid "Done"
-msgstr ""
+msgstr "Færdig"
 
 #. /TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
 #. / refers to a setting name in gsettings or equivalent, and should not be translated.
@@ -748,44 +728,48 @@ msgid ""
 "Distance from right-hand-side Y-axis, at which maximum speed is reached. "
 "(2048=xhair)"
 msgstr ""
+"Afstand fra højre hånd-sidens y-akse, hvor maksimum hastighed opnås. "
+"(2048=xhair)"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:20
 msgid "Hold right mouse button / key 1 to go 3/4 faster"
-msgstr ""
+msgstr "Hold højre museknap nede / tast 1 for at gå 3/4 hurtigere"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:21
 msgid "Use exact computation of per-frame movement (slower)"
-msgstr ""
+msgstr "Brug præcis beregning af per-billed bevægelse (langsommere)"
 
 #: ../Src/DasherCore/DemoFilter.cpp:15
 msgid "Demo Mode (no input)"
-msgstr ""
+msgstr "Demotilstand (ingen input)"
 
 #: ../Src/DasherCore/GameModule.cpp:8
 msgid "Filename of sentences to enter"
-msgstr ""
+msgstr "Filnavn for sætninger til indtastning"
 
 #: ../Src/DasherCore/GameModule.cpp:9
 msgid "Distance of sentence from center to decide user needs help"
 msgstr ""
+"Afstand for sætning fra centrum til beslutning om bruger har brug for hjælp"
 
 #: ../Src/DasherCore/GameModule.cpp:10
 msgid "Time for which user must need help before help drawn"
-msgstr ""
+msgstr "Tidsperiode som bruger har brug for hjælp før hjælp tegnes"
 
 #: ../Src/DasherCore/GameModule.cpp:11
 msgid "When we give help, show the shortest path to the target sentence?"
-msgstr ""
+msgstr "Når vi giver hjælp, så vis den korteste sti til målsætningen"
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:176
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:128
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Warning: faulty alphabet definition: training-start delimiter %s must be a "
 "single unicode character. May be unable to process training file."
 msgstr ""
-"Advarsel: Fejlbehæftet alfabetdefinition, undvigesekvens %s skal være et "
-"enkelt unicodetegn. Dette kan forværre Dashers tekstforudsigelse."
+"Advarsel: Fejlbehæftet alfabetdefinition: Afgrænser for træningsstart %s "
+"skal være et enkelt unicodetegn. Er måske ikke i stand til at behandle "
+"træningsfil."
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:186
 #, c-format
@@ -793,6 +777,8 @@ msgid ""
 "Warning: training file contains character '%s' as member of group '%s', but "
 "no group of that name contains the character; ignoring group specifier"
 msgstr ""
+"Advarsel: Træningsfil indeholder tegnet \"%s\" som medlem af gruppen \"%s\", "
+"men ingen gruppe med det navn indeholder tegnet; ignorerer gruppespecifikator"
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:199
 #, c-format
@@ -801,6 +787,9 @@ msgid ""
 "no group of that name contains the character. Dasher will not be able to "
 "learn how you want to write this character."
 msgstr ""
+"Advarsel: Træningsfil indeholder tegnet \"%s\" som medlem af gruppen \"%s\", "
+"men ingen gruppe med det navn indeholder tegnet. Dasher vil ikke være i "
+"stand til at lære, hvordan du ønsker at skrive dette tegn."
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:200
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:147
@@ -810,6 +799,9 @@ msgid ""
 "alphabet contains several such groups. Dasher will not be able to learn how "
 "you want to write this character."
 msgstr ""
+"Advarsel: Træningsfil indeholder tegnet \"%s\" som medlem af gruppen \"%s\", "
+"men alfabetet indeholder flere sådanne grupper. Dasher vil ikke være i stand "
+"til at lære, hvordan du ønsker at skrive dette tegn."
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:220
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:164
@@ -818,6 +810,8 @@ msgid ""
 "Warning: in training file, annotation '<%s>' is followed by another "
 "annotation and will be ignored"
 msgstr ""
+"Advarsel: I træningsfilen efterfølges annotationen \"<%s>\" af en anden "
+"annotation og vil blive ignoreret"
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:247
 #, c-format
@@ -830,7 +824,13 @@ msgid_plural ""
 "they should be entered, but each can be entered in several ways. Dasher will "
 "not be able to learn how you want to enter these symbols:"
 msgstr[0] ""
+"I fil %s, fremstod symbolet %i uden annotationer om hvordan det skal "
+"indtastes, men det kan indtastes på flere måder. Dasher vil ikke kunne lære, "
+"hvordan du ønsker at indtaste dette symbol:"
 msgstr[1] ""
+"I fil %s, fremstod symbolerne %i uden annotationer om hvordan de skal "
+"indtastes, men de kan indtastes på flere måder. Dasher vil ikke kunne lære, "
+"hvordan du ønsker at indtaste disse symboler:"
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:251
 #, c-format
@@ -839,6 +839,9 @@ msgid ""
 "they should be entered, but each can be entered in several ways. Dasher will "
 "not be able to learn how you want to enter these symbols:"
 msgstr ""
+"I fil %s, fremstod symbolerne %i uden annotationer om hvordan de skal "
+"indtastes, men de kan indtastes på flere måder. Dasher vil ikke kunne lære, "
+"hvordan du ønsker at indtaste disse symboler:"
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:33
 msgid "Training on User Text"
@@ -953,6 +956,9 @@ msgid ""
 "Warning: training file contains character '%s' as member of group '%s', but "
 "no group of that name contains the character. Ignoring group specifier."
 msgstr ""
+"Advarsel: Træningsfil indeholder tegnet \"%s\" som medlem af gruppen \"%s\", "
+"men ingen gruppe med dette navn indeholder tegnet. Ignorer "
+"gruppespecifikator."
 
 #: ../Src/DasherCore/SettingsStore.cpp:75
 #: ../Src/Gtk2/DasherAppSettings.cpp:540 ../Src/Gtk2/DasherAppSettings.cpp:574
@@ -1047,7 +1053,7 @@ msgstr "Dasher sokkelinput: kunne ikke starte læsertråd."
 
 #: ../Src/DasherCore/StylusFilter.cpp:10
 msgid "Max time for a 'tap' (anything longer is held)"
-msgstr ""
+msgstr "Maksimal tid for en \"tap\" (alt længere betragtes som at holde nede)"
 
 #: ../Src/DasherCore/StylusFilter.h:12
 msgid "Stylus Control"
@@ -1064,9 +1070,9 @@ msgstr ""
 "enkelt unicodetegn. Dette kan forværre Dashers tekstforudsigelse."
 
 #: ../Src/DasherCore/Trainer.cpp:101
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to open file \"%s\" for reading"
-msgstr "Kan ikke åbne fil \"%f\" for læsning"
+msgstr "Kan ikke åbne filen \"%s\" for læsning"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
 msgid "Button offset"
@@ -1107,11 +1113,11 @@ msgstr "Forskydning for ydre (anden) knap"
 #. step
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
 msgid "Distance between down markers (long gap)"
-msgstr ""
+msgstr "Afstand mellem ned-markører (lang afstand)"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:32
 msgid "Distance between up markers, as percentage of long gap"
-msgstr ""
+msgstr "Afstand mellem op-markører, som procent af lang afstand"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
@@ -1122,6 +1128,8 @@ msgid ""
 "Use push and release times of single press rather than push times of two "
 "presses"
 msgstr ""
+"Brug tryk- og frigivelsestidspunkter for enkelt tryk fremfor tryktider for "
+"to tryk"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
 msgid "Slow startup time"
@@ -1309,30 +1317,3 @@ msgstr "Beskriv \"--options\"."
 msgid "- A text input application honouring accessibility"
 msgstr ""
 "- En applikation til tekstskrivning som tager hensyn til tilgængelighed"
-
-#~ msgid "<b>Dasher Font</b>"
-#~ msgstr "<b>Dasher-skrifttype</b>"
-
-#~ msgid "<b>Direction</b>"
-#~ msgstr "<b>Retning</b>"
-
-#~ msgid "<b>Editor Font</b>"
-#~ msgstr "<b>Redigeringsskrifttype</b>"
-
-#~ msgid "<b>Speed</b>"
-#~ msgstr "<b>Hastighed</b>"
-
-#~ msgid "Zoom steps"
-#~ msgstr "Zoomskridt"
-
-#~ msgid "Training file contains unknown source alphabet character %s"
-#~ msgstr "Træningsfil indeholder ukendt kildealfabettegn %s"
-
-#~ msgid "Training file contains unknown target alphabet character %s"
-#~ msgstr "Træningsfil indeholder ukendt målalfabettegn %s"
-
-#~ msgid "Distance for 1st button UP"
-#~ msgstr "Afstand for første knap OP"
-
-#~ msgid "Distance for 1st button DOWN"
-#~ msgstr "Afstand for første knap NED"
