@@ -473,7 +473,7 @@ msgstr "ファイルを保存します"
 
 #: ../Data/GUI/dasher.traditional.ui.h:5
 msgid "Save file as"
-msgstr "別名で保存します"
+msgstr "名前を付けて保存します"
 
 #: ../Data/GUI/dasher.traditional.ui.h:6
 msgid "A_ppend to file…"
