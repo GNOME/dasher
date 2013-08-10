@@ -1,5 +1,5 @@
 # Brazilian Portuguese translation of dasher.
-# Copyright (C) 2004-2007 Free Software Foundation, Inc.
+# Copyright (C) 2004-2013 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dasher package.
 # Rodrigo Lima <rdlima@terra.com.br>, 2004.
 # Goedson Teixeira Paixao <goedson@debian.org>, 2004-2006.
@@ -11,17 +11,17 @@
 # Jonh Wendell <jwendell@gnome.org>, 2009, 2010.
 # Flamarion Jorge <jorge.flamarion@gmail.com>, 2011.
 # Enrico Nicoletto <liverig@gmail.com>, 2013.
+# Rafael Ferreira <rafael.f.f1@gmail.com>, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-05-31 13:34+0000\n"
-"PO-Revision-Date: 2013-07-18 17:13-0300\n"
-"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
-"Language-Team: Brazilian Portuguese <debian-l10n-portuguese@lists.debian."
-"org>\n"
+"POT-Creation-Date: 2013-08-06 16:13+0000\n"
+"PO-Revision-Date: 2013-08-08 09:55-0300\n"
+"Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -244,7 +244,7 @@ msgstr "P"
 
 #: ../Data/GUI/dashermaemo.ui.h:6 ../Data/GUI/dasher.traditional.ui.h:26
 msgid "Please Wait…"
-msgstr "Por favor aguarde..."
+msgstr "Por favor aguarde…"
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
 msgid "Centre circle"
@@ -261,7 +261,7 @@ msgid ""
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
-"Use este controle para ajustar os tamanhos relativos das \n"
+"Use este controle para ajustar os tamanhos relativos das\n"
 "caixas de letras. Note que ao selecionar valores elevados\n"
 "você irá diminuir a velocidade de escrita."
 
@@ -305,7 +305,7 @@ msgstr "Dispositivo de entrada"
 
 #: ../Data/GUI/dasher.preferences.ui.h:34
 msgid "Starting and Stopping"
-msgstr "Iniciando e parando"
+msgstr "Início e parada"
 
 #: ../Data/GUI/dasher.preferences.ui.h:35
 msgid "Start on left mouse button"
@@ -422,11 +422,11 @@ msgstr "Falar tudo ao parar"
 
 #: ../Data/GUI/dasher.preferences.ui.h:65
 msgid "Speak words as you write"
-msgstr "Falar as palavras como você escreve"
+msgstr "Falar as palavras na medida em que você escreve"
 
 #: ../Data/GUI/dasher.preferences.ui.h:66
 msgid "Editor Font"
-msgstr "Fonte do Editor"
+msgstr "Fonte do editor"
 
 #: ../Data/GUI/dasher.preferences.ui.h:67
 msgid "Select Editor Font"
@@ -462,28 +462,29 @@ msgstr "Novo arquivo"
 
 #: ../Data/GUI/dasher.traditional.ui.h:3
 msgid "Open file"
-msgstr "Abre arquivo"
+msgstr "Abrir arquivo"
 
 #: ../Data/GUI/dasher.traditional.ui.h:4
 msgid "Save file"
-msgstr "Salva arquivo"
+msgstr "Salvar arquivo"
 
 #: ../Data/GUI/dasher.traditional.ui.h:5
 msgid "Save file as"
-msgstr "Salva arquivo como"
+msgstr "Salvar arquivo como"
 
 #: ../Data/GUI/dasher.traditional.ui.h:6
 msgid "A_ppend to file…"
-msgstr "A_nexar ao arquivo..."
+msgstr "A_nexar ao arquivo…"
 
 #: ../Data/GUI/dasher.traditional.ui.h:7
 msgid "_Import Training Text…"
-msgstr "_Importar texto de treinamento..."
+msgstr "_Importar texto de treinamento…"
 
+# Mative Sair, pois se aplica também a um botão no diálogo de saída do Dasher
 # Button description
 #: ../Data/GUI/dasher.traditional.ui.h:8 ../Src/Gtk2/dasher_main.cpp:1001
 msgid "Quit"
-msgstr "Sai"
+msgstr "Sair"
 
 #: ../Data/GUI/dasher.traditional.ui.h:10
 msgid "Cut"
@@ -495,11 +496,11 @@ msgstr "Copiar"
 
 #: ../Data/GUI/dasher.traditional.ui.h:13
 msgid "Paste"
-msgstr "Cola"
+msgstr "Colar"
 
 #: ../Data/GUI/dasher.traditional.ui.h:14
 msgid "Pr_eferences…"
-msgstr "_Preferências..."
+msgstr "_Preferências…"
 
 #: ../Data/GUI/dasher.traditional.ui.h:15
 msgid "Preferences"
@@ -507,7 +508,7 @@ msgstr "Preferências"
 
 #: ../Data/GUI/dasher.traditional.ui.h:17
 msgid "_Contents…"
-msgstr "S_umário..."
+msgstr "S_umário…"
 
 #: ../Data/GUI/dasher.traditional.ui.h:18
 msgid "Help"
@@ -515,7 +516,7 @@ msgstr "Ajuda"
 
 #: ../Data/GUI/dasher.traditional.ui.h:19
 msgid "_About…"
-msgstr "_Sobre..."
+msgstr "_Sobre…"
 
 #: ../Data/GUI/dasher.traditional.ui.h:20
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:805
@@ -544,7 +545,7 @@ msgstr "Alfabeto:"
 #: ../Src/DasherCore/AbstractXMLParser.cpp:63
 #, c-format
 msgid "XML Error %s in file %s "
-msgstr "Erro de XML %s no arquivo %s"
+msgstr "Erro de XML %s no arquivo %s "
 
 #: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:116
 #, c-format
@@ -552,11 +553,13 @@ msgid ""
 "File ends with incomplete UTF-8 character beginning 0x%x (expecting %i bytes "
 "but only %i)"
 msgstr ""
+"O arquivo termina com um caractere UTF-8 incompleto começando com 0x%x (era "
+"esperado %i bytes, obteve-se apenas %i)"
 
 #: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:127
 #, c-format
 msgid "Read invalid UTF-8 character 0x%x"
-msgstr ""
+msgstr "Leitura de caractere UTF-8 inválido 0x%x"
 
 #. /TRANSLATORS: the string "GameTextFile" is the name of a setting in gsettings
 #. / (or equivalent), and should not be translated. The %s is the value of that
@@ -567,6 +570,8 @@ msgid ""
 "Note: GameTextFile setting specifies game sentences file '%s' but this does "
 "not exist"
 msgstr ""
+"Nota: A configuração de GameTextFile especifica o arquivo de jogo de frases "
+"\"%s\", mas o mesmo não existe"
 
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:28
@@ -589,12 +594,12 @@ msgstr "Alternando modo direto"
 #: ../Src/DasherCore/AutoSpeedControl.cpp:200
 #, c-format
 msgid "Auto-increasing speed to %0.2f"
-msgstr ""
+msgstr "Aumentar a velocidade automaticamente para %0.2f"
 
 #: ../Src/DasherCore/AutoSpeedControl.cpp:200
 #, c-format
 msgid "Auto-decreasing speed to %0.2f"
-msgstr ""
+msgstr "Diminuir a velocidade automaticamente para %0.2f"
 
 #: ../Src/DasherCore/ButtonMode.cpp:29
 msgid "Scan time in menu mode (0 to not scan)"
@@ -663,6 +668,8 @@ msgid ""
 "Could not find game sentences file for %s - check alphabet definition, or "
 "override with GameTextFile setting"
 msgstr ""
+"Não foi possível localizar o arquivo de jogo de frases para %s - verifique a "
+"definição de alfabeto ou sobrescreva com a configuração de GameTextFile"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:788
 msgid "Normal Control"
@@ -710,14 +717,18 @@ msgid ""
 "Distance from right-hand-side Y-axis, at which maximum speed is reached. "
 "(2048=xhair)"
 msgstr ""
+"Distância do lado direito do eixo Y, no qual a velocidade máxima é "
+"alcançada. (2048=xhair)"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:20
 msgid "Hold right mouse button / key 1 to go 3/4 faster"
 msgstr ""
+"Mantenha pressionado o botão direito do mouse / tecla 1 para ir 3/4 mais "
+"rápido"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:21
 msgid "Use exact computation of per-frame movement (slower)"
-msgstr ""
+msgstr "Usar computação exata para movimentação por quadro (mais lento)"
 
 #: ../Src/DasherCore/DemoFilter.cpp:15
 msgid "Demo Mode (no input)"
@@ -726,19 +737,21 @@ msgstr "Modo de demonstração (nenhuma entrada)"
 # Ingressar como forma elegante de dizer entrar
 #: ../Src/DasherCore/GameModule.cpp:8
 msgid "Filename of sentences to enter"
-msgstr "Nome de arquivo de sentenças a ingressar"
+msgstr "Nome de arquivo de frases a ingressar"
 
 #: ../Src/DasherCore/GameModule.cpp:9
 msgid "Distance of sentence from center to decide user needs help"
 msgstr ""
+"Decidir que o usuário precisa de ajuda a partir da distância da frase ao "
+"centro"
 
 #: ../Src/DasherCore/GameModule.cpp:10
 msgid "Time for which user must need help before help drawn"
-msgstr ""
+msgstr "Tempo até que o usuário precise de ajuda, antes que ela apareça"
 
 #: ../Src/DasherCore/GameModule.cpp:11
 msgid "When we give help, show the shortest path to the target sentence?"
-msgstr ""
+msgstr "Mostrar o caminho mais curto para a frase alvo ao oferecer ajuda?"
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:176
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:128
@@ -747,6 +760,9 @@ msgid ""
 "Warning: faulty alphabet definition: training-start delimiter %s must be a "
 "single unicode character. May be unable to process training file."
 msgstr ""
+"Aviso: definição incorreta de alfabeto: delimitador do início do treinamento "
+"%s deve ser um único caractere unicode. Pode não ser possível processar o "
+"arquivo de treinamento."
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:186
 #, c-format
@@ -754,6 +770,9 @@ msgid ""
 "Warning: training file contains character '%s' as member of group '%s', but "
 "no group of that name contains the character; ignoring group specifier"
 msgstr ""
+"Aviso: o arquivo de treinamento contém o caractere \"%s\" como membro do "
+"grupo \"%s\", mas nenhum grupo daquele nome contém este caractere; ignorando "
+"o especificador de grupo"
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:199
 #, c-format
@@ -762,6 +781,9 @@ msgid ""
 "no group of that name contains the character. Dasher will not be able to "
 "learn how you want to write this character."
 msgstr ""
+"Aviso: o arquivo de treinamento contém o caractere \"%s\" como membro do "
+"grupo \"%s\", mas nenhum grupo daquele nome contém este caractere. O Dasher "
+"não será capaz de aprender como você deseja escrever este caractere."
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:200
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:147
@@ -771,6 +793,9 @@ msgid ""
 "alphabet contains several such groups. Dasher will not be able to learn how "
 "you want to write this character."
 msgstr ""
+"Aviso: o arquivo de treinamento contém o caractere \"%s\" como membro do "
+"grupo \"%s\", mas o alfabeto contém vários destes grupos. O Dasher não será "
+"capaz de aprender como você deseja escrever este caractere."
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:220
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:164
@@ -779,6 +804,8 @@ msgid ""
 "Warning: in training file, annotation '<%s>' is followed by another "
 "annotation and will be ignored"
 msgstr ""
+"Aviso: no arquivo de treinamento, a anotação \"<%s>\" é seguida por outra "
+"anotação e será ignorada"
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:247
 #, c-format
@@ -791,7 +818,14 @@ msgid_plural ""
 "they should be entered, but each can be entered in several ways. Dasher will "
 "not be able to learn how you want to enter these symbols:"
 msgstr[0] ""
+"No arquivo %s, o %i símbolo a seguir aparece sem anotações informando como "
+"ele deveria ser inserido, mas ele pode ser inserido de várias formas. O "
+"Dasher não será capaz de aprender como você deseja inserir este símbolo:"
 msgstr[1] ""
+"No arquivo %s, os %i símbolos a seguir aparecem sem anotações informando "
+"como eles deveriam ser inseridos, mas eles podem ser inseridos de várias "
+"formas. O Dasher não será capaz de aprender como você deseja inserir estes "
+"símbolos:"
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:251
 #, c-format
@@ -800,6 +834,10 @@ msgid ""
 "they should be entered, but each can be entered in several ways. Dasher will "
 "not be able to learn how you want to enter these symbols:"
 msgstr ""
+"No arquivo %s, os %i símbolos a seguir aparecem sem anotações informando "
+"como eles deveriam ser inseridos, mas cada um pode ser inserido de várias "
+"formas. O Dasher não será capaz de aprender como você deseja inserir estes "
+"símbolos:"
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:33
 msgid "Training on User Text"
@@ -816,6 +854,9 @@ msgid ""
 "No user training text found - if you have written in \"%s\" before, this "
 "means Dasher may not be learning from previous sessions"
 msgstr ""
+"Nenhum texto de treinamento de usuário localizado - se você escreveu em \"%s"
+"\" antes, isso significa que o Dasher pode não estar aprendendo de sessões "
+"anteriores"
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:102
 #, c-format
@@ -824,6 +865,10 @@ msgid ""
 "but entry will be slower. We suggest downloading a training text file from "
 "the Dasher website, or constructing your own."
 msgstr ""
+"Nenhum texto de treinamento (usuário ou sistema) localizado para \"%s\". O "
+"Dasher ainda vai funcionar, mas a entrada será mais lenta. Nós sugerimos "
+"baixar um arquivo de texto de treinamento do site do Dasher, ou construir o "
+"seu próprio."
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:108
 #, c-format
@@ -831,6 +876,9 @@ msgid ""
 "\"%s\" does not specify training file. Dasher will work but entry will be "
 "slower. Check you have the latest version of the alphabet definition."
 msgstr ""
+"\"%s\" não especifica um arquivo de treinamento. O Dasher irá funcionar, "
+"porém a entrada será mais lenta. Certifique-se de que você tem a última "
+"versão da definição de alfabeto."
 
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
@@ -906,6 +954,9 @@ msgid ""
 "Warning: training file contains character '%s' as member of group '%s', but "
 "no group of that name contains the character. Ignoring group specifier."
 msgstr ""
+"Aviso: o arquivo de treinamento contém o caractere \"%s\" como membro do "
+"grupo \"%s\", mas nenhum grupo daquele nome contém o caractere. Ignorando o "
+"especificador do grupo."
 
 #: ../Src/DasherCore/SettingsStore.cpp:75
 #: ../Src/Gtk2/DasherAppSettings.cpp:540 ../Src/Gtk2/DasherAppSettings.cpp:574
@@ -962,9 +1013,10 @@ msgstr "Y mínimo:"
 msgid "Y maximum:"
 msgstr "Y máximo:"
 
+# O dois-pontos não faz sentido na interface gráfica; retirei - Rafael
 #: ../Src/DasherCore/SocketInputBase.cpp:34
 msgid "Print socket-related debugging information to console:"
-msgstr "Imprimir informação de depuração relacionada ao socket para console:"
+msgstr "Imprimir informações de depuração relacionadas ao socket no console"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:38
 msgid "Socket Input"
@@ -977,12 +1029,14 @@ msgstr "Erro ao criar socket"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:116
 msgid "Error binding to socket - already in use?"
-msgstr ""
+msgstr "Erro ao associar socket - já está sendo usado?"
 
+# Me pareceu estar faltando um dois-pontos (:) após warning; acrescentei - Rafael
 #: ../Src/DasherCore/SocketInputBase.cpp:169
 #, c-format
 msgid "Warning truncating socket input label '%s' to %i characters."
 msgstr ""
+"Aviso: truncando o rótulo de entrada do socket \"%s\" para %i caracteres."
 
 #: ../Src/DasherCore/SocketInputBase.cpp:195
 msgid "Socket input: Error reading from socket"
@@ -1001,7 +1055,7 @@ msgstr ""
 
 #: ../Src/DasherCore/StylusFilter.cpp:10
 msgid "Max time for a 'tap' (anything longer is held)"
-msgstr ""
+msgstr "Tempo máximo para um \"toque\" (qualquer coisa mais longa é matinda)"
 
 #: ../Src/DasherCore/StylusFilter.h:12
 msgid "Stylus Control"
@@ -1014,6 +1068,8 @@ msgid ""
 "Warning: faulty alphabet definition, escape sequence %s must be a single "
 "unicode character. This may worsen Dasher's text prediction."
 msgstr ""
+"Aviso: definição incorreta de alfabeto, sequência de escape %s deve ser um "
+"único caractere unicode. Isso pode prejudicar a predição de texto do Dasher."
 
 #: ../Src/DasherCore/Trainer.cpp:101
 #, c-format
@@ -1045,7 +1101,7 @@ msgstr "Botões de inversão para cima e para baixo"
 #. button once; in this case, one must push three times (or push-and-hold) to reverse.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
 msgid "Double-click is opposite up/down — triple to reverse"
-msgstr "Clique duplo é oposto ao para cima/para baixo — triplo para reverter"
+msgstr "Clique duplo é oposto ao para cima/para baixo — triplo para inverter"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:52
 msgid "Two Button Dynamic Mode"
@@ -1059,11 +1115,12 @@ msgstr "Deslocamento para outro (segundo) botão"
 #. step
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
 msgid "Distance between down markers (long gap)"
-msgstr ""
+msgstr "Distância entre os marcadores inferiores (espaço grande)"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:32
 msgid "Distance between up markers, as percentage of long gap"
 msgstr ""
+"Distância entre os marcadores superiores, como porcentagem do espaço grande"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
@@ -1074,6 +1131,8 @@ msgid ""
 "Use push and release times of single press rather than push times of two "
 "presses"
 msgstr ""
+"Use tempos de pressionamento e liberação com um único pressionar, ao invés "
+"de tempos de pressionamento com um pressionar duplo"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
 msgid "Slow startup time"
@@ -1120,6 +1179,9 @@ msgid ""
 "Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering "
 "text in Dasher. Please select a training text to play with:"
 msgstr ""
+"Bem-vindo ao modo de jogo do Dasher! O modo de jogo é uma forma divertida de "
+"praticar a digitação de texto no Dasher. Por favor, selecione um texto de "
+"treinamento com o qual vai jogar:"
 
 #: ../Src/Gtk2/dasher_main.cpp:630
 msgid "Use Default"
@@ -1138,6 +1200,8 @@ msgid ""
 "Are you sure you wish to turn off game mode? All unsaved changes will be "
 "lost."
 msgstr ""
+"Você tem certeza de que desejar desligar o modo de jogo? Todas as alterações "
+"não salvas serão perdidas."
 
 #: ../Src/Gtk2/dasher_main.cpp:963
 #, c-format
@@ -1194,7 +1258,8 @@ msgstr ""
 "Vladimir Melo <vladimirmelo@foresightlinux.org>\n"
 "Fabricio Godoy <skarllot@gmail.com>\n"
 "Djavan Fagundes <dnoway@gmail.com>\n"
-"Enrico Nicoletto <liverig@gmail.com>"
+"Enrico Nicoletto <liverig@gmail.com>\n"
+"Rafael Ferreira <rafael.f.f1@gmail.com>"
 
 #: ../Src/Gtk2/GnomeSpeech.cpp:28
 msgid "Unable to initialize speech support\n"
@@ -1242,68 +1307,20 @@ msgstr "Ação"
 #: ../Src/main.cc:166
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr ""
-"Estilo do aplicativo (traditional (tradicional), direct (direto),compose "
+"Estilo do aplicativo (traditional (tradicional), direct (direto), compose "
 "(redigir) ou fullscreen (tela cheia))"
 
 #. Note to translators: This is the help string for "--options"
 #: ../Src/main.cc:168
 msgid "Override stored options"
-msgstr "Sobreescrever opções armazenadas"
+msgstr "Sobreescreve opções armazenadas"
 
 #. Note to translators: This is the help string for "--help-options"
 #: ../Src/main.cc:170
 msgid "Describe \"--options\"."
-msgstr "Descrever \"--options\"."
+msgstr "Descreve \"--options\"."
 
 #. Note to translators: This is the "--help" description of dasher.
 #: ../Src/main.cc:177
 msgid "- A text input application honouring accessibility"
 msgstr "- Um aplicativo de entrada de texto honrando a acessibilidade"
-
-#~ msgid "A_ppend to file"
-#~ msgstr "A_nexar ao arquivo"
-
-#~ msgid "Dasher _Tutorial"
-#~ msgstr "_Tutorial do Dasher"
-
-#~ msgid "Pr_eferences"
-#~ msgstr "_Preferências"
-
-#~ msgid "_Contents"
-#~ msgstr "S_umário"
-
-#~ msgid "_Import Training Text"
-#~ msgstr "_Importar texto de treinamento"
-
-#~ msgid "Demo!"
-#~ msgstr "Demonstração!"
-
-#~ msgid "Full Demo"
-#~ msgstr "Demonstração completa"
-
-#~ msgid "Launch Dasher Game & Demo mode!"
-#~ msgstr "Lançar jogo do Dasher & modo demonstração!"
-
-#~ msgid "Level:"
-#~ msgstr "Nível:"
-
-#~ msgid "New sentence"
-#~ msgstr "Nova frase"
-
-#~ msgid "Score:"
-#~ msgstr "Pontuação:"
-
-#~ msgid "Zoom steps"
-#~ msgstr "Passos de zoom"
-
-#~ msgid "Distance for 1st button UP"
-#~ msgstr "Distância para o 1° botão ACIMA"
-
-#~ msgid "Distance for 1st button DOWN"
-#~ msgstr "Distância do 1° botão ABAIXO"
-
-#~ msgid "Enter Text"
-#~ msgstr "Digitar texto"
-
-#~ msgid "Script"
-#~ msgstr "Script"
