@@ -473,6 +473,8 @@ bool CDasherViewSquare::IsSpaceAroundNode(myint y1, myint y2) {
       return maxYDiff*maxYDiff + iVisibleMaxX*iVisibleMaxX > maxX*maxX;
     }
   }
+  /* NOTREACHED */
+  return false;
 }
 
 void CDasherViewSquare::DisjointRender(CDasherNode *pRender, myint y1, myint y2,
