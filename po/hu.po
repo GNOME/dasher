@@ -5,14 +5,14 @@
 # Andras Timar <timar at gnome dot hu>, 2004.
 # Laszlo Dvornik <dvornik at gnome dot hu>, 2004.
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2006, 2007, 2008, 2009, 2010.
-# Balázs Úr <urbalazs at gmail dot com>, 2013.
+# Balázs Úr <urbalazs at gmail dot com>, 2013, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-02-01 19:09+0000\n"
-"PO-Revision-Date: 2013-04-04 21:17+0200\n"
+"POT-Creation-Date: 2014-02-28 16:12+0000\n"
+"PO-Revision-Date: 2014-02-28 19:48+0100\n"
 "Last-Translator: Balázs Úr <urbalazs at gmail dot com>\n"
 "Language-Team: Hungarian <gnome at fsf dot hu>\n"
 "Language: \n"
@@ -264,22 +264,18 @@ msgstr "Irány"
 
 #. This means that you always want to write left-to-right regardless of the normal direction for the alphabet you are using
 #: ../Data/GUI/dasher.preferences.ui.h:23
-#| msgid "Left to Right"
 msgid "Always Left-to-Right"
 msgstr "Mindig balról jobbra"
 
 #: ../Data/GUI/dasher.preferences.ui.h:24
-#| msgid "Right to Left"
 msgid "Always Right-to-Left"
 msgstr "Mindig jobbról balra"
 
 #: ../Data/GUI/dasher.preferences.ui.h:25
-#| msgid "Top to Bottom"
 msgid "Always Top-to-Bottom"
 msgstr "Mindig fentről lefelé"
 
 #: ../Data/GUI/dasher.preferences.ui.h:26
-#| msgid "Bottom to Top"
 msgid "Always Bottom-to-Top"
 msgstr "Mindig lentről felfelé"
 
@@ -410,7 +406,6 @@ msgid "Include Editing commands"
 msgstr "A szerkesztés parancsok felvétele"
 
 #: ../Data/GUI/dasher.preferences.ui.h:63
-#| msgid "Copy _All"
 msgid "Copy All on stop"
 msgstr "Összes másolása leállításkor"
 
@@ -419,7 +414,6 @@ msgid "Speak All on stop"
 msgstr "Összes felolvasása leállításkor"
 
 #: ../Data/GUI/dasher.preferences.ui.h:65
-#| msgid "Language model adapts as you write."
 msgid "Speak words as you write"
 msgstr "Szavak felolvasása írás közben"
 
@@ -516,17 +510,15 @@ msgid "_About…"
 msgstr "_Névjegy…"
 
 #: ../Data/GUI/dasher.traditional.ui.h:20
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:807
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:805
 msgid "Direct Mode"
 msgstr "Közvetlen mód"
 
 #: ../Data/GUI/dasher.traditional.ui.h:21
-#| msgid "Direct Mode"
 msgid "_Direct Mode"
 msgstr "_Közvetlen mód"
 
 #: ../Data/GUI/dasher.traditional.ui.h:22
-#| msgid "Menu Mode"
 msgid "_Game Mode"
 msgstr "_Játékmód"
 
@@ -552,8 +544,8 @@ msgid ""
 "File ends with incomplete UTF-8 character beginning 0x%x (expecting %i bytes "
 "but only %i)"
 msgstr ""
-"A fájl befejezetlen 0x%x kezdetű UTF-8 karakterrel végződik (%i bájt várt, de "
-"csak %i van)"
+"A fájl befejezetlen 0x%x kezdetű UTF-8 karakterrel végződik (%i bájt várt, "
+"de csak %i van)"
 
 #: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:127
 #, c-format
@@ -576,7 +568,6 @@ msgstr ""
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:28
 #: ../Src/DasherCore/ButtonMode.cpp:28 ../Src/DasherCore/CompassMode.cpp:28
 #: ../Src/DasherCore/StylusFilter.cpp:11
-#| msgid "Factor by which to zoom in"
 msgid "Frames over which to perform zoom"
 msgstr "Képkockák, amelyek fölött a nagyítás elvégzendő"
 
@@ -606,7 +597,6 @@ msgid "Scan time in menu mode (0 to not scan)"
 msgstr "Beolvasási idő menü módban (0 = nincs beolvasás)"
 
 #: ../Src/DasherCore/ButtonMode.cpp:30
-#| msgid "Number of boxes"
 msgid "Number of forward boxes"
 msgstr "Továbbított dobozok száma"
 
@@ -664,7 +654,7 @@ msgstr "Kész"
 
 #. /TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
 #. / refers to a setting name in gsettings or equivalent, and should not be translated.
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:315
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:311
 #, c-format
 msgid ""
 "Could not find game sentences file for %s - check alphabet definition, or "
@@ -673,12 +663,12 @@ msgstr ""
 "Nem található a játék mondat fájl ehhez: %s - ellenőrizze az ábécé "
 "meghatározást, vagy írja felül a GameTextFile beállítással"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:790
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:788
 msgid "Normal Control"
 msgstr "Normális vezérlés"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:806
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:804
 msgid "Menu Mode"
 msgstr "Menü mód"
 
@@ -700,7 +690,6 @@ msgstr ""
 "hibajavítást)"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:17
-#, fuzzy
 msgid ""
 "Screen geometry (mostly for tall thin screens) - 0=old-style, 1=square no-"
 "xhair, 2=squish, 3=squish+log"
@@ -709,13 +698,12 @@ msgstr ""
 "1=négyzet, nincs célkereszt, 2=giccs, 3=giccs+napló"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:18
-#, fuzzy
 msgid ""
 "Shape type: 0=disjoint rects, 1=overlapping, 2=triangles, 3=trunc-tris, "
 "4=quadrics, 5=circles"
 msgstr ""
-"Alakzat típusa: 0=különálló téglalapok, 1=átfedés, 2=háromszögek, "
-"3=trunc-tris, 4=quadrics, 5= körök"
+"Alakzat típusa: 0=különálló téglalapok, 1=átfedés, 2=háromszögek, 3=trunc-"
+"tris, 4=quadrics, 5= körök"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:19
 msgid ""
@@ -751,7 +739,8 @@ msgstr ""
 #: ../Src/DasherCore/GameModule.cpp:10
 msgid "Time for which user must need help before help drawn"
 msgstr ""
-"Idő ahhoz, hogy mely felhasználónak kell segítség, mielőtt segítséget nyújtott"
+"Idő ahhoz, hogy mely felhasználónak kell segítség, mielőtt segítséget "
+"nyújtott"
 
 #: ../Src/DasherCore/GameModule.cpp:11
 msgid "When we give help, show the shortest path to the target sentence?"
@@ -846,7 +835,6 @@ msgstr ""
 "szimbólumokat:"
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:33
-#| msgid "_Import Training Text"
 msgid "Training on User Text"
 msgstr "Gyakorlás a felhasználói szövegen"
 
@@ -1041,7 +1029,7 @@ msgstr "Hiba a foglalathoz való kötéskor - már használatban van?"
 #: ../Src/DasherCore/SocketInputBase.cpp:169
 #, c-format
 msgid "Warning truncating socket input label '%s' to %i characters."
-msgstr ""
+msgstr "Figyelem, a(z) „%s” foglalatbemenet címke csonkítása %i karakterre."
 
 #: ../Src/DasherCore/SocketInputBase.cpp:195
 msgid "Socket input: Error reading from socket"
@@ -1059,7 +1047,7 @@ msgstr "Dasher foglalatbemenet: az olvasó szál indítása meghiúsult."
 
 #: ../Src/DasherCore/StylusFilter.cpp:10
 msgid "Max time for a 'tap' (anything longer is held)"
-msgstr ""
+msgstr "Maximális idő az „érintéshez” (valami hosszabban tartva)"
 
 #: ../Src/DasherCore/StylusFilter.h:12
 msgid "Stylus Control"
@@ -1077,7 +1065,6 @@ msgstr ""
 
 #: ../Src/DasherCore/Trainer.cpp:101
 #, c-format
-#| msgid "Unable to open help file"
 msgid "Unable to open file \"%s\" for reading"
 msgstr "Nem nyitható meg a(z) „%s” fájl olvasásra"
 
@@ -1122,11 +1109,11 @@ msgstr "Külső (második) gomb eltolása"
 #. step
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
 msgid "Distance between down markers (long gap)"
-msgstr ""
+msgstr "Távolság a le jelölők között (nagy rés)"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:32
 msgid "Distance between up markers, as percentage of long gap"
-msgstr ""
+msgstr "Távolság a fel jelölők között a nagy rés százalékaként"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
@@ -1137,6 +1124,8 @@ msgid ""
 "Use push and release times of single press rather than push times of two "
 "presses"
 msgstr ""
+"Az egyszeres lenyomás nyomás és felengedés idejeinek használata a két "
+"lenyomás nyomásidejei helyett"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
 msgid "Slow startup time"
@@ -1188,7 +1177,6 @@ msgstr ""
 "a játékhoz:"
 
 #: ../Src/Gtk2/dasher_main.cpp:630
-#| msgid "Default"
 msgid "Use Default"
 msgstr "Alapértelmezett használata"
 
@@ -1205,8 +1193,8 @@ msgid ""
 "Are you sure you wish to turn off game mode? All unsaved changes will be "
 "lost."
 msgstr ""
-"Valóban ki szeretné kapcsolni a játékmódot? Az összes nem mentett változtatás "
-"elvész."
+"Valóban ki szeretné kapcsolni a játékmódot? Az összes nem mentett "
+"változtatás elvész."
 
 #: ../Src/Gtk2/dasher_main.cpp:963
 #, c-format
