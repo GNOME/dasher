@@ -17,19 +17,20 @@ msgstr ""
 "Project-Id-Version: Dasher HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-02-16 12:55+0000\n"
-"PO-Revision-Date: 2012-03-09 22:02+0100\n"
-"Last-Translator: Bruno Brouard <annoa.b@gmail.com>\n"
+"POT-Creation-Date: 2012-09-20 16:50+0000\n"
+"PO-Revision-Date: 2013-01-02 16:52+0100\n"
+"Last-Translator: Pierre Henry <pierrehenry73@yahoo.fr>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
 #: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:14
-#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:21
-#: ../Src/Gtk2/dasher_main.cpp:899
+#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:23
+#: ../Src/Gtk2/dasher_main.cpp:897
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -98,8 +99,8 @@ msgid "_About"
 msgstr "À _propos"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:15 ../Data/GUI/dashermaemo.ui.h:4
-#: ../Src/Gtk2/dasher_editor_internal.cpp:813
-#: ../Src/Gtk2/dasher_editor_internal.cpp:847 ../Src/Gtk2/dasher_main.cpp:914
+#: ../Src/Gtk2/dasher_editor.cpp:817 ../Src/Gtk2/dasher_editor.cpp:851
+#: ../Src/Gtk2/dasher_main.cpp:912
 msgid "Select File"
 msgstr "Sélectionnez un fichier"
 
@@ -238,7 +239,7 @@ msgstr "Prédiction"
 msgid "P"
 msgstr "P"
 
-#: ../Data/GUI/dashermaemo.ui.h:6 ../Data/GUI/dasher.traditional.ui.h:24
+#: ../Data/GUI/dashermaemo.ui.h:6 ../Data/GUI/dasher.traditional.ui.h:26
 msgid "Please Wait…"
 msgstr "Veuillez patienter…"
 
@@ -476,7 +477,7 @@ msgstr "A_jouter au fichier…"
 msgid "_Import Training Text…"
 msgstr "_Importer un texte d'apprentissage…"
 
-#: ../Data/GUI/dasher.traditional.ui.h:8 ../Src/Gtk2/dasher_main.cpp:992
+#: ../Data/GUI/dasher.traditional.ui.h:8 ../Src/Gtk2/dasher_main.cpp:990
 msgid "Quit"
 msgstr "Quitter"
 
@@ -513,14 +514,24 @@ msgid "_About…"
 msgstr "À _propos…"
 
 #: ../Data/GUI/dasher.traditional.ui.h:20
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:807
+msgid "Direct Mode"
+msgstr "Mode direct"
+
+#: ../Data/GUI/dasher.traditional.ui.h:21
+#| msgid "Direct Mode"
+msgid "_Direct Mode"
+msgstr "Mode _direct"
+
+#: ../Data/GUI/dasher.traditional.ui.h:22
 msgid "_Game Mode"
 msgstr "Mode _jeu"
 
-#: ../Data/GUI/dasher.traditional.ui.h:22
+#: ../Data/GUI/dasher.traditional.ui.h:24
 msgid "Speed:"
 msgstr "Vitesse :"
 
-#: ../Data/GUI/dasher.traditional.ui.h:23
+#: ../Data/GUI/dasher.traditional.ui.h:25
 msgid "Alphabet:"
 msgstr "Alphabet :"
 
@@ -538,8 +549,8 @@ msgid ""
 "File ends with incomplete UTF-8 character beginning 0x%x (expecting %i bytes "
 "but only %i)"
 msgstr ""
-"Le fichier se termine par un caractère UTF-8 incomplet commençant par 0x%x (%"
-"i octet(s) attendu(s), seulement %i reçu(s))"
+"Le fichier se termine par un caractère UTF-8 incomplet commençant par 0x%x "
+"(%i octet(s) attendu(s), seulement %i reçu(s))"
 
 #: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:127
 #, c-format
@@ -555,8 +566,8 @@ msgid ""
 "Note: GameTextFile setting specifies game sentences file '%s' but this does "
 "not exist"
 msgstr ""
-"Note : le paramètre GameTextFile indique le fichier de phrases de jeu « %s », "
-"mais il n'existe pas"
+"Note : le paramètre GameTextFile indique le fichier de phrases de jeu "
+"« %s », mais il n'existe pas"
 
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:28
@@ -669,10 +680,6 @@ msgstr "Contrôle normal"
 msgid "Menu Mode"
 msgstr "Mode menu"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:807
-msgid "Direct Mode"
-msgstr "Mode direct"
-
 #: ../Src/DasherCore/DefaultFilter.cpp:14
 msgid "Vertical distance from mouse/gaze to target (400=screen height)"
 msgstr ""
@@ -760,8 +767,8 @@ msgid ""
 "single unicode character. May be unable to process training file."
 msgstr ""
 "Avertissement : mauvaise définition d'alphabet : le délimiteur du début "
-"d'entraînement « %s » doit être un seul caractère Unicode. Cela peut empêcher "
-"le traitement du fichier d'entraînement."
+"d'entraînement « %s » doit être un seul caractère Unicode. Cela peut "
+"empêcher le traitement du fichier d'entraînement."
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:186
 #, c-format
@@ -849,10 +856,10 @@ msgid ""
 "but entry will be slower. We suggest downloading a training text file from "
 "the Dasher website, or constructing your own."
 msgstr ""
-"Aucun texte d'apprentissage (utilisateur ou système) n'a été trouvé pour « %"
-"s ». Dasher fonctionnera tout de même, mais la saisie sera plus lente. Nous "
-"vous proposons de télécharger un texte d'apprentissage à partir du site Web "
-"de Dasher ou d'en créer un vous-même."
+"Aucun texte d'apprentissage (utilisateur ou système) n'a été trouvé pour "
+"« %s ». Dasher fonctionnera tout de même, mais la saisie sera plus lente. "
+"Nous vous proposons de télécharger un texte d'apprentissage à partir du site "
+"Web de Dasher ou d'en créer un vous-même."
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:108
 #, c-format
@@ -860,8 +867,8 @@ msgid ""
 "\"%s\" does not specify training file. Dasher will work but entry will be "
 "slower. Check you have the latest version of the alphabet definition."
 msgstr ""
-"« %s » n'indique pas de fichier d'apprentissage. Dasher fonctionnera, mais la "
-"saisie sera plus lente. Vérifiez que vous disposez bien de la dernière "
+"« %s » n'indique pas de fichier d'apprentissage. Dasher fonctionnera, mais "
+"la saisie sera plus lente. Vérifiez que vous disposez bien de la dernière "
 "version de la définition d'alphabet."
 
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
@@ -1164,7 +1171,7 @@ msgstr "signe « = » manquant dans le paramètre de l'option."
 msgid "Invalid option string specified"
 msgstr "Chaîne d'option non valide"
 
-#: ../Src/Gtk2/dasher_main.cpp:620
+#: ../Src/Gtk2/dasher_main.cpp:617
 msgid ""
 "Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering "
 "text in Dasher. Please select a training text to play with:"
@@ -1173,19 +1180,19 @@ msgstr ""
 "de s'exercer à saisir du texte avec Dasher. Choisissez un texte "
 "d'apprentissage pour le jeu :"
 
-#: ../Src/Gtk2/dasher_main.cpp:622
+#: ../Src/Gtk2/dasher_main.cpp:619
 msgid "Use Default"
 msgstr "Par défaut"
 
-#: ../Src/Gtk2/dasher_main.cpp:623
+#: ../Src/Gtk2/dasher_main.cpp:620
 msgid "Choose File..."
 msgstr "Choisir un fichier..."
 
-#: ../Src/Gtk2/dasher_main.cpp:624
+#: ../Src/Gtk2/dasher_main.cpp:621
 msgid "Cancel"
 msgstr "Annuler"
 
-#: ../Src/Gtk2/dasher_main.cpp:647
+#: ../Src/Gtk2/dasher_main.cpp:644
 msgid ""
 "Are you sure you wish to turn off game mode? All unsaved changes will be "
 "lost."
@@ -1193,7 +1200,7 @@ msgstr ""
 "Voulez-vous vraiment désactiver le mode jeu ? Toutes les modifications non "
 "enregistrées seront perdues."
 
-#: ../Src/Gtk2/dasher_main.cpp:954
+#: ../Src/Gtk2/dasher_main.cpp:952
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1204,7 +1211,7 @@ msgstr ""
 "\n"
 "Vos modifications seront perdues si vous ne les enregistrez pas."
 
-#: ../Src/Gtk2/dasher_main.cpp:961
+#: ../Src/Gtk2/dasher_main.cpp:959
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1214,31 +1221,31 @@ msgstr ""
 "\n"
 "Vos modifications seront perdues si vous ne les enregistrez pas."
 
-#: ../Src/Gtk2/dasher_main.cpp:967
+#: ../Src/Gtk2/dasher_main.cpp:965
 msgid "Don't save"
 msgstr "Ne pas enregistrer"
 
-#: ../Src/Gtk2/dasher_main.cpp:968 ../Src/Gtk2/dasher_main.cpp:991
+#: ../Src/Gtk2/dasher_main.cpp:966 ../Src/Gtk2/dasher_main.cpp:989
 msgid "Don't quit"
 msgstr "Ne pas quitter"
 
-#: ../Src/Gtk2/dasher_main.cpp:969
+#: ../Src/Gtk2/dasher_main.cpp:967
 msgid "Save and quit"
 msgstr "Enregistrer et quitter"
 
-#: ../Src/Gtk2/dasher_main.cpp:988
+#: ../Src/Gtk2/dasher_main.cpp:986
 msgid "Are you sure you wish to quit?"
 msgstr "Voulez-vous vraiment quitter ?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1030
+#: ../Src/Gtk2/dasher_main.cpp:1028
 msgid "Unable to open help file"
 msgstr "Impossible d'ouvrir le fichier d'aide"
 
-#: ../Src/Gtk2/dasher_main.cpp:1082
+#: ../Src/Gtk2/dasher_main.cpp:1080
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher est une application de saisie prédictive de texte"
 
-#: ../Src/Gtk2/dasher_main.cpp:1087
+#: ../Src/Gtk2/dasher_main.cpp:1085
 msgid "translator-credits"
 msgstr ""
 "Phil Cowens <pjc51@srcf.ucam.org>\n"
