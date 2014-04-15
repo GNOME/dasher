@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: dasher.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2013-02-01 19:09+0000\n"
+"POT-Creation-Date: 2014-04-15 03:15+0000\n"
 "PO-Revision-Date: 2013-02-04 17:45+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -511,7 +511,7 @@ msgid "_About…"
 msgstr "A_cerca de…"
 
 #: ../Data/GUI/dasher.traditional.ui.h:20
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:807
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:805
 msgid "Direct Mode"
 msgstr "Modo directo"
 
@@ -657,7 +657,7 @@ msgstr "Hecho"
 
 #. /TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
 #. / refers to a setting name in gsettings or equivalent, and should not be translated.
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:315
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:311
 #, c-format
 msgid ""
 "Could not find game sentences file for %s - check alphabet definition, or "
@@ -666,12 +666,12 @@ msgstr ""
 "No se pudo encontrar el archivo de sentencias del juego para %s; compruebe "
 "la definición del alfabeto u omítala con la configuración de GameTextFile"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:790
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:788
 msgid "Normal Control"
 msgstr "Control normal"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:806
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:804
 msgid "Menu Mode"
 msgstr "Modo menú"
 
@@ -799,8 +799,8 @@ msgid ""
 "Warning: in training file, annotation '<%s>' is followed by another "
 "annotation and will be ignored"
 msgstr ""
-"Advertencia: en el archivo de entrenamiento, la anotación «<%s>» está seguida "
-"de otra y se ignorará"
+"Advertencia: en el archivo de entrenamiento, la anotación «<%s>» está "
+"seguida de otra y se ignorará"
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:247
 #, c-format
@@ -824,14 +824,6 @@ msgstr[1] ""
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:251
 #, c-format
-#| msgid ""
-#| "In file %s, the following %i symbol appeared without annotations saying "
-#| "how it should be entered, but it can be entered in several ways. Dasher "
-#| "will not be able to learn how you want to enter this symbol:"
-#| msgid_plural ""
-#| "In file %s, the following %i symbols appeared without annotations saying "
-#| "how they should be entered, but each can be entered in several ways. "
-#| "Dasher will not be able to learn how you want to enter these symbols:"
 msgid ""
 "In file %s, the following %i symbols appeared without annotations saying how "
 "they should be entered, but each can be entered in several ways. Dasher will "
@@ -1037,7 +1029,8 @@ msgstr "Error al asociar el socket; ¿ya está en uso?"
 #, c-format
 msgid "Warning truncating socket input label '%s' to %i characters."
 msgstr ""
-"Advertencia al truncar la etiqueta de entrada del socket «%s» a %i caracteres."
+"Advertencia al truncar la etiqueta de entrada del socket «%s» a %i "
+"caracteres."
 
 #: ../Src/DasherCore/SocketInputBase.cpp:195
 msgid "Socket input: Error reading from socket"
@@ -1308,7 +1301,7 @@ msgstr ""
 #. Note to translators: This is the help string for "--options"
 #: ../Src/main.cc:168
 msgid "Override stored options"
-msgstr "Sobreescribir las opciones almacenadas"
+msgstr "Sobrescribir las opciones almacenadas"
 
 #. Note to translators: This is the help string for "--help-options"
 #: ../Src/main.cc:170
