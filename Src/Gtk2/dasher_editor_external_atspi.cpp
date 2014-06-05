@@ -18,8 +18,8 @@ struct _DasherEditorExternalPrivate {
 void dasher_editor_external_handle_focus(DasherEditor *pSelf, const AtspiEvent *pEvent);
 void dasher_editor_external_handle_caret(DasherEditor *pSelf, const AtspiEvent *pEvent);
 
-void focus_listener(const AtspiEvent *pEvent, void *pUserData);
-void caret_listener(const AtspiEvent *pEvent, void *pUserData);
+void focus_listener(AtspiEvent *pEvent, void *pUserData);
+void caret_listener(AtspiEvent *pEvent, void *pUserData);
 
 static void listen_to_bus(DasherEditor *);
 static void unlisten_to_bus(DasherEditor *);
@@ -255,11 +255,11 @@ dasher_editor_external_handle_caret(DasherEditor *pSelf, const AtspiEvent *pEven
 }
 
 void
-focus_listener(const AtspiEvent *pEvent, void *pUserData) {
+focus_listener(AtspiEvent *pEvent, void *pUserData) {
   dasher_editor_external_handle_focus(DASHER_EDITOR(pUserData), pEvent);
 }
 
 void
-caret_listener(const AtspiEvent *pEvent, void *pUserData) {
+caret_listener(AtspiEvent *pEvent, void *pUserData) {
   dasher_editor_external_handle_caret(DASHER_EDITOR(pUserData), pEvent);
 }
