@@ -26,8 +26,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-19 00:23+0100\n"
-"PO-Revision-Date: 2013-03-12 19:56+0200\n"
+"POT-Creation-Date: 2014-09-20 12:55+0200\n"
+"PO-Revision-Date: 2014-09-20 12:54+0200\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -1300,7 +1300,9 @@ msgstr "Handling"
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
 #: ../Src/main.cc:166
 msgid "Application style (traditional, direct, compose or fullscreen)"
-msgstr "Programstil (traditionel, direkte, komponer eller fuldskærm)"
+msgstr ""
+"Programstil (traditionel (traditional), direkte (direct), komponer (compose) "
+"eller fuldskærm (fullscreen)) BEMÆRK Engelske værdier skal bruges"
 
 #. Note to translators: This is the help string for "--options"
 #: ../Src/main.cc:168
