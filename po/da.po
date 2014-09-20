@@ -26,8 +26,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-20 12:55+0200\n"
-"PO-Revision-Date: 2014-09-20 12:54+0200\n"
+"POT-Creation-Date: 2014-09-20 13:01+0200\n"
+"PO-Revision-Date: 2014-09-20 13:01+0200\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -964,13 +964,13 @@ msgstr ""
 #: ../Src/Gtk2/DasherAppSettings.cpp:540 ../Src/Gtk2/DasherAppSettings.cpp:574
 #: ../Src/Gtk2/DasherAppSettings.cpp:578
 msgid "true"
-msgstr "sand"
+msgstr "true"
 
 #: ../Src/DasherCore/SettingsStore.cpp:77
 #: ../Src/Gtk2/DasherAppSettings.cpp:542 ../Src/Gtk2/DasherAppSettings.cpp:574
 #: ../Src/Gtk2/DasherAppSettings.cpp:578
 msgid "false"
-msgstr "falsk"
+msgstr "false"
 
 #. Note to translators: This message will be output for a command line
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but
