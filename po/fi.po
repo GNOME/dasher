@@ -1239,7 +1239,7 @@ msgid "translator-credits"
 msgstr ""
 "Ilkka Tuohela, 2004-2009\n"
 "\n"
-"http://www.gnome.fi/"
+"https://l10n.gnome.org/teams/fi/"
 
 #: ../Src/Gtk2/GnomeSpeech.cpp:28
 msgid "Unable to initialize speech support\n"
