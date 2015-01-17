@@ -11,7 +11,7 @@
   <download-page rdf:resource="http://download.gnome.org/sources/dasher/" />
   <bug-database rdf:resource="http://bugzilla.gnome.org/browse.cgi?product=dasher" />
 
-  <category rdf:resource="http://api.gnome.org/doap-extensions#desktop" />
+  <category rdf:resource="http://api.gnome.org/doap-extensions#apps" />
   <programming-language>C++</programming-language>
   <programming-language>Java</programming-language>
   <programming-language>Python</programming-language>
