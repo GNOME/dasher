@@ -421,7 +421,7 @@ void CCanvas::SetFont(const std::string &strName) {
   for (map<unsigned int,PangoFontDescription *>::iterator it=m_mFonts.begin(); it!=m_mFonts.end(); it++) {
     pango_font_description_free(it->second);
     it->second = pango_font_description_from_string(m_strFontName.c_str());
-    pango_font_description_set_size(it->second,it->first);
+    pango_font_description_set_size(it->second,it->first * PANGO_SCALE);
   }
   for (set<CLabelListScreen::Label *>::iterator it=LabelsBegin(); it!=LabelsEnd(); it++) {
     map<unsigned int,PangoLayout *> &layouts(static_cast<CPangoLabel *>(*it)->m_mLayouts);
