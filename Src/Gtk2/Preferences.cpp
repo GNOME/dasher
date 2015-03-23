@@ -5,7 +5,7 @@
 #include <glib/gi18n.h>
 #include <libintl.h>
 #include <cstring>
-#include <math.h>
+#include <cmath>
 
 #include "../Common/Common.h"
 #include "DasherTypes.h"
@@ -13,6 +13,7 @@
 #include "Preferences.h"
 #include "Parameters.h"
 #include "module_settings_window.h"
+#include "dasher_main_private.h"
 
 #define DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf) (DasherPreferencesDialoguePrivate *)(pSelf->private_data);
 
@@ -211,7 +212,7 @@ static void dasher_preferences_dialogue_init(DasherPreferencesDialogue *pDasherC
 
 static void dasher_preferences_dialogue_destroy(GObject *pObject) {
   DasherPreferencesDialogue *pSelf = (DasherPreferencesDialogue *)pObject;
-  DasherPreferencesDialoguePrivate *pPrivate = (DasherPreferencesDialoguePrivate *)(pSelf->private_data);
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
 
   g_object_unref(pPrivate->pXML);
 
@@ -223,12 +224,12 @@ static void dasher_preferences_dialogue_destroy(GObject *pObject) {
 // Public methods
 
 DasherPreferencesDialogue *dasher_preferences_dialogue_new(GtkBuilder *pXML, DasherEditor *pEditor, DasherAppSettings *pAppSettings, GtkWindow *pMainWindow) {
-  DasherPreferencesDialogue *pDasherControl;
-  pDasherControl = (DasherPreferencesDialogue *)(g_object_new(dasher_preferences_dialogue_get_type(), NULL));
+  DasherPreferencesDialogue *pDasherPref;
+  pDasherPref = (DasherPreferencesDialogue *)(g_object_new(dasher_preferences_dialogue_get_type(), NULL));
 
-  g_pPreferencesDialogue = pDasherControl;
+  g_pPreferencesDialogue = pDasherPref;
 
-  DasherPreferencesDialoguePrivate *pPrivate = (DasherPreferencesDialoguePrivate *)(pDasherControl->private_data);
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pDasherPref);
 
   pPrivate->bIgnoreSignals = false;
 
@@ -246,9 +247,9 @@ DasherPreferencesDialogue *dasher_preferences_dialogue_new(GtkBuilder *pXML, Das
   pPrivate->pMainWindow = pMainWindow;
 
   pPrivate->pSpeedSlider = GTK_RANGE(gtk_builder_get_object(pXML, "hscale1"));
-  dasher_preferences_dialogue_initialise_tables(pDasherControl);
-  dasher_preferences_dialogue_refresh_widget(pDasherControl, -1);
-  dasher_preferences_dialogue_update_special(pDasherControl, -1);
+  dasher_preferences_dialogue_initialise_tables(pDasherPref);
+  dasher_preferences_dialogue_refresh_widget(pDasherPref, -1);
+  dasher_preferences_dialogue_update_special(pDasherPref, -1);
 
 #ifdef WITH_MAEMO
 #ifndef WITH_MAEMOFULLSCREEN
@@ -262,11 +263,11 @@ DasherPreferencesDialogue *dasher_preferences_dialogue_new(GtkBuilder *pXML, Das
 
   //  InitialiseFontDialogues(pXML, pAppSettings);
 
-  return pDasherControl;
+  return pDasherPref;
 }
 
 void dasher_preferences_dialogue_show(DasherPreferencesDialogue *pSelf, gint iPage) {
-  DasherPreferencesDialoguePrivate *pPrivate = (DasherPreferencesDialoguePrivate *)(pSelf->private_data);
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
   // FIXME - REIMPLEMENT
 
   // Keep the preferences window in the correct position relative to the
@@ -852,17 +853,15 @@ extern "C" void on_appstyle_changed(GtkWidget *widget, gpointer user_data) {
 }
 
 extern "C" void on_dasher_font_changed(GtkFontButton *pButton, gpointer pUserData) {
-  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue);
-
-  dasher_app_settings_set_string(pPrivate->pAppSettings, 
+  DasherMainPrivate *pMainPrivate = DASHER_MAIN_GET_PRIVATE(pUserData);
+  dasher_app_settings_set_string(pMainPrivate->pAppSettings,
                                  SP_DASHER_FONT, 
                                  gtk_font_button_get_font_name(pButton));
 }
 
 extern "C" void on_edit_font_changed(GtkFontButton *pButton, gpointer pUserData) {
-  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue);
-
-  dasher_app_settings_set_string(pPrivate->pAppSettings, 
+  DasherMainPrivate *pMainPrivate = DASHER_MAIN_GET_PRIVATE(pUserData);
+  dasher_app_settings_set_string(pMainPrivate->pAppSettings,
                                  APP_SP_EDIT_FONT, 
                                  gtk_font_button_get_font_name(pButton));
 }
