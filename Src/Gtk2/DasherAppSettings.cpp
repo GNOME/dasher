@@ -284,7 +284,7 @@ void dasher_app_settings_reset(DasherAppSettings *pSelf, int iParameter) {
     }
   }
   // TODO: Use real signals to achieve this
-  parameter_notification(0, iParameter, pPrivate->pDasherMain);
+  parameter_notification(pPrivate->pDasherWidget, iParameter, pPrivate->pDasherMain);
 }
 
 bool dasher_app_settings_get_bool(DasherAppSettings *pSelf, int iParameter) { 
@@ -302,9 +302,7 @@ bool dasher_app_settings_get_bool(DasherAppSettings *pSelf, int iParameter) {
 void dasher_app_settings_set_bool(DasherAppSettings *pSelf, int iParameter, bool bValue) {
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
   if( iParameter < END_OF_BPS ) {
-    if(pPrivate->pDasherWidget) {
-      gtk_dasher_control_set_parameter_bool(pPrivate->pDasherWidget, iParameter, bValue);
-    }
+    gtk_dasher_control_set_parameter_bool(pPrivate->pDasherWidget, iParameter, bValue);
   }
   else {
     if(dasher_app_settings_get_bool(pSelf, iParameter) == bValue)
@@ -334,7 +332,7 @@ void dasher_app_settings_set_bool(DasherAppSettings *pSelf, int iParameter, bool
 #endif
 
     // TODO: Use real signals to achieve this
-    parameter_notification(0, iParameter, pPrivate->pDasherMain);
+    parameter_notification(pPrivate->pDasherWidget, iParameter, pPrivate->pDasherMain);
   }
 }
 
@@ -384,7 +382,7 @@ void dasher_app_settings_set_long(DasherAppSettings *pSelf, int iParameter, gint
 #endif
     
     // TODO: Use real signals to achieve this
-    parameter_notification(0, iParameter, pPrivate->pDasherMain);
+    parameter_notification(pPrivate->pDasherWidget, iParameter, pPrivate->pDasherMain);
   }
 }
 
@@ -442,7 +440,7 @@ void dasher_app_settings_set_string(DasherAppSettings *pSelf, int iParameter, co
 #endif    
 
     // TODO: Use real signals to achieve this
-    parameter_notification(0, iParameter, 0);
+    parameter_notification(pPrivate->pDasherWidget, iParameter, pPrivate->pDasherMain);
   }
 }
 
