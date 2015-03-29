@@ -641,7 +641,7 @@ msgstr "Křivky sledující nelinearity zobrazené transformace"
 
 #: ../Src/DasherCore/ClickFilter.h:23
 msgid "Click Mode"
-msgstr "Režim klikání"
+msgstr "Klikací režim"
 
 #. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
 #: ../Src/DasherCore/CompassMode.cpp:30
@@ -651,7 +651,7 @@ msgstr "Zvětšení zprava"
 #. bMenu
 #: ../Src/DasherCore/CompassMode.cpp:38
 msgid "Compass Mode"
-msgstr "Režim kompasu"
+msgstr "Kompasový režim"
 
 #: ../Src/DasherCore/ControlManager.cpp:249
 msgid "Done"
@@ -675,7 +675,7 @@ msgstr "Běžné ovládání"
 #. TODO: specialist factory for button mode
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:806
 msgid "Menu Mode"
-msgstr "Režim nabídky"
+msgstr "Nabídkový režim"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:14
 msgid "Vertical distance from mouse/gaze to target (400=screen height)"
@@ -928,7 +928,7 @@ msgstr "O kolik procent se snižuje rychlost při přehození"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:44
 msgid "One Button Dynamic Mode"
-msgstr "Dynamický režim jednoho tlačítka"
+msgstr "Jednotlačítkový dynamický režim"
 
 #: ../Src/DasherCore/OneButtonFilter.cpp:12
 msgid "Scan time (each direction), in ms"
@@ -947,7 +947,7 @@ msgstr "Prodleva v milisekundách před stisknutím tlačítka uživatelem"
 #. COneDimensionalFilter(CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
 #: ../Src/DasherCore/OneDimensionalFilter.h:12
 msgid "One Dimensional Mode"
-msgstr "Režim jednoho rozměru"
+msgstr "Jednorozměrný režim"
 
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:146
 #, c-format
@@ -1102,7 +1102,7 @@ msgstr ""
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:52
 msgid "Two Button Dynamic Mode"
-msgstr "Dynamický režim dvou tlačítek"
+msgstr "Dvoutlačítkový dynamický režim"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:30
 msgid "Offset for outer (second) button"
