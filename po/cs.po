@@ -59,15 +59,15 @@ msgstr "Kopírovat _vše"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:4
 msgid "_Options"
-msgstr "_Možnosti"
+msgstr "V_olby"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:5
 msgid "_Edit Font"
-msgstr "_Upravit písmo"
+msgstr "Písmo _editoru"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:6
 msgid "_Dasher Font"
-msgstr "_Písmo Dasheru"
+msgstr "Písmo za_dávání"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:7
 msgid "_Dasher Font Size"
@@ -111,7 +111,7 @@ msgstr "Zvolte písmo"
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
 #: ../Data/GUI/dasher.preferences.ui.h:3
 msgid "Dasher Preferences"
-msgstr "Nastavení Dasheru"
+msgstr "Předvolby Dasheru"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
 #: ../Data/GUI/dasher.preferences.ui.h:4
@@ -475,7 +475,7 @@ msgstr "_Připojit do souboru…"
 
 #: ../Data/GUI/dasher.traditional.ui.h:7
 msgid "_Import Training Text…"
-msgstr "_Importovat učící text…"
+msgstr "_Importovat trénovací text…"
 
 #: ../Data/GUI/dasher.traditional.ui.h:8 ../Src/Gtk2/dasher_main.cpp:1001
 msgid "Quit"
@@ -499,7 +499,7 @@ msgstr "_Předvolby…"
 
 #: ../Data/GUI/dasher.traditional.ui.h:15
 msgid "Preferences"
-msgstr "Nastavení"
+msgstr "Předvolby"
 
 #: ../Data/GUI/dasher.traditional.ui.h:17
 msgid "_Contents…"
@@ -1267,7 +1267,7 @@ msgstr "Nelze inicializovat hlasy\n"
 
 #: ../Src/Gtk2/module_settings_window.cpp:88
 msgid "Dasher Module Options"
-msgstr "Nastavení modulů Dasher"
+msgstr "Volby modulů Dasher"
 
 #: ../Src/Gtk2/module_settings_window.cpp:94
 #, c-format
