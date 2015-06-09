@@ -8,22 +8,24 @@
 # Serdar CICEK <serdar@nerd.com.tr>, 2008.
 # Baris Cicek <baris@teamforce.name.tr>, 2008, 2009.
 # Muhammet Kara <muhammetk@gmail.com>, 2011, 2014.
+# Kaan Özdinçer <kaanozdincer@gmail.com>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-12-12 16:12+0000\n"
-"PO-Revision-Date: 2014-12-12 21:43+0200\n"
-"Last-Translator: Muhammet Kara <muhammetk@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&"
+"keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-01-12 04:11+0000\n"
+"PO-Revision-Date: 2015-03-13 12:58+0000\n"
+"Last-Translator: Kaan Özdinçer <kaanozdincer@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1426251530.000000\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
@@ -267,22 +269,18 @@ msgstr "Yön"
 
 #. This means that you always want to write left-to-right regardless of the normal direction for the alphabet you are using
 #: ../Data/GUI/dasher.preferences.ui.h:23
-#| msgid "Left to Right"
 msgid "Always Left-to-Right"
 msgstr "Her Zaman Soldan Sağa"
 
 #: ../Data/GUI/dasher.preferences.ui.h:24
-#| msgid "Right to Left"
 msgid "Always Right-to-Left"
 msgstr "Her Zaman Sağdan Sola"
 
 #: ../Data/GUI/dasher.preferences.ui.h:25
-#| msgid "Top to Bottom"
 msgid "Always Top-to-Bottom"
 msgstr "Her Zaman Yukarıdan Aşağıya"
 
 #: ../Data/GUI/dasher.preferences.ui.h:26
-#| msgid "Bottom to Top"
 msgid "Always Bottom-to-Top"
 msgstr "Her Zaman Aşağıdan Yukarıya"
 
@@ -406,7 +404,7 @@ msgstr "Konuşma komutlarını dahil et"
 
 #: ../Data/GUI/dasher.preferences.ui.h:61
 msgid "Force to have Halt command"
-msgstr ""
+msgstr "Halt komutunu almaya zorla"
 
 #: ../Data/GUI/dasher.preferences.ui.h:62
 msgid "Include Editing commands"
@@ -418,13 +416,12 @@ msgstr "Durduğunda hepsini kopyala"
 
 #: ../Data/GUI/dasher.preferences.ui.h:64
 msgid "Speak All on stop"
-msgstr ""
+msgstr "Durdurmada Hepsini Oku"
 
 #: ../Data/GUI/dasher.preferences.ui.h:65
-#, fuzzy
 #| msgid "Language model adapts as you write."
 msgid "Speak words as you write"
-msgstr "Dil modeli yazışınıza kendini uydurur."
+msgstr "Siz yazdıkça kelimeleri okuma"
 
 #: ../Data/GUI/dasher.preferences.ui.h:66
 msgid "Editor Font"
@@ -524,10 +521,9 @@ msgid "Direct Mode"
 msgstr "Direk Kipi"
 
 #: ../Data/GUI/dasher.traditional.ui.h:21
-#, fuzzy
 #| msgid "Direct Mode"
 msgid "_Direct Mode"
-msgstr "Direk Kipi"
+msgstr "_Direk Kipi"
 
 #: ../Data/GUI/dasher.traditional.ui.h:22
 msgid "_Game Mode"
@@ -555,11 +551,13 @@ msgid ""
 "File ends with incomplete UTF-8 character beginning 0x%x (expecting %i bytes "
 "but only %i)"
 msgstr ""
+"Dosya 0x%x ile başlayan tamamlanmamış UTF-8 karakterle bitiyor (%i byte "
+"bekleniyordu ama yalnızca %i var)"
 
 #: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:127
 #, c-format
 msgid "Read invalid UTF-8 character 0x%x"
-msgstr ""
+msgstr "Geçersiz UTF-8 karakteri 0x%x'i oku"
 
 #. /TRANSLATORS: the string "GameTextFile" is the name of a setting in gsettings
 #. / (or equivalent), and should not be translated. The %s is the value of that
@@ -570,15 +568,16 @@ msgid ""
 "Note: GameTextFile setting specifies game sentences file '%s' but this does "
 "not exist"
 msgstr ""
+"Not: GameTextFile ayarı '%s' gibi oyun cümlelerini belirtir ama bu mevcut "
+"değil"
 
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:28
 #: ../Src/DasherCore/ButtonMode.cpp:28 ../Src/DasherCore/CompassMode.cpp:28
 #: ../Src/DasherCore/StylusFilter.cpp:11
-#, fuzzy
 #| msgid "Factor by which to zoom in"
 msgid "Frames over which to perform zoom"
-msgstr "Yakınlaştırma için çarpan"
+msgstr "Yakınlaştırma yapılacak çerçeveler"
 
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:30
@@ -606,10 +605,9 @@ msgid "Scan time in menu mode (0 to not scan)"
 msgstr "Menü kipinde tarama zamanı (tarama olmaması için 0)"
 
 #: ../Src/DasherCore/ButtonMode.cpp:30
-#, fuzzy
 #| msgid "Number of boxes"
 msgid "Number of forward boxes"
-msgstr "Kutu sayısı"
+msgstr "İleri kutuların sayısı"
 
 #: ../Src/DasherCore/ButtonMode.cpp:31
 msgid "Safety margin"
@@ -634,7 +632,7 @@ msgstr "Maksimum Yakınlaştır"
 #. y-axis.
 #: ../Src/DasherCore/ClickFilter.cpp:15
 msgid "Draw guides on screen to show area into which a click will zoom"
-msgstr ""
+msgstr "Bir tıkın yakınlaştıracağı alanı göstermek için ekrana kılavuzlar çiz"
 
 #. TRANSLATORS: As dasher's on-screen coordinate space is not flat,
 #. the straight guide lines should in fact really be curved. This option
@@ -642,6 +640,7 @@ msgstr ""
 #: ../Src/DasherCore/ClickFilter.cpp:19
 msgid "Curve lines to follow the non-linearity of the view transform"
 msgstr ""
+"Görünüm dönüşümünün doğrusal olmayan yapısını takip etmesi için çizgileri eğ"
 
 #: ../Src/DasherCore/ClickFilter.h:23
 msgid "Click Mode"
@@ -669,6 +668,8 @@ msgid ""
 "Could not find game sentences file for %s - check alphabet definition, or "
 "override with GameTextFile setting"
 msgstr ""
+"%s için oyun cümleleri dosyası bulunamadı - alfabe tanımlamasını kontrol "
+"edin, veya GameTextFile ayarı ile ezin"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:788
 msgid "Normal Control"
@@ -681,43 +682,50 @@ msgstr "Menü Kipi"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:14
 msgid "Vertical distance from mouse/gaze to target (400=screen height)"
-msgstr ""
+msgstr "Fare/göz den hedefe dikey uzaklık (400=ekran yüksekliği)"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:15
 msgid "Learn offset (previous) automatically, e.g. gazetrackers"
-msgstr ""
+msgstr "Uzaklığı (önceki) otomatik öğren, örn. gazetrackers"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:16
 msgid ""
 "At top and bottom, scroll more and translate less (makes error-correcting "
 "easier)"
 msgstr ""
+"Üst ve altta, daha fazla kaydır ve daha az çeviri yap (hata-düzeltmeyi "
+"kolaylaştırır)"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:17
 msgid ""
 "Screen geometry (mostly for tall thin screens) - 0=old-style, 1=square no-"
 "xhair, 2=squish, 3=squish+log"
 msgstr ""
+"Ekran geometrisi (daha çok uzun ince ekranlar için) - 0=eski-biçim, 1=kare "
+"no-xhair, 2=sıkıştır, 3=sıkıştır+günlük"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:18
 msgid ""
 "Shape type: 0=disjoint rects, 1=overlapping, 2=triangles, 3=trunc-tris, "
 "4=quadrics, 5=circles"
 msgstr ""
+"Şekil türü: 0=ayrık dikdörtgenler, 1=üst üste kesişen, 2=üçgenler, 3=kesik-"
+"üçg, 4=ikinci dereceli, 5=daireler"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:19
 msgid ""
 "Distance from right-hand-side Y-axis, at which maximum speed is reached. "
 "(2048=xhair)"
 msgstr ""
+"Azami hızın ulaşıldığı, sağ el tarafı Y-ekseninden uzaklık. (2048=xhair)"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:20
 msgid "Hold right mouse button / key 1 to go 3/4 faster"
-msgstr ""
+msgstr "Sağ fare düğmesine / 1 tuşuna basılı tutarak 3/4 hızlı gidin"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:21
 msgid "Use exact computation of per-frame movement (slower)"
-msgstr ""
+msgstr "Çerçeve başına hareketin tam hesaplamasını kullan (daha yavaş)"
 
 #: ../Src/DasherCore/DemoFilter.cpp:15
 msgid "Demo Mode (no input)"
@@ -730,14 +738,16 @@ msgstr "Girilecek cümlelerin dosya adı"
 #: ../Src/DasherCore/GameModule.cpp:9
 msgid "Distance of sentence from center to decide user needs help"
 msgstr ""
+"Kullanının yardıma ihtiyacı olup olmadığına karar vermek için cümlenin "
+"merkezden uzaklığı"
 
 #: ../Src/DasherCore/GameModule.cpp:10
 msgid "Time for which user must need help before help drawn"
-msgstr ""
+msgstr "Yardım çizilmeden önce kullanıcının yardım istemesi için beklenen zaman"
 
 #: ../Src/DasherCore/GameModule.cpp:11
 msgid "When we give help, show the shortest path to the target sentence?"
-msgstr ""
+msgstr "Yardım verdiğimizde, hedef cümleye en yakın yol gösterilsin mi?"
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:176
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:128
@@ -746,6 +756,8 @@ msgid ""
 "Warning: faulty alphabet definition: training-start delimiter %s must be a "
 "single unicode character. May be unable to process training file."
 msgstr ""
+"Uyarı: arızalı alfabe tanımı: alıştırma-başlangıç ayracı %s tek bir evrensel "
+"karakter olmalıdır. Alıştırma dosyası işlenemeyebilir."
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:186
 #, c-format
@@ -753,6 +765,9 @@ msgid ""
 "Warning: training file contains character '%s' as member of group '%s', but "
 "no group of that name contains the character; ignoring group specifier"
 msgstr ""
+"Uyarı: alıştırma dosyası '%s' karakterini '%s' grubunun üyesi olarak "
+"içeriyor, ama bu isimdeki hiçbir grup bu karakteri içermiyor; grup "
+"tanımlayıcısı göz ardı edilecek"
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:199
 #, c-format
@@ -761,6 +776,9 @@ msgid ""
 "no group of that name contains the character. Dasher will not be able to "
 "learn how you want to write this character."
 msgstr ""
+"Uyarı: alıştırma dosyası '%s' karakterini '%s' grubunun üyesi olarak "
+"içeriyor, ama bu isimde hiçbir grup bu karakteri içermiyor. Dasher bu "
+"karakteri nasıl yazmak istediğinizi öğrenemeyecek."
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:200
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:147
@@ -770,6 +788,9 @@ msgid ""
 "alphabet contains several such groups. Dasher will not be able to learn how "
 "you want to write this character."
 msgstr ""
+"Uyarı: alıştırma dosyası '%s' karakterini '%s' grubunun üyesi olarak "
+"içeriyor, ama alfabe böyle birden çok grup içeriyor. Dasher bu karakteri "
+"nasıl yazmak istediğinizi öğrenemeyecek."
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:220
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:164
@@ -778,6 +799,8 @@ msgid ""
 "Warning: in training file, annotation '<%s>' is followed by another "
 "annotation and will be ignored"
 msgstr ""
+"Uyarı: alıştırma dosyasında, dipnot '<%s>' den sonra başka bir dipnot var "
+"göz ardı edilecek"
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:247
 #, c-format
@@ -790,6 +813,9 @@ msgid_plural ""
 "they should be entered, but each can be entered in several ways. Dasher will "
 "not be able to learn how you want to enter these symbols:"
 msgstr[0] ""
+"%s dosyasında, %i sembolü nasıl girilmesini belirten dipnot olmadan "
+"bulunuyor, ama bir çok şekilde girilebilir. Dasher bu sembolü nasıl girmek "
+"istediğinizi öğrenemeyecek:"
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:251
 #, c-format
@@ -798,15 +824,17 @@ msgid ""
 "they should be entered, but each can be entered in several ways. Dasher will "
 "not be able to learn how you want to enter these symbols:"
 msgstr ""
+"%s dosyasında, %i sembolleri nasıl girilmesi gerektiğini belirten dipnot "
+"olmadan bulunuyor, ama bir çok şekilde girilebilirler. Dasher bu sembolleri "
+"nasıl girmek istediğinizi öğrenemeyecek:"
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:33
-#| msgid "_Import Training Text"
 msgid "Training on User Text"
-msgstr "Kullanıcı Metniyle Eğitim"
+msgstr "Kullanıcı Metniyle Alıştırma"
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:33
 msgid "Training on System Text"
-msgstr "Sistem Metniyle Eğitim"
+msgstr "Sistem Metniyle Alıştırma"
 
 #. /TRANSLATORS: These 3 messages will be displayed when the user has just chosen a new alphabet. The %s parameter will be the name of the alphabet.
 #: ../Src/DasherCore/NodeCreationManager.cpp:101
@@ -815,6 +843,8 @@ msgid ""
 "No user training text found - if you have written in \"%s\" before, this "
 "means Dasher may not be learning from previous sessions"
 msgstr ""
+"Kullanıcı alıştırma metni bulunamadı - \"%s\" ile daha önce yazdıysanız, bu "
+"Dasher'ın önceki oturumlardan bir şey öğrenmediği anlamına gelebilir"
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:102
 #, c-format
@@ -823,6 +853,10 @@ msgid ""
 "but entry will be slower. We suggest downloading a training text file from "
 "the Dasher website, or constructing your own."
 msgstr ""
+"\"%s\" için alıştırma metni bulunamadı (kullanıcı veya sistem). Dasher "
+"çalışmaya devam edecek fakat girdi daha yavaş olacak. Dasher web sayfasından "
+"bir alıştırma metni indirmenizi, veya kendi metninizi oluşturmanızı "
+"öneriyoruz."
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:108
 #, c-format
@@ -830,6 +864,9 @@ msgid ""
 "\"%s\" does not specify training file. Dasher will work but entry will be "
 "slower. Check you have the latest version of the alphabet definition."
 msgstr ""
+"\"%s\" alıştırma dosyası belirtmiyor. Dasher çalışmaya devam edecek fakat "
+"girdi daha yavaş olacak. Alfabe tanımlarının son sürümüne sahip olup "
+"olmadığınızı kontrol edin."
 
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
@@ -905,6 +942,9 @@ msgid ""
 "Warning: training file contains character '%s' as member of group '%s', but "
 "no group of that name contains the character. Ignoring group specifier."
 msgstr ""
+"Uyarı: alıştırma dosyası '%s' karakterini '%s' grubunun elemanı olarak "
+"içeriyor, ama bu isimde hiçbir grup bu karakteri içermiyor. Grup belirteci "
+"göz ardı ediliyor."
 
 #: ../Src/DasherCore/SettingsStore.cpp:75
 #: ../Src/Gtk2/DasherAppSettings.cpp:540 ../Src/Gtk2/DasherAppSettings.cpp:574
@@ -972,25 +1012,25 @@ msgstr "Soket Girişi"
 #. TODO This is not a very good error message even in English...???
 #: ../Src/DasherCore/SocketInputBase.cpp:108
 msgid "Error creating socket"
-msgstr ""
+msgstr "Soket oluştururken hata"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:116
 msgid "Error binding to socket - already in use?"
-msgstr ""
+msgstr "Sokete bağlanma başarısız - kullanılıyor olabilir mi?"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:169
 #, c-format
 msgid "Warning truncating socket input label '%s' to %i characters."
-msgstr ""
+msgstr "Uyarı soket girdi etiketi '%s' den %i karaktere kısaltılıyor."
 
 #: ../Src/DasherCore/SocketInputBase.cpp:195
 msgid "Socket input: Error reading from socket"
-msgstr ""
+msgstr "Soket girdisi: Soketten okumada hata"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:297
 #, c-format
 msgid "Dasher Socket Input error: %s: %s"
-msgstr ""
+msgstr "Dasher Soket Girdi hatası: %s: %s"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:31
@@ -999,7 +1039,7 @@ msgstr "Dasher soket girişi: okuyucu dalı başlatılamadı."
 
 #: ../Src/DasherCore/StylusFilter.cpp:10
 msgid "Max time for a 'tap' (anything longer is held)"
-msgstr ""
+msgstr "'tap' için azami süre (daha uzunu tutulur)"
 
 #: ../Src/DasherCore/StylusFilter.h:12
 msgid "Stylus Control"
@@ -1012,10 +1052,11 @@ msgid ""
 "Warning: faulty alphabet definition, escape sequence %s must be a single "
 "unicode character. This may worsen Dasher's text prediction."
 msgstr ""
+"Uyarı: hatalı alfabe tanımı, kaçış sırası %s tek bir evrensel karakter "
+"olmalı. Bu Dasher'ın metin tahminini daha kötü hale getirebilir."
 
 #: ../Src/DasherCore/Trainer.cpp:101
 #, c-format
-#| msgid "Unable to open help file"
 msgid "Unable to open file \"%s\" for reading"
 msgstr "\"%s\" dosyası okumak için açılamadı"
 
@@ -1043,10 +1084,9 @@ msgstr "Aşağı ve yukarı düğmelerini tersine çevir"
 #. TRANSLATORS: Pushing the up/down button twice quickly has the same effect as pushing the other
 #. button once; in this case, one must push three times (or push-and-hold) to reverse.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
-#, fuzzy
 #| msgid "Double-click is opposite up/down - triple to reverse"
 msgid "Double-click is opposite up/down — triple to reverse"
-msgstr "Çift tıklama yukarı/aşağı tersidir - üçlü tersi"
+msgstr "Çift tıklama yukarı/aşağı tersidir — geri almak için üç tık"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:52
 msgid "Two Button Dynamic Mode"
@@ -1060,11 +1100,11 @@ msgstr "Dış (ikinci) düğme için ofset"
 #. step
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
 msgid "Distance between down markers (long gap)"
-msgstr ""
+msgstr "Aşağı işaretçiler arası uzaklık (uzun aralık)"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:32
 msgid "Distance between up markers, as percentage of long gap"
-msgstr ""
+msgstr "Yukarı işaretçiler arası uzaklık, uzun aralığın yüzdesi olarak"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
@@ -1075,6 +1115,8 @@ msgid ""
 "Use push and release times of single press rather than push times of two "
 "presses"
 msgstr ""
+"Çift baskının gönderme zamanlayıcısı yerine tek baskının bas ve çek "
+"zamanlarını kullan"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
 msgid "Slow startup time"
@@ -1121,9 +1163,11 @@ msgid ""
 "Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering "
 "text in Dasher. Please select a training text to play with:"
 msgstr ""
+"Dasher Oyun Kipine Hoşgeldiniz! Oyun Kipi Dasher'a metin girmek için "
+"alıştırmanın eğlenceli bir yolu. Lütfen oynamak için bir alıştırma metni "
+"seçin:"
 
 #: ../Src/Gtk2/dasher_main.cpp:630
-#| msgid "Default"
 msgid "Use Default"
 msgstr "Öntanımlıyı Kullan"
 
@@ -1140,6 +1184,8 @@ msgid ""
 "Are you sure you wish to turn off game mode? All unsaved changes will be "
 "lost."
 msgstr ""
+"Oyun kipini kapatmak istediğinize emin misiniz? Kaydedilmemiş değişiklikler "
+"kaybedilecek."
 
 #: ../Src/Gtk2/dasher_main.cpp:963
 #, c-format
