@@ -25,7 +25,7 @@
 #include "..\Common\WinCommon.h"
 
 #ifndef _WIN32_WCE
-#include <Tmschema.h>
+#include <Vsstyle.h>
 #include "../TabletPC/SystemInfo.h"
 #endif
 

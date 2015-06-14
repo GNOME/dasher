@@ -16,3 +16,10 @@ autom4te.cache
 *.Po
 build-aux
 stamp-*
+Release*/
+Debug/
+Template/
+*.suo
+*.filters
+*.sdf
+*~
