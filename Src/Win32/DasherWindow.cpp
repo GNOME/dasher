@@ -121,7 +121,7 @@ HWND CDasherWindow::Create() {
   m_pSpeedAlphabetBar = new CStatusControl(m_pAppSettings);
   m_pSpeedAlphabetBar->Create(hWnd);
 
-  m_pSplitter = new CSplitter(this,100);
+  m_pSplitter = new CSplitter(this, 200);
   HWND hSplitter =  m_pSplitter->Create(hWnd);
   
   if (!hSplitter)
