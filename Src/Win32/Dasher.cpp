@@ -43,6 +43,10 @@ CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit)
   // Set up COM for the accessibility stuff
   CoInitialize(NULL);
 #endif
+#ifdef WIN32_SPEECH
+  pVoice = 0;
+  m_bAttemptedSpeech = false;
+#endif
 
   DWORD dwTicks = GetTickCount();
 
@@ -61,6 +65,13 @@ CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit)
 CDasher::~CDasher(void) {
 //  WriteTrainFileFull();
   delete m_pCanvas;
+#ifdef WIN32_SPEECH
+  if (pVoice) {
+	  pVoice->Release();
+	  pVoice = 0; 
+	  m_bAttemptedSpeech = false;
+  }
+#endif
 }
 
 void CDasher::CreateModules() {
@@ -289,8 +300,11 @@ bool CDasher::SupportsSpeech() {
 
 void CDasher::Speak(const string &strText, bool bInterrupt) {
   //ACL TODO - take account of bInterrupt
-  if (pVoice)
-    pVoice->Speak(strText.c_str(), SPF_ASYNC, NULL);
+	if (pVoice) {
+		Tstring wideText;
+		UTF8string_to_wstring(strText, wideText);
+		pVoice->Speak(wideText.c_str(), SPF_ASYNC, NULL);
+	}
 }
 #endif
 

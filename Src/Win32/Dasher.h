@@ -77,7 +77,7 @@ private:
   CEdit *m_pEdit;
 #ifdef WIN32_SPEECH
   ISpVoice *pVoice;
-  bool attemptedSpeech;
+  bool m_bAttemptedSpeech;
 #endif
 };
 }
