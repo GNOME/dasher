@@ -232,16 +232,16 @@ bool CAppSettings::LoadSetting(const std::string &Key, std::string *Value) {
 
 /////////////////////////////////////////////////////////////////////////////
 
-static TCHAR FormatWindowPlacement[] = TEXT("%u,%u,%d,%d,%d,%d,%d,%d,%d,%d");
+static TCHAR FormatWindowPlacement[] = TEXT("%u,%u,%d,%d,%d,%d,%d,%d,%d,%d,%d");
 
 /////////////////////////////////////////////////////////////////////////////
 #ifndef _WIN32_WCE
 
-void CAppSettings::SaveSetting(const std::string &Key, const LPWINDOWPLACEMENT pwp) {
+void CAppSettings::SaveSetting(const std::string &Key, const LPWINDOWPLACEMENT pwp, int sp) {
   DASHER_ASSERT(pwp != NULL);
 
   TCHAR t[200];
-  _stprintf(t, FormatWindowPlacement, pwp->flags, pwp->showCmd, pwp->ptMinPosition.x, pwp->ptMinPosition.y, pwp->ptMaxPosition.x, pwp->ptMaxPosition.y, pwp->rcNormalPosition.left, pwp->rcNormalPosition.top, pwp->rcNormalPosition.right, pwp->rcNormalPosition.bottom);
+  _stprintf(t, FormatWindowPlacement, pwp->flags, pwp->showCmd, pwp->ptMinPosition.x, pwp->ptMinPosition.y, pwp->ptMaxPosition.x, pwp->ptMaxPosition.y, pwp->rcNormalPosition.left, pwp->rcNormalPosition.top, pwp->rcNormalPosition.right, pwp->rcNormalPosition.bottom,sp);
 
   Tstring ts(t);
   SaveSettingT(Key, ts);
@@ -250,7 +250,7 @@ void CAppSettings::SaveSetting(const std::string &Key, const LPWINDOWPLACEMENT p
 
 /////////////////////////////////////////////////////////////////////////////
 
-bool CAppSettings::LoadSetting(const std::string &Key, LPWINDOWPLACEMENT pwp) {
+bool CAppSettings::LoadSetting(const std::string &Key, LPWINDOWPLACEMENT pwp, int* psp) {
   DASHER_ASSERT(pwp != NULL);
 
   Tstring str;
@@ -264,9 +264,9 @@ bool CAppSettings::LoadSetting(const std::string &Key, LPWINDOWPLACEMENT pwp) {
                        &wp.ptMinPosition.x, &wp.ptMinPosition.y,
                        &wp.ptMaxPosition.x, &wp.ptMaxPosition.y,
                        &wp.rcNormalPosition.left, &wp.rcNormalPosition.top,
-                       &wp.rcNormalPosition.right, &wp.rcNormalPosition.bottom);
+                       &wp.rcNormalPosition.right, &wp.rcNormalPosition.bottom, psp);
 
-  if(nRead != 10)
+  if(nRead < 10)
     return false;
   wp.length = sizeof(wp);
 

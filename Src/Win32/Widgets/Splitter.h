@@ -52,6 +52,11 @@ public:
 		return m_iPos;
 	}
 
+	void SetPos(int Pos)
+	{
+		m_iPos = Pos;
+	}
+
 	static ATL::CWndClassInfo& GetWndClassInfo() 
   { 
 

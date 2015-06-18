@@ -48,12 +48,13 @@ public:
   void GetPermittedValues(int iParameter, std::vector<std::string> &vList);
 
   #ifndef _WIN32_WCE
-  bool LoadSetting(const std::string & Key, LPWINDOWPLACEMENT pwp);
-  void SaveSetting(const std::string & Key, const LPWINDOWPLACEMENT pwp);
-#endif
+  bool LoadSetting(const std::string & Key, LPWINDOWPLACEMENT pwp, int* psp);
+  void SaveSetting(const std::string & Key, const LPWINDOWPLACEMENT pwp, int sp);
+
 
   void SetHwnd(HWND hWnd) {
     m_hWnd = hWnd;
+#endif
   };
 
   void SetDasher(Dasher::CDasher *pDasher) {

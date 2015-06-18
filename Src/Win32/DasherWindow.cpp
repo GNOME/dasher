@@ -121,7 +121,7 @@ HWND CDasherWindow::Create() {
   m_pSpeedAlphabetBar = new CStatusControl(m_pAppSettings);
   m_pSpeedAlphabetBar->Create(hWnd);
 
-  m_pSplitter = new CSplitter(this, 200);
+  m_pSplitter = new CSplitter(this, 100);
   HWND hSplitter =  m_pSplitter->Create(hWnd);
   
   if (!hSplitter)
@@ -183,16 +183,20 @@ void CDasherWindow::SaveWindowState() const {
   wp.length = sizeof(WINDOWPLACEMENT);
   
   if(GetWindowPlacement(&wp)) {//function call succeeds
-    m_pAppSettings->SaveSetting("WindowState", &wp);
+    m_pAppSettings->SaveSetting("WindowState", &wp, m_pSplitter->GetPos());
   }
+
 #endif
 }
 
 bool CDasherWindow::LoadWindowState() {
 #ifndef _WIN32_WCE
   WINDOWPLACEMENT wp;
-  
-  if(m_pAppSettings->LoadSetting("WindowState", &wp)) {
+  int splitterPos= -1;
+  if(m_pAppSettings->LoadSetting("WindowState", &wp, &splitterPos)) {
+	  if (splitterPos != -1) {
+		  m_pSplitter->SetPos(splitterPos);
+	  }
 	  if(SetWindowPlacement(&wp))
       return true;
   }
