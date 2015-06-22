@@ -18,9 +18,6 @@
 
 #include "Common/WinOptions.h"
 
-//ACL not sure what headers we need to include to get clipboard operations, but may need:
-//#include <afxpriv.h>
-
 #ifndef _WIN32_WCE
 #include <sys/stat.h>
 #endif
@@ -312,23 +309,24 @@ void CDasher::CopyToClipboard(const string &strText) {
   if (OpenClipboard(m_hParent))
   {
     EmptyClipboard(); //also frees memory containing any previous data
-    
+	Tstring wideText;
+	UTF8string_to_wstring(strText, wideText);
+
     //Allocate global memory for string - enough for characters + NULL.
-    HGLOBAL hClipboardData = GlobalAlloc(GMEM_DDESHARE, strText.length()+1);
+    HGLOBAL hClipboardData = GlobalAlloc(GMEM_MOVEABLE|GMEM_DDESHARE, sizeof(WCHAR)*(wideText.length()+1));
     
     //GlobalLock returns a pointer to the data associated with the handle returned from GlobalAlloc    
-    char * pchData = (char*)GlobalLock(hClipboardData);
+	LPWSTR pchData = (LPWSTR)GlobalLock(hClipboardData);
 
     //now fill it...
-	strcpy(pchData, strText.c_str());
+	wcscpy(pchData, wideText.c_str());
     
-    //Unlock memory, i.e. release our access to it - 
+    // Unlock memory, i.e. release our access to it - 
     // but don't free it (with GlobalFree), as it will "belong"
     // to the clipboard.
     GlobalUnlock(hClipboardData);
     
     //Now, point the clipboard at that global memory...
-    //ACL may have to use CF_TEXT or CF_OEMTEXT prior to WinNT/2K???
     SetClipboardData(CF_UNICODETEXT,hClipboardData);
     
     //Finally, unlock the clipboard (i.e. a pointer to the data on it!)

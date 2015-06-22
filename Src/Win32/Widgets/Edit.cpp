@@ -356,19 +356,6 @@ void CEdit::Cut() {
 
 void CEdit::Copy() {
   SendMessage(WM_COPY, 0, 0);
-/*
-#ifndef _UNICODE
-	HGLOBAL handle;
-	DWORD* foo;
-	handle = GlobalAlloc(GMEM_MOVEABLE|GMEM_DDESHARE, sizeof(DWORD));
-	foo = (DWORD*) GlobalLock(handle);
-	*foo = MAKELCID(MAKELANGID(LANG_JAPANESE, SUBLANG_DEFAULT), SORT_DEFAULT);
-	GlobalUnlock(handle);
-	OpenClipboard(m_hwnd);
-	SetClipboardData(CF_LOCALE, handle);
-	CloseClipboard();
-#endif
-*/
 }
 
 void CEdit::Paste() {
