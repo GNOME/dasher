@@ -196,7 +196,6 @@
   <ItemGroup>
     <ClInclude Include="BTSocketInput.h" />
     <ClInclude Include="Common\WinCommon.h" />
-    <ClInclude Include="Common\WinHelper.h" />
     <ClInclude Include="Common\WinLocalisation.h" />
     <ClInclude Include="Common\WinOptions.h" />
     <ClInclude Include="Common\WinUTF8.h" />

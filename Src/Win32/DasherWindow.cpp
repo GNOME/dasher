@@ -140,36 +140,6 @@ CDasherWindow::~CDasherWindow() {
   DestroyIcon(m_hIconSm);
 }
 
-
-
-void CDasherWindow::Main() {
-  // TODO: Sort this sort ofthing out, figure out how it fits into ATL etc.
-  // This function is not called by anybody...
-#ifndef _WIN32_WCE
-	DASHER_ASSERT_VALIDPTR_RW(m_pDasher);
-#endif
-
-	m_pDasher->Main();
-	Sleep(50); // limits framerate to 20fps
-}
-
-int CDasherWindow::MessageLoop() {
-  // See previous function's comments
-	MSG msg;
-		
-  while(GetMessage(&msg, NULL, 0, 0)) {
-  	if(!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) {
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-	}
-
-  m_pDasher->WriteTrainFileFull();
-  //ACL also stop the timer...but ShutdownTimer() was a no-op, so assume we don't need to?
-
-  return msg.wParam;
-}
-
 void CDasherWindow::Show(int nCmdShow) {
   InvalidateRect(NULL, FALSE);
   
@@ -508,7 +478,6 @@ void CDasherWindow::Layout() {
   }
 }
 
-#ifndef _WIN32_WCE
 void CDasherWindow::HandleWinEvent(HWINEVENTHOOK hWinEventHook, DWORD event, HWND hwnd, LONG idObject, LONG idChild, DWORD dwEventThread, DWORD dwmsEventTime) {
   // Ignore events if not in direct mode
   if(m_pAppSettings && (m_pAppSettings->GetLongParameter(APP_LP_STYLE) != APP_STYLE_DIRECT))
@@ -518,4 +487,3 @@ void CDasherWindow::HandleWinEvent(HWINEVENTHOOK hWinEventHook, DWORD event, HWN
   if(m_pDasher)
     m_pDasher->SetBuffer(0);
 }
-#endif

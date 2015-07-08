@@ -80,12 +80,8 @@ public:
 
 	void Show(int nCmdShow);
 
-	int MessageLoop();
-
-#ifndef _WIN32_WCE
   void HandleWinEvent(HWINEVENTHOOK hWinEventHook, DWORD event, HWND hwnd, 
     LONG idObject, LONG idChild, DWORD dwEventThread, DWORD dwmsEventTime);
-#endif
 
   ///ACL making these public so can be called directly from CDasher,
   /// rather than sending a windows message.
@@ -93,9 +89,6 @@ public:
   
 private:
  
-	// Main processing function, called by MessageLoop
-	void Main();
-
 	void SaveWindowState() const;
 	bool LoadWindowState();
 

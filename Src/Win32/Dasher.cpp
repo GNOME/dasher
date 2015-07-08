@@ -52,7 +52,6 @@ CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit)
   m_pCanvas = new CCanvas(this);
   m_pCanvas->Create(m_hParent); // TODO - check return 
 
-  // TODO: See MessageLoop, Main in CDasherWindow - should be brought into this class
   // Framerate settings: currently 40fps.
   SetTimer(m_pCanvas->getwindow(), 1, 25, NULL);
 
@@ -60,7 +59,7 @@ CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit)
 }
 
 CDasher::~CDasher(void) {
-//  WriteTrainFileFull();
+  WriteTrainFileFull();
   delete m_pCanvas;
 #ifdef WIN32_SPEECH
   if (pVoice) {
