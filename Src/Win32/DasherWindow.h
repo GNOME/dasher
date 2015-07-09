@@ -78,6 +78,9 @@ private:
  
 	void SaveWindowState() const;
 	bool LoadWindowState();
+  int GetMinCanvasWidth() const { return 100; }
+  int GetMinCanvasHeight() const { return 100; }
+  int GetMinEditHeight() const { return 50; }
 
   bool m_bFullyCreated;
 	Dasher::CDasher *m_pDasher;

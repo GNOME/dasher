@@ -292,17 +292,24 @@ LRESULT CDasherWindow::OnGetMinMaxInfo(UINT message, WPARAM wParam, LPARAM lPara
     return 0;
   }
 
-  LPPOINT lppt;
-  lppt = (LPPOINT)lParam;    // lParam points to array of POINTs
-  lppt[3].x = 100;            // Set minimum width (arbitrary)
-  // Set minimum height:
-  if (m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR))
-    lppt[3].y = m_pToolbar->GetHeight() + m_pSplitter->GetPos()
-    + m_pSplitter->GetHeight() + m_pSpeedAlphabetBar->GetHeight() + GetSystemMetrics(SM_CYEDGE) * 10;
-  else
-    lppt[3].y = m_pSplitter->GetPos()
-    + m_pSplitter->GetHeight() + m_pSpeedAlphabetBar->GetHeight() + GetSystemMetrics(SM_CYEDGE) * 10;
+  RECT rect = { 0, 0, 0, 0 };
+  int iStyle = m_pAppSettings->GetLongParameter(APP_LP_STYLE);
 
+  rect.right = GetMinCanvasWidth();
+  if (iStyle == APP_STYLE_COMPOSE)
+    rect.right *= 2;
+
+  rect.bottom = GetMinCanvasHeight() + m_pSpeedAlphabetBar->GetHeight();
+  if (iStyle == APP_STYLE_TRAD)
+    rect.bottom += GetMinEditHeight() + m_pSplitter->GetHeight();
+  if (m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR))
+    rect.bottom += m_pToolbar->GetHeight();
+
+  //min size including non-client area
+  ::AdjustWindowRectEx(&rect, GetStyle(), GetMenu() != NULL, GetExStyle());
+  LPMINMAXINFO mmi = (LPMINMAXINFO)lParam;
+  mmi->ptMinTrackSize.x = rect.right - rect.left;
+  mmi->ptMinTrackSize.y = rect.bottom - rect.top;
   return 0;
 }
 
@@ -404,10 +411,8 @@ void CDasherWindow::Layout() {
 
   default:
     int SplitterHeight = m_pSplitter->GetHeight();
-    int MinEditHeight = 3 * SplitterHeight;
-    int MinDasherHeight = 3 * SplitterHeight;
-    int SplitterY = max(CanvasY + MinEditHeight, m_pSplitter->GetPos());
-    SplitterY = min(SplitterY, CanvasHeight - MinDasherHeight - SplitterHeight);
+    int SplitterY = max(CanvasY + GetMinEditHeight(), m_pSplitter->GetPos());
+    SplitterY = min(SplitterY, CanvasY + CanvasHeight - GetMinCanvasHeight() - SplitterHeight);
     int EditHeight = SplitterY - CanvasY;
     int DasherY = SplitterY + SplitterHeight;
 
