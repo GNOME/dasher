@@ -29,20 +29,11 @@ namespace Dasher {
 // Abstract interfaces to the Dasher engine
 #include "../../DasherCore/DasherInterfaceBase.h"
 
-#ifdef _WIN32_WCE
-class CDasherWindow : 
-	public ATL::CWindowImpl<CDasherWindow, CWindow, CWinTraits< WS_CLIPCHILDREN | WS_CLIPSIBLINGS> >, 
-	public CSplitterOwner 
-{
-#else
 class CDasherWindow : 
 	public ATL::CWindowImpl<CDasherWindow>, 
 	public CSplitterOwner 
 {
-#endif
 public:
-//, CWindow, CFrameWinTraits>, 
-
 	CDasherWindow();
 	~CDasherWindow();
 
@@ -53,9 +44,7 @@ public:
 		MESSAGE_HANDLER(WM_COMMAND, OnCommand)
 		MESSAGE_HANDLER(WM_CLOSE, OnClose)
 		MESSAGE_HANDLER(WM_SIZE, OnSize)
-#ifndef _WIN32_WCE
 		MESSAGE_HANDLER(WM_GETMINMAXINFO,OnGetMinMaxInfo)
-#endif
 		MESSAGE_HANDLER(WM_INITMENUPOPUP,OnInitMenuPopup)
 		MESSAGE_HANDLER(WM_SETFOCUS,OnSetFocus)
 		MESSAGE_RANGE_HANDLER(0xC000,0xFFFF,OnOther)
@@ -63,9 +52,7 @@ public:
 
 	LRESULT OnSetFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnInitMenuPopup(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-#ifndef _WIN32_WCE
 	LRESULT OnGetMinMaxInfo(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-#endif
 	LRESULT OnOther(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnDasherFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
@@ -92,6 +79,7 @@ private:
 	void SaveWindowState() const;
 	bool LoadWindowState();
 
+  bool m_bFullyCreated;
 	Dasher::CDasher *m_pDasher;
 
 	HACCEL hAccelTable;
@@ -110,10 +98,6 @@ private:
 	HICON m_hIconSm;
 
 	HMENU m_hMenu;
-
-	LPCWSTR AutoOffset;
-	LPCWSTR DialogCaption;
-	char tmpAutoOffset[25];
 
 	// Misc window handling
 	void Layout();

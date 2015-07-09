@@ -50,11 +50,11 @@ public:
   #ifndef _WIN32_WCE
   bool LoadSetting(const std::string & Key, LPWINDOWPLACEMENT pwp, int* psp);
   void SaveSetting(const std::string & Key, const LPWINDOWPLACEMENT pwp, int sp);
-
+  #endif
 
   void SetHwnd(HWND hWnd) {
     m_hWnd = hWnd;
-#endif
+
   };
 
   void SetDasher(Dasher::CDasher *pDasher) {
