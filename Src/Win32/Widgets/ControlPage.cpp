@@ -13,6 +13,7 @@
 #include "../Common/StringUtils.h"
 #include "../AppSettings.h"
 #include "../ButtonPrefs.h"
+#include "../ModuleSettings.h"
 
 
 #include <utility>              // for std::pair
@@ -219,17 +220,6 @@ bool CControlPage::Apply()
 }
 
 LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
-  // TODO: Why isn't this in case?
-  if(message == WM_MS_CLOSE) {
-    if(m_pModuleSettingsDialogue) {
-      m_pModuleSettingsDialogue->DestroyWindow();
-    }
-
-    m_pModuleSettingsDialogue = NULL;
-    EnableWindow(m_hwnd, true);
-    return 0;
-  }
-
 	double NewSpeed;
 	switch (message) 
 	{	
@@ -303,13 +293,8 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
           if(!m_pDasherInterface->GetModuleSettings(strNewValue, &pSettings, &iSettingsCount))
             break;
 
-          RECT sRect;
-
-          m_pModuleSettingsDialogue = new CModuleSettings(strNewValue, pSettings, iSettingsCount, m_pAppSettings);
-          m_pModuleSettingsDialogue->Create(m_hwnd, &sRect);
-          m_pModuleSettingsDialogue->ShowWindow(SW_RESTORE);
-        
-          EnableWindow(m_hwnd, false);
+          CModuleSettings dlg(strNewValue, pSettings, iSettingsCount, m_pAppSettings);
+          dlg.DoModal(m_hwnd);
         }
       }
 		  break;
@@ -332,13 +317,8 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
           if(!m_pDasherInterface->GetModuleSettings(strNewValue, &pSettings, &iSettingsCount))
             break;
 
-          RECT sRect;
-
-          m_pModuleSettingsDialogue = new CModuleSettings(strNewValue, pSettings, iSettingsCount, m_pAppSettings);
-          m_pModuleSettingsDialogue->Create(m_hwnd, &sRect);
-          m_pModuleSettingsDialogue->ShowWindow(SW_RESTORE);
-        
-          EnableWindow(m_hwnd, false);
+          CModuleSettings dlg(strNewValue, pSettings, iSettingsCount, m_pAppSettings);
+          dlg.DoModal(m_hwnd);
         }
       }
 		  break;

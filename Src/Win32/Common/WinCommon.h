@@ -19,6 +19,7 @@
 #define _ATL_ENABLE_PTM_WARNING
 
 #include <atlbase.h>
+#include <atlstr.h>
 #include <atlwin.h>
 
 

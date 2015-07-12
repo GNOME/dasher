@@ -11,11 +11,9 @@
 
 #include "PrefsPageBase.h"
 
-#include "../resource.h"
 
 #include "../../DasherCore/DasherInterfaceBase.h"
 #include "../../DasherCore/ColourIO.h"
-#include "../ModuleSettings.h"
 
 class CAppSettings;
 
@@ -41,8 +39,6 @@ private:
   
   void PopulateList();
   bool Apply();
- 
-  CModuleSettings *m_pModuleSettingsDialogue;
 };
 
 #endif  // ndef

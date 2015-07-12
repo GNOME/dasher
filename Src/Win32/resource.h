@@ -91,6 +91,7 @@
 #define IDD_LMPAGE                      175
 #define IDD_APPEARANCEPAGE              178
 #define IDD_APPPAGE                     179
+#define IDD_MODULESETTINGS              180
 #define IDC_LIST1                       1008
 #define IDC_INPUT_LIST                  1008
 #define IDC_LIST_ALPH                   1009
@@ -140,7 +141,6 @@
 #define IDC_OUTLINE                     1091
 #define IDC_STOPIDLE                    1091
 #define IDC_TIMESTAMP                   1092
-//#define IDC_STYLUS                      1092
 #define IDC_COPYALLONSTOP               1093
 #define IDC_DRAWMOUSE                   1094
 #define IDC_SPEECH                      1096
@@ -256,7 +256,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        180
+#define _APS_NEXT_RESOURCE_VALUE        181
 #define _APS_NEXT_COMMAND_VALUE         32820
 #define _APS_NEXT_CONTROL_VALUE         1160
 #define _APS_NEXT_SYMED_VALUE           110
