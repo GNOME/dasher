@@ -86,7 +86,7 @@ extern "C" void alphabet_combo_changed(GtkWidget *pWidget, gpointer pUserData);
 extern "C" void dasher_main_cb_filename_changed(DasherEditor *pEditor, gpointer pUserData);
 extern "C" void dasher_main_cb_buffer_changed(DasherEditor *pEditor, gpointer pUserData);
 extern "C" void dasher_main_cb_context_changed(DasherEditor *pEditor, gpointer pUserData);
-extern "C" gboolean dasher_main_cb_window_close(GtkWidget *pWidget, gpointer pUserData);
+extern "C" gboolean dasher_main_cb_window_close(GtkWidget *pWidget, GdkEvent *event, gpointer pUserData);
 extern "C" void parameter_notification(GtkDasherControl *pDasherControl, gint iParameter, gpointer data);
 
 /* ... Focus management and event forwarding */
@@ -1203,7 +1203,7 @@ dasher_main_cb_context_changed(DasherEditor *pEditor, gpointer pUserData) {
 }
 
 extern "C" gboolean 
-dasher_main_cb_window_close(GtkWidget *pWidget, gpointer pUserData) {
+dasher_main_cb_window_close(GtkWidget *pWidget, GdkEvent *event, gpointer pUserData) {
   DasherMain *pDasherMain = DASHER_MAIN(pUserData);
   dasher_main_command_quit(pDasherMain);
   
