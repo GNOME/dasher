@@ -11,31 +11,18 @@ CModuleControl::CModuleControl(SModuleSettings *pSetting) {
 };
 
 void CModuleControl::Create(HWND hParent) {
-  m_hParent = hParent;
-
-  CWindowImpl<CModuleControl>::Create(m_hParent);
-  
-  m_hWndCaption = CreateWindowEx(WS_EX_CONTROLPARENT, TEXT("STATIC"), m_strCaption.c_str(), 
-    WS_CHILD | WS_VISIBLE | WS_TABSTOP, 0, 0, 0, 0, m_hWnd, NULL, WinHelper::hInstApp, NULL);
-
-  HGDIOBJ hGuiFont;
-  hGuiFont = GetStockObject(DEFAULT_GUI_FONT);
- 
-  SendMessage(m_hWndCaption, WM_SETFONT, (WPARAM)hGuiFont, (LPARAM)true);
-
-  CreateChild(m_hWnd);
+  m_hCaption.Create(TEXT("STATIC"), hParent, 0, m_strCaption.c_str(), WS_CHILD | WS_VISIBLE);
+  CreateChild(hParent);
 };
 
 void CModuleControl::Layout(RECT *pRect) {
-  MoveWindow(pRect->left, pRect->top, pRect->right - pRect->left, pRect->bottom - pRect->top);
-  
-  ::MoveWindow(m_hWndCaption, 0, 0, (pRect->right - pRect->left) / 2, pRect->bottom - pRect->top, TRUE);
+  m_hCaption.MoveWindow(pRect->left, pRect->top, (pRect->right - pRect->left) / 2, pRect->bottom - pRect->top);
 
   RECT sRect;
-  sRect.left = (pRect->right - pRect->left) / 2;
+  sRect.left = (pRect->right + pRect->left) / 2;
   sRect.right = pRect->right;
-  sRect.top = 0;
-  sRect.bottom = pRect->bottom - pRect->top;
+  sRect.top = pRect->top;
+  sRect.bottom = pRect->bottom;
 
   LayoutChild(sRect);
 };

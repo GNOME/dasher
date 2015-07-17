@@ -5,26 +5,18 @@ int CModuleControlBool::GetHeightRequest() {
 }
 
 void CModuleControlBool::Initialise(CAppSettings *pAppSets) {
-  if(pAppSets->GetBoolParameter(m_iId))
-    SendMessage(m_hCheckbox, BM_SETCHECK, BST_CHECKED, 0);
-  else
-    SendMessage(m_hCheckbox, BM_SETCHECK, BST_UNCHECKED, 0);
+  m_hCheckbox.SendMessage(BM_SETCHECK, pAppSets->GetBoolParameter(m_iId) ? BST_CHECKED : BST_UNCHECKED);
 }
 
 void CModuleControlBool::Apply(CAppSettings *pAppSets) {
-  pAppSets->SetBoolParameter(m_iId, SendMessage(m_hCheckbox, BM_GETCHECK, 0, 0) == BST_CHECKED);
+  pAppSets->SetBoolParameter(m_iId, m_hCheckbox.SendMessage(BM_GETCHECK) == BST_CHECKED);
 }
 
 void CModuleControlBool::CreateChild(HWND hParent) {
-  m_hCheckbox = CreateWindowEx(WS_EX_CONTROLPARENT, TEXT("BUTTON"), NULL, 
-    BS_AUTOCHECKBOX | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 0, 0, 0, 0, hParent, NULL, WinHelper::hInstApp, NULL);
-
-  HGDIOBJ hGuiFont;
-  hGuiFont = GetStockObject(DEFAULT_GUI_FONT);
- 
-  SendMessage(m_hCheckbox, WM_SETFONT, (WPARAM)hGuiFont, (LPARAM)true);
+  m_hCheckbox.Create(TEXT("BUTTON"), hParent, 0,0,
+    BS_AUTOCHECKBOX | WS_CHILD | WS_VISIBLE | WS_TABSTOP);
 }
 
 void CModuleControlBool::LayoutChild(RECT &sRect) {
-  ::MoveWindow(m_hCheckbox, sRect.left, sRect.top, sRect.right - sRect.left, sRect.bottom - sRect.top, TRUE);
+  m_hCheckbox.MoveWindow(&sRect);
 }

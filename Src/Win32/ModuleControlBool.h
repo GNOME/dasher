@@ -14,7 +14,7 @@ public:
   virtual void LayoutChild(RECT &sRect);
 
 private:
-  HWND m_hCheckbox;
+  CWindow m_hCheckbox;
 };
 
 #endif

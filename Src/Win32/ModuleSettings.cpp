@@ -1,6 +1,5 @@
 #include "ModuleControlBool.h"
 #include "ModuleControlLong.h"
-#include "ModuleControlLongSpin.h"
 #include "ModuleControlString.h"
 #include "ModuleSettings.h"
 
@@ -19,7 +18,7 @@ CModuleSettings::CModuleSettings(const std::string &strModuleName, SModuleSettin
       m_pControls[i] = new CModuleControlLong(pSettings + i);
       break;
     case T_LONGSPIN:
-      m_pControls[i] = new CModuleControlLongSpin(pSettings + i);
+      m_pControls[i] = new CModuleControlLong(pSettings + i);
       break;
     case T_STRING:
       m_pControls[i] = new CModuleControlString(pSettings + i);
@@ -52,6 +51,8 @@ LRESULT CModuleSettings::OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, B
   RECT size = { 0, 0, m_iDlgWidth, iHeight };
   MapDialogRect(&size);
   ResizeClient(size.right, size.bottom);
+
+  SendMessageToDescendants(WM_SETFONT, (WPARAM)GetFont(), true);
   return 1;
 }
 

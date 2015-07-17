@@ -214,7 +214,6 @@
     <ClCompile Include="ModuleControl.cpp" />
     <ClCompile Include="ModuleControlBool.cpp" />
     <ClCompile Include="ModuleControlLong.cpp" />
-    <ClCompile Include="ModuleControlLongSpin.cpp" />
     <ClCompile Include="ModuleControlString.cpp" />
     <ClCompile Include="ModuleSettings.cpp" />
     <ClCompile Include="Widgets\AdvancedPage.cpp" />
@@ -243,7 +242,6 @@
     <ClInclude Include="ModuleControl.h" />
     <ClInclude Include="ModuleControlBool.h" />
     <ClInclude Include="ModuleControlLong.h" />
-    <ClInclude Include="ModuleControlLongSpin.h" />
     <ClInclude Include="ModuleControlString.h" />
     <ClInclude Include="ModuleSettings.h" />
     <ClInclude Include="resource.h" />

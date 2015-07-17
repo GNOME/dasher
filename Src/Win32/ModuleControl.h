@@ -8,26 +8,10 @@
 #include <atlwin.h>
 #include <string>
 
-class CModuleControl : public CWindowImpl<CModuleControl> {
+class CModuleControl {
 public:
   CModuleControl(SModuleSettings *pSetting);
 
-  DECLARE_WND_SUPERCLASS(NULL, L"STATIC")
-
-  BEGIN_MSG_MAP(CModuleControl)
-    MESSAGE_HANDLER(WM_NOTIFY, OnNotify)
-    MESSAGE_HANDLER(WM_HSCROLL, OnScroll)
-  END_MSG_MAP()
-
-  virtual LRESULT OnNotify(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
-    bHandled = false;
-    return 0;
-  };
-
-  virtual LRESULT OnScroll(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
-    bHandled = false;
-    return 0;
-  }; 
  
   void Create(HWND hParent);
   void Layout(RECT *pRect);
@@ -40,7 +24,6 @@ public:
   virtual void LayoutChild(RECT &sRect) = 0;
 
 protected:
-  HWND m_hParent;
   std::wstring m_strCaption;
 
   int m_iId;
@@ -49,7 +32,7 @@ protected:
   int m_iDivisor;
   int m_iStep;
 
-  HWND m_hWndCaption;
+  CWindow m_hCaption;
 };
 
 #endif
