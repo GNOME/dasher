@@ -11,7 +11,7 @@ LRESULT CModuleControlLong::OnEditChange(WORD wNotifyCode, WORD wID, HWND hWndCt
 }
 
 LRESULT CModuleControlLong::OnEditLeft(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled) {
-  UpdateValue(GetSliderValue());
+  UpdateValue(GetValue());
   return 0;
 }
 
@@ -24,30 +24,35 @@ void CModuleControlLong::Initialise(CAppSettings *pAppSets) {
 }
 
 void CModuleControlLong::Apply(CAppSettings *pAppSets) {
-  pAppSets->SetLongParameter(m_iId, GetSliderValue());
+  pAppSets->SetLongParameter(m_iId, GetValue());
 }
 
 void CModuleControlLong::CreateChild(HWND hParent) {
   CWindowImpl<CModuleControlLong>::Create(hParent);
+  if (m_bShowSlider) {
+    m_hSlider.Create(TRACKBAR_CLASS, *this, 0, 0, TBS_HORZ | WS_CHILD | WS_VISIBLE | WS_TABSTOP);
+    m_hSlider.SendMessage(TBM_SETPAGESIZE, 0, m_iStep);
+    m_hSlider.SendMessage(TBM_SETRANGEMIN, true, m_iMin);
+    m_hSlider.SendMessage(TBM_SETRANGEMAX, true, m_iMax);
+  }
 
-  m_hSlider.Create(TRACKBAR_CLASS, *this, 0, 0, TBS_HORZ | WS_CHILD | WS_VISIBLE | WS_TABSTOP);
-  m_hSlider.SendMessage(TBM_SETPAGESIZE, 0, m_iStep);
-  m_hSlider.SendMessage(TBM_SETRANGEMIN, true, m_iMin);
-  m_hSlider.SendMessage(TBM_SETRANGEMAX, true, m_iMax);
-
-  m_hEdit.Create(TEXT("EDIT"), *this, 0, 0, 
+  m_hEdit.Create(TEXT("EDIT"), *this, 0, 0,
     WS_CHILD | WS_VISIBLE | WS_TABSTOP, WS_EX_CLIENTEDGE, 1);
 }
 
 void CModuleControlLong::LayoutChild(RECT &sRect) {
   MoveWindow(&sRect);
-  m_hEdit.MoveWindow(0, 0, 32, sRect.bottom - sRect.top);
-  m_hSlider.MoveWindow(32, 0, sRect.right - sRect.left - 32, sRect.bottom - sRect.top);
+  if (m_bShowSlider) {
+    m_hEdit.MoveWindow(0, 0, 32, sRect.bottom - sRect.top);
+    m_hSlider.MoveWindow(32, 0, sRect.right - sRect.left - 32, sRect.bottom - sRect.top);
+  }
+  else {
+    m_hEdit.MoveWindow(0, 0, sRect.right - sRect.left, sRect.bottom - sRect.top);
+  }
 }
 
 void CModuleControlLong::UpdateValue(long lValue) {
-  if (GetSliderValue() != lValue)
-  {
+  if (m_hSlider && GetSliderValue() != lValue) {
     m_hSlider.SendMessage(TBM_SETPOS, true, lValue);
   }
   if (GetEditValue() != lValue)
@@ -67,4 +72,14 @@ long CModuleControlLong::GetEditValue() {
 
 long CModuleControlLong::GetSliderValue() {
   return m_hSlider.SendMessage(TBM_GETPOS);
+}
+
+long CModuleControlLong::GetValue() {
+  if (m_hSlider)
+    return GetSliderValue();
+
+  long lValue = GetEditValue();
+  if (lValue < m_iMin) lValue = m_iMin;
+  if (lValue > m_iMax) lValue = m_iMax;
+  return lValue;
 }

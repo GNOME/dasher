@@ -15,10 +15,10 @@ CModuleSettings::CModuleSettings(const std::string &strModuleName, SModuleSettin
       m_pControls[i] = new CModuleControlBool(pSettings + i);
       break;
     case T_LONG:
-      m_pControls[i] = new CModuleControlLong(pSettings + i);
+      m_pControls[i] = new CModuleControlLong(pSettings + i, true);
       break;
     case T_LONGSPIN:
-      m_pControls[i] = new CModuleControlLong(pSettings + i);
+      m_pControls[i] = new CModuleControlLong(pSettings + i, false);
       break;
     case T_STRING:
       m_pControls[i] = new CModuleControlString(pSettings + i);

@@ -5,7 +5,7 @@
 
 class CModuleControlLong : public CModuleControl, public CWindowImpl<CModuleControlLong>{
 public:
-  CModuleControlLong(SModuleSettings *pSetting) : CModuleControl(pSetting) {};
+  CModuleControlLong(SModuleSettings *pSetting, bool bShowSlider) : CModuleControl(pSetting), m_bShowSlider(bShowSlider) {};
   DECLARE_WND_SUPERCLASS(NULL, L"STATIC")
 
   BEGIN_MSG_MAP(CModuleControlLong)
@@ -27,9 +27,10 @@ private:
   void UpdateValue(long lValue);
   long GetEditValue();
   long GetSliderValue();
+  long GetValue();
   CWindow m_hEdit;
   CWindow m_hSlider;
-
+  bool m_bShowSlider;
 };
 
 #endif
