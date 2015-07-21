@@ -38,17 +38,25 @@ CModuleSettings::~CModuleSettings() {
 LRESULT CModuleSettings::OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
   std::wstring strWName;
   WinUTF8::UTF8string_to_wstring(m_strModuleName, strWName);
+  SetWindowText(strWName.c_str());
 
-  int iHeight(7);
+  int iDlgWidth = 7 + CModuleControl::CAPTION_WIDTH + CModuleControl::CHILD_WIDTH + 7;
+  int iTop = 7;
 
   for (int i(0); i < m_iCount; ++i) {
-    m_pControls[i]->Create(m_hWnd);
-    m_pControls[i]->Initialise(m_pAppSets);
-    iHeight += m_pControls[i]->GetHeightRequest() + 2;
-  }
-  iHeight += (-2 + 7 + 14 + 7); // - last item spacing + buttons 
+    RECT controlRect = { 7, iTop, iDlgWidth - 7, iTop + m_pControls[i]->GetHeight() };
+    MapDialogRect(&controlRect);
 
-  RECT size = { 0, 0, m_iDlgWidth, iHeight };
+    m_pControls[i]->Create(m_hWnd, controlRect);
+    m_pControls[i]->Initialise(m_pAppSets);
+    iTop += m_pControls[i]->GetHeight() + 2;
+  }
+  iTop += -2 + 7;
+
+  MoveButton(IDCANCEL, iDlgWidth - 57, iTop);
+  MoveButton(IDOK, iDlgWidth - 2 * (57), iTop);
+
+  RECT size = { 0, 0, iDlgWidth, iTop + 14 + 7 };
   MapDialogRect(&size);
   ResizeClient(size.right, size.bottom);
 
@@ -56,7 +64,7 @@ LRESULT CModuleSettings::OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, B
   return 1;
 }
 
-LRESULT  CModuleSettings::OnCloseCmd(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled){
+LRESULT  CModuleSettings::OnCloseCmd(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled) {
   if (wID == IDOK) {
     // Apply and close 
     for (int i(0); i < m_iCount; ++i) {
@@ -64,26 +72,6 @@ LRESULT  CModuleSettings::OnCloseCmd(WORD wNotifyCode, WORD wID, HWND hWndCtl, B
     }
   }
   EndDialog(wID);
-  return 0;
-}
-
-LRESULT CModuleSettings::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
-  int iCurrentTop(7);
-
-  for (int i(0); i < m_iCount; ++i) {
-    int iHeight(m_pControls[i]->GetHeightRequest());
-
-    RECT sPosition = { 7, iCurrentTop, m_iDlgWidth - 7, iCurrentTop + iHeight };
-    MapDialogRect(&sPosition);
-    m_pControls[i]->Layout(&sPosition);
-
-    iCurrentTop += iHeight + 2;
-  }
-  int btnX = m_iDlgWidth - (50 + 7);
-  int btnY = iCurrentTop -2 + 7;
-  MoveButton(IDCANCEL, btnX, btnY);
-  btnX -= 50 + 7;
-  MoveButton(IDOK, btnX, btnY);
   return 0;
 }
 

@@ -19,20 +19,17 @@ public:
   BEGIN_MSG_MAP(CModuleSettings)
     MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
     COMMAND_RANGE_HANDLER(IDOK, IDCANCEL, OnCloseCmd)
-    MESSAGE_HANDLER(WM_SIZE, OnSize)
   END_MSG_MAP()
 
   LRESULT OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
   LRESULT OnCloseCmd(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
-  LRESULT OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
 private:
   void MoveButton(WORD wID, int x, int y);
+
   int m_iCount;
   CModuleControl **m_pControls;
   std::string m_strModuleName;
-  const int m_iDlgWidth = 250;
-
   CAppSettings *m_pAppSets;
 };
 

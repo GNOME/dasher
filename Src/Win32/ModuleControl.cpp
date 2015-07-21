@@ -1,4 +1,5 @@
 #include "ModuleControl.h"
+#include <algorithm>
 
 CModuleControl::CModuleControl(SModuleSettings *pSetting) {
   WinUTF8::UTF8string_to_wstring(pSetting->szDescription, m_strCaption);
@@ -10,19 +11,24 @@ CModuleControl::CModuleControl(SModuleSettings *pSetting) {
   m_iStep = pSetting->iStep;
 };
 
-void CModuleControl::Create(HWND hParent) {
-  m_hCaption.Create(TEXT("STATIC"), hParent, 0, m_strCaption.c_str(), WS_CHILD | WS_VISIBLE);
-  CreateChild(hParent);
+void CModuleControl::Create(HWND hParent, RECT& rect)
+{
+  CWindowImpl<CModuleControl>::Create(hParent, rect);
+
+  RECT captionRect = { 0, 0, CAPTION_WIDTH, GetCaptionHeight() };
+  MapDialogRect(hParent, &captionRect);
+  m_hCaption.Create(TEXT("STATIC"), *this, captionRect, m_strCaption.c_str(), WS_CHILD | WS_VISIBLE);
+
+  RECT childRect = { CAPTION_WIDTH, 0, CAPTION_WIDTH + CHILD_WIDTH, GetChildHeight() };
+  MapDialogRect(hParent, &childRect);
+  CreateChild(*this, childRect);
 };
 
-void CModuleControl::Layout(RECT *pRect) {
-  m_hCaption.MoveWindow(pRect->left, pRect->top, (pRect->right - pRect->left) / 2, pRect->bottom - pRect->top);
+int CModuleControl::GetHeight() {
+  return std::max(GetCaptionHeight(), GetChildHeight());
+}
 
-  RECT sRect;
-  sRect.left = (pRect->right + pRect->left) / 2;
-  sRect.right = pRect->right;
-  sRect.top = pRect->top;
-  sRect.bottom = pRect->bottom;
-
-  LayoutChild(sRect);
-};
+int CModuleControl::GetCaptionHeight() {
+  int charsPerLine = CAPTION_WIDTH / 4;
+  return 8 * ((m_strCaption.length() + charsPerLine - 1) / charsPerLine);
+}

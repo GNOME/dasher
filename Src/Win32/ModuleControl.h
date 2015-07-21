@@ -4,27 +4,29 @@
 #include "Common/WinCommon.h"
 #include "AppSettings.h"
 #include "../Common/ModuleSettings.h"
-#include <atlbase.h>
-#include <atlwin.h>
 #include <string>
 
-class CModuleControl {
+class CModuleControl : public CWindowImpl<CModuleControl> {
 public:
-  CModuleControl(SModuleSettings *pSetting);
+  static const int CAPTION_WIDTH = 125;
+  static const int CHILD_WIDTH = 125;
 
- 
-  void Create(HWND hParent);
-  void Layout(RECT *pRect);
+  CModuleControl(SModuleSettings *pSetting);
+  DECLARE_WND_SUPERCLASS(NULL, L"STATIC")
+
+  BEGIN_MSG_MAP(CModuleControl)
+  END_MSG_MAP()
+  void Create(HWND hParent, RECT& rect);
+
+  virtual int GetHeight();
 
   // Abstract members to be implemented by descendents
-  virtual int GetHeightRequest() = 0;
   virtual void Initialise(CAppSettings*) = 0;
   virtual void Apply(CAppSettings*) = 0;
-  virtual void CreateChild(HWND hParent) = 0;
-  virtual void LayoutChild(RECT &sRect) = 0;
 
 protected:
-  std::wstring m_strCaption;
+  virtual void CreateChild(HWND hParent, RECT& rect) = 0;
+  virtual int GetChildHeight() = 0;
 
   int m_iId;
   int m_iMin;
@@ -32,6 +34,9 @@ protected:
   int m_iDivisor;
   int m_iStep;
 
+private:
+  virtual int GetCaptionHeight();
+  std::wstring m_strCaption;
   CWindow m_hCaption;
 };
 

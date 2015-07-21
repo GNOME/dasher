@@ -15,10 +15,6 @@ LRESULT CModuleControlLong::OnEditLeft(WORD wNotifyCode, WORD wID, HWND hWndCtl,
   return 0;
 }
 
-int CModuleControlLong::GetHeightRequest() {
-  return 12;
-}
-
 void CModuleControlLong::Initialise(CAppSettings *pAppSets) {
   UpdateValue(pAppSets->GetLongParameter(m_iId));
 }
@@ -27,35 +23,29 @@ void CModuleControlLong::Apply(CAppSettings *pAppSets) {
   pAppSets->SetLongParameter(m_iId, GetValue());
 }
 
-void CModuleControlLong::CreateChild(HWND hParent) {
-  CWindowImpl<CModuleControlLong>::Create(hParent);
+void CModuleControlLong::CreateChild(HWND hParent, RECT& rect) {
+  RECT editRect = rect;
+
   if (m_bShowSlider) {
-    m_hSlider.Create(TRACKBAR_CLASS, *this, 0, 0, TBS_HORZ | WS_CHILD | WS_VISIBLE | WS_TABSTOP);
+    RECT sliderRect = editRect;
+    sliderRect.left = editRect.left + (editRect.right - editRect.left)/4;
+    editRect.right = sliderRect.left;
+
+    m_hSlider.Create(TRACKBAR_CLASS, *this, sliderRect, 0, TBS_HORZ | WS_CHILD | WS_VISIBLE | WS_TABSTOP);
     m_hSlider.SendMessage(TBM_SETPAGESIZE, 0, m_iStep);
     m_hSlider.SendMessage(TBM_SETRANGEMIN, true, m_iMin);
     m_hSlider.SendMessage(TBM_SETRANGEMAX, true, m_iMax);
   }
-
-  m_hEdit.Create(TEXT("EDIT"), *this, 0, 0,
+  m_hEdit.Create(TEXT("EDIT"), *this, editRect, 0,
     WS_CHILD | WS_VISIBLE | WS_TABSTOP, WS_EX_CLIENTEDGE, 1);
-}
 
-void CModuleControlLong::LayoutChild(RECT &sRect) {
-  MoveWindow(&sRect);
-  if (m_bShowSlider) {
-    m_hEdit.MoveWindow(0, 0, 32, sRect.bottom - sRect.top);
-    m_hSlider.MoveWindow(32, 0, sRect.right - sRect.left - 32, sRect.bottom - sRect.top);
-  }
-  else {
-    m_hEdit.MoveWindow(0, 0, sRect.right - sRect.left, sRect.bottom - sRect.top);
-  }
 }
 
 void CModuleControlLong::UpdateValue(long lValue) {
   if (m_hSlider && GetSliderValue() != lValue) {
     m_hSlider.SendMessage(TBM_SETPOS, true, lValue);
   }
-  if (GetEditValue() != lValue)
+  if (!m_hEdit.GetWindowTextLength() || GetEditValue() != lValue)
   {
     double dValue = lValue*1.0 / m_iDivisor;
     CString sValue;

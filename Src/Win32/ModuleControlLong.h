@@ -3,10 +3,9 @@
 
 #include "ModuleControl.h"
 
-class CModuleControlLong : public CModuleControl, public CWindowImpl<CModuleControlLong>{
+class CModuleControlLong : public CModuleControl {
 public:
   CModuleControlLong(SModuleSettings *pSetting, bool bShowSlider) : CModuleControl(pSetting), m_bShowSlider(bShowSlider) {};
-  DECLARE_WND_SUPERCLASS(NULL, L"STATIC")
 
   BEGIN_MSG_MAP(CModuleControlLong)
     COMMAND_HANDLER(1, EN_CHANGE, OnEditChange)
@@ -17,11 +16,10 @@ public:
   LRESULT OnEditLeft(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
   LRESULT OnSliderScroll(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
-  virtual int GetHeightRequest();
+  virtual int GetChildHeight() { return 14; };
   virtual void Initialise(CAppSettings *pAppSets);
   virtual void Apply(CAppSettings *pAppSets);
-  virtual void CreateChild(HWND hParent);
-  virtual void LayoutChild(RECT &sRect);
+  virtual void CreateChild(HWND hParent, RECT& rect);
 
 private:
   void UpdateValue(long lValue);
