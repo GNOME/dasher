@@ -61,9 +61,5 @@ VOID CALLBACK CDasherApp::HandleWinEvent(HWINEVENTHOOK hWinEventHook, DWORD even
 extern "C" int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR /*lpCmdLine*/, int nShowCmd)
 {
   WinHelper::hInstApp = hInstance;
-
-  // We don't want to starve other interactive applications
-  SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_BELOW_NORMAL);
-
   return DasherApp.WinMain(nShowCmd);
 }

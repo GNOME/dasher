@@ -72,7 +72,7 @@ HWND CDasherWindow::Create() {
 
   HWND hWnd;
 
-  if ((iStyle == APP_STYLE_COMPOSE) || (iStyle == APP_STYLE_DIRECT)) {
+  if (iStyle == APP_STYLE_DIRECT) {
     hWnd = CWindowImpl<CDasherWindow >::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN, WS_EX_NOACTIVATE | WS_EX_APPWINDOW | WS_EX_TOPMOST);
     ::SetMenu(hWnd, NULL);
   }
@@ -369,7 +369,7 @@ void CDasherWindow::Layout() {
   int iStyle(m_pAppSettings->GetLongParameter(APP_LP_STYLE));
 
   // Set up the window properties
-  if ((iStyle == APP_STYLE_COMPOSE) || (iStyle == APP_STYLE_DIRECT)) {
+  if (iStyle == APP_STYLE_DIRECT) {
     SetWindowLong(GWL_EXSTYLE, GetWindowLong(GWL_EXSTYLE) | WS_EX_NOACTIVATE | WS_EX_APPWINDOW);
     SetWindowPos(HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
     SetMenu(NULL);
