@@ -28,7 +28,6 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings) {
   m_pControlPage = new CControlPage(hParent, pDasher, pAppSettings);
   m_pViewPage = new CViewPage(hParent, pAppSettings);
   m_pAdvancedPage = new CAdvancedPage(hParent, pAppSettings);
- // m_pLMPage = new CLMPage(hParent, pDasher, pAppSettings);
 
   // Set up the property sheets which go into the preferences
   // dialogue.

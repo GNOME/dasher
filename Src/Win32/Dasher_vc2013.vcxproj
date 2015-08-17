@@ -221,7 +221,6 @@
     <ClCompile Include="Widgets\ControlPage.cpp" />
     <ClCompile Include="Widgets\Edit.cpp" />
     <ClCompile Include="Widgets\FilenameGUI.cpp" />
-    <ClCompile Include="Widgets\LMPage.cpp" />
     <ClCompile Include="Widgets\Menu.cpp" />
     <ClCompile Include="Widgets\Prefs.cpp" />
     <ClCompile Include="Widgets\PrefsPageBase.cpp" />
@@ -251,7 +250,6 @@
     <ClInclude Include="Widgets\ControlPage.h" />
     <ClInclude Include="Widgets\Edit.h" />
     <ClInclude Include="Widgets\FilenameGUI.h" />
-    <ClInclude Include="Widgets\LMPage.h" />
     <ClInclude Include="Widgets\Menu.h" />
     <ClInclude Include="Widgets\Prefs.h" />
     <ClInclude Include="Widgets\PrefsPageBase.h" />
