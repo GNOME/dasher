@@ -719,7 +719,7 @@ int CEdit::Delete(bool bForwards, CControlManager::EditDistance iDist) {
   }
 
   SendMessage(EM_SETSEL, (WPARAM)iStart, (LPARAM)iEnd);
-  SendMessage(EM_REPLACESEL, (WPARAM)true, (LPARAM)"");
+  SendMessage(EM_REPLACESEL, (WPARAM)true, (LPARAM)TEXT(""));
   return min(iStart, iEnd);
 }
 

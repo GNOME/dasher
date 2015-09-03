@@ -24,3 +24,5 @@ Template/
 *.sdf
 *~
 *.vcxproj.user
+Src/Win32/Dasher.aps
+Src/Win32/Dasher_vc2013.opensdf

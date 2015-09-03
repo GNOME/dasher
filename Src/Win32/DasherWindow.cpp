@@ -355,9 +355,6 @@ LRESULT CDasherWindow::OnOther(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
   // runtime.
   if (message == WM_DASHER_FOCUS)
     return OnDasherFocus(message, wParam, lParam, bHandled);
-  else if (message == DASHER_SHOW_PREFS) {
-    CPrefs Prefs(m_hWnd, m_pDasher, m_pAppSettings);
-  }
 
   return 0;
 }

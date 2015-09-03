@@ -30,7 +30,7 @@ using namespace WinUTF8;
 // shouldn't collide with anything else in our code.
 #define WM_DASHER_TIMER WM_USER + 128
 
-CONST UINT WM_DASHER_FOCUS = RegisterWindowMessage(_WM_DASHER_FOCUS);
+CONST UINT WM_DASHER_FOCUS = RegisterWindowMessage(L"WM_DASHER_FOCUS");
 
 CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit)
  : CDashIntfScreenMsgs(new CWinOptions( "Inference Group", "Dasher3")), m_hParent(Parent), m_pWindow(pWindow), m_pEdit(pEdit) {
