@@ -240,7 +240,7 @@ CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManage
 : CControlParser(pInterface), CControlBase(pCreateFrom, pInterface, pNCManager), CSettingsObserver(pCreateFrom), m_pSpeech(NULL), m_pCopy(NULL) {
   //TODO, used to be able to change label+colour of root/pause/stop from controllabels.xml
   // (or, get the root node title "control" from the alphabet!)
-  SetRootTemplate(new NodeTemplate("Control",8)); //default NodeTemplate does nothing
+  SetRootTemplate(new NodeTemplate("",8)); //default NodeTemplate does nothing
   GetRootTemplate()->successors.push_back(NULL);
 
   m_pPause = new Pause("Pause",241);
