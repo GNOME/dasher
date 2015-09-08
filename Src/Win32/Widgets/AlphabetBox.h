@@ -10,7 +10,6 @@
 #define __AlphabetBox_h__
 
 #include "../resource.h"
-//#include "../../DasherCore/Alphabet/AlphIO.h"
 #include "PrefsPageBase.h"
 
 class CAlphabetBox : public CPrefsPageBase {

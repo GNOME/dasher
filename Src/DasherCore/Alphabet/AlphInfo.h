@@ -1,4 +1,4 @@
-// AlphIO.h
+// AlphInfo.h
 //
 // Copyright (c) 2007 The Dasher Team
 //
@@ -165,4 +165,4 @@ protected:
 
 /// @}
 
-#endif /* #ifndef __AlphIO_h__ */
+#endif /* #ifndef __AlphInfo_h__ */

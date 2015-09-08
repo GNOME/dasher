@@ -208,7 +208,6 @@
   <ItemGroup>
     <ClCompile Include="AppSettings.cpp" />
     <ClCompile Include="Common\DasherEncodingToCP.cpp" />
-    <ClCompile Include="Common\WinMenus.cpp" />
     <ClCompile Include="Common\WinWrap.cpp" />
     <ClCompile Include="DasherWindow.cpp" />
     <ClCompile Include="ModuleControl.cpp" />
@@ -234,7 +233,6 @@
     <ClInclude Include="AppSettings.h" />
     <ClInclude Include="Common\DasherEncodingToCP.h" />
     <ClInclude Include="Common\StringUtils.h" />
-    <ClInclude Include="Common\WinMenus.h" />
     <ClInclude Include="Common\WinWrap.h" />
     <ClInclude Include="DasherAction.h" />
     <ClInclude Include="DasherWindow.h" />
