@@ -9,8 +9,6 @@
 #ifndef __DasherWindow_h__
 #define __DasherWindow_h__
 
-#include "resource.h"
-
 #include "Widgets/Splitter.h"
 #include "Widgets/StatusControl.h"
 #include "Widgets/Menu.h"

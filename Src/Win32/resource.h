@@ -30,6 +30,7 @@
 #define IDS_PREFS_COLOUR                148
 #define IDS_UNSAVED_CHANGES             149
 #define IDS_PREFS_LM                    151
+#define IDS_ERR_SOCKET_TITLE            156
 #define IDD_CONTROLPAGE                 168
 #define ID_OPTIONS_PREFS                169
 #define IDD_APPEARANCEPAGE              178
@@ -88,19 +89,11 @@
 #define IDC_FONT_VLARGE                 1155
 #define IDC_CHECK4                      1156
 #define IDC_CHECK5                      1157
-#define ID_FILE_NEW                     32771
-#define ID_EDIT_CUT                     32772
-#define ID_EDIT_COPY                    32773
-#define ID_EDIT_PASTE                   32774
 #define ID_EDIT_SELECTALL               32775
 #define ID_HELP_CONTENTS                32776
-#define ID_FILE_SAVE                    32782
-#define ID_FILE_OPEN                    32783
-#define ID_FILE_SAVE_AS                 32791
 #define ID_EDIT_COPY_ALL                32798
 #define ID_IMPORT_TRAINFILE             32799
 #define ID_FILE_APPEND                  32800
-#define IDC_STATIC                      -1
 
 // Next default values for new objects
 // 

@@ -27,6 +27,8 @@
 
 #include "Widgets/Toolbar.h"
 #include "WinCommon.h"
+#include <afxres.h>
+#include "resource.h"
 
 #include <Htmlhelp.h>
 

@@ -11,6 +11,7 @@
 #include "WinCommon.h"
 
 #include "Toolbar.h"
+#include <afxres.h>
 #include "../resource.h"
 
 // Track memory leaks on Windows to the line that new'd the memory

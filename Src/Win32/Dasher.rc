@@ -419,6 +419,7 @@ BEGIN
     IDS_UNTITLED_FILE       "Untitled"
     IDS_UNSAVED_CHANGES     "Unsaved changes"
     IDS_PREFS_LM            "Application"
+    IDS_ERR_SOCKET_TITLE    "Dasher Socket Input error"
 END
 
 #endif    // English (United Kingdom) resources
