@@ -73,6 +73,9 @@ XML (WiX) toolset, from http://wix.sourceforge.net/.  For Visual Studio
 version of WiX.  If it installs successfully, you should see "Windows 
 Installer XML Version 3.0" listed in the about box of Visual Studio.
 
+The Visual Studio 2013 project files use the environment variable called 
+"WIX" which should be set to the install directory of WiX.
+
 setup.exe
 ---------
 
