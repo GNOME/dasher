@@ -316,7 +316,7 @@ LRESULT CDasherWindow::OnGetMinMaxInfo(UINT message, WPARAM wParam, LPARAM lPara
 }
 
 LRESULT CDasherWindow::OnInitMenuPopup(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
-  WinMenu.SortOut((HMENU)wParam);
+  EnableMenuItem((HMENU)wParam, ID_EDIT_PASTE, IsClipboardFormatAvailable(CF_TEXT)?MF_ENABLED: MF_GRAYED);
   return 0;
 }
 
@@ -389,6 +389,7 @@ void CDasherWindow::Layout() {
 
   int SpeedAlphabetHeight = m_pAppSettings->GetBoolParameter(BP_SHOW_SLIDER) ? m_pSpeedAlphabetBar->GetHeight() : 0;
   m_pSpeedAlphabetBar->MoveWindow(0, Height - SpeedAlphabetHeight, Width, SpeedAlphabetHeight);
+  m_pSpeedAlphabetBar->ShowWindow(SpeedAlphabetHeight ? SW_SHOW : SW_HIDE);
 
   int CanvasY = ToolbarHeight;
   int CanvasHeight = Height - SpeedAlphabetHeight - CanvasY;

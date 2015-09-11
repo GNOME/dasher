@@ -207,7 +207,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppSettings.cpp" />
-    <ClCompile Include="Common\DasherEncodingToCP.cpp" />
     <ClCompile Include="Common\WinWrap.cpp" />
     <ClCompile Include="DasherWindow.cpp" />
     <ClCompile Include="ModuleControl.cpp" />
@@ -220,7 +219,6 @@
     <ClCompile Include="Widgets\ControlPage.cpp" />
     <ClCompile Include="Widgets\Edit.cpp" />
     <ClCompile Include="Widgets\FilenameGUI.cpp" />
-    <ClCompile Include="Widgets\Menu.cpp" />
     <ClCompile Include="Widgets\Prefs.cpp" />
     <ClCompile Include="Widgets\PrefsPageBase.cpp" />
     <ClCompile Include="Widgets\Splitter.cpp" />
@@ -231,7 +229,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppSettings.h" />
-    <ClInclude Include="Common\DasherEncodingToCP.h" />
     <ClInclude Include="Common\StringUtils.h" />
     <ClInclude Include="Common\WinWrap.h" />
     <ClInclude Include="DasherAction.h" />
@@ -248,7 +245,6 @@
     <ClInclude Include="Widgets\ControlPage.h" />
     <ClInclude Include="Widgets\Edit.h" />
     <ClInclude Include="Widgets\FilenameGUI.h" />
-    <ClInclude Include="Widgets\Menu.h" />
     <ClInclude Include="Widgets\Prefs.h" />
     <ClInclude Include="Widgets\PrefsPageBase.h" />
     <ClInclude Include="Widgets\Splitter.h" />

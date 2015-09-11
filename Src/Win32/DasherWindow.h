@@ -11,7 +11,6 @@
 
 #include "Widgets/Splitter.h"
 #include "Widgets/StatusControl.h"
-#include "Widgets/Menu.h"
 #include "Widgets/SplashScreen.h"
 #include "Widgets/WindowSelect.h"
 #include "DasherMouseInput.h"
@@ -91,7 +90,6 @@ private:
 	//CCanvas *m_pCanvas;
 	CSplitter *m_pSplitter;
 	CStatusControl *m_pSpeedAlphabetBar;
-	CMenu WinMenu;
 	//CSplash *Splash;
 
 	CAppSettings *m_pAppSettings;
