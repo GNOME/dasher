@@ -171,7 +171,7 @@
               </Component>
               <Component Id="Training" Guid="bcc684a1-0a58-474c-bfd9-c25906bc7bf4">
                 <File Id="training_albanian_SQ.txt" Name="training_albanian_SQ.txt" DiskId="1" Source="..\..\Data\training\training_albanian_SQ.txt" />
-                <File Id="training_basque_EU.txt" Name="training_basque_EU.txt" DiskId="1" Source="..\..\Data\training\training_basque_EU.txt" />
+                <File Id="training_basque_ES.txt" Name="training_basque_ES.txt" DiskId="1" Source="..\..\Data\training\training_basque_ES.txt" />
                 <File Id="training_bengali_BD.txt" Name="training_bengali_BD.txt" DiskId="1" Source="..\..\Data\training\training_bengali_BD.txt" />
                 <!--<File Id="training_bengali_bn.txt" Name="training_bengali_bn.txt" DiskId="1" Source="..\..\Data\training\training_bengali_bn.txt" />-->
                 <File Id="training_canna_JP.txt" Name="training_canna_JP.txt" DiskId="1" Source="..\..\Data\training\training_canna_JP.txt" />

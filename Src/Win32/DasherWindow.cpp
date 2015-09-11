@@ -27,7 +27,7 @@
 
 #include "Widgets/Toolbar.h"
 #include "WinCommon.h"
-#include <afxres.h>
+#include <windows.h>
 #include "resource.h"
 
 #include <Htmlhelp.h>
@@ -226,19 +226,19 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
   case ID_EDIT_SELECTALL:
     m_pEdit->SelectAll();
     return 0;
-  case ID_EDIT_CUT:
+  case IDS_EDIT_CUT:
     m_pEdit->Cut();
     return 0;
-  case ID_EDIT_COPY:
+  case IDS_EDIT_COPY:
     m_pEdit->Copy();
     return 0;
   case ID_EDIT_COPY_ALL:
     m_pDasher->CopyToClipboard(m_pDasher->GetAllContext());
     return 0;
-  case ID_EDIT_PASTE:
+  case IDS_EDIT_PASTE:
     m_pEdit->Paste();
     return 0;
-  case ID_FILE_NEW:{
+  case IDS_FILE_NEW:{
     m_pEdit->New();
     // Selecting file->new indicates a new trial to our user logging object
     CUserLogBase* pUserLog = m_pDasher->GetUserLogPtr();
@@ -247,10 +247,10 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
     m_pDasher->SetBuffer(0);
     return 0;
   }
-  case ID_FILE_OPEN:
+  case IDS_FILE_OPEN:
     m_pEdit->Open();
     return 0;
-  case ID_FILE_SAVE:
+  case IDS_FILE_SAVE:
     if (!m_pEdit->Save())
       m_pEdit->SaveAs();
     return 0;

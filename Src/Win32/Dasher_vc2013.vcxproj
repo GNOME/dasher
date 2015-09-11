@@ -61,16 +61,22 @@
     <OutDir>.\Target/Debug\</OutDir>
     <IntDir>.\Target/Debug/Intermediate\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(EXPAT)\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>.\Target/Release\</OutDir>
     <IntDir>.\Target/Release/Intermediate\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(EXPAT)\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mobile Debug|Win32'">
     <OutDir>$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(EXPAT)\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Midl>
@@ -82,7 +88,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>WinCommon;Common;$(SPEECHSDK)\Include;$(TABLETSDK)\Include;C:\Program Files\HTML Help Workshop\include;$(EXPAT)\Source\lib;$(MICROSOFTSDK5)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>WinCommon;Common;$(SPEECHSDK)\Include;$(TABLETSDK)\Include;C:\Program Files\HTML Help Workshop\include;$(EXPAT)\Source\lib;$(MICROSOFTSDK5)\include;%(AdditionalIncludeDirectories);C:\Devel\expat\expat\lib;C:\Devel\expat\expat\lib</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN32_SPEECH;_DEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0501;_WIN32_IE=0x0501;ISOLATION_AWARE_ENABLED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -125,7 +131,7 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>WinCommon;Common;$(SPEECHSDK)\Include;$(TABLETSDK)\Include;$(EXPAT)\Source\lib;$(MICROSOFTSDK5)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>WinCommon;Common;$(SPEECHSDK)\Include;$(TABLETSDK)\Include;$(EXPAT)\Source\lib;$(MICROSOFTSDK5)\include;%(AdditionalIncludeDirectories);C:\Devel\expat\expat\lib;C:\Devel\expat\expat\lib</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN32_SPEECH;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0501;_WIN32_IE=0x0501;ISOLATION_AWARE_ENABLED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -167,7 +173,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>WinCommon;Common;$(SPEECHSDK)\Include;$(TABLETSDK)\Include;C:\Program Files\HTML Help Workshop\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>WinCommon;Common;$(SPEECHSDK)\Include;$(TABLETSDK)\Include;C:\Program Files\HTML Help Workshop\include;%(AdditionalIncludeDirectories);C:\Devel\expat\expat\lib;C:\Devel\expat\expat\lib</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;WIN32_SPEECH;_DEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
