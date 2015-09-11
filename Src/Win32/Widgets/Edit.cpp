@@ -175,35 +175,32 @@ bool CEdit::Save() {
   return true;
 }
 
-void CEdit::New() {
+bool CEdit::ConfirmAndSaveIfNeeded() {
+  if (!m_pAppSettings->GetBoolParameter(APP_BP_CONFIRM_UNSAVED))
+    return true;
+  
   switch (m_FilenameGUI->QuerySaveFirst()) {
   case IDYES:
-    if(!Save())
-      if(!TSaveAs(m_FilenameGUI->SaveAs()))
-        return;
+    if (!Save())
+      if (!TSaveAs(m_FilenameGUI->SaveAs()))
+        return false;
     break;
   case IDNO:
     break;
   default:
-    return;
+    return false;
   }
-  TNew(TEXT(""));
+  return true;
+}
+
+void CEdit::New() {
+  if (ConfirmAndSaveIfNeeded())
+    TNew(TEXT(""));
 }
 
 void CEdit::Open() {
-  switch (m_FilenameGUI->QuerySaveFirst()) {
-  case IDYES:
-    if(!Save())
-      if(!TSaveAs(m_FilenameGUI->SaveAs()))
-        return;
-    break;
-  case IDNO:
-    break;
-  default:
-    return;
-    break;
-  }
-  TOpen(m_FilenameGUI->Open());
+  if (ConfirmAndSaveIfNeeded())
+    TOpen(m_FilenameGUI->Open());
 }
 
 void CEdit::SaveAs() {

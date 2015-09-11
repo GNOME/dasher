@@ -52,7 +52,8 @@ struct app_sp_table {
 // is useful
 
 app_bp_table app_boolparamtable[] = {
-  {APP_BP_TIME_STAMP, "TimeStampNewFiles", PERS, true, true, "TimeStampNewFiles"},
+  { APP_BP_TIME_STAMP, "TimeStampNewFiles", PERS, true, true, "TimeStampNewFiles" },
+  { APP_BP_CONFIRM_UNSAVED, "ConfirmUnsavedFiles", PERS, true, true, "ConfirmUnsavedFiles" },
   {APP_BP_SHOW_TOOLBAR, "ViewToolbar", PERS, true, true, "ViewToolbar"},
   {APP_BP_SHOW_TOOLBAR_TEXT, "ShowToolbarText", PERS, true, true, "ShowToolbarText"},
   {APP_BP_SHOW_LARGE_ICONS, "ShowLargeIcons", PERS, true, true, "ShowLargeIcons"},

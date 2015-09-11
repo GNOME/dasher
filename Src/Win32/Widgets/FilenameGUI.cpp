@@ -203,8 +203,8 @@ int CFilenameGUI::QuerySaveFirst() {
     WinLocalisation::GetResourceString(IDS_QUERY_SAVE_CHANGES, &ResourceString);
     WinLocalisation::GetResourceString(IDS_UNSAVED_CHANGES, &Title);
 
-	return IDNO;// MessageBox(WindowWithTitlebar, ResourceString.c_str(), Title.c_str(), MB_YESNOCANCEL | MB_ICONWARNING | MB_DEFBUTTON1 | MB_APPLMODAL);
-    }
+    return MessageBox(WindowWithTitlebar, ResourceString.c_str(), Title.c_str(), MB_YESNOCANCEL | MB_ICONWARNING | MB_DEFBUTTON1 | MB_APPLMODAL);
+  }
 
   return IDNO;
 }

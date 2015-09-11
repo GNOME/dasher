@@ -87,7 +87,7 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   int Move(bool bForwards, Dasher::CControlManager::EditDistance iDist);
   int Delete(bool bForwards, Dasher::CControlManager::EditDistance iDist);
   void SetKeyboardTarget(HWND hwnd);
-  
+  bool ConfirmAndSaveIfNeeded();
   bool Save();
   // Functions for Windows GUI to call
   void New();

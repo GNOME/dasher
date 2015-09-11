@@ -55,6 +55,7 @@
 #define IDC_OUTLINE                     1091
 #define IDC_STOPIDLE                    1091
 #define IDC_TIMESTAMP                   1092
+#define IDC_CONFIRM_UNSAVED             1093
 #define IDC_DRAWMOUSE                   1094
 #define IDC_DRAWMOUSELINE               1097
 #define IDC_COLOURSCHEME                1098

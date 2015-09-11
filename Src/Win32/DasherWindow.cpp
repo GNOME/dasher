@@ -321,9 +321,10 @@ LRESULT CDasherWindow::OnInitMenuPopup(UINT message, WPARAM wParam, LPARAM lPara
 }
 
 LRESULT CDasherWindow::OnClose(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
-  // TODO: Prompt for confirmation here
-  SaveWindowState();
-  DestroyWindow();
+  if (m_pEdit->ConfirmAndSaveIfNeeded()) {
+    SaveWindowState();
+    DestroyWindow();
+  }
   return 0;
 }
 
