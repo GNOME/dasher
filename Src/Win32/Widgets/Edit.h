@@ -88,17 +88,10 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   int Delete(bool bForwards, Dasher::CControlManager::EditDistance iDist);
   void SetKeyboardTarget(HWND hwnd);
   
-  // Overriding file virtual functions
-  //void TimeStampNewFiles(bool Value);
-  void New(const std::string & filename);
-  bool Open(const std::string & filename);
-  bool OpenAppendMode(const std::string & filename);
-  bool SaveAs(const std::string & filename);
   bool Save();
   // Functions for Windows GUI to call
   void New();
   void Open();
-  void OpenAppendMode();
   void SaveAs();
   std::string Import();
   void SetDirty();              // Parent window gets notification Edit window has changed.
@@ -146,10 +139,8 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   CFilenameGUI *m_FilenameGUI;
   Tstring m_filename;
   HWND textwindow;
-  bool AppendMode;
   void TNew(const Tstring & filename);
   bool TOpen(const Tstring & filename);
-  bool TOpenAppendMode(const Tstring & filename);
   bool TSaveAs(const Tstring & filename);
   
   HFONT m_Font;

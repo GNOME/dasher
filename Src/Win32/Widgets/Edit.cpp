@@ -80,32 +80,6 @@ void CEdit::Move(int x, int y, int Width, int Height) {
   MoveWindow( x, y, Width, Height, TRUE);
 }
 
-void CEdit::New(const string &filename) {
-  Tstring newFilename;
-  UTF8string_to_wstring(filename, newFilename);
-  TNew(newFilename);
-}
-
-bool CEdit::Open(const string &filename) {
-  Tstring openFilename;
-  UTF8string_to_wstring(filename, openFilename);
-  return TOpen(openFilename);
-}
-
-bool CEdit::OpenAppendMode(const string &filename) {
-  // TODO: Check that this works the way it's supposed to (having
-  // first figured out what that is!)
-  Tstring openFilename;
-  UTF8string_to_wstring(filename, openFilename);
-  return TOpenAppendMode(openFilename);
-}
-
-bool CEdit::SaveAs(const string &filename) {
-  Tstring saveFilename;
-  UTF8string_to_wstring(filename, saveFilename);
-  return TSaveAs(saveFilename);
-}
-
 bool CEdit::Save() {
   if(FileHandle == INVALID_HANDLE_VALUE) {
     if(m_filename == TEXT(""))
@@ -232,22 +206,6 @@ void CEdit::Open() {
   TOpen(m_FilenameGUI->Open());
 }
 
-void CEdit::OpenAppendMode() {
-  switch (m_FilenameGUI->QuerySaveFirst()) {
-  case IDYES:
-    if(!Save())
-      if(!TSaveAs(m_FilenameGUI->SaveAs()))
-        return;
-    break;
-  case IDNO:
-    break;
-  default:
-    return;
-    break;
-  }
-  TOpenAppendMode(m_FilenameGUI->Open());
-}
-
 void CEdit::SaveAs() {
   TSaveAs(m_FilenameGUI->SaveAs());
 }
@@ -274,7 +232,6 @@ void CEdit::TNew(const Tstring &filename) {
   if(FileHandle != INVALID_HANDLE_VALUE)
     CloseHandle(FileHandle);
   FileHandle = INVALID_HANDLE_VALUE;
-  AppendMode = false;
   Clear();
 }
 
@@ -314,15 +271,9 @@ bool CEdit::TOpen(const Tstring &filename) {
   UTF8string_to_wstring(text, inserttext);
   InsertText(inserttext);
 
-  AppendMode = false;
   m_FilenameGUI->SetFilename(m_filename);
   m_FilenameGUI->SetDirty(false);
   m_dirty = false;
-  return true;
-}
-
-bool CEdit::TOpenAppendMode(const Tstring &filename) {
-  AppendMode = true;
   return true;
 }
 
