@@ -16,7 +16,6 @@
 #define IDS_EDIT_CUT                    113
 #define IDI_SMALL                       114
 #define IDS_EDIT_COPY                   115
-#define ID_EDIT_COPY					115
 #define IDC_DASHER                      116
 #define IDS_EDIT_PASTE                  117
 #define IDS_EDIT_COPY_ALL               119
@@ -96,12 +95,14 @@
 #define ID_EDIT_COPY_ALL                32798
 #define ID_IMPORT_TRAINFILE             32799
 #define ID_FILE_APPEND                  32800
-#define ID_FILE_SAVE_AS					32801
-#define ID_FILE_SAVE					32802
-#define ID_FILE_OPEN					32803
-#define ID_FILE_NEW						32804
-#define ID_EDIT_PASTE					32805
-#define ID_EDIT_CUT						32806
+#define ID_FILE_SAVE_AS                 32801
+#define ID_FILE_SAVE                    32802
+#define ID_FILE_OPEN                    32803
+#define ID_FILE_NEW                     32804
+#define ID_EDIT_PASTE                   32805
+#define ID_EDIT_CUT                     32806
+#define ID_EDIT_COPY                    32807
+
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
