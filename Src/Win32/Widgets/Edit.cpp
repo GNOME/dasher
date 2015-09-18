@@ -353,20 +353,6 @@ void CEdit::SetInterface(Dasher::CDasherInterfaceBase *DasherInterface) {
 #endif
 }
 
-std::string CEdit::get_context(int iOffset, int iLength) {
-  TCHAR *wszContent = new TCHAR[iOffset + iLength + 1];
-  
-  SendMessage(WM_GETTEXT, (LONG) (iOffset + iLength + 1), (LONG) wszContent);
-
-  std::string strReturn;
-  wstring_to_UTF8string(wszContent + iOffset, strReturn);
-
-  delete[] wszContent;
-
-  return strReturn;
-}
-
-
 void CEdit::output(const std::string &sText) {
   wstring String;
   WinUTF8::UTF8string_to_wstring(sText, String);

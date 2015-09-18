@@ -335,14 +335,17 @@ void CDasher::CopyToClipboard(const string &strText) {
 }
 
 std::string CDasher::GetAllContext() {
-	int speechlength = m_pEdit->GetWindowTextLength();
-	LPTSTR allspeech = new TCHAR[speechlength + 1];
-	m_pEdit->GetWindowText(allspeech, speechlength + 1);
-	string res;
-	wstring_to_UTF8string(wstring(allspeech),res);
-	return res;
+  CString wideText;
+  m_pEdit->GetWindowText(wideText);
+  return WinUTF8::wstring_to_UTF8string(wideText);
 }
 
 std::string CDasher::GetContext(unsigned int iStart, unsigned int iLength) {
-  return m_pEdit->get_context(iStart, iLength);
+  CString wideText;
+  m_pEdit->GetWindowText(wideText);
+  return WinUTF8::wstring_to_UTF8string(wideText.Mid(iStart, iLength));
+}
+
+int CDasher::GetAllContextLenght(){
+  return m_pEdit->GetWindowTextLength();
 }

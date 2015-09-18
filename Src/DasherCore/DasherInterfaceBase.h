@@ -347,6 +347,10 @@ public:
   virtual void ClearAllContext();
   virtual std::string GetAllContext()=0;
 
+  /// Subclasses should return the length of whole text. In letters, not bytes.
+  virtual int GetAllContextLenght() = 0;
+
+
   /// Set a key value pair by name - designed to allow operation from
   /// the command line.  Returns 0 on success, an error string on failure.
   ///

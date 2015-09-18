@@ -52,6 +52,7 @@ public:
 
   virtual std::string GetAllContext();
   std::string GetContext(unsigned int iStart, unsigned int iLength);
+  int GetAllContextLenght();
 
 #ifdef WIN32_SPEECH
   bool SupportsSpeech();

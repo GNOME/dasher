@@ -107,9 +107,6 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   
   void SetInterface(Dasher::CDasherInterfaceBase * DasherInterface);
   
-  // Get context (new version)
-  std::string get_context(int iOffset, int iLength);
-
   // called when a new character falls under the crosshair
   void output(const std::string & sText);
     
