@@ -102,7 +102,6 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   void SelectAll();
   void Clear();
   
-  void SetEncoding(Dasher::Opts::FileEncodingFormats Encoding);
   void SetFont(std::string Name, long Size);
   
   void SetInterface(Dasher::CDasherInterfaceBase * DasherInterface);
@@ -146,7 +145,6 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   
   std::string m_Output;         // UTF-8 to go to training file
   UINT CodePage;                // for font and possible for finding the encoding
-  Dasher::Opts::FileEncodingFormats m_Encoding; // file encoding option (may say to use codepage or user setting)
   
   DWORD threadid;
   HWND targetwindow;

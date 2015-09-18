@@ -612,7 +612,7 @@ void CDasherInterfaceBase::ChangeAlphabet() {
 
 Opts::ScreenOrientations CDasherInterfaceBase::ComputeOrientation() {
   Opts::ScreenOrientations pref(Opts::ScreenOrientations(GetLongParameter(LP_ORIENTATION)));
-  if (pref!=Opts::Alphabet) return pref;
+  if (pref!=Opts::AlphabetDefault) return pref;
   if (m_pNCManager) return m_pNCManager->GetAlphabet()->GetOrientation();
   //haven't created the NCManager yet, so not yet reached Realize, but must
   // have been given Screen (to make View). Use default LR for now, as when

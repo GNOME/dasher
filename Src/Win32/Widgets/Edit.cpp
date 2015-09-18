@@ -94,80 +94,11 @@ bool CEdit::Save() {
   SetFilePointer(FileHandle, NULL, NULL, FILE_BEGIN);
   SetEndOfFile(FileHandle);
 
-  // Get all the text from the edit control
-  LRESULT EditLength = 1 + SendMessage( WM_GETTEXTLENGTH, 0, 0);
-  TCHAR *EditText = new TCHAR[EditLength];
-  EditLength = SendMessage( WM_GETTEXT, (WPARAM) EditLength, (LPARAM) EditText);
-
+  CString wideText;
+  GetWindowText(wideText);
+  CStringA mbcsText(wideText);
   DWORD NumberOfBytesWritten;   // Used by WriteFile
-
-  // This is Windows therefore we tag Unicode files with BOMs (Byte Order Marks) {{{
-  // Then notepad and other Windows apps can recognise the files.
-  // Do NOT write BOMs in a UNIX version, they are not welcome there.
-  // The BOM is just an encoding of U+FEFF (ZERO WIDTH NO-BREAK SPACE)
-  // This is unambiguous as U+FFFE is not a valid Unicode character.
-  // There could be a menu option for this, but most users won't know what a BOM is. }}}
-  unsigned int WideLength = 0;
-  wchar_t *WideText = 0;
-  if((m_Encoding == Opts::UTF16LE) || (m_Encoding == Opts::UTF16BE)) {
-    // These are the UTF-16 formats. If the string isn't already in UTF-16 we need
-    // it to be so.
-#ifdef _UNICODE
-    WideLength = EditLength;
-    WideText = EditText;
-#else
-    WideText = new wchar_t[EditLength + 1];
-    WideLength = MultiByteToWideChar(CodePage, 0, EditText, -1, WideText, EditLength + 1);
-#endif
-  }
-  switch (m_Encoding) {
-  case Opts::UTF8:{            // there is no byte order, but BOM tags it as a UTF-8 file
-      unsigned char BOM[3] = { 0xEF, 0xBB, 0xBF };
-      WriteFile(FileHandle, &BOM, 3, &NumberOfBytesWritten, NULL);
-      Tstring Tmp = EditText;
-      string Output;
-      wstring_to_UTF8string(EditText, Output);
-      WriteFile(FileHandle, Output.c_str(), Output.size(), &NumberOfBytesWritten, NULL);
-      break;
-    }
-  case Opts::UTF16LE:{
-      // TODO I am assuming this machine is LE. Do any windows (perhaps CE) machines run on BE?
-      unsigned char BOM[2] = { 0xFF, 0xFE };
-      WriteFile(FileHandle, &BOM, 2, &NumberOfBytesWritten, NULL);
-      WriteFile(FileHandle, WideText, WideLength * 2, &NumberOfBytesWritten, NULL);
-#ifndef _UNICODE
-      delete[]WideText;
-#endif
-      break;
-    }
-  case Opts::UTF16BE:{         // UTF-16BE
-      // TODO I am again assuming this machine is LE.
-      unsigned char BOM[2] = { 0xFE, 0xFF };
-      WriteFile(FileHandle, &BOM, 2, &NumberOfBytesWritten, NULL);
-      // There will be a better way. Perhaps use _swab instead.
-      for(unsigned int i = 0; i < WideLength; i++) {
-        const char *Hack = (char *)&WideText[i];
-        WriteFile(FileHandle, Hack + 1, 1, &NumberOfBytesWritten, NULL);
-        WriteFile(FileHandle, Hack, 1, &NumberOfBytesWritten, NULL);
-      }
-#ifndef _UNICODE
-      delete[]WideText;
-#endif
-      break;
-    }
-  default:
-#ifdef _UNICODE
-    char *MultiByteText = new char[EditLength * 4];
-    int MultiByteLength = WideCharToMultiByte(CodePage, 0, EditText, EditLength, MultiByteText, EditLength * 4, NULL, NULL);
-    WriteFile(FileHandle, MultiByteText, MultiByteLength, &NumberOfBytesWritten, NULL);
-    delete[]MultiByteText;
-#else
-    WriteFile(FileHandle, EditText, EditLength, &NumberOfBytesWritten, NULL);
-#endif
-    break;                      // do nothing
-  }
-
-  delete[]EditText;
+  WriteFile(FileHandle, mbcsText, mbcsText.GetLength(), &NumberOfBytesWritten, NULL);
   // The file handle is not closed here. We keep a write-lock on the file to stop other programs confusing us.
 
   m_FilenameGUI->SetDirty(false);
@@ -314,10 +245,6 @@ void CEdit::SelectAll() {
 
 void CEdit::Clear() {
   SendMessage(WM_SETTEXT, 0, (LPARAM) TEXT(""));
-}
-
-void CEdit::SetEncoding(Dasher::Opts::FileEncodingFormats Encoding) {
-  m_Encoding = Encoding;
 }
 
 void CEdit::SetFont(string Name, long Size) {

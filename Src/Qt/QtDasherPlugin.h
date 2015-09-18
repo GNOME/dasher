@@ -27,8 +27,6 @@ Q_OBJECT public:
   void flush(int);
   void Clear() {
   };
-  void SetEncoding(Dasher::Opts::FileEncodingFormats) {
-  };
   void SetFont(std::string Name, long Size) {
   };
 

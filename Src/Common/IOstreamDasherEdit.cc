@@ -119,9 +119,6 @@ void IOstreamDasherEdit::TimeStampNewFiles(bool Value) {
 void IOstreamDasherEdit::deletetext() {
 }
 
-void IOstreamDasherEdit::SetEncoding(Opts::FileEncodingFormats Encoding) {
-}
-
 void IOstreamDasherEdit::SetFont(std::string Name, long Size) {
 }
 
