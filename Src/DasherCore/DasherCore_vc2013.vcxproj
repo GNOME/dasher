@@ -244,7 +244,6 @@
     <ClCompile Include="FileWordGenerator.cpp" />
     <ClCompile Include="FrameRate.cpp" />
     <ClCompile Include="GameModule.cpp" />
-    <ClCompile Include="IMEConversionHelper.cpp" />
     <ClCompile Include="LanguageModelling\CTWLanguageModel.cpp" />
     <ClCompile Include="LanguageModelling\DictLanguageModel.cpp" />
     <ClCompile Include="LanguageModelling\HashTable.cpp" />
@@ -329,9 +328,6 @@
     <ClInclude Include="FrameRate.h" />
     <ClInclude Include="GameModule.h" />
     <ClInclude Include="GameStatistics.h" />
-    <CustomBuild Include="IMEConversionHelper.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Mobile Debug|Win32'">true</ExcludedFromBuild>
-    </CustomBuild>
     <ClInclude Include="InputFilter.h" />
     <ClInclude Include="LanguageModelling\CTWLanguageModel.h" />
     <ClInclude Include="LanguageModelling\DictLanguageModel.h" />

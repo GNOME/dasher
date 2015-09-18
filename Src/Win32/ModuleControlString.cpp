@@ -9,10 +9,7 @@ void CModuleControlString::Initialise(CAppSettings *pAppSets) {
 void CModuleControlString::Apply(CAppSettings *pAppSets) {
   CString wideText;
   m_hEntry.GetWindowText(wideText);
-  std::string strUTF8Text;
-  WinUTF8::wstring_to_UTF8string(std::wstring(wideText), strUTF8Text);
-
-  pAppSets->SetStringParameter(m_iId, strUTF8Text);
+  pAppSets->SetStringParameter(m_iId, WinUTF8::wstring_to_UTF8string(wideText));
 }
 
 void CModuleControlString::CreateChild(HWND hParent, RECT& rect) {
