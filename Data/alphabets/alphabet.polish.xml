@@ -70,17 +70,20 @@
 
       <s t="u" d="u" />
 
+      <s t="v" d="v" />
+
       <s t="w" d="w" />
 
       <s t="x" d="x" />
 
       <s t="y" d="y" />
 
+      <s t="z" d="z" />
+
       <s t="ź" d="ź" />
 
       <s t="ż" d="ż" />
 
-      <s t="z" d="z" />
     </group>
 
     <group name="Duże litery" b="111">
@@ -140,19 +143,20 @@
 
       <s t="U" d="U" />
 
+      <s t="V" d="V" />
+
       <s t="W" d="W" />
 
       <s t="X" d="X" />
 
+      <s t="Y" d="Y" />
+
       <s t="Z" d="Z" />
 
-<!-- ACL removing duplicates. Why are these here?
       <s t="Ź" d="Ź" />
 
       <s t="Ż" d="Ż" />
 
-      <s t="Z" d="Z" />
--->
     </group>
 
     <group name="Liczby"   b="113">
