@@ -18,8 +18,6 @@ inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, scr
   if(Colour != -1)
     FillRect(m_hDCBuffer, &Rect, brush);
 
-#ifndef _WIN32_WCE
-
   if(GetWidth() != (screenint)-1) {
 
     point aPoints[5];
@@ -30,11 +28,8 @@ inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, scr
     aPoints[3].x=x1; aPoints[3].y=y2;
     aPoints[4].x=x1; aPoints[4].y=y1;
 
-	//FrameRect(m_hDCBuffer, &Rect, CScreen::GetBrush(iOutlineColour));
 	Polyline(aPoints, 5, iThickness, iOutlineColour==-1 ? 3 : iOutlineColour);
   }
-#endif
-
 }
 
 inline void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iFillColour, int iLineColour, int iThickness) {
@@ -51,11 +46,9 @@ inline void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int 
     SelectObject(m_hDCBuffer, hBrushOld);
   }
   // TODO: Fix this (?) - looks to take no account of iThickness...and allegedly doesn't work on winCE either!
-#ifndef _WIN32_WCE
   if (iThickness>0)
     Arc(m_hDCBuffer, iCX - iR, iCY - iR, iCX + iR, iCY + iR,
                      iCX, iCY - iR, iCX, iCY - iR );
-#endif
 
   SelectObject(m_hDCBuffer, hpOld);
 }
@@ -69,10 +62,6 @@ inline void CScreen::Polyline(point *Points, int Number, int iWidth, int iColour
   delete[]WinPoints;
   SelectObject(m_hDCBuffer, hpOld);
 }
-
-/*inline void CScreen::Polyline(point *Points, int Number, int iWidth) {
-  Polyline(Points, Number, iWidth, 0);
-}*/
 
 inline void CScreen::Blank() {
   RECT rect;
@@ -101,10 +90,9 @@ inline const void CScreen::point2POINT(const point *In, POINT *Out, int Number) 
 }
 
 inline HPEN& CScreen::GetPen(int iColor, int iWidth) {
-  stdext::hash_map <int, HPEN> :: const_iterator hm1_RcIter;
   int key = iColor+iWidth*256;
 
-  hm1_RcIter = m_cPens.find( key );
+  auto hm1_RcIter = m_cPens.find( key );
   if( hm1_RcIter == m_cPens.end() ) {
     HPEN pen = ::CreatePen(PS_SOLID, iWidth, RGB(m_pColours->Reds[iColor], m_pColours->Greens[iColor], m_pColours->Blues[iColor]));
     m_cPens[key] = pen;
@@ -114,7 +102,6 @@ inline HPEN& CScreen::GetPen(int iColor, int iWidth) {
 }
 
 inline HBRUSH& CScreen::GetBrush(int iColor) {
-  stdext::hash_map <int, HBRUSH> :: const_iterator hm1_RcIter;
   int key = iColor;
   // TODO: fix this hack. Why is iColor sometimes negative (-1)?
   if(key<0)
@@ -126,7 +113,7 @@ inline HBRUSH& CScreen::GetBrush(int iColor) {
   }
   ////////////////////////////////////////////////////////
 
-  hm1_RcIter = m_cBrushes.find( key );
+  auto hm1_RcIter = m_cBrushes.find( key );
   if( hm1_RcIter == m_cBrushes.end() ) {
     HBRUSH brush = CreateSolidBrush(RGB(m_pColours->Reds[iColor], m_pColours->Greens[iColor], m_pColours->Blues[iColor]));
     m_cBrushes[key] = brush;
@@ -136,24 +123,15 @@ inline HBRUSH& CScreen::GetBrush(int iColor) {
 }
 
 inline HFONT& CScreen::GetFont(int iSize) {
-  // TODO: Reimplement
-  //if(FontName != m_pDasherInterface->GetStringParameter(SP_DASHER_FONT)) {
-  //  FontName = m_pDasherInterface->GetStringParameter(SP_DASHER_FONT);
-  //   for(stdext::hash_map<int, HFONT>::const_iterator it(m_cFonts.begin()); it != m_cFonts.end(); ++it)
-  //	       DeleteObject(it->second);
-  //  m_cFonts.clear();
-  //}
-
   if (iSize > 50) // ???? Is there a limit to size, should it be a setting?
     iSize = 50;
 
-  stdext::hash_map <int, HFONT> :: const_iterator hm1_RcIter;
   int key = iSize;
 
   std::wstring wstrOutput;
   WinUTF8::UTF8string_to_wstring(FontName, wstrOutput);
 
-  hm1_RcIter = m_cFonts.find( key );
+  auto hm1_RcIter = m_cFonts.find( key );
   if( hm1_RcIter == m_cFonts.end() ) {
     HFONT font = CreateFont(int (-iSize), 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, LPCWSTR(wstrOutput.c_str())); // DEFAULT_CHARSET => font made just from Size and FontName
     m_cFonts[key] = font;

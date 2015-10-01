@@ -104,7 +104,7 @@ void CScreen::SetColourScheme(const CColourIO::ColourInfo *pColours) {
 void CScreen::SetFont(const string &strFont) {
   if(FontName == strFont) return;
   FontName = strFont;
-  for(stdext::hash_map<int, HFONT>::const_iterator it(m_cFonts.begin()); it != m_cFonts.end(); ++it)
+  for(auto it(m_cFonts.begin()); it != m_cFonts.end(); ++it)
     DeleteObject(it->second);
   m_cFonts.clear();
   for (set<CLabelListScreen::Label*>::iterator it=LabelsBegin(); it!=LabelsEnd(); it++)
@@ -165,7 +165,6 @@ void CScreen::DrawString(CDasherScreen::Label *lab, screenint x1, screenint y1, 
 pair<screenint,screenint> CScreen::TextSize(CDasherScreen::Label *lab, unsigned int iSize) {
   Label *label(static_cast<Label *>(lab));
 
-//      stdext::hash_map< CTextSizeInput, CTextSizeOutput, hash_textsize>::const_iterator it;
   map<unsigned int,pair<screenint,screenint> >::const_iterator it = label->m_sizeCache.find(iSize);
   if (it!=label->m_sizeCache.end()) return it->second;
 

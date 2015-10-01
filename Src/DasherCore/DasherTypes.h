@@ -39,19 +39,6 @@
 #include <string>
 #include <vector>
 
-// Definition for hash_map, platform dependent, not part of STL
-
-// Commented out by pjc - I don't think we use this any more
-// - Okay - maybe we do need this after all
-
-/* #ifdef DASHER_WIN32 */
-/* #include <hash_map> */
-/* #define HASH_MAP stdext::hash_map */
-/* #else */
-/* #include <ext/hash_map> */
-/* #define HASH_MAP __gnu_cxx::hash_map */
-/* #endif */
-
 namespace Dasher {
   // DasherModel co-ordinates are of type myint
   typedef Cint64 myint;
