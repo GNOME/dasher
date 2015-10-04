@@ -138,6 +138,7 @@ public:
 
   virtual void ClearAllContext();
   virtual std::string GetAllContext();
+  virtual int GetAllContextLenght();
   std::string GetContext(unsigned int iStart, unsigned int iLength);
 
   virtual bool SupportsClipboard();
