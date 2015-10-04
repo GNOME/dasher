@@ -23,8 +23,6 @@ public:
 protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-  HWND CustomBox;
-  
   Dasher::CDasherInterfaceBase *m_pDasherInterface;
 
   std::vector < std::string > ColourList;

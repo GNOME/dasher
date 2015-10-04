@@ -37,7 +37,7 @@ static menuentry menutable[] = {
 };
 
 CAlphabetBox::CAlphabetBox(HWND Parent, CAppSettings *pAppSettings)
-: CPrefsPageBase(Parent, pAppSettings), m_CurrentAlphabet(pAppSettings->GetStringParameter(SP_ALPHABET_ID)),  Editing(false), Cloning(false), EditChar(false), CustomBox(0), CurrentGroup(0), CurrentChar(0) {
+: CPrefsPageBase(Parent, pAppSettings), m_CurrentAlphabet(pAppSettings->GetStringParameter(SP_ALPHABET_ID)),  Editing(false), Cloning(false), EditChar(false), CurrentGroup(0), CurrentChar(0) {
   m_hwnd = 0;
   m_hPropertySheet = 0;
 }

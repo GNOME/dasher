@@ -12,7 +12,6 @@
 #include "../resource.h"
 #include "../Common/StringUtils.h"
 #include "../AppSettings.h"
-#include "../ButtonPrefs.h"
 #include "../ModuleSettings.h"
 
 
@@ -119,7 +118,6 @@ void CControlPage::PopulateList() {
 
 // TODO: Pretty horrible - sort this out
   {
-        //CButtonPrefs ButtonPrefs(m_hwnd, 0, m_pAppSettings);
         int iSelection(SendMessage(GetDlgItem(m_hwnd, IDC_CONTROL_LIST), LB_GETCURSEL, 0, 0));
     
         int iLength(SendMessage(GetDlgItem(m_hwnd, IDC_CONTROL_LIST), LB_GETTEXTLEN, iSelection, 0));

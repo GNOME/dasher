@@ -20,8 +20,6 @@ protected:
 private:
   HWND m_hPropertySheet;
 
-  HWND CustomBox;
-
   std::vector < std::string > AlphabetList;
   std::string m_CurrentAlphabet;
   //Dasher::CAlphInfo CurrentInfo;//for editing alphabets
