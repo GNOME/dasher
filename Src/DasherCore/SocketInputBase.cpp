@@ -170,7 +170,7 @@ void CSocketInputBase::SetCoordinateLabel( int iWhichCoordinate, const char *Lab
     char *buf(new char[strlen(msg)+strlen(Label)+DASHER_SOCKET_INPUT_MAX_COORDINATE_LABEL_LENGTH]);
     sprintf(buf,msg,Label,DASHER_SOCKET_INPUT_MAX_COORDINATE_LABEL_LENGTH);
     m_pMsgs->Message(buf, true);
-    delete buf;
+    delete[] buf;
   }
   strncpy(coordinateNames[iWhichCoordinate], Label, DASHER_SOCKET_INPUT_MAX_COORDINATE_LABEL_LENGTH);
   SocketDebugMsg("Socket input: set coordinate %d label to '%s'.", iWhichCoordinate,  coordinateNames[iWhichCoordinate]);
@@ -299,7 +299,7 @@ void CSocketInputBase::ReportErrnoError(const std::string &prefix) {
   char *buf(new char[strlen(msg) + prefix.length() + strlen(e)]);
   sprintf(buf,msg,prefix.c_str(),e);
   m_pMsgs->Message(buf,true);
-  delete buf;
+  delete[] buf;
 }
 
 void CSocketInputBase::SocketDebugMsg(const char *pszFormat, ...) {

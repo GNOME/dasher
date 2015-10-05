@@ -145,7 +145,7 @@ void CToolbar::CreateToolbar() {
 
   SendMessage(m_hwnd, TB_ADDBUTTONS, iNumButtons, (LPARAM)pButtons);
 
-  delete(pButtons);
+  delete[] pButtons;
 
   int dwBtnSize = SendMessage(m_hwnd, TB_GETBUTTONSIZE, 0,0);
 

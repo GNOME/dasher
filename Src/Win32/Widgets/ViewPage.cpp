@@ -169,7 +169,6 @@ LRESULT CViewPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPar
         m_CurrentColours = ColourList[CurrentIndex];
       }
       return TRUE;
-      break;
  
   case IDC_DFONT_BUTTON:
     // TODO: Put this in a function
@@ -199,5 +198,5 @@ LRESULT CViewPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPar
     }
   }
 
-  CPrefsPageBase::WndProc(Window, message, wParam, lParam);
+  return CPrefsPageBase::WndProc(Window, message, wParam, lParam);
 }

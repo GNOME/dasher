@@ -12,18 +12,11 @@
 #include "Widgets/Splitter.h"
 #include "Widgets/StatusControl.h"
 #include "Widgets/Edit.h"
-#include "DasherMouseInput.h"
-#include "AppSettings.h"
-
-#include "../Common/WinOptions.h"
 
 class CToolbar;
 namespace Dasher {
   class CDasher;
 };
-
-// Abstract interfaces to the Dasher engine
-#include "../../DasherCore/DasherInterfaceBase.h"
 
 class CDasherWindow : 
 	public ATL::CWindowImpl<CDasherWindow>, 

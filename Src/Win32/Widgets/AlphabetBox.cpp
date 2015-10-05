@@ -121,7 +121,6 @@ void CAlphabetBox::PopulateList() {
   m_pAppSettings->GetPermittedValues(SP_ALPHABET_ID, AlphabetList);
 
   int iDefaultIndex(-1);
-  int iFallbackIndex(-1);
 
   // Add each string to list box and index each one
   bool SelectionSet = false;
@@ -273,7 +272,7 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
       }
       break;
     case IDC_OR_CUSTOM:
-      if(SendMessage(GetDlgItem(m_hwnd, IDC_OR_CUSTOM), BM_GETCHECK, 0, 0 == BST_CHECKED)) {
+      if(SendMessage(GetDlgItem(m_hwnd, IDC_OR_CUSTOM), BM_GETCHECK, 0, 0) == BST_CHECKED) {
         EnableWindow(GetDlgItem(m_hwnd, IDC_OR_LR), TRUE);
         EnableWindow(GetDlgItem(m_hwnd, IDC_OR_RL), TRUE);
         EnableWindow(GetDlgItem(m_hwnd, IDC_OR_TB), TRUE);

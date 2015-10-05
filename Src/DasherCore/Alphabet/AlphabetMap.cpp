@@ -117,7 +117,7 @@ inline int CAlphabetMap::SymbolStream::findNext() {
           char *mbuf(new char[strlen(msg) + 4]);
           sprintf(mbuf, msg, static_cast<unsigned int>(buf[pos] & 0xff), numChars, len-pos);
           m_pMsgs->Message(mbuf,true);
-          delete mbuf;
+          delete[] mbuf;
         }
         return 0;
       }
@@ -128,7 +128,7 @@ inline int CAlphabetMap::SymbolStream::findNext() {
       char *mbuf(new char[strlen(msg) + 2]);
       sprintf(mbuf, msg, static_cast<unsigned int>(buf[pos] & 0xff));
       m_pMsgs->Message(mbuf,true);
-      delete mbuf;
+      delete[] mbuf;
     }
     ++pos;
   }

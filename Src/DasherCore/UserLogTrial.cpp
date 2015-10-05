@@ -487,31 +487,26 @@ void CUserLogTrial::GetUserTrialInfo()
 
   m_strCurrentTrial = "";
 
-  try
+  if (m_strCurrentTrialFilename.length() > 0)
   {
-    if (m_strCurrentTrialFilename.length() > 0)
-    {
-      fstream fin(m_strCurrentTrialFilename.c_str(), ios::in);       // We want ios::nocreate, but not available in .NET 2003, arrgh
+    // We want ios::nocreate, but not available in .NET 2003, arrgh
+    fstream fin(m_strCurrentTrialFilename.c_str(), ios::in);
 
-      // Make sure we successfully opened before we start reading it
-      if (fin.is_open())
+    // Make sure we successfully opened before we start reading it
+    if (fin.is_open())
+    {
+      while (!fin.eof())
       {
-        while(!fin.eof()) 
+        fin.getline(m_szTempBuffer, TEMP_BUFFER_SIZE);
+        if (strlen(m_szTempBuffer) > 0)
         {
-          fin.getline(m_szTempBuffer, TEMP_BUFFER_SIZE);
-          if (strlen(m_szTempBuffer) > 0)
-          {
-            m_strCurrentTrial += "\t\t\t";
-            m_strCurrentTrial += m_szTempBuffer;
-            m_strCurrentTrial += "\n";
-          }        
+          m_strCurrentTrial += "\t\t\t";
+          m_strCurrentTrial += m_szTempBuffer;
+          m_strCurrentTrial += "\n";
         }
-        fin.close();
       }
+      fin.close();
     }
-  } catch (...)
-  {
-    // The application might not be running in which case the read will fail.
   }
 }
 

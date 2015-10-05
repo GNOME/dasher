@@ -201,7 +201,7 @@ void CAutoSpeedControl::SpeedControl(myint iDasherX, myint iDasherY, CDasherView
         char *buf(new char[strlen(msg) + 5]);
         sprintf(buf, msg, (lBitrateTimes100/100.0));
         m_pMsgs->Message(buf,false);
-        delete buf;
+        delete[] buf;
         SetLongParameter(LP_MAX_BITRATE, lBitrateTimes100);
       }
       m_nSpeedCounter = 0;

@@ -737,21 +737,11 @@ void CUserLog::InitMemberVars()
 // Write this objects XML out  
 bool CUserLog::WriteXML()
 {
-  //CFunctionLogger f1("CUserLog::WriteXML", g_pLogger);
+	fstream fout(m_strFilename.c_str(), ios::trunc | ios::out);
+	fout << GetXML();
+	fout.close();
 
-  try
-  {
-    fstream fout(m_strFilename.c_str(), ios::trunc | ios::out);
-    fout << GetXML();
-    fout.close();
-
-    return true;
-
-  } catch (...)
-  {
-    g_pLogger->Log("CUserLog::WriteXML, failed to write file %s", logNORMAL, m_strFilename.c_str());
-    return false;
-  }
+	return true;
 }
 
 // Serializes our data to XML

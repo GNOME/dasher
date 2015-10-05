@@ -291,7 +291,7 @@ bool CDasher::SupportsSpeech() {
     }
     m_bAttemptedSpeech = true;
   }
-  return pVoice;
+  return pVoice != 0;
 }
 
 void CDasher::Speak(const string &strText, bool bInterrupt) {

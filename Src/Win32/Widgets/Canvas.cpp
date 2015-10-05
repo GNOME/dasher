@@ -60,8 +60,6 @@ HWND CCanvas::Create(HWND hParent) {
   HWND hWnd = CWindowImpl<CCanvas>::Create(hParent, NULL, NULL, WS_CHILD | WS_VISIBLE , 0);//WS_EX_CLIENTEDGE);
 
   m_hdc = GetDC();
-  HDC hdc2 = GetDC();
-  HDC hdc3 = GetDC();
 
   // TODO: Check out whether any of this needs to be reimplemented
 
@@ -241,8 +239,9 @@ LRESULT CCanvas::OnKeyUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHand
   
   if(iKeyVal != -1) {
     m_pDasherInterface->KeyUp(GetTickCount(), iKeyVal);
-    return 0;
   }
+  return 0;		  
+
 
   // TODO: I believe all this is obsolete, but check  
 //   switch(wParam) 
@@ -266,10 +265,6 @@ LRESULT CCanvas::OnKeyUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHand
 }
 
 LRESULT CCanvas::OnKeyDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
-#ifdef _DEBUG
-  TCHAR tmpAutoOffset[128];
-#endif
-  
   bHandled = TRUE;
   
   int iKeyVal(-1);
@@ -279,8 +274,8 @@ LRESULT CCanvas::OnKeyDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHa
   
   if(iKeyVal != -1) {
     m_pDasherInterface->KeyDown(GetTickCount(), iKeyVal);
-    return 0;
   }
+  return 0;
 
   // TODO: Also believed to be obsolete
   
