@@ -337,248 +337,126 @@ void CEdit::output(const std::string &sText) {
   m_Output += sText;
 }
 
-int CEdit::Move(bool bForwards, CControlManager::EditDistance iDist) {
+int _findAfterChars(const wchar_t* str, const wchar_t* chrs, int startPos) {
+  const wchar_t* ptr = str + startPos;
+  ptr += wcscspn(ptr, chrs);
+  ptr += wcsspn(ptr, chrs);
+  return ptr - str;
+}
 
-  // Unfortunately there doesn't seem to be a sane way of obtaining the caret
-  // position (as opposed to the bounds of the selection), so we're just going
-  // to have to assume that the caret is at the end...
+int _findBeforeChars(const wchar_t* str, const wchar_t* chrs, int startPos) {
+  const wchar_t* ptr = str + startPos;
+  // over non separators
+  while (ptr > str && !wcschr(chrs, *ptr)) {
+    --ptr;
+  }
+  // over separators
+  while (ptr > str && wcschr(chrs, *ptr)) {
+    --ptr;
+  }
+  // over non separators
+  while (ptr > str && !wcschr(chrs, *ptr)) {
+    --ptr;
+  }
+  if (wcschr(chrs, *ptr))
+    ++ptr;
 
-  int iStart;
-  int iEnd;
-  SendMessage(EM_GETSEL, (WPARAM)&iStart, (LPARAM)&iEnd);
+  return max(0, ptr - str);
+}
 
-  HLOCAL hMemHandle;
-  std::wstring strBufferText;
+// amajorek: Add list of word and sentence separators to alphabet definitions. 
+// And use that list instead of hardcoded. 
+// Fix exery place where boundaries are needed.
+const wchar_t* _wordSeparators = L" \t\v\f\r\n";
+const wchar_t* _sentenceSeparators = L".?!\r\n";
+const wchar_t* _paragraphSeparators = L"\r\n";
 
-  if(bForwards) {
-    switch(iDist) {
-    case CControlManager::EDIT_CHAR:
-      //if(iStart != iEnd)
-        ++iEnd;
-      break;
-    case CControlManager::EDIT_WORD: {
-      // Hmm... words are hard - this is a rough and ready approximation:
+void CEdit::GetRange(bool bForwards, CControlManager::EditDistance iDist, int* pStart, int* pEnd) {
+  int& iStart = *pStart;
+  int& iEnd = *pEnd;
 
-#ifndef _WIN32_WCE
-      // TODO: Fix this on Windows CE
-      int iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
-      hMemHandle = (HLOCAL)SendMessage( EM_GETHANDLE, 0, 0);
-      strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
-      LocalUnlock(hMemHandle);
+  switch (iDist) {
+  case CControlManager::EDIT_CHAR:
+    if (bForwards)
+      iEnd = min(iEnd + 1, (int)SendMessage(WM_GETTEXTLENGTH, 0, 0));
+    else
+      iStart = max(iStart - 1, 0);
+    break;
 
-      iEnd = strBufferText.find(' ', iEnd+1);
-      if(iEnd == -1)
-        iEnd = iNumChars + 1;
-      else
-        iEnd = iEnd + 1;
-#endif
-    }
-      break;
-    case CControlManager::EDIT_LINE: {
-/*      iEndLine = SendMessage( EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-      iLineOffset = iEnd - SendMessage( EM_LINEINDEX, (WPARAM)iEndLine, 0);
-      iNumLines = SendMessage( EM_GETLINECOUNT, 0, 0);
-      if( iEndLine < iNumLines - 1) {
-        ++iEndLine;
-        iLineStart = SendMessage( EM_LINEINDEX, (WPARAM)iEndLine, 0);
-        iLineLength = SendMessage( EM_LINELENGTH, (WPARAM)iEndLine, 0);
-        if( iLineOffset < iLineLength )
-          iEnd = iLineStart+iLineOffset;
-        else
-          iEnd = iLineStart+iLineLength;
-      }
-	  else if(iEndLine == iNumLines - 1) {
-		// we're on the last line so go to end of file
-		iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
-        iEnd = iNumChars + 1;
-      }
-*/    
+  case CControlManager::EDIT_LINE: {
+    if (bForwards) {
       // Make it behave like the 'End' key, unless we're at the end of the current line.
-	  // Then go down a line.
-	  int iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-	  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine + 1), 0) - 1; // end of this line
-	  if(iStart==iEnd)  // we were already at the end so go down a line
-		  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine + 2), 0) - 1;
+      // Then go down a line.
+      int iEndLine = SendMessage(EM_LINEFROMCHAR, iEnd, 0);
+      int iNewEnd = SendMessage(EM_LINEINDEX, iEndLine + 1, 0) - 1; // end of this line
+      // if we were already at the end so go down a line
+      if (iNewEnd <= iEnd)
+        iNewEnd = SendMessage(EM_LINEINDEX, iEndLine + 2, 0) - 1;
+      // on last line go to the end of text 
+      if (iNewEnd <= iEnd)
+        iNewEnd = SendMessage(WM_GETTEXTLENGTH, 0, 0);
+      iEnd = max(0, iNewEnd);
     }
-      break;
-    case CControlManager::EDIT_FILE: {
-      int iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
-      iEnd = iNumChars + 1;
+    else {
+      int iStartLine = SendMessage(EM_LINEFROMCHAR, iStart, 0);
+      int iNewStart = SendMessage(EM_LINEINDEX, iStartLine, 0); // start of this line
+      // if we were already at the start so go up a line
+      iStart = (iNewStart == iStart && iStartLine>0) ? SendMessage(EM_LINEINDEX, iStartLine - 1, 0) : iNewStart;
     }
-      break;
-    }
+    break;
   }
-  else {
-    switch(iDist) {
-    case CControlManager::EDIT_CHAR:
-        //ACL this case at least differs from Delete(bool,EditDistance):
-        // there we decrement iEnd whether or not iStart==iEnd.
-      if( iStart == iEnd )
-        --iEnd;
-      break;
-    case CControlManager::EDIT_WORD: {
-#ifndef _WIN32_WCE
-      // TODO: Fix this on Windows CE
-      int iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
-      hMemHandle = (HLOCAL)SendMessage(EM_GETHANDLE, 0, 0);
-      strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
-      LocalUnlock(hMemHandle);
 
-      if(iEnd > 0) {
-        iEnd = strBufferText.rfind(' ', iEnd-2);
-        if(iEnd == -1)
-          iEnd = 0;
-        else
-          iEnd = iEnd + 1;
-      }
-#endif
-    }
-      break;
-    case CControlManager::EDIT_LINE: {
-/*
-      iStartLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iStart, 0);
-      iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-      iLineOffset = iEnd - SendMessage(EM_LINEINDEX, (WPARAM)iEndLine, 0);
-      if( iStartLine > 0)
-        --iStartLine;
-	  else if( iStartLine == 0)
-	  {
-	    // we're on the first line so go to start of file...
-	    iStart = iEnd = 0;
-		break;
-	  }
-      iLineStart = SendMessage(EM_LINEINDEX, (WPARAM)iStartLine, 0);
-      iLineLength = SendMessage(EM_LINELENGTH, (WPARAM)iStartLine, 0);
-      if( iLineOffset < iLineLength )
-        iStart = iLineStart+iLineOffset;
-      else
-        iStart = iLineStart+iLineLength;
-*/
-	  int iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-	  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine), 0); // start of this line
-	  if(iStart==iEnd)  // we were already at the start so go up a line
-		  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine - 1), 0);
-    }
-      break;
-    case CControlManager::EDIT_FILE:
-      iEnd = 0;
-      break;
-    }
+  case CControlManager::EDIT_FILE:
+    if (bForwards)
+      iEnd = SendMessage(WM_GETTEXTLENGTH, 0, 0);
+    else
+      iStart = 0;
+    break;
+
+  case CControlManager::EDIT_WORD:
+  case CControlManager::EDIT_SENTENCE:
+  case CControlManager::EDIT_PARAGRAPH:
+  {
+    const wchar_t* separators = L"";
+    if (iDist == CControlManager::EDIT_WORD)
+      separators = _wordSeparators;
+    else if (iDist == CControlManager::EDIT_SENTENCE)
+      separators = _sentenceSeparators;
+    else if (iDist == CControlManager::EDIT_PARAGRAPH)
+      separators = _paragraphSeparators;
+
+    CString wideText;
+    GetWindowText(wideText);
+    if (bForwards)
+      iEnd = _findAfterChars(wideText, separators, iEnd);
+    else
+      iStart = _findBeforeChars(wideText, separators, max(0, iStart-1));
+    break;
   }
-  iStart = iEnd;
-  SendMessage(EM_SETSEL, (WPARAM)iStart, (LPARAM)iEnd);
+  }
+}
+
+int CEdit::Move(bool bForwards, CControlManager::EditDistance iDist) {
+  int iStart = 0;
+  int iEnd = 0;
+  SendMessage(EM_GETSEL, (WPARAM)&iStart, (LPARAM)&iEnd);
+  if (iStart == iEnd) // Ignore distance if text is selected. 
+    GetRange(bForwards, iDist, &iStart, &iEnd);
+  int pos = bForwards ? iEnd : iStart;
+  SendMessage(EM_SETSEL, (WPARAM)pos, (LPARAM)pos);
   SendMessage(EM_SCROLLCARET, 0, 0); //scroll the caret into view!
-  return iStart;
+  return pos;
 }
 
 int CEdit::Delete(bool bForwards, CControlManager::EditDistance iDist) {
-  int iStart;
-  int iEnd;
-
-  HLOCAL hMemHandle;
-  std::wstring strBufferText;
-
-  SendMessage(EM_GETSEL, (WPARAM)&iStart, (LPARAM)&iEnd);
-
-  if(bForwards) {
-    switch(iDist) {
-    case CControlManager::EDIT_CHAR:
-      ++iEnd;
-      break;
-    case CControlManager::EDIT_WORD: {
-#ifndef _WIN32_WCE
-      // TODO: Fix in Windows CE
-      int iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
-      hMemHandle = (HLOCAL)SendMessage(EM_GETHANDLE, 0, 0);
-      strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
-      LocalUnlock(hMemHandle);
-
-      iEnd = strBufferText.find(' ', iEnd+1);
-      if(iEnd == -1)
-        iEnd = iNumChars + 1;
-#endif
-    }  
-      break;
-    case CControlManager::EDIT_LINE: {
-/*
-      iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-      iLineOffset = iEnd - SendMessage(EM_LINEINDEX, (WPARAM)iEndLine, 0);
-      iNumLines = SendMessage(EM_GETLINECOUNT, 0, 0);
-      if( iEndLine < iNumLines - 1) {
-        ++iEndLine;
-        iLineStart = SendMessage(EM_LINEINDEX, (WPARAM)iEndLine, 0);
-        iLineLength = SendMessage(EM_LINELENGTH, (WPARAM)iEndLine, 0);
-        if( iLineOffset < iLineLength )
-          iEnd = iLineStart+iLineOffset;
-        else
-          iEnd = iLineStart+iLineLength;
-      }
-  */
-	  int iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-	  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine + 1), 0); // end of this line
-	  if(iStart==iEnd)  // we were already at the end so go down a line
-		  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine + 2), 0);
-    }
-      break;
-    case CControlManager::EDIT_FILE: {
-      int iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
-      iEnd = iNumChars + 1;
-    }
-      break;
-    }
-  }
-  else {
-    switch(iDist) {
-    case CControlManager::EDIT_CHAR:
-        //ACL this case at least differs from that for Move(bool, EditDistance):
-        // there we only decrement if iStart==iEnd.
-      --iEnd;
-      break;
-    case CControlManager::EDIT_WORD: {
-#ifndef _WIN32_WCE
-      int iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
-      hMemHandle = (HLOCAL)SendMessage(EM_GETHANDLE, 0, 0);
-      strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
-      LocalUnlock(hMemHandle);
-
-      if(iEnd > 0) {
-        iEnd = strBufferText.rfind(' ', iEnd-2);
-        if(iEnd == -1)
-          iEnd = 0;
-        else
-          iEnd = iEnd + 1;
-      }
-#endif
-    }
-      break;
-    case CControlManager::EDIT_LINE: {
-/*       iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-      iLineOffset = iEnd - SendMessage(EM_LINEINDEX, (WPARAM)iEndLine, 0);
-      iNumLines = SendMessage(EM_GETLINECOUNT, 0, 0);
-      if(iEndLine > 0) {
-        --iEndLine;
-        iLineStart = SendMessage(EM_LINEINDEX, (WPARAM)iEndLine, 0);
-        iLineLength = SendMessage(EM_LINELENGTH, (WPARAM)iEndLine, 0);
-        if( iLineOffset < iLineLength )
-          iEnd = iLineStart+iLineOffset;
-        else
-          iEnd = iLineStart+iLineLength;
-      }
-	  */
-	  int iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-	  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine), 0); // start of this line
-	  if(iStart==iEnd)  // we were already at the start so go up a line
-		  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine - 1), 0);
-    }
-      break;
-    case CControlManager::EDIT_FILE:
-      iEnd = 0;
-      break;
-    }
-  }
-
+  int iStart = 0;
+  int iEnd = 0;
+  SendMessage(EM_GETSEL, (WPARAM)iStart, (LPARAM)iEnd);
+  if (iStart == iEnd) // Ignore distance if text is selected. 
+    GetRange(bForwards, iDist, &iStart, &iEnd);
   SendMessage(EM_SETSEL, (WPARAM)iStart, (LPARAM)iEnd);
   SendMessage(EM_REPLACESEL, (WPARAM)true, (LPARAM)TEXT(""));
+  SendMessage(EM_SCROLLCARET, 0, 0); //scroll the caret into view!
   return min(iStart, iEnd);
 }
 

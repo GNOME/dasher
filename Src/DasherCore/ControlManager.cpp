@@ -279,9 +279,13 @@ CControlBase::Action *CControlManager::parseAction(const XML_Char *name, const X
         else if (strcmp(*(atts+1),"word")==0)
           dist=EDIT_WORD;
         else if (strcmp(*(atts+1),"line")==0)
-          dist=EDIT_LINE;
-        else if (strcmp(*(atts+1),"file")==0)
-          dist=EDIT_FILE;
+          dist = EDIT_LINE;
+        else if (strcmp(*(atts + 1), "sentence") == 0)
+          dist = EDIT_SENTENCE;
+        else if (strcmp(*(atts + 1), "paragraph") == 0)
+          dist = EDIT_PARAGRAPH;
+        else if (strcmp(*(atts + 1), "file") == 0)
+          dist = EDIT_FILE;
       }
       atts+=2;
     }

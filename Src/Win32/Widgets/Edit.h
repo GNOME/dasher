@@ -138,6 +138,7 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   void TNew(const Tstring & filename);
   bool TOpen(const Tstring & filename);
   bool TSaveAs(const Tstring & filename);
+  void GetRange(bool bForwards, Dasher::CControlManager::EditDistance iDist, int* iStart, int* iEnd);
   
   HFONT m_Font;
   std::string m_FontName;
