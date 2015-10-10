@@ -299,7 +299,10 @@ void CDasher::Speak(const string &strText, bool bInterrupt) {
 	if (pVoice) {
 		Tstring wideText;
 		UTF8string_to_wstring(strText, wideText);
-		pVoice->Speak(wideText.c_str(), SPF_ASYNC, NULL);
+    int flags = SPF_ASYNC;
+    if (bInterrupt)
+      flags |= SPF_PURGEBEFORESPEAK;
+		pVoice->Speak(wideText.c_str(), flags, NULL);
 	}
 }
 #endif

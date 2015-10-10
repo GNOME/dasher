@@ -323,8 +323,6 @@ CControlBase::Action *CControlManager::parseAction(const XML_Char *name, const X
 }
 
 CControlManager::~CControlManager() {
-  delete m_pSpeech;
-  delete m_pCopy;
 }
 
 class TextActionHeader : public CDasherInterfaceBase::TextAction, public CControlBase::NodeTemplate {
@@ -341,13 +339,28 @@ private:
   CControlBase::MethodTemplate<CDasherInterfaceBase::TextAction> m_all, m_new, m_again;
 };
 
+class CancelSpeech : public CControlBase::NodeTemplate {
+public:
+  CancelSpeech(CDasherInterfaceBase *pIntf, const std::string &strLabel, int iColour) 
+    : NodeTemplate(strLabel, iColour), m_pIntf(pIntf){}
+
+    void happen(CControlBase::CContNode *pNode) {
+    m_pIntf->Speak("", true);
+    }
+    CDasherInterfaceBase *m_pIntf;
+};
+
 class SpeechHeader : public TextActionHeader {
 public:
-  SpeechHeader(CDasherInterfaceBase *pIntf, NodeTemplate *pRoot) : TextActionHeader(pIntf, "Speak", pRoot) {
+  SpeechHeader(CDasherInterfaceBase *pIntf, NodeTemplate *pRoot) 
+    : TextActionHeader(pIntf, "Speak", pRoot), m_stop(pIntf,"Cancel",242){
+    successors.push_back(&m_stop); m_stop.successors.push_back(NULL); m_stop.successors.push_back(pRoot);
   }
   void operator()(const std::string &strText) {
-    m_pIntf->Speak(strText, true);
+    m_pIntf->Speak(strText, false);
   }
+private:
+  CancelSpeech m_stop;
 };
 
 class CopyHeader  : public TextActionHeader {
