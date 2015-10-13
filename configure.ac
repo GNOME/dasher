@@ -329,7 +329,7 @@ AC_CHECK_LIB(expat, XML_Parse,,[
 ])
 
 PKG_CHECK_MODULES([ATSPI],
-	[atspi-2],
+	[atspi-2 >= 2.11],
 	[have_libatspi=yes],
 	[have_libatspi=no])
 
