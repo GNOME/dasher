@@ -713,7 +713,10 @@ dasher_editor_get_filename(DasherEditor *pSelf) {
 const gchar *
 dasher_editor_get_all_text(DasherEditor *pSelf) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
-
+  if (pPrivate == NULL) {
+    // This function can be called before pPrivate is set.
+    return "";
+  }
   GtkTextIter oStart;
   GtkTextIter oEnd;
 
