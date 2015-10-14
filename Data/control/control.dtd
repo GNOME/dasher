@@ -1,7 +1,7 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!ELEMENT nodes (node*)>
 
-<!ELEMENT node ((node|move|delete|ref|root|alph)*)>
+<!ELEMENT node ((node|move|delete|copy|speak|pause|stop|ref|root|alph)*)>
 <!--by specifying the name attribute as type ID rather than CDATA, the XML
     validator checks that all IDs are distinct:-->
 <!ATTLIST node name ID #IMPLIED>
@@ -10,11 +10,21 @@
 
 <!ELEMENT move EMPTY>
 <!ATTLIST move forward (yes|no) #REQUIRED>
-<!ATTLIST move dist (char|word|line|file) #REQUIRED>
+<!ATTLIST move dist (char|word|line|sentence|paragraph|file) #REQUIRED>
 
 <!ELEMENT delete EMPTY>
 <!ATTLIST delete forward (yes|no) #REQUIRED>
-<!ATTLIST delete dist (char|word|line|file) #REQUIRED>
+<!ATTLIST delete dist (char|word|line|sentence|paragraph|file) #REQUIRED>
+
+<!ELEMENT copy EMPTY>
+<!ATTLIST copy dist (all|new|repeat|sentence|paragraph) #REQUIRED>
+
+<!ELEMENT speak EMPTY>
+<!ATTLIST speak what (cancel|all|new|repeat|sentence|paragraph) #REQUIRED>
+
+<!ELEMENT pause EMPTY>
+
+<!ELEMENT stop EMPTY>
 
 <!ELEMENT ref EMPTY>
 <!--by specifying the name attribute as type IDREF rather than CDATA, the XML

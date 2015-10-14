@@ -46,6 +46,8 @@ class CNodeCreationManager;
 namespace Dasher {
 
   class CDasherInterfaceBase;
+  class SpeechHeader;
+  class CopyHeader;
 
   /// \ingroup Model
   /// @{
@@ -94,27 +96,6 @@ namespace Dasher {
       CDasherScreen::Label *m_pLabel;
     };
 
-    class Pause : public NodeTemplate {
-    public:
-      Pause(const std::string &strLabel, int iColour);
-      void happen(CContNode *pNode);
-    };
-
-    template <typename T> class MethodTemplate : public NodeTemplate {
-    public:
-      ///A "Method" is pointer to a function "void X()", that is a member of a T...
-      typedef void (T::*Method)();
-      MethodTemplate(const std::string &strLabel, int color, T *pRecv, Method f) : NodeTemplate(strLabel,color),m_pRecv(pRecv),m_f(f) {
-      }
-      virtual void happen(CContNode *pNode) {
-        //invoke pointer-to-member-function m_f on object *m_pRecv!
-        (m_pRecv->*m_f)();
-      }
-    private:
-      T *m_pRecv;
-      Method m_f;
-    };
-
     NodeTemplate *GetRootTemplate();
 
     CControlBase(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager);
@@ -127,7 +108,7 @@ namespace Dasher {
     ///
 
     virtual CDasherNode *GetRoot(CDasherNode *pContext, int iOffset);
-
+    CDasherInterfaceBase* GetDasherInterface() { return m_pInterface; }
   protected:
     ///Sets the root - should be called by subclass constructor to make
     /// superclass ready for use.
@@ -220,9 +201,10 @@ namespace Dasher {
     Action *parseAction(const XML_Char *name, const XML_Char **atts);
 
   private:
-    NodeTemplate *m_pPause, *m_pStop;
-    ///group headers, with three children each (all/new/repeat)
-    NodeTemplate *m_pSpeech, *m_pCopy;
+    map<string, CControlBase::Action*> m_actions;
+    ///group of state full actions (all/new/repeat/...)
+    SpeechHeader *m_pSpeech;
+    CopyHeader *m_pCopy;
   };
   /// @}
 }
