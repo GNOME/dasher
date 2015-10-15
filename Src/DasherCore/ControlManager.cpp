@@ -402,8 +402,16 @@ void CControlManager::updateActions() {
   // reimplement if yes 
   // imo with control.xml it isn't.
   GetRootTemplate()->successors.clear();
+
   for (auto pNode : parsedNodes())
     GetRootTemplate()->successors.push_back(pNode);
+
+  // If nothing was read from control.xml, add alphabet and control box
+  if (GetRootTemplate()->successors.empty())
+  {
+    GetRootTemplate()->successors.push_back(NULL);
+    GetRootTemplate()->successors.push_back(GetRootTemplate());
+  }
 
   if (CDasherScreen *pScreen = m_pScreen) {
     //hack to make ChangeScreen do something
