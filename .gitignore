@@ -31,9 +31,9 @@ stamp-*
 /Data/dasher.desktop
 /Data/dasher.desktop.in
 /Data/dasher.gschema.xml
-/Debug/
+**/Debug/
 /Doc/user/dasher.1
-/Release*/
+**/Release*/
 /Src/Gtk2/generate-schema
 /Src/dasher
 /Template/

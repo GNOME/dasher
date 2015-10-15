@@ -333,12 +333,12 @@ CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManage
   m_actions["move dist=paragraph forward=yes"] = new Move(true, EDIT_PARAGRAPH);
   m_actions["move dist=file forward=yes"] = new Move(true, EDIT_FILE);
 
-  m_actions["move dist=char forward=no"] = new Move(true, EDIT_CHAR);
-  m_actions["move dist=word forward=no"] = new Move(true, EDIT_WORD);
-  m_actions["move dist=line forward=no"] = new Move(true, EDIT_LINE);
-  m_actions["move dist=sentence forward=no"] = new Move(true, EDIT_SENTENCE);
-  m_actions["move dist=paragraph forward=no"] = new Move(true, EDIT_PARAGRAPH);
-  m_actions["move dist=file forward=no"] = new Move(true, EDIT_FILE);
+  m_actions["move dist=char forward=no"] = new Move(false, EDIT_CHAR);
+  m_actions["move dist=word forward=no"] = new Move(false, EDIT_WORD);
+  m_actions["move dist=line forward=no"] = new Move(false, EDIT_LINE);
+  m_actions["move dist=sentence forward=no"] = new Move(false, EDIT_SENTENCE);
+  m_actions["move dist=paragraph forward=no"] = new Move(false, EDIT_PARAGRAPH);
+  m_actions["move dist=file forward=no"] = new Move(false, EDIT_FILE);
 
   m_actions["delete dist=char forward=yes"] = new Delete(true, EDIT_CHAR);
   m_actions["delete dist=word forward=yes"] = new Delete(true, EDIT_WORD);
@@ -347,12 +347,12 @@ CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManage
   m_actions["delete dist=paragraph forward=yes"] = new Delete(true, EDIT_PARAGRAPH);
   m_actions["delete dist=file forward=yes"] = new Delete(true, EDIT_FILE);
 
-  m_actions["delete dist=char forward=no"] = new Delete(true, EDIT_CHAR);
-  m_actions["delete dist=word forward=no"] = new Delete(true, EDIT_WORD);
-  m_actions["delete dist=line forward=no"] = new Delete(true, EDIT_LINE);
-  m_actions["delete dist=sentence forward=no"] = new Delete(true, EDIT_SENTENCE);
-  m_actions["delete dist=paragraph forward=no"] = new Delete(true, EDIT_PARAGRAPH);
-  m_actions["delete dist=file forward=no"] = new Delete(true, EDIT_FILE);
+  m_actions["delete dist=char forward=no"] = new Delete(false, EDIT_CHAR);
+  m_actions["delete dist=word forward=no"] = new Delete(false, EDIT_WORD);
+  m_actions["delete dist=line forward=no"] = new Delete(false, EDIT_LINE);
+  m_actions["delete dist=sentence forward=no"] = new Delete(false, EDIT_SENTENCE);
+  m_actions["delete dist=paragraph forward=no"] = new Delete(false, EDIT_PARAGRAPH);
+  m_actions["delete dist=file forward=no"] = new Delete(false, EDIT_FILE);
 
   m_pInterface->ScanFiles(this, "control.xml"); //just look for the one
 
@@ -401,50 +401,10 @@ void CControlManager::updateActions() {
   // decide if removal of pause and stop are worth the trouble 
   // reimplement if yes 
   // imo with control.xml it isn't.
-  /*
-  vector<NodeTemplate *> &vRootSuccessors(GetRootTemplate()->successors);
-  vector<NodeTemplate *> vOldRootSuccessors;
-  vOldRootSuccessors.swap(vRootSuccessors);
-  vector<NodeTemplate *>::iterator it=vOldRootSuccessors.begin();
-  DASHER_ASSERT(*it == NULL); //escape back to alphabet
-  vRootSuccessors.push_back(*it++);
+  GetRootTemplate()->successors.clear();
+  for (auto pNode : parsedNodes())
+    GetRootTemplate()->successors.push_back(pNode);
 
-  //stop does something, and we're told to add a node for it
-  // (either a dynamic filter where the user can't use the normal stop mechanism precisely,
-  //  or a static filter but a 'stop' action is easier than using speak->all / copy->all then pause)
-  if (m_pInterface->hasDone() && GetBoolParameter(BP_CONTROL_MODE_HAS_HALT))
-    vRootSuccessors.push_back(m_pStop);
-  if (it!=vOldRootSuccessors.end() && *it == m_pStop) it++;
-
-  //filter is pauseable, and either 'stop' would do something (so pause is different),
-  // or we're told to have a stop node but it would be indistinguishable from pause (=>have pause)
-  CInputFilter *pInput(m_pInterface->GetActiveInputMethod());
-  if (pInput && pInput->supportsPause() && (m_pInterface->hasDone() || GetBoolParameter(BP_CONTROL_MODE_HAS_HALT)))
-    vRootSuccessors.push_back(m_pPause);
-  if (it!=vOldRootSuccessors.end() && *it == m_pPause) it++;
-
-  if (GetBoolParameter(BP_CONTROL_MODE_HAS_SPEECH) && m_pInterface->SupportsSpeech()) {
-    if (!m_pSpeech) m_pSpeech = new SpeechHeader(m_pInterface, GetRootTemplate());
-    vRootSuccessors.push_back(m_pSpeech);
-  }
-  if (it!=vOldRootSuccessors.end() && *it == m_pSpeech) it++;
-
-  if (GetBoolParameter(BP_CONTROL_MODE_HAS_COPY) && m_pInterface->SupportsClipboard()) {
-    if (!m_pCopy) m_pCopy = new CopyHeader(m_pInterface, GetRootTemplate());
-    vRootSuccessors.push_back(m_pCopy);
-  }
-  if (it!=vOldRootSuccessors.end() && *it == m_pCopy) it++;
-
-  if (GetBoolParameter(BP_CONTROL_MODE_HAS_EDIT)) {
-    for (vector<NodeTemplate *>::const_iterator it2=parsedNodes().begin(); it2!=parsedNodes().end(); it2++)
-      vRootSuccessors.push_back(*it2);
-  }
-  for (vector<NodeTemplate *>::const_iterator it2=parsedNodes().begin(); it2!=parsedNodes().end(); it2++)
-    if (it!=vOldRootSuccessors.end() && *it == *it2) it++;
-
-  //copy anything else (custom) that might have been added...
-  while (it != vOldRootSuccessors.end()) vRootSuccessors.push_back(*it++);
-  */
   if (CDasherScreen *pScreen = m_pScreen) {
     //hack to make ChangeScreen do something
     m_pScreen = NULL; //i.e. make it think the screen has changed
