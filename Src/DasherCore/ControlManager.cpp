@@ -375,7 +375,7 @@ CControlBase::Action *CControlManager::parseAction(const XML_Char *name, const X
   // Key in actions map is name plus arguments in alphabetical order.
   key << name;
   if (!arguments.empty()) {
-    for each (auto arg in arguments) {
+    for (auto arg : arguments) {
       key << " " << arg.first << "=" << arg.second;
     }
   }
