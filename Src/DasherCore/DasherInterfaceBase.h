@@ -350,6 +350,13 @@ public:
   /// Subclasses should return the length of whole text. In letters, not bytes.
   virtual int GetAllContextLenght() = 0;
 
+  /// Subclasses should return character, word, sentence, ... at current text cursor position.
+  /// For character around cursor decision is arbitrary. Let's settle for character before cursor.
+  /// TODO. Consistently name functions dealing with dasher context, versus functions dealing with editor text.
+  /// I.E. GetAllContext should be named GetAllTtext
+  virtual std::string GetTextAroundCursor(CControlManager::EditDistance) { // =0;
+    return std::string();
+  }
 
   /// Set a key value pair by name - designed to allow operation from
   /// the command line.  Returns 0 on success, an error string on failure.
