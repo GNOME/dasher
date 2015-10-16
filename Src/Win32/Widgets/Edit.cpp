@@ -346,10 +346,7 @@ int _findAfterChars(const wchar_t* str, const wchar_t* chrs, int startPos) {
 
 int _findBeforeChars(const wchar_t* str, const wchar_t* chrs, int startPos) {
   const wchar_t* ptr = str + startPos;
-  // over non separators
-  while (ptr > str && !wcschr(chrs, *ptr)) {
-    --ptr;
-  }
+
   // over separators
   while (ptr > str && wcschr(chrs, *ptr)) {
     --ptr;
@@ -451,7 +448,7 @@ int CEdit::Move(bool bForwards, CControlManager::EditDistance iDist) {
 int CEdit::Delete(bool bForwards, CControlManager::EditDistance iDist) {
   int iStart = 0;
   int iEnd = 0;
-  SendMessage(EM_GETSEL, (WPARAM)iStart, (LPARAM)iEnd);
+  SendMessage(EM_GETSEL, (WPARAM)&iStart, (LPARAM)&iEnd);
   if (iStart == iEnd) // Ignore distance if text is selected. 
     GetRange(bForwards, iDist, &iStart, &iEnd);
   SendMessage(EM_SETSEL, (WPARAM)iStart, (LPARAM)iEnd);
