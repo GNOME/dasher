@@ -99,7 +99,7 @@ CAlphInfo *CAlphIO::CreateDefault() {
   Default.Mutable = false;
   Default.TrainingFile = "training_english_GB.txt";
   Default.GameModeFile = "gamemode_english_GB.txt";
-  Default.LanguageCode = "en-GB"
+  Default.LanguageCode = "en-GB";
   Default.PreferredColours = "Default";
   std::string Chars = "abcdefghijklmnopqrstuvwxyz";
 
