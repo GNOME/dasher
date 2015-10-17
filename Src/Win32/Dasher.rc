@@ -7,10 +7,8 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#define APSTUDIO_HIDDEN_SYMBOLS
+#include <winres.h>
 #include "windows.h"
-#undef APSTUDIO_HIDDEN_SYMBOLS
-#include "resource.h"
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
@@ -19,30 +17,25 @@
 // Neutral resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
-#ifdef _WIN32
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 #pragma code_page(1252)
-#endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Bitmap
 //
 
-IDB_COPY_ALL_SMALL_COLOR BITMAP                  "CopyAllSmall.bmp"
 IDB_COPY_ALL_LARGE_COLOR BITMAP                  "CopyAllLarge.bmp"
 #endif    // Neutral resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -52,10 +45,7 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 
 2 TEXTINCLUDE 
 BEGIN
-    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
-    "#include ""windows.h""\r\n"
-    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
-    "#include ""resource.h""\r\n"
+    "#include ""afxres.h""\r\n"
     "\0"
 END
 
@@ -67,44 +57,16 @@ END
 
 #endif    // APSTUDIO_INVOKED
 
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Dialog
-//
-
-IDD_PROPPAGE_LARGE DIALOGEX 0, 0, 300, 201
-STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
-CAPTION "Property Page"
-FONT 8, "MS Shell Dlg", 0, 0, 0x0
-BEGIN
-    GROUPBOX        "Static",IDC_STATIC,125,7,168,88
-    GROUPBOX        "Static",IDC_STATIC,7,7,106,187
-    GROUPBOX        "Static",IDC_STATIC,127,106,166,88
-    LISTBOX         IDC_LIST1,19,20,86,118,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "Radio1",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON,194,111,38,10
-    CONTROL         "Radio2",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,186,124,38,10
-    CONTROL         "Radio3",IDC_RADIO3,"Button",BS_AUTORADIOBUTTON,183,135,38,10
-    CONTROL         "Radio4",IDC_RADIO4,"Button",BS_AUTORADIOBUTTON,183,145,38,10
-    CONTROL         "Radio5",IDC_RADIO5,"Button",BS_AUTORADIOBUTTON,181,161,38,10
-    LTEXT           "Degree of uniformity (small values increase prediction, large values decrease prediction)",IDC_STATIC,124,33,156,18
-    EDITTEXT        IDC_UNIFORMVAL,133,63,38,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
-    CONTROL         "",IDC_UNIFORMSLIDER,"msctls_trackbar32",WS_TABSTOP,175,63,118,12
-    CONTROL         "Language model adapts as you write",IDC_ADAPTIVE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,131,17,133,10
-END
-
-#endif    // English (U.S.) resources
+#endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.K.) resources
+// English (United Kingdom) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
 #pragma code_page(1252)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -141,7 +103,7 @@ BEGIN
 END
 
 IDD_ALPHABETPAGE DIALOGEX 0, 0, 381, 238
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Select Alphabet"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
@@ -169,7 +131,7 @@ BEGIN
 END
 
 IDD_CONTROLPAGE DIALOGEX 0, 0, 381, 238
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Dasher Preferences"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
@@ -179,7 +141,7 @@ BEGIN
     CONTROL         "Adapt speed automatically",IDC_AUTOSPEED,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,106,101,8
     EDITTEXT        IDC_SPEEDVAL,201,90,30,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
     CONTROL         "",IDC_SPEEDSLIDER,"msctls_trackbar32",WS_TABSTOP,236,90,131,12
-    GROUPBOX        "Starting And Stopping:",IDC_CONTROL,194,123,180,78
+    GROUPBOX        "Starting And Stopping:",IDC_STATIC,194,123,180,78
     CONTROL         "Start on left mouse button",IDC_LEFT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,134,147,8
     CONTROL         "Start on space bar",IDC_SPACE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,146,126,8
     CONTROL         "Start with mouse position:",IDC_MOUSEPOS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,158,136,8
@@ -192,64 +154,6 @@ BEGIN
     CONTROL         "Stop when idle",IDC_STOPIDLE,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,241,209,65,10
     EDITTEXT        IDC_IDLETIME,314,204,41,12,ES_AUTOHSCROLL | ES_NUMBER | NOT WS_VISIBLE | WS_DISABLED
     LTEXT           "Idle time (milliseconds)",IDC_STATICIDLETIME,274,217,76,8,NOT WS_VISIBLE | WS_DISABLED
-END
-
-IDD_MISCPAGE DIALOGEX 0, 0, 218, 239
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Edit advanced options"
-FONT 8, "MS Shell Dlg", 0, 0, 0x0
-BEGIN
-    GROUPBOX        "File Options:",IDC_STATIC,7,7,204,26
-    GROUPBOX        "Start On Mouse Position:",IDC_STATIC,7,35,204,30
-    EDITTEXT        IDC_MOUSEPOSDIST,14,46,30,12,ES_AUTOHSCROLL
-    LTEXT           "Box offset",IDC_STATIC,48,48,123,8
-    GROUPBOX        "One-Dimensional Mode:",IDC_STATIC,7,67,204,30
-    EDITTEXT        IDC_YPIX,14,78,30,12,ES_AUTOHSCROLL
-    LTEXT           "Pixels covering entire y range",IDC_STATIC,48,80,120,8
-    CONTROL         "Speak on stop",IDC_SPEECH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,111,84,8
-    CONTROL         "Copy all on stop",IDC_COPYALLONSTOP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,123,67,10
-    GROUPBOX        "Actions:",IDC_STATIC,7,100,204,36
-    CONTROL         "Eyetracker autocalibration",IDC_AUTOCALIBRATE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,134,100,10
-END
-
-IDD_VIEWPAGE DIALOGEX 0, 0, 218, 238
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
-BEGIN
-END
-
-IDD_SOCKET DIALOGEX 0, 0, 218, 238
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Dialog"
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
-BEGIN
-    GROUPBOX        "Network socket input:",IDC_STATIC,7,7,204,217
-    CONTROL         "Control Dasher from network socket instead of mouse",IDC_SOCKET_ENABLE,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,23,188,10
-    EDITTEXT        IDC_SOCKET_PORT,47,39,37,14,ES_AUTOHSCROLL
-    LTEXT           "Port",IDC_STATIC,21,41,14,8
-    GROUPBOX        "X Coordinate",IDC_STATIC,19,57,178,70
-    EDITTEXT        IDC_SOCKET_X_LABEL,69,69,91,15,ES_AUTOHSCROLL
-    EDITTEXT        IDC_SOCKET_X_MIN,69,87,40,14,ES_AUTOHSCROLL
-    EDITTEXT        IDC_SOCKET_X_MAX,69,106,40,14,ES_AUTOHSCROLL
-    LTEXT           "Label",IDC_STATIC,28,72,18,8
-    LTEXT           "Min value",IDC_STATIC,28,90,31,8
-    LTEXT           "Max value",IDC_STATIC,28,108,34,8
-    GROUPBOX        "Y (or 1D) Coordinate",IDC_STATIC,19,131,178,69
-    EDITTEXT        IDC_SOCKET_Y_LABEL,69,142,91,15,ES_AUTOHSCROLL
-    EDITTEXT        IDC_SOCKET_Y_MIN,69,161,40,14,ES_AUTOHSCROLL
-    EDITTEXT        IDC_SOCKET_Y_MAX,69,180,40,14,ES_AUTOHSCROLL
-    LTEXT           "Label",IDC_STATIC,27,145,18,8
-    LTEXT           "Min value",IDC_STATIC,27,164,31,8
-    LTEXT           "Max value",IDC_STATIC,27,182,34,8
-    CONTROL         "Show debugging messages",IDC_SOCKET_DEBUG,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,207,102,10
-END
-
-IDD_LMPAGE DIALOGEX 0, 0, 218, 238
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Dialog"
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
-BEGIN
 END
 
 IDD_APPEARANCEPAGE DIALOGEX 0, 0, 381, 238
@@ -278,23 +182,33 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSM
 CAPTION "Dialog"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    CONTROL         "Control mode",IDC_CONTROLMODE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,54,59,10
-    CONTROL         "Show toolbar",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,30,58,10
-    CONTROL         "Show speed control",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,42,79,10
-    CONTROL         "Timestamp new files",IDC_TIMESTAMP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,18,80,8
-    CONTROL         "Stand-alone",IDC_STYLE_STANDALONE,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,201,91,55,10
-    CONTROL         "Composition",IDC_STYLE_COMPOSITION,"Button",BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,319,221,55,10
-    CONTROL         "Direct entry",IDC_STYLE_DIRECT,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,201,103,54,10
-    GROUPBOX        "Application Style:",IDC_STATIC,194,81,180,35
-    CONTROL         "Full screen",IDC_STYLE_FULL,"Button",BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,234,218,50,10
-    GROUPBOX        "Application Options:",IDC_STATIC,7,7,180,64
-    GROUPBOX        "Speech:",IDC_STATIC,194,7,180,39
-    GROUPBOX        "Editor Font:",IDC_STATIC,7,73,180,32
-    PUSHBUTTON      "Change Font",IDC_EFONT_BUTTON,14,84,166,14
-    CONTROL         "Speak on stop",IDC_CHECK3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,18,99,10
-    CONTROL         "Speak on word breaks",IDC_CHECK4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,29,90,10
-    GROUPBOX        "Clipboard:",IDC_STATIC,194,50,180,26
-    CONTROL         "Copy all on stop",IDC_COPYONSTOP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,61,90,10
+    CONTROL         "Timestamp new files",IDC_TIMESTAMP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,18,80,8
+    CONTROL         "Confirm unsaved changes",IDC_CONFIRM_UNSAVED,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,30,108,8
+    CONTROL         "Show toolbar",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,42,58,10
+    CONTROL         "Show statusbar",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,54,66,10
+    CONTROL         "Control mode",IDC_CONTROLMODE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,66,59,10
+    CONTROL         "Stand-alone",IDC_STYLE_STANDALONE,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,204,96,55,10
+    CONTROL         "Composition",IDC_STYLE_COMPOSITION,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,204,120,55,10
+    CONTROL         "Direct entry",IDC_STYLE_DIRECT,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,204,108,54,10
+    GROUPBOX        "Application Style:",IDC_STATIC,198,84,180,63
+    CONTROL         "Full screen",IDC_STYLE_FULL,"Button",BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,204,132,50,10
+    GROUPBOX        "Application Options:",IDC_STATIC,6,6,180,78
+    GROUPBOX        "Speech:",IDC_STATIC,198,6,180,39
+    GROUPBOX        "Editor Font:",IDC_STATIC,6,90,180,30
+    PUSHBUTTON      "Change Font",IDC_EFONT_BUTTON,12,102,166,14
+    CONTROL         "Speak on stop",IDC_CHECK3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,204,18,99,10
+    CONTROL         "Speak on word breaks",IDC_CHECK4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,204,30,90,10
+    GROUPBOX        "Clipboard:",IDC_STATIC,198,48,180,30
+    CONTROL         "Copy all on stop",IDC_COPYONSTOP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,204,60,90,10
+END
+
+IDD_MODULESETTINGS DIALOGEX 0, 0, 309, 177
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,198,156,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,252,156,50,14
 END
 
 
@@ -304,7 +218,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_ABOUTBOX, DIALOG
     BEGIN
@@ -335,38 +249,6 @@ BEGIN
         BOTTOMMARGIN, 231
     END
 
-    IDD_MISCPAGE, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 211
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 232
-    END
-
-    IDD_VIEWPAGE, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 211
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 231
-    END
-
-    IDD_SOCKET, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 211
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 231
-    END
-
-    IDD_LMPAGE, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 211
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 231
-    END
-
     IDD_APPEARANCEPAGE, DIALOG
     BEGIN
         LEFTMARGIN, 7
@@ -381,6 +263,14 @@ BEGIN
         RIGHTMARGIN, 374
         TOPMARGIN, 7
         BOTTOMMARGIN, 231
+    END
+
+    IDD_MODULESETTINGS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 170
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -400,7 +290,7 @@ IDI_DASHER              ICON                    "dasher.ico"
 // Menu
 //
 
-IDC_DASHER MENU 
+IDC_DASHER MENU
 BEGIN
     POPUP "&File"
     BEGIN
@@ -431,7 +321,6 @@ BEGIN
         MENUITEM "&Help Topics",                ID_HELP_CONTENTS
         MENUITEM SEPARATOR
         MENUITEM "&About Dasher",               IDM_ABOUT
-        // MENUITEM "Game Mode",                   ID_GAMEMODE
     END
 END
 
@@ -441,7 +330,7 @@ END
 // Accelerator
 //
 
-IDC_DASHER ACCELERATORS 
+IDC_DASHER ACCELERATORS
 BEGIN
     "/",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
     "?",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
@@ -501,71 +390,41 @@ END
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_APP_TITLE           "Dasher"
-    IDS_BUTTON_PREFS_TITLE  "General"
-    IDS_BUTTON_PREFS_DIALOGUE_TITLE "Button Mode Preferences"
-    IDS_BUTTON_SETTINGS_TITLE "Button Setup"
     IDS_FILE_SAVE           "Save"
     IDS_OPTIONS_PREFS       "Prefs"
     IDS_FILE_OPEN           "Open"
     IDS_FILE_NEW            "New"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_EDIT_CUT            "Cut"
     IDS_EDIT_COPY           "Copy"
     IDS_EDIT_PASTE          "Paste"
-    IDS_MAX_SPEED           "Maximum Speed"
     IDS_EDIT_COPY_ALL       "Copy All"
-    IDS_TYPE_Western        "Western"
-    IDS_TYPE_None           "None"
-    IDS_TYPE_Arabic         "Arabic"
-    IDS_TYPE_Baltic         "Baltic"
-    IDS_TYPE_CentralEurope  "Central Europe"
-    IDS_TYPE_ChineseSimplified "Simplified Chinese"
-    IDS_TYPE_ChineseTraditional "Traditional Chinese"
-    IDS_TYPE_Cyrillic       "Cyrillic"
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
-    IDS_TYPE_Greek          "Greek"
-    IDS_TYPE_Hebrew         "Hebrew"
-    IDS_TYPE_Japanese       "Japanese"
-    IDS_TYPE_Korean         "Korean"
-    IDS_TYPE_Thai           "Thai"
-    IDS_TYPE_Turkish        "Turkish"
-    IDS_TYPE_VietNam        "Viet Nam"
-    IDS_ORIENT_LR           "Left to Right"
-    IDS_ORIENT_RL           "Right to Left"
-    IDS_ORIENT_TB           "Top to Bottom"
     IDS_PREFS_TITLE         "Preferences"
     IDS_PREFS_CONTROL       "Control"
-    IDS_ORIENT_BT           "Bottom To Top"
-    IDS_ERR_ALPH_DESC       "Please provide a unique description for this alphabet."
 END
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_PREFS_VIEW          "Appearance"
     IDS_QUERY_SAVE_CHANGES  "Would you like to save changes\nto the current file?"
     IDS_PREFS_ALPHABET      "Language"
     IDS_UNTITLED_FILE       "Untitled"
-    IDS_PREFS_COLOUR        "Colour"
     IDS_UNSAVED_CHANGES     "Unsaved changes"
-    IDS_PREFS_ADVANCED      "Miscellaneous"
     IDS_PREFS_LM            "Application"
-    IDS_PREFS_SOCKET        "Socket"
-    IDS_SOCKET_ERROR_TITLE  "Error"
-    IDS_ERR_SOCKET_PORT     "Please enter a port number between 1 and 65535"
-    IDS_ERR_SOCKET_MINMAX   "Unable to parse one of the minimum/maximum values. Please enter numbers only in these fields."
     IDS_ERR_SOCKET_TITLE    "Dasher Socket Input error"
 END
 
-#endif    // English (U.K.) resources
+#endif    // English (United Kingdom) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

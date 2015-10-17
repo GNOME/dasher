@@ -459,7 +459,7 @@ void CWordLanguageModel::CollapseContext(CWordLanguageModel::CWordContext &conte
         delete apNodeCache[i];
 
       }
-      delete apNodeCache;
+      delete[] apNodeCache;
 
     }
 

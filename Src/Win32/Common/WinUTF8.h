@@ -14,9 +14,7 @@
 	wstring is UTF-16, probably constrained to the BMP,
 	such that all codepoints are represented in two bytes.
 	
-	These functions are just wrappers around Windows API calls or functions
-	from the Unicode consortium (if using Windows 95 or CE, which do not support
-	UTF-8 natively).
+	These functions are just wrappers around Windows API calls.
 }}}*/
 
 #include <string>
@@ -25,5 +23,7 @@ namespace WinUTF8 {
   void UTF8string_to_wstring(const std::string & UTF8string, std::wstring & Output);
   std::wstring UTF8string_to_wstring(const std::string &UTF8string);
   void wstring_to_UTF8string(const std::wstring & Input, std::string & Output);
+  void wstring_to_UTF8string(const wchar_t *Input, std::string &Output);
+  std::string wstring_to_UTF8string(const wchar_t* Input);
 }
 #endif                          /* #ifndef __WinUTF8_h__ */

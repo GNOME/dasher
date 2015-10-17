@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Mobile Debug|Win32">
+      <Configuration>Mobile Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release (W2K)|Win32">
+      <Configuration>Release (W2K)</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>DasherCore</ProjectName>
+    <ProjectGuid>{192C1E5C-2D1E-4AA3-91C3-FF2D7ABD67F8}</ProjectGuid>
+    <RootNamespace>DasherCore</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release (W2K)|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mobile Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release (W2K)|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Mobile Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.30501.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Target/Release\</OutDir>
+    <IntDir>.\Target/Release/Intermediate\</IntDir>
+    <IncludePath>$(EXPAT)\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\Target/Debug\</OutDir>
+    <IntDir>.\Target/Debug/Intermediate\</IntDir>
+    <IncludePath>$(EXPAT)\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mobile Debug|Win32'">
+    <OutDir>$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <IncludePath>$(EXPAT)\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release (W2K)|Win32'">
+    <OutDir>$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <IncludePath>$(EXPAT)\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>..\Win32\Common;$(EXPAT)\Source\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_LIB;_STATIC;_UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeaderOutputFile>.\Target/Win32 Unicode Release/Intermediate/DasherCore.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Target/Release/Intermediate/</AssemblerListingLocation>
+      <ObjectFileName>.\Target/Release/Intermediate/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Target/Release/Intermediate/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat />
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Lib>
+      <AdditionalDependencies>imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\Target/Release\DasherCore.lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\Win32\Common;$(EXPAT)\Source\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;DEBUG;_WINDOWS;_STATIC;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeaderOutputFile>.\Target/Debug/Intermediate/DasherCore.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Target/Debug/Intermediate/</AssemblerListingLocation>
+      <ObjectFileName>.\Target/Debug/Intermediate/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Target/Debug/Intermediate/</ProgramDataBaseFileName>
+      <BrowseInformation>true</BrowseInformation>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Lib>
+      <AdditionalDependencies>imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\Target/Debug\DasherCore.lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Mobile Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_STATIC;_LIB;_UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeaderOutputFile>.\Target/Debug/Intermediate/DasherCore.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Target/Debug/Intermediate/</AssemblerListingLocation>
+      <ObjectFileName>.\Target/Debug/Intermediate/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Target/Debug/Intermediate/</ProgramDataBaseFileName>
+      <BrowseInformation>true</BrowseInformation>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalIncludeDirectories>..\Win32\Common;$(EXPAT)\Source\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Lib>
+      <AdditionalDependencies>imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\Target/Debug\DasherCore.lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release (W2K)|Win32'">
+    <ClCompile>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>..\Win32\Common;$(EXPAT)\Source\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_LIB;_STATIC;_UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeaderOutputFile>.\Target/Win32 Unicode Release/Intermediate/DasherCore.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Target/Release/Intermediate/</AssemblerListingLocation>
+      <ObjectFileName>.\Target/Release/Intermediate/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Target/Release/Intermediate/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat />
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+    <Lib>
+      <AdditionalDependencies>imm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\Target/Release\DasherCore.lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common_vc2013.vcxproj">
+      <Project>{4a4ceb83-fbc8-4e93-831e-009875e54794}</Project>
+      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Win32\Common\WinUTF8.cpp" />
+    <ClCompile Include="AbstractXMLParser.cpp" />
+    <ClCompile Include="AlphabetManager.cpp" />
+    <ClCompile Include="Alphabet\AlphabetMap.cpp" />
+    <ClCompile Include="Alphabet\AlphInfo.cpp" />
+    <ClCompile Include="Alphabet\AlphIO.cpp" />
+    <ClCompile Include="AlternatingDirectMode.cpp" />
+    <ClCompile Include="AutoSpeedControl.cpp" />
+    <ClCompile Include="BasicLog.cpp" />
+    <ClCompile Include="ButtonMode.cpp" />
+    <ClCompile Include="ButtonMultiPress.cpp" />
+    <ClCompile Include="CircleStartHandler.cpp" />
+    <ClCompile Include="ClickFilter.cpp" />
+    <ClCompile Include="ColourIO.cpp" />
+    <ClCompile Include="CompassMode.cpp" />
+    <ClCompile Include="ControlManager.cpp" />
+    <ClCompile Include="ConversionManager.cpp" />
+    <ClCompile Include="CustomColours.cpp" />
+    <ClCompile Include="DasherButtons.cpp" />
+    <ClCompile Include="DasherInterfaceBase.cpp" />
+    <ClCompile Include="DasherModel.cpp" />
+    <ClCompile Include="DasherModule.cpp" />
+    <ClCompile Include="DasherNode.cpp" />
+    <ClCompile Include="DasherView.cpp" />
+    <ClCompile Include="DasherViewSquare.cpp" />
+    <ClCompile Include="DashIntfScreenMsgs.cpp" />
+    <ClCompile Include="DashIntfSettings.cpp" />
+    <ClCompile Include="DefaultFilter.cpp" />
+    <ClCompile Include="DynamicButtons.cpp" />
+    <ClCompile Include="DynamicFilter.cpp" />
+    <ClCompile Include="ExpansionPolicy.cpp" />
+    <ClCompile Include="FileLogger.cpp" />
+    <ClCompile Include="FileWordGenerator.cpp" />
+    <ClCompile Include="FrameRate.cpp" />
+    <ClCompile Include="GameModule.cpp" />
+    <ClCompile Include="LanguageModelling\CTWLanguageModel.cpp" />
+    <ClCompile Include="LanguageModelling\DictLanguageModel.cpp" />
+    <ClCompile Include="LanguageModelling\HashTable.cpp" />
+    <ClCompile Include="LanguageModelling\PPMLanguageModel.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Mobile Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release (W2K)|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="LanguageModelling\PPMPYLanguageModel.cpp" />
+    <ClCompile Include="LanguageModelling\RoutingPPMLanguageModel.cpp" />
+    <ClCompile Include="LanguageModelling\WordLanguageModel.cpp" />
+    <ClCompile Include="MandarinAlphMgr.cpp" />
+    <ClCompile Include="MemoryLeak.cpp" />
+    <ClCompile Include="Messages.cpp" />
+    <ClCompile Include="ModuleManager.cpp" />
+    <ClCompile Include="NodeCreationManager.cpp" />
+    <ClCompile Include="OneButtonDynamicFilter.cpp" />
+    <ClCompile Include="OneButtonFilter.cpp" />
+    <ClCompile Include="OneDimensionalFilter.cpp" />
+    <ClCompile Include="Parameters.cpp" />
+    <ClCompile Include="RoutingAlphMgr.cpp" />
+    <ClCompile Include="SCENode.cpp" />
+    <ClCompile Include="ScreenGameModule.cpp" />
+    <ClCompile Include="SettingsStore.cpp" />
+    <ClCompile Include="SimpleTimer.cpp" />
+    <ClCompile Include="SocketInputBase.cpp" />
+    <ClCompile Include="StylusFilter.cpp" />
+    <ClCompile Include="TimeSpan.cpp" />
+    <ClCompile Include="Trainer.cpp" />
+    <ClCompile Include="TwoBoxStartHandler.cpp" />
+    <ClCompile Include="TwoButtonDynamicFilter.cpp" />
+    <ClCompile Include="TwoPushDynamicFilter.cpp" />
+    <ClCompile Include="UserButton.cpp" />
+    <ClCompile Include="UserLocation.cpp" />
+    <ClCompile Include="UserLog.cpp" />
+    <ClCompile Include="UserLogBase.cpp" />
+    <ClCompile Include="UserLogParam.cpp" />
+    <ClCompile Include="UserLogTrial.cpp" />
+    <ClCompile Include="WordGeneratorBase.cpp" />
+    <ClCompile Include="XMLUtil.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Win32\Common\WinUTF8.h" />
+    <ClInclude Include="AbstractXMLParser.h" />
+    <ClInclude Include="AlphabetManager.h" />
+    <ClInclude Include="Alphabet\AlphabetMap.h" />
+    <ClInclude Include="Alphabet\AlphInfo.h" />
+    <ClInclude Include="Alphabet\AlphIO.h" />
+    <ClInclude Include="AlternatingDirectMode.h" />
+    <ClInclude Include="AutoSpeedControl.h" />
+    <ClInclude Include="BasicLog.h" />
+    <ClInclude Include="ButtonMode.h" />
+    <ClInclude Include="ButtonMultiPress.h" />
+    <ClInclude Include="CircleStartHandler.h" />
+    <ClInclude Include="ClickFilter.h" />
+    <ClInclude Include="ColourIO.h" />
+    <ClInclude Include="CompassMode.h" />
+    <ClInclude Include="ControlManager.h" />
+    <ClInclude Include="ConversionManager.h" />
+    <ClInclude Include="CustomColours.h" />
+    <ClInclude Include="DasherButtons.h" />
+    <ClInclude Include="DasherInput.h" />
+    <ClInclude Include="DasherInterfaceBase.h" />
+    <ClInclude Include="DasherModel.h" />
+    <ClInclude Include="DasherModule.h" />
+    <ClInclude Include="DasherNode.h" />
+    <ClInclude Include="DasherScreen.h" />
+    <ClInclude Include="DasherTypes.h" />
+    <ClInclude Include="DasherView.h" />
+    <ClInclude Include="DasherViewSquare.h" />
+    <ClInclude Include="DashIntfScreenMsgs.h" />
+    <ClInclude Include="DashIntfSettings.h" />
+    <ClInclude Include="DefaultFilter.h" />
+    <ClInclude Include="DynamicButtons.h" />
+    <ClInclude Include="DynamicFilter.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="EventHandler.h" />
+    <ClInclude Include="ExpansionPolicy.h" />
+    <ClInclude Include="FileLogger.h" />
+    <ClInclude Include="FileWordGenerator.h" />
+    <ClInclude Include="FrameRate.h" />
+    <ClInclude Include="GameModule.h" />
+    <ClInclude Include="GameStatistics.h" />
+    <ClInclude Include="InputFilter.h" />
+    <ClInclude Include="LanguageModelling\CTWLanguageModel.h" />
+    <ClInclude Include="LanguageModelling\DictLanguageModel.h" />
+    <ClInclude Include="LanguageModelling\HashTable.h" />
+    <ClInclude Include="LanguageModelling\LanguageModel.h" />
+    <ClInclude Include="LanguageModelling\PPMLanguageModel.h" />
+    <ClInclude Include="LanguageModelling\PPMPYLanguageModel.h" />
+    <ClInclude Include="LanguageModelling\RoutingPPMLanguageModel.h" />
+    <ClInclude Include="LanguageModelling\WordLanguageModel.h" />
+    <ClInclude Include="MandarinAlphMgr.h" />
+    <ClInclude Include="MemoryLeak.h" />
+    <ClInclude Include="Messages.h" />
+    <ClInclude Include="ModuleManager.h" />
+    <ClInclude Include="NodeCreationManager.h" />
+    <ClInclude Include="NodeQueue.h" />
+    <ClInclude Include="OneButtonDynamicFilter.h" />
+    <ClInclude Include="OneButtonFilter.h" />
+    <ClInclude Include="OneDimensionalFilter.h" />
+    <ClInclude Include="Parameters.h" />
+    <ClInclude Include="RoutingAlphMgr.h" />
+    <ClInclude Include="SCENode.h" />
+    <ClInclude Include="ScreenGameModule.h" />
+    <ClInclude Include="SettingsStore.h" />
+    <ClInclude Include="SimpleTimer.h" />
+    <ClInclude Include="SocketInputBase.h" />
+    <ClInclude Include="StartHandler.h" />
+    <ClInclude Include="StylusFilter.h" />
+    <ClInclude Include="TimeSpan.h" />
+    <ClInclude Include="Trainer.h" />
+    <ClInclude Include="TwoBoxStartHandler.h" />
+    <ClInclude Include="TwoButtonDynamicFilter.h" />
+    <ClInclude Include="TwoPushDynamicFilter.h" />
+    <ClInclude Include="UserButton.h" />
+    <ClInclude Include="UserLocation.h" />
+    <ClInclude Include="UserLog.h" />
+    <ClInclude Include="UserLogBase.h" />
+    <ClInclude Include="UserLogParam.h" />
+    <ClInclude Include="UserLogTrial.h" />
+    <ClInclude Include="WordGeneratorBase.h" />
+    <ClInclude Include="XMLUtil.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DasherViewSquare.inl" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

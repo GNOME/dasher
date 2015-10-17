@@ -1,4 +1,4 @@
-// AlphIO.h
+// AlphInfo.h
 //
 // Copyright (c) 2007 The Dasher Team
 //
@@ -80,6 +80,8 @@ public:
   const std::string &GetGameModeFile() const {return GameModeFile;}
 
   const std::string & GetPalette() const {return PreferredColours;}
+  
+  const std::string & GetLanguageCode() const {return LanguageCode;}
 
   symbol GetParagraphSymbol() const {return iParagraphCharacter;}
 
@@ -137,7 +139,7 @@ private:
   std::string TrainingFile;
   std::string GameModeFile;
   std::string PreferredColours;
-  Opts::AlphabetTypes Encoding;
+  std::string LanguageCode; //LanguageCode in IETF Format. https://en.wikipedia.org/wiki/IETF_language_tag
   Opts::AlphabetTypes Type;
   Opts::ScreenOrientations Orientation;
 
@@ -165,4 +167,4 @@ protected:
 
 /// @}
 
-#endif /* #ifndef __AlphIO_h__ */
+#endif /* #ifndef __AlphInfo_h__ */

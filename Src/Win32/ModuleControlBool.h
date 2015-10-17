@@ -7,14 +7,13 @@ class CModuleControlBool : public CModuleControl {
 public:
   CModuleControlBool(SModuleSettings *pSetting) : CModuleControl(pSetting) {};
 
-  virtual int GetHeightRequest();
+  virtual int GetChildHeight() { return 10; };
   virtual void Initialise(CAppSettings *pAppSets);
   virtual void Apply(CAppSettings *pAppSets);
-  virtual void CreateChild(HWND hParent);
-  virtual void LayoutChild(RECT &sRect);
+  virtual void CreateChild(HWND hParent, RECT& rect);
 
 private:
-  HWND m_hCheckbox;
+  CWindow m_hCheckbox;
 };
 
 #endif

@@ -9,40 +9,20 @@
 #ifndef __DasherWindow_h__
 #define __DasherWindow_h__
 
-#include "resource.h"
-
 #include "Widgets/Splitter.h"
 #include "Widgets/StatusControl.h"
-#include "Widgets/Menu.h"
-#include "Widgets/SplashScreen.h"
-#include "Widgets/WindowSelect.h"
-#include "DasherMouseInput.h"
-#include "AppSettings.h"
-
-#include "../Common/WinOptions.h"
+#include "Widgets/Edit.h"
 
 class CToolbar;
 namespace Dasher {
   class CDasher;
 };
 
-// Abstract interfaces to the Dasher engine
-#include "../../DasherCore/DasherInterfaceBase.h"
-
-#ifdef _WIN32_WCE
-class CDasherWindow : 
-	public ATL::CWindowImpl<CDasherWindow, CWindow, CWinTraits< WS_CLIPCHILDREN | WS_CLIPSIBLINGS> >, 
-	public CSplitterOwner 
-{
-#else
 class CDasherWindow : 
 	public ATL::CWindowImpl<CDasherWindow>, 
 	public CSplitterOwner 
 {
-#endif
 public:
-//, CWindow, CFrameWinTraits>, 
-
 	CDasherWindow();
 	~CDasherWindow();
 
@@ -53,9 +33,7 @@ public:
 		MESSAGE_HANDLER(WM_COMMAND, OnCommand)
 		MESSAGE_HANDLER(WM_CLOSE, OnClose)
 		MESSAGE_HANDLER(WM_SIZE, OnSize)
-#ifndef _WIN32_WCE
 		MESSAGE_HANDLER(WM_GETMINMAXINFO,OnGetMinMaxInfo)
-#endif
 		MESSAGE_HANDLER(WM_INITMENUPOPUP,OnInitMenuPopup)
 		MESSAGE_HANDLER(WM_SETFOCUS,OnSetFocus)
 		MESSAGE_RANGE_HANDLER(0xC000,0xFFFF,OnOther)
@@ -63,9 +41,7 @@ public:
 
 	LRESULT OnSetFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnInitMenuPopup(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-#ifndef _WIN32_WCE
 	LRESULT OnGetMinMaxInfo(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-#endif
 	LRESULT OnOther(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnDasherFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
@@ -80,12 +56,8 @@ public:
 
 	void Show(int nCmdShow);
 
-	int MessageLoop();
-
-#ifndef _WIN32_WCE
   void HandleWinEvent(HWINEVENTHOOK hWinEventHook, DWORD event, HWND hwnd, 
     LONG idObject, LONG idChild, DWORD dwEventThread, DWORD dwmsEventTime);
-#endif
 
   ///ACL making these public so can be called directly from CDasher,
   /// rather than sending a windows message.
@@ -93,12 +65,13 @@ public:
   
 private:
  
-	// Main processing function, called by MessageLoop
-	void Main();
-
 	void SaveWindowState() const;
 	bool LoadWindowState();
+  int GetMinCanvasWidth() const { return 100; }
+  int GetMinCanvasHeight() const { return 100; }
+  int GetMinEditHeight() const { return 50; }
 
+  bool m_bFullyCreated;
 	Dasher::CDasher *m_pDasher;
 
 	HACCEL hAccelTable;
@@ -109,18 +82,12 @@ private:
 	//CCanvas *m_pCanvas;
 	CSplitter *m_pSplitter;
 	CStatusControl *m_pSpeedAlphabetBar;
-	CMenu WinMenu;
-	//CSplash *Splash;
 
 	CAppSettings *m_pAppSettings;
 
 	HICON m_hIconSm;
 
 	HMENU m_hMenu;
-
-	LPCWSTR AutoOffset;
-	LPCWSTR DialogCaption;
-	char tmpAutoOffset[25];
 
 	// Misc window handling
 	void Layout();

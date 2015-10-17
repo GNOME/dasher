@@ -14,11 +14,9 @@
 
 
 #include "AlphabetBox.h"
-#include "ColourBox.h"
 #include "ControlPage.h"
 #include "ViewPage.h"
 #include "AdvancedPage.h"
-#include "LMPage.h"
 #include "../AppSettings.h"
 
 namespace Dasher {
@@ -37,11 +35,9 @@ private:
   HWND m_hCustomBox;
  
   CAlphabetBox *m_pAlphabetBox;
-  CColourBox *m_pColourBox;
   CControlPage *m_pControlPage;
   CViewPage *m_pViewPage;
   CAdvancedPage *m_pAdvancedPage;
-  CLMPage *m_pLMPage;
 };
 
 #endif  /* #ifndef __PrefsBox_h__ */

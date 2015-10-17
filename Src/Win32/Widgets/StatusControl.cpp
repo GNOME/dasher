@@ -1,10 +1,8 @@
 #include "StatusControl.h"
 #include "WinCommon.h"
+#include "../resource.h"
 
 #include <string>
-
-// TODO: Make this a notify?
-CONST UINT DASHER_SHOW_PREFS = RegisterWindowMessage(_DASHER_SHOW_PREFS);
 
 CStatusControl::CStatusControl(CAppSettings *pAppSettings) : m_pAppSettings(pAppSettings) {
 }
@@ -219,7 +217,7 @@ void CStatusControl::SelectAlphabet() {
   SendMessage(m_hCombo, CB_GETLBTEXT, iIndex, (LPARAM)szSelection);
 
   if(!_tcscmp(szSelection, L"More Alphabets...")) {
-    SendMessage(GetParent().m_hWnd, DASHER_SHOW_PREFS, 0, 0);
+    GetParent().SendMessage(WM_COMMAND, ID_OPTIONS_PREFS, 0);
   }
   else {
     std::string strNewValue;

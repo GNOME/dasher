@@ -204,7 +204,7 @@ int CFilenameGUI::QuerySaveFirst() {
     WinLocalisation::GetResourceString(IDS_UNSAVED_CHANGES, &Title);
 
     return MessageBox(WindowWithTitlebar, ResourceString.c_str(), Title.c_str(), MB_YESNOCANCEL | MB_ICONWARNING | MB_DEFBUTTON1 | MB_APPLMODAL);
-    }
+  }
 
   return IDNO;
 }

@@ -33,7 +33,6 @@ public:
   void deletetext();
   void Clear();
 
-  void SetEncoding(Opts::FileEncodingFormats Encoding);
   void SetFont(std::string Name, long Size);
   bool SaveAs(const std::string filename, bool a);
   bool Save(bool a = false);

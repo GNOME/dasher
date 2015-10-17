@@ -11,6 +11,7 @@
 #include "WinCommon.h"
 
 #include "Toolbar.h"
+#include <winres.h>
 #include "../resource.h"
 
 // Track memory leaks on Windows to the line that new'd the memory
@@ -87,19 +88,10 @@ void CToolbar::CreateToolbar() {
   REBARBANDINFO rbBand;
   rbBand.cbSize = sizeof(REBARBANDINFO); 
   rbBand.fMask  = RBBIM_STYLE | RBBIM_CHILD  | RBBIM_CHILDSIZE;
-#ifndef _WIN32_WCE
   rbBand.fStyle = RBBS_CHILDEDGE | RBBS_FIXEDBMP | RBBS_GRIPPERALWAYS | RBBS_USECHEVRON;
-#else
-  rbBand.fStyle = RBBS_CHILDEDGE | RBBS_FIXEDBMP | RBBS_GRIPPERALWAYS;
-#endif
  
   // Create Toolbar
-#ifdef OriginalWin95
-  m_hwnd = CreateWindow(TOOLBARCLASSNAME, NULL, WS_CHILD | WS_VISIBLE, 0, 0, 0, 0, m_hRebar, NULL, WinHelper::hInstApp, NULL);
-#else
-  //Unless I'm going for ultra-compatibility, display a nice flat-style toolbar
   m_hwnd = CreateWindow(TOOLBARCLASSNAME, NULL, WS_CHILD | WS_VISIBLE | TBSTYLE_FLAT | CCS_NODIVIDER | CCS_NORESIZE | CCS_NOPARENTALIGN, 0, 0, 0, 0, m_hRebar, NULL, WinHelper::hInstApp, NULL);
-#endif
 
   // Allows system to work with any version of common controls library
   SendMessage(m_hwnd, TB_BUTTONSTRUCTSIZE, (WPARAM) sizeof(TBBUTTON), 0);
@@ -153,7 +145,7 @@ void CToolbar::CreateToolbar() {
 
   SendMessage(m_hwnd, TB_ADDBUTTONS, iNumButtons, (LPARAM)pButtons);
 
-  delete(pButtons);
+  delete[] pButtons;
 
   int dwBtnSize = SendMessage(m_hwnd, TB_GETBUTTONSIZE, 0,0);
 

@@ -13,8 +13,13 @@
 
 #define NOMINMAX
 #define WIN32_LEAN_AND_MEAN     // Excludes rarely-used stuff from the Windows headers
+#define STRICT
+#define _ATL_NO_COM_SUPPORT
+#define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS
+#define _ATL_ENABLE_PTM_WARNING
 
 #include <atlbase.h>
+#include <atlstr.h>
 #include <atlwin.h>
 
 

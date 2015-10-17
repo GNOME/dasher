@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Mobile Debug|Win32">
+      <Configuration>Mobile Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>Dasher</ProjectName>
+    <ProjectGuid>{752501D3-5B04-4F3C-A141-DE426E354D23}</ProjectGuid>
+    <RootNamespace>Dasher</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mobile Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Mobile Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.30501.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\Target/Debug\</OutDir>
+    <IntDir>.\Target/Debug/Intermediate\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(EXPAT)\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Target/Release\</OutDir>
+    <IntDir>.\Target/Release/Intermediate\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(EXPAT)\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mobile Debug|Win32'">
+    <OutDir>$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <IncludePath>$(EXPAT)\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Target/Debug/Dasher.tlb</TypeLibraryName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>WinCommon;Common;$(SPEECHSDK)\Include;$(TABLETSDK)\Include;C:\Program Files\HTML Help Workshop\include;$(EXPAT)\Source\lib;$(MICROSOFTSDK5)\include;%(AdditionalIncludeDirectories);C:\Devel\expat\expat\lib;C:\Devel\expat\expat\lib</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;WIN32_SPEECH;_DEBUG;DEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0501;_WIN32_IE=0x0501;ISOLATION_AWARE_ENABLED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <PrecompiledHeaderFile>WinCommon.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>.\Target/Debug/Intermediate/Dasher.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Target/Debug/Intermediate/</AssemblerListingLocation>
+      <ObjectFileName>.\Target/Debug/Intermediate/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Target/Debug/Intermediate/</ProgramDataBaseFileName>
+      <BrowseInformation>true</BrowseInformation>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;WS2_32.lib;Htmlhelp.lib;Uxtheme.lib;$(EXPAT)\Bin\libexpat.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\Target/Debug/Dasher.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(SPEECHSDK)\Lib\i386;C:\Program Files\HTML Help Workshop\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalManifestDependencies>type=%27Win32%27 name=%27Microsoft.Windows.Common-Controls%27 version=%276.0.0.0%27 processorArchitecture=%27X86%27 publicKeyToken=%276595b64144ccf1df%27 language=%27*%27;%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\Target/Debug/Dasher.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Target/Release/Dasher.tlb</TypeLibraryName>
+    </Midl>
+    <ClCompile>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>WinCommon;Common;$(SPEECHSDK)\Include;$(TABLETSDK)\Include;$(EXPAT)\Source\lib;$(MICROSOFTSDK5)\include;%(AdditionalIncludeDirectories);C:\Devel\expat\expat\lib;C:\Devel\expat\expat\lib</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;WIN32_SPEECH;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0501;_WIN32_IE=0x0501;ISOLATION_AWARE_ENABLED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
+      <PrecompiledHeaderFile>WinCommon.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>.\Target/Release/Intermediate/Dasher.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Target/Release/Intermediate/</AssemblerListingLocation>
+      <ObjectFileName>.\Target/Release/Intermediate/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Target/Release/Intermediate/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat />
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;WS2_32.lib;Htmlhelp.lib;Uxtheme.lib;$(EXPAT)\Bin\libexpat.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\Target/Release/Dasher.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(SPEECHSDK)\Lib\i386;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalManifestDependencies>type=%27Win32%27 name=%27Microsoft.Windows.Common-Controls%27 version=%276.0.0.0%27 processorArchitecture=%27X86%27 publicKeyToken=%276595b64144ccf1df%27 language=%27*%27;%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ProgramDatabaseFile />
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Mobile Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Target/Debug/Dasher.tlb</TypeLibraryName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>WinCommon;Common;$(SPEECHSDK)\Include;$(TABLETSDK)\Include;C:\Program Files\HTML Help Workshop\include;%(AdditionalIncludeDirectories);C:\Devel\expat\expat\lib;C:\Devel\expat\expat\lib</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;WIN32_SPEECH;_DEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <PrecompiledHeaderFile>WinCommon.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>.\Target/Debug/Intermediate/Dasher.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Target/Debug/Intermediate/</AssemblerListingLocation>
+      <ObjectFileName>.\Target/Debug/Intermediate/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Target/Debug/Intermediate/</ProgramDataBaseFileName>
+      <BrowseInformation>true</BrowseInformation>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;WS2_32.lib;Htmlhelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\Target/Debug/Dasher.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>$(SPEECHSDK)\Lib\i386;C:\Program Files\HTML Help Workshop\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\Target/Debug/Dasher.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Image Include="CopyAllLarge.bmp" />
+    <Image Include="CopyAllSmall.bmp" />
+    <Image Include="Dasher.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Dasher.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AppSettings.cpp" />
+    <ClCompile Include="Common\WinWrap.cpp" />
+    <ClCompile Include="DasherWindow.cpp" />
+    <ClCompile Include="ModuleControl.cpp" />
+    <ClCompile Include="ModuleControlBool.cpp" />
+    <ClCompile Include="ModuleControlLong.cpp" />
+    <ClCompile Include="ModuleControlString.cpp" />
+    <ClCompile Include="ModuleSettings.cpp" />
+    <ClCompile Include="Widgets\AdvancedPage.cpp" />
+    <ClCompile Include="Widgets\AlphabetBox.cpp" />
+    <ClCompile Include="Widgets\ControlPage.cpp" />
+    <ClCompile Include="Widgets\Edit.cpp" />
+    <ClCompile Include="Widgets\FilenameGUI.cpp" />
+    <ClCompile Include="Widgets\Prefs.cpp" />
+    <ClCompile Include="Widgets\PrefsPageBase.cpp" />
+    <ClCompile Include="Widgets\Splitter.cpp" />
+    <ClCompile Include="Widgets\StatusControl.cpp" />
+    <ClCompile Include="Widgets\Toolbar.cpp" />
+    <ClCompile Include="Widgets\ViewPage.cpp" />
+    <ClCompile Include="WinMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AppSettings.h" />
+    <ClInclude Include="Common\StringUtils.h" />
+    <ClInclude Include="Common\WinWrap.h" />
+    <ClInclude Include="DasherAction.h" />
+    <ClInclude Include="DasherWindow.h" />
+    <ClInclude Include="ModuleControl.h" />
+    <ClInclude Include="ModuleControlBool.h" />
+    <ClInclude Include="ModuleControlLong.h" />
+    <ClInclude Include="ModuleControlString.h" />
+    <ClInclude Include="ModuleSettings.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Widgets\AboutBox.h" />
+    <ClInclude Include="Widgets\AdvancedPage.h" />
+    <ClInclude Include="Widgets\AlphabetBox.h" />
+    <ClInclude Include="Widgets\ControlPage.h" />
+    <ClInclude Include="Widgets\Edit.h" />
+    <ClInclude Include="Widgets\FilenameGUI.h" />
+    <ClInclude Include="Widgets\Prefs.h" />
+    <ClInclude Include="Widgets\PrefsPageBase.h" />
+    <ClInclude Include="Widgets\Splitter.h" />
+    <ClInclude Include="Widgets\StatusControl.h" />
+    <ClInclude Include="Widgets\Toolbar.h" />
+    <ClInclude Include="Widgets\ViewPage.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common_vc2013.vcxproj">
+      <Project>{4a4ceb83-fbc8-4e93-831e-009875e54794}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\DasherCore\DasherCore_vc2013.vcxproj">
+      <Project>{192c1e5c-2d1e-4aa3-91c3-ff2d7abd67f8}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="DasherControl_vc2013.vcxproj">
+      <Project>{3998d966-9b9e-4214-acea-b777985af4dd}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="Dasher.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

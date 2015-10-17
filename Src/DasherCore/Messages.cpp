@@ -10,14 +10,14 @@ void CMessageDisplay::FormatMessageWithString(const char *fmt, const char *str) 
   char *buf(new char[strlen(fmt)+strlen(str)]);
   sprintf(buf, fmt, str);
   Message(buf, true);
-  delete buf;
+  delete[] buf;
 }
 
 void CMessageDisplay::FormatMessageWith2Strings(const char *fmt, const char *str1, const char *str2) {
   char *buf(new char[strlen(fmt)+strlen(str1)+strlen(str2)]);
   sprintf(buf, fmt, str1, str2);
   Message(buf,true);
-  delete buf;
+  delete[] buf;
 }
 
   //The following implements a varargs version of the above,

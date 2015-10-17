@@ -3,47 +3,33 @@
 
 #include "AppSettings.h"
 #include "ModuleControl.h"
+#include "resource.h"
 
 #include <atlbase.h>
 #include <atlwin.h>
 #include <string>
 
-extern CONST UINT WM_MS_CLOSE;
-#define _WM_MS_CLOSE (LPCWSTR)"wm_ms_close"
-
-class CModuleSettings : public CWindowImpl<CModuleSettings> {
+class CModuleSettings : public CDialogImpl<CModuleSettings> {
 public:
   CModuleSettings(const std::string &strModuleName, SModuleSettings *pSettings, int iCount, CAppSettings *pAppSets);
   ~CModuleSettings();
 
-  void Create(HWND hWndParent, ATL::_U_RECT rect);
-
-  DECLARE_WND_CLASS(NULL);
+  enum { IDD = IDD_MODULESETTINGS };
 
   BEGIN_MSG_MAP(CModuleSettings)
-    MESSAGE_HANDLER(WM_COMMAND, OnCommand)
-    MESSAGE_HANDLER(WM_PAINT, OnPaint)
-    MESSAGE_HANDLER(WM_SIZE, OnSize)
+    MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
+    COMMAND_RANGE_HANDLER(IDOK, IDCANCEL, OnCloseCmd)
   END_MSG_MAP()
 
-  LRESULT OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-  LRESULT OnPaint(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-  LRESULT OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-
-  virtual void OnFinalMessage(HWND hWnd) {
-    delete this;
-  }
+  LRESULT OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnCloseCmd(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
 
 private:
+  void MoveButton(WORD wID, int x, int y);
+
   int m_iCount;
   CModuleControl **m_pControls;
   std::string m_strModuleName;
-
-  HWND m_hParent;
-
-  HWND m_hOk;
-  HWND m_hCancel;
-
   CAppSettings *m_pAppSets;
 };
 

@@ -52,7 +52,8 @@ struct app_sp_table {
 // is useful
 
 app_bp_table app_boolparamtable[] = {
-  {APP_BP_TIME_STAMP, "TimeStampNewFiles", PERS, true, true, "TimeStampNewFiles"},
+  { APP_BP_TIME_STAMP, "TimeStampNewFiles", PERS, true, true, "TimeStampNewFiles" },
+  { APP_BP_CONFIRM_UNSAVED, "ConfirmUnsavedFiles", PERS, true, true, "ConfirmUnsavedFiles" },
   {APP_BP_SHOW_TOOLBAR, "ViewToolbar", PERS, true, true, "ViewToolbar"},
   {APP_BP_SHOW_TOOLBAR_TEXT, "ShowToolbarText", PERS, true, true, "ShowToolbarText"},
   {APP_BP_SHOW_LARGE_ICONS, "ShowLargeIcons", PERS, true, true, "ShowLargeIcons"},
@@ -65,7 +66,6 @@ app_bp_table app_boolparamtable[] = {
 };
 
 app_lp_table app_longparamtable[] = {
-  {APP_LP_FILE_ENCODING, "FileEncodingFormat", PERS, -2, -2, "FileEncodingFormat"},
   {APP_LP_EDIT_FONT_SIZE, "EditFontSize", PERS, 0, 0, "EditFontSize"},
   {APP_LP_EDIT_HEIGHT, "EditHeight", PERS, 75, 75, "The height of the edit window"},
   {APP_LP_EDIT_WIDTH, "EditWidth", PERS, 200, 200, "EditWidth"},

@@ -41,6 +41,7 @@ AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package])
 AM_GLIB_GNU_GETTEXT
 
+CXXFLAGS="$CXXFLAGS -std=c++0x"
 AC_PROG_CXX
 
 AC_PROG_LD_GNU
@@ -329,7 +330,7 @@ AC_CHECK_LIB(expat, XML_Parse,,[
 ])
 
 PKG_CHECK_MODULES([ATSPI],
-	[atspi-2],
+	[atspi-2 >= 2.11],
 	[have_libatspi=yes],
 	[have_libatspi=no])
 

@@ -236,30 +236,129 @@ void CControlParser::XmlEndHandler(const XML_Char *szName) {
   }
 }
 
+class Dasher::SpeechHeader : public CDasherInterfaceBase::TextAction{
+public:
+  SpeechHeader(CDasherInterfaceBase *pIntf) : TextAction(pIntf) {}
+  void operator()(const std::string &strText) {
+    m_pIntf->Speak(strText, false);
+  }
+};
+
+class Dasher::CopyHeader : public CDasherInterfaceBase::TextAction{
+public:
+  CopyHeader(CDasherInterfaceBase *pIntf) : TextAction(pIntf) {}
+  void operator()(const std::string &strText) {
+    m_pIntf->CopyToClipboard(strText);
+  }
+};
+
+class Pause : public CControlBase::Action{
+public:
+  void happen(CControlBase::CContNode *pNode) {
+    pNode->mgr()->GetDasherInterface()->GetActiveInputMethod()->pause();
+  }
+};
+
+class SpeakCancel : public CControlBase::Action {
+public:
+  void happen(CControlBase::CContNode *pNode) {
+    pNode->mgr()->GetDasherInterface()->Speak("", true);
+  }
+};
+
+template <typename T> class MethodAction : public CControlBase::Action {
+public:
+  ///A "Method" is pointer to a function "void X()", that is a member of a T...
+  typedef void (T::*Method)();
+  MethodAction(T *pRecv, Method f) : m_pRecv(pRecv), m_f(f) {
+  }
+  virtual void happen(CControlBase::CContNode *pNode) {
+    //invoke pointer-to-member-function m_f on object *m_pRecv!
+    (m_pRecv->*m_f)();
+  }
+private:
+  T *m_pRecv;
+  Method m_f;
+};
+
+class Delete : public CControlBase::Action {
+  const bool m_bForwards;
+  const CControlManager::EditDistance m_dist;
+public:
+  Delete(bool bForwards, CControlManager::EditDistance dist) : m_bForwards(bForwards), m_dist(dist)  {
+  }
+  virtual void happen(CControlBase::CContNode *pNode) {
+    pNode->mgr()->GetDasherInterface()->ctrlDelete(m_bForwards, m_dist);
+  }
+};
+
+class Move : public CControlBase::Action {
+  const bool m_bForwards;
+  const CControlManager::EditDistance m_dist;
+public:
+  Move(bool bForwards, CControlManager::EditDistance dist) : m_bForwards(bForwards), m_dist(dist)  {
+  }
+  virtual void happen(CControlBase::CContNode *pNode) {
+    pNode->mgr()->GetDasherInterface()->ctrlMove(m_bForwards, m_dist);
+  }
+};
+
+
 CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface)
 : CControlParser(pInterface), CControlBase(pCreateFrom, pInterface, pNCManager), CSettingsObserver(pCreateFrom), m_pSpeech(NULL), m_pCopy(NULL) {
   //TODO, used to be able to change label+colour of root/pause/stop from controllabels.xml
   // (or, get the root node title "control" from the alphabet!)
-  SetRootTemplate(new NodeTemplate("Control",8)); //default NodeTemplate does nothing
+  m_pSpeech = new SpeechHeader(pInterface);
+  m_pCopy = new CopyHeader(pInterface);
+  SetRootTemplate(new NodeTemplate("",8)); //default NodeTemplate does nothing
   GetRootTemplate()->successors.push_back(NULL);
 
-  m_pPause = new Pause("Pause",241);
-  m_pPause->successors.push_back(NULL);
-  m_pPause->successors.push_back(GetRootTemplate());
-  m_pStop = new MethodTemplate<CDasherInterfaceBase>(_("Done"), 242, pInterface, &CDasherInterfaceBase::Done);
-  m_pStop->successors.push_back(NULL);
-  m_pStop->successors.push_back(GetRootTemplate());
+  // Key in actions map is name plus arguments in alphabetical order.
+  m_actions["stop"] = new MethodAction<CDasherInterfaceBase>(pInterface, &CDasherInterfaceBase::Done);
+  m_actions["pause"] = new Pause();
+
+  m_actions["speak what=cancel"] = new SpeakCancel();
+  m_actions["speak what=all"] = new MethodAction<SpeechHeader>(m_pSpeech, &SpeechHeader::executeOnAll);
+  m_actions["speak what=new"] = new MethodAction<SpeechHeader>(m_pSpeech, &SpeechHeader::executeOnNew);
+  m_actions["speak what=repeat"] = new MethodAction<SpeechHeader>(m_pSpeech, &SpeechHeader::executeLast);
+
+  m_actions["copy what=all"] = new MethodAction<CopyHeader>(m_pCopy, &CopyHeader::executeOnAll);
+  m_actions["copy what=new"] = new MethodAction<CopyHeader>(m_pCopy, &CopyHeader::executeOnNew);
+  m_actions["copy what=repeat"] = new MethodAction<CopyHeader>(m_pCopy, &CopyHeader::executeLast);
+
+  m_actions["move dist=char forward=yes"] = new Move(true, EDIT_CHAR);
+  m_actions["move dist=word forward=yes"] = new Move(true, EDIT_WORD);
+  m_actions["move dist=line forward=yes"] = new Move(true, EDIT_LINE);
+  m_actions["move dist=sentence forward=yes"] = new Move(true, EDIT_SENTENCE);
+  m_actions["move dist=paragraph forward=yes"] = new Move(true, EDIT_PARAGRAPH);
+  m_actions["move dist=file forward=yes"] = new Move(true, EDIT_FILE);
+
+  m_actions["move dist=char forward=no"] = new Move(false, EDIT_CHAR);
+  m_actions["move dist=word forward=no"] = new Move(false, EDIT_WORD);
+  m_actions["move dist=line forward=no"] = new Move(false, EDIT_LINE);
+  m_actions["move dist=sentence forward=no"] = new Move(false, EDIT_SENTENCE);
+  m_actions["move dist=paragraph forward=no"] = new Move(false, EDIT_PARAGRAPH);
+  m_actions["move dist=file forward=no"] = new Move(false, EDIT_FILE);
+
+  m_actions["delete dist=char forward=yes"] = new Delete(true, EDIT_CHAR);
+  m_actions["delete dist=word forward=yes"] = new Delete(true, EDIT_WORD);
+  m_actions["delete dist=line forward=yes"] = new Delete(true, EDIT_LINE);
+  m_actions["delete dist=sentence forward=yes"] = new Delete(true, EDIT_SENTENCE);
+  m_actions["delete dist=paragraph forward=yes"] = new Delete(true, EDIT_PARAGRAPH);
+  m_actions["delete dist=file forward=yes"] = new Delete(true, EDIT_FILE);
+
+  m_actions["delete dist=char forward=no"] = new Delete(false, EDIT_CHAR);
+  m_actions["delete dist=word forward=no"] = new Delete(false, EDIT_WORD);
+  m_actions["delete dist=line forward=no"] = new Delete(false, EDIT_LINE);
+  m_actions["delete dist=sentence forward=no"] = new Delete(false, EDIT_SENTENCE);
+  m_actions["delete dist=paragraph forward=no"] = new Delete(false, EDIT_PARAGRAPH);
+  m_actions["delete dist=file forward=no"] = new Delete(false, EDIT_FILE);
 
   m_pInterface->ScanFiles(this, "control.xml"); //just look for the one
 
   updateActions();
 }
 
-CControlBase::Pause::Pause(const string &strLabel, int iColour) : NodeTemplate(strLabel,iColour) {
-}
-void CControlBase::Pause::happen(CContNode *pNode) {
-  pNode->mgr()->m_pInterface->GetActiveInputMethod()->pause();
-}
 
 CControlBase::NodeTemplate *CControlManager::parseOther(const XML_Char *name, const XML_Char **atts) {
   if (strcmp(name,"root")==0) return GetRootTemplate();
@@ -267,100 +366,30 @@ CControlBase::NodeTemplate *CControlManager::parseOther(const XML_Char *name, co
 }
 
 CControlBase::Action *CControlManager::parseAction(const XML_Char *name, const XML_Char **atts) {
-  if (strcmp(name,"delete")==0 || strcmp(name,"move")==0) {
-    bool bForwards=true; //pick some defaults...
-    EditDistance dist=EDIT_WORD; // (?!)
-    while (*atts) {
-      if (strcmp(*atts,"forward")==0)
-        bForwards=(strcmp(*(atts+1),"yes")==0 || strcmp(*(atts+1),"true")==0 || strcmp(*(atts+1),"on")==0);
-      else if (strcmp(*atts,"dist")==0) {
-        if (strcmp(*(atts+1),"char")==0)
-          dist=EDIT_CHAR;
-        else if (strcmp(*(atts+1),"word")==0)
-          dist=EDIT_WORD;
-        else if (strcmp(*(atts+1),"line")==0)
-          dist=EDIT_LINE;
-        else if (strcmp(*(atts+1),"file")==0)
-          dist=EDIT_FILE;
-      }
-      atts+=2;
-    }
-    class DirDist {
-    protected:
-      const bool m_bForwards;
-      const EditDistance m_dist;
-    public:
-      DirDist(bool bForwards,EditDistance dist) : m_bForwards(bForwards), m_dist(dist) {
-      }
-    };
-
-    if (name[0]=='d') {
-      class Delete : private DirDist, public Action {
-      public:
-        Delete(bool bForwards,EditDistance dist) : DirDist(bForwards,dist) {
-        }
-        void happen(CContNode *pNode) {
-          static_cast<CControlManager*>(pNode->mgr())->m_pInterface->ctrlDelete(m_bForwards,m_dist);
-        }
-      };
-      return new Delete(bForwards,dist);
-    } else {
-      class Move : private DirDist, public Action {
-      public:
-        Move(bool bForwards,EditDistance dist) : DirDist(bForwards, dist) {}
-        void happen(CContNode *pNode) {
-          static_cast<CControlManager*>(pNode->mgr())->m_pInterface->ctrlMove(m_bForwards,m_dist);
-        };
-      };
-      return new Move(bForwards, dist);
+  map<string, string> arguments;
+  while (*atts) {
+    arguments[*atts] = *(atts + 1);
+    atts += 2;
+  }
+  stringstream key;
+  // Key in actions map is name plus arguments in alphabetical order.
+  key << name;
+  if (!arguments.empty()) {
+    for (auto arg : arguments) {
+      key << " " << arg.first << "=" << arg.second;
     }
   }
+  if (auto action = m_actions[key.str()])
+    return action;
+
   return CControlParser::parseAction(name, atts);
 }
 
 CControlManager::~CControlManager() {
-  delete m_pSpeech;
-  delete m_pCopy;
 }
-
-class TextActionHeader : public CDasherInterfaceBase::TextAction, public CControlBase::NodeTemplate {
-public:
-  TextActionHeader(CDasherInterfaceBase *pIntf, const string &strHdr, NodeTemplate *pRoot) : TextAction(pIntf), NodeTemplate(strHdr,-1),
-  m_all("All", -1, this, &CDasherInterfaceBase::TextAction::executeOnAll),
-  m_new("New", -1, this, &CDasherInterfaceBase::TextAction::executeOnNew),
-  m_again("Repeat", -1, this, &CDasherInterfaceBase::TextAction::executeLast) {
-    successors.push_back(&m_all); m_all.successors.push_back(NULL); m_all.successors.push_back(pRoot);
-    successors.push_back(&m_new); m_new.successors.push_back(NULL); m_new.successors.push_back(pRoot);
-    successors.push_back(&m_again); m_again.successors.push_back(NULL); m_again.successors.push_back(pRoot);
-  }
-private:
-  CControlBase::MethodTemplate<CDasherInterfaceBase::TextAction> m_all, m_new, m_again;
-};
-
-class SpeechHeader : public TextActionHeader {
-public:
-  SpeechHeader(CDasherInterfaceBase *pIntf, NodeTemplate *pRoot) : TextActionHeader(pIntf, "Speak", pRoot) {
-  }
-  void operator()(const std::string &strText) {
-    m_pIntf->Speak(strText, true);
-  }
-};
-
-class CopyHeader  : public TextActionHeader {
-public:
-  CopyHeader(CDasherInterfaceBase *pIntf, NodeTemplate *pRoot) : TextActionHeader(pIntf, "Copy", pRoot) {
-  }
-  void operator()(const std::string &strText) {
-    m_pIntf->CopyToClipboard(strText);
-  }
-};
 
 void CControlManager::HandleEvent(int iParameter) {
   switch (iParameter) {
-    case BP_CONTROL_MODE_HAS_HALT:
-    case BP_CONTROL_MODE_HAS_EDIT:
-    case BP_CONTROL_MODE_HAS_SPEECH:
-    case BP_CONTROL_MODE_HAS_COPY:
     case BP_COPY_ALL_ON_STOP:
     case BP_SPEAK_ALL_ON_STOP:
     case SP_INPUT_FILTER:
@@ -369,49 +398,21 @@ void CControlManager::HandleEvent(int iParameter) {
 }
 
 void CControlManager::updateActions() {
-  vector<NodeTemplate *> &vRootSuccessors(GetRootTemplate()->successors);
-  vector<NodeTemplate *> vOldRootSuccessors;
-  vOldRootSuccessors.swap(vRootSuccessors);
-  vector<NodeTemplate *>::iterator it=vOldRootSuccessors.begin();
-  DASHER_ASSERT(*it == NULL); //escape back to alphabet
-  vRootSuccessors.push_back(*it++);
+  // decide if removal of pause and stop are worth the trouble 
+  // reimplement if yes 
+  // imo with control.xml it isn't.
+  GetRootTemplate()->successors.clear();
 
-  //stop does something, and we're told to add a node for it
-  // (either a dynamic filter where the user can't use the normal stop mechanism precisely,
-  //  or a static filter but a 'stop' action is easier than using speak->all / copy->all then pause)
-  if (m_pInterface->hasDone() && GetBoolParameter(BP_CONTROL_MODE_HAS_HALT))
-    vRootSuccessors.push_back(m_pStop);
-  if (it!=vOldRootSuccessors.end() && *it == m_pStop) it++;
+  for (auto pNode : parsedNodes())
+    GetRootTemplate()->successors.push_back(pNode);
 
-  //filter is pauseable, and either 'stop' would do something (so pause is different),
-  // or we're told to have a stop node but it would be indistinguishable from pause (=>have pause)
-  CInputFilter *pInput(m_pInterface->GetActiveInputMethod());
-  if (pInput && pInput->supportsPause() && (m_pInterface->hasDone() || GetBoolParameter(BP_CONTROL_MODE_HAS_HALT)))
-    vRootSuccessors.push_back(m_pPause);
-  if (it!=vOldRootSuccessors.end() && *it == m_pPause) it++;
-
-  if (GetBoolParameter(BP_CONTROL_MODE_HAS_SPEECH) && m_pInterface->SupportsSpeech()) {
-    if (!m_pSpeech) m_pSpeech = new SpeechHeader(m_pInterface, GetRootTemplate());
-    vRootSuccessors.push_back(m_pSpeech);
+  // If nothing was read from control.xml, add alphabet and control box
+  if (GetRootTemplate()->successors.empty())
+  {
+    GetRootTemplate()->successors.push_back(NULL);
+    GetRootTemplate()->successors.push_back(GetRootTemplate());
   }
-  if (it!=vOldRootSuccessors.end() && *it == m_pSpeech) it++;
 
-  if (GetBoolParameter(BP_CONTROL_MODE_HAS_COPY) && m_pInterface->SupportsClipboard()) {
-    if (!m_pCopy) m_pCopy = new CopyHeader(m_pInterface, GetRootTemplate());
-    vRootSuccessors.push_back(m_pCopy);
-  }
-  if (it!=vOldRootSuccessors.end() && *it == m_pCopy) it++;
-
-  if (GetBoolParameter(BP_CONTROL_MODE_HAS_EDIT)) {
-    for (vector<NodeTemplate *>::const_iterator it2=parsedNodes().begin(); it2!=parsedNodes().end(); it2++)
-      vRootSuccessors.push_back(*it2);
-  }
-  for (vector<NodeTemplate *>::const_iterator it2=parsedNodes().begin(); it2!=parsedNodes().end(); it2++)
-    if (it!=vOldRootSuccessors.end() && *it == *it2) it++;
-
-  //copy anything else (custom) that might have been added...
-  while (it != vOldRootSuccessors.end()) vRootSuccessors.push_back(*it++);
-  
   if (CDasherScreen *pScreen = m_pScreen) {
     //hack to make ChangeScreen do something
     m_pScreen = NULL; //i.e. make it think the screen has changed

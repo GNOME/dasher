@@ -32,8 +32,6 @@
 #include "../resource.h"
 #include "../../DasherCore/DasherInterfaceBase.h"
 
-#include "../Common/DasherEncodingToCP.h"
-
 using namespace Dasher;
 using namespace std;
 using namespace WinLocalisation;
@@ -82,32 +80,6 @@ void CEdit::Move(int x, int y, int Width, int Height) {
   MoveWindow( x, y, Width, Height, TRUE);
 }
 
-void CEdit::New(const string &filename) {
-  Tstring newFilename;
-  UTF8string_to_wstring(filename, newFilename);
-  TNew(newFilename);
-}
-
-bool CEdit::Open(const string &filename) {
-  Tstring openFilename;
-  UTF8string_to_wstring(filename, openFilename);
-  return TOpen(openFilename);
-}
-
-bool CEdit::OpenAppendMode(const string &filename) {
-  // TODO: Check that this works the way it's supposed to (having
-  // first figured out what that is!)
-  Tstring openFilename;
-  UTF8string_to_wstring(filename, openFilename);
-  return TOpenAppendMode(openFilename);
-}
-
-bool CEdit::SaveAs(const string &filename) {
-  Tstring saveFilename;
-  UTF8string_to_wstring(filename, saveFilename);
-  return TSaveAs(saveFilename);
-}
-
 bool CEdit::Save() {
   if(FileHandle == INVALID_HANDLE_VALUE) {
     if(m_filename == TEXT(""))
@@ -122,80 +94,11 @@ bool CEdit::Save() {
   SetFilePointer(FileHandle, NULL, NULL, FILE_BEGIN);
   SetEndOfFile(FileHandle);
 
-  // Get all the text from the edit control
-  LRESULT EditLength = 1 + SendMessage( WM_GETTEXTLENGTH, 0, 0);
-  TCHAR *EditText = new TCHAR[EditLength];
-  EditLength = SendMessage( WM_GETTEXT, (WPARAM) EditLength, (LPARAM) EditText);
-
+  CString wideText;
+  GetWindowText(wideText);
+  CStringA mbcsText(wideText);
   DWORD NumberOfBytesWritten;   // Used by WriteFile
-
-  // This is Windows therefore we tag Unicode files with BOMs (Byte Order Marks) {{{
-  // Then notepad and other Windows apps can recognise the files.
-  // Do NOT write BOMs in a UNIX version, they are not welcome there.
-  // The BOM is just an encoding of U+FEFF (ZERO WIDTH NO-BREAK SPACE)
-  // This is unambiguous as U+FFFE is not a valid Unicode character.
-  // There could be a menu option for this, but most users won't know what a BOM is. }}}
-  unsigned int WideLength = 0;
-  wchar_t *WideText = 0;
-  if((m_Encoding == Opts::UTF16LE) || (m_Encoding == Opts::UTF16BE)) {
-    // These are the UTF-16 formats. If the string isn't already in UTF-16 we need
-    // it to be so.
-#ifdef _UNICODE
-    WideLength = EditLength;
-    WideText = EditText;
-#else
-    WideText = new wchar_t[EditLength + 1];
-    WideLength = MultiByteToWideChar(CodePage, 0, EditText, -1, WideText, EditLength + 1);
-#endif
-  }
-  switch (m_Encoding) {
-  case Opts::UTF8:{            // there is no byte order, but BOM tags it as a UTF-8 file
-      unsigned char BOM[3] = { 0xEF, 0xBB, 0xBF };
-      WriteFile(FileHandle, &BOM, 3, &NumberOfBytesWritten, NULL);
-      Tstring Tmp = EditText;
-      string Output;
-      wstring_to_UTF8string(EditText, Output);
-      WriteFile(FileHandle, Output.c_str(), Output.size(), &NumberOfBytesWritten, NULL);
-      break;
-    }
-  case Opts::UTF16LE:{
-      // TODO I am assuming this machine is LE. Do any windows (perhaps CE) machines run on BE?
-      unsigned char BOM[2] = { 0xFF, 0xFE };
-      WriteFile(FileHandle, &BOM, 2, &NumberOfBytesWritten, NULL);
-      WriteFile(FileHandle, WideText, WideLength * 2, &NumberOfBytesWritten, NULL);
-#ifndef _UNICODE
-      delete[]WideText;
-#endif
-      break;
-    }
-  case Opts::UTF16BE:{         // UTF-16BE
-      // TODO I am again assuming this machine is LE.
-      unsigned char BOM[2] = { 0xFE, 0xFF };
-      WriteFile(FileHandle, &BOM, 2, &NumberOfBytesWritten, NULL);
-      // There will be a better way. Perhaps use _swab instead.
-      for(unsigned int i = 0; i < WideLength; i++) {
-        const char *Hack = (char *)&WideText[i];
-        WriteFile(FileHandle, Hack + 1, 1, &NumberOfBytesWritten, NULL);
-        WriteFile(FileHandle, Hack, 1, &NumberOfBytesWritten, NULL);
-      }
-#ifndef _UNICODE
-      delete[]WideText;
-#endif
-      break;
-    }
-  default:
-#ifdef _UNICODE
-    char *MultiByteText = new char[EditLength * 4];
-    int MultiByteLength = WideCharToMultiByte(CodePage, 0, EditText, EditLength, MultiByteText, EditLength * 4, NULL, NULL);
-    WriteFile(FileHandle, MultiByteText, MultiByteLength, &NumberOfBytesWritten, NULL);
-    delete[]MultiByteText;
-#else
-    WriteFile(FileHandle, EditText, EditLength, &NumberOfBytesWritten, NULL);
-#endif
-    break;                      // do nothing
-  }
-
-  delete[]EditText;
+  WriteFile(FileHandle, mbcsText, mbcsText.GetLength(), &NumberOfBytesWritten, NULL);
   // The file handle is not closed here. We keep a write-lock on the file to stop other programs confusing us.
 
   m_FilenameGUI->SetDirty(false);
@@ -203,51 +106,32 @@ bool CEdit::Save() {
   return true;
 }
 
-void CEdit::New() {
+bool CEdit::ConfirmAndSaveIfNeeded() {
+  if (!m_pAppSettings->GetBoolParameter(APP_BP_CONFIRM_UNSAVED))
+    return true;
+  
   switch (m_FilenameGUI->QuerySaveFirst()) {
   case IDYES:
-    if(!Save())
-      if(!TSaveAs(m_FilenameGUI->SaveAs()))
-        return;
+    if (!Save())
+      if (!TSaveAs(m_FilenameGUI->SaveAs()))
+        return false;
     break;
   case IDNO:
     break;
   default:
-    return;
+    return false;
   }
-  TNew(TEXT(""));
+  return true;
+}
+
+void CEdit::New() {
+  if (ConfirmAndSaveIfNeeded())
+    TNew(TEXT(""));
 }
 
 void CEdit::Open() {
-  switch (m_FilenameGUI->QuerySaveFirst()) {
-  case IDYES:
-    if(!Save())
-      if(!TSaveAs(m_FilenameGUI->SaveAs()))
-        return;
-    break;
-  case IDNO:
-    break;
-  default:
-    return;
-    break;
-  }
-  TOpen(m_FilenameGUI->Open());
-}
-
-void CEdit::OpenAppendMode() {
-  switch (m_FilenameGUI->QuerySaveFirst()) {
-  case IDYES:
-    if(!Save())
-      if(!TSaveAs(m_FilenameGUI->SaveAs()))
-        return;
-    break;
-  case IDNO:
-    break;
-  default:
-    return;
-    break;
-  }
-  TOpenAppendMode(m_FilenameGUI->Open());
+  if (ConfirmAndSaveIfNeeded())
+    TOpen(m_FilenameGUI->Open());
 }
 
 void CEdit::SaveAs() {
@@ -276,7 +160,6 @@ void CEdit::TNew(const Tstring &filename) {
   if(FileHandle != INVALID_HANDLE_VALUE)
     CloseHandle(FileHandle);
   FileHandle = INVALID_HANDLE_VALUE;
-  AppendMode = false;
   Clear();
 }
 
@@ -316,15 +199,9 @@ bool CEdit::TOpen(const Tstring &filename) {
   UTF8string_to_wstring(text, inserttext);
   InsertText(inserttext);
 
-  AppendMode = false;
   m_FilenameGUI->SetFilename(m_filename);
   m_FilenameGUI->SetDirty(false);
   m_dirty = false;
-  return true;
-}
-
-bool CEdit::TOpenAppendMode(const Tstring &filename) {
-  AppendMode = true;
   return true;
 }
 
@@ -356,19 +233,6 @@ void CEdit::Cut() {
 
 void CEdit::Copy() {
   SendMessage(WM_COPY, 0, 0);
-/*
-#ifndef _UNICODE
-	HGLOBAL handle;
-	DWORD* foo;
-	handle = GlobalAlloc(GMEM_MOVEABLE|GMEM_DDESHARE, sizeof(DWORD));
-	foo = (DWORD*) GlobalLock(handle);
-	*foo = MAKELCID(MAKELANGID(LANG_JAPANESE, SUBLANG_DEFAULT), SORT_DEFAULT);
-	GlobalUnlock(handle);
-	OpenClipboard(m_hwnd);
-	SetClipboardData(CF_LOCALE, handle);
-	CloseClipboard();
-#endif
-*/
 }
 
 void CEdit::Paste() {
@@ -381,10 +245,6 @@ void CEdit::SelectAll() {
 
 void CEdit::Clear() {
   SendMessage(WM_SETTEXT, 0, (LPARAM) TEXT(""));
-}
-
-void CEdit::SetEncoding(Dasher::Opts::FileEncodingFormats Encoding) {
-  m_Encoding = Encoding;
 }
 
 void CEdit::SetFont(string Name, long Size) {
@@ -419,20 +279,6 @@ void CEdit::SetInterface(Dasher::CDasherInterfaceBase *DasherInterface) {
   //SetFont(m_FontName, m_FontSize);
 #endif
 }
-
-std::string CEdit::get_context(int iOffset, int iLength) {
-  TCHAR *wszContent = new TCHAR[iOffset + iLength + 1];
-  
-  SendMessage(WM_GETTEXT, (LONG) (iOffset + iLength + 1), (LONG) wszContent);
-
-  std::string strReturn;
-  wstring_to_UTF8string(wszContent + iOffset, strReturn);
-
-  delete[] wszContent;
-
-  return strReturn;
-}
-
 
 void CEdit::output(const std::string &sText) {
   wstring String;
@@ -491,248 +337,126 @@ void CEdit::output(const std::string &sText) {
   m_Output += sText;
 }
 
-int CEdit::Move(bool bForwards, CControlManager::EditDistance iDist) {
+int _findAfterChars(const wchar_t* str, const wchar_t* chrs, int startPos) {
+  const wchar_t* ptr = str + startPos;
+  ptr += wcscspn(ptr, chrs);
+  ptr += wcsspn(ptr, chrs);
+  return ptr - str;
+}
 
-  // Unfortunately there doesn't seem to be a sane way of obtaining the caret
-  // position (as opposed to the bounds of the selection), so we're just going
-  // to have to assume that the caret is at the end...
+int _findBeforeChars(const wchar_t* str, const wchar_t* chrs, int startPos) {
+  const wchar_t* ptr = str + startPos;
+  // over non separators
+  while (ptr > str && !wcschr(chrs, *ptr)) {
+    --ptr;
+  }
+  // over separators
+  while (ptr > str && wcschr(chrs, *ptr)) {
+    --ptr;
+  }
+  // over non separators
+  while (ptr > str && !wcschr(chrs, *ptr)) {
+    --ptr;
+  }
+  if (wcschr(chrs, *ptr))
+    ++ptr;
 
-  int iStart;
-  int iEnd;
-  SendMessage(EM_GETSEL, (WPARAM)&iStart, (LPARAM)&iEnd);
+  return max(0, ptr - str);
+}
 
-  HLOCAL hMemHandle;
-  std::wstring strBufferText;
+// amajorek: Add list of word and sentence separators to alphabet definitions. 
+// And use that list instead of hardcoded. 
+// Fix exery place where boundaries are needed.
+const wchar_t* _wordSeparators = L" \t\v\f\r\n";
+const wchar_t* _sentenceSeparators = L".?!\r\n";
+const wchar_t* _paragraphSeparators = L"\r\n";
 
-  if(bForwards) {
-    switch(iDist) {
-    case CControlManager::EDIT_CHAR:
-      //if(iStart != iEnd)
-        ++iEnd;
-      break;
-    case CControlManager::EDIT_WORD: {
-      // Hmm... words are hard - this is a rough and ready approximation:
+void CEdit::GetRange(bool bForwards, CControlManager::EditDistance iDist, int* pStart, int* pEnd) {
+  int& iStart = *pStart;
+  int& iEnd = *pEnd;
 
-#ifndef _WIN32_WCE
-      // TODO: Fix this on Windows CE
-      int iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
-      hMemHandle = (HLOCAL)SendMessage( EM_GETHANDLE, 0, 0);
-      strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
-      LocalUnlock(hMemHandle);
+  switch (iDist) {
+  case CControlManager::EDIT_CHAR:
+    if (bForwards)
+      iEnd = min(iEnd + 1, (int)SendMessage(WM_GETTEXTLENGTH, 0, 0));
+    else
+      iStart = max(iStart - 1, 0);
+    break;
 
-      iEnd = strBufferText.find(' ', iEnd+1);
-      if(iEnd == -1)
-        iEnd = iNumChars + 1;
-      else
-        iEnd = iEnd + 1;
-#endif
-    }
-      break;
-    case CControlManager::EDIT_LINE: {
-/*      iEndLine = SendMessage( EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-      iLineOffset = iEnd - SendMessage( EM_LINEINDEX, (WPARAM)iEndLine, 0);
-      iNumLines = SendMessage( EM_GETLINECOUNT, 0, 0);
-      if( iEndLine < iNumLines - 1) {
-        ++iEndLine;
-        iLineStart = SendMessage( EM_LINEINDEX, (WPARAM)iEndLine, 0);
-        iLineLength = SendMessage( EM_LINELENGTH, (WPARAM)iEndLine, 0);
-        if( iLineOffset < iLineLength )
-          iEnd = iLineStart+iLineOffset;
-        else
-          iEnd = iLineStart+iLineLength;
-      }
-	  else if(iEndLine == iNumLines - 1) {
-		// we're on the last line so go to end of file
-		iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
-        iEnd = iNumChars + 1;
-      }
-*/    
+  case CControlManager::EDIT_LINE: {
+    if (bForwards) {
       // Make it behave like the 'End' key, unless we're at the end of the current line.
-	  // Then go down a line.
-	  int iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-	  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine + 1), 0) - 1; // end of this line
-	  if(iStart==iEnd)  // we were already at the end so go down a line
-		  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine + 2), 0) - 1;
+      // Then go down a line.
+      int iEndLine = SendMessage(EM_LINEFROMCHAR, iEnd, 0);
+      int iNewEnd = SendMessage(EM_LINEINDEX, iEndLine + 1, 0) - 1; // end of this line
+      // if we were already at the end so go down a line
+      if (iNewEnd <= iEnd)
+        iNewEnd = SendMessage(EM_LINEINDEX, iEndLine + 2, 0) - 1;
+      // on last line go to the end of text 
+      if (iNewEnd <= iEnd)
+        iNewEnd = SendMessage(WM_GETTEXTLENGTH, 0, 0);
+      iEnd = max(0, iNewEnd);
     }
-      break;
-    case CControlManager::EDIT_FILE: {
-      int iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
-      iEnd = iNumChars + 1;
+    else {
+      int iStartLine = SendMessage(EM_LINEFROMCHAR, iStart, 0);
+      int iNewStart = SendMessage(EM_LINEINDEX, iStartLine, 0); // start of this line
+      // if we were already at the start so go up a line
+      iStart = (iNewStart == iStart && iStartLine>0) ? SendMessage(EM_LINEINDEX, iStartLine - 1, 0) : iNewStart;
     }
-      break;
-    }
+    break;
   }
-  else {
-    switch(iDist) {
-    case CControlManager::EDIT_CHAR:
-        //ACL this case at least differs from Delete(bool,EditDistance):
-        // there we decrement iEnd whether or not iStart==iEnd.
-      if( iStart == iEnd )
-        --iEnd;
-      break;
-    case CControlManager::EDIT_WORD: {
-#ifndef _WIN32_WCE
-      // TODO: Fix this on Windows CE
-      int iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
-      hMemHandle = (HLOCAL)SendMessage(EM_GETHANDLE, 0, 0);
-      strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
-      LocalUnlock(hMemHandle);
 
-      if(iEnd > 0) {
-        iEnd = strBufferText.rfind(' ', iEnd-2);
-        if(iEnd == -1)
-          iEnd = 0;
-        else
-          iEnd = iEnd + 1;
-      }
-#endif
-    }
-      break;
-    case CControlManager::EDIT_LINE: {
-/*
-      iStartLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iStart, 0);
-      iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-      iLineOffset = iEnd - SendMessage(EM_LINEINDEX, (WPARAM)iEndLine, 0);
-      if( iStartLine > 0)
-        --iStartLine;
-	  else if( iStartLine == 0)
-	  {
-	    // we're on the first line so go to start of file...
-	    iStart = iEnd = 0;
-		break;
-	  }
-      iLineStart = SendMessage(EM_LINEINDEX, (WPARAM)iStartLine, 0);
-      iLineLength = SendMessage(EM_LINELENGTH, (WPARAM)iStartLine, 0);
-      if( iLineOffset < iLineLength )
-        iStart = iLineStart+iLineOffset;
-      else
-        iStart = iLineStart+iLineLength;
-*/
-	  int iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-	  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine), 0); // start of this line
-	  if(iStart==iEnd)  // we were already at the start so go up a line
-		  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine - 1), 0);
-    }
-      break;
-    case CControlManager::EDIT_FILE:
-      iEnd = 0;
-      break;
-    }
+  case CControlManager::EDIT_FILE:
+    if (bForwards)
+      iEnd = SendMessage(WM_GETTEXTLENGTH, 0, 0);
+    else
+      iStart = 0;
+    break;
+
+  case CControlManager::EDIT_WORD:
+  case CControlManager::EDIT_SENTENCE:
+  case CControlManager::EDIT_PARAGRAPH:
+  {
+    const wchar_t* separators = L"";
+    if (iDist == CControlManager::EDIT_WORD)
+      separators = _wordSeparators;
+    else if (iDist == CControlManager::EDIT_SENTENCE)
+      separators = _sentenceSeparators;
+    else if (iDist == CControlManager::EDIT_PARAGRAPH)
+      separators = _paragraphSeparators;
+
+    CString wideText;
+    GetWindowText(wideText);
+    if (bForwards)
+      iEnd = _findAfterChars(wideText, separators, iEnd);
+    else
+      iStart = _findBeforeChars(wideText, separators, max(0, iStart-1));
+    break;
   }
-  iStart = iEnd;
-  SendMessage(EM_SETSEL, (WPARAM)iStart, (LPARAM)iEnd);
+  }
+}
+
+int CEdit::Move(bool bForwards, CControlManager::EditDistance iDist) {
+  int iStart = 0;
+  int iEnd = 0;
+  SendMessage(EM_GETSEL, (WPARAM)&iStart, (LPARAM)&iEnd);
+  if (iStart == iEnd) // Ignore distance if text is selected. 
+    GetRange(bForwards, iDist, &iStart, &iEnd);
+  int pos = bForwards ? iEnd : iStart;
+  SendMessage(EM_SETSEL, (WPARAM)pos, (LPARAM)pos);
   SendMessage(EM_SCROLLCARET, 0, 0); //scroll the caret into view!
-  return iStart;
+  return pos;
 }
 
 int CEdit::Delete(bool bForwards, CControlManager::EditDistance iDist) {
-  int iStart;
-  int iEnd;
-
-  HLOCAL hMemHandle;
-  std::wstring strBufferText;
-
-  SendMessage(EM_GETSEL, (WPARAM)&iStart, (LPARAM)&iEnd);
-
-  if(bForwards) {
-    switch(iDist) {
-    case CControlManager::EDIT_CHAR:
-      ++iEnd;
-      break;
-    case CControlManager::EDIT_WORD: {
-#ifndef _WIN32_WCE
-      // TODO: Fix in Windows CE
-      int iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
-      hMemHandle = (HLOCAL)SendMessage(EM_GETHANDLE, 0, 0);
-      strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
-      LocalUnlock(hMemHandle);
-
-      iEnd = strBufferText.find(' ', iEnd+1);
-      if(iEnd == -1)
-        iEnd = iNumChars + 1;
-#endif
-    }  
-      break;
-    case CControlManager::EDIT_LINE: {
-/*
-      iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-      iLineOffset = iEnd - SendMessage(EM_LINEINDEX, (WPARAM)iEndLine, 0);
-      iNumLines = SendMessage(EM_GETLINECOUNT, 0, 0);
-      if( iEndLine < iNumLines - 1) {
-        ++iEndLine;
-        iLineStart = SendMessage(EM_LINEINDEX, (WPARAM)iEndLine, 0);
-        iLineLength = SendMessage(EM_LINELENGTH, (WPARAM)iEndLine, 0);
-        if( iLineOffset < iLineLength )
-          iEnd = iLineStart+iLineOffset;
-        else
-          iEnd = iLineStart+iLineLength;
-      }
-  */
-	  int iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-	  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine + 1), 0); // end of this line
-	  if(iStart==iEnd)  // we were already at the end so go down a line
-		  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine + 2), 0);
-    }
-      break;
-    case CControlManager::EDIT_FILE: {
-      int iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
-      iEnd = iNumChars + 1;
-    }
-      break;
-    }
-  }
-  else {
-    switch(iDist) {
-    case CControlManager::EDIT_CHAR:
-        //ACL this case at least differs from that for Move(bool, EditDistance):
-        // there we only decrement if iStart==iEnd.
-      --iEnd;
-      break;
-    case CControlManager::EDIT_WORD: {
-#ifndef _WIN32_WCE
-      int iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
-      hMemHandle = (HLOCAL)SendMessage(EM_GETHANDLE, 0, 0);
-      strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
-      LocalUnlock(hMemHandle);
-
-      if(iEnd > 0) {
-        iEnd = strBufferText.rfind(' ', iEnd-2);
-        if(iEnd == -1)
-          iEnd = 0;
-        else
-          iEnd = iEnd + 1;
-      }
-#endif
-    }
-      break;
-    case CControlManager::EDIT_LINE: {
-/*       iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-      iLineOffset = iEnd - SendMessage(EM_LINEINDEX, (WPARAM)iEndLine, 0);
-      iNumLines = SendMessage(EM_GETLINECOUNT, 0, 0);
-      if(iEndLine > 0) {
-        --iEndLine;
-        iLineStart = SendMessage(EM_LINEINDEX, (WPARAM)iEndLine, 0);
-        iLineLength = SendMessage(EM_LINELENGTH, (WPARAM)iEndLine, 0);
-        if( iLineOffset < iLineLength )
-          iEnd = iLineStart+iLineOffset;
-        else
-          iEnd = iLineStart+iLineLength;
-      }
-	  */
-	  int iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-	  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine), 0); // start of this line
-	  if(iStart==iEnd)  // we were already at the start so go up a line
-		  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine - 1), 0);
-    }
-      break;
-    case CControlManager::EDIT_FILE:
-      iEnd = 0;
-      break;
-    }
-  }
-
+  int iStart = 0;
+  int iEnd = 0;
+  SendMessage(EM_GETSEL, (WPARAM)iStart, (LPARAM)iEnd);
+  if (iStart == iEnd) // Ignore distance if text is selected. 
+    GetRange(bForwards, iDist, &iStart, &iEnd);
   SendMessage(EM_SETSEL, (WPARAM)iStart, (LPARAM)iEnd);
-  SendMessage(EM_REPLACESEL, (WPARAM)true, (LPARAM)"");
+  SendMessage(EM_REPLACESEL, (WPARAM)true, (LPARAM)TEXT(""));
+  SendMessage(EM_SCROLLCARET, 0, 0); //scroll the caret into view!
   return min(iStart, iEnd);
 }
 

@@ -10,7 +10,6 @@
 #define __AlphabetBox_h__
 
 #include "../resource.h"
-//#include "../../DasherCore/Alphabet/AlphIO.h"
 #include "PrefsPageBase.h"
 
 class CAlphabetBox : public CPrefsPageBase {
@@ -20,8 +19,6 @@ protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
   HWND m_hPropertySheet;
-
-  HWND CustomBox;
 
   std::vector < std::string > AlphabetList;
   std::string m_CurrentAlphabet;

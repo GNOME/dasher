@@ -22,7 +22,6 @@ public:
 
 protected:
 private:
-  HWND CustomBox;
 
   std::string GetControlText(HWND Dialog, int ControlID);
 

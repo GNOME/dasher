@@ -1,6 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nodes>
-<node name="CTL_MOVE" label="Move" color="-1">
+  <alph/>
+  <node label="Pause" color="241">
+    <pause/>
+    <alph/>
+    <root/>
+  </node>
+  <node label="Stop" color="242">
+    <stop/>
+    <alph/>
+    <root/>
+  </node>
+  <node label="Speak" color="-1">
+    <node label="All" color="-1">
+      <speak what="all"/>
+      <alph/>
+      <root/>
+    </node>
+    <node label="New" color="-1">
+      <speak what="new"/>
+      <alph/>
+      <root/>
+    </node>
+    <node label="Repeat" color="-1">
+      <speak what="repeat"/>
+      <alph/>
+      <root/>
+    </node>
+    <node label="Cancel" color="242">
+      <speak what="cancel"/>
+      <alph/>
+      <root/>
+    </node>
+  </node>
+
+  <node label="Copy" color="-1">
+    <node label="All" color="-1">
+      <copy what="all"/>
+      <alph/>
+      <root/>
+    </node>
+    <node label="New" color="-1">
+      <copy what="new"/>
+      <alph/>
+      <root/>
+    </node>
+    <node label="Repeat" color="-1">
+      <copy what="repeat"/>
+      <alph/>
+      <root/>
+    </node>
+  </node>
+  
+  <node name="CTL_MOVE" label="Move" color="-1">
   <node name="CTL_MOVE_FORWARD" label="&#x2192;" color="-1">
     <node label="&#x25B8;" color="-1">
       <move forward="yes" dist="char"/>
@@ -108,7 +160,7 @@
     </node>
   </node>
 </node>
-<node label="New">
+<node label="New" color="-1">
   <delete forward="yes" dist="file"/>
   <delete forward="no" dist="file"/>
   <alph/>

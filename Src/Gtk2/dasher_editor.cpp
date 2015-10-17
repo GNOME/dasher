@@ -602,45 +602,7 @@ dasher_editor_internal_save_as(DasherEditor *pSelf, const gchar *szFilename, boo
   outbuffer[length] = 0;
   g_free(inbuffer);
   inbuffer = outbuffer;
-  outbuffer = NULL;
-
-//   switch (fileencoding) {
-//   case Dasher::Opts::UserDefault:
-//   case Dasher::Opts::AlphabetDefault:
-//     //FIXME - need to call GetAlphabetType and do appropriate stuff regarding
-//     //the character set. Arguably we should always be saving in either UTF-8 or
-//     //the user's locale (which may, of course, be UTF-8) because otherwise
-//     //we're going to read in rubbish, and we shouldn't be encouraging weird
-//     //codepage madness any further
-
-//     //FIXME - error handling
-//     outbuffer = g_locale_from_utf8(inbuffer, -1, &bytes_read, &bytes_written, &error);
-//     if(outbuffer == NULL) {
-//       // We can't represent the text in the current locale, so fall back to
-//       // UTF-8
-//       outbuffer = inbuffer;
-//       bytes_written = length;
-//     }
-//   case Dasher::Opts::UTF8:
-//     outbuffer = inbuffer;
-//     bytes_written = length;
-//     break;
-//     // Does /anyone/ want to save text files in UTF16?
-//     // (in any case, my opinions regarding encouragement of data formats with
-//     // endianness damage are almost certainly unprintable)
-
-//   case Dasher::Opts::UTF16LE:
-//     cd = g_iconv_open("UTF16LE", "UTF8");
-//     outbuffer = g_convert_with_iconv(inbuffer, -1, cd, &bytes_read, &bytes_written, &error);
-//     break;
-//   case Dasher::Opts::UTF16BE:
-//     cd = g_iconv_open("UTF16BE", "UTF8");
-//     outbuffer = g_convert_with_iconv(inbuffer, -1, cd, &bytes_read, &bytes_written, &error);
-//     break;
-//   default:
-    outbuffer = inbuffer;
-    bytes_written = length;
-    //  }
+  bytes_written = length;
 
 #ifdef HAVE_GIO
   if(!dasher_editor_internal_gvfs_save_file(pSelf, szFilename, outbuffer, bytes_written, bAppend)) {
@@ -751,7 +713,10 @@ dasher_editor_get_filename(DasherEditor *pSelf) {
 const gchar *
 dasher_editor_get_all_text(DasherEditor *pSelf) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
-
+  if (pPrivate == NULL) {
+    // This function can be called before pPrivate is set.
+    return "";
+  }
   GtkTextIter oStart;
   GtkTextIter oEnd;
 

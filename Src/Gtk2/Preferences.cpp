@@ -536,7 +536,7 @@ static void dasher_preferences_dialogue_populate_special_orientation(DasherPrefe
   pPrivate->pBTButton = GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton5"));
   GtkToggleButton *pButton;
   switch (dasher_app_settings_get_long(pPrivate->pAppSettings, LP_ORIENTATION)) {
-  case Dasher::Opts::Alphabet:
+  case Dasher::Opts::AlphabetDefault:
     pButton = pPrivate->pAlphOrient; break;
 
   case Dasher::Opts::LeftToRight:
@@ -710,7 +710,7 @@ extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
   GtkToggleButton *pButton = GTK_TOGGLE_BUTTON(widget);
   Dasher::Opts::ScreenOrientations orient;
   if (pButton == pPrivate->pAlphOrient) {
-    orient = Dasher::Opts::Alphabet;
+    orient = Dasher::Opts::AlphabetDefault;
   } else if (pButton == pPrivate->pLRButton) {
     orient = Dasher::Opts::LeftToRight;
   } else if (pButton == pPrivate->pRLButton) {

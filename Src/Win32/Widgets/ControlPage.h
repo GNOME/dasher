@@ -11,11 +11,9 @@
 
 #include "PrefsPageBase.h"
 
-#include "../resource.h"
 
 #include "../../DasherCore/DasherInterfaceBase.h"
 #include "../../DasherCore/ColourIO.h"
-#include "../ModuleSettings.h"
 
 class CAppSettings;
 
@@ -25,8 +23,6 @@ public:
 protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-  HWND CustomBox;
-  
   Dasher::CDasherInterfaceBase *m_pDasherInterface;
 
   std::vector < std::string > ColourList;
@@ -41,8 +37,6 @@ private:
   
   void PopulateList();
   bool Apply();
- 
-  CModuleSettings *m_pModuleSettingsDialogue;
 };
 
 #endif  // ndef

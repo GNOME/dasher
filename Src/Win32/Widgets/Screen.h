@@ -19,7 +19,7 @@
 
 #include <vector>
 #include <map>
-#include <hash_map>
+#include <unordered_map>
 
 #ifndef _WIN32_WCE
 #include <cmath>
@@ -113,9 +113,9 @@ private:
   HPEN& GetPen(int iColor, int iWidth);
   HBRUSH& GetBrush(int iColor);
   HFONT& GetFont(int iSize);
-  stdext::hash_map <int, HPEN> m_cPens;  // Holds cached pens
-  stdext::hash_map <int, HBRUSH> m_cBrushes; // Holds cached brushes
-  stdext::hash_map <int, HFONT> m_cFonts;  // Holds cached font sizes for current font
+  std::unordered_map <int, HPEN> m_cPens;  // Holds cached pens
+  std::unordered_map <int, HBRUSH> m_cBrushes; // Holds cached brushes
+  std::unordered_map <int, HFONT> m_cFonts;  // Holds cached font sizes for current font
   std::string FontName; // Shouldn't need to cache, should work on events to reset font cache
 
   class Label : public CLabelListScreen::Label {

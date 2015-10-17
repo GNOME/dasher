@@ -60,20 +60,6 @@ CNodeCreationManager::CNodeCreationManager(CSettingsUser *pCreateFrom,
     case 0: // No conversion required
       m_pAlphabetManager = new CAlphabetManager(this, pInterface, this, pAlphInfo);
       break;      
-#ifdef JAPANESE
-    case 1: {
-      // Japanese
-      CConversionManager *pConversionManager =
-#ifdef _WIN32
-      new CIMEConversionHelper;
-#else
-      new CCannaConversionHelper(this, pAlphInfo, GetLongParameter(LP_CONVERSION_TYPE), GetLongParameter(LP_CONVERSION_ORDER));
-#endif
-      //TODO ownership/deletion
-      m_pAlphabetManager = new CConvertingAlphMgr(pInterface, this, pConversionManager, pAlphInfo, pLanguageModel);
-      break;
-    }
-#endif
     case 2:
       //Mandarin Dasher!
       //(ACL) Modify AlphabetManager for Mandarin Dasher

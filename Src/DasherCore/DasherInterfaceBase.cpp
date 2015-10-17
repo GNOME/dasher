@@ -412,7 +412,7 @@ void CDasherInterfaceBase::CreateNCManager() {
 }
 
 CDasherInterfaceBase::TextAction::TextAction(CDasherInterfaceBase *pIntf) : m_pIntf(pIntf) {
-  m_iStartOffset= (pIntf->m_pDasherModel) ? pIntf->m_pDasherModel->GetOffset() : 0;
+  m_iStartOffset= pIntf->GetAllContextLenght();
   pIntf->m_vTextActions.insert(this);
 }
 
@@ -422,13 +422,12 @@ CDasherInterfaceBase::TextAction::~TextAction() {
 
 void CDasherInterfaceBase::TextAction::executeOnAll() {
   (*this)(strLast = m_pIntf->GetAllContext());
-  m_iStartOffset = m_pIntf->m_pDasherModel->GetOffset();
+  m_iStartOffset = m_pIntf->GetAllContextLenght();
 }
 
 void CDasherInterfaceBase::TextAction::executeOnNew() {
-  int iNewOffset(m_pIntf->m_pDasherModel->GetOffset());
-  (*this)(strLast = m_pIntf->GetContext(m_iStartOffset, iNewOffset-m_iStartOffset));
-  m_iStartOffset=iNewOffset;
+  (*this)(strLast = m_pIntf->GetContext(m_iStartOffset, m_pIntf->GetAllContextLenght() - m_iStartOffset));
+  m_iStartOffset = m_pIntf->GetAllContextLenght();
 }
 
 void CDasherInterfaceBase::TextAction::executeLast() {
@@ -436,7 +435,7 @@ void CDasherInterfaceBase::TextAction::executeLast() {
 }
 
 void CDasherInterfaceBase::TextAction::NotifyOffset(int iOffset) {
-  m_iStartOffset = min(iOffset, m_iStartOffset);
+  m_iStartOffset = min(m_pIntf->GetAllContextLenght(), m_iStartOffset);
 }
 
 
@@ -613,7 +612,7 @@ void CDasherInterfaceBase::ChangeAlphabet() {
 
 Opts::ScreenOrientations CDasherInterfaceBase::ComputeOrientation() {
   Opts::ScreenOrientations pref(Opts::ScreenOrientations(GetLongParameter(LP_ORIENTATION)));
-  if (pref!=Opts::Alphabet) return pref;
+  if (pref!=Opts::AlphabetDefault) return pref;
   if (m_pNCManager) return m_pNCManager->GetAlphabet()->GetOrientation();
   //haven't created the NCManager yet, so not yet reached Realize, but must
   // have been given Screen (to make View). Use default LR for now, as when

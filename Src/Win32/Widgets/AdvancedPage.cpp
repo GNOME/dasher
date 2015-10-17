@@ -40,7 +40,8 @@ struct menuentry {
 static menuentry menutable[] = {
   {APP_BP_SHOW_TOOLBAR, IDC_CHECK1},
   {BP_SHOW_SLIDER, IDC_CHECK2},
-  {APP_BP_TIME_STAMP, IDC_TIMESTAMP},
+  { APP_BP_TIME_STAMP, IDC_TIMESTAMP },
+  { APP_BP_CONFIRM_UNSAVED, IDC_CONFIRM_UNSAVED },
   {BP_CONTROL_MODE, IDC_CONTROLMODE},  // Not global setting - specific to editbox/widget
   {BP_SPEAK_WORDS, IDC_CHECK4},
   {BP_SPEAK_ALL_ON_STOP, IDC_CHECK3},
@@ -60,15 +61,6 @@ std::string CAdvancedPage::GetControlText(HWND Dialog, int ControlID)
 }
 
 void CAdvancedPage::PopulateList() {
-
-   //if(m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP)) {
-   //   SendMessage(GetDlgItem(m_hwnd, IDC_TIMESTAMP), BM_SETCHECK, BST_CHECKED, 0);
-   // }
-   // else  {
-   //   SendMessage(GetDlgItem(m_hwnd, IDC_TIMESTAMP), BM_SETCHECK, BST_UNCHECKED, 0);
-   // }
-
-
   // Populate the controls in the dialogue box based on the relevent parameters
   for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
   {

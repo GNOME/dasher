@@ -18,9 +18,6 @@
 
 #include "Common/WinOptions.h"
 
-//ACL not sure what headers we need to include to get clipboard operations, but may need:
-//#include <afxpriv.h>
-
 #ifndef _WIN32_WCE
 #include <sys/stat.h>
 #endif
@@ -33,7 +30,7 @@ using namespace WinUTF8;
 // shouldn't collide with anything else in our code.
 #define WM_DASHER_TIMER WM_USER + 128
 
-CONST UINT WM_DASHER_FOCUS = RegisterWindowMessage(_WM_DASHER_FOCUS);
+CONST UINT WM_DASHER_FOCUS = RegisterWindowMessage(L"WM_DASHER_FOCUS");
 
 CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit)
  : CDashIntfScreenMsgs(new CWinOptions( "Inference Group", "Dasher3")), m_hParent(Parent), m_pWindow(pWindow), m_pEdit(pEdit) {
@@ -43,6 +40,10 @@ CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit)
   // Set up COM for the accessibility stuff
   CoInitialize(NULL);
 #endif
+#ifdef WIN32_SPEECH
+  pVoice = 0;
+  m_bAttemptedSpeech = false;
+#endif
 
   DWORD dwTicks = GetTickCount();
 
@@ -51,7 +52,6 @@ CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit)
   m_pCanvas = new CCanvas(this);
   m_pCanvas->Create(m_hParent); // TODO - check return 
 
-  // TODO: See MessageLoop, Main in CDasherWindow - should be brought into this class
   // Framerate settings: currently 40fps.
   SetTimer(m_pCanvas->getwindow(), 1, 25, NULL);
 
@@ -59,8 +59,15 @@ CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit)
 }
 
 CDasher::~CDasher(void) {
-//  WriteTrainFileFull();
+  WriteTrainFileFull();
   delete m_pCanvas;
+#ifdef WIN32_SPEECH
+  if (pVoice) {
+	  pVoice->Release();
+	  pVoice = 0; 
+	  m_bAttemptedSpeech = false;
+  }
+#endif
 }
 
 void CDasher::CreateModules() {
@@ -284,13 +291,19 @@ bool CDasher::SupportsSpeech() {
     }
     m_bAttemptedSpeech = true;
   }
-  return pVoice;
+  return pVoice != 0;
 }
 
 void CDasher::Speak(const string &strText, bool bInterrupt) {
   //ACL TODO - take account of bInterrupt
-  if (pVoice)
-    pVoice->Speak(strText.c_str(), SPF_ASYNC, NULL);
+	if (pVoice) {
+		Tstring wideText;
+		UTF8string_to_wstring(strText, wideText);
+    int flags = SPF_ASYNC;
+    if (bInterrupt)
+      flags |= SPF_PURGEBEFORESPEAK;
+		pVoice->Speak(wideText.c_str(), flags, NULL);
+	}
 }
 #endif
 
@@ -298,23 +311,24 @@ void CDasher::CopyToClipboard(const string &strText) {
   if (OpenClipboard(m_hParent))
   {
     EmptyClipboard(); //also frees memory containing any previous data
-    
+	Tstring wideText;
+	UTF8string_to_wstring(strText, wideText);
+
     //Allocate global memory for string - enough for characters + NULL.
-    HGLOBAL hClipboardData = GlobalAlloc(GMEM_DDESHARE, strText.length()+1);
+    HGLOBAL hClipboardData = GlobalAlloc(GMEM_MOVEABLE|GMEM_DDESHARE, sizeof(WCHAR)*(wideText.length()+1));
     
     //GlobalLock returns a pointer to the data associated with the handle returned from GlobalAlloc    
-    char * pchData = (char*)GlobalLock(hClipboardData);
+	LPWSTR pchData = (LPWSTR)GlobalLock(hClipboardData);
 
     //now fill it...
-	strcpy(pchData, strText.c_str());
+	wcscpy(pchData, wideText.c_str());
     
-    //Unlock memory, i.e. release our access to it - 
+    // Unlock memory, i.e. release our access to it - 
     // but don't free it (with GlobalFree), as it will "belong"
     // to the clipboard.
     GlobalUnlock(hClipboardData);
     
     //Now, point the clipboard at that global memory...
-    //ACL may have to use CF_TEXT or CF_OEMTEXT prior to WinNT/2K???
     SetClipboardData(CF_UNICODETEXT,hClipboardData);
     
     //Finally, unlock the clipboard (i.e. a pointer to the data on it!)
@@ -324,14 +338,17 @@ void CDasher::CopyToClipboard(const string &strText) {
 }
 
 std::string CDasher::GetAllContext() {
-	int speechlength = m_pEdit->GetWindowTextLength();
-	LPTSTR allspeech = new TCHAR[speechlength + 1];
-	m_pEdit->GetWindowText(allspeech, speechlength + 1);
-	string res;
-	wstring_to_UTF8string(wstring(allspeech),res);
-	return res;
+  CString wideText;
+  m_pEdit->GetWindowText(wideText);
+  return WinUTF8::wstring_to_UTF8string(wideText);
 }
 
 std::string CDasher::GetContext(unsigned int iStart, unsigned int iLength) {
-  return m_pEdit->get_context(iStart, iLength);
+  CString wideText;
+  m_pEdit->GetWindowText(wideText);
+  return WinUTF8::wstring_to_UTF8string(wideText.Mid(iStart, iLength));
+}
+
+int CDasher::GetAllContextLenght(){
+  return m_pEdit->GetWindowTextLength();
 }

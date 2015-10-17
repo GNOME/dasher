@@ -17,7 +17,6 @@
 #include <vector>
 
 extern CONST UINT WM_DASHER_FOCUS;
-#define _WM_DASHER_FOCUS (LPCWSTR)"wm_dasher_focus"
 
 class CCanvas;
 class CEdit;
@@ -53,6 +52,7 @@ public:
 
   virtual std::string GetAllContext();
   std::string GetContext(unsigned int iStart, unsigned int iLength);
+  int GetAllContextLenght();
 
 #ifdef WIN32_SPEECH
   bool SupportsSpeech();
@@ -77,7 +77,7 @@ private:
   CEdit *m_pEdit;
 #ifdef WIN32_SPEECH
   ISpVoice *pVoice;
-  bool attemptedSpeech;
+  bool m_bAttemptedSpeech;
 #endif
 };
 }

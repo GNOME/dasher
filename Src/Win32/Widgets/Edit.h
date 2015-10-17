@@ -87,18 +87,11 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   int Move(bool bForwards, Dasher::CControlManager::EditDistance iDist);
   int Delete(bool bForwards, Dasher::CControlManager::EditDistance iDist);
   void SetKeyboardTarget(HWND hwnd);
-  
-  // Overriding file virtual functions
-  //void TimeStampNewFiles(bool Value);
-  void New(const std::string & filename);
-  bool Open(const std::string & filename);
-  bool OpenAppendMode(const std::string & filename);
-  bool SaveAs(const std::string & filename);
+  bool ConfirmAndSaveIfNeeded();
   bool Save();
   // Functions for Windows GUI to call
   void New();
   void Open();
-  void OpenAppendMode();
   void SaveAs();
   std::string Import();
   void SetDirty();              // Parent window gets notification Edit window has changed.
@@ -109,14 +102,10 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   void SelectAll();
   void Clear();
   
-  void SetEncoding(Dasher::Opts::FileEncodingFormats Encoding);
   void SetFont(std::string Name, long Size);
   
   void SetInterface(Dasher::CDasherInterfaceBase * DasherInterface);
   
-  // Get context (new version)
-  std::string get_context(int iOffset, int iLength);
-
   // called when a new character falls under the crosshair
   void output(const std::string & sText);
     
@@ -146,11 +135,10 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   CFilenameGUI *m_FilenameGUI;
   Tstring m_filename;
   HWND textwindow;
-  bool AppendMode;
   void TNew(const Tstring & filename);
   bool TOpen(const Tstring & filename);
-  bool TOpenAppendMode(const Tstring & filename);
   bool TSaveAs(const Tstring & filename);
+  void GetRange(bool bForwards, Dasher::CControlManager::EditDistance iDist, int* iStart, int* iEnd);
   
   HFONT m_Font;
   std::string m_FontName;
@@ -158,7 +146,6 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   
   std::string m_Output;         // UTF-8 to go to training file
   UINT CodePage;                // for font and possible for finding the encoding
-  Dasher::Opts::FileEncodingFormats m_Encoding; // file encoding option (may say to use codepage or user setting)
   
   DWORD threadid;
   HWND targetwindow;

@@ -232,7 +232,7 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, std::vector<pair<symbol,
       }
     }
   }
-  delete vCounts;
+  delete[] vCounts;
   //code
   //std::cout<<"after lan mod second loop"<<std::endl;
 
