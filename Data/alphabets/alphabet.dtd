@@ -44,6 +44,9 @@ can over-ride the alphabet anyway. -->
 <!-- Default training file for this alphabet -->
 <!ELEMENT train (#PCDATA)>
 
+<!-- Language Code to track language -->
+<!ELEMENT langcode (#PCDATA)>
+
 <!-- Traditionally the paragraph character is rendered differently to all
 others. Can set d (display) to "" to disable. -->
 <!ELEMENT paragraph EMPTY>
