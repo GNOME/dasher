@@ -8,6 +8,7 @@
     <encoding type="CentralEurope" />
 
     <train>training_polish_PL.txt</train>
+    <langcode>pl</langcode>
     <palette>Default</palette>
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9" note="box" />
