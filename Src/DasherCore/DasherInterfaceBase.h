@@ -180,7 +180,7 @@ public:
   class TextAction {
   public:
     TextAction(CDasherInterfaceBase *pMgr);
-    void executeOnAll();
+    void executeOnDistance(CControlManager::EditDistance dist);
     void executeOnNew();
     void executeLast();
     void NotifyOffset(int iOffset);

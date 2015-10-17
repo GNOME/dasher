@@ -252,6 +252,18 @@ public:
   }
 };
 
+class TextDistanceAction : public CControlBase::Action {
+  CDasherInterfaceBase::TextAction* m_header;
+  CControlManager::EditDistance m_dist;
+public:
+  TextDistanceAction(CDasherInterfaceBase::TextAction* header, CControlManager::EditDistance dist) 
+    : m_header(header), m_dist(dist)  {
+  }
+  virtual void happen(CControlBase::CContNode *pNode) {
+    m_header->executeOnDistance(m_dist);
+  }
+};
+
 class Pause : public CControlBase::Action{
 public:
   void happen(CControlBase::CContNode *pNode) {
@@ -316,43 +328,52 @@ CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManage
   // Key in actions map is name plus arguments in alphabetical order.
   m_actions["stop"] = new MethodAction<CDasherInterfaceBase>(pInterface, &CDasherInterfaceBase::Done);
   m_actions["pause"] = new Pause();
-
-  m_actions["speak what=cancel"] = new SpeakCancel();
-  m_actions["speak what=all"] = new MethodAction<SpeechHeader>(m_pSpeech, &SpeechHeader::executeOnAll);
-  m_actions["speak what=new"] = new MethodAction<SpeechHeader>(m_pSpeech, &SpeechHeader::executeOnNew);
-  m_actions["speak what=repeat"] = new MethodAction<SpeechHeader>(m_pSpeech, &SpeechHeader::executeLast);
-
-  m_actions["copy what=all"] = new MethodAction<CopyHeader>(m_pCopy, &CopyHeader::executeOnAll);
-  m_actions["copy what=new"] = new MethodAction<CopyHeader>(m_pCopy, &CopyHeader::executeOnNew);
-  m_actions["copy what=repeat"] = new MethodAction<CopyHeader>(m_pCopy, &CopyHeader::executeLast);
-
+  if (pInterface->SupportsSpeech()) {
+    m_actions["speak what=all"] = new TextDistanceAction(m_pSpeech, EDIT_FILE);
+    m_actions["speak what=paragraph"] = new TextDistanceAction(m_pSpeech, EDIT_PARAGRAPH);
+    m_actions["speak what=sentence"] = new TextDistanceAction(m_pSpeech, EDIT_SENTENCE);
+    m_actions["speak what=line"] = new TextDistanceAction(m_pSpeech, EDIT_LINE);
+    m_actions["speak what=word"] = new TextDistanceAction(m_pSpeech, EDIT_WORD);
+    m_actions["speak what=new"] = new MethodAction<SpeechHeader>(m_pSpeech, &SpeechHeader::executeOnNew);
+    m_actions["speak what=repeat"] = new MethodAction<SpeechHeader>(m_pSpeech, &SpeechHeader::executeLast);
+    m_actions["speak what=cancel"] = new SpeakCancel();
+  }
+  if (pInterface->SupportsClipboard()) {
+    m_actions["copy what=all"] = new TextDistanceAction(m_pCopy, EDIT_FILE);
+    m_actions["copy what=paragraph"] = new TextDistanceAction(m_pCopy, EDIT_PARAGRAPH);
+    m_actions["copy what=sentence"] = new TextDistanceAction(m_pCopy, EDIT_SENTENCE);
+    m_actions["copy what=line"] = new TextDistanceAction(m_pCopy, EDIT_LINE);
+    m_actions["copy what=word"] = new TextDistanceAction(m_pCopy, EDIT_WORD);
+    m_actions["copy what=new"] = new MethodAction<CopyHeader>(m_pCopy, &CopyHeader::executeOnNew);
+    m_actions["copy what=repeat"] = new MethodAction<CopyHeader>(m_pCopy, &CopyHeader::executeLast);
+  }
   m_actions["move dist=char forward=yes"] = new Move(true, EDIT_CHAR);
   m_actions["move dist=word forward=yes"] = new Move(true, EDIT_WORD);
   m_actions["move dist=line forward=yes"] = new Move(true, EDIT_LINE);
   m_actions["move dist=sentence forward=yes"] = new Move(true, EDIT_SENTENCE);
   m_actions["move dist=paragraph forward=yes"] = new Move(true, EDIT_PARAGRAPH);
-  m_actions["move dist=file forward=yes"] = new Move(true, EDIT_FILE);
+  m_actions["move dist=all forward=yes"] = new Move(true, EDIT_FILE);
 
   m_actions["move dist=char forward=no"] = new Move(false, EDIT_CHAR);
   m_actions["move dist=word forward=no"] = new Move(false, EDIT_WORD);
   m_actions["move dist=line forward=no"] = new Move(false, EDIT_LINE);
   m_actions["move dist=sentence forward=no"] = new Move(false, EDIT_SENTENCE);
   m_actions["move dist=paragraph forward=no"] = new Move(false, EDIT_PARAGRAPH);
-  m_actions["move dist=file forward=no"] = new Move(false, EDIT_FILE);
+  m_actions["move dist=all forward=no"] = new Move(false, EDIT_FILE);
 
   m_actions["delete dist=char forward=yes"] = new Delete(true, EDIT_CHAR);
   m_actions["delete dist=word forward=yes"] = new Delete(true, EDIT_WORD);
   m_actions["delete dist=line forward=yes"] = new Delete(true, EDIT_LINE);
   m_actions["delete dist=sentence forward=yes"] = new Delete(true, EDIT_SENTENCE);
   m_actions["delete dist=paragraph forward=yes"] = new Delete(true, EDIT_PARAGRAPH);
-  m_actions["delete dist=file forward=yes"] = new Delete(true, EDIT_FILE);
+  m_actions["delete dist=all forward=yes"] = new Delete(true, EDIT_FILE);
 
   m_actions["delete dist=char forward=no"] = new Delete(false, EDIT_CHAR);
   m_actions["delete dist=word forward=no"] = new Delete(false, EDIT_WORD);
   m_actions["delete dist=line forward=no"] = new Delete(false, EDIT_LINE);
   m_actions["delete dist=sentence forward=no"] = new Delete(false, EDIT_SENTENCE);
   m_actions["delete dist=paragraph forward=no"] = new Delete(false, EDIT_PARAGRAPH);
-  m_actions["delete dist=file forward=no"] = new Delete(false, EDIT_FILE);
+  m_actions["delete dist=all forward=no"] = new Delete(false, EDIT_FILE);
 
   m_pInterface->ScanFiles(this, "control.xml"); //just look for the one
 

@@ -420,8 +420,8 @@ CDasherInterfaceBase::TextAction::~TextAction() {
   m_pIntf->m_vTextActions.erase(this);
 }
 
-void CDasherInterfaceBase::TextAction::executeOnAll() {
-  (*this)(strLast = m_pIntf->GetAllContext());
+void CDasherInterfaceBase::TextAction::executeOnDistance(CControlManager::EditDistance dist) {
+  (*this)(strLast = m_pIntf->GetTextAroundCursor(dist));
   m_iStartOffset = m_pIntf->GetAllContextLenght();
 }
 

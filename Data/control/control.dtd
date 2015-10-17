@@ -10,11 +10,11 @@
 
 <!ELEMENT move EMPTY>
 <!ATTLIST move forward (yes|no) #REQUIRED>
-<!ATTLIST move dist (char|word|line|sentence|paragraph|file) #REQUIRED>
+<!ATTLIST move dist (char|word|line|sentence|paragraph|all) #REQUIRED>
 
 <!ELEMENT delete EMPTY>
 <!ATTLIST delete forward (yes|no) #REQUIRED>
-<!ATTLIST delete dist (char|word|line|sentence|paragraph|file) #REQUIRED>
+<!ATTLIST delete dist (char|word|line|sentence|paragraph|all) #REQUIRED>
 
 <!ELEMENT copy EMPTY>
 <!ATTLIST copy dist (all|new|repeat|sentence|paragraph) #REQUIRED>
