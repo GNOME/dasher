@@ -50,14 +50,6 @@ const bp_table boolparamtable[] = {
   {BP_COPY_ALL_ON_STOP, "CopyOnStop", false, "Copy all text to clipboard whenever we stop"},
   {BP_SPEAK_ALL_ON_STOP, "SpeakOnStop", false, "Speak all text whenever we stop"},
   {BP_SPEAK_WORDS, "SpeakWords", false, "Speak words as they are written"},
-  {BP_CONTROL_MODE_HAS_HALT, "ControlHasHalt", false, "Force Control Mode to provide a stop action (triggering clipboard/speech)"},
-#ifdef TARGET_OS_MAC
-  {BP_CONTROL_MODE_HAS_EDIT, "ControlHasEdit", false, "Provide editing functions in control mode (forward &amp; backward movement &amp; deletion)"},
-#else
-  {BP_CONTROL_MODE_HAS_EDIT, "ControlHasEdit", true, "Provide editing functions in control mode (forward &amp; backward movement &amp; deletion)"},
-#endif
-  {BP_CONTROL_MODE_HAS_COPY, "ControlHasCopy", true, "Provide copy-to-clipboard actions in Control Mode (if platforms supports)"},
-  {BP_CONTROL_MODE_HAS_SPEECH, "ControlHasSpeech", true, "Provide speech actions in Control Mode (if platform supports)"},
   {BP_GAME_HELP_DRAW_PATH, "GameDrawPath", true, "When we give help, show the shortest path to the target sentence"},
   {BP_TWO_PUSH_RELEASE_TIME, "TwoPushReleaseTime", false, "Use push and release times of single press rather than push times of two presses"},
 };

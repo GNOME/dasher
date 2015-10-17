@@ -11,7 +11,6 @@
 #import "DasherAppDelegate.h"
 #import "DasherUtil.h"
 
-int CONTROL_MODE_BPS[] = {BP_CONTROL_MODE_HAS_COPY, BP_CONTROL_MODE_HAS_SPEECH, BP_CONTROL_MODE_HAS_HALT, BP_CONTROL_MODE_HAS_EDIT};
 int OTHER_BPS[] = {BP_COPY_ALL_ON_STOP, BP_SPEAK_ALL_ON_STOP, BP_SPEAK_WORDS};
 
 using Dasher::Settings::GetParameterName;
@@ -84,23 +83,14 @@ using Dasher::Settings::GetParameterName;
     label.backgroundColor = [UIColor clearColor];
     label.text = [self tableView:tableView titleForHeaderInSection:section];
     [header addSubview:label];
-    if (section==0) {
-      UISwitch *sw = [[[UISwitch alloc] initWithFrame:CGRectMake(210.0,10.0,100.0,20.0)] autorelease];
-      //Add 1 For consistency with switches constructed for other params
-      sw.tag=BP_CONTROL_MODE+1;
-      sw.on=[DasherAppDelegate theApp].dasherInterface->GetBoolParameter(BP_CONTROL_MODE);
-      [sw addTarget:self action:@selector(paramSlid:) forControlEvents:UIControlEventValueChanged];
-      [header addSubview:sw];
-    }
   }
   return headers[section];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
   switch (section) {
-    case 0: return @"Control Mode";
-    case 1: return @"Triggers";
-    case 2: return @"Actions Menu";
+    case 0: return @"Triggers";
+    case 1: return @"Actions Menu";
   }
 }
 
@@ -110,16 +100,14 @@ using Dasher::Settings::GetParameterName;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 3;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   switch (section) {
     case 0:
-      return sizeof(CONTROL_MODE_BPS)/sizeof(CONTROL_MODE_BPS[0]);
-    case 1:
       return sizeof(OTHER_BPS)/sizeof(OTHER_BPS[0]);
-    case 2:
+    case 1:
       return numActions;
   }
 }
@@ -143,7 +131,7 @@ using Dasher::Settings::GetParameterName;
     }
   sw.enabled=YES;
   // Configure the cell...
-    if ([indexPath section]==2) {
+    if ([indexPath section]==1) {
       SAction *act = &actions[ [indexPath row] ];
       [sw addTarget:self action:@selector(actionSlid:) forControlEvents:UIControlEventValueChanged];
       cell.textLabel.text = act->dispName;
@@ -154,12 +142,8 @@ using Dasher::Settings::GetParameterName;
     } else {
       CDasherInterfaceBridge *intf=[DasherAppDelegate theApp].dasherInterface;
       int *params;
-      if ([indexPath section]==0) {
-        params=CONTROL_MODE_BPS;
-        sw.enabled = intf->GetBoolParameter(BP_CONTROL_MODE);
-      } else {
-        DASHER_ASSERT([indexPath section]==1);
-        params=OTHER_BPS;
+      DASHER_ASSERT([indexPath section]==0);
+      params=OTHER_BPS;
       }
       int iParameter = params[[indexPath row]];
       [sw addTarget:self action:@selector(paramSlid:) forControlEvents:UIControlEventValueChanged];
@@ -193,12 +177,6 @@ using Dasher::Settings::GetParameterName;
         tv = (UITableView *)v;
         break;
       }
-    }
-    for (int i=0; i<sizeof(CONTROL_MODE_BPS)/sizeof(CONTROL_MODE_BPS[0]); i++) {
-      UITableViewCell *cell=[tv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-      UISwitch *sw2=(UISwitch *)[cell.contentView viewWithTag:cell.tag];
-      DASHER_ASSERT([sw2 isKindOfClass:[UISwitch class]]);
-      sw2.enabled=sw.on;
     }
   }
 }

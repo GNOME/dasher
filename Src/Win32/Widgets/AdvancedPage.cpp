@@ -46,7 +46,6 @@ static menuentry menutable[] = {
   {BP_SPEAK_WORDS, IDC_CHECK4},
   {BP_SPEAK_ALL_ON_STOP, IDC_CHECK3},
   {BP_COPY_ALL_ON_STOP, IDC_COPYONSTOP}
-//ACL TODO BP_CONTROL_MODE_HAS_HALT, BP_CONTROL_MODE_HAS_SPEECH, BP_CONTROL_MODE_HAS_COPY - and perhaps automatically disable the latter two in direct mode, too?
 };
 
 std::string CAdvancedPage::GetControlText(HWND Dialog, int ControlID) 

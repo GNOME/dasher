@@ -48,10 +48,6 @@ BoolTranslation sBoolTranslationTable[] = {
   {BP_STOP_OUTSIDE, "winpausebutton", NULL},
   {BP_AUTO_SPEEDCONTROL, "adaptivebutton", NULL},
   {BP_LM_ADAPTIVE, "cb_adaptive", NULL},
-  {BP_CONTROL_MODE_HAS_COPY,"control_has_copy",NULL},
-  {BP_CONTROL_MODE_HAS_SPEECH,"control_has_speech",NULL},
-  {BP_CONTROL_MODE_HAS_HALT,"control_has_halt",NULL},
-  {BP_CONTROL_MODE_HAS_EDIT,"control_has_edit",NULL},
   {BP_COPY_ALL_ON_STOP,"copy_all_on_stop",NULL},
   {BP_SPEAK_ALL_ON_STOP,"speak_all_on_stop",NULL},
   {BP_SPEAK_WORDS,"speak_words",NULL}
