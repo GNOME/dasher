@@ -99,7 +99,7 @@ CAlphInfo *CAlphIO::CreateDefault() {
   Default.Mutable = false;
   Default.TrainingFile = "training_english_GB.txt";
   Default.GameModeFile = "gamemode_english_GB.txt";
-  Default.LanguageCode = "en-GB"
+  Default.LanguageCode = "en-GB";
   Default.PreferredColours = "Default";
   std::string Chars = "abcdefghijklmnopqrstuvwxyz";
 
@@ -152,7 +152,7 @@ CAlphInfo *CAlphIO::CreateDefault() {
   Default.iStart=1; Default.iEnd=Default.m_vCharacters.size()+1;
   Default.iNumChildNodes = Default.m_vCharacters.size();
   Default.pNext=Default.pChild=NULL;
-  
+
   return &Default;
 }
 
@@ -394,7 +394,7 @@ void CAlphIO::XmlEndHandler(const XML_Char *name) {
     InputInfo->TrainingFile = CData;
     return;
   }
-  
+
   if(strcmp(name, "langcode") == 0) {
     InputInfo->LanguageCode = CData;
     return;
