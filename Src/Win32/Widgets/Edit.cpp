@@ -433,6 +433,21 @@ void CEdit::GetRange(bool bForwards, CControlManager::EditDistance iDist, int* p
   }
 }
 
+std::string CEdit::GetTextAroundCursor(CControlManager::EditDistance iDist) {
+  int iStart = 0;
+  int iEnd = 0;
+  SendMessage(EM_GETSEL, (WPARAM)&iStart, (LPARAM)&iEnd);
+  if (iStart == iEnd) { // Ignore distance if text is selected. 
+    GetRange(true, iDist, &iStart, &iEnd);
+    iStart = iEnd;
+    GetRange(false, iDist, &iStart, &iEnd);
+  }
+  CString wideText;
+  GetWindowText(wideText);
+
+  return wstring_to_UTF8string(wideText.Mid(iStart, iEnd-iStart));
+}
+
 int CEdit::Move(bool bForwards, CControlManager::EditDistance iDist) {
   int iStart = 0;
   int iEnd = 0;

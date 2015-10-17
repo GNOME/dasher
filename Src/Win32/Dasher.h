@@ -53,7 +53,8 @@ public:
   virtual std::string GetAllContext();
   std::string GetContext(unsigned int iStart, unsigned int iLength);
   int GetAllContextLenght();
-
+  std::string GetTextAroundCursor(CControlManager::EditDistance iDist);
+ 
 #ifdef WIN32_SPEECH
   bool SupportsSpeech();
   void Speak(const std::string &text, bool bInterrupt);

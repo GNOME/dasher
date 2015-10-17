@@ -352,3 +352,7 @@ std::string CDasher::GetContext(unsigned int iStart, unsigned int iLength) {
 int CDasher::GetAllContextLenght(){
   return m_pEdit->GetWindowTextLength();
 }
+
+std::string CDasher::GetTextAroundCursor(CControlManager::EditDistance iDist) {
+  return m_pEdit->GetTextAroundCursor(iDist);
+}
