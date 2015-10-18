@@ -37,8 +37,6 @@ class CNodeCreationManager : public Dasher::CSettingsUserObserver {
   /// BP_CONTROL_MODE and game mode status)
   void updateControl();
 
-  //Watch for changes to BP_CONTROL_MODE and call updateControl() as necessary
-  void HandleEvent(int iParameter);
   ///
   /// Get a root node of a particular type
   ///

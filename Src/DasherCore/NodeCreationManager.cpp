@@ -126,10 +126,6 @@ void CNodeCreationManager::ChangeScreen(CDasherScreen *pScreen) {
   if (m_pControlManager) m_pControlManager->ChangeScreen(pScreen);
 }
 
-void CNodeCreationManager::HandleEvent(int iParameter) {
-  if (iParameter==BP_CONTROL_MODE) updateControl();
-}
-
 void CNodeCreationManager::updateControl() {
   delete m_pControlManager;
   unsigned long iControlSpace;

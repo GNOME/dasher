@@ -288,11 +288,9 @@ void CDasherInterfaceBase::HandleEvent(int iParameter) {
     m_pWordSpeaker = GetBoolParameter(BP_SPEAK_WORDS) ? new WordSpeaker(this) : NULL;
     break;
   case BP_CONTROL_MODE:
-    //force rebuilding tree/nodes, to get new probabilities (inc/exc control node).
-    // This may move the canvas around a bit, but at least manages to keep/reuse the
-    // existing AlphabetManager, NCManager, etc. objects...
-    SetOffset(m_pDasherModel->GetOffset(), true);
-    break;      
+    // force rebuilding every node. If not control box is accessed after delete.
+    CreateNCManager();
+    break;
   default:
     break;
   }

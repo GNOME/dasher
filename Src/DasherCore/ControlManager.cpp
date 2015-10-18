@@ -400,8 +400,9 @@ CControlBase::Action *CControlManager::parseAction(const XML_Char *name, const X
       key << " " << arg.first << "=" << arg.second;
     }
   }
-  if (auto action = m_actions[key.str()])
-    return action;
+  auto it = m_actions.find(key.str());
+  if (it != m_actions.end())
+    return it->second;
 
   return CControlParser::parseAction(name, atts);
 }
