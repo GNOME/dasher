@@ -63,6 +63,7 @@ namespace Dasher {
     public:
       CControlBase *mgr() const {return m_pMgr;}
       CContNode(int iOffset, int iColour, NodeTemplate *pTemplate, CControlBase *pMgr);
+      CDasherScreen::Label *getLabel() { return m_pTemplate->m_pLabel; }
 
       bool bShove() {return false;}
       double SpeedMul() {return 0.5;}
