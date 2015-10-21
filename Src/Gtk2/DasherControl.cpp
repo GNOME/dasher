@@ -158,6 +158,10 @@ int CDasherControl::GetAllContextLenght()
   return g_utf8_strlen(text,-1);
 }
 
+std::string CDasherControl::GetTextAroundCursor(CControlManager::EditDistance dist) {
+  return gtk_dasher_control_get_text_around_cursor(m_pDasherControl, dist);
+}
+
 std::string CDasherControl::GetContext(unsigned int iStart, unsigned int iLength) {
   const gchar *text = gtk_dasher_control_get_context(m_pDasherControl, iStart, iLength);
   return text;

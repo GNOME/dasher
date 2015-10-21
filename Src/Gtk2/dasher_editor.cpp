@@ -41,6 +41,7 @@ static void dasher_editor_internal_select_all(DasherEditor *pSelf);
 static void dasher_editor_internal_command_new(DasherEditor *pSelf);
 static void dasher_editor_internal_command_open(DasherEditor *pSelf);
 static void dasher_editor_internal_command_save(DasherEditor *pSelf, gboolean bPrompt, gboolean bAppend);
+static void edit_find(bool bForwards, Dasher::CControlManager::EditDistance iDist, DasherEditorPrivate *pPrivate, GtkTextIter *pPos);
 
 #ifdef HAVE_GIO
 static void dasher_editor_internal_gvfs_print_error(DasherEditor *pSelf, GError *error, const char *myfilename);
@@ -435,6 +436,17 @@ dasher_editor_get_context(DasherEditor *pSelf, int iOffset, int iLength) {
   gtk_text_buffer_get_iter_at_offset(pPrivate->pBuffer, &end, iOffset + iLength);
 
   return gtk_text_buffer_get_text( pPrivate->pBuffer, &start, &end, false );
+}
+
+const gchar* dasher_editor_get_text_around_cursor(DasherEditor *pSelf, Dasher::CControlManager::EditDistance distance) {
+  DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
+  // TODO: handle the external editor.
+  GtkTextIter end_pos, start_pos;
+  gtk_text_buffer_get_iter_at_mark(pPrivate->pBuffer, &end_pos, gtk_text_buffer_get_insert(pPrivate->pBuffer));
+  start_pos = end_pos;
+  edit_find(true /* forward */, distance, pPrivate, &end_pos);
+  edit_find(false /* backward */, distance, pPrivate, &start_pos);
+  return gtk_text_buffer_get_slice(pPrivate->pBuffer, &start_pos, &end_pos, FALSE /* hidden chars */);
 }
 
 // gint
@@ -1101,6 +1113,31 @@ dasher_editor_edit_protect(DasherEditor *pSelf) {
   pPrivate->iLastOffset = gtk_text_buffer_get_char_count(pPrivate->pBuffer);
 }
 
+// Backward version of gtk_text_iter_forward_to_line_end.
+static void text_iter_backward_to_line_end(GtkTextIter *pPos) {
+  // If already at the end of a paragraph back up to the first non
+  // paragraph character.
+  while (gtk_text_iter_ends_line(pPos)) {
+    if (!gtk_text_iter_backward_char(pPos)) {
+      return;
+    }
+  }
+  while (!gtk_text_iter_ends_line(pPos)) {
+    if (!gtk_text_iter_backward_char (pPos)) {
+      return;  // Start of the buffer.
+    }
+  }
+}
+
+// If 'pPos' is on whitespace, advance it until the next non-whitespace character.
+static void skip_whitespace_forward(GtkTextIter *pPos) {
+  while (g_unichar_isspace(gtk_text_iter_get_char(pPos))) {
+    if (!gtk_text_iter_forward_char (pPos)) {
+      return;  // Start of the buffer.
+    }
+  }
+}
+
 static void edit_find(bool bForwards, Dasher::CControlManager::EditDistance iDist, DasherEditorPrivate *pPrivate, GtkTextIter *pPos) {
   if(bForwards) {
     switch(iDist) {
@@ -1109,6 +1146,7 @@ static void edit_find(bool bForwards, Dasher::CControlManager::EditDistance iDis
       break;
     case Dasher::CControlManager::EDIT_WORD:
       gtk_text_iter_forward_word_end(pPos);
+      skip_whitespace_forward(pPos);
       break;
     case Dasher::CControlManager::EDIT_LINE:
       if(!gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(pPrivate->pTextView), pPos))
@@ -1116,6 +1154,16 @@ static void edit_find(bool bForwards, Dasher::CControlManager::EditDistance iDis
         gtk_text_view_forward_display_line (GTK_TEXT_VIEW(pPrivate->pTextView), pPos);
         gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(pPrivate->pTextView), pPos);
       }
+      break;
+    case Dasher::CControlManager::EDIT_SENTENCE:
+      // Use the Pango sentence end rules.
+      gtk_text_iter_forward_sentence_end(pPos);
+      skip_whitespace_forward(pPos);
+      break;
+    case Dasher::CControlManager::EDIT_PARAGRAPH:
+      // Moves to the next \n, \r, \r\n or the Unicode paragraph separator character.
+      gtk_text_iter_forward_to_line_end(pPos);
+      skip_whitespace_forward(pPos);
       break;
     case Dasher::CControlManager::EDIT_FILE:
       gtk_text_iter_forward_to_end(pPos);
@@ -1131,9 +1179,15 @@ static void edit_find(bool bForwards, Dasher::CControlManager::EditDistance iDis
       gtk_text_iter_backward_word_start(pPos);
       break;
     case Dasher::CControlManager::EDIT_LINE:
-
       if(!gtk_text_view_backward_display_line_start(GTK_TEXT_VIEW(pPrivate->pTextView), pPos))
         gtk_text_view_backward_display_line(GTK_TEXT_VIEW(pPrivate->pTextView), pPos);
+      break;
+    case Dasher::CControlManager::EDIT_SENTENCE:
+      gtk_text_iter_backward_sentence_start(pPos);
+      break;
+    case Dasher::CControlManager::EDIT_PARAGRAPH:
+      // Moves to the previous \n, \r, \r\n or the Unicode paragraph separator character.
+      text_iter_backward_to_line_end(pPos);
       break;
     case Dasher::CControlManager::EDIT_FILE:
       gtk_text_buffer_get_start_iter(pPrivate->pBuffer, pPos);
