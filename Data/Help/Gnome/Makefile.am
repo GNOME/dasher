@@ -20,5 +20,5 @@ DOC_FIGURES = figures/figure2.png \
               figures/exampleHad3a.png \
               figures/exampleHad4.png
 
-DOC_LINGUAS = ca cs de el en_GB es eu fr oc ru sl sv zh_CN
+DOC_LINGUAS = ca cs de el en_GB es eu fr oc ro ru sl sv zh_CN
 
