@@ -15,7 +15,7 @@
 #include "Sockets/SocketInput.h"
 #include "BTSocketInput.h"
 #endif
-
+#include <Sphelper.h>
 #include "Common/WinOptions.h"
 
 #ifndef _WIN32_WCE
@@ -41,7 +41,6 @@ CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit)
   CoInitialize(NULL);
 #endif
 #ifdef WIN32_SPEECH
-  pVoice = 0;
   m_bAttemptedSpeech = false;
 #endif
 
@@ -61,13 +60,6 @@ CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit)
 CDasher::~CDasher(void) {
   WriteTrainFileFull();
   delete m_pCanvas;
-#ifdef WIN32_SPEECH
-  if (pVoice) {
-	  pVoice->Release();
-	  pVoice = 0; 
-	  m_bAttemptedSpeech = false;
-  }
-#endif
 }
 
 void CDasher::CreateModules() {
@@ -280,30 +272,59 @@ void CDasher::TakeFocus() {
 bool CDasher::SupportsSpeech() {
   if (!m_bAttemptedSpeech) {
     //try to create speech synthesizer lazily, saving resources if no speech req'd.
-    HRESULT hr = CoCreateInstance(CLSID_SpVoice, NULL, CLSCTX_ALL, IID_ISpVoice, (void **)&pVoice);
-    
-    if(hr!=S_OK)
-      pVoice=0;
-    else if (pVoice) {
-      //ACL Do we need to check pVoice? copying old code again, previous comment said:
-      // TODO: Why is this needed?
-      pVoice->Speak(L"",SPF_ASYNC,NULL);
+    HRESULT hr = m_pDefaultVoice.CoCreateInstance(CLSID_SpVoice);
+    if (SUCCEEDED(hr)) {
+      // First speak takes long time. 
+      m_pDefaultVoice->Speak(L"",SPF_ASYNC,NULL);
+      m_voicesByLangCode[""] = m_pDefaultVoice;
     }
     m_bAttemptedSpeech = true;
+    // TODO find language code and add entry to map
   }
-  return pVoice != 0;
+  return m_pDefaultVoice != 0;
+}
+
+ISpVoice* CDasher::getVoice(string lang)
+{
+  auto it = m_voicesByLangCode.find(lang);
+  if (it != m_voicesByLangCode.end())
+    return it->second;
+  // temporary hack to see how language selection works 
+  if (lang=="pl")
+  {
+    CComPtr<IEnumSpObjectTokens> cpEnum;
+    HRESULT hr = SpEnumTokens(SPCAT_VOICES, L"", L"Language=415", &cpEnum);
+    if (SUCCEEDED(hr)) {
+      CComPtr<ISpObjectToken> cpToken;
+      hr = cpEnum->Next(1, &cpToken, NULL);
+      if (SUCCEEDED(hr)) {
+        CComPtr<ISpVoice> pVoice;
+        HRESULT hr = pVoice.CoCreateInstance(CLSID_SpVoice);
+        if (SUCCEEDED(hr)) {
+          hr = pVoice->SetVoice(cpToken);
+          if (SUCCEEDED(hr)) {
+            m_voicesByLangCode[lang] = pVoice;
+            return pVoice;
+          }
+        }
+      }
+    }
+  }
+  m_voicesByLangCode[lang] = m_pDefaultVoice;
+  return m_pDefaultVoice;
 }
 
 void CDasher::Speak(const string &strText, bool bInterrupt) {
-  //ACL TODO - take account of bInterrupt
-	if (pVoice) {
-		Tstring wideText;
-		UTF8string_to_wstring(strText, wideText);
-    int flags = SPF_ASYNC;
-    if (bInterrupt)
-      flags |= SPF_PURGEBEFORESPEAK;
-		pVoice->Speak(wideText.c_str(), flags, NULL);
-	}
+  if (!m_pDefaultVoice)
+    return;
+
+  string lang = GetActiveAlphabet()->GetLanguageCode();
+  Tstring wideText;
+  UTF8string_to_wstring(strText, wideText);
+  int flags = SPF_ASYNC;
+  if (bInterrupt)
+    flags |= SPF_PURGEBEFORESPEAK;
+  getVoice(lang)->Speak(wideText.c_str(), flags, NULL);
 }
 #endif
 

@@ -77,8 +77,10 @@ private:
   CDasherWindow *m_pWindow;
   CEdit *m_pEdit;
 #ifdef WIN32_SPEECH
-  ISpVoice *pVoice;
+  ISpVoice* getVoice(string lang);
+  CComPtr<ISpVoice> m_pDefaultVoice;
   bool m_bAttemptedSpeech;
+  map<string, CComPtr<ISpVoice> > m_voicesByLangCode;
 #endif
 };
 }
