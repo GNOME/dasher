@@ -33,8 +33,7 @@ following configure-time options are specific to Dasher (see section
 Options
 =======
 
-   --disable-speech    Disable speech support (speech dispatcher and
-                       GNOME speech).
+   --disable-speech    Disable speech support (speech dispatcher).
 
    --disable-a11y      Disable support for GNOME 2 accessibility features
                        (enabled by default).

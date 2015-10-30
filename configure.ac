@@ -78,7 +78,7 @@ AC_ARG_WITH([gnome],
 	WITHGNOME=true)
 
 AC_ARG_ENABLE([speech],
-	[AS_HELP_STRING([--enable-speech=@<:@speechdispatcher,gnomespeech@:>@],
+	[AS_HELP_STRING([--enable-speech=@<:@speechdispatcher@:>@],
 		[build with speech support (default is YES)])])
 
 AC_ARG_WITH([qte],
@@ -265,8 +265,6 @@ fi
 dnl default: enable speech
 dnl if speechdispatcher or default
 dnl   check for speechdispatcher
-dnl if gnomespeech or (default and nothing found)
-dnl   check for gnomespeech
 dnl if nothing found
 dnl   OK if wanted no speech
 dnl   warn if default
@@ -287,16 +285,6 @@ AS_IF(
 	 		 SPEECH_CPPFLAGS=
 	 		 SPEECH_LDFLAGS=
 	 		 SPEECH_LIBS=-lspeechd])])])
-AS_IF(
-	[test "x$enable_speech" = xgnomespeech -o "x$enable_speech" = xyes -a $speech_module = none],
-	[PKG_CHECK_MODULES([gnome_speech],
-		[gnome-speech-1.0 bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0],
-		[AC_DEFINE([GNOME_SPEECH], 1, [gnome_speech-1 libraries are present])
-		 SPEECH_CPPFLAGS=$gnome_speech_CFLAGS
-		 SPEECH_LDFLAGS=$gnome_speech_LIBS
-		 SPEECH_LIBS=$gnome_speech_LIBS
-		 speech_module=gnomespeech],
-		[:])])
 AS_IF(
 	[test $speech_module = none],
 	[AS_CASE(["x$enable_speech"],
@@ -421,7 +409,6 @@ AM_CONDITIONAL(USE_GCONF, test x$have_gconf = xtrue)
 AM_CONDITIONAL(USE_GSETTINGS, test x$have_gsettings = xtrue)
 AM_CONDITIONAL(DOGTK, test x$BUILDGTK = xtrue)
 AM_CONDITIONAL(DOQTE, test x$WITHQTE = xtrue)
-AM_CONDITIONAL(USE_GNOMESPEECH, test $speech_module = gnomespeech)
 AM_CONDITIONAL(USE_SPEECHDISPATCHER, test $speech_module = speechdispatcher)
 AM_CONDITIONAL(GNOME_HELP, test x$WITHGNOME = xtrue)
 AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
