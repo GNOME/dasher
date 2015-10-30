@@ -54,9 +54,6 @@ libdashercontrol_la_SOURCES += NoStore.cpp
 endif
 endif
 
-if USE_GNOMESPEECH
-libdashercontrol_la_SOURCES += GnomeSpeech.cpp
-endif
 if USE_SPEECHDISPATCHER
 libdashercontrol_la_SOURCES += SpeechDispatcher.cpp
 endif
