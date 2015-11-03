@@ -164,6 +164,7 @@ void CDasherInterfaceBase::Realize(unsigned long ulTime) {
     pCon->HandleEvent(SP_INPUT_FILTER);
 
   HandleEvent(LP_NODE_BUDGET);
+  HandleEvent(BP_SPEAK_WORDS);
 
   // FIXME - need to rationalise this sort of thing.
   // InvalidateContext(true);
