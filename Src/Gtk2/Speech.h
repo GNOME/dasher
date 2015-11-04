@@ -15,7 +15,7 @@ public:
   CSpeech();
   ~CSpeech();
   bool Init();
-  void Speak(const std::string &strText, bool bInterrupt);
+  void Speak(const std::string &strText, bool bInterrupt, const std::string &lang);
 private:
 #ifdef HAVE_SPEECHD
   SPDConnection *m_speaker;

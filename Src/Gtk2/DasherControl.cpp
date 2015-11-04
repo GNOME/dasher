@@ -180,7 +180,8 @@ bool CDasherControl::SupportsSpeech() {
 }
 
 void CDasherControl::Speak(const std::string &strText, bool bInterrupt) {
-  m_Speech.Speak(strText, bInterrupt);
+  string lang = GetActiveAlphabet()->GetLanguageCode();
+  m_Speech.Speak(strText, bInterrupt, lang);
 }
 #endif
 
