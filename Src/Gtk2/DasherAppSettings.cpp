@@ -393,7 +393,7 @@ const gchar *dasher_app_settings_get_string(DasherAppSettings *pSelf, int iParam
     if(pPrivate->pDasherWidget)
       return gtk_dasher_control_get_parameter_string(pPrivate->pDasherWidget, iParameter);
     else
-      return false;
+      return nullptr;
   }
   else
     return app_stringparamtable[ iParameter - FIRST_APP_SP ].value;

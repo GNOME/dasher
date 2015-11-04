@@ -121,7 +121,7 @@ dasher_editor_external_delete(DasherEditor *pSelf, int iLength, int iOffset) {
   atspi_generate_keyboard_event(XK_BackSpace, NULL, ATSPI_KEY_SYM, NULL);
 }
 
-const char *
+std::string
 dasher_editor_external_get_context(DasherEditor *pSelf, int iOffset, int iLength) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
 
@@ -132,10 +132,15 @@ dasher_editor_external_get_context(DasherEditor *pSelf, int iOffset, int iLength
   DASHER_ASSERT(pPrivate->pExtPrivate != NULL);
   AtspiText *textobj = pPrivate->pExtPrivate->pAccessibleText;
 
-  if (textobj)
-    return atspi_text_get_text(textobj, iOffset, iOffset + iLength, NULL);
-  else
-    return "";
+  if (textobj != nullptr) {
+    auto text = atspi_text_get_text(textobj, iOffset, iOffset + iLength, NULL);
+    if (text != nullptr) {
+      std::string context = text;
+      g_free(text);
+      return context;
+    }
+  }
+  return "";
 }
 
 int
@@ -246,7 +251,6 @@ dasher_editor_external_handle_caret(DasherEditor *pSelf, const AtspiEvent *pEven
   if (textobj) {
     // If dasher moved the caret don't send a notification to the control.
     glong caret = atspi_text_get_caret_offset(textobj, NULL);
-    bool in_control_action = false;
     if (caret == pPrivate->pExtPrivate->current_caret_position) {
       return;
     }

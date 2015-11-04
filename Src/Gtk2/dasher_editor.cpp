@@ -420,14 +420,11 @@ dasher_editor_delete(DasherEditor *pSelf, int iLength, int iOffset) {
 //   else
 //     return NULL;
 // }   
-const gchar *
-dasher_editor_get_context(DasherEditor *pSelf, int iOffset, int iLength) {
+std::string dasher_editor_get_context(DasherEditor *pSelf, int iOffset, int iLength) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
 
   if (isdirect(pPrivate->pAppSettings))
     return dasher_editor_external_get_context(pSelf, iOffset, iLength);
-
-  //  g_message("Buffer lenght: %d", gtk_text_buffer_get_char_count(pPrivate->pBuffer));
 
   GtkTextIter start;
   GtkTextIter end; // Refers to end of context, which is start of selection!
@@ -435,7 +432,13 @@ dasher_editor_get_context(DasherEditor *pSelf, int iOffset, int iLength) {
   gtk_text_buffer_get_iter_at_offset(pPrivate->pBuffer, &start, iOffset);
   gtk_text_buffer_get_iter_at_offset(pPrivate->pBuffer, &end, iOffset + iLength);
 
-  return gtk_text_buffer_get_text( pPrivate->pBuffer, &start, &end, false );
+  auto text = gtk_text_buffer_get_text( pPrivate->pBuffer, &start, &end, false );
+  if (text != nullptr) {
+    std::string context = text;
+    g_free(text);
+    return context;
+  }
+  return "";
 }
 
 std::string dasher_editor_get_text_around_cursor(DasherEditor *pSelf, Dasher::CControlManager::EditDistance distance) {
@@ -725,7 +728,7 @@ dasher_editor_get_filename(DasherEditor *pSelf) {
 }
 
 // TODO: We shouldn't need to know about the buffer here - make this a method of the buffer set
-const gchar *
+std::string
 dasher_editor_get_all_text(DasherEditor *pSelf) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
   if (pPrivate == NULL) {
@@ -740,7 +743,13 @@ dasher_editor_get_all_text(DasherEditor *pSelf) {
 
   pPrivate->pNewMark = gtk_text_buffer_create_mark(pPrivate->pBuffer, NULL, &oEnd, TRUE);
 
-  return gtk_text_buffer_get_text(pPrivate->pBuffer, &oStart, &oEnd, false );
+  std::string all_text;
+  auto text = gtk_text_buffer_get_text(pPrivate->pBuffer, &oStart, &oEnd, false );
+  if (text != nullptr) {
+    all_text = text;
+    g_free(text);
+  }
+  return all_text;
 }
 
 const gchar *

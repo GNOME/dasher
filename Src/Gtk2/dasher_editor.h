@@ -40,11 +40,6 @@ struct _DasherEditor {
 struct _DasherEditorClass {
   GtkVBoxClass parent_class;
 
-  void (*output)(DasherEditor *, const gchar *, int);
-  void (*delete_text)(DasherEditor *, int, int);
-  const gchar *(*get_context)(DasherEditor *, int, int);
-  gint (*get_offset)(DasherEditor *);
-
   void (*filename_changed)(DasherEditor *pDasherEditor);
   void (*buffer_changed)(DasherEditor *pDasherEditor);
   void (*context_changed)(DasherEditor *pDasherEditor);
@@ -66,17 +61,14 @@ gboolean dasher_editor_command(DasherEditor *pSelf, const gchar *szCommand);
 GtkTextBuffer *dasher_editor_game_text_buffer(DasherEditor *);
 
 void dasher_editor_clear(DasherEditor *pSelf);
-const gchar *dasher_editor_get_all_text(DasherEditor *pSelf);
-const gchar *dasher_editor_get_new_text(DasherEditor *pSelf);
+std::string dasher_editor_get_all_text(DasherEditor *pSelf);
 
 /* Functions for editing the active buffer */
 void dasher_editor_output(DasherEditor *pSelf, const gchar *szText, int iOffset);
 void dasher_editor_delete(DasherEditor *pSelf, int iLength, int iOffset);
-void dasher_editor_start_compose(DasherEditor *pSelf);
-void dasher_editor_end_compose(DasherEditor *pSelf, bool bKeep);
 
 /* Function for reading the active buffer */
-const gchar *dasher_editor_get_context(DasherEditor *pSelf, int iOffset, int iLength);
+std::string dasher_editor_get_context(DasherEditor *pSelf, int iOffset, int iLength);
 std::string dasher_editor_get_text_around_cursor(DasherEditor *pSelf, Dasher::CControlManager::EditDistance dist);
 gint dasher_editor_get_offset(DasherEditor *pSelf);
 

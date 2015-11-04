@@ -114,11 +114,16 @@ dasher_editor_external_delete(DasherEditor *pSelf, int iLength, int iOffset) {
   SPI_generateKeyboardEvent(XK_BackSpace, NULL, SPI_KEY_SYM);
 }
 
-const gchar *
+std::string
 dasher_editor_external_get_context(DasherEditor *pSelf, int iOffset, int iLength) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
   if(pPrivate->pExtPrivate->pAccessibleText)
-    return AccessibleText_getText(pPrivate->pExtPrivate->pAccessibleText, iOffset, iOffset + iLength);
+    auto text = AccessibleText_getText(pPrivate->pExtPrivate->pAccessibleText, iOffset, iOffset + iLength);
+    if (text != nullptr) {
+      std::string context = text;
+      SPI_freeString(text);
+      return text;
+    }
   else
     return "";
 }

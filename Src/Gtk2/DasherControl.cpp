@@ -148,14 +148,13 @@ void CDasherControl::ClearAllContext() {
 }
 
 std::string CDasherControl::GetAllContext() {
-  const gchar *text = gtk_dasher_control_get_all_text(m_pDasherControl);
-  return text;
+  return gtk_dasher_control_get_all_text(m_pDasherControl);
 }
 
 int CDasherControl::GetAllContextLenght()
 {
-  const gchar *text = gtk_dasher_control_get_all_text(m_pDasherControl);
-  return g_utf8_strlen(text,-1);
+  auto text = gtk_dasher_control_get_all_text(m_pDasherControl);
+  return g_utf8_strlen(text.c_str(),-1);
 }
 
 std::string CDasherControl::GetTextAroundCursor(CControlManager::EditDistance dist) {
@@ -163,8 +162,7 @@ std::string CDasherControl::GetTextAroundCursor(CControlManager::EditDistance di
 }
 
 std::string CDasherControl::GetContext(unsigned int iStart, unsigned int iLength) {
-  const gchar *text = gtk_dasher_control_get_context(m_pDasherControl, iStart, iLength);
-  return text;
+  return gtk_dasher_control_get_context(m_pDasherControl, iStart, iLength);
 }
 
 bool CDasherControl::SupportsClipboard() {

@@ -138,8 +138,7 @@ dasher_editor_external_delete(DasherEditor *pSelf, int iLength, int iOffset) {
   XFlush(dpy);
 }
 
-const gchar *
-dasher_editor_external_get_context(DasherEditor *pSelf, int iOffset, int iLength) {
+std::string dasher_editor_external_get_context(DasherEditor *pSelf, int iOffset, int iLength) {
   return "";
 }
 

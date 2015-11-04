@@ -219,13 +219,13 @@ gtk_dasher_control_train(GtkDasherControl *pControl, const gchar *szFilename) {
   pPrivate->pControl->ImportTrainingText(szFilename);
 };
 
-const gchar *
+std::string
 gtk_dasher_control_get_context(GtkDasherControl *pControl, unsigned int iStart, unsigned int iLength) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
   return dasher_editor_get_context(pPrivate->pEditor, iStart, iLength);
 }
 
-const gchar *
+std::string
 gtk_dasher_control_get_all_text(GtkDasherControl *pControl) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
   return dasher_editor_get_all_text(pPrivate->pEditor);
