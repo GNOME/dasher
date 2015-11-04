@@ -1,4 +1,5 @@
 #include <X11/keysym.h>
+#include <string.h>
 
 extern "C" {
   #include <atspi/atspi.h>
@@ -13,6 +14,10 @@ struct _DasherEditorExternalPrivate {
   AtspiEventListener *pFocusListener;
   AtspiEventListener *pCaretListener;
   AtspiText *pAccessibleText;
+  // Used to distinguish dasher initiated cursor moves from external moves so that the
+  // interface stays in control mode. When dasher moves the caret it will also set
+  // current_caret_position.
+  glong current_caret_position;
 };
 
 void dasher_editor_external_handle_focus(DasherEditor *pSelf, const AtspiEvent *pEvent);
@@ -69,6 +74,7 @@ dasher_editor_external_create_buffer(DasherEditor *pSelf) {
   p->pFocusListener = atspi_event_listener_new(focus_listener, pSelf, NULL);
   p->pCaretListener = atspi_event_listener_new(caret_listener, pSelf, NULL);
   p->pAccessibleText = NULL;
+  p->current_caret_position = -1;
   pPrivate->pExtPrivate = p;
 
 #ifdef DEBUG_ATSPI
@@ -79,19 +85,23 @@ dasher_editor_external_create_buffer(DasherEditor *pSelf) {
 static void
 listen_to_bus(DasherEditor *pSelf) {
   DasherEditorPrivate *p = DASHER_EDITOR_GET_PRIVATE(pSelf);
-  atspi_event_listener_register(p->pExtPrivate->pFocusListener, "focus:", NULL);
+  //atspi_event_listener_register(p->pExtPrivate->pFocusListener, "focus:", NULL);
+  atspi_event_listener_register(p->pExtPrivate->pFocusListener, "object:state-changed:focused", NULL);
   atspi_event_listener_register(p->pExtPrivate->pCaretListener, "object:text-caret-moved", NULL);
 }
 
 static void
 unlisten_to_bus(DasherEditor *pSelf) {
   DasherEditorPrivate *p = DASHER_EDITOR_GET_PRIVATE(pSelf);
-  atspi_event_listener_deregister(p->pExtPrivate->pFocusListener, "focus:", NULL);
+//  atspi_event_listener_deregister(p->pExtPrivate->pFocusListener, "focus:", NULL);
+  atspi_event_listener_deregister(p->pExtPrivate->pFocusListener, "object:state-changed:focused", NULL);
   atspi_event_listener_deregister(p->pExtPrivate->pCaretListener, "object:text-caret-moved", NULL);
 }
 
 void
 dasher_editor_external_toggle_direct_mode(DasherEditor *pSelf, bool direct) {
+  DasherEditorPrivate *p = DASHER_EDITOR_GET_PRIVATE(pSelf);
+  p->pExtPrivate->current_caret_position = -1;
   if (direct)
     listen_to_bus(pSelf);
   else
@@ -101,7 +111,6 @@ dasher_editor_external_toggle_direct_mode(DasherEditor *pSelf, bool direct) {
 void
 dasher_editor_external_output(DasherEditor *pSelf, const char *szText, int iOffset /* unused */) {
   if (!initSPI()) return;
-
   atspi_generate_keyboard_event(0, szText, ATSPI_KEY_STRING, NULL);
 }
 
@@ -168,6 +177,7 @@ dasher_editor_external_handle_focus(DasherEditor *pSelf, const AtspiEvent *pEven
 #endif
 
   DASHER_ASSERT(pPrivate->pExtPrivate != NULL);
+  pPrivate->pExtPrivate->current_caret_position = -1;
   AtspiText *textobj = pPrivate->pExtPrivate->pAccessibleText;
 
   if (textobj) {
@@ -186,7 +196,7 @@ dasher_editor_external_handle_focus(DasherEditor *pSelf, const AtspiEvent *pEven
     atspi_accessible_get_description(acc, NULL));
 #endif
 
-  textobj = atspi_accessible_get_text(acc);
+  textobj = atspi_accessible_get_text_iface(acc);
   pPrivate->pExtPrivate->pAccessibleText = textobj;
   if (textobj) {
     g_object_ref(textobj);
@@ -234,6 +244,14 @@ dasher_editor_external_handle_caret(DasherEditor *pSelf, const AtspiEvent *pEven
   textobj = atspi_accessible_get_text(acc);
   pPrivate->pExtPrivate->pAccessibleText = textobj;
   if (textobj) {
+    // If dasher moved the caret don't send a notification to the control.
+    glong caret = atspi_text_get_caret_offset(textobj, NULL);
+    bool in_control_action = false;
+    if (caret == pPrivate->pExtPrivate->current_caret_position) {
+      return;
+    }
+    pPrivate->pExtPrivate->current_caret_position = -1;
+
     g_object_ref(textobj);
 
     //ACL: in old code, external_buffer emitted signal, for which the editor_external had
@@ -244,6 +262,7 @@ dasher_editor_external_handle_caret(DasherEditor *pSelf, const AtspiEvent *pEven
     // ...if that makes any sense?
 
     g_signal_emit_by_name(G_OBJECT(pSelf), "context_changed", G_OBJECT(pSelf), NULL, NULL);
+    pPrivate->bInControlAction = false;
   }
 #ifdef DEBUG_ATSPI
   else {
@@ -262,4 +281,142 @@ focus_listener(AtspiEvent *pEvent, void *pUserData) {
 void
 caret_listener(AtspiEvent *pEvent, void *pUserData) {
   dasher_editor_external_handle_caret(DASHER_EDITOR(pUserData), pEvent);
+}
+
+void dasher_editor_external_move(DasherEditor *pSelf, bool bForwards, Dasher::CControlManager::EditDistance iDist) {
+  DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
+  DASHER_ASSERT(pPrivate->pExtPrivate != nullptr);
+  AtspiText *textobj = pPrivate->pExtPrivate->pAccessibleText;
+  if (textobj == nullptr) {
+    return;
+  }
+
+  GError *err = nullptr;
+  auto caret_pos = atspi_text_get_caret_offset(textobj, &err);
+  if (err != nullptr) {
+    fprintf(stderr, "Failed to get the caret: %s\n", err->message);
+    g_error_free(err);
+    return;
+  }
+
+  auto length = atspi_text_get_character_count(textobj, &err);
+  if (err != nullptr) {
+    fprintf(stderr, "Failed to get the character count: %s\n", err->message);
+    g_error_free(err);
+    return;
+  }
+  if (length == 0) {
+    return;
+  }
+
+  AtspiTextRange* range = nullptr;
+  glong new_position = caret_pos;
+
+  AtspiTextBoundaryType boundary = ATSPI_TEXT_BOUNDARY_CHAR;
+  switch (iDist) {
+    case Dasher::CControlManager::EDIT_CHAR:
+      if (bForwards) {
+        new_position = std::min<glong>(caret_pos + 1, length - 1);
+      } else {
+        new_position = std::max<glong>(caret_pos - 1, 0);
+      }
+      break;
+    case Dasher::CControlManager::EDIT_FILE:
+      if (bForwards) {
+        new_position = length - 1;
+      } else {
+        new_position = 0;
+      }
+      break;
+    case Dasher::CControlManager::EDIT_WORD:
+      boundary = ATSPI_TEXT_BOUNDARY_WORD_START;
+      break;
+    case Dasher::CControlManager::EDIT_LINE:
+      boundary = ATSPI_TEXT_BOUNDARY_LINE_START;
+      break;
+    case Dasher::CControlManager::EDIT_SENTENCE:
+      boundary = ATSPI_TEXT_BOUNDARY_SENTENCE_START;
+      break;
+    default:
+      break;
+  }
+  if (boundary != ATSPI_TEXT_BOUNDARY_CHAR) {
+    if (bForwards) {
+      range = atspi_text_get_text_after_offset(textobj, caret_pos, boundary, &err);
+    } else {
+      range = atspi_text_get_text_before_offset(textobj, caret_pos, boundary, &err);
+    }
+    if (err != nullptr) {
+      fprintf(stderr, "Failed to get the text after/befor the offset: %s\n", err->message);
+      g_error_free(err);
+      return;
+    }
+    if (range != nullptr) {
+      new_position = range->start_offset;
+    }
+    g_free(range);
+  }
+  atspi_text_set_caret_offset(textobj, new_position, &err);
+  if (err != nullptr) {
+    fprintf(stderr, "Failed to set the caret offset: %s\n", err->message);
+    g_error_free(err);
+    return;
+  }
+  pPrivate->pExtPrivate->current_caret_position = new_position;
+}
+
+std::string dasher_editor_external_get_text_around_cursor(
+    DasherEditor *pSelf, Dasher::CControlManager::EditDistance distance) {
+  DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
+  DASHER_ASSERT(pPrivate->pExtPrivate != nullptr);
+  AtspiText *textobj = pPrivate->pExtPrivate->pAccessibleText;
+  if (textobj == nullptr) {
+    return "";
+  }
+  GError *err = nullptr;
+  auto caret_pos = atspi_text_get_caret_offset(textobj, &err);
+  if (err != nullptr) {
+    fprintf(stderr, "Failed to get the caret offset: %s\n", err->message);
+    g_error_free(err);
+    return "";
+  }
+
+  std::string text;
+  AtspiTextGranularity granularity;
+  switch (distance) {
+    case Dasher::CControlManager::EDIT_FILE: {
+      auto length = atspi_text_get_character_count(textobj, nullptr);
+      auto gtext = atspi_text_get_text(textobj, 0, length, nullptr);
+      text = gtext;
+      g_free(gtext);
+      return text;
+    }
+      break;
+    case Dasher::CControlManager::EDIT_WORD:
+      granularity = ATSPI_TEXT_GRANULARITY_WORD;
+      break;
+    case Dasher::CControlManager::EDIT_LINE:
+      granularity = ATSPI_TEXT_GRANULARITY_LINE;
+      break;
+    case Dasher::CControlManager::EDIT_SENTENCE:
+      granularity = ATSPI_TEXT_GRANULARITY_SENTENCE;
+      break;
+    case Dasher::CControlManager::EDIT_PARAGRAPH:
+      // TODO: figure out why ATSPI_TEXT_GRANULARITY_PARAGRAPH doesn't work.
+      granularity = ATSPI_TEXT_GRANULARITY_PARAGRAPH;
+      break;
+    default:
+      return "";
+  }
+  auto* range = atspi_text_get_string_at_offset(textobj, caret_pos, granularity, &err);
+  if (err != nullptr) {
+    fprintf(stderr, "Failed to get the caret offset: %s\n", err->message);
+    g_error_free(err);
+    return "";
+  }
+  if (range != nullptr) {
+    text = range->content;
+    g_free(range);
+  }
+  return text;
 }

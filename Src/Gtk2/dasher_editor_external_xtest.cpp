@@ -147,3 +147,13 @@ gint
 dasher_editor_external_get_offset(DasherEditor *pSelf) {
   return 0;
 }
+
+void dasher_editor_external_move(DasherEditor *pSelf, bool bForwards, Dasher::CControlManager::EditDistance iDist) {
+  // TODO: implement.
+}
+
+std::string dasher_editor_external_get_text_around_cursor(
+    DasherEditor *pSelf, Dasher::CControlManager::EditDistance distance) {
+  // TODO: implement.
+  return "";
+}

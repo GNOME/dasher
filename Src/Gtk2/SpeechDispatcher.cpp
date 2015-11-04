@@ -26,7 +26,9 @@ void CSpeech::Speak(const std::string &strText, bool bInterrupt) {
 		return;
 	}
 	if (!bInterrupt) {
-		spd_say(m_speaker, SPD_TEXT, strText.c_str());
+		if (!strText.empty()) {
+			spd_say(m_speaker, SPD_TEXT, strText.c_str());
+		}
 	} else {
 		spd_stop(m_speaker);
 	}	

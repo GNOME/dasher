@@ -240,3 +240,13 @@ void focus_listener(const AccessibleEvent *pEvent, void *pUserData) {
 void caret_listener(const AccessibleEvent *pEvent, void *pUserData) {
   dasher_editor_external_handle_caret((DasherEditor *)pUserData, pEvent);
 }
+
+void dasher_editor_external_move(DasherEditor *pSelf, bool bForwards, Dasher::CControlManager::EditDistance iDist) {
+  // TODO: implement.
+}
+
+std::string dasher_editor_external_get_text_around_cursor(
+    DasherEditor *pSelf, Dasher::CControlManager::EditDistance distance) {
+  // TODO: implement.
+  return "";
+}

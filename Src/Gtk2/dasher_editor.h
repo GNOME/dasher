@@ -77,7 +77,7 @@ void dasher_editor_end_compose(DasherEditor *pSelf, bool bKeep);
 
 /* Function for reading the active buffer */
 const gchar *dasher_editor_get_context(DasherEditor *pSelf, int iOffset, int iLength);
-const gchar* dasher_editor_get_text_around_cursor(DasherEditor *pSelf, Dasher::CControlManager::EditDistance dist);
+std::string dasher_editor_get_text_around_cursor(DasherEditor *pSelf, Dasher::CControlManager::EditDistance dist);
 gint dasher_editor_get_offset(DasherEditor *pSelf);
 
 gint dasher_editor_ctrl_move(DasherEditor *pSelf, bool bForwards, Dasher::CControlManager::EditDistance dist);

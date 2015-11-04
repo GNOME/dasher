@@ -231,7 +231,7 @@ gtk_dasher_control_get_all_text(GtkDasherControl *pControl) {
   return dasher_editor_get_all_text(pPrivate->pEditor);
 }
 
-const gchar* gtk_dasher_control_get_text_around_cursor(GtkDasherControl *pControl, CControlManager::EditDistance dist) {
+std::string gtk_dasher_control_get_text_around_cursor(GtkDasherControl *pControl, CControlManager::EditDistance dist) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
   return dasher_editor_get_text_around_cursor(pPrivate->pEditor, dist);
 }

@@ -438,8 +438,11 @@ dasher_editor_get_context(DasherEditor *pSelf, int iOffset, int iLength) {
   return gtk_text_buffer_get_text( pPrivate->pBuffer, &start, &end, false );
 }
 
-const gchar* dasher_editor_get_text_around_cursor(DasherEditor *pSelf, Dasher::CControlManager::EditDistance distance) {
+std::string dasher_editor_get_text_around_cursor(DasherEditor *pSelf, Dasher::CControlManager::EditDistance distance) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
+  if (isdirect(pPrivate->pAppSettings))
+    return dasher_editor_external_get_text_around_cursor(pSelf, distance);
+
   // TODO: handle the external editor.
   GtkTextIter end_pos, start_pos;
   gtk_text_buffer_get_iter_at_mark(pPrivate->pBuffer, &end_pos, gtk_text_buffer_get_insert(pPrivate->pBuffer));
@@ -1219,6 +1222,11 @@ dasher_editor_ctrl_delete(DasherEditor *pSelf, bool bForwards, Dasher::CControlM
 gint
 dasher_editor_ctrl_move(DasherEditor *pSelf, bool bForwards, Dasher::CControlManager::EditDistance iDist) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
+
+  if (isdirect(pPrivate->pAppSettings)) {
+    dasher_editor_external_move(pSelf, bForwards, iDist);
+    return 0;
+  }
   GtkTextIter sPos;
 
   gtk_text_buffer_get_iter_at_mark(pPrivate->pBuffer, &sPos, gtk_text_buffer_get_insert(pPrivate->pBuffer));

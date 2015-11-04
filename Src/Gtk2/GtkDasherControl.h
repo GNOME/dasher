@@ -73,7 +73,7 @@ void gtk_dasher_control_set_editor(GtkDasherControl *pControl, DasherEditor *pEd
 void gtk_dasher_control_clear_all_context(GtkDasherControl *pControl);
 const gchar* gtk_dasher_control_get_all_text(GtkDasherControl *pControl);
 const gchar* gtk_dasher_control_get_context(GtkDasherControl *pControl, unsigned int iOffset, unsigned int iLength);
-const gchar* gtk_dasher_control_get_text_around_cursor(GtkDasherControl *pControl, Dasher::CControlManager::EditDistance dist);
+std::string gtk_dasher_control_get_text_around_cursor(GtkDasherControl *pControl, Dasher::CControlManager::EditDistance dist);
 //void gtk_dasher_control_invalidate_context(GtkDasherControl *pControl, bool bForceStart);
 void gtk_dasher_control_set_buffer(GtkDasherControl *pControl, int iOffset);
 void gtk_dasher_control_set_offset(GtkDasherControl *pControl, int iOffset);
