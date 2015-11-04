@@ -8,6 +8,7 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_occitan_FR.txt</train>
+<langcode>oc</langcode>
 <space d="&#x25a1;" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>

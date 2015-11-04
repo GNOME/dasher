@@ -86,6 +86,7 @@
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_english_GB.txt</train>
+<langcode>en-GB</langcode>
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8"/>
@@ -172,6 +173,7 @@
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_english_GB.txt</train>
+<langcode>en-GB</langcode>
 <space d="&#x25a1;" t=" "  b="9"/>
 <control d="Control" t=""/>
 <paragraph d="&#182;" b="9"/>
@@ -290,6 +292,7 @@
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_englishLC_GB.txt</train>
+<langcode>en-GB</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8"/>
 <group name="Lower case Latin letters" b="0">

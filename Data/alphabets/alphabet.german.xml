@@ -7,6 +7,7 @@
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_german_DE.txt</train>
+<langcode>de</langcode>
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8" />
@@ -132,6 +133,7 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_german_DE.txt</train>
+<langcode>de</langcode>
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8" />
@@ -211,6 +213,7 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_germanL_DE.txt</train>
+<langcode>de</langcode>
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8" />
