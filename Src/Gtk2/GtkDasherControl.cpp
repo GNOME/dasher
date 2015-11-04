@@ -50,8 +50,12 @@ enum {
 
 #define GTK_DASHER_CONTROL_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE((o), GTK_DASHER_TYPE_CONTROL, GtkDasherControlPrivate));
 
-/* TODO: is it still sensible to derive from VBox, given that its just a cnavas now*/
+/* TODO: is it still sensible to derive from Box, given that its just a canvas now*/
+#if GTK_CHECK_VERSION (3,0,0)
+G_DEFINE_TYPE(GtkDasherControl, gtk_dasher_control, GTK_TYPE_BOX);
+#else
 G_DEFINE_TYPE(GtkDasherControl, gtk_dasher_control, GTK_TYPE_VBOX);
+#endif
 
 static void gtk_dasher_control_finalize(GObject * pObject);
 
@@ -228,6 +232,9 @@ gtk_dasher_control_get_context(GtkDasherControl *pControl, unsigned int iStart, 
 std::string
 gtk_dasher_control_get_all_text(GtkDasherControl *pControl) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  if (pPrivate->pEditor == NULL) {
+    return "";
+  }
   return dasher_editor_get_all_text(pPrivate->pEditor);
 }
 

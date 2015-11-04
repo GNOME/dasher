@@ -523,8 +523,8 @@ void show_game_file_dialog(GtkWidget *pButton, GtkWidget *pWidget, gpointer pDat
 	GtkWidget *pFileDialog = gtk_file_chooser_dialog_new("Choose a Game Text",
 				      GTK_WINDOW(objRefs->first),
 				      GTK_FILE_CHOOSER_ACTION_OPEN,
-				      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-				      GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+				      _("_Cancel"), GTK_RESPONSE_CANCEL,
+				      _("_Open"), GTK_RESPONSE_ACCEPT,
 				      NULL);
 	
 	gtk_window_set_destroy_with_parent(GTK_WINDOW(pFileDialog), true);
@@ -612,8 +612,8 @@ void dasher_main_command_toggle_game_mode(DasherMain *pSelf) {
                                                 GTK_MESSAGE_OTHER, GTK_BUTTONS_NONE,
                                                 _("Are you sure you wish to turn off game mode? All unsaved changes will be lost."));
 
-    GtkWidget *pNoButton = gtk_dialog_add_button(GTK_DIALOG(pDialog), GTK_STOCK_NO, GTK_RESPONSE_REJECT);
-    GtkWidget *pYesButton = gtk_dialog_add_button(GTK_DIALOG(pDialog), GTK_STOCK_YES, GTK_RESPONSE_ACCEPT);
+    GtkWidget *pNoButton = gtk_dialog_add_button(GTK_DIALOG(pDialog), _("No"), GTK_RESPONSE_REJECT);
+    GtkWidget *pYesButton = gtk_dialog_add_button(GTK_DIALOG(pDialog), _("Yes"), GTK_RESPONSE_ACCEPT);
 
     if(gtk_dialog_run(GTK_DIALOG(pDialog))==GTK_RESPONSE_ACCEPT) {
       gtk_dasher_control_set_game_mode(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), false);
@@ -880,8 +880,8 @@ dasher_main_command_import(DasherMain *pSelf) {
   GtkWidget *pFileSel = gtk_file_chooser_dialog_new(_("Select File"), 
                                                     GTK_WINDOW(pPrivate->pMainWindow), 
                                                     GTK_FILE_CHOOSER_ACTION_OPEN, 
-                                                    GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, 
-                                                    GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, 
+                                                    _("_Open"), GTK_RESPONSE_ACCEPT,
+                                                    _("_Cancel"), GTK_RESPONSE_CANCEL,
                                                     NULL);
 
 #ifdef TEACH_TRAINING_HELPER_LOAD_FILE_ABOUT_URI
