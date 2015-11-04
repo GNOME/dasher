@@ -8,7 +8,8 @@
 
 #ifndef __WinCommon_h__
 #define __WinCommon_h__
-
+// Windows Vista 
+#define _WIN32_WINNT 0x6000 
 //#pragma message("Compiling WinCommon.h.........................")
 
 #define NOMINMAX

@@ -284,28 +284,27 @@ bool CDasher::SupportsSpeech() {
   return m_pDefaultVoice != 0;
 }
 
-ISpVoice* CDasher::getVoice(string lang)
+ISpVoice* CDasher::getVoice(const string& lang)
 {
   auto it = m_voicesByLangCode.find(lang);
   if (it != m_voicesByLangCode.end())
     return it->second;
-  // temporary hack to see how language selection works 
-  if (lang=="pl")
-  {
-    CComPtr<IEnumSpObjectTokens> cpEnum;
-    HRESULT hr = SpEnumTokens(SPCAT_VOICES, L"", L"Language=415", &cpEnum);
+
+  wstring wideLang = UTF8string_to_wstring(lang);
+  long  lcid = LocaleNameToLCID(wideLang.c_str(), 0);
+  if (lcid) {
+    CString langFilter;
+    langFilter.Format(L"Language=%lx", lcid);
+    CComPtr<ISpObjectToken> cpToken;
+    HRESULT hr = SpFindBestToken(SPCAT_VOICES, L"", langFilter, &cpToken);
     if (SUCCEEDED(hr)) {
-      CComPtr<ISpObjectToken> cpToken;
-      hr = cpEnum->Next(1, &cpToken, NULL);
+      CComPtr<ISpVoice> pVoice;
+      HRESULT hr = pVoice.CoCreateInstance(CLSID_SpVoice);
       if (SUCCEEDED(hr)) {
-        CComPtr<ISpVoice> pVoice;
-        HRESULT hr = pVoice.CoCreateInstance(CLSID_SpVoice);
+        hr = pVoice->SetVoice(cpToken);
         if (SUCCEEDED(hr)) {
-          hr = pVoice->SetVoice(cpToken);
-          if (SUCCEEDED(hr)) {
-            m_voicesByLangCode[lang] = pVoice;
-            return pVoice;
-          }
+          m_voicesByLangCode[lang] = pVoice;
+          return pVoice;
         }
       }
     }
