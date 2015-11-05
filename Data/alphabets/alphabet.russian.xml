@@ -7,6 +7,7 @@
 <control d="Control" t=""/>
 <encoding type="Western"/>
 <train>training_russian_RU.txt</train>
+<langcode>ru</langcode>
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9"/>
 <control d="Control" t="" b="8"/>
@@ -138,6 +139,7 @@
 <control d="Control" t=""/>
 <encoding type="Western"/>
 <train>training_russianLatin_RU.txt</train>
+<langcode>ru</langcode>
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9"/>
 <control d="Control" t="" b="8"/>

@@ -42,6 +42,7 @@ http://prdownloads.sourceforge.net/lekho/dict_v1.15.tgz?download )
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_bengali_BD.txt</train>
+<langcode>bn</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>

@@ -7,6 +7,7 @@
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_french_FR.txt</train>
+<langcode>fr</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8"/>
 <paragraph d="&#182;" b="9"/>
@@ -149,6 +150,7 @@
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_frenchC_FR.txt</train>
+<langcode>fr</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t=""/>
 <paragraph d="&#182;" b="9"/>
@@ -280,6 +282,7 @@
 <encoding type="Western"/>
 <palette>Vowels</palette>
 <train>training_french_FR.txt</train>
+<langcode>fr</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8"/>
 <paragraph d="&#182;" b="9"/>

@@ -10,6 +10,7 @@ Galician is a Romance language spoken by about 3 million people in Galicia, in t
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_galician_ES.txt</train>
+<langcode>gl</langcode>
 <space d="&#x25a1;" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>

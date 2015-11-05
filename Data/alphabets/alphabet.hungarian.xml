@@ -6,6 +6,7 @@
 <orientation type="LR"/>
 <encoding type="Western"/>
 <train>training_hungarian_HU.txt</train>
+<langcode>hu</langcode>
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8"/>
@@ -134,6 +135,7 @@
 <orientation type="LR"/>
 <encoding type="Western"/>
 <train>training_hungarian_HU.txt</train>
+<langcode>hu</langcode>
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8"/>

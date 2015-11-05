@@ -8,6 +8,7 @@
 <control d="Control" t=""/>
 <palette>Default</palette>
 <train>training_Afrikaans_ZA.txt</train>
+<langcode>af</langcode>
 <space d="&#x25a1;" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
 <group name="lower case letters" b="0">

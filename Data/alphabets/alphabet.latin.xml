@@ -8,6 +8,7 @@
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_latin_XX.txt</train>
+<langcode>la</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8"/>
 <paragraph d="&#182;" b="9"/>
@@ -128,6 +129,7 @@ Any word that can be written using one of the Latin ISO-8859 character sets (ISO
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_frenchC_FR.txt</train>
+<langcode>fr</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8"/>
 <paragraph d="&#182;" b="9"/>
