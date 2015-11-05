@@ -461,15 +461,30 @@ void CDasherControl::ExternalKeyUp(int iKeyVal) {
 int CDasherControl::TimerEvent() {
   int x, y;
   GdkWindow *default_root_window = gdk_get_default_root_window();
+  GdkWindow *window;
 
 #if GTK_CHECK_VERSION (2,14,0)
-  gdk_window_get_pointer(gtk_widget_get_window(m_pCanvas), &x, &y, NULL);
+  window = gtk_widget_get_window(m_pCanvas);
 #else
-  gdk_window_get_pointer(m_pCanvas->window, &x, &y, NULL);
+  window = m_pCanvas->window;
+#endif
+
+#if GTK_CHECK_VERSION (3,0,0)
+  GdkDeviceManager *device_manager =
+    gdk_display_get_device_manager(gdk_window_get_display(window));
+  GdkDevice *pointer = gdk_device_manager_get_client_pointer(device_manager);
+
+  gdk_window_get_device_position(window, pointer, &x, &y, NULL);
+#else
+  gdk_window_get_pointer(window, &x, &y, NULL);
 #endif
   m_pMouseInput->SetCoordinates(x, y);
 
+#if GTK_CHECK_VERSION (3,0,0)
+  gdk_window_get_device_position(default_root_window, pointer, &x, &y, NULL);
+#else
   gdk_window_get_pointer(default_root_window, &x, &y, NULL);
+#endif
 
   int iRootWidth;
   int iRootHeight;
@@ -498,11 +513,7 @@ int CDasherControl::TimerEvent() {
       GdkRectangle sWindowRect;
       GdkRectangle sCanvasRect;
 
-#if GTK_CHECK_VERSION (2,14,0)
-      gdk_window_get_frame_extents(gtk_widget_get_window(m_pCanvas), &sWindowRect);
-#else
-      gdk_window_get_frame_extents(m_pCanvas->window, &sWindowRect);
-#endif
+      gdk_window_get_frame_extents(window, &sWindowRect);
 
       pUserLog->AddWindowSize(sWindowRect.y, 
                               sWindowRect.x, 
@@ -519,7 +530,11 @@ int CDasherControl::TimerEvent() {
 
       int iMouseX = 0;
       int iMouseY = 0;  
+#if GTK_CHECK_VERSION (3,0,0)
+      gdk_window_get_device_position(NULL, pointer, &iMouseX, &iMouseY, NULL);
+#else
       gdk_window_get_pointer(NULL, &iMouseX, &iMouseY, NULL);
+#endif
 
       // TODO: This sort of thing shouldn't be in specialised methods, move into base class somewhere
       pUserLog->AddMouseLocationNormalized(iMouseX, iMouseY, true, GetNats());

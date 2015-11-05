@@ -74,7 +74,7 @@ module_settings_window_init(ModuleSettingsWindow *pDasherControl) {
 
   pPrivateData->pFirst = NULL;
 
-  GtkWidget *pButton = gtk_dialog_add_button(&(pDasherControl->window), GTK_STOCK_CLOSE, GTK_RESPONSE_NONE);
+  GtkWidget *pButton = gtk_dialog_add_button(&(pDasherControl->window), _("_Close"), GTK_RESPONSE_NONE);
 
   g_signal_connect(G_OBJECT(pButton), "clicked", G_CALLBACK(handle_close), pDasherControl);
   g_signal_connect(G_OBJECT(&(pDasherControl->window)), "delete-event", G_CALLBACK(handle_close_event), pDasherControl);
