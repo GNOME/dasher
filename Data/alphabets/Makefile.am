@@ -87,6 +87,7 @@ dist_pkgdata_DATA = alphabet.dtd alphabet.xsl	\
 	alphabet.hiragana2.xml		\
 	alphabet.hungarian.xml		\
 	alphabet.ipa.xml		\
+	alphabet.iso8859.xml		\
 	alphabet.italian.xml		\
 	alphabet.japanese.canna.xml	\
 	alphabet.kazakh.xml		\
