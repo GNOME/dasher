@@ -500,8 +500,8 @@ bool dasher_app_settings_have_advanced(DasherAppSettings *pSelf) {
 void dasher_app_settings_launch_advanced(DasherAppSettings *pSelf) {
   gchar *szArgs[3];
 
-  szArgs[0] = "gconf-editor";
-  szArgs[1] = "/apps/dasher4";
+  szArgs[0] = g_strdup("gconf-editor");
+  szArgs[1] = g_strdup("/apps/dasher4");
   szArgs[2] = NULL;
 
   GError *pError;
@@ -509,6 +509,7 @@ void dasher_app_settings_launch_advanced(DasherAppSettings *pSelf) {
   if(!g_spawn_async(NULL, szArgs, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &pError)) {
     g_warning("Could not launch gconf-editor: %s", pError->message);
   }
+  g_strfreev(szArgs);
 }
 
 void dasher_app_settings_set_widget(DasherAppSettings *pSelf, GtkDasherControl *pWidget) {

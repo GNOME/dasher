@@ -131,46 +131,45 @@ public:
   gboolean ExposeEvent();
 
   ///Override to broadcast dasher_stop signal...
-  virtual void Done();
+  void Done() override;
+  void WriteTrainFile(const std::string &filename, const std::string &strNewText) override;
+  int GetFileSize(const std::string &strFileName) override;
 
-  virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText);
-  virtual int GetFileSize(const std::string &strFileName);
-
-  virtual void ClearAllContext();
-  virtual std::string GetAllContext();
-  virtual int GetAllContextLenght();
+  void ClearAllContext() override ;
+  std::string GetAllContext() override;
+  int GetAllContextLenght() override;
   std::string GetTextAroundCursor(CControlManager::EditDistance dist) override;
-  std::string GetContext(unsigned int iStart, unsigned int iLength);
+  std::string GetContext(unsigned int iStart, unsigned int iLength) override;
 
-  virtual bool SupportsClipboard();
-  virtual void CopyToClipboard(const std::string &strText);
+  bool SupportsClipboard() override;
+  void CopyToClipboard(const std::string &strText) override;
 
-  unsigned int ctrlMove(bool bForwards, CControlManager::EditDistance dist);
-  unsigned int ctrlDelete(bool bForwards, CControlManager::EditDistance dist);
+  unsigned int ctrlMove(bool bForwards, CControlManager::EditDistance dist) override;
+  unsigned int ctrlDelete(bool bForwards, CControlManager::EditDistance dist) override;
 #ifdef WITH_SPEECH
   ///override default non-implementation if compiling with speech...
-  virtual bool SupportsSpeech();
-  virtual void Speak(const std::string &strText, bool bInterrupt);
+  bool SupportsSpeech() override;
+  void Speak(const std::string &strText, bool bInterrupt) override;
 #endif
 
   ///
   /// Pass events coming from the core to the appropriate handler.
   ///
-  virtual void HandleEvent(int iParameter);
+  void HandleEvent(int iParameter) override;
 
   ///Override to emit Gtk2 signal
-  virtual void editOutput(const std::string &strText, CDasherNode *pNode);
-  virtual void editDelete(const std::string &strText, CDasherNode *pNode);
-  virtual void editConvert(CDasherNode *pNode);
-  virtual void editProtect(CDasherNode *pNode);
+  void editOutput(const std::string &strText, CDasherNode *pNode) override;
+  void editDelete(const std::string &strText, CDasherNode *pNode) override;
+  void editConvert(CDasherNode *pNode) override;
+  void editProtect(CDasherNode *pNode) override;
 
   ///Override to emit Gtk2 signal
-  virtual void SetLockStatus(const string &strText, int iPercent);
+  void SetLockStatus(const string &strText, int iPercent) override;
 
-  CGameModule *CreateGameModule();
+  CGameModule *CreateGameModule() override;
 private:
-  virtual void ScanFiles(AbstractParser *parser, const std::string &strPattern);
-  virtual void CreateModules();
+  virtual void ScanFiles(AbstractParser *parser, const std::string &strPattern) override;
+  virtual void CreateModules() override;
 
   GtkWidget *m_pVBox;
   GtkWidget *m_pCanvas;

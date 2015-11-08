@@ -57,6 +57,8 @@ struct _GtkDasherControlClass {
 GtkWidget *gtk_dasher_control_new();
 GType gtk_dasher_control_get_type();
 
+G_END_DECLS
+
 gboolean gtk_dasher_control_default_key_press_handler(GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data);
 gboolean gtk_dasher_control_default_key_release_handler(GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data);
 
@@ -92,5 +94,4 @@ void gtk_dasher_user_log_new_trial(GtkDasherControl * pControl);
 void gtk_dasher_control_set_focus(GtkDasherControl * pControl);
 const gchar* gtk_dasher_control_cl_set(GtkDasherControl *pControl, const gchar *szKey, const gchar *szValue);
 
-G_END_DECLS
 #endif

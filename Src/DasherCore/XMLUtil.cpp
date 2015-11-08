@@ -251,8 +251,8 @@ VECTOR_STRING XMLUtil::GetElementStrings(const string& strTag, const string& str
   strEnd += strTag;
   strEnd += ">";
 
-  unsigned int iPosStart        = strXML.find(strStart);
-  unsigned int iPosEnd          = strXML.find(strEnd);
+  size_t iPosStart        = strXML.find(strStart);
+  size_t iPosEnd          = strXML.find(strEnd);
 
   while ((iPosStart != string::npos) && (iPosEnd != string::npos))
   {
@@ -261,8 +261,8 @@ VECTOR_STRING XMLUtil::GetElementStrings(const string& strTag, const string& str
     // we'll count any other instances of the start tag.  If we find some
     // then we require that we continue until we get that number more of
     // close tags.
-    unsigned int iCurrentStart    = iPosStart + strStart.length();
-    unsigned int iEmbedCount      = 0;
+    size_t iCurrentStart    = iPosStart + strStart.length();
+    size_t iEmbedCount      = 0;
     while ((iCurrentStart != string::npos) && (iCurrentStart < iPosEnd))
     {
       iCurrentStart = strXML.find(strStart, iCurrentStart);
@@ -273,7 +273,7 @@ VECTOR_STRING XMLUtil::GetElementStrings(const string& strTag, const string& str
       }
     }
     // Now look for end tag to balance the start tags
-    for (unsigned int i = 0; i < iEmbedCount; i++)
+    for (size_t i = 0; i < iEmbedCount; i++)
     {
       iPosEnd = strXML.find(strEnd, iPosEnd  + strEnd.length());
 
@@ -307,7 +307,7 @@ VECTOR_NAME_VALUE_PAIR XMLUtil::GetNameValuePairs(const string& strXML, bool bSt
   string  strName     = "";
   string  strValue    = "";
 
-  unsigned int i = 0;
+  size_t i = 0;
   while (i < strXML.length())
   {
     if ((!bInStartTag) && (strXML[i] == '<'))
@@ -326,10 +326,10 @@ VECTOR_NAME_VALUE_PAIR XMLUtil::GetNameValuePairs(const string& strXML, bool bSt
         strFind += strName;
         strFind += ">";
 
-        int iPos = -1;
+        size_t iPos = string::npos;
         iPos = strXML.find(strFind, i);
 
-        if (iPos != -1)
+        if (iPos != string::npos)
         {
           strValue = strXML.substr(i + 1, iPos - i - 1);
 

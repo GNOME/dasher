@@ -23,6 +23,7 @@ namespace Dasher {
 class CExpansionPolicy
 {
 public:
+  virtual ~CExpansionPolicy() = default;
   ///dMaxCost should be the value returned by pushNode from the call for the node most closely enclosing pNode (that was pushed!)
   ///for the first (outermost) node, i.e. when no enclosing node has been passed, (+ive) INFINITY should be passed in.
 	virtual double pushNode(CDasherNode *pNode, int iDasherMinY, int iDasherMaxY, bool bExpand, double dMaxCost)=0;
@@ -41,8 +42,10 @@ private:
 class NoExpansions : public CExpansionPolicy
 {
 public:
-	double pushNode(CDasherNode *pNode, int iMin, int iMax, bool bExpand, double dMaxCost) {return dMaxCost;}
-  bool apply() {return false;}
+  NoExpansions() = default;
+  ~NoExpansions() override = default;
+	double pushNode(CDasherNode *pNode, int iMin, int iMax, bool bExpand, double dMaxCost) override {return dMaxCost;}
+  bool apply() override {return false;}
 };
 
 ///A policy that expands/collapses nodes to maintain a given node budget.
@@ -51,11 +54,12 @@ class BudgettingPolicy : public CExpansionPolicy
 {
 public:
   BudgettingPolicy(CDasherModel *pModel, unsigned int iNodeBudget);
+  ~BudgettingPolicy() override = default;
   ///sets cost according to getCost(pNode,iMin,iMax);
   ///then assures node is cheaper (less important) than its parent;
   ///then adds to relevant queue
-  double pushNode(CDasherNode *pNode, int iMin, int iMax, bool bExpand, double dParentCost);
-  bool apply();
+  double pushNode(CDasherNode *pNode, int iMin, int iMax, bool bExpand, double dParentCost) override;
+  bool apply() override;
 protected:
   virtual double getCost(CDasherNode *pNode, int iDasherMinY, int iDasherMaxY);
   ///return the intersection of the ranges (y1-y2) and (iMin-iMax)
@@ -71,8 +75,9 @@ class AmortizedPolicy : public BudgettingPolicy
 public:
   AmortizedPolicy(CDasherModel *pModel, unsigned int iNodeBudget);
 	AmortizedPolicy(CDasherModel *pModel, unsigned int iNodeBudget, unsigned int iMaxExpands);
-  bool apply();
-  double pushNode(CDasherNode *pNode, int iMin, int iMax, bool bExpand, double dParentCost);
+  ~AmortizedPolicy() override = default;
+  bool apply() override;
+  double pushNode(CDasherNode *pNode, int iMin, int iMax, bool bExpand, double dParentCost) override;
 private:
 	unsigned int m_iMaxExpands;
   void trim();

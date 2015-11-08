@@ -503,8 +503,6 @@ dasher_main_create_preferences(DasherMain *pSelf) {
  * Start game mode: prompt user for the text to play with, put this in SP_GAME_TEXT_FILE;
  * clear out any text in the dasher editor; call CDasherControl::EnterGameMode().
  *
-
-/**
  * Event handler which displays a standard GTK file dialog. The dialog allows the user
  * to specify a text file to play game mode with.
  *

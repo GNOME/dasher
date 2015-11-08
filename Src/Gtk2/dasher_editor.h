@@ -7,6 +7,8 @@
 
 #include "../DasherCore/ControlManager.h"
 
+G_BEGIN_DECLS
+
 /* Forward declaration */
 typedef struct _DasherAppSettings DasherAppSettings;
 struct _DasherAppSettings;
@@ -22,7 +24,6 @@ typedef enum {
   CLIPBOARD_CLEAR
 } clipboard_action;
 
-G_BEGIN_DECLS
 #define DASHER_TYPE_EDITOR            (dasher_editor_get_type())
 #define DASHER_EDITOR(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), DASHER_TYPE_EDITOR, DasherEditor))
 #define DASHER_EDITOR_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), DASHER_TYPE_EDITOR, DasherEditor))
@@ -48,6 +49,7 @@ struct _DasherEditorClass {
 DasherEditor *dasher_editor_new();
 
 GType dasher_editor_get_type();
+G_END_DECLS
 
 /* Functions for initialisation and takedown */
 void dasher_editor_initialise(DasherEditor *pSelf,
@@ -87,7 +89,5 @@ void dasher_editor_toggle_direct_mode(DasherEditor *);
 void dasher_editor_grab_focus(DasherEditor *pSelf);
 gboolean dasher_editor_file_changed(DasherEditor *pSelf);
 const gchar *dasher_editor_get_filename(DasherEditor *pSelf);
-
-G_END_DECLS
 
 #endif

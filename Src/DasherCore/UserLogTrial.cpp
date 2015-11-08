@@ -604,7 +604,7 @@ string CUserLogTrial::GetLocationXML(NavLocation* pLocation, const string& strPr
   {
     strResult += strPrefix;
     strResult += "\t<NumAdded>";
-    sprintf(m_szTempBuffer, "%d", pLocation->pVectorAdded->size());
+    sprintf(m_szTempBuffer, "%zu", pLocation->pVectorAdded->size());
     strResult += m_szTempBuffer;
     strResult += "</NumAdded>\n";
 

@@ -882,7 +882,7 @@ string CUserLog::GetStartStopCycleStats()
   //
   // tsbdxym stands for: time symbols bits deletes x y maxbitrate
   sprintf(m_szTempBuffer, 
-          "tsbdxym:\t%0.3f\t%d\t%0.6f\t%d\t%0.3f\t%0.3f%s", 
+          "tsbdxym:\t%0.3f\t%zu\t%0.6f\t%d\t%0.3f\t%0.3f%s",
           m_pCycleTimer->GetElapsed(), 
           m_vCycleHistory.size(), 
           GetCycleBits(), 

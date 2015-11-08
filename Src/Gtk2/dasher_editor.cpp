@@ -1189,6 +1189,8 @@ static void edit_find(bool bForwards, Dasher::CControlManager::EditDistance iDis
     case Dasher::CControlManager::EDIT_FILE:
       gtk_text_iter_forward_to_end(pPos);
       break;
+    case Dasher::CControlManager::EDIT_SELECTION:
+      break;
     }
   }
   else {
@@ -1212,6 +1214,8 @@ static void edit_find(bool bForwards, Dasher::CControlManager::EditDistance iDis
       break;
     case Dasher::CControlManager::EDIT_FILE:
       gtk_text_buffer_get_start_iter(pPrivate->pBuffer, pPos);
+      break;
+    case Dasher::CControlManager::EDIT_SELECTION:
       break;
     }
   }
