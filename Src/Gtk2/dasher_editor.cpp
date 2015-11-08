@@ -718,7 +718,11 @@ dasher_editor_internal_handle_font(DasherEditor *pSelf, const gchar *szFont) {
     DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
 
     PangoFontDescription *pFD = pango_font_description_from_string(szFont);
+#if GTK_CHECK_VERSION(3, 0, 0)
     gtk_widget_override_font(GTK_WIDGET(pPrivate->pTextView), pFD);
+#else
+    gtk_widget_modify_font(GTK_WIDGET(pPrivate->pTextView), pFD);
+#endif
   }
 }
 
