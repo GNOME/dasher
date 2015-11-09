@@ -41,32 +41,32 @@ public:
   void Move(int iX, int iY, int iWidth, int iHeight);
   void TakeFocus();
 
-  void HandleEvent(int iParameter);
-  void editOutput(const std::string &strText, CDasherNode *pSource);
-  void editDelete(const std::string &strText, CDasherNode *pSource);
-  unsigned int ctrlMove(bool bForwards, CControlManager::EditDistance iDist);
-  unsigned int ctrlDelete(bool bForwards, CControlManager::EditDistance iDist);
+  void HandleEvent(int iParameter) override;
+  void editOutput(const std::string &strText, CDasherNode *pSource) override;
+  void editDelete(const std::string &strText, CDasherNode *pSource) override;
+  unsigned int ctrlMove(bool bForwards, CControlManager::EditDistance iDist) override;
+  unsigned int ctrlDelete(bool bForwards, CControlManager::EditDistance iDist) override;
     
-  virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText);
+  virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText) override;
   void Main(); 
 
-  virtual std::string GetAllContext();
-  std::string GetContext(unsigned int iStart, unsigned int iLength);
-  int GetAllContextLenght();
-  std::string GetTextAroundCursor(CControlManager::EditDistance iDist);
+  virtual std::string GetAllContext() override;
+  std::string GetContext(unsigned int iStart, unsigned int iLength) override;
+  int GetAllContextLenght() override;
+  std::string GetTextAroundCursor(CControlManager::EditDistance iDist) override;
  
 #ifdef WIN32_SPEECH
-  bool SupportsSpeech();
-  void Speak(const std::string &text, bool bInterrupt);
+  bool SupportsSpeech() override;
+  void Speak(const std::string &text, bool bInterrupt) override;
 #endif
-  bool SupportsClipboard() {return true;};
-  void CopyToClipboard(const std::string &text);
+  bool SupportsClipboard() override { return true; };
+  void CopyToClipboard(const std::string &text) override;
   
-  virtual int GetFileSize(const std::string &strFileName);
+  virtual int GetFileSize(const std::string &strFileName) override;
 private:
 
-  virtual void ScanFiles(AbstractParser *parser, const std::string &strPattern);
-  virtual void CreateModules();
+  virtual void ScanFiles(AbstractParser *parser, const std::string &strPattern) override;
+  virtual void CreateModules() override;
 
   void ScanDirectory(const Tstring &strMask, std::vector<std::string> &vFileList);
   bool                    GetWindowSize(int* pTop, int* pLeft, int* pBottom, int* pRight);
