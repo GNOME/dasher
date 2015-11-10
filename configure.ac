@@ -188,7 +188,7 @@ if test x"$WITHGTK" = xtrue
 then 
 	PKG_CHECK_MODULES(GTK, gtk+-3.0,
 		[GTKHERE=true],
-		[PKG_CHECK_MODULES(GTK, gtk+-2.0 >= 2.6.0,
+		[PKG_CHECK_MODULES(GTK, gtk+-2.0 >= 2.14.0,
 			[GTKHERE=true],
 			[GTKHERE=false])]) 
 fi

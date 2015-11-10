@@ -176,11 +176,7 @@ void CCanvas::Display() {
 
 #if WITH_CAIRO  
   cairo_t *widget_cr;
-#if GTK_CHECK_VERSION (2,14,0)
   widget_cr = gdk_cairo_create(gtk_widget_get_window(m_pCanvas));
-#else
-  widget_cr = gdk_cairo_create(m_pCanvas->window);
-#endif
   cairo_set_source_surface(widget_cr, m_pDecorationSurface, 0, 0);
   cairo_rectangle(widget_cr, 0, 0, GetWidth(), GetHeight());
   cairo_fill(widget_cr);
@@ -566,11 +562,7 @@ bool CCanvas::GetCanvasSize(GdkRectangle *pRectangle)
   int iX = 0;
   int iY = 0;
 
-#if GTK_CHECK_VERSION (2,14,0)
   gdk_window_get_position(gtk_widget_get_window(m_pCanvas), &iX, &iY);
-#else
-  gdk_window_get_position(m_pCanvas->window, &iX, &iY);
-#endif
 
   pRectangle->x       = iX;
   pRectangle->y       = iY;
