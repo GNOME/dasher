@@ -334,12 +334,7 @@ dasher_editor_internal_create_buffer(DasherEditor *pSelf) {
 
   pPrivate->pOutputTag = gtk_text_buffer_create_tag(pPrivate->pBuffer, NULL, NULL);
 
-#if GTK_CHECK_VERSION(2,8,0)
   pPrivate->pHiddenTag = gtk_text_buffer_create_tag(pPrivate->pBuffer, NULL, "invisible", TRUE, NULL);
-#else
-  // TODO: We really ought to do something a little more sensible with conversion in GTK < 2.8
-  pPrivate->pHiddenTag = gtk_text_buffer_create_tag(pPrivate->pBuffer, NULL, NULL);
-#endif
 
   pPrivate->pVisibleTag = gtk_text_buffer_create_tag(pPrivate->pBuffer, NULL, "foreground", "red", NULL);
 

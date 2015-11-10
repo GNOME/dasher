@@ -97,11 +97,7 @@ module_settings_window_new(DasherAppSettings *pAppSettings, const gchar *szName,
 
   g_free(szFrameTitle);
 
-#if GTK_CHECK_VERSION (2,14,0)
   gtk_container_add(GTK_CONTAINER(gtk_dialog_get_content_area(&(pDasherControl->window))), pFrame);
-#else
-  gtk_container_add(GTK_CONTAINER(pDasherControl->window.vbox), pFrame);
-#endif
   g_object_set(G_OBJECT(pFrame), "border-width", 8, NULL);
 
   GtkWidget *pTable = gtk_table_new(iCount, 2, FALSE);
