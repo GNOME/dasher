@@ -461,13 +461,7 @@ void CDasherControl::ExternalKeyUp(int iKeyVal) {
 int CDasherControl::TimerEvent() {
   int x, y;
   GdkWindow *default_root_window = gdk_get_default_root_window();
-  GdkWindow *window;
-
-#if GTK_CHECK_VERSION (2,14,0)
-  window = gtk_widget_get_window(m_pCanvas);
-#else
-  window = m_pCanvas->window;
-#endif
+  GdkWindow *window = gtk_widget_get_window(m_pCanvas);
 
 #if GTK_CHECK_VERSION (3,0,0)
   GdkDeviceManager *device_manager =

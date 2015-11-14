@@ -928,7 +928,7 @@ static void dasher_main_command_quit(DasherMain *pSelf) {
 #endif
 
     gtk_dialog_add_buttons(GTK_DIALOG(pDialogue), 
-                           _("Don't save"), GTK_RESPONSE_REJECT,
+                           _("Quit without saving"), GTK_RESPONSE_REJECT,
                            _("Don't quit"), GTK_RESPONSE_CANCEL, 
                            _("Save and quit"), GTK_RESPONSE_ACCEPT, 
                            NULL);
