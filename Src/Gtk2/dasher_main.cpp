@@ -633,8 +633,8 @@ dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
     else
       gtk_widget_hide(pPrivate->pToolbar);
     break;
-  case BP_SHOW_SLIDER: // TODO: Shouldn't be a core parmeter
-    if( dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_SHOW_SLIDER))
+  case APP_BP_SHOW_STATUSBAR:
+    if (dasher_app_settings_get_bool(pPrivate->pAppSettings, APP_BP_SHOW_STATUSBAR))
       gtk_widget_show(pPrivate->pStatusControl);
     else
       gtk_widget_hide(pPrivate->pStatusControl);
@@ -844,7 +844,7 @@ dasher_main_setup_internal_layout(DasherMain *pSelf) {
   }    
 
   if(pPrivate->pStatusControl) {
-    if( dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_SHOW_SLIDER))
+    if (dasher_app_settings_get_bool(pPrivate->pAppSettings, APP_BP_SHOW_STATUSBAR))
       gtk_widget_show(pPrivate->pStatusControl);
     else
       gtk_widget_hide(pPrivate->pStatusControl);

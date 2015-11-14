@@ -39,7 +39,7 @@ struct menuentry {
 // List of menu items that will be displayed in the General Preferences
 static menuentry menutable[] = {
   {APP_BP_SHOW_TOOLBAR, IDC_CHECK1},
-  {BP_SHOW_SLIDER, IDC_CHECK2},
+  { APP_BP_SHOW_STATUSBAR, IDC_CHECK2 },
   { APP_BP_TIME_STAMP, IDC_TIMESTAMP },
   { APP_BP_CONFIRM_UNSAVED, IDC_CONFIRM_UNSAVED },
   {BP_CONTROL_MODE, IDC_CONTROLMODE},  // Not global setting - specific to editbox/widget

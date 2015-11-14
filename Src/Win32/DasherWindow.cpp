@@ -152,7 +152,7 @@ void CDasherWindow::HandleParameterChange(int iParameter) {
   case APP_BP_SHOW_TOOLBAR:
     m_pToolbar->ShowToolbar(m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR));
     break;
-  case BP_SHOW_SLIDER:
+  case APP_BP_SHOW_STATUSBAR:
   case APP_LP_STYLE:
     Layout();
     break;
@@ -386,7 +386,7 @@ void CDasherWindow::Layout() {
 
   int ToolbarHeight = m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR) ? m_pToolbar->GetHeight() : 0;
 
-  int SpeedAlphabetHeight = m_pAppSettings->GetBoolParameter(BP_SHOW_SLIDER) ? m_pSpeedAlphabetBar->GetHeight() : 0;
+  int SpeedAlphabetHeight = m_pAppSettings->GetBoolParameter(APP_BP_SHOW_STATUSBAR) ? m_pSpeedAlphabetBar->GetHeight() : 0;
   m_pSpeedAlphabetBar->MoveWindow(0, Height - SpeedAlphabetHeight, Width, SpeedAlphabetHeight);
   m_pSpeedAlphabetBar->ShowWindow(SpeedAlphabetHeight ? SW_SHOW : SW_HIDE);
 

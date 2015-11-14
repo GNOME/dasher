@@ -9,11 +9,6 @@ const bp_table boolparamtable[] = {
   {BP_DRAW_MOUSE_LINE, "DrawMouseLine", true, "Draw Mouse Line"},
   {BP_DRAW_MOUSE, "DrawMouse", false, "Draw Mouse Position"},
   {BP_CURVE_MOUSE_LINE, "CurveMouseLine", false, "Curve mouse line according to screen nonlinearity"},
-#ifdef WITH_MAEMO
-  {BP_SHOW_SLIDER, "ShowSpeedSlider", false, "ShowSpeedSlider"},
-#else
-  {BP_SHOW_SLIDER, "ShowSpeedSlider", true, "ShowSpeedSlider"},
-#endif
   {BP_START_MOUSE, "StartOnLeft", true, "StartOnLeft"},
   {BP_START_SPACE, "StartOnSpace", false, "StartOnSpace"},
   {BP_STOP_IDLE, "StopOnIdle", false, "StopOnIdle"},

@@ -39,7 +39,7 @@ struct _BoolTranslation {
 BoolTranslation sBoolTranslationTable[] = {
   {BP_DRAW_MOUSE_LINE, "showmouselinebutton", NULL},
   {BP_DRAW_MOUSE, "showmousebutton", NULL},
-  {BP_SHOW_SLIDER, "speedsliderbutton", NULL},
+  { APP_BP_SHOW_STATUSBAR, "speedsliderbutton", NULL },
   {APP_BP_SHOW_TOOLBAR, "toolbarbutton", NULL},
   {BP_CONTROL_MODE, "control_controlmode", NULL},
   {APP_BP_TIME_STAMP, "timestampbutton", NULL},

@@ -55,14 +55,12 @@ app_bp_table app_boolparamtable[] = {
   { APP_BP_TIME_STAMP, "TimeStampNewFiles", PERS, true, true, "TimeStampNewFiles" },
   { APP_BP_CONFIRM_UNSAVED, "ConfirmUnsavedFiles", PERS, true, true, "ConfirmUnsavedFiles" },
   {APP_BP_SHOW_TOOLBAR, "ViewToolbar", PERS, true, true, "ViewToolbar"},
-  {APP_BP_SHOW_TOOLBAR_TEXT, "ShowToolbarText", PERS, true, true, "ShowToolbarText"},
-  {APP_BP_SHOW_LARGE_ICONS, "ShowLargeIcons", PERS, true, true, "ShowLargeIcons"},
-  {APP_BP_FIX_LAYOUT, "FixLayout", PERS, false, false, "FixLayout"},
-  {APP_BP_COPY_ALL_ON_STOP, "CopyAllOnStop", PERS, false, false, "CopyAllOnStop"},
-  {APP_BP_WINDOW_PAUSE, "PauseOutsideWindow", PERS, false, false, "PauseOutsideWindow"},
-  {APP_BP_SPEECH_MODE, "SpeechEnabled", PERS, false, false, "Speak on stop"},
-  {APP_BP_KEYBOARD_MODE, "KeyboardMode", PERS, false, false, "KeyboardMode"},
-  {APP_BP_SPEECH_WORD, "SpeechWord", PERS, false, false, "Speak on word boundaries"}
+#ifdef WITH_MAEMO
+  { APP_BP_SHOW_STATUSBAR, "ViewStatusbar", false, "ViewStatusbar" },
+#else
+  { APP_BP_SHOW_STATUSBAR, "ViewStatusbar", true, "ViewStatusbar" },
+#endif
+
 };
 
 app_lp_table app_longparamtable[] = {
@@ -87,7 +85,5 @@ app_sp_table app_stringparamtable[] = {
 #else
   {APP_SP_EDIT_FONT, "EditFont", PERS, "Sans 10", NULL, "EditFont"},
 #endif
-#ifndef _WIN32_WCE
   {APP_SP_WINDOW_STATE, "WindowState", PERS, "", NULL, "WindowState"},
-#endif
 };
