@@ -34,7 +34,6 @@ struct menuentry {
 static menuentry menutable[] = {
   {BP_START_MOUSE, IDC_LEFT},
   {BP_START_SPACE, IDC_SPACE},
-  {BP_STOP_IDLE, IDC_STOPIDLE},
   {BP_STOP_OUTSIDE, IDC_WINDOWPAUSE},
   {BP_AUTO_SPEEDCONTROL, IDC_AUTOSPEED},
   {BP_AUTOCALIBRATE, IDC_AUTOCALIBRATE}
@@ -91,14 +90,6 @@ void CControlPage::PopulateList() {
       SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_SETCHECK, BST_UNCHECKED, 0);
     }
   }
-
-  // enable idletime control if button checked
-  BOOL bIdle =  m_pAppSettings->GetBoolParameter(BP_STOP_IDLE) ? TRUE : FALSE;
-  EnableWindow( GetDlgItem(m_hwnd, IDC_IDLETIME), bIdle);
-  EnableWindow( GetDlgItem(m_hwnd, IDC_STATICIDLETIME), bIdle);
-			
-  // Set the idle time data
-  SetDlgItemInt ( m_hwnd, IDC_IDLETIME, m_pAppSettings->GetLongParameter( LP_STOP_IDLETIME) , TRUE);
 
   // List entries:
 
@@ -162,16 +153,6 @@ void CControlPage::PopulateList() {
 
 bool CControlPage::Apply() 
 {
-
-	int iIdle;
-	bool bSuccess = wincommon::GetWindowInt( GetDlgItem(m_hwnd, IDC_IDLETIME) , iIdle);
-	if (bSuccess)
-		m_pAppSettings->SetLongParameter( LP_STOP_IDLETIME, iIdle);
-	else
-	{
-		return FALSE; // TODO notify user
-	}
-
   int NewSpeed = SendMessage(SB_slider, TBM_GETPOS, 0, 0);
   m_pAppSettings->SetLongParameter( LP_MAX_BITRATE, NewSpeed);
 
@@ -320,13 +301,6 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
         }
       }
 		  break;
-		case IDC_STOPIDLE:
-			// set activity of the idle time edit control
-			BOOL bChecked =  SendMessage(GetDlgItem(m_hwnd, IDC_STOPIDLE), BM_GETCHECK, 0, 0) == BST_CHECKED;
-			EnableWindow( GetDlgItem(m_hwnd, IDC_IDLETIME), bChecked);
-			EnableWindow( GetDlgItem(m_hwnd, IDC_STATICIDLETIME), bChecked);
-                        // don't return: also want to pass event on to superclass to trigger Apply activation
-			break;
 		}
 		break;
 	case WM_HSCROLL:

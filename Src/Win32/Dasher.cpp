@@ -73,10 +73,6 @@ void CDasher::CreateModules() {
 }
 
 void CDasher::Main() {
-  if(m_pCanvas) {
-		m_pCanvas->DoFrame();
-  }
-
   DWORD dwTicks = GetTickCount();
 	NewFrame(dwTicks, false);
 }

@@ -47,13 +47,11 @@
 #define IDC_COPYONSTOP                  1020
 #define IDC_SPACE                       1036
 #define IDC_UNIFORMVAL                  1040
-#define IDC_IDLETIME                    1040
 #define IDC_CHECK3                      1071
 #define IDC_LEFT                        1071
 #define IDC_WINDOWPAUSE                 1088
 #define IDC_MOUSEPOS                    1089
 #define IDC_OUTLINE                     1091
-#define IDC_STOPIDLE                    1091
 #define IDC_TIMESTAMP                   1092
 #define IDC_CONFIRM_UNSAVED             1093
 #define IDC_DRAWMOUSE                   1094
@@ -72,7 +70,6 @@
 #define IDC_AUTOSPEED                   1119
 #define IDC_SPEEDSLIDER                 1120
 #define IDC_SPEEDVAL                    1121
-#define IDC_STATICIDLETIME              1122
 #define IDC_STYLE_STANDALONE            1122
 #define IDC_STYLE_COMPOSITION           1123
 #define IDC_STYLE_DIRECT                1124

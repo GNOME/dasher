@@ -40,8 +40,6 @@ using namespace Dasher;
 
 CCanvas::CCanvas(CDasher *DI) : m_pDasherInterface(DI) {
  
-  m_dwTicksLastEvent = 0;
-  m_bButtonDown = false;
   m_pScreen = 0;
 #ifndef HAVE_NO_THEME
   m_hTheme = NULL;
@@ -353,7 +351,6 @@ LRESULT CCanvas::OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
   
   SetFocus();
 
-  m_bButtonDown = true;
   return 0;
 }
 
@@ -362,20 +359,6 @@ LRESULT CCanvas::OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& b
 	bHandled = TRUE;
 
 	m_pDasherInterface->KeyUp(GetTickCount(), 100);
-
-  // TODO: Check whether this needs to be reimplemented
-	//endturbo = GetTickCount();
-
-	//if(endturbo - startturbo > 1) 
-	//{
-	//	TCHAR deb[80];
-	//	wsprintf(deb, TEXT("start: %d\nend: %d\nduration: %d"), startturbo, endturbo, endturbo - startturbo);
-	//	OutputDebugString(deb);
-	//}
-	//lbuttonheld = 0;
-
-	//m_bButtonDown = false;
-
 	return 0;
 
 }
@@ -409,46 +392,6 @@ LRESULT CCanvas::OnCursorOutOfRange(UINT message, WPARAM wParam, LPARAM lParam, 
 }
 #endif
 
-LRESULT CCanvas::OnRButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
-//	bHandled = TRUE;
-//	if( m_pDasherInterface->GetBoolParameter(BP_START_STYLUS)  ) 
-//	{
-//		if( m_pDasherInterface->GetBoolParameter(BP_DASHER_PAUSED) )
-//			m_pDasherInterface->Unpause(GetTickCount());
-//	}
-//	m_bButtonDown = true;
-	return 0;
-}
-
-
-LRESULT CCanvas::OnRButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
-	bHandled = TRUE;
-	m_bButtonDown = false;
-    return 0;
-}
-
-LRESULT CCanvas::OnMouseMove(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
-	bHandled = true;
-
-// TODO: Is any of this needed?
-
-  // TODO: Reimplement pause on idle in the core
-
-//	imousex = LOWORD(lParam);
-//	imousey = HIWORD(lParam);
-	m_dwTicksLastEvent	= GetTickCount();
-//	if( m_pDasherInterface->GetBoolParameter(BP_START_STYLUS)  ) 
-//	{
-//		if( m_pDasherInterface->GetBoolParameter(BP_DASHER_PAUSED) )
-//			m_pDasherInterface->Unpause(GetTickCount());
-//	}
-
-	return 0;
-}
-
 LRESULT CCanvas::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
 	if (LOWORD(lParam)>0 && HIWORD(lParam) >0) {
 		m_pScreen->resize(LOWORD(lParam), HIWORD(lParam));
@@ -477,81 +420,6 @@ LRESULT CCanvas::OnTimer(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHand
 
   return 0;
 }
-
-void CCanvas::DoFrame()
-{
-// PRLW This function appears to implement pausing dasher after a period
-// of idleness based on a boolean parameter which cannot be set from the GUI
-#if 0
-	//POINT mousepos2;
-	//GetCursorPos(&mousepos2);
-
-	//ScreenToClient(&mousepos2);
-
-	//POINT mousepos;
-	//GetCursorPos(&mousepos);
-
-  DWORD dwTicks = GetTickCount();
-	// If not paused need to consider stop on idle
-	if( !m_pDasherInterface->GetBoolParameter(BP_DASHER_PAUSED)  ) 
-	{
-	  // TODO: Pause on idle needs to be moved into the core
-
-		// only pause if button is not down
-		if( !m_bButtonDown && m_pDasherInterface->GetBoolParameter(BP_STOP_IDLE)  ) 
-		{
-      // TODO: Brink this back into core
-			if (dwTicks - m_dwTicksLastEvent > m_pDasherInterface->GetLongParameter(LP_STOP_IDLETIME) )
-			{
-				// idle time exceeded, so pause (no stop actions)
-				m_pDasherInterface->SetBoolParameter(BP_DASHER_PAUSED, true);
-			}
-		}
-	}
-#endif
-}
-
-// void CCanvas::centrecursor() {
-//   POINT mousepos;
-//   mousepos.x = m_pScreen->GetWidth() / 2;
-
-//   mousepos.y = m_pScreen->GetHeight() / 2;
-
-//   ClientToScreen( &mousepos);
-
-//   SetCursorPos(mousepos.x, mousepos.y);
-
-// };
-
-// void CCanvas::MousePosStart(bool Value) {
-//   if(Value == false) {
-//     firstwindow = false;
-//     secondwindow = false;
-//   }
-// }
-
-/////////////////////////////////////////////////////////////////////////////
-
-// void CCanvas::StartStop() {
-
-//   if(running == 0) {
-//     SetCapture();
-//     running = 1;
-//     m_pDasherInterface->Unpause(GetTickCount());
-//     firstwindow = false;
-//     secondwindow = false;
-//     mousepostime = 0;
-
-//   }
-//   else {
-//     m_pDasherInterface->PauseAt(0, 0);
-//     running = 0;
-// //              if (speakonstop==true) { // FIXME - reimplement this
-// //                      m_DasherEditBox->speak(2);
-// //              }
-//     ReleaseCapture();
-//   }
-// }
 
 /////////////////////////////////////////////////////////////////////////////
 

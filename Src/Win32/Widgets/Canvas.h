@@ -21,13 +21,6 @@
 #ifndef __Canvas_h__
 #define __Canvas_h__
 
-// XXX why lie? #define _WIN32_WINNT 0x0501
-
-// aiming for _WIN32_WINNT < 0x501 => HAVE_NO_THEME
-#ifdef _WIN32_WCE
-#define HAVE_NO_THEME
-#endif
-
 #include <windows.h>
 #include <winuser.h>
 #ifndef HAVE_NO_THEME
@@ -35,10 +28,7 @@
 #define WM_THEMECHANGED                 0x031A
 #endif
 
-#ifndef _WIN32_WCE
 #include "../TabletPC/CursorInRange.h"
-#endif 
-
 #include "../../DasherCore/DasherTypes.h"
 #include "../KeyboardHelper.h"
 
@@ -55,19 +45,11 @@ class CScreen;
 class CCanvas : public ATL::CWindowImpl<CCanvas> {
  public:
   static ATL::CWndClassInfo& GetWndClassInfo() { 
-#ifndef _WIN32_WCE
     static ATL::CWndClassInfo wc = {
       { sizeof(WNDCLASSEX), CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS, StartWindowProc,
 	0, 0, NULL, NULL, NULL, NULL, NULL, _T("CANVAS"), NULL },
       NULL, NULL, MAKEINTRESOURCE(IDC_CROSS), TRUE, 0, _T("") 
     };
-#else
-  static ATL::CWndClassInfo wc = {
-      {CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS, StartWindowProc,
-	0, 0, NULL, NULL, NULL, NULL, NULL, _T("CANVAS") },
-      NULL, NULL, MAKEINTRESOURCE(IDC_CROSS), TRUE, 0, _T("") 
-    };
-#endif
     return wc;
   }
   
@@ -83,13 +65,8 @@ class CCanvas : public ATL::CWindowImpl<CCanvas> {
     MESSAGE_HANDLER(WM_LBUTTONDBLCLK, OnLButtonDblClk)
     MESSAGE_HANDLER(WM_LBUTTONDOWN, OnLButtonDown)
     MESSAGE_HANDLER(WM_LBUTTONUP, OnLButtonUp)
-#ifndef _WIN32_WCE
     MESSAGE_HANDLER(WM_CURSOR_IN_RANGE, OnCursorInRange)
     MESSAGE_HANDLER(WM_CURSOR_OUT_OF_RANGE, OnCursorOutOfRange)
-#endif
-    MESSAGE_HANDLER(WM_RBUTTONDOWN, OnRButtonDown)
-    MESSAGE_HANDLER(WM_RBUTTONUP, OnRButtonUp)
-    MESSAGE_HANDLER(WM_MOUSEMOVE, OnMouseMove)
     MESSAGE_HANDLER(WM_SIZE, OnSize)
 #ifndef HAVE_NO_THEME
     MESSAGE_HANDLER(WM_THEMECHANGED , OnThemeChanged)
@@ -101,19 +78,12 @@ class CCanvas : public ATL::CWindowImpl<CCanvas> {
 
   HWND Create(HWND hParent);
   
-  void DoFrame();
-  
   LRESULT OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 #ifndef HAVE_NO_THEME
   LRESULT OnThemeChanged(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 #endif
-  LRESULT OnMouseMove(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-  LRESULT OnRButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-  LRESULT OnRButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-#ifndef _WIN32_WCE
   LRESULT OnCursorInRange(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
   LRESULT OnCursorOutOfRange(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-#endif
   LRESULT OnLButtonDblClk(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
   LRESULT OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
   LRESULT OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
@@ -132,50 +102,6 @@ class CCanvas : public ATL::CWindowImpl<CCanvas> {
   HWND getwindow() {
     return m_hWnd;
   } 
-/*   void StartOnLeftClick(bool Value) { */
-/*     startonleft = Value; */
-/*   } */
-
-
-  //  void MousePosStart(bool Value);
-
-/*   void setkeycoords(int coords[18]) { */
-/*     for(int i = 0; i < 18; i++) { */
-/*       keycoords[i] = coords[i]; */
-/*     }; */
-/*   } */
-/*   int *getkeycoords() { */
-/*     return keycoords; */
-/*   } */
-
-/*   void setforward(bool value) { */
-/*     forward = value; */
-/*   } */
-/*   void setbackward(bool value) { */
-/*     backward = value; */
-/*   } */
-/*   void setselect(bool value) { */
-/*     select = value; */
-/*   } */
-/*   bool getforward() { */
-/*     return forward; */
-/*   } */
-/*   bool getbackward() { */
-/*     return backward; */
-/*   } */
-/*   bool getselect() { */
-/*     return select; */
-/*   } */
- 
-//  void centrecursor();
-  //  void StartStop();
-
-/*   void Pause() { */
-/*     running = 0; */
-/*   } */
-/*   bool Running() { */
-/*     return running; */
-/*   } */
   
   int OnTimer();
 
@@ -186,8 +112,6 @@ class CCanvas : public ATL::CWindowImpl<CCanvas> {
 private:
 
   HDC m_hdc;
-  //  int keycoords[18], buttonnum, yscaling;
-  // bool forward, backward, select;
 
   CScreen *m_pScreen;
   Dasher::CDasher * m_pDasherInterface;
@@ -196,39 +120,8 @@ private:
   HTHEME m_hTheme;
 #endif
 
-  // Input devices:
-
-  //Dasher::CDasherMouseInput * m_pMouseInput;
-  //Dasher::CSocketInput * m_pSocketInput;
-
-  // TODO: A lot, if not all, of these variables are obsolete
-
-  //Dasher::screenint imousex, imousey;
-  UINT MY_TIMER;
-  //bool startonleft;
-  //  bool direction;
-  //  bool running;
-  //bool firstwindow;
-  //bool secondwindow;
-  //bool lbuttonheld;
-  //bool inturbo;
-  //bool enabletime;
-  //DWORD startturbo;
-  //DWORD endturbo;
-  //DWORD lastlbutton;
-  //DWORD mousepostime;
-  //  DWORD previoustime;
-  //RECT coords;
-
-  // Indicates that a button is depressed, so we dont stop on idle
-  bool m_bButtonDown;
-  // Ticks as last event, for stop on idle
-  DWORD m_dwTicksLastEvent;
-
-#ifndef _WIN32_WCE
   // Enables tablet pc events
   CCursorInRange m_CursorInRange;
-#endif
 
   CKeyboardHelper *m_pKeyboardHelper;
 
