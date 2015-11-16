@@ -61,26 +61,6 @@ HWND CCanvas::Create(HWND hParent) {
 
   // TODO: Check out whether any of this needs to be reimplemented
 
-  // Create input device objects
-  // NB We create the SocketInput object now, even if socket input is not enabled, because
-  // we can't safely create it later in response to a parameter change event (because it itself
-  // needs to register an event listener when it constructs itself).
- 
-
-  // m_pSocketInput = (CSocketInput *)m_pDasherInterface->GetModule(1);
-  // m_pSocketInput->Ref();
-
-  // m_pMouseInput = (CDasherMouseInput *)m_pDasherInterface->GetModule(0); 
-  // m_pMouseInput->Ref();
-  
-  // if(m_pDasherInterface->GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) {
-  //   m_pSocketInput->StartListening();
-  //   m_pDasherInterface->SetInput(1);
-  // }
-  // else {
-  //  m_pDasherInterface->SetInput(0);
-  // }
-
   // TODO: Is this better placed in CDasher?
   m_pKeyboardHelper = new CKeyboardHelper;
 
@@ -444,21 +424,4 @@ bool CCanvas::GetCanvasSize(int& iTop, int& iLeft, int& iBottom, int& iRight) {
 
 void CCanvas::SetFont(const std::string &strFont) {
     m_pScreen->SetFont(strFont);
-  /*  case BP_SOCKET_INPUT_ENABLE:
-      OutputDebugString(TEXT("Processing BP_SOCKET_INPUT_ENABLE change\n"));
-      if(GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) {
-        if(!m_pSocketInput->isListening()) {
-	        m_pSocketInput->StartListening();
-        } 
-        m_pDasherInterface->SetInput(1);
-      } 
-      else {
-        if(m_pSocketInput != NULL) {
-	        m_pSocketInput->StopListening();
-        }
-        m_pDasherInterface->SetInput(0);
-      }
-      break;
-    }
-  }*/
 }

@@ -147,38 +147,6 @@ CWordLanguageModel::CWordLanguageModel(CSettingsUser *pCreator,
 
   nextid = iWordStart;          // Start of indices for words - may need to increase this for *really* large alphabets
 
-
-  if(GetBoolParameter(BP_LM_DICTIONARY)) {
-
-    std::ifstream DictFile("/usr/share/dict/words");    // FIXME - hardcoded paths == bad
-
-    std::string CurrentWord;
-
-    while(!DictFile.eof()) {
-      DictFile >> CurrentWord;
-
-      CurrentWord = CurrentWord + " ";
-
-      //      std::cout << CurrentWord << std::endl;
-
-      CPPMLanguageModel::Context TempContext(pSpellingModel->CreateEmptyContext());
-
-      //      std::cout << m_pAlphabet << std::endl;
-
-      std::vector < symbol > Symbols;
-      m_pAlphMap->GetSymbols(Symbols, CurrentWord);
-
-      for(std::vector < symbol >::iterator it(Symbols.begin()); it != Symbols.end(); ++it) {
-        pSpellingModel->LearnSymbol(TempContext, *it);
-      }
-
-      pSpellingModel->ReleaseContext(TempContext);
-    }
-
-  }
-
-  //  oSpellingContext = pSpellingModel->CreateEmptyContext();
-
   wordidx = 0;
 
 }
@@ -465,21 +433,15 @@ void CWordLanguageModel::CollapseContext(CWordLanguageModel::CWordContext &conte
 
     // Collapse down word part regardless of whether we're learning or not
 
-    int oldnextid(nextid);
-
     int iNewSymbol(lookup_word(context.current_word));
 
     // Insert into the spelling model if this is a new word
 
-    if((nextid > oldnextid) || (GetBoolParameter(BP_LM_LETTER_EXCLUSION))) {
-      //
-      context.m_pSpellingModel->ReleaseContext(context.oSpellingContext);
-      context.oSpellingContext = context.m_pSpellingModel->CreateEmptyContext();
+    context.m_pSpellingModel->ReleaseContext(context.oSpellingContext);
+    context.oSpellingContext = context.m_pSpellingModel->CreateEmptyContext();
 
-      for(std::vector < int >::iterator it(oSymbols.begin()); it != oSymbols.end(); ++it) {
-        context.m_pSpellingModel->LearnSymbol(context.oSpellingContext, *it);
-      }
-
+    for (std::vector < int >::iterator it(oSymbols.begin()); it != oSymbols.end(); ++it) {
+      context.m_pSpellingModel->LearnSymbol(context.oSpellingContext, *it);
     }
 
     CWordnode *pTmp(context.word_head);
