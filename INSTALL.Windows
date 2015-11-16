@@ -4,14 +4,9 @@ Building Dasher for Microsoft Windows
 Prerequisites
 -------------
 
-Microsoft Speech SDK
-Microsoft Tablet SDK
-Microsoft Windows SDK v5.0
 Expat XML Parser
 
-The Speech, Tablet, and Windows SDKs can be installed individually, or as part 
-of the Platform SDK.  Downloads can be found at http://www.microsoft.com and 
-http://expat.sourceforge.net
+Downloads can be found at http://expat.sourceforge.net
 
 The project files use environment variables to locate the root directories of 
 the prerequisites.  You can set these in the Windows control panel: 
@@ -20,10 +15,7 @@ Control Panels->System->Advanced->Environment Variables.
 Here are the variable names and their default install locations (you may
 need to change these to reflect reality on your system):
 
-SPEECHSDK      C:\Program Files\Microsoft Speech SDK 5.1
-TABLETSDK      C:\Program Files\Microsoft Tablet PC Platform SDK
 EXPAT          C:\Program Files\Expat 2.0.1
-MICROSOFTSDK5  C:\Program Files\Microsoft SDKs\Windows\v5.0
 
 Additional Prerequisits For Building HTML Help
 ----------------------------------------------
@@ -60,7 +52,7 @@ manually copy Data\Help\Gnome\C\figures to Data\Help\Win32 before building.
 Building
 --------
 
-Visual Studio 8.0 (2005) solution/project files are included in the 
+Visual Studio 2013 solution/project files are included in the 
 Src/Win32 directory. This should hopefully build without modification on 
 any system.
 

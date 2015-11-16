@@ -35,7 +35,7 @@ if you're the Dasher maintainer, i.e., me!:
 7. Run make distcheck. Fix anything that is broken, and repeat until
    it works.
 
-8. Copy the tarball to a Windows machine, build 'Unicode Release',
+8. Copy the tarball to a Windows machine, build 'Release',
    check it works.
 
 9. Build Windows installer package(s).
