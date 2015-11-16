@@ -657,8 +657,6 @@ void CDasherInterfaceBase::ScreenResized(CDasherScreen *pScreen) {
 }
 
 void CDasherInterfaceBase::ChangeView() {
-  // TODO: Actually respond to LP_VIEW_ID parameter (although there is only one view at the moment)
-
   if(m_DasherScreen != 0 /*&& m_pDasherModel != 0*/) {
     CDasherView *pNewView = new CDasherViewSquare(this, m_DasherScreen, ComputeOrientation());
     //the previous sends an event to all listeners registered with it, but there aren't any atm!
