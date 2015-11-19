@@ -59,8 +59,6 @@ static gboolean dasher_editor_internal_unix_vfs_save_file(DasherEditor *pSelf, c
 
 static void dasher_editor_internal_set_filename(DasherEditor *pSelf, const gchar *szFilename);
 
-static void dasher_editor_internal_edit_protect(DasherEditor *pSelf);
-
 static void dasher_editor_internal_new_buffer(DasherEditor *pSelf, const gchar *szFilename);
 
 static void dasher_editor_internal_generate_filename(DasherEditor *pSelf);
@@ -650,8 +648,6 @@ GtkTextBuffer *dasher_editor_game_text_buffer(DasherEditor *pSelf) {
 
 gboolean
 dasher_editor_command(DasherEditor *pSelf, const gchar *szCommand) {
-  DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
-
   if(!strcmp(szCommand, "action_new")) { //select_new_file
     dasher_editor_internal_command_new(pSelf);
     return TRUE;

@@ -704,7 +704,7 @@ extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
     return;
 
   GtkToggleButton *pButton = GTK_TOGGLE_BUTTON(widget);
-  Dasher::Opts::ScreenOrientations orient;
+  Dasher::Opts::ScreenOrientations orient = Dasher::Opts::AlphabetDefault;
   if (pButton == pPrivate->pAlphOrient) {
     orient = Dasher::Opts::AlphabetDefault;
   } else if (pButton == pPrivate->pLRButton) {

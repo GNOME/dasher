@@ -25,7 +25,7 @@ using namespace Dasher;
 
 CDynamicFilter::CDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName)
 : CInputFilter(pInterface, iID, szName), CSettingsUser(pCreator),
-  m_bPaused(true), m_pFramerate(pFramerate), m_dLastBits(-1) {
+  m_pFramerate(pFramerate), m_bPaused(true) {
 }
 
 bool CDynamicFilter::OneStepTowards(CDasherModel *pModel, myint X, myint Y, unsigned long iTime, double dSpeedMul) {

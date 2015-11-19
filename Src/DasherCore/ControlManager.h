@@ -83,6 +83,7 @@ namespace Dasher {
 
     class Action {
     public:
+      virtual ~Action() = default;
       virtual void happen(CContNode *pNode) {}
     };
     class NodeTemplate : public Action {

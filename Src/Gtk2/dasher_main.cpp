@@ -583,7 +583,7 @@ void dasher_main_command_toggle_game_mode(DasherMain *pSelf) {
                                          GTK_MESSAGE_OTHER, GTK_BUTTONS_NONE, 
                                          _("Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering text in Dasher. Please select a training text to play with:"));
 
-    GtkWidget *pDefaultButton = gtk_dialog_add_button(GTK_DIALOG(pDialog), _("Use Default"), GTK_RESPONSE_ACCEPT);	
+    gtk_dialog_add_button(GTK_DIALOG(pDialog), _("Use Default"), GTK_RESPONSE_ACCEPT);
     GtkWidget *pFileButton = gtk_dialog_add_button(GTK_DIALOG(pDialog), _("Choose File..."), 2);
     gtk_dialog_add_button(GTK_DIALOG(pDialog), _("Cancel"), GTK_RESPONSE_REJECT);
 
@@ -610,8 +610,8 @@ void dasher_main_command_toggle_game_mode(DasherMain *pSelf) {
                                                 GTK_MESSAGE_OTHER, GTK_BUTTONS_NONE,
                                                 _("Are you sure you wish to turn off game mode? All unsaved changes will be lost."));
 
-    GtkWidget *pNoButton = gtk_dialog_add_button(GTK_DIALOG(pDialog), _("No"), GTK_RESPONSE_REJECT);
-    GtkWidget *pYesButton = gtk_dialog_add_button(GTK_DIALOG(pDialog), _("Yes"), GTK_RESPONSE_ACCEPT);
+    gtk_dialog_add_button(GTK_DIALOG(pDialog), _("No"), GTK_RESPONSE_REJECT);
+    gtk_dialog_add_button(GTK_DIALOG(pDialog), _("Yes"), GTK_RESPONSE_ACCEPT);
 
     if(gtk_dialog_run(GTK_DIALOG(pDialog))==GTK_RESPONSE_ACCEPT) {
       gtk_dasher_control_set_game_mode(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), false);

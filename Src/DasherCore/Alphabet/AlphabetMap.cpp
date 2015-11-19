@@ -198,7 +198,7 @@ void CAlphabetMap::GetSymbols(std::vector<symbol>& Symbols, const std::string& I
 CAlphabetMap::CAlphabetMap(unsigned int InitialTableSize)
 :HashTable(InitialTableSize <<1), m_ParagraphSymbol(UNKNOWN_SYMBOL) {
   Entries.reserve(InitialTableSize);
-
+  // TODO: fix the code so it works if char is signed.
   const int numChars = numeric_limits<char>::max() + 1;
   m_pSingleChars = new symbol[numChars];
   for (int i = 0; i<numChars; i++) m_pSingleChars[i] = UNKNOWN_SYMBOL;

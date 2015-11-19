@@ -72,9 +72,6 @@ class CDynamicFilter : public CInputFilter, public CSettingsUser {
   //Time at which Unpause() was called, used for Slow Start.
   unsigned long m_iStartTime;
   bool m_bPaused;
-  //Number of bits (we allowed) to be entered in previous frame - to cache exp()
-  double m_dLastBits;
-  double m_iLastMinSize;
 };
 }
 #endif

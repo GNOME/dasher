@@ -123,7 +123,7 @@ CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode *p
 
 CWordLanguageModel::CWordLanguageModel(CSettingsUser *pCreator, 
 				       const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap)
-  :CLanguageModel(pAlph->iEnd-1), CSettingsUser(pCreator), m_pAlphMap(pAlphMap), m_iSpaceSymbol(pAlph->GetSpaceSymbol()), NodesAllocated(0), 
+  :CLanguageModel(pAlph->iEnd-1), CSettingsUser(pCreator), m_iSpaceSymbol(pAlph->GetSpaceSymbol()), NodesAllocated(0),
    max_order(2), m_NodeAlloc(8192), m_ContextAlloc(1024) {
   
   // Construct a root node for the trie

@@ -317,7 +317,7 @@ public:
 
 
 CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface)
-: CControlParser(pInterface), CControlBase(pCreateFrom, pInterface, pNCManager), CSettingsObserver(pCreateFrom), m_pSpeech(NULL), m_pCopy(NULL) {
+: CSettingsObserver(pCreateFrom), CControlBase(pCreateFrom, pInterface, pNCManager), CControlParser(pInterface), m_pSpeech(NULL), m_pCopy(NULL) {
   //TODO, used to be able to change label+colour of root/pause/stop from controllabels.xml
   // (or, get the root node title "control" from the alphabet!)
   m_pSpeech = new SpeechHeader(pInterface);

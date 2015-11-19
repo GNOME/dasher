@@ -60,7 +60,7 @@ public:
   // values were in screen coordinates or 1 if the values were in
   // Dasher coordinates.
 
-  virtual bool GetDasherCoords(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
+  virtual bool GetDasherCoords(myint &iDasherX, myint &iDasherY, CDasherView *pView) override {
     iDasherX=0;
     iDasherY = m_iY; 
     return true;
@@ -78,13 +78,13 @@ public:
     m_iY = (iY - m_iOffset) * 4096 / iScale + 2048;
   };
 
-  void KeyDown(int iTime, int iId) {
+  void KeyDown(unsigned long iTime, int iId) override {
     if(iId == 10) {
       m_iOffset = m_iRealY;
     }
   };
 
-  bool GetSettings(SModuleSettings **pSettings, int *iCount) {
+  bool GetSettings(SModuleSettings **pSettings, int *iCount) override {
     *pSettings = sSettings;
     *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
     

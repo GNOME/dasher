@@ -43,7 +43,7 @@ int Dasher::currentNumNodeObjects() {return iNumNodes;}
 
 //TODO this used to be inline - should we make it so again?
 CDasherNode::CDasherNode(int iOffset, int iColour, CDasherScreen::Label *pLabel)
-: m_pParent(NULL), m_iFlags(DEFAULT_FLAGS), onlyChildRendered(NULL), m_iLbnd(0), m_iHbnd(CDasherModel::NORMALIZATION), m_iOffset(iOffset), m_iColour(iColour), m_pLabel(pLabel) {
+: onlyChildRendered(NULL),  m_iLbnd(0), m_iHbnd(CDasherModel::NORMALIZATION), m_pParent(NULL), m_iFlags(DEFAULT_FLAGS), m_iOffset(iOffset), m_iColour(iColour), m_pLabel(pLabel) {
   iNumNodes++;
 }
 

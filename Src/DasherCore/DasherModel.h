@@ -227,9 +227,6 @@ class Dasher::CDasherModel: public Observable<CDasherNode*>, private NoClones
 
   // Model parameters... (cached from settings store)
 
-  // Current maximum bitrate (ie zoom at far rhs).
-  double m_dMaxRate;
-
   // Whether characters entered by alphabet manager are expected to
   // require conversion.
   // TODO: Need to rethink this at some point.

@@ -250,7 +250,7 @@ bool CDasherModel::NextScheduledStep()
 
     //pick _child_ covering crosshair...
     const myint iWidth(m_Rootmax-m_Rootmin);
-    for (CDasherNode::ChildMap::const_iterator it = m_Root->GetChildren().begin(), E = m_Root->GetChildren().end(); ;) {
+    for (CDasherNode::ChildMap::const_iterator it = m_Root->GetChildren().begin(); ;) {
       CDasherNode *pChild(*it);
       DASHER_ASSERT(m_Rootmin + ((pChild->Lbnd() * iWidth) / NORMALIZATION) <= ORIGIN_Y);
       if (m_Rootmin + ((pChild->Hbnd() * iWidth) / NORMALIZATION) > ORIGIN_Y) {

@@ -55,7 +55,7 @@ public:
   /// Parse... methods inherited from Abstract[XML]Parser
   CAlphIO(CMessageDisplay *pMsgs);
   
-  ~CAlphIO();
+  virtual ~CAlphIO();
   void GetAlphabets(std::vector < std::string > *AlphabetList) const;
   std::string GetDefault();
   const CAlphInfo *GetInfo(const std::string & AlphID) const;

@@ -234,6 +234,8 @@ void CDasherViewSquare::DoDelayedText(CTextString *pText) {
       }
       break;
     }
+    default:
+      break;
   }
   delete pText;
 }
@@ -824,6 +826,8 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
     iDasherX = myint( ( iInputY  ) * SCALE_FACTOR / iScaleFactorX);
     iDasherY = myint(CDasherModel::MAX_Y / 2 + ( iInputX - iScreenWidth / 2 ) * SCALE_FACTOR / iScaleFactorY);
     break;
+    default:
+      break;
   }
 
   iDasherX = ixmap(iDasherX);
@@ -995,6 +999,8 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
 			 CustomIDivScaleFactor(( iDasherY - CDasherModel::MAX_Y/2 ) * iScaleFactorY));
     iScreenY = screenint(CustomIDivScaleFactor( iDasherX  * iScaleFactorX ));
     break;
+    default:
+      break;
   }
 }
 
@@ -1094,6 +1100,8 @@ void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, m
     case Dasher::Opts::BottomToTop:
       Screen2Dasher(0,0,m_iDasherMinX,m_iDasherMinY);
       Screen2Dasher(Screen()->GetWidth(),Screen()->GetHeight(),m_iDasherMaxX,m_iDasherMaxY);
+      break;
+    default:
       break;
     }
 

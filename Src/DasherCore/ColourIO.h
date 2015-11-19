@@ -28,7 +28,8 @@ namespace Dasher {
 /// in a list.
 class Dasher::CColourIO : public AbstractXMLParser {
 public:
-  // This structure completely describes the characters used in alphabet
+  virtual ~CColourIO() = default;
+    // This structure completely describes the characters used in alphabet
   struct ColourInfo {
     // Basic information
     std::string ColourID;

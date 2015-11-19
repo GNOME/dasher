@@ -25,13 +25,13 @@ public:
   ~CGnomeSettingsStore();
 
 private:
-  bool LoadSetting(const std::string & Key, bool * Value);
-  bool LoadSetting(const std::string & Key, long * Value);
-  bool LoadSetting(const std::string & Key, std::string * Value);
+  bool LoadSetting(const std::string & Key, bool * Value) override;
+  bool LoadSetting(const std::string & Key, long * Value) override;
+  bool LoadSetting(const std::string & Key, std::string * Value) override;
 
-  void SaveSetting(const std::string & Key, bool Value);
-  void SaveSetting(const std::string & Key, long Value);
-  void SaveSetting(const std::string & Key, const std::string & Value);
+  void SaveSetting(const std::string & Key, bool Value) override;
+  void SaveSetting(const std::string & Key, long Value) override;
+  void SaveSetting(const std::string & Key, const std::string & Value) override;
 
 #ifdef WITH_GCONF
   GConfClient *the_gconf_client;

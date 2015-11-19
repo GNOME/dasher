@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////////
 
 CDasherView::CDasherView(CDasherScreen *DasherScreen, Opts::ScreenOrientations orient)
- : m_pScreen(DasherScreen), m_Orientation(orient) {
+ : m_Orientation(orient), m_pScreen(DasherScreen) {
 }
 
 /////////////////////////////////////////////////////////////////////////////

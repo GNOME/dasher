@@ -114,7 +114,6 @@ namespace Dasher {
     int lookup_word(const std::string & w);
     int lookup_word_const(const std::string & w) const;
 
-    const CAlphabetMap *m_pAlphMap;
     const int m_iSpaceSymbol;
     
     CWordContext *m_rootcontext;

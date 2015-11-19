@@ -31,7 +31,7 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////
 
 CAbstractPPM::CAbstractPPM(CSettingsUser *pCreator, int iNumSyms, CPPMnode *pRoot, int iMaxOrder)
-: CSettingsUser(pCreator), CLanguageModel(iNumSyms), m_pRoot(pRoot), m_iMaxOrder(iMaxOrder<0 ? GetLongParameter(LP_LM_MAX_ORDER) : iMaxOrder), bUpdateExclusion( GetLongParameter(LP_LM_UPDATE_EXCLUSION)!=0 ), m_ContextAlloc(1024) {
+: CLanguageModel(iNumSyms), CSettingsUser(pCreator), m_pRoot(pRoot), m_iMaxOrder(iMaxOrder<0 ? GetLongParameter(LP_LM_MAX_ORDER) : iMaxOrder), bUpdateExclusion( GetLongParameter(LP_LM_UPDATE_EXCLUSION)!=0 ), m_ContextAlloc(1024) {
   m_pRootContext = m_ContextAlloc.Alloc();
   m_pRootContext->head = m_pRoot;
   m_pRootContext->order = 0;
