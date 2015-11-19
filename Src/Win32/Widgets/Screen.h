@@ -38,8 +38,6 @@ public:
 
   void SetFont(const std::string &strFont);
 
-  void DrawMousePosBox(int which, int iMousePosDist,int layer=0);
-
   /// Make label from UTF8-encoded string
   /// \param iWrapSize 0 => single-line label (for nodes); any other value => wrapped to screen width
   /// (we wrap the text in whatever fontsize it's DrawString/TextSize'd in, even tho we don't have to)
@@ -53,12 +51,6 @@ public:
   void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Colour, int iOutlineColour, int iThickness);
 
   void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iFillColour, int iLineColour, int iThickness);
-
-  // Draw a line of fixed colour (usually black). Intended for static UI elements such as a cross-hair
-  //! Draw a line between each of the points in the array
-  //
-  //! \param Number the number of points in the array
-  //void Polyline(point * Points, int Number, int iWidth);
 
   // Draw a line of arbitrary colour.
   //! Draw a line between each of the points in the array
@@ -90,6 +82,8 @@ public:
   void SendMarker(int iMarker);
 
   void resize(screenint w,screenint h);
+  // Returns true if point on screen is not obscured by another window
+  bool IsPointVisible(screenint x, screenint y) override;
 private:
   const void point2POINT(const point * In, POINT * Out, int Number);
 
@@ -105,7 +99,6 @@ private:
   HBITMAP m_hbmBitDecorations;  // Offscreen buffer for decorations
   HGDIOBJ m_prevhbmBitBackground;
   HGDIOBJ m_prevhbmBitDecorations;
-  UINT CodePage;
 
   const Dasher::CColourIO::ColourInfo *m_pColours;
 

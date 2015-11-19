@@ -29,19 +29,9 @@ static char THIS_FILE[] = __FILE__;
 
 CScreen::CScreen(HDC hdc, HWND hWnd, Dasher::screenint iWidth, Dasher::screenint iHeight)
 :CLabelListScreen(iWidth, iHeight), m_hdc(hdc) {
-  // set up the off-screen buffers
-  // HDC hdc = GetDC(mainwindow);
-
   m_hWnd = hWnd;
 
   CreateBuffers();
-
-  CodePage = GetUserCodePage();
-
-//      m_hDCScreen = ::GetDC(m_hwnd);
-//      TCHAR debug[256];
-//      _stprintf(debug, TEXT("GetDC: hwnd %x hdc %x\n"), m_hwnd, m_hDCScreen);
-//      OutputDebugString(debug); 
 }
 
 void CScreen::CreateBuffers() {
@@ -205,11 +195,6 @@ pair<screenint,screenint> CScreen::TextSize_Impl(CScreen::Label *label, unsigned
 }
 
 /////////////////////////////////////////////////////////////////////////////
-
-/*void CScreen::Polygon(point *Points, int Number, int iColour) {
-  CScreen::Polygon( Points, Number, iColour, 1);
-}*/
-
 void CScreen::Polygon(point *Points, int Number, int fillColour, int outlineColour, int iWidth) {
   HGDIOBJ hpOld;
   hpOld = (HPEN) SelectObject(m_hDCBuffer, CScreen::GetPen(fillColour, iWidth));
@@ -224,3 +209,9 @@ void CScreen::Polygon(point *Points, int Number, int fillColour, int outlineColo
 }
 
 /////////////////////////////////////////////////////////////////////////////
+bool CScreen::IsPointVisible(screenint x, screenint y) {
+  POINT pt = { x, y };
+  ClientToScreen(m_hWnd, &pt);
+  HWND h = WindowFromPoint(pt);
+  return h == m_hWnd;
+}

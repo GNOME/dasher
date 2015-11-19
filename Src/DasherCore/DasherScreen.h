@@ -170,6 +170,9 @@ public:
   /// \param pColourScheme A colour scheme that should be used
   virtual void SetColourScheme(const Dasher::CColourIO::ColourInfo *pColourScheme) = 0;
   
+  // Returns true if point on screen is not obscured by another window
+  virtual bool IsPointVisible(screenint x, screenint y) = 0;
+
 private:
   //! Width and height of the screen
   screenint m_iWidth, m_iHeight;
