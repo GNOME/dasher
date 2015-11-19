@@ -56,9 +56,9 @@ app_bp_table app_boolparamtable[] = {
   { APP_BP_CONFIRM_UNSAVED, "ConfirmUnsavedFiles", PERS, true, true, "ConfirmUnsavedFiles" },
   {APP_BP_SHOW_TOOLBAR, "ViewToolbar", PERS, true, true, "ViewToolbar"},
 #ifdef WITH_MAEMO
-  { APP_BP_SHOW_STATUSBAR, "ViewStatusbar", false, "ViewStatusbar" },
+  { APP_BP_SHOW_STATUSBAR, "ViewStatusbar", PERS, false, false, "ViewStatusbar" },
 #else
-  { APP_BP_SHOW_STATUSBAR, "ViewStatusbar", true, "ViewStatusbar" },
+  { APP_BP_SHOW_STATUSBAR, "ViewStatusbar", PERS, true, true, "ViewStatusbar" },
 #endif
 
 };
