@@ -280,7 +280,7 @@ bool CDasherModel::NextScheduledStep()
         break;
       }
       ++it;
-      DASHER_ASSERT (it != E); //must find a child!
+      DASHER_ASSERT(it != m_Root->GetChildren().end()); //must find a child!
     }
   }
 

@@ -63,15 +63,6 @@ inline void CScreen::Polyline(point *Points, int Number, int iWidth, int iColour
   SelectObject(m_hDCBuffer, hpOld);
 }
 
-inline void CScreen::Blank() {
-  RECT rect;
-  rect.top = 0;
-  rect.right = long (GetWidth());
-  rect.bottom = long (GetHeight());
-  rect.left = 0;
-  FillRect(m_hDCBuffer, &rect, (HBRUSH) GetStockObject(WHITE_BRUSH));
-}
-
 inline void CScreen::Display() {
  // BitBlt(m_hdc, 0, 0, m_iWidth, m_iHeight, m_hDCBuffer, 0, 0, SRCCOPY);
   InvalidateRect(m_hWnd, NULL, false);

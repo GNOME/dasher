@@ -34,31 +34,30 @@ public:
   CScreen(HDC hdc, HWND hWnd, screenint width, screenint height);
   ~CScreen();
 
-  void SetColourScheme(const Dasher::CColourIO::ColourInfo *pColours);
+  void SetColourScheme(const Dasher::CColourIO::ColourInfo *pColours) override;
 
   void SetFont(const std::string &strFont);
 
   /// Make label from UTF8-encoded string
   /// \param iWrapSize 0 => single-line label (for nodes); any other value => wrapped to screen width
   /// (we wrap the text in whatever fontsize it's DrawString/TextSize'd in, even tho we don't have to)
-  CDasherScreen::Label *MakeLabel(const std::string &strText, unsigned int iWrapSize=0);
+  CDasherScreen::Label *MakeLabel(const std::string &strText, unsigned int iWrapSize = 0) override;
 
-  std::pair<screenint,screenint> TextSize(CDasherScreen::Label *label, unsigned int Size);
+  std::pair<screenint, screenint> TextSize(CDasherScreen::Label *label, unsigned int Size) override;
 
   //! Draw label at size Size positioned at x1 and y1
-  void DrawString(CDasherScreen::Label *label, screenint x1, screenint y1, unsigned int Size, int Colour);
+  void DrawString(CDasherScreen::Label *label, screenint x1, screenint y1, unsigned int Size, int Colour) override;
 
-  void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Colour, int iOutlineColour, int iThickness);
+  void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Colour, int iOutlineColour, int iThickness) override;
 
-  void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iFillColour, int iLineColour, int iThickness);
+  void DrawCircle(screenint iCX, screenint iCY, screenint iR, int iFillColour, int iLineColour, int iThickness) override;
 
   // Draw a line of arbitrary colour.
   //! Draw a line between each of the points in the array
   //
   //! \param Number the number of points in the array
   //! \param Colour the colour to be drawn
-  //void Polyline(point * Points, int Number, int iWidth, int Colour,int layer=0);
-  void Polyline(point * Points, int Number, int iWidth, int Colour);
+  void Polyline(point * Points, int Number, int iWidth, int Colour) override;
 
   // Draw a filled polygon - given vertices and color id
   // This is not (currently) used in standard Dasher. However, it could be very
@@ -70,20 +69,18 @@ public:
   //! \param Number number of points in the array
   //! \param fillColour colour to fill polygon (numeric); -1 for don't fill
   //! \param outlineColour colour to draw polygon outline (right the way around, i.e. repeating first point)
-   //virtual void Polygon(point * Points, int Number, int Color);
-  //virtual void Polygon(point * Points, int Number, int Color, int iWidth,int layer);
-  virtual void Polygon(point * Points, int Number, int fillColour, int OutlineColour, int iWidth);
+  virtual void Polygon(point * Points, int Number, int fillColour, int OutlineColour, int iWidth) override;
 
-  void Blank();
-  void Display();
+  void Display() override;
 
-  void RealDisplay(HDC hDC, RECT r);
+  void SendMarker(int iMarker) override;
 
-  void SendMarker(int iMarker);
-
-  void resize(screenint w,screenint h);
   // Returns true if point on screen is not obscured by another window
   bool IsPointVisible(screenint x, screenint y) override;
+
+  void RealDisplay(HDC hDC, RECT r);
+  void resize(screenint w, screenint h);
+
 private:
   const void point2POINT(const point * In, POINT * Out, int Number);
 

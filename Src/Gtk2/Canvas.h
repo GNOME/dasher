@@ -160,12 +160,6 @@ public:
   void Polygon(point *Points, int Number, int fillColour, int outlineColour, int iWidth) override;
 
   /// 
-  /// Blank the diplay
-  ///
-
-  void Blank();
-
-  /// 
   /// Marks the end of the display process - at this point the offscreen buffer is copied onscreen.
   ///
 

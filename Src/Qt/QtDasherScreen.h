@@ -63,11 +63,7 @@ Q_OBJECT public:
   std::vector < int >FontSizes;
   std::vector < QFont > Fonts;
 
-  void Blank() const {
-    painter->begin(pixmap);
-    painter->setPen(NoPen);
-    painter->fillRect(0, 0, m_iWidth, m_iHeight, QColor(255, 255, 255));
-  } void Display() {
+void Display() {
     painter->end();
     repaint();
   }

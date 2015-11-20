@@ -100,30 +100,6 @@ void CCanvas::resize(screenint w,screenint h) {
   InitSurfaces();
 } 
 
-void CCanvas::Blank() {
-  // FIXME - this is replicated throughout this file - do something
-  // about that
-#if WITH_CAIRO
-#else
-  GdkGC *graphics_context;
-  GdkColormap *colormap;
-
-  graphics_context = m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)];
-  colormap = gdk_colormap_get_system();
-#endif
-
-  BEGIN_DRAWING;
-  SET_COLOR(0);
-
-#if WITH_CAIRO
-  cairo_paint(cr);
-#else
-  gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, TRUE, 0, 0, GetWidth(), GetHeight());
-#endif
-
-  END_DRAWING;
-}
-
 void CCanvas::Display() {
   // FIXME - Some of this stuff is probably not needed
   //  GdkRectangle update_rect;
