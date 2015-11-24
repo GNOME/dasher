@@ -39,8 +39,7 @@ public:
 
   CSettingsStore();
 
-  virtual ~CSettingsStore() {
-  };
+  virtual ~CSettingsStore() = default;
 
   // New functions for event driven interface
 

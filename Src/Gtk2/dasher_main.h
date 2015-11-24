@@ -30,12 +30,10 @@ struct _DasherMainClass {
   void (*realized)(DasherMain *pDasherMain);
 };
 
-typedef struct _SCommandLine SCommandLine;
-
-struct _SCommandLine {
-  gchar *szFilename;
-  gchar *szAppStyle;
-  gchar *szOptions;
+struct SCommandLine {
+  gchar *szFilename = nullptr;
+  gchar *szAppStyle = nullptr;
+  gchar *szOptions = nullptr;
 };
 
 DasherMain *dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine);

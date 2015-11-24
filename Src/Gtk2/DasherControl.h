@@ -48,8 +48,9 @@ public:
   /// \param pDasherControl Pointer to the GObject wrapper. This is
   /// needed so that we can emit signals from the GObject.
   ///
-
-  CDasherControl(GtkVBox * pVbox, GtkDasherControl * pDasherControl);
+  // The CDasherControl object takes ownership of 'settings'.
+  CDasherControl(GtkVBox * pVbox, GtkDasherControl * pDasherControl,
+                 CSettingsStore* settings);
   ~CDasherControl();
 
   // Event handlers

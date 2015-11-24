@@ -6,7 +6,9 @@ libdasherprefs_la_SOURCES = \
 		Parameters.h \
 		Parameters.cpp \
 		SettingsStore.cpp \
-		SettingsStore.h 
+		SettingsStore.h \
+		XmlSettingsStore.h \
+		XmlSettingsStore.cpp
 
 libdashercore_la_SOURCES = \
 		AbstractXMLParser.cpp \

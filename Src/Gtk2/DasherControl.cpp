@@ -39,8 +39,9 @@ extern "C" gint canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gp
 static bool g_iTimeoutID = 0;
 
 // CDasherControl class definitions
-CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
- : CDashIntfScreenMsgs(new CGnomeSettingsStore()) {
+CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl,
+                               CSettingsStore* settings)
+ : CDashIntfScreenMsgs(settings) {
   m_pScreen = NULL;
 
   m_pDasherControl = pDasherControl;

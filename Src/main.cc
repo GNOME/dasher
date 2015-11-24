@@ -133,6 +133,7 @@ void clean_up();
 //   }
 // }
 
+gchar* g_xml_file_location = nullptr;
 
 extern "C" gint main_key_snooper(GtkWidget *pWidget, GdkEventKey *pEvent, gpointer pUserData);
 
@@ -152,10 +153,6 @@ int main(int argc, char *argv[]) {
 
   SCommandLine sCommandLine;
 
-  sCommandLine.szFilename = NULL;
-  sCommandLine.szAppStyle = NULL;
-  sCommandLine.szOptions = NULL;
-
   gboolean do_option_help = false;
   static const GOptionEntry options[] = {
     //   {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
@@ -166,18 +163,22 @@ int main(int argc, char *argv[]) {
     {"appstyle", 'a', 0, G_OPTION_ARG_STRING, &(sCommandLine.szAppStyle), N_("Application style (traditional, direct, compose or fullscreen)"), "traditional"},
     // Note to translators: This is the help string for "--options"
     {"options", 'o', 0, G_OPTION_ARG_STRING, &(sCommandLine.szOptions), N_("Override stored options"), NULL},
-    // Note to translators: This is the help string for "--help-options"
+    {"config", 'c', 0, G_OPTION_ARG_STRING, &g_xml_file_location, N_("XML configuration file name"), NULL},
+        // Note to translators: This is the help string for "--help-options"
     {"help-options", 0, 0, G_OPTION_ARG_NONE, &do_option_help, N_("Describe \"--options\"."), NULL},
     {NULL}
   };
 
   //parse command line options
-  GOptionContext *goptcontext;
   // Note to translators: This is the "--help" description of dasher.
-  goptcontext = g_option_context_new(_("- A text input application honouring accessibility"));
+  GOptionContext *goptcontext = g_option_context_new(_("- A text input application honouring accessibility"));
   g_option_context_add_main_entries(goptcontext, options, GETTEXT_PACKAGE);
-  g_option_context_add_group(goptcontext, gtk_get_option_group (TRUE));
-  g_option_context_parse(goptcontext, &argc, &argv, NULL);
+  g_option_context_add_group(goptcontext, gtk_get_option_group(TRUE));
+  GError *error = nullptr;
+  if (!g_option_context_parse(goptcontext, &argc, &argv, &error)) {
+    g_print("option parsing failed: %s\n", error->message);
+    exit (1);
+  }
 
   // TODO: Check what happens here when goption has done its stuff
 
@@ -235,6 +236,9 @@ int main(int argc, char *argv[]) {
 
   // 11.
   clean_up();
+
+  if (g_xml_file_location != nullptr)
+    g_free(g_xml_file_location);
 
   return 0;
 }
