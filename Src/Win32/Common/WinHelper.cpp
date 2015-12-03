@@ -36,35 +36,20 @@ void WinHelper::InitCommonControlLib() {
   if(CommonControlsInited)
     return;
 
-#ifdef OriginalWin95
-  InitCommonControls();
-#else
   INITCOMMONCONTROLSEX iccex;
   iccex.dwSize = sizeof(INITCOMMONCONTROLSEX);
   iccex.dwICC = ICC_BAR_CLASSES | ICC_COOL_CLASSES;
   InitCommonControlsEx(&iccex);
-#endif
-
   CommonControlsInited = true;
 }
 
-#ifndef OriginalWin95
 namespace {
-// For SHGetSpecialFolderPath. Needs IE 4.0 or above (Win98+ always ok).
+// For SHGetSpecialFolderPath.
 #include "shlobj.h"
 }
-#endif
 
 void WinHelper::GetUserDirectory(Tstring *Output) {
   Tstring & UserData = *Output;
-
-#ifdef 	OriginalWin95
-  // Not a lot else I can do :(
-  GetAppDirectory(Output);
-#elif  defined _WIN32_WCE
-  GetAppDirectory(Output);
-#else
-
   TCHAR Buffer[MAX_PATH];
   // My documentation says SHGetSpecialFolderPath returns NOERROR if successful
   // With my headers NOERROR==0 and this function returns TRUE==1 as docs online say.
@@ -75,9 +60,6 @@ void WinHelper::GetUserDirectory(Tstring *Output) {
   UserData = Buffer;
   if(UserData[UserData.size() - 1] != TEXT('\\'))
     UserData += TEXT('\\');
-
-#endif
-
 }
 
 void WinHelper::GetAppDirectory(Tstring *Output) {

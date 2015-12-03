@@ -32,8 +32,6 @@ protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
-  HWND m_hCustomBox;
- 
   CAlphabetBox *m_pAlphabetBox;
   CControlPage *m_pControlPage;
   CViewPage *m_pViewPage;

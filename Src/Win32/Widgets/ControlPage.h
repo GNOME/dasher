@@ -13,7 +13,6 @@
 
 
 #include "../../DasherCore/DasherInterfaceBase.h"
-#include "../../DasherCore/ColourIO.h"
 
 class CAppSettings;
 
@@ -25,9 +24,6 @@ protected:
 private:
   Dasher::CDasherInterfaceBase *m_pDasherInterface;
 
-  std::vector < std::string > ColourList;
-  std::string m_CurrentColours;
-  Dasher::CColourIO::ColourInfo CurrentInfo;
   TCHAR m_tcBuffer[1000];
   
   // Handles to important widgets
