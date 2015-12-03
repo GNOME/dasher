@@ -31,10 +31,9 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings) {
 
   // Set up the property sheets which go into the preferences
   // dialogue.
-  PROPSHEETPAGEW_LATEST psp[4];
-  PROPSHEETHEADER psh;
-  
-  psp[0].dwSize = sizeof(PROPSHEETPAGEW_LATEST);
+  PROPSHEETPAGE psp[4];
+  memset(psp, 0, sizeof(psp));
+  psp[0].dwSize = sizeof(PROPSHEETPAGE);
   psp[0].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
   psp[0].hInstance = WinHelper::hInstApp;
   psp[0].pszTemplate = MAKEINTRESOURCE(IDD_ALPHABETPAGE);
@@ -44,7 +43,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings) {
   psp[0].lParam = (LPARAM) m_pAlphabetBox;
   psp[0].pfnCallback = NULL;
 
-  psp[1].dwSize = sizeof(PROPSHEETPAGEW_LATEST);
+  psp[1].dwSize = sizeof(PROPSHEETPAGE);
   psp[1].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
   psp[1].hInstance = WinHelper::hInstApp;
   psp[1].pszTemplate = MAKEINTRESOURCE(IDD_CONTROLPAGE);
@@ -54,7 +53,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings) {
   psp[1].lParam = (LPARAM) m_pControlPage;
   psp[1].pfnCallback = NULL;
   
-  psp[2].dwSize = sizeof(PROPSHEETPAGEW_LATEST);
+  psp[2].dwSize = sizeof(PROPSHEETPAGE);
   psp[2].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
   psp[2].hInstance = WinHelper::hInstApp;
   psp[2].pszTemplate = MAKEINTRESOURCE(IDD_APPEARANCEPAGE);
@@ -64,7 +63,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings) {
   psp[2].lParam = (LPARAM) m_pViewPage;
   psp[2].pfnCallback = NULL;
   
-  psp[3].dwSize = sizeof(PROPSHEETPAGEW_LATEST);
+  psp[3].dwSize = sizeof(PROPSHEETPAGE);
   psp[3].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
   psp[3].hInstance = WinHelper::hInstApp;
   psp[3].pszTemplate = MAKEINTRESOURCE(IDD_APPPAGE);
@@ -74,7 +73,9 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings) {
   psp[3].lParam = (LPARAM) m_pAdvancedPage;
   psp[3].pfnCallback = NULL;
   
-  psh.dwSize = sizeof(PROPSHEETPAGEW_LATEST);
+  PROPSHEETHEADER psh;
+  memset(&psh, 0, sizeof(psh));
+  psh.dwSize = sizeof(PROPSHEETHEADER);
   psh.dwFlags = PSH_USEICONID | PSH_PROPSHEETPAGE;
   psh.hwndParent = hParent;
   psh.hInstance = WinHelper::hInstApp;
@@ -82,7 +83,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings) {
   psh.pszCaption =  MAKEINTRESOURCE(IDS_PREFS_TITLE);
   psh.nPages = sizeof(psp) / sizeof(PROPSHEETPAGE);
   psh.nStartPage = 0;
-  psh.ppsp = (LPCPROPSHEETPAGEW_LATEST) &psp;
+  psh.ppsp = (LPCPROPSHEETPAGE) &psp;
   psh.pfnCallback = NULL;
   PropertySheet(&psh);
 }
