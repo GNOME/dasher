@@ -34,6 +34,7 @@ struct SCommandLine {
   gchar *szFilename = nullptr;
   gchar *szAppStyle = nullptr;
   gchar *szOptions = nullptr;
+  gchar *szConfigFile = nullptr;
 };
 
 DasherMain *dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine);

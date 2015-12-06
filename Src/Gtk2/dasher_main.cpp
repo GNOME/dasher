@@ -3,7 +3,9 @@
 #endif
 
 #include <cstring>
+#include <functional>
 #include <utility>
+
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <glib/gi18n.h>
@@ -24,6 +26,8 @@
 #include "math.h"
 
 #include "dasher_main_private.h"
+#include "GnomeSettingsStore.h"
+#include "XmlSettingsStore.h"
 
 enum {
   REALIZED,
@@ -138,7 +142,7 @@ dasher_main_finalize(GObject *pObject) {
   DasherMain *pDasherMain = DASHER_MAIN(pObject);
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pDasherMain);
 
-  dasher_main_save_state(pDasherMain);
+  pPrivate->pAppSettings->UnregisterParameterChangeCallback(pPrivate->parameter_callback_id_);
 
   /* TODO: Does unref really do the right thing - check the whole ref counting situation */
   //  if(pPrivate->pEditor)
@@ -155,28 +159,51 @@ dasher_main_finalize(GObject *pObject) {
   /* TODO: Do we need to take down anything else? */
 }
 
+class XmlErrorDisplay : public CMessageDisplay {
+public:
+    void Message(const std::string &strText, bool bInterrupt) override {
+      // TODO: decide if a pop-up dialog should be shown instead.
+      fputs(strText.c_str(), stderr);
+      fputs("\n", stderr);
+    }
+};
+
 /* Public methods */
 DasherMain *
 dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     DasherMain *pDasherMain = (DasherMain *)(g_object_new(dasher_main_get_type(), NULL));
     DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pDasherMain);
 
-    /* Create the app settings object */
-    pPrivate->pAppSettings = dasher_app_settings_new(pDasherMain, *argc, *argv);
+  static XmlErrorDisplay display;
+  Dasher::CSettingsStore* settings;
+  if (pCommandLine->szConfigFile == nullptr) {
+    settings = new CGnomeSettingsStore();
+  } else {
+    auto xml_settings = new Dasher::XmlSettingsStore(pCommandLine->szConfigFile, &display);
+    xml_settings->Load();
+    // Save the defaults if needed.
+    xml_settings->Save();
+    settings = xml_settings;
+  }
+  DasherAppSettings::Create(settings);
+  pPrivate->pAppSettings = DasherAppSettings::Get();
+  pPrivate->parameter_callback_id_ =
+    pPrivate->pAppSettings->RegisterParameterChangeCallback(
+      std::bind(dasher_main_handle_parameter_change, pDasherMain, std::placeholders::_1));
     
     /* Load the user interface from the GUI file */
     if(pCommandLine && pCommandLine->szAppStyle) {
       if(!strcmp(pCommandLine->szAppStyle, "traditional")) {
-        dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, APP_STYLE_TRAD);
+        pPrivate->pAppSettings->SetLong(APP_LP_STYLE, APP_STYLE_TRAD);
       }
       else if(!strcmp(pCommandLine->szAppStyle, "compose")) {
-        dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, APP_STYLE_COMPOSE);
+        pPrivate->pAppSettings->SetLong(APP_LP_STYLE, APP_STYLE_COMPOSE);
       }
       else if(!strcmp(pCommandLine->szAppStyle, "direct")) {
-        dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, APP_STYLE_DIRECT);
+        pPrivate->pAppSettings->SetLong(APP_LP_STYLE, APP_STYLE_DIRECT);
       }
       else if(!strcmp(pCommandLine->szAppStyle, "fullscreen")) {
-        dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, APP_STYLE_FULLSCREEN);
+        pPrivate->pAppSettings->SetLong(APP_LP_STYLE, APP_STYLE_FULLSCREEN);
       }
       else {
         g_critical("Application style %s is not supported", pCommandLine->szAppStyle);
@@ -185,12 +212,12 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     }
     else { 
       // By default use traditional mode
-      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, APP_STYLE_TRAD);
+      pPrivate->pAppSettings->SetLong(APP_LP_STYLE, APP_STYLE_TRAD);
     }
 
     dasher_main_load_interface(pDasherMain);
 
-    dasher_app_settings_set_widget(pPrivate->pAppSettings, GTK_DASHER_CONTROL(pPrivate->pDasherWidget));
+    pPrivate->pAppSettings->SetWidget(GTK_DASHER_CONTROL(pPrivate->pDasherWidget));
 
 
     /* TODO: This parsing code should really be tidied up */
@@ -212,7 +239,7 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
           memcpy(szKey, *pszCurrent, iLength);
           szKey[iLength] = '\0';
           
-          errorMessage = dasher_app_settings_cl_set(pPrivate->pAppSettings, szKey, szJoin + 1);
+          errorMessage = pPrivate->pAppSettings->ClSet(szKey, szJoin + 1);
           
           g_free(szKey);
         }
@@ -485,7 +512,7 @@ dasher_main_load_interface(DasherMain *pSelf) {
 #endif
   
   // Hide any widgets which aren't appropriate for this mode
-  if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) == APP_STYLE_DIRECT) {
+  if(pPrivate->pAppSettings->GetLong(APP_LP_STYLE) == APP_STYLE_DIRECT) {
     gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "DasherEditor")));
   }
     
@@ -531,9 +558,7 @@ void show_game_file_dialog(GtkWidget *pButton, GtkWidget *pWidget, gpointer pDat
 	
 		char *filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(pFileDialog));
 
-		dasher_app_settings_set_string(pPrivate->pAppSettings,
-							SP_GAME_TEXT_FILE,
-							filename);
+		pPrivate->pAppSettings->SetString(SP_GAME_TEXT_FILE, filename);
 		gtk_dasher_control_set_game_mode(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), true);
 	}
 	gtk_widget_destroy(GTK_WIDGET(objRefs->first));
@@ -544,13 +569,13 @@ void dasher_main_command_toggle_direct_mode(DasherMain *pSelf) {
 
 	// Question of style: we could hide/show in
 	// dasher_main_handle_parameter_change()
-	if (dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) == APP_STYLE_DIRECT) {
+	if (pPrivate->pAppSettings->GetLong(APP_LP_STYLE) == APP_STYLE_DIRECT) {
 		// Opposite of direct mode
 		gtk_widget_show(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "DasherEditor")));
 		gtk_window_set_keep_above(GTK_WINDOW(pPrivate->pMainWindow), false);
 		gtk_window_set_accept_focus(GTK_WINDOW(pPrivate->pMainWindow), true);
 		gtk_window_unstick(GTK_WINDOW(pPrivate->pMainWindow));
-		dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, APP_STYLE_TRAD);
+		pPrivate->pAppSettings->SetLong(APP_LP_STYLE, APP_STYLE_TRAD);
 	} else {
 		// Hide text window
 		gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "DasherEditor")));
@@ -560,7 +585,7 @@ void dasher_main_command_toggle_direct_mode(DasherMain *pSelf) {
 		gtk_window_set_accept_focus(GTK_WINDOW(pPrivate->pMainWindow), false);
 		// Stick on all desktops
 		gtk_window_stick(GTK_WINDOW(pPrivate->pMainWindow));
-		dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, APP_STYLE_DIRECT);
+		pPrivate->pAppSettings->SetLong(APP_LP_STYLE, APP_STYLE_DIRECT);
 	}
 
 	dasher_editor_toggle_direct_mode(pPrivate->pEditor);
@@ -628,20 +653,20 @@ dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
 
   switch( iParameter ) {
   case APP_BP_SHOW_TOOLBAR:
-    if( dasher_app_settings_get_bool(pPrivate->pAppSettings, APP_BP_SHOW_TOOLBAR))
+    if( pPrivate->pAppSettings->GetBool(APP_BP_SHOW_TOOLBAR))
       gtk_widget_show(pPrivate->pToolbar);
     else
       gtk_widget_hide(pPrivate->pToolbar);
     break;
   case APP_BP_SHOW_STATUSBAR:
-    if (dasher_app_settings_get_bool(pPrivate->pAppSettings, APP_BP_SHOW_STATUSBAR))
+    if (pPrivate->pAppSettings->GetBool(APP_BP_SHOW_STATUSBAR))
       gtk_widget_show(pPrivate->pStatusControl);
     else
       gtk_widget_hide(pPrivate->pStatusControl);
     break;
 #ifndef WITH_MAEMO
   case LP_MAX_BITRATE:
-    gtk_spin_button_set_value(pPrivate->pSpeedBox, dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) / 100.0);
+    gtk_spin_button_set_value(pPrivate->pSpeedBox, pPrivate->pAppSettings->GetLong(LP_MAX_BITRATE) / 100.0);
     break;
 #endif
   case SP_ALPHABET_ID:
@@ -656,7 +681,7 @@ dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
 
     bool bVisible = GTK_WIDGET_VISIBLE(pPrivate->pMainWindow);
     gtk_widget_hide(pPrivate->pMainWindow);
-    if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_MAEMO_SIZE) == 0) {
+    if(pPrivate->pAppSettings->GetLong(APP_LP_MAEMO_SIZE) == 0) {
       int iWidth;
       gtk_window_get_size(GTK_WINDOW(pPrivate->pMainWindow), &iWidth, NULL);
       gtk_widget_set_size_request(pPrivate->pMainWindow, -1, 150);
@@ -692,15 +717,15 @@ dasher_main_load_state(DasherMain *pSelf) {
   int iWindowHeight;
   int iEditHeight;
   
-  if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) != APP_STYLE_COMPOSE) {
-    iEditHeight = dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_EDIT_HEIGHT);
-    iWindowWidth = dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_SCREEN_WIDTH);
-    iWindowHeight = dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_SCREEN_HEIGHT);
+  if(pPrivate->pAppSettings->GetLong(APP_LP_STYLE) != APP_STYLE_COMPOSE) {
+    iEditHeight = pPrivate->pAppSettings->GetLong(APP_LP_EDIT_HEIGHT);
+    iWindowWidth = pPrivate->pAppSettings->GetLong(APP_LP_SCREEN_WIDTH);
+    iWindowHeight = pPrivate->pAppSettings->GetLong(APP_LP_SCREEN_HEIGHT);
   }
   else {
-    iEditHeight = dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_EDIT_WIDTH);
-    iWindowWidth = dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_SCREEN_WIDTH_H);
-    iWindowHeight = dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_SCREEN_HEIGHT_H);
+    iEditHeight = pPrivate->pAppSettings->GetLong(APP_LP_EDIT_WIDTH);
+    iWindowWidth = pPrivate->pAppSettings->GetLong(APP_LP_SCREEN_WIDTH_H);
+    iWindowHeight = pPrivate->pAppSettings->GetLong(APP_LP_SCREEN_HEIGHT_H);
   }
 
 #ifndef WITH_MAEMO
@@ -716,8 +741,8 @@ dasher_main_load_state(DasherMain *pSelf) {
   int iWindowX;
   int iWindowY;
  
-  iWindowX = dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_X);
-  iWindowY = dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_Y);
+  iWindowX = pPrivate->pAppSettings->GetLong(APP_LP_X);
+  iWindowY = pPrivate->pAppSettings->GetLong(APP_LP_Y);
 
   gtk_window_move(GTK_WINDOW(pPrivate->pMainWindow), iWindowX, iWindowY);
 }
@@ -736,25 +761,25 @@ dasher_main_save_state(DasherMain *pSelf) {
    gtk_window_get_size(GTK_WINDOW(pPrivate->pMainWindow), &iWindowWidth, &iWindowHeight);
    iEditHeight = gtk_paned_get_position(pPrivate->pDivider);
 
-   if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) != APP_STYLE_COMPOSE) {
+   if(pPrivate->pAppSettings->GetLong(APP_LP_STYLE) != APP_STYLE_COMPOSE) {
      // APP_STYLE_DIRECT doesn't have an edit window.
-     if (dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) != APP_STYLE_DIRECT)
-       dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_EDIT_HEIGHT, iEditHeight);
-     dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_SCREEN_WIDTH, iWindowWidth);
-     dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_SCREEN_HEIGHT, iWindowHeight);
+     if (pPrivate->pAppSettings->GetLong(APP_LP_STYLE) != APP_STYLE_DIRECT)
+       pPrivate->pAppSettings->SetLong(APP_LP_EDIT_HEIGHT, iEditHeight);
+     pPrivate->pAppSettings->SetLong(APP_LP_SCREEN_WIDTH, iWindowWidth);
+     pPrivate->pAppSettings->SetLong(APP_LP_SCREEN_HEIGHT, iWindowHeight);
    }
    else {
-     dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_EDIT_WIDTH, iEditHeight);
-     dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_SCREEN_WIDTH_H, iWindowWidth);
-     dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_SCREEN_HEIGHT_H, iWindowHeight);
+     pPrivate->pAppSettings->SetLong(APP_LP_EDIT_WIDTH, iEditHeight);
+     pPrivate->pAppSettings->SetLong(APP_LP_SCREEN_WIDTH_H, iWindowWidth);
+     pPrivate->pAppSettings->SetLong(APP_LP_SCREEN_HEIGHT_H, iWindowHeight);
    } 
 
    int iWindowX;
    int iWindowY;
    gtk_window_get_position(GTK_WINDOW(pPrivate->pMainWindow), &iWindowX, &iWindowY);
 
-   dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_X, iWindowX);
-   dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_Y, iWindowY);
+   pPrivate->pAppSettings->SetLong(APP_LP_X, iWindowX);
+   pPrivate->pAppSettings->SetLong(APP_LP_Y, iWindowY);
 }
 
 void 
@@ -786,7 +811,7 @@ dasher_main_populate_controls(DasherMain *pSelf) {
   
   // Set the value of the speed spinner
   gtk_spin_button_set_value(pPrivate->pSpeedBox, 
-                            dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) / 100.0);
+                            pPrivate->pAppSettings->GetLong(LP_MAX_BITRATE) / 100.0);
 }
 
 /* Private methods */
@@ -805,7 +830,7 @@ static void
 dasher_main_setup_window_style(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 
-  switch(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE)) {
+  switch(pPrivate->pAppSettings->GetLong(APP_LP_STYLE)) {
   case APP_STYLE_TRAD:
     // Nothing to do
     break;
@@ -837,14 +862,14 @@ dasher_main_setup_internal_layout(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
  
   if(pPrivate->pToolbar) {
-    if( dasher_app_settings_get_bool(pPrivate->pAppSettings, APP_BP_SHOW_TOOLBAR))
+    if(pPrivate->pAppSettings->GetBool(APP_BP_SHOW_TOOLBAR))
       gtk_widget_show(pPrivate->pToolbar);
     else
       gtk_widget_hide(pPrivate->pToolbar);
   }    
 
   if(pPrivate->pStatusControl) {
-    if (dasher_app_settings_get_bool(pPrivate->pAppSettings, APP_BP_SHOW_STATUSBAR))
+    if (pPrivate->pAppSettings->GetBool(APP_BP_SHOW_STATUSBAR))
       gtk_widget_show(pPrivate->pStatusControl);
     else
       gtk_widget_hide(pPrivate->pStatusControl);
@@ -906,7 +931,7 @@ static void dasher_main_command_quit(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 
   GtkWidget *pDialogue = NULL;
-
+  dasher_main_save_state(pSelf);
   if(dasher_editor_file_changed(pPrivate->pEditor)) {
 // XXX PRLW: Just open the save dialogue box.
 #if 0
@@ -1061,8 +1086,8 @@ dasher_main_speed_changed(DasherMain *pSelf) {
   
   int iNewValue( static_cast<int>(round(gtk_spin_button_get_value(pPrivate->pSpeedBox) * 100)));
   
-  if(dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) != iNewValue)
-    dasher_app_settings_set_long(pPrivate->pAppSettings, LP_MAX_BITRATE, iNewValue);
+  if(pPrivate->pAppSettings->GetLong(LP_MAX_BITRATE) != iNewValue)
+    pPrivate->pAppSettings->SetLong(LP_MAX_BITRATE, iNewValue);
 
   return true;
 }
@@ -1083,7 +1108,7 @@ dasher_main_alphabet_combo_changed(DasherMain *pSelf) {
       dasher_main_command_preferences_alphabet(pSelf);
     }
     else 
-      dasher_app_settings_set_string(pPrivate->pAppSettings, SP_ALPHABET_ID, szSelected);
+      pPrivate->pAppSettings->SetString(SP_ALPHABET_ID, szSelected);
 
     g_free(szSelected);
   }
@@ -1105,7 +1130,7 @@ dasher_main_populate_alphabet_combo(DasherMain *pSelf) {
   GtkTreeIter sIter;
   const char *szValue;
   
-  szValue = dasher_app_settings_get_string(pPrivate->pAppSettings, SP_ALPHABET_ID);
+  szValue = pPrivate->pAppSettings->GetString(SP_ALPHABET_ID).c_str();
 
   if(strlen(szValue) > 0) {
     gtk_list_store_append(pPrivate->pAlphabetList, &sIter);
@@ -1113,25 +1138,25 @@ dasher_main_populate_alphabet_combo(DasherMain *pSelf) {
     gtk_combo_box_set_active_iter(GTK_COMBO_BOX(pPrivate->pAlphabetCombo), &sIter);
   }
   
-  szValue = dasher_app_settings_get_string(pPrivate->pAppSettings, SP_ALPHABET_1);
+  szValue = pPrivate->pAppSettings->GetString(SP_ALPHABET_1).c_str();
   if(strlen(szValue) > 0) {
     gtk_list_store_append(pPrivate->pAlphabetList, &sIter);
     gtk_list_store_set(pPrivate->pAlphabetList, &sIter, 0, szValue, -1);
   }
   
-  szValue = dasher_app_settings_get_string(pPrivate->pAppSettings, SP_ALPHABET_2);
+  szValue = pPrivate->pAppSettings->GetString(SP_ALPHABET_2).c_str();
   if(strlen(szValue) > 0) {
     gtk_list_store_append(pPrivate->pAlphabetList, &sIter);
     gtk_list_store_set(pPrivate->pAlphabetList, &sIter, 0, szValue, -1);
   }
   
-  szValue = dasher_app_settings_get_string(pPrivate->pAppSettings, SP_ALPHABET_3);
+  szValue = pPrivate->pAppSettings->GetString(SP_ALPHABET_3).c_str();
   if(strlen(szValue) > 0) {
     gtk_list_store_append(pPrivate->pAlphabetList, &sIter);
     gtk_list_store_set(pPrivate->pAlphabetList, &sIter, 0, szValue, -1);
   }
   
-  szValue = dasher_app_settings_get_string(pPrivate->pAppSettings, SP_ALPHABET_4);
+  szValue = pPrivate->pAppSettings->GetString(SP_ALPHABET_4).c_str();
   if(strlen(szValue) > 0) {
     gtk_list_store_append(pPrivate->pAlphabetList, &sIter);
     gtk_list_store_set(pPrivate->pAlphabetList, &sIter, 0, szValue, -1);

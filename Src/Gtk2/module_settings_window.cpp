@@ -112,7 +112,7 @@ module_settings_window_new(DasherAppSettings *pAppSettings, const gchar *szName,
       pControl = gtk_check_button_new_with_label(_(pSettings[i].szDescription)); 
       
       gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pControl), 
-				   dasher_app_settings_get_bool(pPrivate->pAppSettings, pSettings[i].iParameter)); 
+				   pPrivate->pAppSettings->GetBool(pSettings[i].iParameter));
       
       gtk_table_attach_defaults(GTK_TABLE(pTable), pControl, 0, 2, i, i+1);
       g_signal_connect(G_OBJECT(pControl), "toggled", G_CALLBACK(handle_bool_changed), pDasherControl);
@@ -133,7 +133,7 @@ module_settings_window_new(DasherAppSettings *pAppSettings, const gchar *szName,
 				 pSettings[i].iStep / static_cast<double>(pSettings[i].iDivisor));
 
 	gtk_range_set_value(GTK_RANGE(pControl), 
-			    dasher_app_settings_get_long(pPrivate->pAppSettings, pSettings[i].iParameter) 
+			    pPrivate->pAppSettings->GetLong(pSettings[i].iParameter)
 			    / static_cast<double>(pSettings[i].iDivisor));
 	
 	gtk_widget_set_size_request(pControl, 256, -1);
@@ -145,7 +145,7 @@ module_settings_window_new(DasherAppSettings *pAppSettings, const gchar *szName,
 						  pSettings[i].iMax / static_cast<double>(pSettings[i].iDivisor), 
 						  pSettings[i].iStep / static_cast<double>(pSettings[i].iDivisor));
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(pControl), 
-				  dasher_app_settings_get_long(pPrivate->pAppSettings, pSettings[i].iParameter) 
+				  pPrivate->pAppSettings->GetLong(pSettings[i].iParameter)
 				  / static_cast<double>(pSettings[i].iDivisor));
 
 	gtk_widget_set_size_request(pControl, 256, -1);	
@@ -155,7 +155,7 @@ module_settings_window_new(DasherAppSettings *pAppSettings, const gchar *szName,
       case T_STRING:
 	pControl = gtk_entry_new();
 	gtk_entry_set_text(GTK_ENTRY(pControl),
-			   dasher_app_settings_get_string(pPrivate->pAppSettings, pSettings[i].iParameter));
+			   pPrivate->pAppSettings->GetString(pSettings[i].iParameter).c_str());
 	gtk_widget_set_size_request(pControl, 256, -1);
 
 	g_signal_connect(G_OBJECT(pControl), "changed", G_CALLBACK(handle_string_changed), pDasherControl);
@@ -215,7 +215,7 @@ module_settings_window_handle_bool_changed(ModuleSettingsWindow *pSelf, GtkToggl
   ModuleSettingsWindowPrivate *pPrivate = MODULE_SETTINGS_WINDOW_GET_PRIVATE(pSelf);
   
   gboolean bNewValue = gtk_toggle_button_get_active(pToggleButton);
-  dasher_app_settings_set_bool(pPrivate->pAppSettings, pData->iParameter, bNewValue);
+  pPrivate->pAppSettings->SetBool(pData->iParameter, bNewValue);
 }
 
 static void 
@@ -228,7 +228,7 @@ module_settings_window_handle_long_changed(ModuleSettingsWindow *pSelf, GtkRange
   ModuleSettingsWindowPrivate *pPrivate = MODULE_SETTINGS_WINDOW_GET_PRIVATE(pSelf);
 
   gint iNewValue = (gint)(gtk_range_get_value(pRange) * pData->iDivisor);
-  dasher_app_settings_set_long(pPrivate->pAppSettings, pData->iParameter, iNewValue);
+  pPrivate->pAppSettings->SetLong(pData->iParameter, iNewValue);
 }
 
 static void 
@@ -241,7 +241,7 @@ module_settings_window_handle_longspin_changed(ModuleSettingsWindow *pSelf, GtkS
   ModuleSettingsWindowPrivate *pPrivate = MODULE_SETTINGS_WINDOW_GET_PRIVATE(pSelf);
 
   gint iNewValue = (gint)(gtk_spin_button_get_value(pSpinButton) * pData->iDivisor);
-  dasher_app_settings_set_long(pPrivate->pAppSettings, pData->iParameter, iNewValue);
+  pPrivate->pAppSettings->SetLong(pData->iParameter, iNewValue);
 }
 
 static void 
@@ -254,7 +254,7 @@ module_settings_window_handle_string_changed(ModuleSettingsWindow *pSelf, GtkEdi
   ModuleSettingsWindowPrivate *pPrivate = MODULE_SETTINGS_WINDOW_GET_PRIVATE(pSelf);
 
   const gchar *szNewValue = gtk_editable_get_chars(pEditable, 0, -1);
-  dasher_app_settings_set_string(pPrivate->pAppSettings, pData->iParameter, szNewValue);
+  pPrivate->pAppSettings->SetString(pData->iParameter, szNewValue);
 }
 
 static gboolean 

@@ -86,7 +86,7 @@ extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, cons
 
 static gboolean
 isdirect(DasherAppSettings *pAppSettings) {
-  return (dasher_app_settings_get_long(pAppSettings, APP_LP_STYLE) == APP_STYLE_DIRECT);
+  return pAppSettings->GetLong(APP_LP_STYLE) == APP_STYLE_DIRECT;
 }
 
 static void
@@ -216,8 +216,7 @@ dasher_editor_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, G
   pPrivate->pDasherCtrl = pDasherCtrl;
 
   dasher_editor_internal_handle_font(pSelf,
-				     dasher_app_settings_get_string(pPrivate->pAppSettings,
-								    APP_SP_EDIT_FONT));
+				     pPrivate->pAppSettings->GetString(APP_SP_EDIT_FONT).c_str());
 
   dasher_editor_external_create_buffer(pSelf);
   // TODO: is this still needed?
@@ -497,7 +496,7 @@ dasher_editor_internal_generate_filename(DasherEditor *pSelf) {
 
   gchar *szNewFilename = NULL;
 
-  if( dasher_app_settings_get_bool(pPrivate->pAppSettings,  APP_BP_TIME_STAMP )) {
+  if( pPrivate->pAppSettings->GetBool(APP_BP_TIME_STAMP )) {
     // Build a filename based on the current time and date
     tm *t_struct;
     time_t ctime;
@@ -1279,7 +1278,7 @@ dasher_editor_handle_parameter_change(DasherEditor *pSelf, gint iParameter) {
   switch(iParameter) {
   case APP_SP_EDIT_FONT:
     dasher_editor_internal_handle_font(pSelf,
-				       dasher_app_settings_get_string(pPrivate->pAppSettings, APP_SP_EDIT_FONT));
+				       pPrivate->pAppSettings->GetString(APP_SP_EDIT_FONT).c_str());
     break;
   }
 }

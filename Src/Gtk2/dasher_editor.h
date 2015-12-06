@@ -10,8 +10,7 @@
 G_BEGIN_DECLS
 
 /* Forward declaration */
-typedef struct _DasherAppSettings DasherAppSettings;
-struct _DasherAppSettings;
+class DasherAppSettings;
 typedef struct _GtkDasherControl GtkDasherControl;
 struct _GtkDasherControl;
 

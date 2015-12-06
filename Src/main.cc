@@ -133,8 +133,6 @@ void clean_up();
 //   }
 // }
 
-gchar* g_xml_file_location = nullptr;
-
 extern "C" gint main_key_snooper(GtkWidget *pWidget, GdkEventKey *pEvent, gpointer pUserData);
 
 
@@ -163,7 +161,7 @@ int main(int argc, char *argv[]) {
     {"appstyle", 'a', 0, G_OPTION_ARG_STRING, &(sCommandLine.szAppStyle), N_("Application style (traditional, direct, compose or fullscreen)"), "traditional"},
     // Note to translators: This is the help string for "--options"
     {"options", 'o', 0, G_OPTION_ARG_STRING, &(sCommandLine.szOptions), N_("Override stored options"), NULL},
-    {"config", 'c', 0, G_OPTION_ARG_STRING, &g_xml_file_location, N_("XML configuration file name"), NULL},
+    {"config", 'c', 0, G_OPTION_ARG_STRING, &(sCommandLine.szConfigFile), N_("XML configuration file name"), NULL},
         // Note to translators: This is the help string for "--help-options"
     {"help-options", 0, 0, G_OPTION_ARG_NONE, &do_option_help, N_("Describe \"--options\"."), NULL},
     {NULL}
@@ -222,6 +220,7 @@ int main(int argc, char *argv[]) {
   g_free(sCommandLine.szFilename);
   g_free(sCommandLine.szAppStyle);
   g_free(sCommandLine.szOptions);
+  g_free(sCommandLine.szConfigFile);
 
   if (g_pDasherMain == 0)
     return 1;
@@ -236,9 +235,6 @@ int main(int argc, char *argv[]) {
 
   // 11.
   clean_up();
-
-  if (g_xml_file_location != nullptr)
-    g_free(g_xml_file_location);
 
   return 0;
 }

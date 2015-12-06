@@ -4,8 +4,7 @@
 #include <gtk/gtk.h>
 
 // Forward declarations
-typedef struct _DasherAppSettings DasherAppSettings;
-struct _DasherAppSettings;
+class DasherAppSettings;
 typedef struct _GtkDasherControl GtkDasherControl;
 struct _GtkDasherControl;
 typedef struct _DasherEditorExternalPrivate DasherEditorExternalPrivate;

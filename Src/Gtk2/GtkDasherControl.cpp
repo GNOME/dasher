@@ -25,6 +25,7 @@
 #include "GtkDasherControl.h"
 #include "custom_marshal.h"
 #include "dasher_editor.h"
+#include "DasherAppSettings.h"
 
 // TODO: find a better way to get access to the command line arguments.
 extern gchar* g_xml_file_location;
@@ -111,30 +112,10 @@ gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {
   // pClass->key_release_event = gtk_dasher_control_default_key_release_handler;
 }
 
-class XmlErrorDisplay : public CMessageDisplay {
- public:
-  void Message(const std::string &strText, bool bInterrupt) override {
-    // TODO: decide if a pop-up dialog should be shown instead.
-    fputs(strText.c_str(), stderr);
-    fputs("\n", stderr);
-  }
-};
-
 static void 
 gtk_dasher_control_init(GtkDasherControl *pDasherControl) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pDasherControl);
-  static XmlErrorDisplay display;
-  Dasher::CSettingsStore* settings;
-  if (g_xml_file_location == nullptr) {
-    settings = new CGnomeSettingsStore();
-  } else {
-    auto xml_settings = new XmlSettingsStore(g_xml_file_location, &display);
-    xml_settings->Load();
-    // Save the defaults if needed.
-    xml_settings->Save();
-    settings = xml_settings;
-  }
-  pPrivate->pControl = new CDasherControl(&(pDasherControl->box), pDasherControl, settings);
+  pPrivate->pControl = new CDasherControl(&(pDasherControl->box), pDasherControl, DasherAppSettings::Get()->GetStore());
 
 //   g_signal_connect(G_OBJECT(pDasherControl), "key-press-event", G_CALLBACK(gtk_dasher_control_default_key_press_handler), pPrivate->pControl);
 //   g_signal_connect(G_OBJECT(pDasherControl), "key-release-event", G_CALLBACK(gtk_dasher_control_default_key_release_handler), pPrivate->pControl);

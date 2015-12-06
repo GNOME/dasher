@@ -2,16 +2,6 @@
 #include <config.h>
 #endif
 
-#ifdef WITH_GCONF
-#include <gconf/gconf.h>
-#include <gconf/gconf-client.h>
-#include <gconf/gconf-enum-types.h>
-#endif
-
-#ifdef WITH_GSETTINGS
-#include <gio/gio.h>
-#endif
-
 #include <cstring>
 #include "DasherAppSettings.h"
 #include "../Common/AppSettingsData.h"
@@ -23,481 +13,71 @@
 #include "dasher.h"
 #include "GtkDasherControl.h"
 
-// XXX PRLW parameter_notification() should be squashed with prejudice
-typedef struct _DasherMain DasherMain;
-struct _DasherMain;
-
-// FIXME - should really do something to make this a singleton class
-
 // TODO: Rename this file to fit in with naming conventions
 
 using namespace Dasher::Settings;
 
-struct _DasherAppSettingsPrivate {
-#ifdef WITH_GCONF
-  GConfClient *pGConfClient;
-#endif
-#ifdef WITH_GSETTINGS
-  GSettings *psettings;
-#endif
-  GtkDasherControl *pDasherWidget;
-  // XXX PRLW nasty hack due to egregious
-  // parameter_notification (0 , iParameter, 0) calls
-  DasherMain *pDasherMain;
-};
+std::unique_ptr<DasherAppSettings> DasherAppSettings::instance_;
 
-typedef struct _DasherAppSettingsPrivate DasherAppSettingsPrivate;
-
-// Private member functions
-
-static void dasher_app_settings_class_init(DasherAppSettingsClass *pClass);
-static void dasher_app_settings_init(DasherAppSettings *pAppSettings);
-static void dasher_app_settings_destroy(GObject*);
-
-#ifdef WITH_GCONF
-static void dasher_app_settings_init_gconf(DasherAppSettings *pSelf, int argc, char **argv);
-#endif
-static void dasher_app_settings_load(DasherAppSettings *pSelf);
-
-// Function declarations
-
-GType dasher_app_settings_get_type() {
-
-  static GType dasher_app_settings_type = 0;
-
-  if(!dasher_app_settings_type) {
-    static const GTypeInfo dasher_app_settings_info = {
-      sizeof(DasherAppSettingsClass),
-      NULL,
-      NULL,
-      (GClassInitFunc) dasher_app_settings_class_init,
-      NULL,
-      NULL,
-      sizeof(DasherAppSettings),
-      0,
-      (GInstanceInitFunc) dasher_app_settings_init,
-      NULL
-    };
-
-    dasher_app_settings_type = g_type_register_static(G_TYPE_OBJECT, "DasherAppSettings", &dasher_app_settings_info, static_cast < GTypeFlags > (0));
-  }
-
-  return dasher_app_settings_type;
+DasherAppSettings::DasherAppSettings(Dasher::CSettingsStore* settings_store) {
+  settings_store_.reset(settings_store);
+  Load();
 }
 
-static void dasher_app_settings_class_init(DasherAppSettingsClass *pClass) {
-  GObjectClass *pObjectClass = (GObjectClass *) pClass;
-  pObjectClass->finalize = dasher_app_settings_destroy;
+DasherAppSettings::~DasherAppSettings() {
+  settings_store_->Unregister(this);
 }
 
-static void dasher_app_settings_init(DasherAppSettings *pDasherControl) {
-  DasherAppSettingsPrivate *pPrivate = new DasherAppSettingsPrivate;
-  pDasherControl->private_data = pPrivate;
-
-#ifdef WITH_GCONF
-  pPrivate->pGConfClient = NULL;
-#endif
-#ifdef WITH_GSETTINGS
-  pPrivate->psettings = NULL;
-#endif
-  pPrivate->pDasherWidget = NULL;
-  pPrivate->pDasherMain = NULL;
+int DasherAppSettings::RegisterParameterChangeCallback(std::function<void(int)> fn) {
+  int id = ++callback_id_;
+  change_callbacks_[id] = fn;
+  return id;
 }
 
-static void dasher_app_settings_destroy(GObject *pObject) {
-  DasherAppSettings *pSelf = DASHER_APP_SETTINGS(pObject);
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pSelf->private_data);
-#ifdef WITH_GCONF
-  g_object_unref(pPrivate->pGConfClient);
-#endif
-#ifdef WITH_GSETTINGS
-  g_object_unref(pPrivate->psettings);
-#endif
-
-  for(int i(0); i < NUM_OF_APP_SPS; ++i)
-    delete[] app_stringparamtable[i].value;
-
-  // FIXME - glib routines?
-  delete pPrivate;
-  
-  // FIXME - I think we need to chain up through the finalize methods
-  // of the parent classes here...
+void DasherAppSettings::UnregisterParameterChangeCallback(int callback_id) {
+  change_callbacks_.erase(callback_id);
 }
 
-#ifdef WITH_GCONF
-static void dasher_app_settings_init_gconf(DasherAppSettings *pSelf, int argc, char **argv) {
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pSelf->private_data);
-
-  GError *pGConfError;
-
-  if(!gconf_init(argc, argv, &pGConfError))
-    g_error("Failed to initialise gconf: %s", pGConfError->message);
-  
-    pPrivate->pGConfClient = gconf_client_get_default();
-}
-#endif
-
-static void dasher_app_settings_load(DasherAppSettings *pSelf) { 
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
-
-#ifdef WITH_GCONF
-  GError *pGConfError = NULL;
-  GConfValue *pGConfValue;
- 
-  for(int i(0); i < NUM_OF_APP_BPS; ++i ) {
-    if(app_boolparamtable[i].persistent) {
-      gchar szName[256];
-    
-      strncpy(szName, "/apps/dasher4/", 256);
-      strncat(szName,  app_boolparamtable[i].regName, 255 - strlen( szName ));
-
-      pGConfValue = gconf_client_get_without_default(pPrivate->pGConfClient, szName, &pGConfError);
-      
-      if(pGConfValue) {
-	app_boolparamtable[i].value = gconf_value_get_bool(pGConfValue);
-
-	gconf_value_free(pGConfValue);
-      }
-    }
-  }
-
-  for(int i(0); i < NUM_OF_APP_LPS; ++i ) {
-    if(app_longparamtable[i].persistent) {
-      gchar szName[256];
-    
-      strncpy(szName, "/apps/dasher4/", 256);
-      strncat(szName,  app_longparamtable[i].regName, 255 - strlen( szName ));
-
-      pGConfValue = gconf_client_get_without_default(pPrivate->pGConfClient, szName, &pGConfError);
-      
-      if(pGConfValue) {
-	app_longparamtable[i].value = gconf_value_get_int(pGConfValue);
-
-	gconf_value_free(pGConfValue);
-      }
-    }
-  }
-
-  for(int i(0); i < NUM_OF_APP_SPS; ++i ) {
-    if(app_stringparamtable[i].persistent) {
-      gchar szName[256];
-    
-      strncpy(szName, "/apps/dasher4/", 256);
-      strncat(szName,  app_stringparamtable[i].regName, 255 - strlen( szName ));
-
-      pGConfValue = gconf_client_get_without_default(pPrivate->pGConfClient, szName, &pGConfError);
-      
-      if(pGConfValue) {
-	delete[] app_stringparamtable[i].value;
-
-	const gchar *szValue(gconf_value_get_string(pGConfValue));
-
-	gchar *szNew;
-	szNew = new gchar[strlen(szValue) + 1];
-	strcpy(szNew, szValue);
-	
-	app_stringparamtable[i].value = szNew;
-	gconf_value_free(pGConfValue);
-      }
-    }
-  }
-#endif
-#ifdef WITH_GSETTINGS
-  gchar *tmpstr;
-  for(int i(0); i < NUM_OF_APP_BPS; ++i ) {
-    if(app_boolparamtable[i].persistent) {
-	  app_boolparamtable[i].value = g_settings_get_boolean(pPrivate->psettings,
-                                               app_boolparamtable[i].regName);
-    }
-  }
-
-  for(int i(0); i < NUM_OF_APP_LPS; ++i ) {
-    if(app_longparamtable[i].persistent) {
-	  app_longparamtable[i].value = g_settings_get_int(pPrivate->psettings,
-                                               app_longparamtable[i].regName);
-    }
-  }
-
-  for(int i(0); i < NUM_OF_APP_SPS; ++i ) {
-    if(app_stringparamtable[i].persistent) {
-	  tmpstr = g_settings_get_string(pPrivate->psettings,
-                                               app_stringparamtable[i].regName);
-
-      if(tmpstr) {
-        delete[] app_stringparamtable[i].value;
-        app_stringparamtable[i].value = new char[strlen(tmpstr) + 1];
-        strcpy(app_stringparamtable[i].value, tmpstr);
-        g_free(tmpstr);
-      }
-    }
-  }
-#endif
+void DasherAppSettings::Load() {
+  settings_store_->AddParameters(app_boolparamtable, NUM_OF_APP_BPS);
+  settings_store_->AddParameters(app_longparamtable, NUM_OF_APP_LPS);
+  settings_store_->AddParameters(app_stringparamtable, NUM_OF_APP_SPS);
+  settings_store_->Register(this);
 }
 
-// Public methods
-
-DasherAppSettings *dasher_app_settings_new(DasherMain *pDasherMain, int argc, char **argv) {
-  DasherAppSettings *pNewAppSettings;
-  pNewAppSettings = (DasherAppSettings *)(g_object_new(dasher_app_settings_get_type(), NULL));
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pNewAppSettings->private_data);
-
-  for(int i(0); i < NUM_OF_APP_SPS; ++i) {
-    gchar *szNew;
-    szNew = new gchar[strlen(app_stringparamtable[i].szDefaultValue) + 1];
-    strcpy(szNew, app_stringparamtable[i].szDefaultValue);
-    app_stringparamtable[i].value = szNew;
-  }
-#ifdef WITH_GCONF
-  dasher_app_settings_init_gconf(pNewAppSettings, argc, argv);  
-#endif
-#ifdef WITH_GSETTINGS
-  pPrivate->psettings = g_settings_new("org.gnome.Dasher");
-#endif
-  pPrivate->pDasherMain = pDasherMain;
-  dasher_app_settings_load(pNewAppSettings);
-
-  return pNewAppSettings;
+bool DasherAppSettings::GetBool(int iParameter) {
+  return settings_store_->GetBoolParameter(iParameter);
 }
 
-void dasher_app_settings_reset(DasherAppSettings *pSelf, int iParameter) {
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pSelf->private_data);
-
-  if(iParameter < END_OF_SPS) {
-    if(pPrivate->pDasherWidget)
-      gtk_dasher_control_reset_parameter(pPrivate->pDasherWidget, iParameter);
-    return;
-  }
-  else {
-    //    pre_parameter_notification(0, iParameter, 0);
-    
-    if(iParameter < END_OF_APP_BPS)
-      app_boolparamtable[ iParameter - FIRST_APP_BP ].value = app_boolparamtable[ iParameter - FIRST_APP_BP ].bDefaultValue;
-    else if(iParameter < END_OF_APP_LPS)
-      app_longparamtable[ iParameter - FIRST_APP_LP ].value = app_longparamtable[ iParameter - FIRST_APP_LP ].iDefaultValue; 
-    else {
-      delete[] app_stringparamtable[iParameter - FIRST_APP_SP].value;
-      
-      gchar *szNew;
-      szNew = new gchar[strlen(app_stringparamtable[iParameter - FIRST_APP_SP].szDefaultValue) + 1];
-      strcpy(szNew, app_stringparamtable[iParameter - FIRST_APP_SP].szDefaultValue);
-      app_stringparamtable[iParameter - FIRST_APP_SP].value = szNew;
-    }
-  }
-  // TODO: Use real signals to achieve this
-  parameter_notification(pPrivate->pDasherWidget, iParameter, pPrivate->pDasherMain);
+void DasherAppSettings::SetBool(int iParameter, bool bValue) {
+  settings_store_->SetBoolParameter(iParameter, bValue);
 }
 
-bool dasher_app_settings_get_bool(DasherAppSettings *pSelf, int iParameter) { 
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pSelf->private_data);
-  if( iParameter < END_OF_BPS ) {
-    if(pPrivate->pDasherWidget)
-      return gtk_dasher_control_get_parameter_bool(pPrivate->pDasherWidget, iParameter);
-    else
-      return false;
-  }
-  else
-    return app_boolparamtable[ iParameter - FIRST_APP_BP ].value;
+gint DasherAppSettings::GetLong(int iParameter) {
+  return settings_store_->GetLongParameter(iParameter);
 }
 
-void dasher_app_settings_set_bool(DasherAppSettings *pSelf, int iParameter, bool bValue) {
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
-  if( iParameter < END_OF_BPS ) {
-    gtk_dasher_control_set_parameter_bool(pPrivate->pDasherWidget, iParameter, bValue);
-  }
-  else {
-    if(dasher_app_settings_get_bool(pSelf, iParameter) == bValue)
-      return; // Don't attempt to change to the existing value
-
-    app_boolparamtable[ iParameter - FIRST_APP_BP ].value = bValue;
-#ifdef WITH_GCONF    
-    if(app_boolparamtable[ iParameter - FIRST_APP_BP ].persistent) {
-      gchar szName[256];
-      
-      strncpy(szName, "/apps/dasher4/", 256);
-      strncat(szName,  app_boolparamtable[ iParameter - FIRST_APP_BP ].regName, 255 - strlen( szName ));
-      
-      GError *pGConfError = NULL;
-      gconf_client_set_bool(pPrivate->pGConfClient, szName, bValue, &pGConfError);
-
-      if(pGConfError)
-	g_message("Error");
-    }
-#endif
-#ifdef WITH_GSETTINGS
-    if(app_boolparamtable[ iParameter - FIRST_APP_BP ].persistent) {
-      g_settings_set_boolean(pPrivate->psettings,
-                            app_boolparamtable[iParameter-FIRST_APP_BP].regName,
-                            bValue);
-    }
-#endif
-
-    // TODO: Use real signals to achieve this
-    parameter_notification(pPrivate->pDasherWidget, iParameter, pPrivate->pDasherMain);
-  }
+void DasherAppSettings::SetLong(int iParameter, gint iValue) {
+  return settings_store_->SetLongParameter(iParameter, iValue);
 }
 
-gint dasher_app_settings_get_long(DasherAppSettings *pSelf, int iParameter) {
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
- 
-  if( iParameter < END_OF_LPS) {
-    DASHER_ASSERT_VALIDPTR_R(pPrivate->pDasherWidget);
-    return gtk_dasher_control_get_parameter_long(pPrivate->pDasherWidget, iParameter);
-  }
-  else
-    return app_longparamtable[ iParameter - FIRST_APP_LP ].value;
+const std::string& DasherAppSettings::GetString(int iParameter) {
+  return settings_store_->GetStringParameter(iParameter);
 }
 
-void dasher_app_settings_set_long(DasherAppSettings *pSelf, int iParameter, gint iValue) {
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
-
-  if( iParameter < END_OF_LPS) {
-    DASHER_ASSERT_VALIDPTR_RW(pPrivate->pDasherWidget);
-    gtk_dasher_control_set_parameter_long(pPrivate->pDasherWidget, iParameter, iValue);
-  }
-  else {
-    if(dasher_app_settings_get_long(pSelf, iParameter) == iValue)
-      return; // Don't attempt to change to the existing value
-    
-    //    pre_parameter_notification(0, iParameter, 0);
-
-    app_longparamtable[ iParameter - FIRST_APP_LP ].value = iValue;
-
-#ifdef WITH_GCONF    
-    if(app_longparamtable[ iParameter - FIRST_APP_LP ].persistent) {
-      gchar szName[256];
-      
-      strncpy(szName, "/apps/dasher4/", 256);
-      strncat(szName,  app_longparamtable[ iParameter - FIRST_APP_LP ].regName, 255 - strlen( szName ));
-      
-      GError *pGConfError = NULL;
-      gconf_client_set_int(pPrivate->pGConfClient, szName, iValue, &pGConfError);
-    }
-#endif
-#ifdef WITH_GSETTINGS    
-    if(app_longparamtable[ iParameter - FIRST_APP_LP ].persistent) {
-      g_settings_set_int(pPrivate->psettings,
-                         app_longparamtable[iParameter-FIRST_APP_LP].regName,
-                         iValue);
-    }
-#endif
-    
-    // TODO: Use real signals to achieve this
-    parameter_notification(pPrivate->pDasherWidget, iParameter, pPrivate->pDasherMain);
-  }
+void DasherAppSettings::SetString(int iParameter, const gchar *szValue) {
+  return settings_store_->SetStringParameter(iParameter, szValue);
 }
 
-const gchar *dasher_app_settings_get_string(DasherAppSettings *pSelf, int iParameter) {
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
- 
-  if( iParameter < END_OF_SPS ) {
-    if(pPrivate->pDasherWidget)
-      return gtk_dasher_control_get_parameter_string(pPrivate->pDasherWidget, iParameter);
-    else
-      return nullptr;
-  }
-  else
-    return app_stringparamtable[ iParameter - FIRST_APP_SP ].value;
-}
-
-void dasher_app_settings_set_string(DasherAppSettings *pSelf, int iParameter, const gchar *szValue) {
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
-
-  if( iParameter < END_OF_SPS ) {
-    if(pPrivate->pDasherWidget)
-      gtk_dasher_control_set_parameter_string(pPrivate->pDasherWidget, iParameter, szValue);
-  }
-  else {
-    if(!strcmp(dasher_app_settings_get_string(pSelf, iParameter), szValue))
-      return; // Don't attempt to change to the existing value
-
-    //    pre_parameter_notification(0, iParameter, 0);
-    
-    delete[] app_stringparamtable[ iParameter - FIRST_APP_SP ].value;
-    
-    gchar *szNew;
-    szNew = new gchar[strlen(szValue) + 1];
-    strcpy(szNew, szValue);
-    
-    app_stringparamtable[ iParameter - FIRST_APP_SP ].value = szNew;
-    
-#ifdef WITH_GCONF
-    if(app_stringparamtable[ iParameter - FIRST_APP_SP ].persistent) {
-      gchar szName[256];
-      
-      strncpy(szName, "/apps/dasher4/", 256);
-      strncat(szName,  app_stringparamtable[ iParameter - FIRST_APP_SP ].regName, 255 - strlen( szName ));
-      
-      GError *pGConfError = NULL;
-      gconf_client_set_string(pPrivate->pGConfClient, szName, szValue, &pGConfError);
-    }
-#endif    
-#ifdef WITH_GSETTINGS
-    if(app_stringparamtable[ iParameter - FIRST_APP_SP ].persistent) {
-      g_settings_set_string(pPrivate->psettings,
-                          app_stringparamtable[iParameter-FIRST_APP_SP].regName,
-                            szValue);
-    }
-#endif    
-
-    // TODO: Use real signals to achieve this
-    parameter_notification(pPrivate->pDasherWidget, iParameter, pPrivate->pDasherMain);
-  }
-}
-
-int dasher_app_settings_get_count(DasherAppSettings *pSelf) {
+int DasherAppSettings::GetCount() {
   return END_OF_APP_SPS;
 }
 
-int dasher_app_settings_get_parameter_type(DasherAppSettings *pSelf, int iParameter) {
-  if(iParameter < END_OF_BPS)
-    return DASHER_TYPE_BOOL;
-  else if(iParameter < END_OF_LPS)
-    return DASHER_TYPE_LONG;
-  else if(iParameter < END_OF_SPS)
-    return DASHER_TYPE_STRING;
-  else if(iParameter < END_OF_APP_BPS)
-    return DASHER_TYPE_BOOL;
-  else if(iParameter < END_OF_APP_LPS)
-    return DASHER_TYPE_LONG;
-  else 
-    return DASHER_TYPE_STRING;
+bool DasherAppSettings::HaveAdvanced() {
+  return (g_find_program_in_path("gconf-editor") != NULL);
 }
 
-const gchar *dasher_app_settings_get_reg_name(DasherAppSettings *pSelf, int iParameter) {
-  if(iParameter < END_OF_BPS)
-    return boolparamtable[iParameter - FIRST_BP].regName;
-  else if(iParameter < END_OF_LPS)
-    return longparamtable[iParameter - FIRST_LP].regName;
-  else if(iParameter < END_OF_SPS)
-    return stringparamtable[iParameter - FIRST_SP].regName;
-  else if(iParameter < END_OF_APP_BPS)
-    return app_boolparamtable[iParameter - FIRST_APP_BP].regName;
-  else if(iParameter < END_OF_APP_LPS)
-    return app_longparamtable[iParameter - FIRST_APP_LP].regName;
-  else 
-    return app_stringparamtable[iParameter - FIRST_APP_SP].regName;
-}
-
-const gchar *dasher_app_settings_get_human_name(DasherAppSettings *pSelf, int iParameter) {
-  if(iParameter < END_OF_BPS)
-    return boolparamtable[iParameter - FIRST_BP].humanReadable;
-  else if(iParameter < END_OF_LPS)
-    return longparamtable[iParameter - FIRST_LP].humanReadable;
-  else if(iParameter < END_OF_SPS)
-    return stringparamtable[iParameter - FIRST_SP].humanReadable;
-  else if(iParameter < END_OF_APP_BPS)
-    return app_boolparamtable[iParameter - FIRST_APP_BP].humanReadable;
-  else if(iParameter < END_OF_APP_LPS)
-    return app_longparamtable[iParameter - FIRST_APP_LP].humanReadable;
-  else 
-    return app_stringparamtable[iParameter - FIRST_APP_SP].humanReadable;
-}
-
-bool dasher_app_settings_have_advanced(DasherAppSettings *pSelf) {
-  return(g_find_program_in_path("gconf-editor") != NULL);
-}
-
-void dasher_app_settings_launch_advanced(DasherAppSettings *pSelf) {
+void DasherAppSettings::LaunchAdvanced() {
   gchar *szArgs[3];
 
   szArgs[0] = g_strdup("gconf-editor");
@@ -512,57 +92,31 @@ void dasher_app_settings_launch_advanced(DasherAppSettings *pSelf) {
   g_strfreev(szArgs);
 }
 
-void dasher_app_settings_set_widget(DasherAppSettings *pSelf, GtkDasherControl *pWidget) {
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pSelf->private_data);
-
-  pPrivate->pDasherWidget = pWidget;
+void DasherAppSettings::SetWidget(GtkDasherControl *pWidget) {
+  pDasherWidget = pWidget;
 }
 
-GArray *dasher_app_settings_get_allowed_values(DasherAppSettings *pSelf, int iParameter) {
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pSelf->private_data);
-  return gtk_dasher_control_get_allowed_values(pPrivate->pDasherWidget, iParameter);
+GArray *DasherAppSettings::GetAllowedValues(int iParameter) {
+  return gtk_dasher_control_get_allowed_values(pDasherWidget, iParameter);
 }
 
-gboolean dasher_app_settings_get_module_settings(DasherAppSettings *pSelf, const gchar *szValue, SModuleSettings **pSettings, gint *iCount) {
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pSelf->private_data);
-  return gtk_dasher_control_get_module_settings(pPrivate->pDasherWidget, szValue, pSettings, iCount);
+gboolean DasherAppSettings::GetModuleSettings(const gchar *szValue,
+                                              SModuleSettings **pSettings,
+                                              gint *iCount) {
+  return gtk_dasher_control_get_module_settings(pDasherWidget, szValue, pSettings, iCount);
 }
 
 // Set the option szKey to szValue.  Return NULL if everything worked, a
 // (literal) error string for unrecognized or illegal values.
-const gchar *
-dasher_app_settings_cl_set(DasherAppSettings *pSelf, const gchar *szKey, const gchar *szValue) {
-
-  for(int i(0); i < NUM_OF_APP_BPS; ++i ) {
-    if(!strcmp(app_boolparamtable[i].regName, szKey)) {
-      
-      if(!strcmp(szValue, "1") || !strcmp(szValue, _("true")))
-        dasher_app_settings_set_bool(pSelf, app_boolparamtable[i].key, true);
-      else if(!strcmp(szValue, "0") || !strcmp(szValue, _("false")))
-        dasher_app_settings_set_bool(pSelf, app_boolparamtable[i].key, false);
-      else
-        return _("boolean value must be specified as 'true' or 'false'.");
-      return 0;
-    }
-  }
-
-  for(int i(0); i < NUM_OF_APP_LPS; ++i ) {
-    if(!strcmp(app_longparamtable[i].regName, szKey)) {
-      dasher_app_settings_set_long(pSelf, app_longparamtable[i].key, atoi(szValue));
-      return 0;
-    }
-  }
-
-  for(int i(0); i < NUM_OF_APP_SPS; ++i ) {
-    if(!strcmp(app_stringparamtable[i].regName, szKey)) {
-      dasher_app_settings_set_string(pSelf, app_stringparamtable[i].key, szValue);
-      return 0;
-    }
-  }  
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pSelf->private_data);
-  return gtk_dasher_control_cl_set(pPrivate->pDasherWidget, szKey, szValue);
+const gchar * DasherAppSettings::ClSet(const gchar *szKey, const gchar *szValue) {
+  return settings_store_->ClSet(szKey, szValue);
 }
 
+void DasherAppSettings::HandleEvent(int iParameter) {
+  for (const auto& f : change_callbacks_) {
+    f.second(iParameter);
+  }
+}
 
 void option_help()
 {
@@ -570,7 +124,7 @@ void option_help()
   g_print("%-30s %-12s  %s\n", _("Boolean parameters"), _("Default"), _("Description"));
   g_print("%-30s %-12s  %s\n", "------------------------------", "------------", "------------------------------");
   for(unsigned int i=0; i < sizeof(app_boolparamtable)/sizeof(app_boolparamtable[0]); ++i) {
-    g_print("%-30s %-12s  %s\n", app_boolparamtable[i].regName, (app_boolparamtable[i].bDefaultValue ? _("true") : _("false")), app_boolparamtable[i].humanReadable);
+    g_print("%-30s %-12s  %s\n", app_boolparamtable[i].regName, (app_boolparamtable[i].defaultValue ? _("true") : _("false")), app_boolparamtable[i].humanReadable);
   }
 
   for(unsigned int i = 0; i < sizeof(boolparamtable)/sizeof(boolparamtable[0]); i++) {
@@ -581,7 +135,7 @@ void option_help()
   g_print("%-30s %-12s  %s\n", _("Integer parameters"), _("Default"), _("Description"));
   g_print("%-30s %-12s  %s\n", "------------------------------", "------------", "------------------------------");
   for(unsigned int i=0; i < sizeof(app_longparamtable)/sizeof(app_longparamtable[0]); ++i) {
-    g_print("%-30s %12li  %s\n", app_longparamtable[i].regName, app_longparamtable[i].iDefaultValue, app_longparamtable[i].humanReadable);
+    g_print("%-30s %12li  %s\n", app_longparamtable[i].regName, app_longparamtable[i].defaultValue, app_longparamtable[i].humanReadable);
   }
 
   for(unsigned int i = 0; i < sizeof(longparamtable)/sizeof(longparamtable[0]); i++) {
@@ -592,11 +146,10 @@ void option_help()
   g_print("%-30s %-12s  %s\n", _("String parameters"), _("Default"), _("Description"));
   g_print("%-30s %-12s  %s\n", "------------------------------", "------------", "------------------------------");
   for(unsigned int i=0; i < sizeof(app_stringparamtable)/sizeof(app_stringparamtable[0]); ++i) {
-    g_print("%-30s %-12s  %s\n", app_stringparamtable[i].regName, app_stringparamtable[i].szDefaultValue, app_stringparamtable[i].humanReadable);
+    g_print("%-30s %-12s  %s\n", app_stringparamtable[i].regName, app_stringparamtable[i].defaultValue, app_stringparamtable[i].humanReadable);
   }
 
   for(unsigned int i = 0; i < sizeof(stringparamtable)/sizeof(stringparamtable[0]); i++) {
     g_print("%-30s %-12s  %s\n", stringparamtable[i].regName, stringparamtable[i].defaultValue, stringparamtable[i].humanReadable);
   }
-
 }

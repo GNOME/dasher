@@ -347,7 +347,7 @@ void dasher_preferences_dialogue_refresh_widget(DasherPreferencesDialogue *pSelf
   int iNumBoolEntries = sizeof(sBoolTranslationTable) / sizeof(BoolTranslation);
   for(int i(0); i < iNumBoolEntries; ++i) {
     if((iParameter == -1) || (sBoolTranslationTable[i].iParameter == iParameter)) {
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget), dasher_app_settings_get_bool(pPrivate->pAppSettings, sBoolTranslationTable[i].iParameter));
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget), pPrivate->pAppSettings->GetBool(sBoolTranslationTable[i].iParameter));
     }
   }
 #endif
@@ -362,7 +362,7 @@ void dasher_preferences_dialogue_refresh_widget(DasherPreferencesDialogue *pSelf
 
       // TODO: tidy up in a struct
       const void *pUserData[3];
-      pUserData[0] = dasher_app_settings_get_string(pPrivate->pAppSettings, sStringTranslationTable[i].iParameter);
+      pUserData[0] = pPrivate->pAppSettings->GetString(sStringTranslationTable[i].iParameter).c_str();
       pUserData[1] = GTK_TREE_VIEW(sStringTranslationTable[i].pWidget);
       pUserData[2] = pSelf;
 
@@ -385,9 +385,9 @@ static void dasher_preferences_dialogue_refresh_parameter(DasherPreferencesDialo
   for(int i(0); i < iNumBoolEntries; ++i) {
     if((pWidget == NULL) || (sBoolTranslationTable[i].pWidget == pWidget)) {
 
-      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget)) != dasher_app_settings_get_bool(pPrivate->pAppSettings, sBoolTranslationTable[i].iParameter)) {
+      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget)) != pPrivate->pAppSettings->GetBool(sBoolTranslationTable[i].iParameter)) {
         
-        dasher_app_settings_set_bool(pPrivate->pAppSettings, sBoolTranslationTable[i].iParameter, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget)));
+        pPrivate->pAppSettings->SetBool(sBoolTranslationTable[i].iParameter, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget)));
       }
     }
   }
@@ -409,9 +409,9 @@ extern "C" void generic_bool_changed(GtkWidget *widget, gpointer user_data) {
 extern "C" void outline_button_toggled(GtkWidget *widget, gpointer user_data) {
 	DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue);
 	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget))) {
-		dasher_app_settings_set_long(pPrivate->pAppSettings, LP_OUTLINE_WIDTH, 1);
+		pPrivate->pAppSettings->SetLong(LP_OUTLINE_WIDTH, 1);
 	} else {
-		dasher_app_settings_set_long(pPrivate->pAppSettings, LP_OUTLINE_WIDTH, 0);
+		pPrivate->pAppSettings->SetLong(LP_OUTLINE_WIDTH, 0);
 	}
 }
 
@@ -421,9 +421,9 @@ extern "C" void outline_button_toggled(GtkWidget *widget, gpointer user_data) {
 void dasher_preferences_dialogue_populate_list(DasherPreferencesDialogue *pSelf, GtkTreeView *pView, int iParameter, GtkWidget *pHelper) {
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
   
-  const gchar *szCurrentValue(dasher_app_settings_get_string(pPrivate->pAppSettings, iParameter));
+  const gchar *szCurrentValue(pPrivate->pAppSettings->GetString(iParameter).c_str());
 
-  GArray *pFilterArray = dasher_app_settings_get_allowed_values(pPrivate->pAppSettings, iParameter);
+  GArray *pFilterArray = pPrivate->pAppSettings->GetAllowedValues(iParameter);
 
   //for each item in the list: the dasher Parameters.h number (i.e. same for all items); the "helper" button (as above, also the same for all items);
   // the text to display (and perhaps pass to SetStringParameter).
@@ -478,13 +478,13 @@ extern "C" void on_list_selection(GtkTreeSelection *pSelection, gpointer pUserDa
     gchar *szValue;
     gtk_tree_model_get(pModel, &oIter, 0, &iParameter, 1, &pHelper, 2, &szValue, -1);
     
-    dasher_app_settings_set_string(pPrivate->pAppSettings, iParameter, szValue);
+    pPrivate->pAppSettings->SetString(iParameter, szValue);
 
     if(pHelper) {
       //check if input filter/device has any settings...
       SModuleSettings *pSettings;
       int iCount;
-      bool bHasSettings = dasher_app_settings_get_module_settings(pPrivate->pAppSettings, szValue, &pSettings, &iCount);
+      bool bHasSettings = pPrivate->pAppSettings->GetModuleSettings(szValue, &pSettings, &iCount);
       gtk_widget_set_sensitive(GTK_WIDGET(pHelper), bHasSettings);
     }
 
@@ -497,7 +497,7 @@ extern "C" void on_list_selection(GtkTreeSelection *pSelection, gpointer pUserDa
 static void dasher_preferences_dialogue_populate_special_speed(DasherPreferencesDialogue *pSelf) {
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
 
-  double dNewValue = dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) / 100.0;
+  double dNewValue = pPrivate->pAppSettings->GetLong(LP_MAX_BITRATE) / 100.0;
   gtk_range_set_value(pPrivate->pSpeedSlider, dNewValue);
 }
 
@@ -508,11 +508,11 @@ static void dasher_preferences_dialogue_populate_special_mouse_start(DasherPrefe
   pPrivate->pMousePosButton = GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "mouseposbutton"));
   pPrivate->pMousePosStyle = GTK_COMBO_BOX(gtk_builder_get_object(pPrivate->pXML, "MousePosStyle"));
 
-  if(dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_MOUSEPOS_MODE)) {
+  if(pPrivate->pAppSettings->GetBool(BP_MOUSEPOS_MODE)) {
     gtk_combo_box_set_active(pPrivate->pMousePosStyle, 1);
     gtk_toggle_button_set_active(pPrivate->pMousePosButton, true);
   }
-  else if(dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_CIRCLE_START)) {
+  else if(pPrivate->pAppSettings->GetBool(BP_CIRCLE_START)) {
     gtk_combo_box_set_active(pPrivate->pMousePosStyle, 0);
     gtk_toggle_button_set_active(pPrivate->pMousePosButton, true);
   }
@@ -531,7 +531,7 @@ static void dasher_preferences_dialogue_populate_special_orientation(DasherPrefe
   pPrivate->pTBButton = GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton4"));
   pPrivate->pBTButton = GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton5"));
   GtkToggleButton *pButton;
-  switch (dasher_app_settings_get_long(pPrivate->pAppSettings, LP_ORIENTATION)) {
+  switch (pPrivate->pAppSettings->GetLong(LP_ORIENTATION)) {
   case Dasher::Opts::AlphabetDefault:
     pButton = pPrivate->pAlphOrient; break;
 
@@ -559,7 +559,7 @@ static void dasher_preferences_dialogue_populate_special_appstyle(DasherPreferen
 #ifndef WITH_MAEMO  
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
 
-  switch(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE)) {
+  switch(pPrivate->pAppSettings->GetLong(APP_LP_STYLE)) {
   case 0:
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "appstyle_classic")), TRUE);
     break;
@@ -580,7 +580,7 @@ static void dasher_preferences_dialogue_populate_special_linewidth(DasherPrefere
 #ifndef WITH_MAEMO
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
 
-  if(dasher_app_settings_get_long(pPrivate->pAppSettings, LP_LINE_WIDTH) > 1)
+  if(pPrivate->pAppSettings->GetLong(LP_LINE_WIDTH) > 1)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "thicklinebutton")), true);
   else
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "thicklinebutton")), false);
@@ -591,7 +591,7 @@ static void dasher_preferences_dialogue_populate_special_linewidth(DasherPrefere
 static void dasher_preferences_dialogue_populate_special_lm(DasherPreferencesDialogue *pSelf) {
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
 
-  switch( dasher_app_settings_get_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID )) {
+  switch( pPrivate->pAppSettings->GetLong(LP_LANGUAGE_MODEL_ID )) {
   case 0:
     if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton6"))) != TRUE)
       gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton6")), TRUE);
@@ -616,14 +616,14 @@ static void dasher_preferences_dialogue_populate_special_lm(DasherPreferencesDia
 static void dasher_preferences_dialogue_populate_special_uniform(DasherPreferencesDialogue *pSelf) {
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
 
-  gtk_range_set_value( GTK_RANGE(gtk_builder_get_object(pPrivate->pXML, "uniformhscale")), dasher_app_settings_get_long(pPrivate->pAppSettings, LP_UNIFORM)/10.0);
+  gtk_range_set_value( GTK_RANGE(gtk_builder_get_object(pPrivate->pXML, "uniformhscale")), pPrivate->pAppSettings->GetLong(LP_UNIFORM)/10.0);
 }
 
 static void dasher_preferences_dialogue_populate_special_colour(DasherPreferencesDialogue *pSelf) {
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
 
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "manual_colour")), !dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_PALETTE_CHANGE));
-  gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "ColorTree")), !dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_PALETTE_CHANGE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "manual_colour")), !pPrivate->pAppSettings->GetBool(BP_PALETTE_CHANGE));
+  gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "ColorTree")), !pPrivate->pAppSettings->GetBool(BP_PALETTE_CHANGE));
 }
 
 static void dasher_preferences_dialogue_populate_special_dasher_font(DasherPreferencesDialogue *pSelf) {
@@ -632,7 +632,7 @@ static void dasher_preferences_dialogue_populate_special_dasher_font(DasherPrefe
   GObject *pDasherFontButton = gtk_builder_get_object(pPrivate->pXML, "dasher_fontbutton");
 
   gtk_font_button_set_font_name(GTK_FONT_BUTTON(pDasherFontButton), 
-                                dasher_app_settings_get_string(pPrivate->pAppSettings, SP_DASHER_FONT));
+                                pPrivate->pAppSettings->GetString(SP_DASHER_FONT).c_str());
 }
 
 static void dasher_preferences_dialogue_populate_special_edit_font(DasherPreferencesDialogue *pSelf) {
@@ -641,13 +641,13 @@ static void dasher_preferences_dialogue_populate_special_edit_font(DasherPrefere
   GObject *pEditFontButton = gtk_builder_get_object(pPrivate->pXML, "edit_fontbutton");
 
   gtk_font_button_set_font_name(GTK_FONT_BUTTON(pEditFontButton), 
-                                dasher_app_settings_get_string(pPrivate->pAppSettings, APP_SP_EDIT_FONT));
+                                pPrivate->pAppSettings->GetString(APP_SP_EDIT_FONT).c_str());
 }
  
 static void dasher_preferences_dialogue_populate_special_fontsize(DasherPreferencesDialogue *pSelf) {
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
 
-  int iValue = dasher_app_settings_get_long(pPrivate->pAppSettings, LP_DASHER_FONTSIZE);
+  int iValue = pPrivate->pAppSettings->GetLong(LP_DASHER_FONTSIZE);
   gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "fontsizenormal")), iValue == Opts::Normal);
   gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "fontsizelarge")), iValue == Opts::Big);
   gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "fontsizevlarge")), iValue == Opts::VBig);
@@ -683,8 +683,8 @@ extern "C" void OnMousePosChanged(GtkWidget *widget, gpointer user_data) {
 	}
   } else iIndex=-1;
   
-  dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_MOUSEPOS_MODE, iIndex==1);
-  dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_CIRCLE_START, iIndex==0);
+  pPrivate->pAppSettings->SetBool(BP_MOUSEPOS_MODE, iIndex==1);
+  pPrivate->pAppSettings->SetBool(BP_CIRCLE_START, iIndex==0);
   
 }
 
@@ -693,7 +693,7 @@ extern "C" void PrefsSpeedSliderChanged(GtkHScale *hscale, gpointer user_data) {
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
   
   long iNewValue = long(round(gtk_range_get_value(GTK_RANGE(hscale)) * 100));
-  dasher_app_settings_set_long(pPrivate->pAppSettings, LP_MAX_BITRATE, iNewValue);
+  pPrivate->pAppSettings->SetLong(LP_MAX_BITRATE, iNewValue);
 }
 
 extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
@@ -716,7 +716,7 @@ extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
   } else if (pButton == pPrivate->pBTButton) {
     orient = Dasher::Opts::BottomToTop;
   }
-  dasher_app_settings_set_long(pPrivate->pAppSettings, LP_ORIENTATION, orient);
+  pPrivate->pAppSettings->SetLong(LP_ORIENTATION, orient);
 
 }
 
@@ -725,16 +725,16 @@ extern "C" void ThickLineClicked(GtkWidget *widget, gpointer user_data) {
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
 
   if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)))
-    dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LINE_WIDTH, 3);
+    pPrivate->pAppSettings->SetLong(LP_LINE_WIDTH, 3);
   else
-    dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LINE_WIDTH, 1);
+    pPrivate->pAppSettings->SetLong(LP_LINE_WIDTH, 1);
 }
 
 extern "C" void autocolour_clicked(GtkWidget *widget, gpointer user_data) {
   //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
 
-  dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_PALETTE_CHANGE, !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)));
+  pPrivate->pAppSettings->SetLong(BP_PALETTE_CHANGE, !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)));
 }
 
 extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data) {
@@ -742,7 +742,7 @@ extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data) {
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
 
   int mouseposstartdist=int(gtk_adjustment_get_value(gtk_range_get_adjustment(widget)));
-  dasher_app_settings_set_long(pPrivate->pAppSettings, LP_MOUSEPOSDIST, mouseposstartdist);
+  pPrivate->pAppSettings->SetLong(LP_MOUSEPOSDIST, mouseposstartdist);
 }
 
 extern "C" void languagemodel(GtkRadioButton *widget, gpointer user_data) {
@@ -752,25 +752,25 @@ extern "C" void languagemodel(GtkRadioButton *widget, gpointer user_data) {
 #if GTK_CHECK_VERSION (2,20,0)
   if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget))==TRUE) {
     if( !strcmp( gtk_buildable_get_name( GTK_BUILDABLE(widget) ), "radiobutton6" ) ) {
-      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID, 0 );
+      pPrivate->pAppSettings->SetLong(LP_LANGUAGE_MODEL_ID, 0 );
     } else if (!strcmp( gtk_buildable_get_name( GTK_BUILDABLE(widget) ), "radiobutton7" )) {
-      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID, 2 );
+      pPrivate->pAppSettings->SetLong(LP_LANGUAGE_MODEL_ID, 2 );
     } else if (!strcmp( gtk_buildable_get_name( GTK_BUILDABLE(widget) ), "radiobutton8" )) {
-      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID, 3 );
+      pPrivate->pAppSettings->SetLong(LP_LANGUAGE_MODEL_ID, 3 );
     } else if (!strcmp( gtk_buildable_get_name( GTK_BUILDABLE(widget) ), "radiobutton9" )) {
-      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID, 4 );
+      pPrivate->pAppSettings->SetLong(LP_LANGUAGE_MODEL_ID, 4 );
     }
   }
 #else
   if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget))==TRUE) {
     if( !strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton6" ) ) {
-      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID, 0 );
+      pPrivate->pAppSettings->SetLong(LP_LANGUAGE_MODEL_ID, 0 );
     } else if (!strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton7" )) {
-      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID, 2 );
+      pPrivate->pAppSettings->SetLong(LP_LANGUAGE_MODEL_ID, 2 );
     } else if (!strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton8" )) {
-      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID, 3 );
+      pPrivate->pAppSettings->SetLong(LP_LANGUAGE_MODEL_ID, 3 );
     } else if (!strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton9" )) {
-      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID, 4 );
+      pPrivate->pAppSettings->SetLong(LP_LANGUAGE_MODEL_ID, 4 );
     }
   }
 #endif
@@ -788,7 +788,7 @@ extern "C" void uniform_changed(GtkHScale *hscale) {
     gtk_range_set_value(GTK_RANGE(gtk_builder_get_object(pPrivate->pXML, "uniformhscale")), 5.0);
   }
   
-  dasher_app_settings_set_long(pPrivate->pAppSettings, LP_UNIFORM, iValue);
+  pPrivate->pAppSettings->SetLong(LP_UNIFORM, iValue);
 }
 
 extern "C" gboolean show_helper_window(GtkWidget *pWidget, gpointer *pUserData) {
@@ -808,7 +808,7 @@ extern "C" gboolean show_helper_window(GtkWidget *pWidget, gpointer *pUserData) 
   
   SModuleSettings *pSettings;
   int iCount;
-  if (!dasher_app_settings_get_module_settings(pPrivate->pAppSettings, szValue, &pSettings, &iCount))
+  if (!pPrivate->pAppSettings->GetModuleSettings(szValue, &pSettings, &iCount))
     DASHER_ASSERT(false); //button should only be sensitive if item has settings
   
   GtkWidget *pWindow = module_settings_window_new(pPrivate->pAppSettings, szValue, pSettings, iCount);
@@ -826,38 +826,38 @@ extern "C" void on_appstyle_changed(GtkWidget *widget, gpointer user_data) {
 #if GTK_CHECK_VERSION (2,20,0)
   if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget))) {
     if(!strcmp(gtk_buildable_get_name(GTK_BUILDABLE(widget)), "appstyle_classic"))
-      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 0);
+      pPrivate->pAppSettings->SetLong(APP_LP_STYLE, 0);
     else if(!strcmp(gtk_buildable_get_name(GTK_BUILDABLE(widget)), "appstyle_compose"))
-      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 1);
+      pPrivate->pAppSettings->SetLong(APP_LP_STYLE, 1);
     else if(!strcmp(gtk_buildable_get_name(GTK_BUILDABLE(widget)), "appstyle_direct"))
-      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 2);
+      pPrivate->pAppSettings->SetLong(APP_LP_STYLE, 2);
     else if(!strcmp(gtk_buildable_get_name(GTK_BUILDABLE(widget)), "appstyle_fullscreen"))
-      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 3);
+      pPrivate->pAppSettings->SetLong(APP_LP_STYLE, 3);
   }
 #else
   if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget))) {
     if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_classic"))
-      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 0);
+      pPrivate->pAppSettings->SetLong(APP_LP_STYLE, 0);
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_compose"))
-      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 1);
+      pPrivate->pAppSettings->SetLong(APP_LP_STYLE, 1);
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_direct"))
-      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 2);
+      pPrivate->pAppSettings->SetLong(APP_LP_STYLE, 2);
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_fullscreen"))
-      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 3);
+      pPrivate->pAppSettings->SetLong(APP_LP_STYLE, 3);
   }
 #endif
 }
 
 extern "C" void on_dasher_font_changed(GtkFontButton *pButton, gpointer pUserData) {
   DasherMainPrivate *pMainPrivate = DASHER_MAIN_GET_PRIVATE(pUserData);
-  dasher_app_settings_set_string(pMainPrivate->pAppSettings,
+  pMainPrivate->pAppSettings->SetString(
                                  SP_DASHER_FONT, 
                                  gtk_font_button_get_font_name(pButton));
 }
 
 extern "C" void on_edit_font_changed(GtkFontButton *pButton, gpointer pUserData) {
   DasherMainPrivate *pMainPrivate = DASHER_MAIN_GET_PRIVATE(pUserData);
-  dasher_app_settings_set_string(pMainPrivate->pAppSettings,
+  pMainPrivate->pAppSettings->SetString(
                                  APP_SP_EDIT_FONT, 
                                  gtk_font_button_get_font_name(pButton));
 }
@@ -865,14 +865,14 @@ extern "C" void on_edit_font_changed(GtkFontButton *pButton, gpointer pUserData)
 extern "C" void set_dasher_fontsize(GtkWidget *pWidget, gboolean pUserData) {
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue);
 
-  int iValue = dasher_app_settings_get_long(pPrivate->pAppSettings, LP_DASHER_FONTSIZE);
+  int iValue = pPrivate->pAppSettings->GetLong(LP_DASHER_FONTSIZE);
 
   if((iValue != Opts::Normal) && gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "fontsizenormal"))))
-    dasher_app_settings_set_long(pPrivate->pAppSettings, LP_DASHER_FONTSIZE, Opts::Normal);
+    pPrivate->pAppSettings->SetLong(LP_DASHER_FONTSIZE, Opts::Normal);
   else if((iValue != Opts::Big) && gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "fontsizelarge"))))
-    dasher_app_settings_set_long(pPrivate->pAppSettings, LP_DASHER_FONTSIZE, Opts::Big);
+    pPrivate->pAppSettings->SetLong(LP_DASHER_FONTSIZE, Opts::Big);
   else if((iValue != Opts::VBig) && gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "fontsizevlarge"))))
-    dasher_app_settings_set_long(pPrivate->pAppSettings, LP_DASHER_FONTSIZE, Opts::VBig);
+    pPrivate->pAppSettings->SetLong(LP_DASHER_FONTSIZE, Opts::VBig);
 }
 
 

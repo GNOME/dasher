@@ -187,10 +187,10 @@ int main(int argc, char **argv) {
 
   for(int i(0); i < END_OF_APP_BPS - END_OF_SPS; ++i) {
 
-    if(app_boolparamtable[i].persistent) {
+    if(app_boolparamtable[i].persistent == Persistence::PERSISTENT) {
       std::string strDefault;
       
-      if(app_boolparamtable[i].bDefaultValue)
+      if(app_boolparamtable[i].defaultValue)
 	strDefault = "TRUE";
       else
 	strDefault = "FALSE";
@@ -221,11 +221,11 @@ int main(int argc, char **argv) {
   }  
  
   for(int i(0); i < END_OF_APP_LPS - END_OF_APP_BPS; ++i) {
-    if(app_longparamtable[i].persistent) {
+    if(app_longparamtable[i].persistent == Persistence::PERSISTENT) {
 
       std::stringstream ssDefault;
       
-      ssDefault << app_longparamtable[i].iDefaultValue;
+      ssDefault << app_longparamtable[i].defaultValue;
 
       
       CSchema oSchema( app_longparamtable[i].regName,
@@ -249,10 +249,10 @@ int main(int argc, char **argv) {
   } 
   
   for(int i(0); i < END_OF_APP_SPS - END_OF_APP_LPS; ++i) {
-    if(app_stringparamtable[i].persistent) {
+    if(app_stringparamtable[i].persistent == Persistence::PERSISTENT) {
       CSchema oSchema( app_stringparamtable[i].regName,
 		       TYPE_STRING,
-		       app_stringparamtable[i].szDefaultValue,
+		       app_stringparamtable[i].defaultValue,
 		       "",
 		       app_stringparamtable[i].humanReadable );
       

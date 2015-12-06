@@ -19,7 +19,7 @@ CKeyboardHelper::CKeyboardHelper(DasherAppSettings *pAppSettings) {
   m_pAppSettings = pAppSettings;
 
   // For now assume we either have all or nothing
-  if(!m_pAppSettings || (!strcmp(dasher_app_settings_get_string(m_pAppSettings, SP_BUTTON_0), "")))
+  if(!m_pAppSettings || (!m_pAppSettings->GetString(SP_BUTTON_0).empty()))
     SetupDefaults();
   else
     LoadSettings();
@@ -95,7 +95,7 @@ void CKeyboardHelper::LoadSettings() {
   int iCount(sizeof(iButtons) / sizeof(int));
   
   for(int i(0); i < iCount; ++i) {
-    std::string strEntry(dasher_app_settings_get_string(m_pAppSettings, iIDs[i]));
+    std::string strEntry(m_pAppSettings->GetString(iIDs[i]));
     std::string strCurrent;
 
     for(std::string::iterator it(strEntry.begin()); it != strEntry.end(); ++it) {
@@ -149,7 +149,7 @@ void CKeyboardHelper::SaveSettings() {
       return;
     }
 
-    dasher_app_settings_set_string(m_pAppSettings, iID, it->second.c_str());
+    m_pAppSettings->SetString(iID, it->second.c_str());
   }
 }
 

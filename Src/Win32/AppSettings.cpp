@@ -51,30 +51,30 @@ CAppSettings::CAppSettings(Dasher::CDasher *pDasher, HWND hWnd)
   for(int ii = 0; ii < NUM_OF_APP_BPS; ii++) {
     m_pBoolTable[ii].key = app_boolparamtable[ii].key;
     if(!LoadSetting(app_boolparamtable[ii].regName, &m_pBoolTable[ii].value))
-      m_pBoolTable[ii].value = app_boolparamtable[ii].bDefaultValue;
-    m_pBoolTable[ii].defaultVal = app_boolparamtable[ii].bDefaultValue;
+      m_pBoolTable[ii].value = app_boolparamtable[ii].defaultValue;
+    m_pBoolTable[ii].defaultVal = app_boolparamtable[ii].defaultValue;
     m_pBoolTable[ii].humanReadable = app_boolparamtable[ii].humanReadable;
-    m_pBoolTable[ii].persistent = app_boolparamtable[ii].persistent;
+    m_pBoolTable[ii].persistent = app_boolparamtable[ii].persistent == Persistence::PERSISTENT;
     m_pBoolTable[ii].regName = app_boolparamtable[ii].regName;
   } 
     
   for(int ii = 0; ii < NUM_OF_APP_LPS; ii++) {
     m_pLongTable[ii].key = app_longparamtable[ii].key;
     if(!LoadSetting(app_longparamtable[ii].regName, &m_pLongTable[ii].value))
-      m_pLongTable[ii].value = app_longparamtable[ii].iDefaultValue;
-    m_pLongTable[ii].defaultVal = app_longparamtable[ii].iDefaultValue;
+      m_pLongTable[ii].value = app_longparamtable[ii].defaultValue;
+    m_pLongTable[ii].defaultVal = app_longparamtable[ii].defaultValue;
     m_pLongTable[ii].humanReadable = app_longparamtable[ii].humanReadable;
-    m_pLongTable[ii].persistent = app_longparamtable[ii].persistent;
+    m_pLongTable[ii].persistent = app_longparamtable[ii].persistent == Persistence::PERSISTENT;
     m_pLongTable[ii].regName = app_longparamtable[ii].regName;
   }
 
   for(int ii = 0; ii < NUM_OF_APP_SPS; ii++) {
     m_pStringTable[ii].key = app_stringparamtable[ii].key;
-    if(!LoadSetting(app_stringparamtable[ii].regName, &m_pStringTable[ii].value)) 
-      m_pStringTable[ii].value = app_stringparamtable[ii].szDefaultValue; 
-    m_pStringTable[ii].defaultVal = app_stringparamtable[ii].szDefaultValue;
+    if(!LoadSetting(app_stringparamtable[ii].regName, &m_pStringTable[ii].value))
+      m_pStringTable[ii].value = app_stringparamtable[ii].defaultValue;
+    m_pStringTable[ii].defaultVal = app_stringparamtable[ii].defaultValue;
     m_pStringTable[ii].humanReadable = app_stringparamtable[ii].humanReadable;
-    m_pStringTable[ii].persistent = app_stringparamtable[ii].persistent;
+    m_pStringTable[ii].persistent = app_stringparamtable[ii].persistent == Persistence::PERSISTENT;
     m_pStringTable[ii].regName = app_stringparamtable[ii].regName;
   }
 }
@@ -144,11 +144,11 @@ void CAppSettings::ResetParamater(int iParameter) {
   if(iParameter < END_OF_SPS)
     m_pDasher->ResetParameter(iParameter);
   else if(iParameter < END_OF_APP_BPS)
-    SetBoolParameter(iParameter, app_boolparamtable[iParameter - FIRST_APP_BP].bDefaultValue);
+    SetBoolParameter(iParameter, app_boolparamtable[iParameter - FIRST_APP_BP].defaultValue);
   else if(iParameter < END_OF_APP_LPS)
-    SetLongParameter(iParameter, app_longparamtable[iParameter - FIRST_APP_LP].iDefaultValue);
+    SetLongParameter(iParameter, app_longparamtable[iParameter - FIRST_APP_LP].defaultValue);
   else
-    SetStringParameter(iParameter, app_stringparamtable[iParameter - FIRST_APP_SP].szDefaultValue);
+    SetStringParameter(iParameter, app_stringparamtable[iParameter - FIRST_APP_SP].defaultValue);
 }
 
 void CAppSettings::GetPermittedValues(int iParameter, vector<string> &vList) {

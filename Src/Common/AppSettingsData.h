@@ -1,38 +1,10 @@
 #include "AppSettingsHeader.h"
+#include "../DasherCore/Parameters.h"
 
 // This file is an include file purely for the purposes of
 // cross-platform consistency. IT WILL NOT LINK IF INCLUDED IN MORE
 // THAN ONE PLACE! You probably want to obtain values via the
 // application settings object instead.
-
-#define PERS true
-
-struct app_bp_table {
-  int key;
-  const char *regName;
-  bool persistent;
-  bool bDefaultValue;
-  bool value;
-  const char *humanReadable;
-};
-
-struct app_lp_table {
-  int key;
-  const char *regName;
-  bool persistent;
-  long iDefaultValue;
-  long value;
-  const char *humanReadable;
-};
-
-struct app_sp_table {
-  int key;
-  const char *regName;
-  bool persistent;
-  const char *szDefaultValue;
-  char *value;
-  const char *humanReadable;
-};
 
 // The following tables contain details of the application specific
 // settings. Fields are:
@@ -51,39 +23,39 @@ struct app_sp_table {
 // Human-readable Name: Used for help text etc. Please make sure this
 // is useful
 
-app_bp_table app_boolparamtable[] = {
-  { APP_BP_TIME_STAMP, "TimeStampNewFiles", PERS, true, true, "TimeStampNewFiles" },
-  { APP_BP_CONFIRM_UNSAVED, "ConfirmUnsavedFiles", PERS, true, true, "ConfirmUnsavedFiles" },
-  {APP_BP_SHOW_TOOLBAR, "ViewToolbar", PERS, true, true, "ViewToolbar"},
+Dasher::Settings::bp_table app_boolparamtable[] = {
+  { APP_BP_TIME_STAMP, "TimeStampNewFiles", Persistence::PERSISTENT, true, "TimeStampNewFiles" },
+  { APP_BP_CONFIRM_UNSAVED, "ConfirmUnsavedFiles", Persistence::PERSISTENT, true, "ConfirmUnsavedFiles" },
+  {APP_BP_SHOW_TOOLBAR, "ViewToolbar", Persistence::PERSISTENT, true, "ViewToolbar"},
 #ifdef WITH_MAEMO
-  { APP_BP_SHOW_STATUSBAR, "ViewStatusbar", PERS, false, false, "ViewStatusbar" },
+  { APP_BP_SHOW_STATUSBAR, "ViewStatusbar", Persistence::PERSISTENT, false, "ViewStatusbar" },
 #else
-  { APP_BP_SHOW_STATUSBAR, "ViewStatusbar", PERS, true, true, "ViewStatusbar" },
+  { APP_BP_SHOW_STATUSBAR, "ViewStatusbar", Persistence::PERSISTENT, true, "ViewStatusbar" },
 #endif
 
 };
 
-app_lp_table app_longparamtable[] = {
-  {APP_LP_EDIT_FONT_SIZE, "EditFontSize", PERS, 0, 0, "EditFontSize"},
-  {APP_LP_EDIT_HEIGHT, "EditHeight", PERS, 75, 75, "The height of the edit window"},
-  {APP_LP_EDIT_WIDTH, "EditWidth", PERS, 200, 200, "EditWidth"},
-  {APP_LP_SCREEN_WIDTH, "ScreenWidth", PERS, 400, 400, "ScreenWidth"},
-  {APP_LP_SCREEN_HEIGHT, "ScreenHeight", PERS, 500, 500, "ScreenHeight"},
-  {APP_LP_SCREEN_WIDTH_H, "ScreenWidthH", PERS, 625, 625, "Screen Width for application style compose"},
-  {APP_LP_SCREEN_HEIGHT_H, "ScreenHeightH", PERS, 250, 250, "Screen Height for application style compose"},
-  {APP_LP_STYLE, "AppStyle", PERS, 0, 0, "Application style"},
-  {APP_LP_X, "XPosition", PERS, 100, 100, "X location of window"},
-  {APP_LP_Y, "YPosition", PERS, 100, 100, "Y location of window"},
+Dasher::Settings::lp_table app_longparamtable[] = {
+  {APP_LP_EDIT_FONT_SIZE, "EditFontSize", Persistence::PERSISTENT, 0, "EditFontSize"},
+  {APP_LP_EDIT_HEIGHT, "EditHeight", Persistence::PERSISTENT, 75, "The height of the edit window"},
+  {APP_LP_EDIT_WIDTH, "EditWidth", Persistence::PERSISTENT, 200, "EditWidth"},
+  {APP_LP_SCREEN_WIDTH, "ScreenWidth", Persistence::PERSISTENT, 400, "ScreenWidth"},
+  {APP_LP_SCREEN_HEIGHT, "ScreenHeight", Persistence::PERSISTENT, 500, "ScreenHeight"},
+  {APP_LP_SCREEN_WIDTH_H, "ScreenWidthH", Persistence::PERSISTENT, 625, "Screen Width for application style compose"},
+  {APP_LP_SCREEN_HEIGHT_H, "ScreenHeightH", Persistence::PERSISTENT, 250, "Screen Height for application style compose"},
+  {APP_LP_STYLE, "AppStyle", Persistence::PERSISTENT, 0, "Application style"},
+  {APP_LP_X, "XPosition", Persistence::PERSISTENT, 100, "X location of window"},
+  {APP_LP_Y, "YPosition", Persistence::PERSISTENT, 100, "Y location of window"},
 #ifdef WITH_MAEMO
-  {APP_LP_MAEMO_SIZE, "MaemoSize", PERS, 0, 0, "Size of Maemo input window"},
+  {APP_LP_MAEMO_SIZE, "MaemoSize", Persistence::PERSISTENT, 0, "Size of Maemo input window"},
 #endif
 };
 
-app_sp_table app_stringparamtable[] = {
+Dasher::Settings::sp_table app_stringparamtable[] = {
 #ifdef WITH_MAEMO
-  {APP_SP_EDIT_FONT, "EditFont", PERS, "Sans 20", NULL, "EditFont"},
+  {APP_SP_EDIT_FONT, "EditFont", Persistence::PERSISTENT, "Sans 20", "EditFont"},
 #else
-  {APP_SP_EDIT_FONT, "EditFont", PERS, "Sans 10", NULL, "EditFont"},
+  {APP_SP_EDIT_FONT, "EditFont", Persistence::PERSISTENT, "Sans 10", "EditFont"},
 #endif
-  {APP_SP_WINDOW_STATE, "WindowState", PERS, "", NULL, "WindowState"},
+  {APP_SP_WINDOW_STATE, "WindowState", Persistence::PERSISTENT, "", "WindowState"},
 };

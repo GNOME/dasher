@@ -40,6 +40,7 @@ struct _DasherMainPrivate {
   int iWidth;
   int iHeight;
   bool bWidgetsInitialised;
+  int parameter_callback_id_ = 0;
 };
 
 typedef struct _DasherMainPrivate DasherMainPrivate;

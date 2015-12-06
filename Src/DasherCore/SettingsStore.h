@@ -10,6 +10,8 @@
 #define __SettingsStore_h__
 
 #include <string>
+#include <unordered_map>
+
 #include "Observable.h"
 #include "Parameters.h"
 
@@ -54,7 +56,12 @@ public:
   void ResetParameter(int iParameter);
 
   const char *ClSet(const std::string &strKey, const std::string &strValue);
-    
+
+  // TODO: just load the application parameters by default?
+  void AddParameters(const Settings::bp_table* table, size_t count);
+  void AddParameters(const Settings::lp_table* table, size_t count);
+  void AddParameters(const Settings::sp_table* table, size_t count);
+
 protected:
     ///Loads all (persistent) prefs from disk, using+storing default values when no
     /// existing value stored; non-persistent prefs are reinitialized from defaults.
@@ -104,10 +111,19 @@ private:
   //! \param Value Value of the setting, UTF8 encoded
   virtual void SaveSetting(const std::string & Key, const std::string & Value);
 
-  //actually store the settings data...
-  bool boolParamValues[NUM_OF_BPS];
-  long longParamValues[NUM_OF_LPS];
-  std::string stringParamValues[NUM_OF_SPS];
+  struct Parameter {
+    const char* name;  // Doesn't own the string.
+    Settings::ParameterType type = Settings::ParamInvalid;
+    Persistence persistence = Persistence::PERSISTENT;
+    bool bool_value;
+    bool bool_default;
+    long long_value;
+    long long_default;
+    std::string string_value;
+    const char* string_default;  // Doesn't own the string.
+  };
+
+  std::unordered_map<int, Parameter> parameters_;
 };
   /// Superclass for anything that wants to use/access/store persistent settings.
   /// (The nearest thing remaining to the old CDasherComponent,
@@ -149,7 +165,7 @@ private:
     ///Create a CSettingsObserver listening to changes to the settings values
     /// used by a particular CSettingsUser.
     CSettingsObserver(CSettingsUser *pCreateFrom);
-    ~CSettingsObserver();
+    ~CSettingsObserver() override;
   };
   ///Utility class, for (majority of) cases where a class wants to be both
   /// a CSettingsUser and CSettingsObserver.

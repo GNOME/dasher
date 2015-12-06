@@ -87,7 +87,7 @@ enum {
 #define NUM_OF_LPS (END_OF_LPS - END_OF_BPS)
 #define NUM_OF_SPS (END_OF_SPS - END_OF_LPS)
 
-#define PERS true
+enum class Persistence { PERSISTENT, EPHEMERAL };
 
 namespace Dasher {
   ///Namespace containing all static (i.e. fixed/constant) data about
@@ -100,6 +100,7 @@ namespace Dasher {
     struct bp_table {
       int key;
       const char *regName;
+      Persistence persistent;
       bool defaultValue;
       const char *humanReadable;
     };
@@ -111,6 +112,7 @@ namespace Dasher {
     struct lp_table {
       int key;
       const char *regName;
+      Persistence persistent;
       long defaultValue;
       const char *humanReadable;
     };
@@ -122,6 +124,7 @@ namespace Dasher {
     struct sp_table {
       int key;
       const char *regName;
+      Persistence persistent;
       const char *defaultValue;
       const char *humanReadable;
     };
