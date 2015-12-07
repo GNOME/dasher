@@ -184,7 +184,7 @@ void CSettingsStore::SetStringParameter(int iParameter, const std::string sValue
 
   // Initiate events for changed parameter
   DispatchEvent(iParameter);
-  if (p->second.persistence != Persistence::PERSISTENT) {
+  if (p->second.persistence == Persistence::PERSISTENT) {
     // Write out to permanent storage
     SaveSetting(p->second.name, sValue);
   }
