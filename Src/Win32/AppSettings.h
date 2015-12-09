@@ -1,7 +1,9 @@
 #pragma once
 
 #include "../Common/AppSettingsHeader.h"
+#include "../DasherCore/SettingsStore.h"
 
+#include <memory>
 #include <vector>
 #include <string>
 
@@ -28,8 +30,8 @@ namespace Dasher {
 class CAppSettings
 {
 public:
-
-  CAppSettings(Dasher::CDasher *pDasher, HWND hWnd);
+  // The constructor takes ownership of the settings_store.   
+  CAppSettings(Dasher::CDasher *pDasher, HWND hWnd, Dasher::CSettingsStore* settings_store);
   ~CAppSettings(void);
 
   ///
@@ -48,8 +50,8 @@ public:
   void GetPermittedValues(int iParameter, std::vector<std::string> &vList);
 
   #ifndef _WIN32_WCE
-  bool LoadSetting(const std::string & Key, LPWINDOWPLACEMENT pwp, int* psp);
-  void SaveSetting(const std::string & Key, const LPWINDOWPLACEMENT pwp, int sp);
+  bool LoadWindowPlacement(int iParameter, LPWINDOWPLACEMENT pwp, int* psp);
+  void SaveWindowPlacement(int iParameter, const LPWINDOWPLACEMENT pwp, int sp);
   #endif
 
   void SetHwnd(HWND hWnd) {
@@ -62,54 +64,9 @@ public:
   };
 
 private:
-  struct bp_info {
-    int key;
-    std::string regName;
-    bool persistent;
-    bool value;
-    bool defaultVal;
-    std::string humanReadable;
-  };
-  struct lp_info {
-    int key;
-    std::string regName;
-    bool persistent;
-    long value;
-    long defaultVal;
-    std::string humanReadable;
-  };
-  struct sp_info {
-    int key;
-    std::string regName;
-    bool persistent;
-    std::string value;
-    std::string defaultVal;
-    std::string humanReadable;
-  };
-
-  bp_info *m_pBoolTable;
-  lp_info *m_pLongTable;
-  sp_info *m_pStringTable;
 
   Dasher::CDasher *m_pDasher;
   HWND m_hWnd;
 
-  bool LoadSetting(const std::string & Key, bool * Value);
-  bool LoadSetting(const std::string & Key, long *Value);
-  bool LoadSetting(const std::string & Key, std::string * Value);
-  bool LoadSettingT(const std::string & Key, Tstring * Value);
-
-  void SaveSetting(const std::string & Key, bool Value);
-  void SaveSetting(const std::string & Key, long Value);
-  void SaveSetting(const std::string & Key, const std::string & Value);
-
-  void SaveSettingT(const std::string & Key, const Tstring & TValue);
-
-  // Platform Specific helpers
-  HKEY ProductKey;
-  int GetOrCreate(HKEY hKey, LPCTSTR lpSubKey, REGSAM samDesired, HKEY * lpNewKey);
-  // CARE! Users of GetlpByte must call delete[] on *Data after use.
-  bool GetlpByte(const Tstring & key, BYTE ** Data) const;
-
-
+  std::unique_ptr<Dasher::CSettingsStore> settings_store_;
 };

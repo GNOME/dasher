@@ -25,6 +25,8 @@
 
 #include "Widgets/Toolbar.h"
 #include "WinCommon.h"
+#include "WinOptions.h"
+#include "../DasherCore/XmlSettingsStore.h"
 #include <windows.h>
 #include "resource.h"
 
@@ -35,11 +37,23 @@ using namespace std;
 
 #define IDT_TIMER1 200
 
+namespace {
+class XmlErrorDisplay : public CMessageDisplay {
+public:
+    void Message(const std::string &strText, bool bInterrupt) override {
+        std::wstring text;
+        WinUTF8::UTF8string_to_wstring(strText, text);
+        // TODO: find a way to localize.
+        MessageBox(nullptr, text.c_str(), L"Configuration Error", MB_ICONERROR|MB_ICONSTOP);
+    }
+};
+} // namespace
+
 // NOTE: There were previously various bits and pieces in this class from 
 // text services framework stuff, which were never really finished. If
 // required, look in version control history (prior to May 2007).
 
-CDasherWindow::CDasherWindow() {
+CDasherWindow::CDasherWindow(const CString& xml_config_file) : xml_config_file_(xml_config_file) {
   m_bFullyCreated = false;
   m_pAppSettings = 0;
   m_pToolbar = 0;
@@ -66,7 +80,21 @@ HWND CDasherWindow::Create() {
   Tstring WindowTitle;
   WinLocalisation::GetResourceString(IDS_APP_TITLE, &WindowTitle);
 
-  m_pAppSettings = new CAppSettings(0, 0);
+  static XmlErrorDisplay display;
+  Dasher::CSettingsStore* settings;
+  if (xml_config_file_.IsEmpty()) {
+      settings = new CWinOptions("Inference Group", "Dasher3");
+  }
+  else {
+      std::string utf8_path = WinUTF8::narrow(xml_config_file_);
+      auto xml_settings = new Dasher::XmlSettingsStore(utf8_path, &display);
+      xml_settings->Load();
+      // Save the defaults if needed.
+      xml_settings->Save();
+      settings = xml_settings;
+  }
+
+  m_pAppSettings = new CAppSettings(0, 0, settings);  // Takes ownership of the settings store.
   int iStyle(m_pAppSettings->GetLongParameter(APP_LP_STYLE));
 
   HWND hWnd;
@@ -85,7 +113,7 @@ HWND CDasherWindow::Create() {
   m_pEdit->Create(hWnd, m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
   m_pEdit->SetFont(m_pAppSettings->GetStringParameter(APP_SP_EDIT_FONT), m_pAppSettings->GetLongParameter(APP_LP_EDIT_FONT_SIZE));
 
-  m_pDasher = new CDasher(hWnd, this, m_pEdit);
+  m_pDasher = new CDasher(hWnd, this, m_pEdit, settings);
 
   // Create a CAppSettings
   m_pAppSettings->SetHwnd(hWnd);
@@ -130,14 +158,14 @@ void CDasherWindow::SaveWindowState() const {
   wp.length = sizeof(WINDOWPLACEMENT);
 
   if (GetWindowPlacement(&wp)) {//function call succeeds
-    m_pAppSettings->SaveSetting("WindowState", &wp, m_pSplitter->GetPos());
+    m_pAppSettings->SaveWindowPlacement(APP_SP_WINDOW_STATE, &wp, m_pSplitter->GetPos());
   }
 }
 
 bool CDasherWindow::LoadWindowState() {
   WINDOWPLACEMENT wp;
   int splitterPos = -1;
-  if (m_pAppSettings->LoadSetting("WindowState", &wp, &splitterPos)) {
+  if (m_pAppSettings->LoadWindowPlacement(APP_SP_WINDOW_STATE, &wp, &splitterPos)) {
     if (splitterPos != -1) {
       m_pSplitter->SetPos(splitterPos);
     }

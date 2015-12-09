@@ -26,7 +26,7 @@ namespace Dasher {
 class CDasher : public CDashIntfScreenMsgs
 {
 public:
-  CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit);
+  CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit, Dasher::CSettingsStore* settings);
   ~CDasher(void);
 
   // The following functions will not be part of the final interface

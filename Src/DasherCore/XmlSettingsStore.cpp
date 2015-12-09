@@ -4,6 +4,16 @@
 #include <fstream>
 #include <string.h>
 #include <algorithm>
+#include <locale>
+#include <codecvt>
+
+#if defined(_WIN32) || defined(_WIN64) 
+#include "WinUTF8.h"
+#define strcasecmp _stricmp 
+#define widen(a) WinUTF8::widen(a)
+#else
+#define widen((a)) (a)
+#endif
 
 namespace Dasher {
 namespace {
@@ -27,7 +37,7 @@ XmlSettingsStore::XmlSettingsStore(const std::string& filename,
 
 bool XmlSettingsStore::Load() {
   bool result = true;
-  std::ifstream f(filename_);
+  std::ifstream f(widen(filename_));
   if (f.good()) {
     f.close();
     if (!ParseFile(filename_, true /* user */)) {
@@ -88,7 +98,7 @@ bool XmlSettingsStore::Save() {
   try {
     modified_ = false;
     std::ofstream out;
-    out.open(filename_, std::ios::out | std::ios::trunc);
+    out.open(widen(filename_), std::ios::out | std::ios::trunc);
     out << "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n";
     out << "<settings>\n";
     for (const auto& p : long_settings_) {

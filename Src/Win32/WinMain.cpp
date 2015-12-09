@@ -7,7 +7,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "WinCommon.h"
-
+#include <shellapi.h>
 // Visual leak detector
 // #ifdef _DEBUG
 // #include "vld/vld.h"
@@ -29,7 +29,7 @@ public:
   Control is passed to the main GUI loop, and only returns when the main window closes.
   */
   HRESULT Run(int nShowCmd){
-    m_pDasherWindow = new CDasherWindow;
+    m_pDasherWindow = new CDasherWindow(xml_config_file_);
 
     m_pDasherWindow->Create();
     m_pDasherWindow->Show(nShowCmd);
@@ -48,8 +48,20 @@ public:
     return iRet;
   };
 
-  static VOID CALLBACK HandleWinEvent(HWINEVENTHOOK hWinEventHook, DWORD event, HWND hwnd, LONG idObject, LONG idChild, DWORD dwEventThread, DWORD dwmsEventTime);
+  bool ParseCommandLine(LPCTSTR lpCmdLine, HRESULT* pnRetCode) {
+	  int argc;
+	  auto argv = CommandLineToArgvW(lpCmdLine, &argc);
+	  for (int i = 0; i < argc; ++i) {
+		    if (wcsicmp(argv[i], L"/config") == 0 && i + 1 < argc) {
+            xml_config_file_ = argv[i + 1];
+		    }
+	  }
+	  LocalFree(argv);
+	  return CAtlExeModuleT::ParseCommandLine(lpCmdLine, pnRetCode);
+  }
 
+  static VOID CALLBACK HandleWinEvent(HWINEVENTHOOK hWinEventHook, DWORD event, HWND hwnd, LONG idObject, LONG idChild, DWORD dwEventThread, DWORD dwmsEventTime);
+  CString xml_config_file_;
 } DasherApp;
 
 

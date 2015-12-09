@@ -6,6 +6,9 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include <locale>
+#include <codecvt>
+
 #include "WinCommon.h"
 
 #include "WinUTF8.h"
@@ -75,16 +78,21 @@ string WinUTF8::wstring_to_UTF8string(const wchar_t *Input) {
 }
 
 void WinUTF8::wstring_to_UTF8string(const wchar_t *Input, string &Output) {
-
-  const std::size_t BufferSize = wcslen(Input) + 1;
-  const wchar_t *Buffer = Input;
-
-  const std::size_t BufferSize2 = BufferSize * 2;
-  char *Buffer2 = new char[BufferSize2];
-
-  WideCharToMultiByte(CP_UTF8, 0, Buffer, -1, Buffer2, BufferSize2, NULL, NULL);
-
-  Output = Buffer2;
-  delete[]Buffer2;
+    size_t len = wcslen(Input);
+  int size_needed = WideCharToMultiByte(CP_UTF8, 0, Input, len, nullptr, 0, nullptr, nullptr);
+  Output.resize(size_needed);
+  WideCharToMultiByte(CP_UTF8, 0, Input, (int)Output.size(), &Output[0], size_needed, NULL, NULL);
   return;
+}
+
+std::wstring_convert<std::codecvt_utf8<wchar_t, 0x10ffff, std::consume_header>, wchar_t> utf16conv;
+std::wstring WinUTF8::widen(const char* utf8) {
+  return utf16conv.from_bytes(utf8);
+}
+std::wstring WinUTF8::widen(const std::string& utf8) {
+    return utf16conv.from_bytes(utf8);
+}
+
+std::string WinUTF8::narrow(const wchar_t* wide) {
+  return utf16conv.to_bytes(wide).substr(3);  // Remove the BOM.
 }

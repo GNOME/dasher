@@ -9,6 +9,8 @@
 #ifndef __DasherWindow_h__
 #define __DasherWindow_h__
 
+#include <memory>
+
 #include "Widgets/Splitter.h"
 #include "Widgets/StatusControl.h"
 #include "Widgets/Edit.h"
@@ -23,7 +25,7 @@ class CDasherWindow :
 	public CSplitterOwner 
 {
 public:
-	CDasherWindow();
+  CDasherWindow(const CString& xml_config_file);
 	~CDasherWindow();
 
 	DECLARE_WND_CLASS(_T("DASHER"))
@@ -88,7 +90,8 @@ private:
 	HICON m_hIconSm;
 
 	HMENU m_hMenu;
-
+  CString xml_config_file_;
+  std::unique_ptr<Dasher::CSettingsStore> setting_store_;
 	// Misc window handling
 	void Layout();
 };

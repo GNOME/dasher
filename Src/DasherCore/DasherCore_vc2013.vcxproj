@@ -284,6 +284,7 @@
     <ClCompile Include="UserLogParam.cpp" />
     <ClCompile Include="UserLogTrial.cpp" />
     <ClCompile Include="WordGeneratorBase.cpp" />
+    <ClCompile Include="XmlSettingsStore.cpp" />
     <ClCompile Include="XMLUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -367,6 +368,7 @@
     <ClInclude Include="UserLogParam.h" />
     <ClInclude Include="UserLogTrial.h" />
     <ClInclude Include="WordGeneratorBase.h" />
+    <ClInclude Include="XmlSettingsStore.h" />
     <ClInclude Include="XMLUtil.h" />
   </ItemGroup>
   <ItemGroup>

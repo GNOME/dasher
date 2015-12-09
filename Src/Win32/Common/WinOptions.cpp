@@ -133,52 +133,6 @@ bool CWinOptions::LoadSetting(const std::string &Key, std::string *Value) {
 
 /////////////////////////////////////////////////////////////////////////////
 
-static TCHAR FormatWindowPlacement[] = TEXT("%u,%u,%d,%d,%d,%d,%d,%d,%d,%d");
-
-/////////////////////////////////////////////////////////////////////////////
-#ifndef _WIN32_WCE
-
-void CWinOptions::SaveSetting(const std::string &Key, const LPWINDOWPLACEMENT pwp) {
-  DASHER_ASSERT(pwp != NULL);
-
-  TCHAR t[200];
-  _stprintf(t, FormatWindowPlacement, pwp->flags, pwp->showCmd, pwp->ptMinPosition.x, pwp->ptMinPosition.y, pwp->ptMaxPosition.x, pwp->ptMaxPosition.y, pwp->rcNormalPosition.left, pwp->rcNormalPosition.top, pwp->rcNormalPosition.right, pwp->rcNormalPosition.bottom);
-
-  Tstring ts(t);
-  SaveSettingT(Key, ts);
-
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-bool CWinOptions::LoadSetting(const std::string &Key, LPWINDOWPLACEMENT pwp) {
-  DASHER_ASSERT(pwp != NULL);
-
-  Tstring str;
-
-  if(!LoadSettingT(Key, &str))
-    return false;
-
-  WINDOWPLACEMENT wp;
-  int nRead = _stscanf(str.c_str(), FormatWindowPlacement,
-                       &wp.flags, &wp.showCmd,
-                       &wp.ptMinPosition.x, &wp.ptMinPosition.y,
-                       &wp.ptMaxPosition.x, &wp.ptMaxPosition.y,
-                       &wp.rcNormalPosition.left, &wp.rcNormalPosition.top,
-                       &wp.rcNormalPosition.right, &wp.rcNormalPosition.bottom);
-
-  if(nRead != 10)
-    return false;
-  wp.length = sizeof(wp);
-
-  *pwp = wp;
-  return true;
-
-}
-
-#endif
-/////////////////////////////////////////////////////////////////////////////
-
 void CWinOptions::SaveSetting(const std::string &Key, bool Value) {
   if(Value)
     SaveSetting(Key, 1l);

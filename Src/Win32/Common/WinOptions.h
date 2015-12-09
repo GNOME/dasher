@@ -22,11 +22,6 @@ public:
   CWinOptions(const std::string & Group, const std::string & Product);
    ~CWinOptions();
 
-#ifndef _WIN32_WCE
-  bool LoadSetting(const std::string & Key, LPWINDOWPLACEMENT pwp);
-  void SaveSetting(const std::string & Key, const LPWINDOWPLACEMENT pwp);
-#endif
-
 private:
   // Platform Specific settings file management
     bool LoadSetting(const std::string & Key, bool * Value);

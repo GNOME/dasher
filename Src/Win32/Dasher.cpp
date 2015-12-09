@@ -32,8 +32,8 @@ using namespace WinUTF8;
 
 CONST UINT WM_DASHER_FOCUS = RegisterWindowMessage(L"WM_DASHER_FOCUS");
 
-CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit)
- : CDashIntfScreenMsgs(new CWinOptions( "Inference Group", "Dasher3")), m_hParent(Parent), m_pWindow(pWindow), m_pEdit(pEdit) {
+CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit, Dasher::CSettingsStore* settings)
+ : CDashIntfScreenMsgs(settings), m_hParent(Parent), m_pWindow(pWindow), m_pEdit(pEdit) {
   // This class will be a wrapper for the Dasher 'control' - think ActiveX
 
 #ifndef _WIN32_WCE
