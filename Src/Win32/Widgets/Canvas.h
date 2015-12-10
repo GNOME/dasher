@@ -76,7 +76,7 @@ class CCanvas : public ATL::CWindowImpl<CCanvas> {
   CCanvas(Dasher::CDasher *DI);
   ~CCanvas();
 
-  HWND Create(HWND hParent);
+  HWND Create(HWND hParent, const std::string &strFont);
   
   LRESULT OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 #ifndef HAVE_NO_THEME

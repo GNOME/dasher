@@ -31,7 +31,7 @@ class CScreen:public Dasher::CLabelListScreen, private NoClones {
 public:
   //Saves a lot of typing; typedefs are equal to their declaration & do not create distinct types.
   typedef Dasher::screenint screenint;
-  CScreen(HDC hdc, HWND hWnd, screenint width, screenint height);
+  CScreen(HDC hdc, HWND hWnd, screenint width, screenint height, const std::string &strFont);
   ~CScreen();
 
   void SetColourScheme(const Dasher::CColourIO::ColourInfo *pColours) override;

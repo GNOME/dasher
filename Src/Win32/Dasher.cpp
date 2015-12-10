@@ -49,7 +49,7 @@ CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit, Dasher::CSet
   //The following was done in SetupUI, i.e. the first thing in Realize.
   // So doing here:
   m_pCanvas = new CCanvas(this);
-  m_pCanvas->Create(m_hParent); // TODO - check return 
+  m_pCanvas->Create(m_hParent, GetStringParameter(SP_DASHER_FONT)); // TODO - check return 
 
   // Framerate settings: currently 40fps.
   SetTimer(m_pCanvas->getwindow(), 1, 25, NULL);

@@ -27,11 +27,12 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////////////
 
-CScreen::CScreen(HDC hdc, HWND hWnd, Dasher::screenint iWidth, Dasher::screenint iHeight)
+CScreen::CScreen(HDC hdc, HWND hWnd, Dasher::screenint iWidth, Dasher::screenint iHeight, const std::string &strFont)
 :CLabelListScreen(iWidth, iHeight), m_hdc(hdc) {
   m_hWnd = hWnd;
 
   CreateBuffers();
+  SetFont(strFont);
 }
 
 void CScreen::CreateBuffers() {

@@ -54,7 +54,7 @@ CCanvas::CCanvas(CDasher *DI) : m_pDasherInterface(DI) {
 #endif
 }
 
-HWND CCanvas::Create(HWND hParent) {
+HWND CCanvas::Create(HWND hParent, const std::string &strFont) {
   HWND hWnd = CWindowImpl<CCanvas>::Create(hParent, NULL, NULL, WS_CHILD | WS_VISIBLE , 0);//WS_EX_CLIENTEDGE);
 
   m_hdc = GetDC();
@@ -64,19 +64,9 @@ HWND CCanvas::Create(HWND hParent) {
   // TODO: Is this better placed in CDasher?
   m_pKeyboardHelper = new CKeyboardHelper;
 
-  m_pScreen = new CScreen(m_hdc, m_hWnd, 300, 300);
-  m_pScreen->SetFont(m_pDasherInterface->GetStringParameter(SP_DASHER_FONT));
+  m_pScreen = new CScreen(m_hdc, m_hWnd, 300, 300, strFont);
 
   m_pDasherInterface->ChangeScreen(m_pScreen);
-
-// 	for(int i = 0; i < 18; i++) 
-// 	{
-// 		keycoords[i] = 0;
-// 	}
-
-//  running = 0;
-//  previoustime = GetTickCount();
-//  direction = 0;
   
   return hWnd;
 }
