@@ -39,6 +39,7 @@ public:
 
   CDashIntfSettings(CSettingsStore *pSettingsStore);
 
+  CSettingsUser* GetSettingsUser() { return this; }
   bool GetBoolParameter(int iParameter) const;
   long GetLongParameter(int iParameter) const;
   const std::string &GetStringParameter(int iParameter) const;

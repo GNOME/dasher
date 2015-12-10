@@ -2,14 +2,15 @@
 #define __StatusControl_h__
 
 #include "../Common/WinCommon.h"
+#include "../../DasherCore/SettingsStore.h"
 #include "../AppSettings.h"
 
 #include <atlbase.h>
 #include <atlwin.h>
 
-class CStatusControl : public ATL::CWindowImpl<CStatusControl> {
+class CStatusControl : public ATL::CWindowImpl<CStatusControl>, public Dasher::CSettingsObserver {
 public:
-	CStatusControl(CAppSettings *pAppSettings);
+	CStatusControl(Dasher::CSettingsUser *pCreateFrom, CAppSettings *pAppSettings);
 
   // ATL boilerplate code
   DECLARE_WND_SUPERCLASS(L"STATUSCONTROL", L"STATIC");
@@ -31,6 +32,7 @@ public:
   int GetHeight() {
     return m_iEditHeight + 2;
   }
+  void HandleEvent(int iParameter);
 
 private:
   // Create the child windows of the control

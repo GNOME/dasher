@@ -126,7 +126,7 @@ HWND CDasherWindow::Create() {
 
   m_pEdit->SetInterface(m_pDasher);
 
-  m_pSpeedAlphabetBar = new CStatusControl(m_pAppSettings);
+  m_pSpeedAlphabetBar = new CStatusControl(m_pDasher->GetSettingsUser(), m_pAppSettings);
   m_pSpeedAlphabetBar->Create(hWnd);
 
   m_pSplitter = new CSplitter(this, 100);
