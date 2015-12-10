@@ -59,16 +59,6 @@ GType gtk_dasher_control_get_type();
 
 G_END_DECLS
 
-gboolean gtk_dasher_control_default_key_press_handler(GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data);
-gboolean gtk_dasher_control_default_key_release_handler(GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data);
-
-void gtk_dasher_control_set_parameter_bool(GtkDasherControl * pControl, int iParameter, bool bValue);
-void gtk_dasher_control_set_parameter_long(GtkDasherControl * pControl, int iParameter, long lValue);
-void gtk_dasher_control_set_parameter_string(GtkDasherControl * pControl, int iParameter, const char *szValue);
-bool gtk_dasher_control_get_parameter_bool(GtkDasherControl * pControl, int iParameter);
-long gtk_dasher_control_get_parameter_long(GtkDasherControl * pControl, int iParameter);
-void gtk_dasher_control_reset_parameter(GtkDasherControl * pControl, int iParameter);
-const char *gtk_dasher_control_get_parameter_string(GtkDasherControl * pControl, int iParameter);
 GArray *gtk_dasher_control_get_allowed_values(GtkDasherControl * pControl, int iParameter);
 void gtk_dasher_control_train(GtkDasherControl * pControl, const gchar * szFilename);
 void gtk_dasher_control_set_editor(GtkDasherControl *pControl, DasherEditor *pEditor);
@@ -89,9 +79,5 @@ GtkTextBuffer *gtk_dasher_control_game_text_buffer(GtkDasherControl *pPrivate);
 //Calls EnterGameMode or LeaveGameMode, as appropriate, on the underlying CDasherControl
 void gtk_dasher_control_set_game_mode(GtkDasherControl *pControl, bool bOn);
 bool gtk_dasher_control_get_game_mode(GtkDasherControl *pControl);
-void gtk_dasher_control_force_pause(GtkDasherControl *pControl);
-void gtk_dasher_user_log_new_trial(GtkDasherControl * pControl);
-void gtk_dasher_control_set_focus(GtkDasherControl * pControl);
-const gchar* gtk_dasher_control_cl_set(GtkDasherControl *pControl, const gchar *szKey, const gchar *szValue);
 
 #endif

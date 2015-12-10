@@ -108,8 +108,6 @@ gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {
   pClass->dasher_request_settings = NULL;  
   pClass->dasher_lock = NULL;
   pClass->dasher_message = NULL;
-  //  pClass->key_press_event = gtk_dasher_control_default_key_press_handler;
-  // pClass->key_release_event = gtk_dasher_control_default_key_release_handler;
 }
 
 static void 
@@ -117,8 +115,6 @@ gtk_dasher_control_init(GtkDasherControl *pDasherControl) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pDasherControl);
   pPrivate->pControl = new CDasherControl(&(pDasherControl->box), pDasherControl, DasherAppSettings::Get()->GetStore());
 
-//   g_signal_connect(G_OBJECT(pDasherControl), "key-press-event", G_CALLBACK(gtk_dasher_control_default_key_press_handler), pPrivate->pControl);
-//   g_signal_connect(G_OBJECT(pDasherControl), "key-release-event", G_CALLBACK(gtk_dasher_control_default_key_release_handler), pPrivate->pControl);
 }
 
 void gtk_dasher_control_set_editor(GtkDasherControl *pDasherControl, DasherEditor *pEditor) {
@@ -172,48 +168,6 @@ gtk_dasher_control_finalize(GObject *pObject) {
 GtkWidget *
 gtk_dasher_control_new() {
   return GTK_WIDGET(g_object_new(GTK_DASHER_TYPE_CONTROL, NULL));
-}
-
-void 
-gtk_dasher_control_set_parameter_bool(GtkDasherControl *pControl, int iParameter, bool bValue) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->SetBoolParameter(iParameter, bValue);
-}
-
-void 
-gtk_dasher_control_set_parameter_long(GtkDasherControl *pControl, int iParameter, long lValue) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->SetLongParameter(iParameter, lValue);
-}
-
-void 
-gtk_dasher_control_set_parameter_string(GtkDasherControl *pControl, int iParameter, const char *szValue) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->SetStringParameter(iParameter, szValue);
-}
-
-bool
-gtk_dasher_control_get_parameter_bool(GtkDasherControl *pControl, int iParameter) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  return pPrivate->pControl->GetBoolParameter(iParameter);
-}
-
-long 
-gtk_dasher_control_get_parameter_long(GtkDasherControl *pControl, int iParameter) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  return pPrivate->pControl->GetLongParameter(iParameter);
-}
-
-void 
-gtk_dasher_control_reset_parameter(GtkDasherControl *pControl, int iParameter) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->ResetParameter(iParameter);
-}
-
-const char *
-gtk_dasher_control_get_parameter_string(GtkDasherControl *pControl, int iParameter) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  return pPrivate->pControl->GetStringParameter(iParameter).c_str();
 }
 
 GArray *
@@ -287,44 +241,8 @@ gtk_dasher_control_external_key_up(GtkDasherControl *pControl, int iKeyVal) {
   pPrivate->pControl->ExternalKeyUp(iKeyVal);
 }
 
-void 
-gtk_dasher_user_log_new_trial(GtkDasherControl * pControl) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->UserLogNewTrial();
-}
-
-void 
-gtk_dasher_control_set_focus(GtkDasherControl * pControl){
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->SetFocus();
-}
-
-// gboolean 
-// gtk_dasher_control_default_key_press_handler(GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data){
-//   static_cast<CDasherControl *>(data)->KeyPressEvent(pEvent);
-//   return FALSE;
-// }
-
-// gboolean 
-// gtk_dasher_control_default_key_release_handler(GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data) {
-//  static_cast<CDasherControl *>(data)->KeyReleaseEvent(pEvent);
-//  return FALSE;
-// }
-
 gboolean 
 gtk_dasher_control_get_module_settings(GtkDasherControl * pControl, const gchar *szModule, SModuleSettings **pSettings, gint *iCount) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
   return pPrivate->pControl->GetModuleSettings(szModule, pSettings, iCount);
-}
-
-void 
-gtk_dasher_control_force_pause(GtkDasherControl *pControl) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->GetActiveInputMethod()->pause();
-}
-
-const char *
-gtk_dasher_control_cl_set(GtkDasherControl *pControl, const gchar *szKey, const gchar *szValue) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  return pPrivate->pControl->ClSet(szKey, szValue);
 }
