@@ -26,8 +26,7 @@ namespace WinUTF8 {
   void wstring_to_UTF8string(const wchar_t *Input, std::string &Output);
   std::string wstring_to_UTF8string(const wchar_t* Input);
 
-  std::wstring widen(const char* utf8);
-  std::wstring widen(const std::string& utf8);
+  // Remove the explicit left to right or right to left mark if present.
   std::string narrow(const wchar_t* wide);
 }
 #endif                          /* #ifndef __WinUTF8_h__ */

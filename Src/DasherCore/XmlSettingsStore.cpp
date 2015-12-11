@@ -10,7 +10,7 @@
 #if defined(_WIN32) || defined(_WIN64) 
 #include "WinUTF8.h"
 #define strcasecmp _stricmp 
-#define widen(a) WinUTF8::widen(a)
+#define widen(a) WinUTF8::UTF8string_to_wstring((a))
 #else
 #define widen((a)) (a)
 #endif

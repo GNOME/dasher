@@ -78,21 +78,18 @@ string WinUTF8::wstring_to_UTF8string(const wchar_t *Input) {
 }
 
 void WinUTF8::wstring_to_UTF8string(const wchar_t *Input, string &Output) {
-    size_t len = wcslen(Input);
-  int size_needed = WideCharToMultiByte(CP_UTF8, 0, Input, len, nullptr, 0, nullptr, nullptr);
+  size_t len = wcslen(Input);
+  auto size_needed = WideCharToMultiByte(CP_UTF8, 0, Input, len, nullptr, 0, nullptr, nullptr);
   Output.resize(size_needed);
   WideCharToMultiByte(CP_UTF8, 0, Input, (int)Output.size(), &Output[0], size_needed, NULL, NULL);
   return;
 }
 
-std::wstring_convert<std::codecvt_utf8<wchar_t, 0x10ffff, std::consume_header>, wchar_t> utf16conv;
-std::wstring WinUTF8::widen(const char* utf8) {
-  return utf16conv.from_bytes(utf8);
-}
-std::wstring WinUTF8::widen(const std::string& utf8) {
-    return utf16conv.from_bytes(utf8);
-}
-
 std::string WinUTF8::narrow(const wchar_t* wide) {
-  return utf16conv.to_bytes(wide).substr(3);  // Remove the BOM.
+  auto result = wstring_to_UTF8string(wide);
+  // Remove the explicit left to right or right to left mark if present.
+  if (result.size() >= 3 && (result.find("\xE2\x80\xAA") == 0 || result.find("\xE2\x80\xAB") == 0)) {
+    return result.substr(3);
+  }
+  return result;
 }
