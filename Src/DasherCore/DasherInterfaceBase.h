@@ -62,6 +62,28 @@ class CNodeCreationManager;
 /// @{
 
 
+/// @name Platform dependent utility functions
+/// These functions provide various platform dependent functions
+/// required by the core. A derived class is created for each
+/// supported platform which implements these.
+// @{
+class CFileUtils {
+public:
+	virtual ~CFileUtils(){}
+	///
+	/// Obtain the size in bytes of a file - the way to do this is
+	/// dependent on the OS (TODO: Check this - any posix on Windows?)
+	///
+	virtual int GetFileSize(const std::string &strFileName) = 0;
+
+	///Look for files, matching a filename pattern, in whatever system and/or user
+	/// locations as may exist - e.g. on disk, in app package, on web, whatever.
+	/// TODO, can we add a default implementation that looks on the Dasher website?
+	/// \param pattern string matching just filename (not path), potentially
+	/// including '*'s (as per glob)
+	virtual void ScanFiles(AbstractParser *parser, const std::string &strPattern) = 0;
+};
+
 /// The central class in the core of Dasher. Ties together the rest of
 /// the platform independent stuff and provides a single interface for
 /// the UI to use. Note: CMessageDisplay unimplemented; platforms should
@@ -70,7 +92,7 @@ class CNodeCreationManager;
 class Dasher::CDasherInterfaceBase : public CMessageDisplay, public Observable<const CEditEvent *>, protected Observer<int>, protected CSettingsUser, private NoClones {
 public:
   ///Create a new interface by providing the only-and-only settings store that will be used throughout.
-  CDasherInterfaceBase(CSettingsStore *pSettingsStore);
+  CDasherInterfaceBase(CSettingsStore *pSettingsStore, CFileUtils* fileUtils);
   virtual ~CDasherInterfaceBase();
 
   /// @name Access to internal member classes
@@ -380,14 +402,18 @@ public:
   /// Obtain the size in bytes of a file - the way to do this is
   /// dependent on the OS (TODO: Check this - any posix on Windows?)
   ///
-  virtual int GetFileSize(const std::string &strFileName) = 0;
+  int GetFileSize(const std::string &strFileName) {
+	  return m_fileUtils->GetFileSize(strFileName);
+  }
   
   ///Look for files, matching a filename pattern, in whatever system and/or user
   /// locations as may exist - e.g. on disk, in app package, on web, whatever.
   /// TODO, can we add a default implementation that looks on the Dasher website?
   /// \param pattern string matching just filename (not path), potentially
   /// including '*'s (as per glob)
-  virtual void ScanFiles(AbstractParser *parser, const std::string &strPattern) = 0;
+  void ScanFiles(AbstractParser *parser, const std::string &strPattern)  {
+	  m_fileUtils->ScanFiles(parser, strPattern);
+  }
   
   // @}
   
@@ -488,6 +514,7 @@ protected:
   /// this interface was created, as ClSet and ResetParameter need to access it.
   /// (TODO _could_ move these into CSettingsUser, but that seems uglier given so few clients?)
   CSettingsStore * const m_pSettingsStore;
+  CFileUtils* m_fileUtils;
 
   //The default expansion policy to use - an amortized policy depending on the LP_NODE_BUDGET parameter.
   CExpansionPolicy *m_defaultPolicy;

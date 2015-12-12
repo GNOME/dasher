@@ -23,10 +23,17 @@ class CEdit;
 class CDasherWindow;
 
 namespace Dasher {
+class CWinFileUtils :public CFileUtils{
+  virtual int GetFileSize(const std::string &strFileName) override;
+  virtual void ScanFiles(AbstractParser *parser, const std::string &strPattern) override;
+private:
+  void ScanDirectory(const Tstring &strMask, std::vector<std::string> &vFileList);
+};
+
 class CDasher : public CDashIntfScreenMsgs
 {
 public:
-  CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit, Dasher::CSettingsStore* settings);
+  CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit, Dasher::CSettingsStore* settings, CFileUtils* fileUtils);
   ~CDasher(void);
 
   // The following functions will not be part of the final interface

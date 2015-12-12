@@ -35,7 +35,7 @@ namespace Dasher {
 class CDashIntfScreenMsgs : public CDashIntfSettings {
 public:
 
-  CDashIntfScreenMsgs(CSettingsStore *pSettingsStore);
+  CDashIntfScreenMsgs(CSettingsStore *pSettingsStore, CFileUtils* fileUtils);
 
   /// Stores messages for Redraw to render onto the Screen on top of the view.
   /// For modal messages (bInterrupt=true), pauses Dasher, and keeps the message

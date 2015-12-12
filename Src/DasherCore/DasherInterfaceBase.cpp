@@ -31,10 +31,8 @@
 #include "Observable.h"
 #include "Event.h"
 #include "NodeCreationManager.h"
-#ifndef _WIN32_WCE
 #include "UserLog.h"
 #include "BasicLog.h"
-#endif
 #include "GameModule.h"
 #include "FileWordGenerator.h"
 
@@ -68,9 +66,7 @@ const eLogLevel g_iLogLevel   = logNORMAL;
 const int       g_iLogOptions = logTimeStamp | logDateStamp;
 #endif
 
-#ifndef _WIN32_WCE
 CFileLogger* g_pLogger = NULL;
-#endif
 
 using namespace Dasher;
 using namespace std;
@@ -85,9 +81,10 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CDasherInterfaceBase::CDasherInterfaceBase(CSettingsStore *pSettingsStore) : CSettingsUser(pSettingsStore), m_pDasherModel(new CDasherModel()), m_pFramerate(new CFrameRate(this)), m_pSettingsStore(pSettingsStore), m_pLockLabel(NULL) {
+CDasherInterfaceBase::CDasherInterfaceBase(CSettingsStore *pSettingsStore, CFileUtils* fileUtils) : CSettingsUser(pSettingsStore), m_pDasherModel(new CDasherModel()), m_pFramerate(new CFrameRate(this)), m_pSettingsStore(pSettingsStore), m_pLockLabel(NULL) {
   
   pSettingsStore->Register(this);
+  m_fileUtils = fileUtils;
   
   // Ensure that pointers to 'owned' objects are set to NULL.
   m_DasherScreen = NULL;
@@ -107,13 +104,10 @@ CDasherInterfaceBase::CDasherInterfaceBase(CSettingsStore *pSettingsStore) : CSe
 
   //  m_bGlobalLock = false;
 
-#ifndef _WIN32_WCE
   // Global logging object we can use from anywhere
   g_pLogger = new CFileLogger("dasher.log",
                               g_iLogLevel,
                               g_iLogOptions);
-#endif
-
 }
 
 void CDasherInterfaceBase::Realize(unsigned long ulTime) {
@@ -139,16 +133,12 @@ void CDasherInterfaceBase::Realize(unsigned long ulTime) {
 
   // TODO: Sort out log type selection
 
-#ifndef _WIN32_WCE
   int iUserLogLevel = GetLongParameter(LP_USER_LOG_LEVEL_MASK);
 
   if(iUserLogLevel == 10)
     m_pUserLog = new CBasicLog(this, this);
   else if (iUserLogLevel > 0)
     m_pUserLog = new CUserLog(this, this, iUserLogLevel);
-#else
-  m_pUserLog = NULL;
-#endif
 
   CreateModules();
 
@@ -170,12 +160,10 @@ void CDasherInterfaceBase::Realize(unsigned long ulTime) {
   // InvalidateContext(true);
   ScheduleRedraw();
 
-#ifndef _WIN32_WCE
   // All the setup is done by now, so let the user log object know
   // that future parameter changes should be logged.
   if (m_pUserLog != NULL)
     m_pUserLog->InitIsDone();
-#endif
 }
 
 CDasherInterfaceBase::~CDasherInterfaceBase() {
@@ -187,7 +175,6 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   delete m_pNCManager;
   // Do NOT delete Edit box or Screen. This class did not create them.
 
-#ifndef _WIN32_WCE
   // When we destruct on shutdown, we'll output any detailed log file
   if (m_pUserLog != NULL)
   {
@@ -200,9 +187,9 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
     delete g_pLogger;
     g_pLogger = NULL;
   }
-#endif
 
   delete m_pFramerate;
+  delete m_fileUtils;
 
 }
 
@@ -446,10 +433,8 @@ bool CDasherInterfaceBase::hasDone() {
 void CDasherInterfaceBase::Done() {
   ScheduleRedraw();
 
-#ifndef _WIN32_WCE
   if (m_pUserLog != NULL)
     m_pUserLog->StopWriting((float) GetNats());
-#endif
 
   if (GetBoolParameter(BP_COPY_ALL_ON_STOP) && SupportsClipboard()) {
     CopyToClipboard(GetAllContext());
@@ -750,9 +735,7 @@ void CDasherInterfaceBase::CreateInputFilter() {
     m_pInputFilter = NULL;
   }
 
-#ifndef _WIN32_WCE
   m_pInputFilter = (CInputFilter *)GetModuleByName(GetStringParameter(SP_INPUT_FILTER));
-#endif
 
   if (m_pInputFilter == NULL)
     m_pInputFilter = m_oModuleManager.GetDefaultInputMethod();
@@ -785,13 +768,7 @@ void CDasherInterfaceBase::CreateModules() {
   RegisterModule(defFil);
   SetDefaultInputMethod(defFil);
   RegisterModule(new COneDimensionalFilter(this, this, m_pFramerate));
-#ifndef _WIN32_WCE
   RegisterModule(new CClickFilter(this, this));
-#else
-  SetDefaultInputMethod(
-    RegisterModule(new CClickFilter(this, this));
-  );
-#endif
   RegisterModule(new COneButtonFilter(this, this));
   RegisterModule(new COneButtonDynamicFilter(this, this, m_pFramerate));
   RegisterModule(new CTwoButtonDynamicFilter(this, this, m_pFramerate));

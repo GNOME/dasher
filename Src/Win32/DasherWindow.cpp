@@ -81,6 +81,7 @@ HWND CDasherWindow::Create() {
   WinLocalisation::GetResourceString(IDS_APP_TITLE, &WindowTitle);
 
   static XmlErrorDisplay display;
+  CFileUtils* fileUtils = new CWinFileUtils();
   Dasher::CSettingsStore* settings;
   if (xml_config_file_.IsEmpty()) {
       settings = new CWinOptions("Inference Group", "Dasher3");
@@ -113,7 +114,7 @@ HWND CDasherWindow::Create() {
   m_pEdit->Create(hWnd, m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
   m_pEdit->SetFont(m_pAppSettings->GetStringParameter(APP_SP_EDIT_FONT), m_pAppSettings->GetLongParameter(APP_LP_EDIT_FONT_SIZE));
 
-  m_pDasher = new CDasher(hWnd, this, m_pEdit, settings);
+  m_pDasher = new CDasher(hWnd, this, m_pEdit, settings, fileUtils); // Takes ownership of the fileUtils
 
   // Create a CAppSettings
   m_pAppSettings->SetHwnd(hWnd);

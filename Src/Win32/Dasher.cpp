@@ -32,8 +32,8 @@ using namespace WinUTF8;
 
 CONST UINT WM_DASHER_FOCUS = RegisterWindowMessage(L"WM_DASHER_FOCUS");
 
-CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit, Dasher::CSettingsStore* settings)
- : CDashIntfScreenMsgs(settings), m_hParent(Parent), m_pWindow(pWindow), m_pEdit(pEdit) {
+CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit, Dasher::CSettingsStore* settings, CFileUtils* fileUtils)
+  : CDashIntfScreenMsgs(settings, fileUtils), m_hParent(Parent), m_pWindow(pWindow), m_pEdit(pEdit) {
   // This class will be a wrapper for the Dasher 'control' - think ActiveX
 
 #ifndef _WIN32_WCE
@@ -191,7 +191,7 @@ void Dasher::CDasher::WriteTrainFile(const std::string &filename, const std::str
   }
 }
 
-void CDasher::ScanDirectory(const Tstring &strMask, std::vector<std::string> &vFileList) {
+void CWinFileUtils::ScanDirectory(const Tstring &strMask, std::vector<std::string> &vFileList) {
   using namespace WinUTF8;
 
   std::string filename;
@@ -210,7 +210,7 @@ void CDasher::ScanDirectory(const Tstring &strMask, std::vector<std::string> &vF
   }
 }
 
-void CDasher::ScanFiles(AbstractParser *parser, const std::string &strPattern) {
+void CWinFileUtils::ScanFiles(AbstractParser *parser, const std::string &strPattern) {
   using namespace WinHelper;
   using namespace WinUTF8;
   
@@ -244,7 +244,7 @@ void CDasher::ScanFiles(AbstractParser *parser, const std::string &strPattern) {
     parser->ParseFile(userDir + (*it),true);
 }
 
-int CDasher::GetFileSize(const std::string &strFileName) {
+int CWinFileUtils::GetFileSize(const std::string &strFileName) {
 #ifndef _WIN32_WCE
   struct _stat sStatInfo;
   _stat(strFileName.c_str(), &sStatInfo);

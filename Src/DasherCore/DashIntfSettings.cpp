@@ -3,8 +3,8 @@
 using namespace Dasher;
 using std::string;
 
-CDashIntfSettings::CDashIntfSettings(CSettingsStore *pSettingsStore)
- : CDasherInterfaceBase(pSettingsStore) {
+CDashIntfSettings::CDashIntfSettings(CSettingsStore *pSettingsStore, CFileUtils* fileUtils)
+	: CDasherInterfaceBase(pSettingsStore, fileUtils) {
 }
 
 bool CDashIntfSettings::GetBoolParameter(int iParameter) const {
