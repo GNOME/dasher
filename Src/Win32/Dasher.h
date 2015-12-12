@@ -69,10 +69,7 @@ public:
   bool SupportsClipboard() override { return true; };
   void CopyToClipboard(const std::string &text) override;
   
-  virtual int GetFileSize(const std::string &strFileName) override;
 private:
-
-  virtual void ScanFiles(AbstractParser *parser, const std::string &strPattern) override;
   virtual void CreateModules() override;
 
   void ScanDirectory(const Tstring &strMask, std::vector<std::string> &vFileList);
