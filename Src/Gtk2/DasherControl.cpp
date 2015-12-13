@@ -41,7 +41,7 @@ static bool g_iTimeoutID = 0;
 // CDasherControl class definitions
 CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl,
                                CSettingsStore* settings)
- : CDashIntfScreenMsgs(settings) {
+ : CDashIntfScreenMsgs(settings, &file_utils_) {
   m_pScreen = NULL;
 
   m_pDasherControl = pDasherControl;
@@ -123,24 +123,6 @@ void CDasherControl::CreateModules() {
 #endif
 }
 
-void CDasherControl::ScanFiles(AbstractParser *parser, const std::string &strPattern) {
-
-  //System files.
-  // PROGDATA is provided by the makefile
-  string path(PROGDATA "/");
-  path += strPattern;
-
-  //User files.  
-  mkdir(m_user_data_dir, S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
-  string user_path(m_user_data_dir);
-  user_path += strPattern;
-  
-  const char *user[2], *sys[2];
-  user[0] = user_path.c_str(); sys[0] = path.c_str();
-  user[1] = sys[1] = NULL; //terminators
-  
-  globScan(parser, user, sys);
-}
 
 void CDasherControl::ClearAllContext() {
   gtk_dasher_control_clear_all_context(m_pDasherControl);
@@ -645,15 +627,6 @@ void CDasherControl::UserLogNewTrial()
   if (pUserLog != NULL) { 
     pUserLog->NewTrial();
   }
-}
-
-int CDasherControl::GetFileSize(const std::string &strFileName) {
-  struct stat sStatInfo;
-
-  if(!stat(strFileName.c_str(), &sStatInfo))
-    return sStatInfo.st_size;
-  else
-    return 0;
 }
 
 // "C" style callbacks - these are here just because it's not possible

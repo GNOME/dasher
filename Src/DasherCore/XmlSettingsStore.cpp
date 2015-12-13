@@ -12,7 +12,7 @@
 #define strcasecmp _stricmp 
 #define widen(a) WinUTF8::UTF8string_to_wstring((a))
 #else
-#define widen((a)) (a)
+#define widen(a) (a)
 #endif
 
 namespace Dasher {

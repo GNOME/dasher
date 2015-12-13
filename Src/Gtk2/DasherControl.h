@@ -29,6 +29,7 @@
 #include "../DasherCore/DashIntfScreenMsgs.h"
 #include "GnomeSettingsStore.h"
 #include "../DasherCore/UserLog.h"
+#include "FileUtils.h"
 
 ///
 /// \brief C++ core of the Dasher GTK UI component.
@@ -134,7 +135,6 @@ public:
   ///Override to broadcast dasher_stop signal...
   void Done() override;
   void WriteTrainFile(const std::string &filename, const std::string &strNewText) override;
-  int GetFileSize(const std::string &strFileName) override;
 
   void ClearAllContext() override ;
   std::string GetAllContext() override;
@@ -169,7 +169,6 @@ public:
 
   CGameModule *CreateGameModule() override;
 private:
-  virtual void ScanFiles(AbstractParser *parser, const std::string &strPattern) override;
   virtual void CreateModules() override;
 
   GtkWidget *m_pVBox;
@@ -205,7 +204,7 @@ private:
 
   //Cache the clipboard object...
   GtkClipboard *pClipboard;
-
+  FileUtils file_utils_;
 #ifdef WITH_SPEECH
   CSpeech m_Speech;
 #endif
