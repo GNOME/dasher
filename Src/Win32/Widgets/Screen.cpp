@@ -210,8 +210,9 @@ void CScreen::Polygon(point *Points, int Number, int fillColour, int outlineColo
 }
 
 /////////////////////////////////////////////////////////////////////////////
-bool CScreen::IsPointVisible(screenint x, screenint y) {
-  POINT pt = { x, y };
+bool CScreen::IsWindowUnderCursor() {
+  POINT pt;
+  GetCursorPos(&pt);
   ClientToScreen(m_hWnd, &pt);
   HWND h = WindowFromPoint(pt);
   return h == m_hWnd;
