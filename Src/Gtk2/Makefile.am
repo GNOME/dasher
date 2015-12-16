@@ -30,6 +30,8 @@ libdashercontrol_la_SOURCES = \
 		Canvas.h \
 		DasherControl.cpp \
 		DasherControl.h \
+		FileUtils.h \
+		FileUtils.cpp \
 		GnomeSettingsStore.h \
 		GtkDasherControl.cpp \
 		GtkDasherControl.h \
@@ -76,8 +78,6 @@ libdashergtk_la_SOURCES = \
 		dasher_lock_dialogue.h \
 		dasher_main.cpp \
 		dasher_main.h \
-		FileUtils.h \
-		FileUtils.cpp \
 		module_settings_window.cpp \
 		module_settings_window.h
 

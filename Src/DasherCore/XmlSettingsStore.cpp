@@ -4,8 +4,6 @@
 #include <fstream>
 #include <string.h>
 #include <algorithm>
-#include <locale>
-#include <codecvt>
 
 #if defined(_WIN32) || defined(_WIN64) 
 #include "WinUTF8.h"
