@@ -66,10 +66,7 @@ CAlphIO::CAlphIO(CMessageDisplay *pMsgs) : AbstractXMLParser(pMsgs) {
 void CAlphIO::GetAlphabets(std::vector <std::string >*AlphabetList) const {
   AlphabetList->clear();
 
-  typedef std::map < std::string, const CAlphInfo* >::const_iterator CI;
-  CI End = Alphabets.end();
-
-  for(CI Cur = Alphabets.begin(); Cur != End; Cur++)
+  for(auto Cur = Alphabets.begin(); Cur != Alphabets.end(); Cur++)
     AlphabetList->push_back(Cur->second->AlphID);
 }
 

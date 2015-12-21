@@ -62,11 +62,8 @@ public:
 private:
   CAlphInfo::character *SpaceCharacter, *ParagraphCharacter;
   std::vector<SGroupInfo *> m_vGroups;
-  std::map < std::string, const CAlphInfo* > Alphabets; // map short names (file names) to descriptions. We own all the values but it's easier this way...
-
+  std::map < std::string, const CAlphInfo* > Alphabets; // map AlphabetID to AlphabetInfo. 
   CAlphInfo *CreateDefault();         // Give the user an English alphabet rather than nothing if anything goes horribly wrong.
-
-  void DeleteAlphabet(CAlphInfo *Alphabet);
 
   // XML handling:
   /////////////////////////
