@@ -11,16 +11,17 @@
 #include "SettingsStore.h"
 #include "AbstractXMLParser.h"
 
-namespace Dasher {
+class CFileUtils;
 
+namespace Dasher {
 // This class is not thread-safe.
-class XmlSettingsStore : public Dasher::CSettingsStore, AbstractXMLParser {
+class XmlSettingsStore : public Dasher::CSettingsStore, public AbstractXMLParser {
  public:
-  XmlSettingsStore(const std::string& filename, CMessageDisplay* pDisplay);
+  XmlSettingsStore(const std::string& filename, CFileUtils* fileUtils, CMessageDisplay* pDisplay);
   ~XmlSettingsStore() override = default;
   // Load the XML file and fills in the default values needed.
   // Returns true on success.
-  bool Load();
+  void Load();
   // Saves the XML file, returns true on success.
   bool Save();
 
@@ -54,6 +55,7 @@ class XmlSettingsStore : public Dasher::CSettingsStore, AbstractXMLParser {
 
   Mode mode_ = EXPLICIT_SAVE;
   std::string filename_;
+  CFileUtils* fileutils_;
   bool modified_ = false;
   std::map<std::string, bool> boolean_settings_;
   std::map<std::string, long> long_settings_;

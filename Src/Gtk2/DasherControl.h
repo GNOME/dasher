@@ -27,7 +27,6 @@
 
 //#include "../DasherCore/DasherSettingsInterface.h"
 #include "../DasherCore/DashIntfScreenMsgs.h"
-#include "GnomeSettingsStore.h"
 #include "../DasherCore/UserLog.h"
 #include "FileUtils.h"
 
@@ -134,7 +133,6 @@ public:
 
   ///Override to broadcast dasher_stop signal...
   void Done() override;
-  void WriteTrainFile(const std::string &filename, const std::string &strNewText) override;
 
   void ClearAllContext() override ;
   std::string GetAllContext() override;

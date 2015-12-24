@@ -32,7 +32,6 @@ libdashercontrol_la_SOURCES = \
 		DasherControl.h \
 		FileUtils.h \
 		FileUtils.cpp \
-		GnomeSettingsStore.h \
 		GtkDasherControl.cpp \
 		GtkDasherControl.h \
 		KeyboardHelper.cpp \
@@ -46,14 +45,6 @@ libdashercontrol_la_SOURCES = \
 		mouse_input.h \
 		$(settings_store)
 
-if USE_GCONF
-libdashercontrol_la_SOURCES += GConfStore.cpp
-else
-if USE_GSETTINGS
-libdashercontrol_la_SOURCES += GSettingsStore.cpp
-else
-libdashercontrol_la_SOURCES += NoStore.cpp
-endif
 endif
 
 if USE_SPEECHDISPATCHER

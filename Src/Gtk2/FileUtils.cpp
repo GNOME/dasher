@@ -35,3 +35,25 @@ void FileUtils::ScanFiles(AbstractParser *parser, const std::string &strPattern)
 
   globScan(parser, user, sys);
 }
+
+
+bool FileUtils::WriteUserDataFile(const std::string &filename, const std::string &strNewText, bool append) {
+  if (strNewText.length() == 0)
+    return true;
+
+  std::string user_data_dir = getenv("HOME");
+  user_data_dir += "/.dasher/";
+  std::string strFilename(user_data_dir);
+  strFilename = filename;
+  int mode = O_CREAT | O_WRONLY;
+  if (append)
+  {
+    mode = O_CREAT | O_WRONLY | O_APPEND;
+  }
+  int fd = open(strFilename.c_str(), mode, S_IRUSR | S_IWUSR);
+  if (!fd) return false;
+ 
+  int written = write(fd, strNewText.c_str(), strNewText.length());
+  close(fd);
+  return written == strNewText.length();
+

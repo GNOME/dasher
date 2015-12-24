@@ -23,11 +23,18 @@ class CEdit;
 class CDasherWindow;
 
 namespace Dasher {
-class CWinFileUtils :public CFileUtils{
+class CWinFileUtils :public CFileUtils {
+public:
   virtual int GetFileSize(const std::string &strFileName) override;
   virtual void ScanFiles(AbstractParser *parser, const std::string &strPattern) override;
+  bool WriteUserDataFile(const std::string &filename, const std::string &strNewText, bool append) override;
 private:
-  void ScanDirectory(const Tstring &strMask, std::vector<std::string> &vFileList);
+  void ScanDirectory(const std::string &strMask, std::vector<std::string> &vFileList);
+  // Returns location where program data is stored.
+  // When user is false, result is system data location.
+  // When user is true, result is user data data location.
+  virtual std::string GetDataPath(bool user);
+
 };
 
 class CDasher : public CDashIntfScreenMsgs
@@ -54,7 +61,6 @@ public:
   unsigned int ctrlMove(bool bForwards, CControlManager::EditDistance iDist) override;
   unsigned int ctrlDelete(bool bForwards, CControlManager::EditDistance iDist) override;
     
-  virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText) override;
   void Main(); 
 
   virtual std::string GetAllContext() override;

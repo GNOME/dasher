@@ -25,7 +25,7 @@ class CDasherWindow :
 	public CSplitterOwner 
 {
 public:
-  CDasherWindow(const CString& xml_config_file);
+  CDasherWindow(const wstring& configName);
 	~CDasherWindow();
 
 	DECLARE_WND_CLASS(_T("DASHER"))
@@ -90,7 +90,7 @@ private:
 	HICON m_hIconSm;
 
 	HMENU m_hMenu;
-  CString xml_config_file_;
+  std::wstring m_configName;
   std::unique_ptr<Dasher::CSettingsStore> setting_store_;
 	// Misc window handling
 	void Layout();

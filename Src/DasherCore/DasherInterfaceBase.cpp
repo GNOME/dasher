@@ -189,8 +189,6 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   }
 
   delete m_pFramerate;
-  delete m_fileUtils;
-
 }
 
 void CDasherInterfaceBase::PreSetNotify(int iParameter, const std::string &sNewValue) {

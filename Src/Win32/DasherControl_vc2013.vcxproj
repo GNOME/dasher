@@ -186,7 +186,6 @@
     <ClCompile Include="BTSocketInput.cpp" />
     <ClCompile Include="Common\WinHelper.cpp" />
     <ClCompile Include="Common\WinLocalisation.cpp" />
-    <ClCompile Include="Common\WinOptions.cpp" />
     <ClCompile Include="Common\WinUTF8.cpp" />
     <ClCompile Include="Dasher.cpp" />
     <ClCompile Include="DasherMouseInput.cpp" />
@@ -201,7 +200,6 @@
     <ClInclude Include="BTSocketInput.h" />
     <ClInclude Include="Common\WinCommon.h" />
     <ClInclude Include="Common\WinLocalisation.h" />
-    <ClInclude Include="Common\WinOptions.h" />
     <ClInclude Include="Common\WinUTF8.h" />
     <ClInclude Include="Dasher.h" />
     <ClInclude Include="DasherMouseInput.h" />

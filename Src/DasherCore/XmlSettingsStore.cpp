@@ -1,17 +1,11 @@
 #include "XmlSettingsStore.h"
+#include "DasherInterfaceBase.h"
 
 #include <iostream>
 #include <fstream>
 #include <string.h>
 #include <algorithm>
 
-#if defined(_WIN32) || defined(_WIN64) 
-#include "WinUTF8.h"
-#define strcasecmp _stricmp 
-#define widen(a) WinUTF8::UTF8string_to_wstring((a))
-#else
-#define widen(a) (a)
-#endif
 
 namespace Dasher {
 namespace {
@@ -29,29 +23,17 @@ bool Read(const std::map<std::string, T> values, const std::string& key,
 
 }  // namespace
 
-XmlSettingsStore::XmlSettingsStore(const std::string& filename,
+XmlSettingsStore::XmlSettingsStore(const std::string& filename, CFileUtils* fileUtils,
                                    CMessageDisplay* pDisplay)
-    : AbstractXMLParser(pDisplay), filename_(filename) {}
+    : AbstractXMLParser(pDisplay), filename_(filename),fileutils_(fileUtils) {}
 
-bool XmlSettingsStore::Load() {
-  bool result = true;
-  std::ifstream f(widen(filename_));
-  if (f.good()) {
-    f.close();
-    if (!ParseFile(filename_, true /* user */)) {
-      m_pMsgs->Message("Failed to load the XML settings", true /* interrupt */);
-      result = false;
-    }
-  } else {
-    m_pMsgs->FormatMessageWithString("XML File not found: ", filename_.c_str());
-    result = false;
-  }
+void XmlSettingsStore::Load() {
+  fileutils_->ScanFiles(this, filename_);
   // Load all the settings or create defaults for the ones that don't exist.
   // The superclass 'ParseFile' saves default settings if not found.
   mode_ = EXPLICIT_SAVE;
   LoadPersistent();
   mode_ = SAVE_IMMEDIATELY;
-  return result;
 }
 
 bool XmlSettingsStore::LoadSetting(const std::string& key, bool* value) {
@@ -93,10 +75,9 @@ bool XmlSettingsStore::Save() {
   if (!modified_) {
     return true;
   }
-  try {
+  
     modified_ = false;
-    std::ofstream out;
-    out.open(widen(filename_), std::ios::out | std::ios::trunc);
+    std::stringstream out;
     out << "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n";
     out << "<settings>\n";
     for (const auto& p : long_settings_) {
@@ -114,13 +95,8 @@ bool XmlSettingsStore::Save() {
           << "\"/>\n";
     }
     out << "</settings>\n";
-    out.close();
-  } catch (...) {
-    // TODO(localize).
-    m_pMsgs->Message("Failed to save the settings", true /* interrupt */);
-    return false;
-  }
-  return true;
+    return fileutils_->WriteUserDataFile(filename_, out.str(),false);
+
 }
 
 bool XmlSettingsStore::GetNameAndValue(const XML_Char** attributes,
@@ -190,13 +166,13 @@ void XmlSettingsStore::XmlStartHandler(const XML_Char* element_name,
     long_settings_[name] = v;
   } else if (element == "bool") {
 
-    if (strcasecmp(value.c_str(), "true") == 0) {
+    if (strcmp(value.c_str(), "True") == 0) {
       boolean_settings_[name] = true;
-    } else if (strcasecmp(value.c_str(), "false") == 0) {
+    } else if (strcmp(value.c_str(), "False") == 0) {
       boolean_settings_[name] = false;
     } else {
       m_pMsgs->FormatMessageWith2Strings(
-          "XML configuration: boolean value should be 'true' or 'false' found "
+          "XML configuration: boolean value should be 'True' or 'False' found "
           "%s = '%s'",
           name.c_str(), value.c_str());
     }

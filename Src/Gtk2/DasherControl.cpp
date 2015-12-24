@@ -408,18 +408,6 @@ CGameModule *CDasherControl::CreateGameModule() {
   return CDashIntfScreenMsgs::CreateGameModule();
 }
 
-void CDasherControl::WriteTrainFile(const std::string &filename, const std::string &strNewText) {
-  if(strNewText.length() == 0)
-    return;
-
-  std::string strFilename(m_user_data_dir);
-  strFilename+=filename;
-
-  int fd=open(strFilename.c_str(),O_CREAT|O_WRONLY|O_APPEND,S_IRUSR|S_IWUSR);
-  write(fd,strNewText.c_str(),strNewText.length());
-  close(fd);
-}
-
 // TODO: Sort these methods out
 void CDasherControl::ExternalKeyDown(int iKeyVal) {
 //   if(m_pKeyboardHelper) {

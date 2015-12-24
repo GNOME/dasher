@@ -11,16 +11,10 @@
 #include "DasherWindow.h"
 #include "Widgets/Edit.h"
 
-#ifndef _WIN32_WCE
 #include "Sockets/SocketInput.h"
 #include "BTSocketInput.h"
-#endif
 #include <Sphelper.h>
-#include "Common/WinOptions.h"
-
-#ifndef _WIN32_WCE
 #include <sys/stat.h>
-#endif
 
 using namespace std;
 using namespace Dasher;
@@ -159,52 +153,38 @@ bool Dasher::CDasher::GetWindowSize(int* pTop, int* pLeft, int* pBottom, int* pR
     return false;
 }
 
-void Dasher::CDasher::WriteTrainFile(const std::string &filename, const std::string &strNewText) {
-  if(strNewText.size() == 0)
-    return;
+bool CWinFileUtils::WriteUserDataFile(const std::string &filename, const std::string &strNewText, bool append) {
+  if (strNewText.size() == 0)
+    return true;
 
-  Tstring UserDataDir, Tfilename, TTrainFile;
-  UTF8string_to_wstring(filename, Tfilename);
-  WinHelper::GetUserDirectory(&UserDataDir);
-  UserDataDir += TEXT("dasher.rc\\");
-  TTrainFile = UserDataDir + Tfilename;
-
-  HANDLE hFile = CreateFile(TTrainFile.c_str(),
-                            GENERIC_WRITE, 0, NULL, 
-                            OPEN_ALWAYS, 
-                            FILE_ATTRIBUTE_NORMAL, 0);
+  string fullpath = GetDataPath(true) + filename;
+  auto CreationDisposition = append ? OPEN_ALWAYS : CREATE_ALWAYS;
+  HANDLE hFile = CreateFile(UTF8string_to_wstring(fullpath).c_str(),
+	  GENERIC_WRITE, 0, NULL,
+	  CreationDisposition,
+	  FILE_ATTRIBUTE_NORMAL, 0);
 
   if(hFile == INVALID_HANDLE_VALUE) {
     OutputDebugString(TEXT("Can not open file\n"));
+    return false;
   }
-  else {
     DWORD NumberOfBytesWritten;
     SetFilePointer(hFile, 0, NULL, FILE_END);
-
-  // Surely there are better ways to write to files than this??
-
-    for(unsigned int i = 0; i < strNewText.size(); i++) {
-      WriteFile(hFile, &strNewText[i], 1, &NumberOfBytesWritten, NULL);
-    }
-
+    WriteFile(hFile, &strNewText.c_str()[0], strNewText.size(), &NumberOfBytesWritten, NULL);
     CloseHandle(hFile);
-  }
+
+    return NumberOfBytesWritten == strNewText.size();
 }
 
-void CWinFileUtils::ScanDirectory(const Tstring &strMask, std::vector<std::string> &vFileList) {
+void CWinFileUtils::ScanDirectory(const string &strMask, std::vector<std::string> &vFileList) {
   using namespace WinUTF8;
-
-  std::string filename;
   WIN32_FIND_DATA find;
-  HANDLE handle;
-
-  handle = FindFirstFile(strMask.c_str(), &find);
+  wstring wideMask = UTF8string_to_wstring(strMask);
+  HANDLE handle = FindFirstFile(wideMask.c_str(), &find);
   if(handle != INVALID_HANDLE_VALUE) {
-    wstring_to_UTF8string(wstring(find.cFileName), filename);
-    vFileList.push_back(filename);
+    vFileList.push_back(wstring_to_UTF8string(find.cFileName));
     while(FindNextFile(handle, &find) != false) {
-      wstring_to_UTF8string(wstring(find.cFileName), filename);
-      vFileList.push_back(filename);
+		vFileList.push_back(wstring_to_UTF8string(find.cFileName));
     }
     FindClose(handle);
   }
@@ -214,45 +194,43 @@ void CWinFileUtils::ScanFiles(AbstractParser *parser, const std::string &strPatt
   using namespace WinHelper;
   using namespace WinUTF8;
   
-  Tstring pattern;
-  UTF8string_to_wstring(strPattern, pattern);
-  
   std::vector<std::string> vFileList;
-  
-  Tstring AppData;
-  GetAppDirectory(&AppData);
-  AppData += TEXT("system.rc\\");
-  CreateDirectory(AppData.c_str(), NULL);// TODO: Any harm if they already exist
-  string sysDir;
-  wstring_to_UTF8string(AppData,sysDir);
-  AppData += pattern;
-  ScanDirectory(AppData, vFileList);
+
+  string sysDir = GetDataPath(false);
+  ScanDirectory(sysDir +strPattern, vFileList);
   for (vector<std::string>::iterator it=vFileList.begin(); it!=vFileList.end(); it++)
     parser->ParseFile(sysDir + (*it),false);
 
   vFileList.clear();
   
-  Tstring UserData;
-  GetUserDirectory(&UserData);
-  UserData += TEXT("dasher.rc\\");
-  CreateDirectory(UserData.c_str(), NULL);      // Try and create folders. Doesn't seem
-  string userDir;
-  wstring_to_UTF8string(UserData,userDir);
-  UserData +=pattern;
-  ScanDirectory(UserData, vFileList); 
+  string userDir = GetDataPath(true);
+  ScanDirectory(userDir + strPattern, vFileList); 
   for (vector<std::string>::iterator it=vFileList.begin(); it!=vFileList.end(); it++)
     parser->ParseFile(userDir + (*it),true);
 }
 
+std::string CWinFileUtils::GetDataPath(bool user) {
+	using namespace WinHelper;
+	using namespace WinUTF8;
+	wstring DataPath;
+	if (user) {
+		GetUserDirectory(&DataPath);
+		DataPath += TEXT("dasher.rc\\");
+	}
+	else {
+		GetAppDirectory(&DataPath);
+		DataPath += TEXT("system.rc\\");
+
+	}
+	CreateDirectory(DataPath.c_str(), NULL);// TODO: Any harm if they already exist
+
+	return wstring_to_UTF8string(DataPath.c_str());
+}
+
 int CWinFileUtils::GetFileSize(const std::string &strFileName) {
-#ifndef _WIN32_WCE
   struct _stat sStatInfo;
   _stat(strFileName.c_str(), &sStatInfo);
   return sStatInfo.st_size;
-#else
-  // TODO: Fix this on Win CE
-  return 0;
-#endif
 }
 
 // TODO: Check that syntax here is sensible

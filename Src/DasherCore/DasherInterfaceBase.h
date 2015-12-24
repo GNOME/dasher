@@ -82,6 +82,10 @@ public:
 	/// \param pattern string matching just filename (not path), potentially
 	/// including '*'s (as per glob)
 	virtual void ScanFiles(AbstractParser *parser, const std::string &strPattern) = 0;
+
+	// Writes file to user data directory. 
+	virtual bool WriteUserDataFile(const std::string &filename, const std::string &strNewText, bool append) = 0;
+
 };
 
 /// The central class in the core of Dasher. Ties together the rest of
@@ -238,8 +242,8 @@ public:
   /// \param filename name of training file, without path (e.g. "training_english_GB.txt")
   /// \param strNewText text to append
   ///
-
-  virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText) {
+  void WriteTrainFile(const std::string &filename, const std::string &strNewText) {
+    m_fileUtils->WriteUserDataFile(filename, strNewText, true);
   };
 
   // App Interface

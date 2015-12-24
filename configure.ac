@@ -405,8 +405,6 @@ AC_SUBST(hildon_CFLAGS)
 
 AC_SUBST(GETTEXT_PACKAGE)
 
-AM_CONDITIONAL(USE_GCONF, test x$have_gconf = xtrue)
-AM_CONDITIONAL(USE_GSETTINGS, test x$have_gsettings = xtrue)
 AM_CONDITIONAL(DOGTK, test x$BUILDGTK = xtrue)
 AM_CONDITIONAL(DOQTE, test x$WITHQTE = xtrue)
 AM_CONDITIONAL(USE_SPEECHDISPATCHER, test $speech_module = speechdispatcher)

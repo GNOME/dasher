@@ -19,7 +19,6 @@
 using namespace Dasher;
 class CDasherApp : public CAtlExeModuleT< CDasherApp >
 {
-  CDasherWindow *m_pDasherWindow;
 public:
   /*
   Entry point to program on Windows systems
@@ -29,7 +28,7 @@ public:
   Control is passed to the main GUI loop, and only returns when the main window closes.
   */
   HRESULT Run(int nShowCmd){
-    m_pDasherWindow = new CDasherWindow(xml_config_file_);
+    m_pDasherWindow = new CDasherWindow(m_configName);
 
     m_pDasherWindow->Create();
     m_pDasherWindow->Show(nShowCmd);
@@ -53,7 +52,7 @@ public:
 	  auto argv = CommandLineToArgvW(lpCmdLine, &argc);
 	  for (int i = 0; i < argc; ++i) {
 		    if (wcsicmp(argv[i], L"/config") == 0 && i + 1 < argc) {
-            xml_config_file_ = argv[i + 1];
+            m_configName = argv[i + 1];
 		    }
 	  }
 	  LocalFree(argv);
@@ -61,7 +60,10 @@ public:
   }
 
   static VOID CALLBACK HandleWinEvent(HWINEVENTHOOK hWinEventHook, DWORD event, HWND hwnd, LONG idObject, LONG idChild, DWORD dwEventThread, DWORD dwmsEventTime);
-  CString xml_config_file_;
+private:
+  wstring m_configName;
+  CDasherWindow *m_pDasherWindow;
+
 } DasherApp;
 
 

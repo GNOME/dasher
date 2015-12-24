@@ -25,7 +25,6 @@
 
 #include "Widgets/Toolbar.h"
 #include "WinCommon.h"
-#include "WinOptions.h"
 #include "../DasherCore/XmlSettingsStore.h"
 #include <windows.h>
 #include "resource.h"
@@ -53,7 +52,7 @@ public:
 // text services framework stuff, which were never really finished. If
 // required, look in version control history (prior to May 2007).
 
-CDasherWindow::CDasherWindow(const CString& xml_config_file) : xml_config_file_(xml_config_file) {
+CDasherWindow::CDasherWindow(const wstring& configName) : m_configName(configName){
   m_bFullyCreated = false;
   m_pAppSettings = 0;
   m_pToolbar = 0;
@@ -80,20 +79,15 @@ HWND CDasherWindow::Create() {
   Tstring WindowTitle;
   WinLocalisation::GetResourceString(IDS_APP_TITLE, &WindowTitle);
 
+  string configFileName = "settings.xml";
+  if (!m_configName.empty())
+    configFileName = "settings." + WinUTF8::wstring_to_UTF8string(m_configName.c_str()) + ".xml";
   static XmlErrorDisplay display;
-  CFileUtils* fileUtils = new CWinFileUtils();
-  Dasher::CSettingsStore* settings;
-  if (xml_config_file_.IsEmpty()) {
-      settings = new CWinOptions("Inference Group", "Dasher3");
-  }
-  else {
-      std::string utf8_path = WinUTF8::narrow(xml_config_file_);
-      auto xml_settings = new Dasher::XmlSettingsStore(utf8_path, &display);
-      xml_settings->Load();
-      // Save the defaults if needed.
-      xml_settings->Save();
-      settings = xml_settings;
-  }
+  static CWinFileUtils fileUtils;
+  auto settings = new Dasher::XmlSettingsStore(configFileName, &fileUtils, &display);
+  settings->Load();
+  // Save the defaults if needed.
+  settings->Save();
 
   m_pAppSettings = new CAppSettings(0, 0, settings);  // Takes ownership of the settings store.
   int iStyle(m_pAppSettings->GetLongParameter(APP_LP_STYLE));
@@ -114,7 +108,7 @@ HWND CDasherWindow::Create() {
   m_pEdit->Create(hWnd, m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
   m_pEdit->SetFont(m_pAppSettings->GetStringParameter(APP_SP_EDIT_FONT), m_pAppSettings->GetLongParameter(APP_LP_EDIT_FONT_SIZE));
 
-  m_pDasher = new CDasher(hWnd, this, m_pEdit, settings, fileUtils); // Takes ownership of the fileUtils
+  m_pDasher = new CDasher(hWnd, this, m_pEdit, settings, &fileUtils);
 
   // Create a CAppSettings
   m_pAppSettings->SetHwnd(hWnd);

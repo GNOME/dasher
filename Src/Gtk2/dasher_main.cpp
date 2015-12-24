@@ -26,7 +26,6 @@
 #include "math.h"
 
 #include "dasher_main_private.h"
-#include "GnomeSettingsStore.h"
 #include "XmlSettingsStore.h"
 
 enum {
@@ -173,18 +172,17 @@ DasherMain *
 dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     DasherMain *pDasherMain = (DasherMain *)(g_object_new(dasher_main_get_type(), NULL));
     DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pDasherMain);
-
+  string configFileName = "settings.xml";
+  if (pCommandLine->szConfigFile != nullptr)
+    configFileName = "settings." + pCommandLine->szConfigFile + ".xml";
   static XmlErrorDisplay display;
-  Dasher::CSettingsStore* settings;
-  if (pCommandLine->szConfigFile == nullptr) {
-    settings = new CGnomeSettingsStore();
-  } else {
-    auto xml_settings = new Dasher::XmlSettingsStore(pCommandLine->szConfigFile, &display);
-    xml_settings->Load();
-    // Save the defaults if needed.
-    xml_settings->Save();
-    settings = xml_settings;
-  }
+  // TODO Pass that instance of fileutils to DasherControl, instead of creating new one. 
+  static FileUtils fileUtils;
+  auto settings = new Dasher::XmlSettingsStore(configFileName, &fileUtils, &display);
+  settings->Load();
+  // Save the defaults if needed.
+  settings->Save();
+
   DasherAppSettings::Create(settings);
   pPrivate->pAppSettings = DasherAppSettings::Get();
   pPrivate->parameter_callback_id_ =
@@ -209,10 +207,6 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
         g_critical("Application style %s is not supported", pCommandLine->szAppStyle);
         return 0;
       }
-    }
-    else { 
-      // By default use traditional mode
-      pPrivate->pAppSettings->SetLong(APP_LP_STYLE, APP_STYLE_TRAD);
     }
 
     dasher_main_load_interface(pDasherMain);
