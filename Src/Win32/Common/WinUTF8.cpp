@@ -6,9 +6,6 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#include <locale>
-#include <codecvt>
-
 #include "WinCommon.h"
 
 #include "WinUTF8.h"
@@ -83,13 +80,4 @@ void WinUTF8::wstring_to_UTF8string(const wchar_t *Input, string &Output) {
   Output.resize(size_needed);
   WideCharToMultiByte(CP_UTF8, 0, Input, (int)Output.size(), &Output[0], size_needed, NULL, NULL);
   return;
-}
-
-std::string WinUTF8::narrow(const wchar_t* wide) {
-  auto result = wstring_to_UTF8string(wide);
-  // Remove the explicit left to right or right to left mark if present.
-  if (result.size() >= 3 && (result.find("\xE2\x80\xAA") == 0 || result.find("\xE2\x80\xAB") == 0)) {
-    return result.substr(3);
-  }
-  return result;
 }

@@ -158,6 +158,5 @@ void CNodeCreationManager::AddExtras(CDasherNode *pParent) {
 void 
 CNodeCreationManager::ImportTrainingText(const std::string &strPath) {
   ProgressNotifier pn(m_pInterface, m_pTrainer);
-  ifstream in(strPath.c_str(), ios::binary);
 	pn.ParseFile(strPath, true);
 }

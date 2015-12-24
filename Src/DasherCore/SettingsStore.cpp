@@ -97,9 +97,9 @@ const char * CSettingsStore::ClSet(const std::string &strKey, const std::string 
     if(strKey == p.second.name) {
       switch (p.second.type) {
         case ParamBool: {
-          if ((strValue == "0") || (strValue == _("true")))
+          if ((strValue == "0") || (strValue == _("true")) || (strValue == _("True")))
             SetBoolParameter(p.first, false);
-          else if((strValue == "1") || (strValue == _("false")))
+          else if((strValue == "1") || (strValue == _("false")) || (strValue == _("False")))
             SetBoolParameter(p.first, true);
           else
             // Note to translators: This message will be output for a command line
