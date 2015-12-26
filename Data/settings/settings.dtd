@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!ELEMENT settings ((long|bool|string)*)>
+
+<!ELEMENT long EMPTY>
+<!ATTLIST long name  CDATA #REQUIRED>
+<!ATTLIST long value CDATA #REQUIRED>
+
+
+<!ELEMENT bool EMPTY>
+<!ATTLIST bool name  CDATA #REQUIRED>
+<!ATTLIST bool value CDATA #REQUIRED>
+
+<!ELEMENT string EMPTY>
+<!ATTLIST string name  CDATA #REQUIRED>
+<!ATTLIST string value CDATA #REQUIRED>

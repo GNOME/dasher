@@ -4,7 +4,7 @@ how those symbols may be used. -->
 
 <!ELEMENT alphabets (alphabet*)>
 
-<!ELEMENT alphabet (orientation, encoding, palette, train, paragraph,
+<!ELEMENT alphabet (orientation, encoding, palette, train, langcode?, paragraph,
 	space, control, conversionmode?, group*)>
 <!ATTLIST alphabet name CDATA #REQUIRED>
 

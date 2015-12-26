@@ -79,6 +79,8 @@ bool XmlSettingsStore::Save() {
     modified_ = false;
     std::stringstream out;
     out << "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n";
+    out << "<!DOCTYPE settings SYSTEM \"settings.dtd\">\n";
+
     out << "<settings>\n";
     for (const auto& p : long_settings_) {
       out << "<long name=\"" << p.first << "\" value=\"" << p.second
