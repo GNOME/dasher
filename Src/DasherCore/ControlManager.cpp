@@ -330,6 +330,7 @@ CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManage
   m_actions["pause"] = new Pause();
   if (pInterface->SupportsSpeech()) {
     m_actions["speak what=all"] = new TextDistanceAction(m_pSpeech, EDIT_FILE);
+    m_actions["speak what=page"] = new TextDistanceAction(m_pSpeech, EDIT_PAGE);
     m_actions["speak what=paragraph"] = new TextDistanceAction(m_pSpeech, EDIT_PARAGRAPH);
     m_actions["speak what=sentence"] = new TextDistanceAction(m_pSpeech, EDIT_SENTENCE);
     m_actions["speak what=line"] = new TextDistanceAction(m_pSpeech, EDIT_LINE);
@@ -340,6 +341,7 @@ CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManage
   }
   if (pInterface->SupportsClipboard()) {
     m_actions["copy what=all"] = new TextDistanceAction(m_pCopy, EDIT_FILE);
+    m_actions["copy what=page"] = new TextDistanceAction(m_pCopy, EDIT_PAGE);
     m_actions["copy what=paragraph"] = new TextDistanceAction(m_pCopy, EDIT_PARAGRAPH);
     m_actions["copy what=sentence"] = new TextDistanceAction(m_pCopy, EDIT_SENTENCE);
     m_actions["copy what=line"] = new TextDistanceAction(m_pCopy, EDIT_LINE);
@@ -352,6 +354,7 @@ CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManage
   m_actions["move dist=line forward=yes"] = new Move(true, EDIT_LINE);
   m_actions["move dist=sentence forward=yes"] = new Move(true, EDIT_SENTENCE);
   m_actions["move dist=paragraph forward=yes"] = new Move(true, EDIT_PARAGRAPH);
+  m_actions["move dist=page forward=yes"] = new Move(true, EDIT_PAGE);
   m_actions["move dist=all forward=yes"] = new Move(true, EDIT_FILE);
 
   m_actions["move dist=char forward=no"] = new Move(false, EDIT_CHAR);
@@ -359,6 +362,7 @@ CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManage
   m_actions["move dist=line forward=no"] = new Move(false, EDIT_LINE);
   m_actions["move dist=sentence forward=no"] = new Move(false, EDIT_SENTENCE);
   m_actions["move dist=paragraph forward=no"] = new Move(false, EDIT_PARAGRAPH);
+  m_actions["move dist=page forward=no"] = new Move(false, EDIT_PAGE);
   m_actions["move dist=all forward=no"] = new Move(false, EDIT_FILE);
 
   m_actions["delete dist=char forward=yes"] = new Delete(true, EDIT_CHAR);
@@ -366,6 +370,7 @@ CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManage
   m_actions["delete dist=line forward=yes"] = new Delete(true, EDIT_LINE);
   m_actions["delete dist=sentence forward=yes"] = new Delete(true, EDIT_SENTENCE);
   m_actions["delete dist=paragraph forward=yes"] = new Delete(true, EDIT_PARAGRAPH);
+  m_actions["delete dist=page forward=yes"] = new Delete(true, EDIT_PAGE);
   m_actions["delete dist=all forward=yes"] = new Delete(true, EDIT_FILE);
 
   m_actions["delete dist=char forward=no"] = new Delete(false, EDIT_CHAR);
@@ -373,6 +378,7 @@ CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManage
   m_actions["delete dist=line forward=no"] = new Delete(false, EDIT_LINE);
   m_actions["delete dist=sentence forward=no"] = new Delete(false, EDIT_SENTENCE);
   m_actions["delete dist=paragraph forward=no"] = new Delete(false, EDIT_PARAGRAPH);
+  m_actions["delete dist=page forward=no"] = new Delete(false, EDIT_PAGE);
   m_actions["delete dist=all forward=no"] = new Delete(false, EDIT_FILE);
 
   m_pInterface->ScanFiles(this, "control.xml"); //just look for the one

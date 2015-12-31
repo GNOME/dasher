@@ -184,7 +184,7 @@ namespace Dasher {
     void HandleEvent(int iParameter);
 
     typedef enum {
-      EDIT_CHAR, EDIT_WORD, EDIT_SENTENCE, EDIT_PARAGRAPH, EDIT_FILE, EDIT_LINE, EDIT_SELECTION,
+      EDIT_CHAR, EDIT_WORD, EDIT_SENTENCE, EDIT_PARAGRAPH, EDIT_FILE, EDIT_LINE, EDIT_PAGE, EDIT_SELECTION,
     } EditDistance;
 
     ///Recomputes which of pause, stop, speak and copy the root control node should have amongst its children.
