@@ -1,3 +1,3 @@
-pkgdata_DATA = control.xml control.textlabels.xml control.dtd
+pkgdata_DATA = control.xml control.411.xml control.dtd
 
-EXTRA_DIST = control.xml control.textlabels.xml control.dtd
+EXTRA_DIST = control.xml control.411.xml control.dtd
