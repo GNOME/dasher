@@ -380,9 +380,11 @@ CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManage
   m_actions["delete dist=paragraph forward=no"] = new Delete(false, EDIT_PARAGRAPH);
   m_actions["delete dist=page forward=no"] = new Delete(false, EDIT_PAGE);
   m_actions["delete dist=all forward=no"] = new Delete(false, EDIT_FILE);
-
-  m_pInterface->ScanFiles(this, "control.xml"); //just look for the one
-
+  auto id = GetStringParameter(SP_CONTROL_BOX_ID);
+  string fileName = "control.xml";
+  if (!id.empty())
+    fileName = "control." + id + ".xml";
+  m_pInterface->ScanFiles(this, fileName);
   updateActions();
 }
 
