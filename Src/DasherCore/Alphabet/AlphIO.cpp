@@ -66,8 +66,8 @@ CAlphIO::CAlphIO(CMessageDisplay *pMsgs) : AbstractXMLParser(pMsgs) {
 void CAlphIO::GetAlphabets(std::vector <std::string >*AlphabetList) const {
   AlphabetList->clear();
 
-  for(auto Cur = Alphabets.begin(); Cur != Alphabets.end(); Cur++)
-    AlphabetList->push_back(Cur->second->AlphID);
+  for (auto alphabet : Alphabets)
+    AlphabetList->push_back(alphabet.second->AlphID);
 }
 
 std::string CAlphIO::GetDefault() {
@@ -80,7 +80,7 @@ std::string CAlphIO::GetDefault() {
 }
 
 const CAlphInfo *CAlphIO::GetInfo(const std::string &AlphID) const {
-  map<string, const CAlphInfo*>::const_iterator it = Alphabets.find(AlphID);
+  auto it = Alphabets.find(AlphID);
   if (it == Alphabets.end()) //if we don't have the alphabet they ask for,
     it = Alphabets.find("Default"); //give them default - it's better than nothing
   return it->second;
@@ -431,7 +431,7 @@ void CAlphIO::XmlCData(const XML_Char *s, int len) {
 }
 
 CAlphIO::~CAlphIO() {
-  for (std::map<std::string, const CAlphInfo* >::iterator it = Alphabets.begin(); it != Alphabets.end(); ++it) {
-    delete it->second;
+  for (auto it : Alphabets) {
+    delete it.second;
   }
 }

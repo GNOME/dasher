@@ -84,7 +84,8 @@ namespace Dasher {
     class Action {
     public:
       virtual ~Action() = default;
-      virtual void happen(CContNode *pNode) {}
+      virtual int calculateNewOffset(CControlBase::CContNode *pNode, int offsetBefore) { return offsetBefore; }
+        virtual void happen(CContNode *pNode) {}
     };
     class NodeTemplate : public Action {
     public:
@@ -93,6 +94,7 @@ namespace Dasher {
       const std::string m_strLabel;
       const int m_iColour;
       std::vector<NodeTemplate *> successors;
+
     private:
       friend class CControlBase;
       CDasherScreen::Label *m_pLabel;

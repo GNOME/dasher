@@ -274,6 +274,7 @@ void CDasherInterfaceBase::HandleEvent(int iParameter) {
     m_pWordSpeaker = GetBoolParameter(BP_SPEAK_WORDS) ? new WordSpeaker(this) : NULL;
     break;
   case BP_CONTROL_MODE:
+  case SP_CONTROL_BOX_ID:
     // force rebuilding every node. If not control box is accessed after delete.
     CreateNCManager();
     break;

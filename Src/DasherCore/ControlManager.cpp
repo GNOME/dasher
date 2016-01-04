@@ -105,6 +105,7 @@ void CControlBase::CContNode::PopulateChildren() {
 
   const unsigned int iNChildren( m_pTemplate->successors.size() );
   unsigned int iLbnd(0), iIdx(0);
+      int newOffset = m_pTemplate->calculateNewOffset(this, offset());
 
   for (vector<NodeTemplate *>::iterator it = m_pTemplate->successors.begin(); it!=m_pTemplate->successors.end(); it++) {
 
@@ -113,11 +114,10 @@ void CControlBase::CContNode::PopulateChildren() {
     if( *it == NULL ) {
       // Escape back to alphabet
 
-      pNewNode = m_pMgr->m_pNCManager->GetAlphabetManager()->GetRoot(this, false, offset()+1);
+      pNewNode = m_pMgr->m_pNCManager->GetAlphabetManager()->GetRoot(this, false, newOffset + 1);
     }
     else {
-
-      pNewNode = new CContNode(offset(), m_pMgr->getColour(*it, this), *it, m_pMgr);
+      pNewNode = new CContNode(newOffset, m_pMgr->getColour(*it, this), *it, m_pMgr);
     }
     pNewNode->Reparent(this, iLbnd, iHbnd);
     iLbnd=iHbnd;
@@ -144,14 +144,21 @@ public:
   XMLNodeTemplate(const string &label, int color) : NodeTemplate(label, color) {
   }
 
-  void happen(CControlBase::CContNode *pNode) {
-    for (vector<Action*>::iterator it=actions.begin(); it!=actions.end(); it++)
-      (*it)->happen(pNode);
+  int calculateNewOffset(CControlBase::CContNode *pNode, int offsetBefore) override {
+    int newOffset = offsetBefore;
+    for (auto pAction : actions)
+      newOffset = pAction->calculateNewOffset(pNode, newOffset);
+    return newOffset;
+  }
+
+  void happen(CControlBase::CContNode *pNode) override {
+    for (auto pAction : actions)
+      pAction->happen(pNode);
   }
 
   ~XMLNodeTemplate() {
-    for (vector<Action*>::iterator it=actions.begin(); it!=actions.end(); it++)
-      delete *it;
+    for (auto pAction : actions)
+      delete pAction;
   }
 
   vector<CControlBase::Action*> actions;
@@ -298,6 +305,19 @@ class Delete : public CControlBase::Action {
   const CControlManager::EditDistance m_dist;
 public:
   Delete(bool bForwards, CControlManager::EditDistance dist) : m_bForwards(bForwards), m_dist(dist)  {
+ }
+  int calculateNewOffset(CControlBase::CContNode *pNode, int offsetBefore) override {
+    if (m_bForwards)
+      return offsetBefore;
+    switch (m_dist) {
+    case CControlManager::EDIT_FILE:
+      return -1;
+    case CControlManager::EDIT_CHAR: {
+      return max(-1, offsetBefore - 1);
+    }
+    default:
+      return offsetBefore;
+    }
   }
   virtual void happen(CControlBase::CContNode *pNode) {
     pNode->mgr()->GetDasherInterface()->ctrlDelete(m_bForwards, m_dist);
@@ -309,6 +329,23 @@ class Move : public CControlBase::Action {
   const CControlManager::EditDistance m_dist;
 public:
   Move(bool bForwards, CControlManager::EditDistance dist) : m_bForwards(bForwards), m_dist(dist)  {
+  }
+  int calculateNewOffset(CControlBase::CContNode *pNode, int offsetBefore) override {
+    switch (m_dist) {
+    case CControlManager::EDIT_FILE:
+      return m_bForwards ? pNode->mgr()->GetDasherInterface()->GetAllContextLenght() - 1 : -1;
+
+    case CControlManager::EDIT_CHAR: {
+      if (m_bForwards) {
+        int maxPos = pNode->mgr()->GetDasherInterface()->GetAllContextLenght() - 1;
+        return min(maxPos, offsetBefore + 1);
+      }
+      else
+        return max(-1, offsetBefore - 1);
+    }
+    default:
+      return offsetBefore;
+    }
   }
   virtual void happen(CControlBase::CContNode *pNode) {
     pNode->mgr()->GetDasherInterface()->ctrlMove(m_bForwards, m_dist);
@@ -385,6 +422,7 @@ CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManage
   if (!id.empty())
     fileName = "control." + id + ".xml";
   m_pInterface->ScanFiles(this, fileName);
+
   updateActions();
 }
 
@@ -439,6 +477,7 @@ void CControlManager::updateActions() {
   // If nothing was read from control.xml, add alphabet and control box
   if (GetRootTemplate()->successors.empty())
   {
+    m_pMsgs->Message("Control box is empty.", false);
     GetRootTemplate()->successors.push_back(NULL);
     GetRootTemplate()->successors.push_back(GetRootTemplate());
   }
