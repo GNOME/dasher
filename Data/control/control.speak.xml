@@ -6,23 +6,13 @@
 
     <node label="&#128464;" color="-1">
       <speak what="all"/>
-      <alph/>
+      <ref name="CTL_SPEAK"/>
       <node label="&#8999;&#128464;" color="242">
         <delete forward="yes" dist="all"/>
         <delete forward="no" dist="all"/>
         <alph/>
         <root/>
       </node>
-      <root/>
-    </node>
-    <node label="&#128711;" color="242">
-      <speak what="cancel"/>
-      <alph/>
-      <root/>
-    </node>
-    <node label="&#128259;" color="241">
-      <speak what="repeat"/>
-      <alph/>
       <root/>
     </node>
     <node label="&#182;" color="-1">
@@ -40,6 +30,16 @@
         <ref name="CTL_SPEAK"/>
         <root/>
       </node>
+    </node>
+    <node label="&#128259;" color="241">
+      <speak what="repeat"/>
+      <alph/>
+      <root/>
+    </node>
+      <node label="&#128711;" color="241">
+      <speak what="cancel"/>
+      <alph/>
+      <root/>
     </node>
   </node>
 
