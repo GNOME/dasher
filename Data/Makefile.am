@@ -1,4 +1,4 @@
-SUBDIRS =  training alphabets colours control GUI Help
+SUBDIRS =  training alphabets colours control settings GUI Help
 
 desktopdir = $(datadir)/applications
 desktop_in_files = dasher.desktop.in
