@@ -7,8 +7,7 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#include <winres.h>
-#include "windows.h"
+#include "afxres.h"
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
@@ -26,6 +25,7 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 //
 
 IDB_COPY_ALL_LARGE_COLOR BITMAP                  "CopyAllLarge.bmp"
+
 #endif    // Neutral resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -94,10 +94,10 @@ FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,185,130,50,14
     ICON            IDI_DASHER,IDC_MYICON,23,18,20,20
-    LTEXT           "Dasher 4.11",IDC_STATIC,67,18,168,10,SS_NOPREFIX
-    LTEXT           "Copyright (C) 1998-2011 The Dasher Project",IDC_STATIC,67,30,168,10
+    LTEXT           "Dasher 5.00-alpha",IDC_STATIC,67,18,168,10,SS_NOPREFIX
+    LTEXT           "Copyright (C) 1998-2016 The Dasher Project",IDC_STATIC,67,30,168,10
     LTEXT           "dasher@inf.phy.cam.ac.uk",IDC_STATIC,67,63,168,10
-    LTEXT           "http://www.inference.phy.cam.ac.uk/dasher/",IDC_STATIC,67,53,168,10
+    LTEXT           "https://github.com/ipomoena/dasher",IDC_STATIC,67,53,168,10
     LTEXT           "FAQ: http://www.metafaq.com/faq/dasher/",IDC_STATIC,67,86,168,10
     LTEXT           "",IDC_STATIC,67,112,168,1,NOT WS_GROUP
 END
@@ -282,6 +282,7 @@ END
 // remains consistent on all systems.
 IDI_DASHER              ICON                    "dasher.ico"
 
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Menu
@@ -348,8 +349,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 4,11,0,0
- PRODUCTVERSION 4,11,0,0
+ FILEVERSION 4,99,9996,1
+ PRODUCTVERSION 4,99,9996,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x3L
@@ -364,15 +365,15 @@ BEGIN
     BEGIN
         BLOCK "080904b0"
         BEGIN
-            VALUE "Comments", "Dasher is an information efficient text-entry system controlled by a pointer. It is licensed under the GPL."
+            VALUE "Comments", "Dasher is an information efficient text-entry system controlled by a pointer or switch. It is licensed under the GPL."
             VALUE "CompanyName", "Inference Group, Cavendish Laboratory, University of Cambridge"
             VALUE "FileDescription", "Dasher"
-            VALUE "FileVersion", "4, 11, 0, 0"
+            VALUE "FileVersion", "4.99.9996.1"
             VALUE "InternalName", "Dasher"
-            VALUE "LegalCopyright", "Copyright © 1998-2011 The Dasher Project"
+            VALUE "LegalCopyright", "Copyright © 1998-2016 The Dasher Project"
             VALUE "OriginalFilename", "dasher.exe"
             VALUE "ProductName", "Dasher"
-            VALUE "ProductVersion", "4, 11, 0, 0"
+            VALUE "ProductVersion", "4.99.9996.1"
         END
     END
     BLOCK "VarFileInfo"
