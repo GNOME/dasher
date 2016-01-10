@@ -17,57 +17,6 @@ svgicon_DATA = dasher.svg
 
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor
 
-if USE_GCONF
-if GCONF_SCHEMAS_INSTALL
-schemasdir = $(GCONF_SCHEMA_FILE_DIR)
-schemas_DATA = dasher.schemas
-
-install-data-local: install-schemas
-
-# A note on what happens here, as it's a custome step. The GConf
-# schema is generated directely from the data structures in the
-# SettingsStore and AppSettings objects, so they stay in sync. This is
-# done by building generate-schema, a small, non-installed program in
-# Src/Gtk2/. At install time this gets run to build the schema file,
-# which is then moved installed in the usual way. None of this happens
-# if configure is told not to install schemas.
-
-dasher.schemas: $(top_builddir)/Src/Gtk2/generate-schema
-	@echo -n "Generating GConf schema ... "; \
-	$(top_builddir)/Src/Gtk2/generate-schema -c > dasher.schemas; \
-	echo "done.";
-
-install-schemas: dasher.schemas
-	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) \
-	gconftool-2 --makefile-install-rule dasher.schemas
-
-compile-schemas:
-# GCONF_SCHEMAS_INSTALL
-endif
-# !USE_GCONF
-else
-if USE_GSETTINGS
-schemasdir = $(datadir)/glib-2.0/schemas
-schemas_DATA = dasher.gschema.xml
-
-check-local: check-schemas
-
-dasher.gschema.xml: $(top_builddir)/Src/Gtk2/generate-schema
-	@echo -n "Generating GSettings schema ... "; \
-	$(top_builddir)/Src/Gtk2/generate-schema -s > dasher.gschema.xml; \
-	echo "done.";
-
-compile-schemas: dasher.gschema.xml
-	$(GLIB_COMPILE_SCHEMAS) --allow-any-name $(schemasdir)
-
-check-schemas: dasher.gschema.xml
-	$(GLIB_COMPILE_SCHEMAS) --allow-any-name --dry-run --schema-file=dasher.gschema.xml
-else
-compile-schemas:
-endif
-endif
-
-
 install-data-hook: update-icon-cache compile-schemas
 
 uninstall-hook: update-icon-cache

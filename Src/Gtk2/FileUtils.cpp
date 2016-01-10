@@ -1,4 +1,5 @@
 #include <string>
+#include <stdio.h>
 
 #include "../Common/Globber.h"
 #include "../DasherCore/AbstractXMLParser.h"
@@ -36,24 +37,17 @@ void FileUtils::ScanFiles(AbstractParser *parser, const std::string &strPattern)
   globScan(parser, user, sys);
 }
 
-
 bool FileUtils::WriteUserDataFile(const std::string &filename, const std::string &strNewText, bool append) {
   if (strNewText.length() == 0)
     return true;
+  std::string strFilename = getenv("HOME");
+  strFilename += "/.dasher/";
+  strFilename += filename;
+  FILE* f = fopen(strFilename.c_str(), append ? "a+" : "w+");
+  if (f == nullptr)
+    return false;
 
-  std::string user_data_dir = getenv("HOME");
-  user_data_dir += "/.dasher/";
-  std::string strFilename(user_data_dir);
-  strFilename = filename;
-  int mode = O_CREAT | O_WRONLY;
-  if (append)
-  {
-    mode = O_CREAT | O_WRONLY | O_APPEND;
-  }
-  int fd = open(strFilename.c_str(), mode, S_IRUSR | S_IWUSR);
-  if (!fd) return false;
- 
-  int written = write(fd, strNewText.c_str(), strNewText.length());
-  close(fd);
+  int written = fwrite(strNewText.c_str(), 1, strNewText.length(), f);
+  fclose(f);
   return written == strNewText.length();
-
+}

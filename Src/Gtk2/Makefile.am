@@ -45,8 +45,6 @@ libdashercontrol_la_SOURCES = \
 		mouse_input.h \
 		$(settings_store)
 
-endif
-
 if USE_SPEECHDISPATCHER
 libdashercontrol_la_SOURCES += SpeechDispatcher.cpp
 endif

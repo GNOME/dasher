@@ -452,6 +452,7 @@ AC_CONFIG_FILES([Data/dasher.desktop.in
 		 Data/GUI/Makefile
 		 Data/Help/Makefile
 		 Data/Help/Gnome/Makefile
+		 Data/settings/Makefile
 		 Doc/Makefile
 		 Doc/user/Makefile
 		 Makefile

@@ -27,6 +27,7 @@
 
 #include "dasher_main_private.h"
 #include "XmlSettingsStore.h"
+#include "FileUtils.h"
 
 enum {
   REALIZED,
@@ -173,8 +174,11 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     DasherMain *pDasherMain = (DasherMain *)(g_object_new(dasher_main_get_type(), NULL));
     DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pDasherMain);
   string configFileName = "settings.xml";
-  if (pCommandLine->szConfigFile != nullptr)
-    configFileName = "settings." + pCommandLine->szConfigFile + ".xml";
+  if (pCommandLine->szConfigFile != nullptr) {
+    configFileName = "settings.";
+    configFileName += pCommandLine->szConfigFile;
+    configFileName += ".xml";
+  }
   static XmlErrorDisplay display;
   // TODO Pass that instance of fileutils to DasherControl, instead of creating new one. 
   static FileUtils fileUtils;
