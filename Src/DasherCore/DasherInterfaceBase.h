@@ -559,6 +559,7 @@ protected:
   CModuleManager m_oModuleManager;
   CAlphIO *m_AlphIO;
   CColourIO *m_ColourIO;
+  CControlBoxIO *m_ControlBoxIO;
   CNodeCreationManager *m_pNCManager;
   CUserLogBase *m_pUserLog;
 

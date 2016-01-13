@@ -180,13 +180,13 @@ bool CControlParser::ParseFile(const string &strFileName, bool bUser) {
   namedNodes.clear();
   unresolvedRefs.clear();
   nodeStack.clear();
-  
+
   if (!AbstractXMLParser::ParseFile(strFileName, bUser)) return false;
   //resolve any forward references to nodes declared later
-  for (vector<pair<CControlBase::NodeTemplate**,string> >::iterator it=unresolvedRefs.begin(); it!=unresolvedRefs.end(); it++) {
-    map<string,CControlBase::NodeTemplate*>::iterator target = namedNodes.find(it->second);
+  for (auto ref : unresolvedRefs) {
+    auto target = namedNodes.find(ref.second);
     if (target != namedNodes.end())
-      *(it->first) = target->second;
+      *(ref.first) = target->second;
   }
   //somehow, need to clear out any refs that weren't resolved...???
   return true;
@@ -417,15 +417,7 @@ CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManage
   m_actions["delete dist=paragraph forward=no"] = new Delete(false, EDIT_PARAGRAPH);
   m_actions["delete dist=page forward=no"] = new Delete(false, EDIT_PAGE);
   m_actions["delete dist=all forward=no"] = new Delete(false, EDIT_FILE);
-  auto id = GetStringParameter(SP_CONTROL_BOX_ID);
-  string fileName = "control.xml";
-  if (!id.empty())
-    fileName = "control." + id + ".xml";
-  m_pInterface->ScanFiles(this, fileName);
-
-  updateActions();
 }
-
 
 CControlBase::NodeTemplate *CControlManager::parseOther(const XML_Char *name, const XML_Char **atts) {
   if (strcmp(name,"root")==0) return GetRootTemplate();
@@ -486,5 +478,44 @@ void CControlManager::updateActions() {
     //hack to make ChangeScreen do something
     m_pScreen = NULL; //i.e. make it think the screen has changed
     ChangeScreen(pScreen);
+  }
+}
+
+CControlBoxIO::CControlBoxIO(CMessageDisplay *pMsgs) : AbstractXMLParser(pMsgs) {
+}
+CControlManager* CControlBoxIO::CreateControlManager(
+  const std::string& id, CSettingsUser *pCreateFrom, CNodeCreationManager *pNCManager, 
+  CDasherInterfaceBase *pInterface) const {
+  auto mgr = new CControlManager(pCreateFrom, pNCManager, pInterface);
+  auto it = m_controlFiles.find(id);
+  if (it != m_controlFiles.end())
+    mgr->ParseFile(it->second, true);
+  mgr->updateActions();
+  return mgr;
+}
+
+void CControlBoxIO::GetControlBoxes(std::vector < std::string > *pList) const {
+  for (auto id_filename : m_controlFiles)
+    pList->push_back(id_filename.first);
+}
+
+bool CControlBoxIO::ParseFile(const std::string &strFilename, bool bUser) {
+  m_filename = strFilename;
+  return AbstractXMLParser::ParseFile(strFilename, bUser);
+}
+
+void CControlBoxIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
+  if (strcmp(name, "nodes") == 0) {
+    string id;
+    while (*atts != 0) {
+      if (strcmp(*atts, "name") == 0) {
+        id = *(atts + 1);
+      }
+      atts += 2;
+    }
+    if (!isUser() && m_controlFiles.count(id))
+      return; // Ignore system files if that name already taken
+
+    m_controlFiles[id] = m_filename;
   }
 }

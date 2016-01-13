@@ -93,6 +93,7 @@ CDasherInterfaceBase::CDasherInterfaceBase(CSettingsStore *pSettingsStore, CFile
   m_pInputFilter = NULL;
   m_AlphIO = NULL;
   m_ColourIO = NULL;
+  m_ControlBoxIO = NULL;
   m_pUserLog = NULL;
   m_pNCManager = NULL;
   m_defaultPolicy = NULL;
@@ -123,6 +124,9 @@ void CDasherInterfaceBase::Realize(unsigned long ulTime) {
 
   m_ColourIO = new CColourIO(this);
   ScanFiles(m_ColourIO, "colour*.xml");
+
+  m_ControlBoxIO = new CControlBoxIO(this);
+  ScanFiles(m_ControlBoxIO, "control*.xml");
 
   ChangeColours();
 
@@ -170,6 +174,7 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   //WriteTrainFileFull();???
   delete m_pDasherModel;        // The order of some of these deletions matters
   delete m_pDasherView;
+  delete m_ControlBoxIO;
   delete m_ColourIO;
   delete m_AlphIO;
   delete m_pNCManager;
@@ -288,7 +293,7 @@ void CDasherInterfaceBase::EnterGameMode(CGameModule *pGameModule) {
   if (CWordGeneratorBase *pWords = m_pNCManager->GetAlphabetManager()->GetGameWords()) {
     if (!pGameModule) pGameModule=CreateGameModule();
     m_pGameModule=pGameModule;
-    m_pNCManager->updateControl();
+    //m_pNCManager->updateControl();
     m_pGameModule->SetWordGenerator(m_pNCManager->GetAlphabet(), pWords);
   } else {
     ///TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
@@ -304,7 +309,7 @@ void CDasherInterfaceBase::LeaveGameMode() {
   CGameModule *pMod = m_pGameModule;
   m_pGameModule=NULL; //point at which we officially exit game mode
   delete pMod;
-  m_pNCManager->updateControl();
+  //m_pNCManager->updateControl();
   SetBuffer(0);
 }
 
@@ -380,7 +385,7 @@ void CDasherInterfaceBase::CreateNCManager() {
   CNodeCreationManager *pOldMgr = m_pNCManager;
 
   //now create the new manager...
-  m_pNCManager = new CNodeCreationManager(this, this, m_AlphIO);
+  m_pNCManager = new CNodeCreationManager(this, this, m_AlphIO, m_ControlBoxIO);
   if (GetBoolParameter(BP_PALETTE_CHANGE))
     SetStringParameter(SP_COLOUR_ID, m_pNCManager->GetAlphabet()->GetPalette());
 
@@ -792,6 +797,10 @@ void CDasherInterfaceBase::GetPermittedValues(int iParameter, std::vector<std::s
   case SP_COLOUR_ID:
     DASHER_ASSERT(m_ColourIO != NULL);
     m_ColourIO->GetColours(&vList);
+    break;
+  case SP_CONTROL_BOX_ID:
+    DASHER_ASSERT(m_ControlBoxIO != NULL);
+    m_ControlBoxIO->GetControlBoxes(&vList);
     break;
   case SP_INPUT_FILTER:
     m_oModuleManager.ListModules(1, vList);

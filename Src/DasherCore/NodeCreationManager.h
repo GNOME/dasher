@@ -19,6 +19,7 @@ namespace Dasher {
   class CDasherInterfaceBase;
   class CControlManager;
   class CDasherScreen;
+  class CControlBoxIO;
 }
 //TODO why is CNodeCreationManager _not_ in namespace Dasher?!?!
 /// \ingroup Model
@@ -27,15 +28,16 @@ class CNodeCreationManager : public Dasher::CSettingsUserObserver {
  public:
   CNodeCreationManager(Dasher::CSettingsUser *pCreateFrom,
                        Dasher::CDasherInterfaceBase *pInterface,
-                       const Dasher::CAlphIO *pAlphIO);
+                       const Dasher::CAlphIO *pAlphIO,
+                       const Dasher::CControlBoxIO *pControlBoxIO);
   ~CNodeCreationManager();
   
   ///Tells us the screen on which all created node labels must be rendered
   void ChangeScreen(Dasher::CDasherScreen *pScreen);
   
-  ///Create/destroy Control Manager, as appropriate (according to
+  ///Create/ or not Control Manager, as appropriate (according to
   /// BP_CONTROL_MODE and game mode status)
-  void updateControl();
+  void CreateControlBox(const Dasher::CControlBoxIO* pControlIO);
 
   void HandleEvent(int iParameter) {}
   ///

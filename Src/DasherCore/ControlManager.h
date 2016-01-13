@@ -137,7 +137,6 @@ namespace Dasher {
   class CControlParser : public AbstractXMLParser {
   public:
     CControlParser(CMessageDisplay *pMsgs);
-  protected:
     ///Loads all node definitions from the specified filename. Note that
     /// system files will not be loaded if user files are (and user files will
     /// clear out any nodes from system ones). However, multiple system or multiple
@@ -147,7 +146,7 @@ namespace Dasher {
     /// \param bUser true if from user-specific location (takes priority over system)
     /// \return true if the file was opened successfully; false if not.
     bool ParseFile(const std::string &strFilename, bool bUser);
-    
+  protected:
     /// \return all node definitions that have been loaded by this CControlParser.
     const vector<CControlBase::NodeTemplate*> &parsedNodes();
     ///Subclasses may override to parse other nodes (besides "node", "ref" and "alph").
@@ -206,11 +205,24 @@ namespace Dasher {
 
   private:
     map<string, CControlBase::Action*> m_actions;
-    ///group of state full actions (all/new/repeat/...)
+    ///group of statefull actions (all/new/repeat/...)
     SpeechHeader *m_pSpeech;
     CopyHeader *m_pCopy;
   };
   /// @}
+
+  class CControlBoxIO : public AbstractXMLParser {
+  public:
+    CControlBoxIO(CMessageDisplay *pMsgs);
+    void GetControlBoxes(std::vector < std::string > *pList) const;
+    CControlManager* CreateControlManager(const std::string& id, CSettingsUser *pCreateFrom, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface) const;
+    bool ParseFile(const std::string &strFilename, bool bUser) override;
+    void XmlStartHandler(const XML_Char *name, const XML_Char **atts) override;
+    void XmlEndHandler(const XML_Char *szName) override {};
+  private:
+    std::map<std::string, std::string> m_controlFiles;
+    std::string m_filename;
+  };
 }
 
 

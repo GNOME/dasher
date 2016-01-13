@@ -46,9 +46,12 @@ private:
   string m_strDisplay;
 };
 
-CNodeCreationManager::CNodeCreationManager(CSettingsUser *pCreateFrom,
-                                           Dasher::CDasherInterfaceBase *pInterface,
-                                           const Dasher::CAlphIO *pAlphIO) : CSettingsUserObserver(pCreateFrom),
+CNodeCreationManager::CNodeCreationManager(
+  CSettingsUser *pCreateFrom,
+  Dasher::CDasherInterfaceBase *pInterface,
+  const Dasher::CAlphIO *pAlphIO,
+  const Dasher::CControlBoxIO *pControlBoxIO
+  ) : CSettingsUserObserver(pCreateFrom),
   m_pInterface(pInterface), m_pControlManager(NULL), m_pScreen(NULL) {
 
   const Dasher::CAlphInfo *pAlphInfo(pAlphIO->GetInfo(GetStringParameter(SP_ALPHABET_ID)));
@@ -109,7 +112,7 @@ CNodeCreationManager::CNodeCreationManager(CSettingsUser *pCreateFrom,
 #endif
 
   HandleEvent(LP_ORIENTATION);
-  updateControl();
+  CreateControlBox(pControlBoxIO);
 }
 
 CNodeCreationManager::~CNodeCreationManager() {
@@ -126,12 +129,13 @@ void CNodeCreationManager::ChangeScreen(CDasherScreen *pScreen) {
   if (m_pControlManager) m_pControlManager->ChangeScreen(pScreen);
 }
 
-void CNodeCreationManager::updateControl() {
+void CNodeCreationManager::CreateControlBox(const CControlBoxIO* pControlIO) {
   delete m_pControlManager;
   unsigned long iControlSpace;
   //don't allow a control manager during Game Mode 
   if (GetBoolParameter(BP_CONTROL_MODE) && !m_pInterface->GetGameModule()) {
-    m_pControlManager = new CControlManager(this, this, m_pInterface);
+    auto id = GetStringParameter(SP_CONTROL_BOX_ID);
+    m_pControlManager = pControlIO->CreateControlManager(id, this, this, m_pInterface);
     if (m_pScreen) m_pControlManager->ChangeScreen(m_pScreen);
     iControlSpace = CDasherModel::NORMALIZATION / 20;
   } else {
