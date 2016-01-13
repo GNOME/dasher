@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE control SYSTEM "control.dtd">
 
-<nodes>
+<control name="Dasher 4.11">
   <alph/>
   
   <node label="Stop" color="242">
@@ -182,4 +182,4 @@
     </node>
   </node>
   
-</nodes>
+</control>

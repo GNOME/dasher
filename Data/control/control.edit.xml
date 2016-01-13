@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<nodes>
+<!DOCTYPE control SYSTEM "control.dtd">
+<control name="Edit Larger Document">
   <alph/>
+  
   <node label="&#9209;" color="242">
     <stop/>
     <alph/>
@@ -226,5 +228,6 @@
     </node>
   </node>
 
-</nodes>
+  <alph/>
+</control>
 

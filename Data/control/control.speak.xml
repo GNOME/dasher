@@ -1,49 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<nodes>
+<!DOCTYPE control SYSTEM "control.dtd">
+<control name="Conversation">
   
-  <node  name="CTL_SPEAK" label="&#128483;" color="241">
-    <alph/>
-
-    <node label="&#128464;" color="-1">
-      <speak what="all"/>
-      <ref name="CTL_SPEAK"/>
-      <node label="&#8999;&#128464;" color="242">
-        <delete forward="yes" dist="all"/>
-        <delete forward="no" dist="all"/>
-        <alph/>
-        <root/>
-      </node>
-      <root/>
-    </node>
-    <node label="&#182;" color="-1">
-      <speak what="paragraph"/>
-      <ref name="CTL_SPEAK"/>
-      <node label="&#8999;&#182;" color="242">
-        <move forward="yes" dist="paragraph"/>
-        <delete forward="no" dist="paragraph"/>
-        <move forward="no" dist="char"/>
-        <alph/>
-        <root/>
-      </node>
-      <node label="&#8680;&#182;" color="-1">
-        <move forward="yes" dist="paragraph"/>
-        <ref name="CTL_SPEAK"/>
-        <root/>
-      </node>
-    </node>
-    <node label="&#128259;" color="241">
-      <speak what="repeat"/>
-      <alph/>
-      <root/>
-    </node>
-      <node label="&#128711;" color="241">
-      <speak what="cancel"/>
-      <alph/>
-      <root/>
-    </node>
-  </node>
 
   <node name="CTL_MOVE" label="&#10018;" color="-1">
+    <alph/>
     <node name="CTL_MOVE_BACKWARD" label="&#8678;" color="-1">
       <node label="&#128464;" color="-1">
         <move forward="no" dist="all"/>
@@ -113,8 +74,8 @@
 
     
   </node>
-  
   <node name="CTL_DELETE" label="&#10683;" color="-1">
+    <alph/>
     <node name="CTL_DELETE_BACKWARD" label="&#9003;" color="-1">
       <node label="&#128464;" color="-1">
         <delete forward="no" dist="all"/>
@@ -193,5 +154,47 @@
     </node>
   </node>
 
-</nodes>
+  <node  name="CTL_SPEAK" label="&#128483;" color="241">
+
+    <node label="&#128464;" color="-1">
+      <speak what="all"/>
+      <ref name="CTL_SPEAK"/>
+      <node label="&#8999;&#128464;" color="242">
+        <delete forward="yes" dist="all"/>
+        <delete forward="no" dist="all"/>
+        <alph/>
+        <root/>
+      </node>
+      <root/>
+    </node>
+    <node label="&#182;" color="-1">
+      <speak what="paragraph"/>
+      <ref name="CTL_SPEAK"/>
+      <node label="&#8999;&#182;" color="242">
+        <move forward="yes" dist="paragraph"/>
+        <delete forward="no" dist="paragraph"/>
+        <move forward="no" dist="char"/>
+        <alph/>
+        <root/>
+      </node>
+      <node label="&#8680;&#182;" color="-1">
+        <move forward="yes" dist="paragraph"/>
+        <ref name="CTL_SPEAK"/>
+        <root/>
+      </node>
+    </node>
+    <node label="&#128259;" color="241">
+      <speak what="repeat"/>
+      <alph/>
+      <root/>
+    </node>
+    <node label="&#128711;" color="241">
+      <speak what="cancel"/>
+      <alph/>
+      <root/>
+    </node>
+    <alph/>
+  </node>
+
+</control>
 

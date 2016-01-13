@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!ELEMENT nodes (node*)>
+<!ELEMENT control ((node|alph)*)>
+<!ATTLIST control name CDATA #REQUIRED>
 
 <!ELEMENT node ((node|move|delete|copy|speak|pause|stop|ref|root|alph)*)>
 <!--by specifying the name attribute as type ID rather than CDATA, the XML
@@ -10,17 +11,17 @@
 
 <!ELEMENT move EMPTY>
 <!ATTLIST move forward (yes|no) #REQUIRED>
-<!ATTLIST move dist (char|word|line|sentence|paragraph|all) #REQUIRED>
+<!ATTLIST move dist (char|word|line|sentence|paragraph|page|all) #REQUIRED>
 
 <!ELEMENT delete EMPTY>
 <!ATTLIST delete forward (yes|no) #REQUIRED>
-<!ATTLIST delete dist (char|word|line|sentence|paragraph|all) #REQUIRED>
+<!ATTLIST delete dist (char|word|line|sentence|paragraph|page|all) #REQUIRED>
 
 <!ELEMENT copy EMPTY>
-<!ATTLIST copy dist (all|new|repeat|sentence|paragraph) #REQUIRED>
+<!ATTLIST copy what (new|repeat|word|line|sentence|paragraph|page|all) #REQUIRED>
 
 <!ELEMENT speak EMPTY>
-<!ATTLIST speak what (cancel|all|new|repeat|sentence|paragraph) #REQUIRED>
+<!ATTLIST speak what (cancel|new|repeat|word|line|sentence|paragraph|page|all) #REQUIRED>
 
 <!ELEMENT pause EMPTY>
 

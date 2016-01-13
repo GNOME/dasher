@@ -193,7 +193,7 @@ bool CControlParser::ParseFile(const string &strFileName, bool bUser) {
 }
 
 void CControlParser::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
-  vector<CControlBase::NodeTemplate *> &parent(nodeStack.empty() ? m_vParsed : nodeStack.back()->successors);
+  auto& parent(nodeStack.empty() ? m_vParsed : nodeStack.back()->successors);
   if (strcmp(name,"node")==0) {
     string label,nodeName; int color=-1;
     while (*atts) {
@@ -219,7 +219,7 @@ void CControlParser::XmlStartHandler(const XML_Char *name, const XML_Char **atts
         target=*(atts+1);
       atts+=2;
     }
-    map<string,CControlBase::NodeTemplate*>::iterator it=namedNodes.find(target);
+    auto it=namedNodes.find(target);
     if (it!=namedNodes.end())
       parent.push_back(it->second);
     else {
@@ -505,7 +505,7 @@ bool CControlBoxIO::ParseFile(const std::string &strFilename, bool bUser) {
 }
 
 void CControlBoxIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
-  if (strcmp(name, "nodes") == 0) {
+  if (strcmp(name, "control") == 0) {
     string id;
     while (*atts != 0) {
       if (strcmp(*atts, "name") == 0) {

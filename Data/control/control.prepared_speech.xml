@@ -1,59 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<nodes>
-  
-  <node  name="CTL_SPEAK" label="&#128483;" color="241">
-    <alph/>
-
-    <node label="&#182;" color="-1">
-      <speak what="paragraph"/>
-      <ref name="CTL_SPEAK"/>
-      <node label="&#8680;&#182;" color="-1">
-        <move forward="yes" dist="paragraph"/>
-        <ref name="CTL_SPEAK"/>
-        <root/>
-      </node>
-    </node>
-    <node label=".&#8265;" color="-1">
-      <speak what="sentence"/>
-      <ref name="CTL_SPEAK"/>
-      <node label="&#8680;.&#8265;" color="-1">
-        <move forward="yes" dist="sentence"/>
-        <ref name="CTL_SPEAK"/>
-        <root/>
-      </node>
-    </node>
-
-    <node label="&#128259;" color="241">
-      <speak what="repeat"/>
-      <ref name="CTL_SPEAK"/>
-      <root/>
-    </node>
-    <node label="&#128711;" color="241">
-      <speak what="cancel"/>
-      <ref name="CTL_SPEAK"/>
-      <root/>
-    </node>
-  </node>
+<!DOCTYPE control SYSTEM "control.dtd">
+<control name="Speak From Prepared Document">
 
   <node name="CTL_MOVE" label="&#10018;" color="-1">
+    
     <node name="CTL_MOVE_BACKWARD" label="&#8678;" color="-1">
       <node label="&#128464;" color="-1">
         <move forward="no" dist="all"/>
+        <ref name="CTL_MOVE"/>
         <ref name="CTL_SPEAK"/>
-        <ref name="CTL_MOVE_BACKWARD"/>
-        <ref name="CTL_MOVE_FORWARD"/>
       </node>
       <node label="&#182;" color="-1">
         <move forward="no" dist="paragraph"/>
+        <ref name="CTL_MOVE"/>
         <ref name="CTL_SPEAK"/>
-        <ref name="CTL_MOVE_BACKWARD"/>
-        <ref name="CTL_MOVE_FORWARD"/>
       </node>
       <node label=".&#8265;" color="-1">
         <move forward="no" dist="sentence"/>
+        <ref name="CTL_MOVE"/>
         <ref name="CTL_SPEAK"/>
-        <ref name="CTL_MOVE_BACKWARD"/>
-        <ref name="CTL_MOVE_FORWARD"/>
       </node>
     </node>
 
@@ -61,26 +26,46 @@
 
       <node label=".&#8265;" color="-1">
         <move forward="yes" dist="sentence"/>
+        <ref name="CTL_MOVE"/>
         <ref name="CTL_SPEAK"/>
-        <ref name="CTL_MOVE_BACKWARD"/>
-        <ref name="CTL_MOVE_FORWARD"/>
       </node>
       <node label="&#182;" color="-1">
         <move forward="yes" dist="paragraph"/>
+        <ref name="CTL_MOVE"/>
         <ref name="CTL_SPEAK"/>
-        <ref name="CTL_MOVE_BACKWARD"/>
-        <ref name="CTL_MOVE_FORWARD"/>
       </node>
       <node label="&#128464;" color="-1">
         <move forward="yes" dist="all"/>
+        <ref name="CTL_MOVE"/>
         <ref name="CTL_SPEAK"/>
-        <ref name="CTL_MOVE_BACKWARD"/>
-        <ref name="CTL_MOVE_FORWARD"/>
       </node>
     </node>
-
-    
   </node>
-  
-</nodes>
+
+  <node  name="CTL_SPEAK" label="&#128483;" color="241">
+
+    <node label="&#182;" color="-1">
+      <speak what="paragraph"/>
+      <move forward="yes" dist="paragraph"/>
+      <ref name="CTL_MOVE"/>
+      <ref name="CTL_SPEAK"/>
+    </node>
+    <node label=".&#8265;" color="-1">
+      <speak what="sentence"/>
+      <move forward="yes" dist="sentence"/>
+      <ref name="CTL_MOVE"/>
+      <ref name="CTL_SPEAK"/>
+    </node>
+    <node label="&#128259;" color="241">
+      <speak what="repeat"/>
+      <ref name="CTL_MOVE"/>
+      <ref name="CTL_SPEAK"/>
+    </node>
+    <node label="&#128711;" color="241">
+      <speak what="cancel"/>
+      <ref name="CTL_MOVE"/>
+      <ref name="CTL_SPEAK"/>
+    </node>
+  </node>
+</control>
 
