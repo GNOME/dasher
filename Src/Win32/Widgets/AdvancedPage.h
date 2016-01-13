@@ -23,17 +23,11 @@ public:
 protected:
 private:
 
-  std::string GetControlText(HWND Dialog, int ControlID);
-
-
-  // Some status flags:
   void PopulateList();
-  void InitCustomBox();
-  bool UpdateInfo();
   bool Apply();
 
  TCHAR m_tcBuffer[1000];
-
+ std::vector<std::string> m_ControlBoxItems;
 };
 
 #endif  /* #ifndef __AlphabetBox_h__ */
