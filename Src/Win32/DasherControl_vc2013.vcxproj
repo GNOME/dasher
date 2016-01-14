@@ -71,22 +71,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>.\Target/Debug\</OutDir>
     <IntDir>.\Target/Debug/Intermediate\</IntDir>
-    <IncludePath>$(EXPAT)\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(EXPAT)\Source\lib;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>.\Target/Release\</OutDir>
     <IntDir>.\Target/Release/Intermediate\</IntDir>
-    <IncludePath>$(EXPAT)\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(EXPAT)\Source\lib;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mobile Debug|Win32'">
     <OutDir>$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
-    <IncludePath>$(EXPAT)\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(EXPAT)\Source\lib;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release (W2K)|Win32'">
     <OutDir>$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
-    <IncludePath>$(EXPAT)\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(EXPAT)\Source\lib;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

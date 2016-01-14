@@ -62,21 +62,21 @@
     <IntDir>.\Target/Debug/Intermediate\</IntDir>
     <LinkIncremental>true</LinkIncremental>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
-    <IncludePath>$(EXPAT)\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(EXPAT)\Source\lib;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>.\Target/Release\</OutDir>
     <IntDir>.\Target/Release/Intermediate\</IntDir>
     <LinkIncremental>true</LinkIncremental>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
-    <IncludePath>$(EXPAT)\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(EXPAT)\Source\lib;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mobile Debug|Win32'">
     <OutDir>$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
-    <IncludePath>$(EXPAT)\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(EXPAT)\Source\lib;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Midl>
