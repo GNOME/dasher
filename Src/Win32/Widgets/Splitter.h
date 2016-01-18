@@ -32,49 +32,23 @@ public:
 
 	void Move(int Pos, int Width);
 	
-	int GetHeight() 
-	{
-#ifndef _WIN32_WCE
-    // (from MSDN) SM_CYSIZEFRAME: 
-    // The thickness of the sizing border around the perimeter of a
-    // window that can be resized, in pixels.
-    // SM_CXSIZEFRAME is the width of the horizontal border, and
-    // SM_CYSIZEFRAME is the height of the vertical border. 
-		return GetSystemMetrics(SM_CYSIZEFRAME);
-#else
-    // TODO: Fix this for Windows CE
-    return 8;
-#endif
-	} 
+  int GetHeight();
 	
 	int GetPos() 
 	{
 		return m_iPos;
 	}
 
-	void SetPos(int Pos)
-	{
-		m_iPos = Pos;
-	}
-
+  bool IsSizing() const { return m_SplitStatus == Sizing; }
 	static ATL::CWndClassInfo& GetWndClassInfo() 
   { 
 
-#ifndef _WIN32_WCE
     static ATL::CWndClassInfo wc = 
 		{ 
 			{ sizeof(WNDCLASSEX), CS_HREDRAW | CS_VREDRAW , StartWindowProc, 
 			  0, 0, NULL, NULL, NULL, (HBRUSH)(COLOR_WINDOW), NULL, _T("HSplitter"), NULL }, 
 			NULL, NULL, MAKEINTRESOURCE(IDC_SIZENS), TRUE, 0, _T("") 
 		};
-#else
-		static ATL::CWndClassInfo wc = \
-		{ \
- 			{ CS_HREDRAW | CS_VREDRAW , StartWindowProc, \
-			  0, 0, NULL, NULL, NULL, (HBRUSH)(COLOR_WINDOW), NULL, _T("HSplitter")}, \
-			NULL, NULL, MAKEINTRESOURCE(IDC_SIZENS), TRUE, 0, _T("") \
-		};
-#endif
 		return wc;
 	}
 

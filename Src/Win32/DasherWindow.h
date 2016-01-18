@@ -90,6 +90,8 @@ private:
 	HICON m_hIconSm;
 
 	HMENU m_hMenu;
+  mutable bool m_bSizeRestored;
+
   std::wstring m_configName;
   std::unique_ptr<Dasher::CSettingsStore> setting_store_;
 	// Misc window handling

@@ -62,22 +62,21 @@ void CAppSettings::GetPermittedValues(int iParameter, vector<string> &vList) {
   m_pDasher->GetPermittedValues(iParameter,vList);
 }
 
-static const char FormatWindowPlacement[] = "%u,%u,%d,%d,%d,%d,%d,%d,%d,%d,%d";
+static const char FormatWindowPlacement[] = "%u,%u,%d,%d,%d,%d,%d,%d,%d,%d";
 
 /////////////////////////////////////////////////////////////////////////////
-#ifndef _WIN32_WCE
 
-void CAppSettings::SaveWindowPlacement(int iParameter, const LPWINDOWPLACEMENT pwp, int sp) {
+void CAppSettings::SaveWindowPlacement(int iParameter, const LPWINDOWPLACEMENT pwp) {
   DASHER_ASSERT(pwp != NULL);
 
   char t[200];
-  sprintf_s(t, sizeof(t), FormatWindowPlacement, pwp->flags, pwp->showCmd, pwp->ptMinPosition.x, pwp->ptMinPosition.y, pwp->ptMaxPosition.x, pwp->ptMaxPosition.y, pwp->rcNormalPosition.left, pwp->rcNormalPosition.top, pwp->rcNormalPosition.right, pwp->rcNormalPosition.bottom,sp);
+  sprintf_s(t, sizeof(t), FormatWindowPlacement, pwp->flags, pwp->showCmd, pwp->ptMinPosition.x, pwp->ptMinPosition.y, pwp->ptMaxPosition.x, pwp->ptMaxPosition.y, pwp->rcNormalPosition.left, pwp->rcNormalPosition.top, pwp->rcNormalPosition.right, pwp->rcNormalPosition.bottom);
   SetStringParameter(iParameter, t);
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-bool CAppSettings::LoadWindowPlacement(int iParameter, LPWINDOWPLACEMENT pwp, int* psp) {
+bool CAppSettings::LoadWindowPlacement(int iParameter, LPWINDOWPLACEMENT pwp) {
   DASHER_ASSERT(pwp != NULL);
 
   auto str = GetStringParameter(iParameter);
@@ -90,13 +89,11 @@ bool CAppSettings::LoadWindowPlacement(int iParameter, LPWINDOWPLACEMENT pwp, in
                        &wp.ptMinPosition.x, &wp.ptMinPosition.y,
                        &wp.ptMaxPosition.x, &wp.ptMaxPosition.y,
                        &wp.rcNormalPosition.left, &wp.rcNormalPosition.top,
-                       &wp.rcNormalPosition.right, &wp.rcNormalPosition.bottom, psp);
+                       &wp.rcNormalPosition.right, &wp.rcNormalPosition.bottom);
 
-  if(nRead != 11)
+  if(nRead < 10)
     return false;
   wp.length = sizeof(wp);
   *pwp = wp;
   return true;
 }
-
-#endif

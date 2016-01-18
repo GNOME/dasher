@@ -46,7 +46,8 @@ static menuentry menutable[] = {
   {BP_CONTROL_MODE, IDC_CONTROLMODE},  // Not global setting - specific to editbox/widget
   {BP_SPEAK_WORDS, IDC_CHECK4},
   {BP_SPEAK_ALL_ON_STOP, IDC_CHECK3},
-  {BP_COPY_ALL_ON_STOP, IDC_COPYONSTOP}
+  { BP_COPY_ALL_ON_STOP, IDC_COPYONSTOP },
+  { APP_BP_MIRROR_LAYOUT, IDC_MIRROR_LAYOUT},
 };
 
 void CAdvancedPage::PopulateList() {

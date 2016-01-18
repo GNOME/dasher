@@ -49,10 +49,8 @@ public:
   void ResetParamater(int iParameter);
   void GetPermittedValues(int iParameter, std::vector<std::string> &vList);
 
-  #ifndef _WIN32_WCE
-  bool LoadWindowPlacement(int iParameter, LPWINDOWPLACEMENT pwp, int* psp);
-  void SaveWindowPlacement(int iParameter, const LPWINDOWPLACEMENT pwp, int sp);
-  #endif
+  bool LoadWindowPlacement(int iParameter, LPWINDOWPLACEMENT pwp);
+  void SaveWindowPlacement(int iParameter, const LPWINDOWPLACEMENT pwp);
 
   void SetHwnd(HWND hWnd) {
     m_hWnd = hWnd;

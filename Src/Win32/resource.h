@@ -45,6 +45,7 @@
 #define IDC_BUTTON_PREFS2               1019
 #define IDC_THICKLINE                   1020
 #define IDC_COPYONSTOP                  1020
+#define IDC_MIRROR_LAYOUT               1021
 #define IDC_SPACE                       1036
 #define IDC_UNIFORMVAL                  1040
 #define IDC_CHECK3                      1071

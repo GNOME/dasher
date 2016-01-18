@@ -60,6 +60,7 @@ CDasherWindow::CDasherWindow(const wstring& configName) : m_configName(configNam
   m_pSpeedAlphabetBar = 0;
   m_pSplitter = 0;
   m_pDasher = 0;
+  m_bSizeRestored = false;
 
   m_hIconSm = (HICON)LoadImage(WinHelper::hInstApp, (LPCTSTR)IDI_DASHER, IMAGE_ICON, GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR);
 
@@ -153,17 +154,14 @@ void CDasherWindow::SaveWindowState() const {
   wp.length = sizeof(WINDOWPLACEMENT);
 
   if (GetWindowPlacement(&wp)) {//function call succeeds
-    m_pAppSettings->SaveWindowPlacement(APP_SP_WINDOW_STATE, &wp, m_pSplitter->GetPos());
+    m_pAppSettings->SaveWindowPlacement(APP_SP_WINDOW_STATE, &wp);
   }
 }
 
 bool CDasherWindow::LoadWindowState() {
   WINDOWPLACEMENT wp;
-  int splitterPos = -1;
-  if (m_pAppSettings->LoadWindowPlacement(APP_SP_WINDOW_STATE, &wp, &splitterPos)) {
-    if (splitterPos != -1) {
-      m_pSplitter->SetPos(splitterPos);
-    }
+  m_bSizeRestored = true;
+  if (m_pAppSettings->LoadWindowPlacement(APP_SP_WINDOW_STATE, &wp)) {
     if (SetWindowPlacement(&wp))
       return true;
   }
@@ -174,8 +172,11 @@ void CDasherWindow::HandleParameterChange(int iParameter) {
   switch (iParameter) {
   case APP_BP_SHOW_TOOLBAR:
     m_pToolbar->ShowToolbar(m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR));
+    Layout();
     break;
+
   case APP_BP_SHOW_STATUSBAR:
+  case APP_BP_MIRROR_LAYOUT:
   case APP_LP_STYLE:
     Layout();
     break;
@@ -413,6 +414,8 @@ void CDasherWindow::Layout() {
   m_pSpeedAlphabetBar->MoveWindow(0, Height - SpeedAlphabetHeight, Width, SpeedAlphabetHeight);
   m_pSpeedAlphabetBar->ShowWindow(SpeedAlphabetHeight ? SW_SHOW : SW_HIDE);
 
+  bool mirrorLayout = m_pAppSettings->GetBoolParameter(APP_BP_MIRROR_LAYOUT);
+
   int CanvasY = ToolbarHeight;
   int CanvasHeight = Height - SpeedAlphabetHeight - CanvasY;
 
@@ -425,24 +428,49 @@ void CDasherWindow::Layout() {
     break;
 
   case APP_STYLE_COMPOSE:
-    m_pDasher->Move(0, CanvasY, Width / 2, CanvasHeight);
-    m_pEdit->Move(Width / 2, CanvasY, Width - Width / 2, CanvasHeight);
+    if (mirrorLayout)
+    {
+      m_pDasher->Move(Width / 2, CanvasY, Width - Width / 2, CanvasHeight);
+      m_pEdit->Move(0, CanvasY, Width / 2, CanvasHeight);
+    }
+    else {
+      m_pDasher->Move(0, CanvasY, Width / 2, CanvasHeight);
+      m_pEdit->Move(Width / 2, CanvasY, Width - Width / 2, CanvasHeight);
+    }
     m_pEdit->ShowWindow(SW_SHOW);
     m_pSplitter->ShowWindow(SW_HIDE);
     break;
 
   default:
     int SplitterHeight = m_pSplitter->GetHeight();
-    int SplitterY = max(CanvasY + GetMinEditHeight(), m_pSplitter->GetPos());
+    int EditHeight = m_pAppSettings->GetLongParameter(APP_LP_EDIT_HEIGHT);
+ 
+    if (mirrorLayout)
+    {
+      if (m_pSplitter->IsSizing()) 
+        EditHeight = CanvasY + CanvasHeight - SplitterHeight - m_pSplitter->GetPos();
+      int SplitterY = CanvasY + CanvasHeight - SplitterHeight - EditHeight;
+      SplitterY = min(SplitterY, CanvasY + CanvasHeight - GetMinEditHeight() - SplitterHeight);
+      SplitterY = max(CanvasY + GetMinCanvasHeight(), SplitterY);
+      EditHeight = CanvasY + CanvasHeight - SplitterY - SplitterHeight;
+      m_pDasher->Move(0, CanvasY, Width, SplitterY - CanvasY);
+      m_pSplitter->Move(SplitterY, Width);
+      m_pEdit->Move(0,SplitterY + SplitterHeight, Width, EditHeight);
+    } else {
+    if (m_pSplitter->IsSizing())
+      EditHeight = m_pSplitter->GetPos() - CanvasY;
+    int SplitterY = CanvasY + EditHeight;
     SplitterY = min(SplitterY, CanvasY + CanvasHeight - GetMinCanvasHeight() - SplitterHeight);
-    int EditHeight = SplitterY - CanvasY;
-    int DasherY = SplitterY + SplitterHeight;
-
+    SplitterY = max(CanvasY + GetMinEditHeight(), SplitterY);
+    EditHeight = SplitterY - CanvasY;
+    m_pDasher->Move(0, SplitterY + SplitterHeight, Width, CanvasHeight - SplitterY - SplitterHeight);
     m_pEdit->Move(0, CanvasY, Width, EditHeight);
     m_pSplitter->Move(SplitterY, Width);
-    m_pDasher->Move(0, DasherY, Width, CanvasHeight - EditHeight - SplitterHeight);
-    m_pEdit->ShowWindow(SW_SHOW);
+  }
+  m_pEdit->ShowWindow(SW_SHOW);
     m_pSplitter->ShowWindow(SW_SHOW);
+    if (m_bSizeRestored)
+      m_pAppSettings->SetLongParameter(APP_LP_EDIT_HEIGHT, EditHeight);
   }
 }
 
