@@ -203,6 +203,7 @@
 							</Component>
 							<Component Id="Colours" Guid="bebff3fb-083c-46f8-ac31-2484f4b1e9a8">
 								<File Id="colour.blue.xml" Name="colour.blue.xml" DiskId="1" Source="..\..\Data\colours\colour.blue.xml"/>
+								<File Id="colour.ean.xml" Name="colour.ean.xml" DiskId="1" Source="..\..\Data\colours\colour.ean.xml"/>
 								<File Id="colour.euroasian.xml" Name="colour.euroasian.xml" DiskId="1" Source="..\..\Data\colours\colour.euroasian.xml"/>
 								<File Id="colour.euroasian2.xml" Name="colour.euroasian2.xml" DiskId="1" Source="..\..\Data\colours\colour.euroasian2.xml"/>
 								<File Id="colour.euroasian3.xml" Name="colour.euroasian3.xml" DiskId="1" Source="..\..\Data\colours\colour.euroasian3.xml"/>
