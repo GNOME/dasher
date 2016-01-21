@@ -61,18 +61,6 @@ namespace Dasher {
     enum ScreenOrientations { AlphabetDefault = -2, LeftToRight = 0, RightToLeft = 1, TopToBottom = 2, BottomToTop = 3 };
     enum FontSize { Normal = 1, Big = 2, VBig = 4 };
   }
-  struct ControlTree {
-    void *pointer;
-    int data;
-    int type;
-    int colour;
-    std::string text;
-    ControlTree *parent;
-    ControlTree *children;
-    ControlTree *next;
-    ControlTree():pointer(NULL), data(0), type(0), colour(0), text(""), parent(NULL), children(NULL), next(NULL) {
-    };
-  };
 
   // Types added so model can report back what it has done for
   // user logging purposes.
