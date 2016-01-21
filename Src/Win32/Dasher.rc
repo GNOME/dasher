@@ -46,8 +46,8 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 
 2 TEXTINCLUDE 
 BEGIN
-"#include ""winres.h""\r\n"
-"#include ""windows.h""\r\n"
+    "#include ""winres.h""\r\n"
+    "#include ""windows.h""\r\n"
     "\0"
 END
 
@@ -200,7 +200,9 @@ BEGIN
     CONTROL         "Speak on word breaks",IDC_CHECK4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,204,30,90,10
     GROUPBOX        "Clipboard:",IDC_STATIC,198,48,180,30
     CONTROL         "Copy all on stop",IDC_COPYONSTOP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,204,60,90,10
-    CONTROL         "Flip  Edit Position",IDC_MIRROR_LAYOUT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,290,97,90,10
+    CONTROL         "Flip  Edit Position",IDC_MIRROR_LAYOUT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,295,91,76,21
+    COMBOBOX        IDC_FILE_ENCODING,198,208,153,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "File Encoding:",IDC_STATIC,193,194,180,30
 END
 
 IDD_MODULESETTINGS DIALOGEX 0, 0, 309, 177

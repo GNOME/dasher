@@ -11,8 +11,7 @@
 #include "AdvancedPage.h"
 #include "../resource.h"
 #include "../Common/StringUtils.h"
-
-#include <utility>              // for std::pair
+#include "../../DasherCore/DasherTypes.h"
 
 using namespace Dasher;
 using namespace std;
@@ -98,6 +97,27 @@ void CAdvancedPage::PopulateList() {
     SendMessage(ListBox, LB_SETCURSEL, 0, 0);
     LRESULT CurrentIndex = SendMessage(ListBox, LB_GETITEMDATA, 0, 0);
   }
+
+ CWindow fileEncodingCb = GetDlgItem(m_hwnd, IDC_FILE_ENCODING);
+ fileEncodingCb.SendMessage(CB_ADDSTRING, 0, (LPARAM)L"Windows Locale Encoding");
+ fileEncodingCb.SendMessage(CB_ADDSTRING, 0, (LPARAM)L"UTF-8");
+ fileEncodingCb.SendMessage(CB_ADDSTRING, 0, (LPARAM)L"Unicode little endian / UTF-16 LE");
+ fileEncodingCb.SendMessage(CB_ADDSTRING, 0, (LPARAM)L"Unicode big endian / UTF-16 BE");
+
+  switch (m_pAppSettings->GetLongParameter(APP_LP_FILE_ENCODING)) {
+  case Opts::UTF8: 
+    fileEncodingCb.SendMessage(CB_SETCURSEL, 1, 0);
+    break;
+  case Opts::UTF16LE: 
+    fileEncodingCb.SendMessage(CB_SETCURSEL, 2, 0);
+    break;
+  case Opts::UTF16BE: 
+    fileEncodingCb.SendMessage(CB_SETCURSEL, 3, 0);
+    break;
+  default:
+    fileEncodingCb.SendMessage(CB_SETCURSEL, 0, 0);
+    break;
+  }
 }
 
 bool CAdvancedPage::Apply() {
@@ -115,6 +135,22 @@ bool CAdvancedPage::Apply() {
   LRESULT CurrentIndex = SendMessage(ListBox, LB_GETITEMDATA, CurrentItem, 0);
   auto CurrentControlBox = m_ControlBoxItems[CurrentIndex];
   m_pAppSettings->SetStringParameter(SP_CONTROL_BOX_ID, CurrentControlBox);
+
+  int fileEncodingIdx = SendMessage(GetDlgItem(m_hwnd, IDC_FILE_ENCODING), CB_GETCURSEL, 0, 0);
+  switch (fileEncodingIdx) {
+  case 1:
+    m_pAppSettings->SetLongParameter(APP_LP_FILE_ENCODING, Opts::UTF8);
+    break;
+  case 2:
+    m_pAppSettings->SetLongParameter(APP_LP_FILE_ENCODING, Opts::UTF16LE);
+    break;
+  case 3:
+    m_pAppSettings->SetLongParameter(APP_LP_FILE_ENCODING, Opts::UTF16BE);
+    break;
+  default:
+    m_pAppSettings->SetLongParameter(APP_LP_FILE_ENCODING, Opts::UserDefault);
+    break;
+  }
 
   for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++) {
     m_pAppSettings->SetBoolParameter(menutable[ii].paramNum, SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_GETCHECK, 0, 0) == BST_CHECKED );
