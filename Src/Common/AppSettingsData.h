@@ -36,6 +36,7 @@ Dasher::Settings::bp_table app_boolparamtable[] = {
 };
 
 Dasher::Settings::lp_table app_longparamtable[] = {
+  {APP_LP_FILE_ENCODING, "FileEncodingFormat", Persistence::PERSISTENT, -1, "FileEncodingFormat"},
   {APP_LP_EDIT_FONT_SIZE, "EditFontSize", Persistence::PERSISTENT, 0, "EditFontSize"},
   {APP_LP_EDIT_HEIGHT, "EditHeight", Persistence::PERSISTENT, 75, "The height of the edit window"},
   {APP_LP_EDIT_WIDTH, "EditWidth", Persistence::PERSISTENT, 200, "EditWidth"},

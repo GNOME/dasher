@@ -40,9 +40,7 @@ using namespace WinUTF8;
 CEdit::CEdit(CAppSettings *pAppSettings) {
   m_FontSize = 0;
   m_FontName = "";
-  FileHandle = INVALID_HANDLE_VALUE;
   m_FilenameGUI = 0;
-  threadid = 0;
   
   // TODO: Check that this is all working okay (it quite probably
   // isn't). In the long term need specialised editor classes.
@@ -70,10 +68,7 @@ HWND CEdit::Create(HWND hParent, bool bNewWithDate) {
 
 CEdit::~CEdit() {
   DeleteObject(m_Font);
-
   delete m_FilenameGUI;
-  if(FileHandle != INVALID_HANDLE_VALUE)
-    CloseHandle(FileHandle);
 }
 
 void CEdit::Move(int x, int y, int Width, int Height) {
@@ -81,25 +76,47 @@ void CEdit::Move(int x, int y, int Width, int Height) {
 }
 
 bool CEdit::Save() {
-  if(FileHandle == INVALID_HANDLE_VALUE) {
-    if(m_filename == TEXT(""))
-      return false;
-    FileHandle = CreateFile(m_filename.c_str(), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ, (LPSECURITY_ATTRIBUTES) NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, (HANDLE) NULL);
+  if (m_filename == TEXT(""))
+    return false;
 
-    if(FileHandle == INVALID_HANDLE_VALUE)
-      return false;
-  }
-
-  // Truncate File to 0 bytes.
-  SetFilePointer(FileHandle, NULL, NULL, FILE_BEGIN);
-  SetEndOfFile(FileHandle);
+  HANDLE FileHandle = CreateFile(m_filename.c_str(), GENERIC_WRITE, 0, 
+    (LPSECURITY_ATTRIBUTES)NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, (HANDLE)NULL);
+  if (FileHandle == INVALID_HANDLE_VALUE)
+    return false;
 
   CString wideText;
   GetWindowText(wideText);
-  CStringA mbcsText(wideText);
+
   DWORD NumberOfBytesWritten;   // Used by WriteFile
-  WriteFile(FileHandle, mbcsText, mbcsText.GetLength(), &NumberOfBytesWritten, NULL);
-  // The file handle is not closed here. We keep a write-lock on the file to stop other programs confusing us.
+  switch (m_pAppSettings->GetLongParameter(APP_LP_FILE_ENCODING))
+  {
+  case Opts::UTF8: {
+    WriteFile(FileHandle, "\xEF\xBB\xBF", 3, &NumberOfBytesWritten, NULL);
+    string utf8Text = wstring_to_UTF8string(wideText);
+    WriteFile(FileHandle, utf8Text.c_str(), utf8Text.size(), &NumberOfBytesWritten, NULL);
+    break;
+  }
+  case Opts::UTF16LE: {
+    // TODO I am assuming this machine is LE. Do any windows (perhaps CE) machines run on BE?
+    WriteFile(FileHandle, "\xFF\xFE", 2, &NumberOfBytesWritten, NULL);
+    WriteFile(FileHandle, wideText.GetBuffer(), wideText.GetLength() * 2, &NumberOfBytesWritten, NULL);
+    break;
+  }
+  case Opts::UTF16BE: {
+    // TODO I am again assuming this machine is LE.
+    WriteFile(FileHandle, "\xFE\xFF", 2, &NumberOfBytesWritten, NULL);
+    for (unsigned int i = 0; i < wideText.GetLength(); i++) {
+      wideText.SetAt(i, _byteswap_ushort(wideText[i]));
+    }
+    WriteFile(FileHandle, wideText.GetBuffer(), wideText.GetLength() * 2, &NumberOfBytesWritten, NULL);
+    break;
+  }
+  default:
+    CStringA mbcsText(wideText); // converts wide string to current locale
+    WriteFile(FileHandle, mbcsText, mbcsText.GetLength(), &NumberOfBytesWritten, NULL);
+    break;
+  }
+  CloseHandle(FileHandle);
 
   m_FilenameGUI->SetDirty(false);
   m_dirty = false;
@@ -157,9 +174,6 @@ void CEdit::TNew(const Tstring &filename) {
     m_filename = m_FilenameGUI->New();
   else
     m_filename = filename;
-  if(FileHandle != INVALID_HANDLE_VALUE)
-    CloseHandle(FileHandle);
-  FileHandle = INVALID_HANDLE_VALUE;
   Clear();
 }
 
@@ -169,34 +183,61 @@ bool CEdit::TOpen(const Tstring &filename) {
   // Best thing is probably to trust any BOMs at the beginning of file, but otherwise
   // to believe menu. Unicode files don't necessarily have BOMs, especially from Unix.
 
-  HANDLE TmpHandle = CreateFile(filename.c_str(), GENERIC_READ | GENERIC_WRITE,
+  HANDLE FileHandle = CreateFile(filename.c_str(), GENERIC_READ,
                                 FILE_SHARE_READ, (LPSECURITY_ATTRIBUTES) NULL,
                                 OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL,
                                 (HANDLE) NULL);
 
-  if(TmpHandle == INVALID_HANDLE_VALUE)
+  if(FileHandle == INVALID_HANDLE_VALUE)
     return false;
 
-  if(FileHandle != INVALID_HANDLE_VALUE)
-    CloseHandle(FileHandle);
-  FileHandle = TmpHandle;
   m_filename = filename;
-
   SetFilePointer(FileHandle, NULL, NULL, FILE_BEGIN);
-
   DWORD filesize = GetFileSize(FileHandle, NULL);
-  unsigned long amountread;
-
-  char *filebuffer = new char[filesize];
-
-  // Just read in whole file as char* and cast later.
-
+  unsigned long amountread = 0;
+  CStringA filestr;
+  char* filebuffer = filestr.GetBufferSetLength(filesize+2);
   ReadFile(FileHandle, filebuffer, filesize, &amountread, NULL);
+  filebuffer[amountread] = 0;
+  filebuffer[amountread+1] = 0;
+  long encoding = m_pAppSettings->GetLongParameter(APP_LP_FILE_ENCODING);
+  bool removeBOM = false;
+  if (amountread >= 3 && strncmp(filebuffer, "\xEF\xBB\xBF", 3) == 0) {
+    encoding = Opts::UTF8;
+    removeBOM = true;
+  }
+  if (amountread >= 2 && strncmp(filebuffer, "\xFF\xFE", 2) == 0) {
+    encoding = Opts::UTF16LE;
+    removeBOM = true;
+  }
+  if (amountread >= 2 && strncmp(filebuffer, "\xFE\xFF", 2) == 0) {
+    encoding = Opts::UTF16BE;
+    removeBOM = true;
+  }
 
-  string text;
-  text = text + filebuffer;
-  Tstring inserttext;
-  UTF8string_to_wstring(text, inserttext);
+  wstring inserttext;
+  switch (encoding) {
+  case Opts::UTF8: {
+    UTF8string_to_wstring(filebuffer + (removeBOM ? 3 : 0), inserttext);
+    break;
+  }
+  case Opts::UTF16LE: {
+    inserttext = reinterpret_cast<wchar_t*>(filebuffer+ (removeBOM ? 2 : 0));
+    break;
+  }
+  case Opts::UTF16BE: {
+    wchar_t* widePtr = reinterpret_cast<wchar_t*>(filebuffer + (removeBOM ? 2 : 0));
+    for (unsigned int i = 0; widePtr[i]; i++) {
+      widePtr[i] = _byteswap_ushort(widePtr[i]);
+    }
+    inserttext = widePtr;
+    break;
+  }
+  default:
+    CString wideFromMBCS(filestr); // converts mbcs to wide string
+    inserttext = wideFromMBCS;
+    break;
+  }
   InsertText(inserttext);
 
   m_FilenameGUI->SetFilename(m_filename);
@@ -206,18 +247,6 @@ bool CEdit::TOpen(const Tstring &filename) {
 }
 
 bool CEdit::TSaveAs(const Tstring &filename) {
-  HANDLE TmpHandle = CreateFile(filename.c_str(), GENERIC_READ | GENERIC_WRITE,
-                                FILE_SHARE_READ, (LPSECURITY_ATTRIBUTES) NULL,
-                                CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL,
-                                (HANDLE) NULL);
-
-  if(TmpHandle == INVALID_HANDLE_VALUE)
-    return false;
-
-  if(FileHandle != INVALID_HANDLE_VALUE)
-    CloseHandle(FileHandle);
-  FileHandle = TmpHandle;
-
   m_filename = filename;
   if(Save()) {
     m_FilenameGUI->SetFilename(m_filename);

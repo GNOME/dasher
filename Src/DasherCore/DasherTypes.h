@@ -56,6 +56,7 @@ namespace Dasher {
   namespace Opts {
     // Numbers should be applied to elements of the following two enumerations as these preferences may be stored to file. Constancy between
     // versions is a good idea. It should *not* be assumed that the numbers map onto anything useful. Different codepages may be appropriate on different systems for different character sets.
+    enum FileEncodingFormats { UserDefault = -1, UTF8 = 65001, UTF16LE = 1200, UTF16BE = 1201 }; 
     enum AlphabetTypes { MyNone = 0, Arabic = 1256, Baltic = 1257, CentralEurope = 1250, ChineseSimplified = 936, ChineseTraditional = 950, Cyrillic = 1251, Greek = 1253, Hebrew = 1255, Japanese = 932, Korean = 949, Thai = 874, Turkish = 1254, VietNam = 1258, Western = 1252 };
     enum ScreenOrientations { AlphabetDefault = -2, LeftToRight = 0, RightToLeft = 1, TopToBottom = 2, BottomToTop = 3 };
     enum FontSize { Normal = 1, Big = 2, VBig = 4 };
