@@ -65,8 +65,8 @@ namespace Dasher {
       CContNode(int iOffset, int iColour, NodeTemplate *pTemplate, CControlBase *pMgr);
       CDasherScreen::Label *getLabel() { return m_pTemplate->m_pLabel; }
 
-      bool bShove() {return false;}
-      double SpeedMul() {return 0.5;}
+      bool bShove() override {return false;}
+      double SpeedMul() override;
       ///
       /// Provide children for the supplied node
       ///

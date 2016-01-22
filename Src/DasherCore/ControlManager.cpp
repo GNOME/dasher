@@ -98,6 +98,9 @@ CControlBase::NodeTemplate::~NodeTemplate() {
 CControlBase::CContNode::CContNode(int iOffset, int iColour, NodeTemplate *pTemplate, CControlBase *pMgr)
 : CDasherNode(iOffset, iColour, pTemplate->m_pLabel), m_pTemplate(pTemplate), m_pMgr(pMgr) {
 }
+double  CControlBase::CContNode::SpeedMul() {
+  return m_pMgr->GetBoolParameter(BP_SLOW_CONTROL_BOX) ? 0.5 : 1;
+}
 
 void CControlBase::CContNode::PopulateChildren() {
 

@@ -42,6 +42,7 @@ const bp_table boolparamtable[] = {
   {BP_SPEAK_WORDS, "SpeakWords", Persistence::PERSISTENT, false, "Speak words as they are written"},
   {BP_GAME_HELP_DRAW_PATH, "GameDrawPath", Persistence::PERSISTENT, true, "When we give help, show the shortest path to the target sentence"},
   {BP_TWO_PUSH_RELEASE_TIME, "TwoPushReleaseTime", Persistence::PERSISTENT, false, "Use push and release times of single press rather than push times of two presses"},
+  {BP_SLOW_CONTROL_BOX, "SlowControlBox", Persistence::PERSISTENT, true, "Slow down when going through control box" },
 };
 
 const lp_table longparamtable[] = {
