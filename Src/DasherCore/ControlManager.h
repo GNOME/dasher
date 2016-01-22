@@ -26,6 +26,7 @@
 #include "NodeManager.h"
 #include "NodeCreationManager.h"
 
+#include <list>
 #include <vector>
 #include <map>
 #include <fstream>
@@ -93,7 +94,7 @@ namespace Dasher {
       virtual ~NodeTemplate();
       const std::string m_strLabel;
       const int m_iColour;
-      std::vector<NodeTemplate *> successors;
+      std::list<NodeTemplate *> successors;
 
     private:
       friend class CControlBase;
@@ -148,7 +149,7 @@ namespace Dasher {
     bool ParseFile(const std::string &strFilename, bool bUser);
   protected:
     /// \return all node definitions that have been loaded by this CControlParser.
-    const vector<CControlBase::NodeTemplate*> &parsedNodes();
+    const list<CControlBase::NodeTemplate*> &parsedNodes();
     ///Subclasses may override to parse other nodes (besides "node", "ref" and "alph").
     ///The default implementation always returns NULL.
     /// \return A node template, if the name was recognised; NULL if not recognised.
@@ -166,14 +167,14 @@ namespace Dasher {
     void XmlEndHandler(const XML_Char *szName);
   private:
     ///all top-level parsed nodes
-    vector<CControlBase::NodeTemplate *> m_vParsed;
+    std::list<CControlBase::NodeTemplate *> m_vParsed;
     ///whether parsed nodes were from user file or not
     bool m_bUser;
 
     ///Following only used as temporary variables during parsing...
     map<string,CControlBase::NodeTemplate*> namedNodes;
-    vector<pair<CControlBase::NodeTemplate**,string> > unresolvedRefs;
-    vector<CControlBase::NodeTemplate*> nodeStack;
+    list<pair<CControlBase::NodeTemplate**,string> > unresolvedRefs;
+    list<CControlBase::NodeTemplate*> nodeStack;
   };
 
   ///subclass which we actually construct! Parses editing node definitions from a file,

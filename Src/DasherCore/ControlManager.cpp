@@ -77,11 +77,11 @@ void CControlBase::ChangeScreen(CDasherScreen *pScreen) {
     templateQueue.pop_front();
     delete head->m_pLabel;
     head->m_pLabel = pScreen->MakeLabel(head->m_strLabel);
-    for (vector<NodeTemplate *>::iterator it = head->successors.begin(); it!=head->successors.end(); it++) {
-      if (!(*it)) continue; //an escape back to the alphabet, no label/successors here
-      if (allTemplates.find(*it)==allTemplates.end()) {
-        allTemplates.insert(*it);
-        templateQueue.push_back(*it);
+    for (auto child : head->successors) {
+      if (!child) continue; //an escape back to the alphabet, no label/successors here
+      if (allTemplates.find(child)==allTemplates.end()) {
+        allTemplates.insert(child);
+        templateQueue.push_back(child);
       }
     }
   }
@@ -110,17 +110,17 @@ void CControlBase::CContNode::PopulateChildren() {
   unsigned int iLbnd(0), iIdx(0);
       int newOffset = m_pTemplate->calculateNewOffset(this, offset());
 
-  for (vector<NodeTemplate *>::iterator it = m_pTemplate->successors.begin(); it!=m_pTemplate->successors.end(); it++) {
+      for (auto child : m_pTemplate->successors) {
 
     const unsigned int iHbnd((++iIdx*CDasherModel::NORMALIZATION)/iNChildren);
 
-    if( *it == NULL ) {
+    if( child == NULL ) {
       // Escape back to alphabet
 
       pNewNode = m_pMgr->m_pNCManager->GetAlphabetManager()->GetRoot(this, false, newOffset + 1);
     }
     else {
-      pNewNode = new CContNode(newOffset, m_pMgr->getColour(*it, this), *it, m_pMgr);
+      pNewNode = new CContNode(newOffset, m_pMgr->getColour(child, this), child, m_pMgr);
     }
     pNewNode->Reparent(this, iLbnd, iHbnd);
     iLbnd=iHbnd;
@@ -136,7 +136,7 @@ void CControlBase::CContNode::Output() {
   m_pTemplate->happen(this);
 }
 
-const vector<CControlBase::NodeTemplate *> &CControlParser::parsedNodes() {
+const list<CControlBase::NodeTemplate *> &CControlParser::parsedNodes() {
   return m_vParsed;
 }
 
