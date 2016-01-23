@@ -77,7 +77,7 @@ private:
   std::string CData;            // Text gathered from when an elemnt starts to when it ends
   CAlphInfo *InputInfo;
   int iGroupIdx;
-  std::string DefaultLanguageCode;
+  std::string LanguageCode;
 
   void XmlStartHandler(const XML_Char * name, const XML_Char ** atts);
   void XmlEndHandler(const XML_Char * name);
