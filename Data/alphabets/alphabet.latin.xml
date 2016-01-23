@@ -2,13 +2,12 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <!-- Author: David J C MacKay 2005 -->
-<alphabets>
+<alphabets langcode="la">
 <alphabet name="Latin (classical) with numerals and punctuation">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_latin_XX.txt</train>
-<langcode>la</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8"/>
 <paragraph d="&#182;" b="9"/>

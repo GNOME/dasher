@@ -1,13 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="ca">
 <alphabet name="Catal&#x00E0; / Catalan with punctuation and numerals">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_catalan_ES.txt</train>
-<langcode>ca</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
@@ -147,7 +146,6 @@
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_catalanC_ES.txt</train>
-<langcode>ca</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>

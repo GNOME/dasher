@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="oc">
 <alphabet name="Occitan with punctuation and numerals">
 <!-- Occitan is a Romance language spoken mainly in southern France and also in Italy and Spain. There are perhaps 1.5 million people who speak Occitan in their daily lives, while 5 or 6 million people are able to speak the language. The majority of speakers are elderly and live in rural areas. There are six dialects of Occitan: Provencal, Gascon, Languedoc, Limousin, Alpine and Auvergne. -->
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_occitan_FR.txt</train>
-<langcode>oc</langcode>
 <space d="&#x25a1;" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>

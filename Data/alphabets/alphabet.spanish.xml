@@ -1,13 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="es">
 <alphabet name="Espa&#x00F1;ol / Spanish with punctuation and numerals">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_spanish_ES.txt</train>
-<langcode>es</langcode>
 <space d="&#x25a1;" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
@@ -144,7 +143,6 @@
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_spanishC_ES.txt</train>
-<langcode>es</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t=""/>
 <paragraph d="&#182;" b="9"/>

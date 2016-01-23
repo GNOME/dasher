@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="fr">
 <alphabet name="Latin ISO-8859 (combining accents) with numerals and punctuation">
 <!--
 Any word that can be written using one of the Latin ISO-8859 character sets (ISO-8859-1,2,3,4,9,10,13,14,15,16) can be written, in decomposed form, using the ASCII characters, the 23 additional letters, and 14 modifiers
@@ -10,7 +10,6 @@ Any word that can be written using one of the Latin ISO-8859 character sets (ISO
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_frenchC_FR.txt</train>
-<langcode>fr</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8"/>
 <paragraph d="&#182;" b="9"/>

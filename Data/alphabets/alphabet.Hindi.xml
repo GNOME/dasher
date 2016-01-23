@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet-nest.xsl"?>
-<alphabets>
+<alphabets langcode="hi">
 <alphabet name="Hindi / &#2361;&#2367;&#2306;&#2342;&#2368; ">
 <!-- see file:///home/mackay/dasher/alphabets/tmpH.html for queries -->
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_Hindi_IN.txt</train>
-<langcode>hi</langcode>
 <space d="&#x25a1;" t=" " b="9"/> 
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
@@ -161,7 +160,6 @@
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_Hindi_IN.txt</train>
-<langcode>hi</langcode>
 <space d="&#x25a1;" t=" " b="9"/> 
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>

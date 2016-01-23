@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="ga">
 <alphabet name="Gaeilge na h&#x00C9;ireann / Irish Gaelic with punctuation and numerals">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <control d="Control" t=""/>
 <palette>Default</palette>
 <train>training_IrishGaelic_IE.txt</train>
-<langcode>ga</langcode>
 <space d="&#x25a1;" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
 <group name="lower case letters" b="0">

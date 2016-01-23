@@ -3,6 +3,7 @@ along with some useful information. It does nothing to tell Dasher,
 how those symbols may be used. -->
 
 <!ELEMENT alphabets (alphabet*)>
+<!ATTLIST alphabets langcode CDATA #IMPLIED>
 
 <!ELEMENT alphabet (orientation, encoding, palette, train, langcode?, paragraph,
 	space, control, conversionmode?, group*)>

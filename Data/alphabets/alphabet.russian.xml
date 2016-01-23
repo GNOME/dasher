@@ -1,13 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="ru">
 <alphabet name="Russian (&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;) - &#1050;&#1080;&#1088;&#1080;&#1083;&#1083;&#1080;&#1094;&#1072; alphabet">
 <orientation type="LR"/>
 <control d="Control" t=""/>
 <encoding type="Western"/>
 <train>training_russian_RU.txt</train>
-<langcode>ru</langcode>
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9"/>
 <control d="Control" t="" b="8"/>
@@ -139,7 +138,6 @@
 <control d="Control" t=""/>
 <encoding type="Western"/>
 <train>training_russianLatin_RU.txt</train>
-<langcode>ru</langcode>
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9"/>
 <control d="Control" t="" b="8"/>

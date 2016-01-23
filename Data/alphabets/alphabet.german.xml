@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="de">
 <alphabet name="Deutsch / German with numerals and punctuation">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_german_DE.txt</train>
-<langcode>de</langcode>
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8" />
@@ -133,7 +132,6 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_german_DE.txt</train>
-<langcode>de</langcode>
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8" />
@@ -213,7 +211,6 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_germanL_DE.txt</train>
-<langcode>de</langcode>
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8" />

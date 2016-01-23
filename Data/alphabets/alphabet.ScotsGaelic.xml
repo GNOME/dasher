@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="gd">
 <alphabet name="G&#x00E0;idhlig / Scots Gaelic with punctuation and numerals">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <control d="Control" t=""/>
 <palette>Default</palette>
 <train>training_ScotsGaelic_GB.txt</train>
-<langcode>gd</langcode>
 <space d="&#x25a1;" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
 <group name="lower case letters" b="0">

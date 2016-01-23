@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="pt">
 <alphabet name="Portugu&#x00EA;s / Portuguese (Brazilian)">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <train>training_portuguese_BR.txt</train>
-<langcode>pt</langcode>
 <palette>Default</palette>
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9" note="box" />
@@ -153,7 +152,6 @@
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_portugueseC_BR.txt</train>
-<langcode>pt</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t=""/>
 <paragraph d="&#182;" b="9"/>
