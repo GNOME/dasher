@@ -1,13 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="lb">
 <alphabet name="L&#x00EB;tzebuergesch / Luxembourgish with punctuation and numerals">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_luxembourgish_LU.txt</train>
-<langcode>lb</langcode>
 <space d="&#x25a1;" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>

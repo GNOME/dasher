@@ -160,6 +160,15 @@ void CAlphIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
 
   CData = "";
 
+  if (strcmp(name, "alphabets") == 0) {
+    while(*atts != 0) {
+      if(strcmp(*atts, "langcode") == 0) {
+        DefaultLanguageCode = *(atts+1);
+      }
+      atts += 2;
+    }
+  }
+
   if(strcmp(name, "alphabet") == 0) {
     InputInfo = new CAlphInfo();
     InputInfo->Mutable = isUser();
@@ -363,6 +372,10 @@ void Reverse(SGroupInfo *&pList) {
 
 void CAlphIO::XmlEndHandler(const XML_Char *name) {
 
+  if (strcmp(name, "alphabets") == 0) {
+    DefaultLanguageCode = "";
+  }
+
   if(strcmp(name, "alphabet") == 0) {
     Reverse(InputInfo->pChild);
 
@@ -377,6 +390,10 @@ void CAlphIO::XmlEndHandler(const XML_Char *name) {
       InputInfo->m_vCharacters.push_back(*SpaceCharacter);
       InputInfo->iNumChildNodes++;
       delete SpaceCharacter;
+    }
+
+    if (InputInfo->LanguageCode.empty()) {
+      InputInfo->LanguageCode = DefaultLanguageCode;
     }
 
     InputInfo->iEnd = InputInfo->m_vCharacters.size()+1;

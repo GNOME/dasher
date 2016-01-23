@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="hy">
 <alphabet name="Armenian / &#1344;&#1377;&#1397;&#1381;&#1408;&#1381;&#1398; with punctuation and numerals">
 <!-- Alphabet by David MacKay and Kostas Savvidis -->
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_Armenian_AM.txt</train>
-<langcode>hy</langcode>
 <space d="&#x25a1;" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
@@ -167,7 +166,6 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_Armenian_AM.txt</train>
-<langcode>hy</langcode>
 <space d="&#x25a1;" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>

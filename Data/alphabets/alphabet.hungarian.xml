@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="hu">
 <alphabet name="Magyar / Hungarian / nagybet&#369;ssel, r&#246;vid">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <train>training_hungarian_HU.txt</train>
-<langcode>hu</langcode>
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8"/>
@@ -135,7 +134,6 @@
 <orientation type="LR"/>
 <encoding type="Western"/>
 <train>training_hungarian_HU.txt</train>
-<langcode>hu</langcode>
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8"/>

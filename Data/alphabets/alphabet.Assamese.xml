@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet-nest.xsl"?>
-<alphabets>
+<alphabets langcode="as">
 <alphabet name="Assamese &#x0985;&#x09b8;&#x09ae;&#x09c0;&#x09af;&#x09bc;&#x09be;  with punctuation and numerals">
 <!-- See also alphabet.bengali.xml
  Bangla is the second most commonly spoken language in India.
@@ -11,7 +11,6 @@
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_Assamese_IN.txt</train>
-<langcode>as</langcode>
 <space d="&#x25a1;" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>

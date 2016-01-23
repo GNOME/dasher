@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="gl">
 <alphabet name="Galego / Galician with punctuation and numerals">
 <!--
 Galician is a Romance language spoken by about 3 million people in Galicia, in the north-west corner of Spain. Galician is more or less mutually intelligible with Portuguese.
@@ -10,7 +10,6 @@ Galician is a Romance language spoken by about 3 million people in Galicia, in t
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_galician_ES.txt</train>
-<langcode>gl</langcode>
 <space d="&#x25a1;" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>

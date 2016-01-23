@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet-nest.xsl"?>
-<alphabets>
+<alphabets langcode="fr">
 <alphabet name="Fran&#x00E7;ais / French with numerals and punctuation">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_french_FR.txt</train>
-<langcode>fr</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8"/>
 <paragraph d="&#182;" b="9"/>
@@ -150,7 +149,6 @@
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_frenchC_FR.txt</train>
-<langcode>fr</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t=""/>
 <paragraph d="&#182;" b="9"/>
@@ -282,7 +280,6 @@
 <encoding type="Western"/>
 <palette>Vowels</palette>
 <train>training_french_FR.txt</train>
-<langcode>fr</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8"/>
 <paragraph d="&#182;" b="9"/>

@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="el">
 <alphabet name="Ellinika (&#917;&#955;&#955;&#951;&#957;&#953;&#954;&#940;) / Greek with punctuation and numerals">
 <!-- alphabet by Pantelis Nasikas and David MacKay with help from Mark Owen -->
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_greek_GR.txt</train>
-<langcode>el</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8" />
@@ -145,7 +144,6 @@
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_greek_GR.txt</train>
-<langcode>el</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8" />

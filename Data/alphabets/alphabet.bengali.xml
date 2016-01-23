@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet-nest.xsl"?>
-<alphabets>
+<alphabets langcode="bn">
 <alphabet name="Bengali / &#x09ac;&#x09be;&#x0982;&#x09b2;&#x09be;   with punctuation and numerals">
 <!--
  Bangla is the second most commonly spoken language in India.
@@ -42,7 +42,6 @@ http://prdownloads.sourceforge.net/lekho/dict_v1.15.tgz?download )
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_bengali_BD.txt</train>
-<langcode>bn</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>

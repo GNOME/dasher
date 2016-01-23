@@ -1,13 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="bg">
 <alphabet name="Bulgarian / &#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1072; &#1089; &#1087;&#1091;&#1085;&#1082;&#1090;&#1091;&#1072;&#1094;&#1080;&#1103; &#1080; &#1094;&#1080;&#1092;&#1088;&#1080;">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_Bulgarian_BG.txt</train>
-<langcode>bg</langcode>
 <space d="&#x25a1;" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>

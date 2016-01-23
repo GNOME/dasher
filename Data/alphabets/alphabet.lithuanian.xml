@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="lt">
 <alphabet name="Lietuvos / Lithuanian with punctuation and numerals">
 <!-- Lithuanian is a Baltic language related to Latvian and Old Prussian 
       with about 3.5 million speakers in Lithuania. There are also Lithuanian
@@ -11,7 +11,6 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_lithuanian_LT.txt</train>
-<langcode>lt</langcode>
 <space d="&#x25a1;" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>

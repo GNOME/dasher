@@ -2,13 +2,12 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet-nest.xsl"?>
 <!-- Author: David MacKay and Behdad  -->
-<alphabets>
+<alphabets langcode="fa">
 <alphabet name="Persian (Nested groups) with punctuation and numerals">
 <orientation type="RL"/>
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_persian_IR.txt</train>
-<langcode>fa</langcode>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>

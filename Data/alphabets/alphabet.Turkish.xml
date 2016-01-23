@@ -1,13 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="tr">
 <alphabet name="T&#x00FC;rk&#x00E7;e / Turkish with punctuation and numerals">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_turkish_TR.txt</train>
-<langcode>tr</langcode>
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8"/>
