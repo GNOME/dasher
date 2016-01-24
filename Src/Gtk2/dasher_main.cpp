@@ -711,26 +711,16 @@ static void
 dasher_main_load_state(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 
-  int iWindowWidth;
-  int iWindowHeight;
-  int iEditHeight;
-  
-  if(pPrivate->pAppSettings->GetLong(APP_LP_STYLE) != APP_STYLE_COMPOSE) {
-    iEditHeight = pPrivate->pAppSettings->GetLong(APP_LP_EDIT_HEIGHT);
-    iWindowWidth = pPrivate->pAppSettings->GetLong(APP_LP_SCREEN_WIDTH);
-    iWindowHeight = pPrivate->pAppSettings->GetLong(APP_LP_SCREEN_HEIGHT);
-  }
-  else {
-    iEditHeight = pPrivate->pAppSettings->GetLong(APP_LP_EDIT_WIDTH);
-    iWindowWidth = pPrivate->pAppSettings->GetLong(APP_LP_SCREEN_WIDTH_H);
-    iWindowHeight = pPrivate->pAppSettings->GetLong(APP_LP_SCREEN_HEIGHT_H);
-  }
+  int iEditSize = pPrivate->pAppSettings->GetLong(APP_LP_EDIT_SIZE);
+  int iWindowWidth = pPrivate->pAppSettings->GetLong(APP_LP_SCREEN_WIDTH);
+  int iWindowHeight = pPrivate->pAppSettings->GetLong(APP_LP_SCREEN_HEIGHT);
+}
 
 #ifndef WITH_MAEMO
   gtk_window_resize(GTK_WINDOW(pPrivate->pMainWindow), iWindowWidth, iWindowHeight);
 #endif
 
-  gtk_paned_set_position(pPrivate->pDivider, iEditHeight);
+  gtk_paned_set_position(pPrivate->pDivider, iEditSize);
 
   pPrivate->iWidth = iWindowWidth;
   pPrivate->iHeight = iWindowHeight;
@@ -754,23 +744,15 @@ dasher_main_save_state(DasherMain *pSelf) {
   
   int iWindowWidth;
   int iWindowHeight;
-  int iEditHeight;
   
    gtk_window_get_size(GTK_WINDOW(pPrivate->pMainWindow), &iWindowWidth, &iWindowHeight);
-   iEditHeight = gtk_paned_get_position(pPrivate->pDivider);
+   int iEditSize = gtk_paned_get_position(pPrivate->pDivider);
 
-   if(pPrivate->pAppSettings->GetLong(APP_LP_STYLE) != APP_STYLE_COMPOSE) {
-     // APP_STYLE_DIRECT doesn't have an edit window.
-     if (pPrivate->pAppSettings->GetLong(APP_LP_STYLE) != APP_STYLE_DIRECT)
-       pPrivate->pAppSettings->SetLong(APP_LP_EDIT_HEIGHT, iEditHeight);
-     pPrivate->pAppSettings->SetLong(APP_LP_SCREEN_WIDTH, iWindowWidth);
-     pPrivate->pAppSettings->SetLong(APP_LP_SCREEN_HEIGHT, iWindowHeight);
-   }
-   else {
-     pPrivate->pAppSettings->SetLong(APP_LP_EDIT_WIDTH, iEditHeight);
-     pPrivate->pAppSettings->SetLong(APP_LP_SCREEN_WIDTH_H, iWindowWidth);
-     pPrivate->pAppSettings->SetLong(APP_LP_SCREEN_HEIGHT_H, iWindowHeight);
-   } 
+   // APP_STYLE_DIRECT doesn't have an edit window.
+   if (pPrivate->pAppSettings->GetLong(APP_LP_STYLE) != APP_STYLE_DIRECT)
+     pPrivate->pAppSettings->SetLong(APP_LP_EDIT_SIZE, iEditSize);
+   pPrivate->pAppSettings->SetLong(APP_LP_SCREEN_WIDTH, iWindowWidth);
+   pPrivate->pAppSettings->SetLong(APP_LP_SCREEN_HEIGHT, iWindowHeight);
 
    int iWindowX;
    int iWindowY;

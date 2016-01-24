@@ -443,7 +443,7 @@ void CDasherWindow::Layout() {
 
   default:
     int SplitterHeight = m_pSplitter->GetHeight();
-    int EditHeight = m_pAppSettings->GetLongParameter(APP_LP_EDIT_HEIGHT);
+    int EditHeight = m_pAppSettings->GetLongParameter(APP_LP_EDIT_SIZE);
  
     if (mirrorLayout)
     {
@@ -470,7 +470,7 @@ void CDasherWindow::Layout() {
   m_pEdit->ShowWindow(SW_SHOW);
     m_pSplitter->ShowWindow(SW_SHOW);
     if (m_bSizeRestored)
-      m_pAppSettings->SetLongParameter(APP_LP_EDIT_HEIGHT, EditHeight);
+      m_pAppSettings->SetLongParameter(APP_LP_EDIT_SIZE, EditHeight);
   }
 }
 

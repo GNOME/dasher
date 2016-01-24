@@ -38,12 +38,9 @@ Dasher::Settings::bp_table app_boolparamtable[] = {
 Dasher::Settings::lp_table app_longparamtable[] = {
   {APP_LP_FILE_ENCODING, "FileEncodingFormat", Persistence::PERSISTENT, -1, "FileEncodingFormat"},
   {APP_LP_EDIT_FONT_SIZE, "EditFontSize", Persistence::PERSISTENT, 0, "EditFontSize"},
-  {APP_LP_EDIT_HEIGHT, "EditHeight", Persistence::PERSISTENT, 75, "The height of the edit window"},
-  {APP_LP_EDIT_WIDTH, "EditWidth", Persistence::PERSISTENT, 200, "EditWidth"},
+  {APP_LP_EDIT_SIZE, "EditSize", Persistence::PERSISTENT, 75, "The size of the edit window"},
   {APP_LP_SCREEN_WIDTH, "ScreenWidth", Persistence::PERSISTENT, 400, "ScreenWidth"},
   {APP_LP_SCREEN_HEIGHT, "ScreenHeight", Persistence::PERSISTENT, 500, "ScreenHeight"},
-  {APP_LP_SCREEN_WIDTH_H, "ScreenWidthH", Persistence::PERSISTENT, 625, "Screen Width for application style compose"},
-  {APP_LP_SCREEN_HEIGHT_H, "ScreenHeightH", Persistence::PERSISTENT, 250, "Screen Height for application style compose"},
   {APP_LP_STYLE, "AppStyle", Persistence::PERSISTENT, 0, "Application style"},
   {APP_LP_X, "XPosition", Persistence::PERSISTENT, 100, "X location of window"},
   {APP_LP_Y, "YPosition", Persistence::PERSISTENT, 100, "Y location of window"},
