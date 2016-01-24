@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="kk">
 <alphabet name="Kazakh / &#1178;&#1072;&#1079;&#1072;&#1179; with punctuation and numerals">
 <orientation type="LR"/>
 <encoding type="Western"/>

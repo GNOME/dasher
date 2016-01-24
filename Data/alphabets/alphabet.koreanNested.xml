@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet-nest2.xsl"?>
-<alphabets>
+<alphabets langcode="ko">
 <alphabet name="Korean &#54620;&#44397;&#50612; 2350 syllables (Nested)">
 <!-- Note: Many fonts support 
  2350 Hangul syllables out of 11,172 modern syllables

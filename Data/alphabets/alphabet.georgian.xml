@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="ka">
 <alphabet name="Georgian / &#4325;&#4304;&#4320;&#4311;&#4323;&#4314;&#4312; &#4308;&#4316;&#4304; with punctuation and numerals">
 <!-- Mkhedruli is used to write Georgian, Mingrelian -->
 <!-- see http://www.omniglot.com/writing/georgian2.htm -->

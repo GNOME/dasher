@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="eu">
 <alphabet name="Euskara / Basque with punctuation and numerals">
 <!-- Basque is a language with no known linguistic relatives spoken by about 660,000 people in Spain and France, mainly in the Basque country (Euskal Herria). -->
 <orientation type="LR"/>

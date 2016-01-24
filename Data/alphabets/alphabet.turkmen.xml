@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="tk">
 <alphabet name="T&#x00FC;rkmen / Turkmen with punctuation and numerals">
 <!-- Turkmen is a Turkic language spoken by about 6.4 million people in Turkmenistan, Afghanistan, Germany, Iran, Iraq, Kazakhstan, Kyrgyzstan, Pakistan, Russia (Asia), Tajikistan, Turkey (Asia), USA and Uzbekistan. -->
 <orientation type="LR"/>

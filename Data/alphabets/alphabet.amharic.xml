@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="am">
 <alphabet name="Amharic (&#4768;&#4635;&#4653;&#4763;) with punctuation and numerals">
 <!-- identical alphabet used for Tigrinya, Amharic and Ethiopic -->
 <orientation type="LR"/>

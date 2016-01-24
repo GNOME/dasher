@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="om">
 <alphabet name="Afaan Oromo - with numerals and punctuation">
 <!--
 Afaan Oromo is a Cushitic language spoken by about 17 million people in Ethiopia, Kenya, Somalia and Egypt and is the 3rd largest language in Africa. The Oromo people are the largest ethnic group in Ethiopia and account for more than 40% of the population.

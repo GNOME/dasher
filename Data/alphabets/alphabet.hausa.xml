@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="ha">
 <alphabet name="Hausa (boko) with punctuation and numerals">
 <!-- Hausa is a Chadic language with about 39 million speakers. It is spoken mainly northern Nigeria and Niger, and also in Benin, Burkina Faso, Cameroon, CAR, Chad, Congo, Eritrea, Germany, Ghana, Sudan and Togo. -->
 <orientation type="LR"/>
