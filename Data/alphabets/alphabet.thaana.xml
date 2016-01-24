@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="dv">
 <alphabet name="Dhivehi (thaana) with punctuation and numerals" note="simplified Arabic-style script, unique to the Dhivehi language, adopted in Maldives">
 <orientation type="RL"/>
 <encoding type="Western"/>

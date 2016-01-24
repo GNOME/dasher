@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="ko">
 <alphabet name="Korean &#54620;&#44397;&#50612; (Combining 67 Jamo)">
 <!-- Colour scheme added Wed 8/6/05 by David MacKay, updated Fri 6/4/07
      Please switch off "box outlines" for best appearance.  -->

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="yo">
 <alphabet name="Yor&#x00F9;b&#x00E1; / Yoruba with punctuation and numerals">
 <orientation type="LR"/>
 <encoding type="Western"/>

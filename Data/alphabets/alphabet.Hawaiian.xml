@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="haw">
 <alphabet name="Hawaiian / &#699;&#x014C;lelo Hawai&#699;i with lots of punctuation">
 <!-- I included the full English alphabet for convenience of writing mixed Hawaiian and English -->
 <orientation type="LR"/>

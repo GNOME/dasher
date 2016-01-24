@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet-nest.xsl"?>
-<alphabets>
+<alphabets langcode="zh">
 <alphabet name="Chinese Pin Yin with tones (no chinese characters) (5 groups)">
 <!--
  Hanyu pinyin: A system of romanization

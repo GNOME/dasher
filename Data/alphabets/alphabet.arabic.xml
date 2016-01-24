@@ -2,7 +2,7 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <!-- Author: David MacKay with help from the students of AIMS www.aims.ac.za -->
-<alphabets>
+<alphabets langcode="ar">
 <alphabet name="Arabic (groups) with punctuation and numerals">
 <orientation type="RL"/>
 <encoding type="Western"/>

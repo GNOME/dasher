@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="ja">
 <alphabet name="Hiragana &#12402;&#12425;&#12364;&#12394; 83">
 <orientation type="LR"/>
 <encoding type="Western"/>

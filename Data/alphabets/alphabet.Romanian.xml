@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="ro">
 <alphabet name="Rom&#x00E2;n&#x0103; / Romanian with punctuation and numerals">
 <!-- Romanian is a Romance language spoken by about 24
       million people in Romania, Moldova and Ukraine.      -->

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet-nest.xsl"?>
-<alphabets>
+<alphabets langcode="zh">
 <alphabet name="Cantonese &#x5009;&#x9821;&#x8F38;&#x5165;&#x6CD5; (trad) by Cangjie">
 <!-- Note this alphabet definition only really defines (an input method for) the traditional chinese character set; it could equally well be used for writing mandarin rather than cantonese, just by supplying a different/appropriate training text. (Unlike phonetic methods, where the pronunciation of the same character depends on dialect, the method of drawing a character, as used by cangjie, is the same regardless of language.) -->
 <orientation type="LR"/>
