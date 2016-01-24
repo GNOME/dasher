@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="nso">
 <alphabet name="Sepedi with punctuation and numerals">
 <orientation type="LR"/>
 <encoding type="Western"/>

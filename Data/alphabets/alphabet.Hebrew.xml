@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="he">
 <alphabet name="Ivrit / Hebrew (&#1506;&#1489;&#1512;&#1497;&#1514;)">
 <!-- created by David MacKay with advice from Liz Pushett -->
 <orientation type="RL"/>

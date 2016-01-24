@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="ak">
 <alphabet name="Akan (Twi) with lots of punctuation">
 <!-- same as Adangbe and Ga and Akan and Ewe -->
 <!--- http://www.ethnologue.com/show_language.asp?code=TWS -->

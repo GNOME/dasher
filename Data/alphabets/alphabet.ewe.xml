@@ -2,7 +2,7 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <!-- Author: David J C MacKay 2005 -->
-<alphabets>
+<alphabets langcode="ee">
 <alphabet name="Ewe with lots of punctuation">
 <!--  needs accents too?
   None used here:

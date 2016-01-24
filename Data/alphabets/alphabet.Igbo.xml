@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="ig">
 <alphabet name="Igbo with punctuation and numerals">
 <orientation type="LR"/>
 <encoding type="Western"/>

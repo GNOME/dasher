@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<alphabets>
+<alphabets langcode="th">
 <alphabet name="Thai / &#3616;&#3634;&#3625;&#3634;&#3652;&#3607;&#3618; with punctuation and numerals">
 <orientation type="LR"/>
 <encoding type="Western"/>
