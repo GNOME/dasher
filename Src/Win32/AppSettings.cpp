@@ -61,39 +61,3 @@ void CAppSettings::GetPermittedValues(int iParameter, vector<string> &vList) {
   DASHER_ASSERT(m_pDasher != NULL);
   m_pDasher->GetPermittedValues(iParameter,vList);
 }
-
-static const char FormatWindowPlacement[] = "%u,%u,%d,%d,%d,%d,%d,%d,%d,%d";
-
-/////////////////////////////////////////////////////////////////////////////
-
-void CAppSettings::SaveWindowPlacement(int iParameter, const LPWINDOWPLACEMENT pwp) {
-  DASHER_ASSERT(pwp != NULL);
-
-  char t[200];
-  sprintf_s(t, sizeof(t), FormatWindowPlacement, pwp->flags, pwp->showCmd, pwp->ptMinPosition.x, pwp->ptMinPosition.y, pwp->ptMaxPosition.x, pwp->ptMaxPosition.y, pwp->rcNormalPosition.left, pwp->rcNormalPosition.top, pwp->rcNormalPosition.right, pwp->rcNormalPosition.bottom);
-  SetStringParameter(iParameter, t);
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-bool CAppSettings::LoadWindowPlacement(int iParameter, LPWINDOWPLACEMENT pwp) {
-  DASHER_ASSERT(pwp != NULL);
-
-  auto str = GetStringParameter(iParameter);
-  if (str.empty())
-    return false;
-
-  WINDOWPLACEMENT wp;
-  int nRead = sscanf_s(str.c_str(), FormatWindowPlacement,
-                       &wp.flags, &wp.showCmd,
-                       &wp.ptMinPosition.x, &wp.ptMinPosition.y,
-                       &wp.ptMaxPosition.x, &wp.ptMaxPosition.y,
-                       &wp.rcNormalPosition.left, &wp.rcNormalPosition.top,
-                       &wp.rcNormalPosition.right, &wp.rcNormalPosition.bottom);
-
-  if(nRead < 10)
-    return false;
-  wp.length = sizeof(wp);
-  *pwp = wp;
-  return true;
-}

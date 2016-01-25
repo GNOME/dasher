@@ -49,9 +49,6 @@ public:
   void ResetParamater(int iParameter);
   void GetPermittedValues(int iParameter, std::vector<std::string> &vList);
 
-  bool LoadWindowPlacement(int iParameter, LPWINDOWPLACEMENT pwp);
-  void SaveWindowPlacement(int iParameter, const LPWINDOWPLACEMENT pwp);
-
   void SetHwnd(HWND hWnd) {
     m_hWnd = hWnd;
 

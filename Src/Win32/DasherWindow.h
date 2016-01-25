@@ -37,11 +37,13 @@ public:
 		MESSAGE_HANDLER(WM_SIZE, OnSize)
 		MESSAGE_HANDLER(WM_GETMINMAXINFO,OnGetMinMaxInfo)
 		MESSAGE_HANDLER(WM_INITMENUPOPUP,OnInitMenuPopup)
-		MESSAGE_HANDLER(WM_SETFOCUS,OnSetFocus)
+ 		MESSAGE_HANDLER(WM_SETFOCUS,OnSetFocus)
+		MESSAGE_HANDLER(WM_WINDOWPOSCHANGED,OnWindowPosChanged)
 		MESSAGE_RANGE_HANDLER(0xC000,0xFFFF,OnOther)
 	END_MSG_MAP()
 
-	LRESULT OnSetFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnWindowPosChanged(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnSetFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnInitMenuPopup(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnGetMinMaxInfo(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnOther(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
@@ -66,9 +68,6 @@ public:
   void HandleParameterChange(int iParameter);
   
 private:
- 
-	void SaveWindowState() const;
-	bool LoadWindowState();
   int GetMinCanvasWidth() const { return 100; }
   int GetMinCanvasHeight() const { return 100; }
   int GetMinEditHeight() const { return 50; }

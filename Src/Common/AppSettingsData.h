@@ -33,6 +33,7 @@ Dasher::Settings::bp_table app_boolparamtable[] = {
   { APP_BP_SHOW_STATUSBAR, "ViewStatusbar", Persistence::PERSISTENT, true, "ViewStatusbar" },
 #endif
 { APP_BP_MIRROR_LAYOUT, "MirrorLayout", Persistence::PERSISTENT, false, "MirrorLayout" },
+{ APP_BP_FULL_SCREEN, "FullScreen", Persistence::PERSISTENT, false, "FullScreen" },
 };
 
 Dasher::Settings::lp_table app_longparamtable[] = {
@@ -56,5 +57,4 @@ Dasher::Settings::sp_table app_stringparamtable[] = {
   {APP_SP_EDIT_FONT, "EditFont", Persistence::PERSISTENT, "Sans 10", "EditFont"},
 #endif
 { APP_SP_TOOLBAR_ID, "ToolbarID", Persistence::PERSISTENT, "", "ToolbarID" },
-{APP_SP_WINDOW_STATE, "WindowState", Persistence::PERSISTENT, "", "WindowState"},
 };
