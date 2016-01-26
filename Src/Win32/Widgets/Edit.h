@@ -77,10 +77,6 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
 
   void Move(int x, int y, int Width, int Height);
 	
-  HWND GetHwnd() {
-    return m_hWnd;
-  } 
-  
   int Move(bool bForwards, Dasher::CControlManager::EditDistance iDist);
   int Delete(bool bForwards, Dasher::CControlManager::EditDistance iDist);
   std::string GetTextAroundCursor(Dasher::CControlManager::EditDistance iDist);
@@ -123,36 +119,27 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   Dasher::CDasherInterfaceBase *m_pDasherInterface;
   
   HWND Parent;
-  WNDPROC TextWndFunc;
   
   HWND m_hTarget;
   bool m_bForwardKeyboard;
   
   CFilenameGUI *m_FilenameGUI;
   Tstring m_filename;
-  HWND textwindow;
   void TNew(const Tstring & filename);
   bool TOpen(const Tstring & filename);
   bool TSaveAs(const Tstring & filename);
   void GetRange(bool bForwards, Dasher::CControlManager::EditDistance iDist, int* iStart, int* iEnd);
   
   HFONT m_Font;
-  std::string m_FontName;
-  long m_FontSize;
   
   std::string m_Output;         // UTF-8 to go to training file
-  UINT CodePage;                // for font and possible for finding the encoding
   
   HWND targetwindow;
-  bool textentry;
-#ifdef _UNICODE
   INPUT fakekey[2];
-#endif
   
   void InsertText(Tstring InsertText);  // add symbol to edit control
   
   CAppSettings *m_pAppSettings;
-  HWND m_hWnd;
 };
 
 #endif /* #ifndef __Edit_h__ */

@@ -206,7 +206,7 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 
   // Tell edit box if it has changed. It should know itself really, but this is easier
   // This shouldn't be here - it should be in the edit box class
-  if (((HWND)lParam == m_pEdit->GetHwnd()) && (HIWORD(wParam) == EN_CHANGE)) {
+  if (((HWND)lParam == *m_pEdit) && (HIWORD(wParam) == EN_CHANGE)) {
     m_pEdit->SetDirty();
     return 0;
   }
@@ -288,7 +288,7 @@ LRESULT CDasherWindow::OnDasherFocus(UINT message, WPARAM wParam, LPARAM lParam,
     return 0;
   }
 
-  ::SetFocus(m_pEdit->GetHwnd());
+  m_pEdit->SetFocus();
 
   // TODO: Is this obsolete?
   HWND *pHwnd((HWND *)lParam);

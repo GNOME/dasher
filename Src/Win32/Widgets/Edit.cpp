@@ -38,31 +38,26 @@ using namespace WinLocalisation;
 using namespace WinUTF8;
 
 CEdit::CEdit(CAppSettings *pAppSettings) {
-  m_FontSize = 0;
-  m_FontName = "";
   m_FilenameGUI = 0;
   
   // TODO: Check that this is all working okay (it quite probably
   // isn't). In the long term need specialised editor classes.
   targetwindow = 0;
-  textentry = false;
 
   m_pAppSettings = pAppSettings;
 
-  CodePage = GetUserCodePage();
-#ifndef _WIN32_WCE
+  UINT CodePage = GetUserCodePage();
   m_Font = GetCodePageFont(CodePage, 14);
-#endif
 }
 
 HWND CEdit::Create(HWND hParent, bool bNewWithDate) {
-  m_hWnd = CWindowImpl<CEdit>::Create(hParent, NULL, NULL, ES_NOHIDESEL | WS_CHILD | ES_MULTILINE | WS_VSCROLL | WS_VISIBLE, WS_EX_CLIENTEDGE);
+  CWindowImpl<CEdit>::Create(hParent, NULL, NULL, ES_NOHIDESEL | WS_CHILD | ES_MULTILINE | WS_VSCROLL | WS_VISIBLE, WS_EX_CLIENTEDGE);
 
   Tstring WindowTitle;
   WinLocalisation::GetResourceString(IDS_APP_TITLE, &WindowTitle);
   m_FilenameGUI = new CFilenameGUI(hParent, WindowTitle.c_str(), bNewWithDate);
   
-  return m_hWnd;
+  return *this;
 }
 
 
@@ -277,10 +272,6 @@ void CEdit::Clear() {
 }
 
 void CEdit::SetFont(string Name, long Size) {
-#ifndef _WIN32_WCE
-  m_FontName = Name;
-  m_FontSize = Size;
-
   Tstring FontName;
   UTF8string_to_wstring(Name, FontName);
 
@@ -288,25 +279,18 @@ void CEdit::SetFont(string Name, long Size) {
     Size = 14;
 
   DeleteObject(m_Font);
-  if(Name == "")
+  if (Name == "") {
+    UINT CodePage = GetUserCodePage();
     m_Font = GetCodePageFont(CodePage, -Size);
+  }
   else
     m_Font = CreateFont(-Size, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, FontName.c_str());    // DEFAULT_CHARSET => font made just from Size and FontName
 
   SendMessage(WM_SETFONT, (WPARAM) m_Font, true);
-#else
-  // not implemented
-#pragma message ( "CEdit::SetFot not implemented on WinCE")
-  //DASHER_ASSERT(0);
-#endif
 }
 
 void CEdit::SetInterface(Dasher::CDasherInterfaceBase *DasherInterface) {
   m_pDasherInterface = DasherInterface;
-#ifndef _WIN32_WCE
-  // TODO: What on Earth is this doing here?
-  //SetFont(m_FontName, m_FontSize);
-#endif
 }
 
 void CEdit::output(const std::string &sText) {
@@ -328,11 +312,7 @@ void CEdit::output(const std::string &sText) {
     else {    
       for(std::wstring::iterator it(String.begin()); it != String.end(); ++it) {
         fakekey[0].type = INPUT_KEYBOARD;
-#ifdef _WIN32_WCE
-        fakekey[0].ki.dwFlags = KEYEVENTF_KEYUP;
-#else
         fakekey[0].ki.dwFlags = KEYEVENTF_UNICODE;
-#endif
         fakekey[0].ki.wVk = 0;
         fakekey[0].ki.time = NULL;
         fakekey[0].ki.wScan = *it;
@@ -602,10 +582,8 @@ void CEdit::deletetext(const std::string &sText) {
   // newline pair, but we're now assuming we'll never have two real characters for
   // a single symbol
 
-//  if(targetwindow != NULL && textentry == true) {
 if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == APP_STYLE_DIRECT) {
 
-#ifdef _UNICODE
     fakekey[0].type = fakekey[1].type = INPUT_KEYBOARD;
     fakekey[0].ki.wVk = fakekey[1].ki.wVk = VK_BACK;
     fakekey[0].ki.time = fakekey[1].ki.time = 0;
@@ -613,11 +591,6 @@ if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == APP_STYLE_DIRECT) {
 
 	::SetFocus(targetwindow);
     SendInput(2, fakekey, sizeof(INPUT));
-#else
-    SetFocus(targetwindow);
-    keybd_event(VK_BACK, 0, NULL, NULL);
-    keybd_event(VK_BACK, 0, KEYEVENTF_KEYUP, NULL);
-#endif
   }
 
   // And the output buffer (?)
