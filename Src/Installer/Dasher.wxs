@@ -17,10 +17,7 @@
 				<Directory Id="Dasher" Name="Dasher">
 					<Directory Id="INSTALLDIR" Name="Dasher 5.00">
 						<Component Id="MainExecutable" Guid="5a93ba53-2e2d-4f88-8a1f-5bdd8f130394">
-							<File Id="DasherEXE" Name="Dasher.exe" DiskId="1" Source="..\Win32\Target\Release\Dasher.exe" Vital="yes">
-								<Shortcut Id="startmenuDasher5" Directory="ProgramMenuDir" Name="Dasher 5.00-alpha" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0" Advertise="yes"/>
-								<Shortcut Id="desktopDasher5" Directory="DesktopFolder" Name="Dasher 5.00-alpha" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0" Advertise="yes"/>
-							</File>
+							<File Id="DasherEXE" Name="Dasher.exe" DiskId="1" Source="..\Win32\Target\Release\Dasher.exe" Vital="yes"/>
 							<File Id="ExpatDLL" Name="libexpat.dll" DiskId="1" Source="$(env.EXPAT)\bin\libexpat.dll" Vital="yes"/>
 						</Component>
 						<Component Id="Help" Guid="cf486329-8d04-462b-afd4-e8e0bccc9c95">
@@ -234,17 +231,34 @@
 			</Directory>
 			<Directory Id="ProgramMenuFolder" Name="Programs">
 				<Directory Id="ProgramMenuDir" Name="Dasher 5.00-alpha">
-					<Component Id="Random" Guid="D28C2189-5E40-4f93-B42E-0CD76D8B5B37" KeyPath="no">
-            <Registry Id="DummyReg" Root="HKCU" Key="Software\Inference Group\Dasher5" Name="Dummy" Action="write" Type="string" Value="Dummy Key" KeyPath="yes"/>
-						<RemoveFolder Id="RandomRemove" On="uninstall"/>
+					<Component Id="ProgramShortcuts" Guid="D28C2189-5E40-4f93-B42E-0CD76D8B5B37" KeyPath="no">
+            <Shortcut  Id="pmfShortcutDasher" Name="Dasher 5.00 alpha" Target="[#DasherEXE]" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
+            <Shortcut  Id="pmfShortcutDasherSpeak" Name="Dasher for conversation" Target="[#DasherEXE]" Arguments="/config speak" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
+            <Shortcut  Id="pmfShortcutDasherPreparedSpeech" Name="Dasher for giving speeches" Target="[#DasherEXE]" Arguments="/config prepared_speech" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
+            <Shortcut  Id="pmfShortcutDasherDirect" Name="Dasher direct entry" Target="[#DasherEXE]" Arguments="/config direct" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
+            <Shortcut  Id="pmfShortcutDasherEdit" Name="Dasher for editing" Target="[#DasherEXE]" Arguments="/config edit" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
+            <Registry Id="ProgramShortcutsReg" Root="HKCU" Key="Software\Inference Group\Dasher5" Name="ProgramShortcuts" Action="write" Type="string" Value="Dummy Key" KeyPath="yes"/>
+						<RemoveFolder Id="ProgramShortcutsRemove" On="uninstall"/>
 					</Component>
 				</Directory>
 			</Directory>
-			<Directory Id="DesktopFolder" Name="Desktop"/>
+      <Directory Id="DesktopFolder" Name="Desktop">
+        <Component Id="DesktopShortcuts" Guid="113e7f55-fb83-40a6-8bec-9a143a90434c" KeyPath="no">
+          <Shortcut  Id="desktopShortcutDasher" Name="Dasher 5.00 alpha" Target="[#DasherEXE]" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
+          <Shortcut  Id="desktopShortcutDasherSpeak" Name="Dasher for conversation" Target="[#DasherEXE]" Arguments="/config speak" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
+          <Shortcut  Id="desktopShortcutDasherPreparedSpeech" Name="Dasher for giving speeches" Target="[#DasherEXE]" Arguments="/config prepared_speech" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
+          <Shortcut  Id="desktopShortcutDasherDirect" Name="Dasher direct entry" Target="[#DasherEXE]" Arguments="/config direct" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
+          <Shortcut  Id="desktopShortcutDasherEdit" Name="Dasher for editing" Target="[#DasherEXE]" Arguments="/config edit" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
+          <Registry Id="DesktopShortcutsReg" Root="HKCU" Key="Software\Inference Group\Dasher5" Name="DesktopShortcuts" Action="write" Type="string" Value="Dummy Key" KeyPath="yes"/>
+          <RemoveFolder Id="DesktopShortcutsRemove" On="uninstall"/>
+        </Component>
+
+      </Directory>
 		</Directory>
 		<Feature Id="Complete" Title="Dasher 5.00-alpha" Description="The full Dasher installation." Display="expand" Level="1" ConfigurableDirectory="INSTALLDIR">
 				<ComponentRef Id="MainExecutable"/>
-				<ComponentRef Id="Random"/>
+      <ComponentRef Id="ProgramShortcuts"/>
+      <ComponentRef Id="DesktopShortcuts"/>
 				<ComponentRef Id="Alphabets"/>
 				<ComponentRef Id="Training"/>
       <ComponentRef Id="Colours"/>
