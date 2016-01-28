@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE settings SYSTEM "settings.dtd">
 <settings>
 <long name="AppStyle" value="1"/>
 <bool name="ConfirmUnsavedFiles" value="True"/>
 <bool name="ControlMode" value="True"/>
 <bool name="CopyOnStop" value="True"/>
+<bool name="FullScreen" value="True"/>
 <bool name="TimeStampNewFiles" value="True"/>
-<string name="ControlBoxID" value="edit"/>
-<string name="ToolbarID" value="edit"/>
+<string name="ControlBoxID" value="Edit Larger Document"/>
+<string name="ToolbarID" value="Edit Larger Document"/>
 </settings>

@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE settings SYSTEM "settings.dtd">
 <settings>
 <long name="AppStyle" value="1"/>
 <bool name="ConfirmUnsavedFiles" value="True"/>
 <bool name="ControlMode" value="True"/>
-<string name="ControlBoxID" value="prepared_speech"/>
-<string name="ToolbarID" value="prepared_speech"/>
+<bool name="FullScreen" value="True"/>
+<string name="ControlBoxID" value="Speak From Prepared Document"/>
+<string name="ToolbarID" value="Speak From Prepared Document"/>
 </settings>

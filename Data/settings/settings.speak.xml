@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE settings SYSTEM "settings.dtd">
 <settings>
 <long name="AppStyle" value="0"/>
@@ -7,7 +7,8 @@
 <bool name="ConfirmUnsavedFiles" value="False"/>
 <bool name="ControlMode" value="True"/>
 <bool name="CopyOnStop" value="True"/>
+<bool name="FullScreen" value="True"/>
 <bool name="TimeStampNewFiles" value="False"/>
-<string name="ControlBoxID" value="speak"/>
-<string name="ToolbarID" value="speak"/>
+<string name="ControlBoxID" value="Conversation"/>
+<string name="ToolbarID" value="Conversation"/>
 </settings>

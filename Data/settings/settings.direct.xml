@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE settings SYSTEM "settings.dtd">
 <settings>
 <long name="AppStyle" value="2"/>
@@ -6,6 +6,6 @@
 <bool name="ControlMode" value="False"/>
 <bool name="CopyOnStop" value="False"/>
 <bool name="TimeStampNewFiles" value="False"/>
-  <string name="ControlBoxID" value="direct"/>
-  <string name="ToolbarID" value="direct"/>
+  <string name="ControlBoxID" value="Direct Entry"/>
+  <string name="ToolbarID" value="Direct Entry"/>
 </settings>
