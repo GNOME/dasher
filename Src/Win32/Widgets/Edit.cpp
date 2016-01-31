@@ -193,6 +193,7 @@ bool CEdit::TOpen(const Tstring &filename) {
   CStringA filestr;
   char* filebuffer = filestr.GetBufferSetLength(filesize+2);
   ReadFile(FileHandle, filebuffer, filesize, &amountread, NULL);
+  CloseHandle(FileHandle);
   filebuffer[amountread] = 0;
   filebuffer[amountread+1] = 0;
   long encoding = m_pAppSettings->GetLongParameter(APP_LP_FILE_ENCODING);
@@ -300,7 +301,6 @@ void CEdit::output(const std::string &sText) {
 
   if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == APP_STYLE_DIRECT) {
     const char *DisplayText = sText.c_str();
-#ifdef UNICODE
     if(DisplayText[0] == 0xd && DisplayText[1] == 0xa) {
       // Newline, so we want to fake an enter
       fakekey[0].type = fakekey[1].type = INPUT_KEYBOARD;
