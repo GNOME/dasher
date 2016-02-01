@@ -474,16 +474,18 @@ LRESULT CDasherWindow::OnWindowPosChanged(UINT message, WPARAM wParam, LPARAM lP
     WINDOWPLACEMENT wp;
     wp.length = sizeof(wp);
     if (GetWindowPlacement(&wp)) {
-      bool normal = wp.showCmd != SW_SHOWMAXIMIZED && wp.showCmd != SW_SHOWMINIMIZED;
-      if (normal)
-      {
-        LPWINDOWPOS pwp = (LPWINDOWPOS)lParam;
-        m_pAppSettings->SetLongParameter(APP_LP_X, pwp->x);
-        m_pAppSettings->SetLongParameter(APP_LP_Y,pwp->y);
-        m_pAppSettings->SetLongParameter(APP_LP_SCREEN_WIDTH, pwp->cx);
-        m_pAppSettings->SetLongParameter(APP_LP_SCREEN_HEIGHT, pwp->cy);
+      if (wp.showCmd != SW_SHOWMINIMIZED) {
+        bool normal = wp.showCmd != SW_SHOWMAXIMIZED;
+        if (normal)
+        {
+          LPWINDOWPOS pwp = (LPWINDOWPOS)lParam;
+          m_pAppSettings->SetLongParameter(APP_LP_X, pwp->x);
+          m_pAppSettings->SetLongParameter(APP_LP_Y, pwp->y);
+          m_pAppSettings->SetLongParameter(APP_LP_SCREEN_WIDTH, pwp->cx);
+          m_pAppSettings->SetLongParameter(APP_LP_SCREEN_HEIGHT, pwp->cy);
+        }
+        m_pAppSettings->SetBoolParameter(APP_BP_FULL_SCREEN, !normal);
       }
-    m_pAppSettings->SetBoolParameter(APP_BP_FULL_SCREEN, wp.showCmd == SW_SHOWMAXIMIZED);
     }
   }
   bHandled = false;
