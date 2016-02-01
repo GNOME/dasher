@@ -319,29 +319,6 @@ void CEdit::output(const std::string &sText) {
         SendInput(1, fakekey, sizeof(INPUT));
       }
     }
-#else
-    if(DisplayText[0] == 0xd && DisplayText[1] == 0xa) {
-      // Newline, so we want to fake an enter
-      SetFocus(targetwindow);
-      keybd_event(VK_RETURN, 0, NULL, NULL);
-      keybd_event(VK_RETURN, 0, KEYEVENTF_KEYUP, NULL);
-    }
-    Tstring character;
-    WinUTF8::UTF8string_to_wstring(DisplayText, &character, 1252);
-    TCHAR test = character[0];
-    SHORT outputvk = VkKeyScan(char (character[0]));
-    SetFocus(targetwindow);
-    if(HIBYTE(outputvk) && 6) {
-      keybd_event(VK_SHIFT, 0, NULL, NULL);
-      keybd_event(LOBYTE(outputvk), 0, NULL, NULL);
-      keybd_event(LOBYTE(outputvk), 0, KEYEVENTF_KEYUP, NULL);
-      keybd_event(VK_SHIFT, 0, KEYEVENTF_KEYUP, NULL);
-    }
-    else {
-      keybd_event(LOBYTE(outputvk), 0, NULL, NULL);
-      keybd_event(LOBYTE(outputvk), 0, KEYEVENTF_KEYUP, NULL);
-    }
-#endif
   }
   m_Output += sText;
 }
