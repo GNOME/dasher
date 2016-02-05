@@ -8,7 +8,7 @@ bin_PROGRAMS = dasher
 
 #if DOGTK
 
-SUBDIRS = Common DasherCore DasherIM Gtk2 Installer InstallerTobii InstallerW2K Win32
+SUBDIRS = Common DasherCore DasherIM Gtk2
 dasher_SOURCES = main.cc
 
 AM_CXXFLAGS = \
