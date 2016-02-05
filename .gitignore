@@ -44,3 +44,5 @@ stamp-*
 *.vcxproj.user
 /Src/Win32/Dasher.aps
 /Src/Win32/Dasher_vc2013.opensdf
+Src/Win32/Dasher_vc2013.VC.db
+Data/Help/Win32/Dasher.chm

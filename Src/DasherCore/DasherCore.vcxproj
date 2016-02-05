@@ -202,7 +202,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common_vc2013.vcxproj">
+    <ProjectReference Include="..\Common\Common.vcxproj">
       <Project>{4a4ceb83-fbc8-4e93-831e-009875e54794}</Project>
       <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>

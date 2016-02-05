@@ -215,11 +215,11 @@
     <None Include="Widgets\Screen.inl" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common_vc2013.vcxproj">
+    <ProjectReference Include="..\Common\Common.vcxproj">
       <Project>{4a4ceb83-fbc8-4e93-831e-009875e54794}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\DasherCore\DasherCore_vc2013.vcxproj">
+    <ProjectReference Include="..\DasherCore\DasherCore.vcxproj">
       <Project>{192c1e5c-2d1e-4aa3-91c3-ff2d7abd67f8}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
