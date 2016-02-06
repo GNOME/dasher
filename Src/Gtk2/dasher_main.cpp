@@ -714,7 +714,6 @@ dasher_main_load_state(DasherMain *pSelf) {
   int iEditSize = pPrivate->pAppSettings->GetLong(APP_LP_EDIT_SIZE);
   int iWindowWidth = pPrivate->pAppSettings->GetLong(APP_LP_SCREEN_WIDTH);
   int iWindowHeight = pPrivate->pAppSettings->GetLong(APP_LP_SCREEN_HEIGHT);
-}
 
 #ifndef WITH_MAEMO
   gtk_window_resize(GTK_WINDOW(pPrivate->pMainWindow), iWindowWidth, iWindowHeight);
