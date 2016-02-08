@@ -402,19 +402,18 @@ void CDasherWindow::Layout() {
 
   int ToolbarHeight = m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR) ? m_pToolbar->GetHeight() : 0;
 
-  int SpeedAlphabetHeight = m_pAppSettings->GetBoolParameter(APP_BP_SHOW_STATUSBAR) ? m_pSpeedAlphabetBar->GetHeight() : 0;
-  m_pSpeedAlphabetBar->MoveWindow(0, Height - SpeedAlphabetHeight, Width, SpeedAlphabetHeight);
-  m_pSpeedAlphabetBar->ShowWindow(SpeedAlphabetHeight ? SW_SHOW : SW_HIDE);
+  int StatusbarHeight = m_pAppSettings->GetBoolParameter(APP_BP_SHOW_STATUSBAR) ? m_pSpeedAlphabetBar->GetHeight() : 0;
+  m_pSpeedAlphabetBar->MoveWindow(0, Height - StatusbarHeight, Width, StatusbarHeight);
+  m_pSpeedAlphabetBar->ShowWindow(StatusbarHeight ? SW_SHOW : SW_HIDE);
 
   bool mirrorLayout = m_pAppSettings->GetBoolParameter(APP_BP_MIRROR_LAYOUT);
 
-  int CanvasY = ToolbarHeight;
-  int CanvasHeight = Height - SpeedAlphabetHeight - CanvasY;
+  int CanvasHeight = Height - ToolbarHeight - StatusbarHeight;
 
   switch (iStyle)
   {
   case APP_STYLE_DIRECT:
-    m_pDasher->Move(0, CanvasY, Width, CanvasHeight);
+    m_pDasher->Move(0, ToolbarHeight, Width, CanvasHeight);
     m_pEdit->ShowWindow(SW_HIDE);
     m_pSplitter->ShowWindow(SW_HIDE);
     break;
@@ -422,12 +421,12 @@ void CDasherWindow::Layout() {
   case APP_STYLE_COMPOSE:
     if (mirrorLayout)
     {
-      m_pDasher->Move(Width / 2, CanvasY, Width - Width / 2, CanvasHeight);
-      m_pEdit->Move(0, CanvasY, Width / 2, CanvasHeight);
+      m_pDasher->Move(Width / 2, ToolbarHeight, Width - Width / 2, CanvasHeight);
+      m_pEdit->Move(0, ToolbarHeight, Width / 2, CanvasHeight);
     }
     else {
-      m_pDasher->Move(0, CanvasY, Width / 2, CanvasHeight);
-      m_pEdit->Move(Width / 2, CanvasY, Width - Width / 2, CanvasHeight);
+      m_pDasher->Move(0, ToolbarHeight, Width / 2, CanvasHeight);
+      m_pEdit->Move(Width / 2, ToolbarHeight, Width - Width / 2, CanvasHeight);
     }
     m_pEdit->ShowWindow(SW_SHOW);
     m_pSplitter->ShowWindow(SW_HIDE);
@@ -440,24 +439,24 @@ void CDasherWindow::Layout() {
     if (mirrorLayout)
     {
       if (m_pSplitter->IsSizing())
-        EditHeight = CanvasY + CanvasHeight - SplitterHeight - m_pSplitter->GetPos();
-      int SplitterY = CanvasY + CanvasHeight - SplitterHeight - EditHeight;
-      SplitterY = min(SplitterY, CanvasY + CanvasHeight - GetMinEditHeight() - SplitterHeight);
-      SplitterY = max(CanvasY + GetMinCanvasHeight(), SplitterY);
-      EditHeight = CanvasY + CanvasHeight - SplitterY - SplitterHeight;
-      m_pDasher->Move(0, CanvasY, Width, SplitterY - CanvasY);
+        EditHeight = ToolbarHeight + CanvasHeight - SplitterHeight - m_pSplitter->GetPos();
+      int SplitterY = ToolbarHeight + CanvasHeight - SplitterHeight - EditHeight;
+      SplitterY = min(SplitterY, ToolbarHeight + CanvasHeight - GetMinEditHeight() - SplitterHeight);
+      SplitterY = max(ToolbarHeight + GetMinCanvasHeight(), SplitterY);
+      EditHeight = ToolbarHeight + CanvasHeight - SplitterY - SplitterHeight;
+      m_pDasher->Move(0, ToolbarHeight, Width, SplitterY - ToolbarHeight);
       m_pSplitter->Move(SplitterY, Width);
       m_pEdit->Move(0, SplitterY + SplitterHeight, Width, EditHeight);
     }
     else {
       if (m_pSplitter->IsSizing())
-        EditHeight = m_pSplitter->GetPos() - CanvasY;
-      int SplitterY = CanvasY + EditHeight;
-      SplitterY = min(SplitterY, CanvasY + CanvasHeight - GetMinCanvasHeight() - SplitterHeight);
-      SplitterY = max(CanvasY + GetMinEditHeight(), SplitterY);
-      EditHeight = SplitterY - CanvasY;
-      m_pDasher->Move(0, SplitterY + SplitterHeight, Width, CanvasHeight - SplitterY - SplitterHeight);
-      m_pEdit->Move(0, CanvasY, Width, EditHeight);
+        EditHeight = m_pSplitter->GetPos() - ToolbarHeight;
+      int SplitterY = ToolbarHeight + EditHeight;
+      SplitterY = min(SplitterY, ToolbarHeight + CanvasHeight - GetMinCanvasHeight() - SplitterHeight);
+      SplitterY = max(ToolbarHeight + GetMinEditHeight(), SplitterY);
+      EditHeight = SplitterY - ToolbarHeight;
+      m_pDasher->Move(0, SplitterY + SplitterHeight, Width, ToolbarHeight + CanvasHeight - SplitterY - SplitterHeight);
+      m_pEdit->Move(0, ToolbarHeight, Width, EditHeight);
       m_pSplitter->Move(SplitterY, Width);
     }
     m_pEdit->ShowWindow(SW_SHOW);
