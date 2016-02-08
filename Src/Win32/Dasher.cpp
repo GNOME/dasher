@@ -127,6 +127,10 @@ void Dasher::CDasher::editDelete(const string &strText, CDasherNode *pSource) {
   CDasherInterfaceBase::editDelete(strText, pSource);
 }
 
+unsigned int Dasher::CDasher::ctrlOffsetAfterMove(unsigned int offsetBefore, bool bForwards, CControlManager::EditDistance iDist) {
+  return m_pEdit->OffsetAfterMove(offsetBefore, bForwards, iDist);
+}
+
 unsigned int Dasher::CDasher::ctrlMove(bool bForwards, CControlManager::EditDistance iDist) {
   return m_pEdit->Move(bForwards, iDist);
 }

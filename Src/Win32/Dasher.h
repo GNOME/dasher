@@ -58,6 +58,7 @@ public:
   void HandleEvent(int iParameter) override;
   void editOutput(const std::string &strText, CDasherNode *pSource) override;
   void editDelete(const std::string &strText, CDasherNode *pSource) override;
+  unsigned int ctrlOffsetAfterMove(unsigned int offsetBefore, bool bForwards, CControlManager::EditDistance iDist) override;
   unsigned int ctrlMove(bool bForwards, CControlManager::EditDistance iDist) override;
   unsigned int ctrlDelete(bool bForwards, CControlManager::EditDistance iDist) override;
     

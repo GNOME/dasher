@@ -312,15 +312,8 @@ public:
   int calculateNewOffset(CControlBase::CContNode *pNode, int offsetBefore) override {
     if (m_bForwards)
       return offsetBefore;
-    switch (m_dist) {
-    case CControlManager::EDIT_FILE:
-      return -1;
-    case CControlManager::EDIT_CHAR: {
-      return max(-1, offsetBefore - 1);
-    }
-    default:
-      return offsetBefore;
-    }
+
+    return pNode->mgr()->GetDasherInterface()->ctrlOffsetAfterMove(offsetBefore + 1, m_bForwards, m_dist) - 1;
   }
   virtual void happen(CControlBase::CContNode *pNode) {
     pNode->mgr()->GetDasherInterface()->ctrlDelete(m_bForwards, m_dist);
@@ -334,21 +327,7 @@ public:
   Move(bool bForwards, CControlManager::EditDistance dist) : m_bForwards(bForwards), m_dist(dist)  {
   }
   int calculateNewOffset(CControlBase::CContNode *pNode, int offsetBefore) override {
-    switch (m_dist) {
-    case CControlManager::EDIT_FILE:
-      return m_bForwards ? pNode->mgr()->GetDasherInterface()->GetAllContextLenght() - 1 : -1;
-
-    case CControlManager::EDIT_CHAR: {
-      if (m_bForwards) {
-        int maxPos = pNode->mgr()->GetDasherInterface()->GetAllContextLenght() - 1;
-        return min(maxPos, offsetBefore + 1);
-      }
-      else
-        return max(-1, offsetBefore - 1);
-    }
-    default:
-      return offsetBefore;
-    }
+    return pNode->mgr()->GetDasherInterface()->ctrlOffsetAfterMove(offsetBefore + 1, m_bForwards, m_dist) - 1;
   }
   virtual void happen(CControlBase::CContNode *pNode) {
     pNode->mgr()->GetDasherInterface()->ctrlMove(m_bForwards, m_dist);

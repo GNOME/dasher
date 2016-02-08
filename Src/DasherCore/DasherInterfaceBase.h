@@ -182,6 +182,16 @@ public:
   ///Subclasses supporting clipboard operations should override to copy
   /// the specified text to the clipboard. (Default implementation does nothing).
   virtual void CopyToClipboard(const std::string &text) {}
+ 
+  ///Called to calculate offset after control-mode "move" or delete commands.
+  ///\param bForwards true to move forwards (right), false for backwards
+  ///\param dist how far to move: character, word, line, ..., file. (Usually defined
+  /// by OS, e.g. for non-european languages)
+  ///\return the offset, into the edit buffer where the cursor would be *after* the move.
+  virtual unsigned int ctrlOffsetAfterMove(unsigned int offsetBefore, bool bForwards,
+    CControlManager::EditDistance iDist) {
+    return offsetBefore;
+  }
 
   ///Called to execute a control-mode "move" command.
   ///\param bForwards true to move forwards (right), false for backwards

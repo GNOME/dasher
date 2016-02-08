@@ -76,7 +76,8 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
 
 
   void Move(int x, int y, int Width, int Height);
-	
+
+  unsigned int OffsetAfterMove(unsigned int offsetBefore, bool bForwards,  Dasher::CControlManager::EditDistance iDist);
   int Move(bool bForwards, Dasher::CControlManager::EditDistance iDist);
   int Delete(bool bForwards, Dasher::CControlManager::EditDistance iDist);
   std::string GetTextAroundCursor(Dasher::CControlManager::EditDistance iDist);

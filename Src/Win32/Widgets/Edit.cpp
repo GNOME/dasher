@@ -434,6 +434,13 @@ std::string CEdit::GetTextAroundCursor(CControlManager::EditDistance iDist) {
   return wstring_to_UTF8string(wideText.Mid(iStart, iEnd-iStart));
 }
 
+unsigned int CEdit::OffsetAfterMove(unsigned int offsetBefore, bool bForwards, CControlManager::EditDistance iDist) {
+  int iStart, iEnd;
+  iStart = iEnd = offsetBefore;
+  GetRange(bForwards, iDist, &iStart, &iEnd);
+  return bForwards ? iEnd : iStart;
+}
+
 int CEdit::Move(bool bForwards, CControlManager::EditDistance iDist) {
   int iStart = 0;
   int iEnd = 0;
