@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Dasher - Prepared Speech
+Comment=Dasher for giving speeches
+Exec=dasher --config prepared_speech
+Icon=dasher
+Terminal=false
+Type=Application
+Categories=Utility;Application;
