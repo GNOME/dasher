@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Dasher - Speak
+Comment=Dasher for conversation
+Exec=dasher --config speak
+Icon=dasher
+Terminal=false
+Type=Application
+Categories=Utility;Application;
