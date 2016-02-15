@@ -30,6 +30,14 @@ Now you can use "configure" as described in the "INSTALL" file.  The
 following configure-time options are specific to Dasher (see section
 "`configure' Invocation" in the "INSTALL" file):
 
+Desktop Shortcuts
+=================
+After the installation is done, for Ubuntu and derivatives
+(e.g., Goobuntu), you can create desktop shortcuts starting Dasher in
+different profiles by running:
+
+  ./create-linux-desktop-shortcuts.sh
+
 Options
 =======
 
