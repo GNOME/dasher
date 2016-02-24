@@ -26,9 +26,10 @@ Then autogen:
 
   ./autogen.sh
 
-Now you can use "configure" as described in the "INSTALL" file.  The
-following configure-time options are specific to Dasher (see section
-"`configure' Invocation" in the "INSTALL" file):
+After this, follow "Basic Installation" section in the "INSTALL" file.
+For the "configure" step, the following configure-time options are
+also available (see also the section "`configure' Invocation" in
+the "INSTALL" file):
 
 Options
 =======
@@ -69,3 +70,11 @@ you see
 try adding the directory which contains "dasher.gschema.xml",
 usually ${prefix}/share/glib-2.0/schemas, to the environment variable
 GSETTINGS_SCHEMA_DIR.
+
+Desktop Shortcuts
+=================
+After the installation is done, for Ubuntu and derivatives
+(e.g., Goobuntu), you can create desktop shortcuts starting Dasher in
+different profiles by running:
+
+  ./create-linux-desktop-shortcuts.sh
