@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE control SYSTEM "control.dtd">
-<control name="">
+<control name="Default (symbols)">
   <alph/>
 
-  <node label="Stop" color="242">
+  <node label="&#9209;" color="242">
     <stop/>
     <alph/>
     <root/>
   </node>
 
-  <node label="Pause" color="241">
+  <node label="&#9208;" color="241">
     <pause/>
     <alph/>
     <root/>
   </node>
 
-  <node name="CTL_MOVE" label="Move" color="-1">
+  <node name="CTL_MOVE" label="&#10018;" color="-1">
     <alph/>
-    <node name="CTL_MOVE_BACKWARD" label="&lt;=" color="-1">
-      <node label="All" color="-1">
+    <node name="CTL_MOVE_BACKWARD" label="&#8678;" color="-1">
+      <node label="&#128464;" color="-1">
         <move forward="no" dist="all"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
         <ref name="CTL_MOVE_FORWARD"/>
       </node>
-      <node label="Paragraph" color="-1">
+      <node label="&#182;" color="-1">
         <move forward="no" dist="paragraph"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
         <ref name="CTL_MOVE_FORWARD"/>
       </node>
-      <node label="Sentence" color="-1">
+      <node label=".&#8265;" color="-1">
         <move forward="no" dist="sentence"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
         <ref name="CTL_MOVE_FORWARD"/>
       </node>
-      <node label="Word" color="-1">
+      <node label="&#11052;" color="-1">
         <move forward="no" dist="word"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
         <ref name="CTL_MOVE_FORWARD"/>
       </node>
-      <node label="Letter" color="-1">
+      <node label="&#8226;" color="-1">
         <move forward="no" dist="char"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
@@ -50,33 +50,33 @@
       </node>
     </node>
 
-    <node name="CTL_MOVE_FORWARD" label="=&gt;" color="-1">
+    <node name="CTL_MOVE_FORWARD" label="&#8680;" color="-1">
 
-      <node label="Letter" color="-1">
+      <node label="&#8226;" color="-1">
         <move forward="yes" dist="char"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
         <ref name="CTL_MOVE_FORWARD"/>
       </node>
-      <node label="Word" color="-1">
+      <node label="&#11052;" color="-1">
         <move forward="yes" dist="word"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
         <ref name="CTL_MOVE_FORWARD"/>
       </node>
-      <node label="Sentence" color="-1">
+      <node label=".&#8265;" color="-1">
         <move forward="yes" dist="sentence"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
         <ref name="CTL_MOVE_FORWARD"/>
       </node>
-      <node label="Paragraph" color="-1">
+      <node label="&#182;" color="-1">
         <move forward="yes" dist="paragraph"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
         <ref name="CTL_MOVE_FORWARD"/>
       </node>
-      <node label="All" color="-1">
+      <node label="&#128464;" color="-1">
         <move forward="yes" dist="all"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
@@ -86,34 +86,34 @@
 
     
   </node>
-  <node name="CTL_DELETE" label="Delete" color="-1">
+  <node name="CTL_DELETE" label="&#10683;" color="-1">
     <alph/>
-    <node name="CTL_DELETE_BACKWARD" label="&lt;x" color="-1">
-      <node label="All" color="-1">
+    <node name="CTL_DELETE_BACKWARD" label="&#9003;" color="-1">
+      <node label="&#128464;" color="-1">
         <delete forward="no" dist="all"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
         <ref name="CTL_DELETE_FORWARD"/>
       </node>
-      <node label="Paragraph" color="-1">
+      <node label="&#182;" color="-1">
         <delete forward="no" dist="paragraph"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
         <ref name="CTL_DELETE_FORWARD"/>
       </node>
-      <node label="Sentence" color="-1">
+      <node label=".&#8265;" color="-1">
         <delete forward="no" dist="sentence"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
         <ref name="CTL_DELETE_FORWARD"/>
       </node>
-      <node label="Word" color="-1">
+      <node label="&#11052;" color="-1">
         <delete forward="no" dist="word"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
         <ref name="CTL_DELETE_FORWARD"/>
       </node>
-      <node label="Letter" color="-1">
+      <node label="&#8226;" color="-1">
         <delete forward="no" dist="char"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
@@ -121,33 +121,33 @@
       </node>
     </node>
 
-    <node name="CTL_DELETE_FORWARD" label="x&gt;" color="-1">
+    <node name="CTL_DELETE_FORWARD" label="&#8998;" color="-1">
 
-      <node label="Letter" color="-1">
+      <node label="&#8226;" color="-1">
         <delete forward="yes" dist="char"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
         <ref name="CTL_DELETE_FORWARD"/>
       </node>
-      <node label="Word" color="-1">
+      <node label="&#11052;" color="-1">
         <delete forward="yes" dist="word"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
         <ref name="CTL_DELETE_FORWARD"/>
       </node>
-      <node label="Sentence" color="-1">
+      <node label=".&#8265;" color="-1">
         <delete forward="yes" dist="sentence"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
         <ref name="CTL_DELETE_FORWARD"/>
       </node>
-      <node label="Paragraph" color="-1">
+      <node label="&#182;" color="-1">
         <delete forward="yes" dist="paragraph"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
         <ref name="CTL_DELETE_FORWARD"/>
       </node>
-      <node label="All" color="-1">
+      <node label="&#128464;" color="-1">
         <delete forward="yes" dist="all"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
@@ -157,9 +157,9 @@
 
 
   </node>
-  <node name="CTL_CLEAR" label="Clear" color="-1">
+  <node name="CTL_CLEAR" label="&#9114;" color="-1">
     <alph/>
-    <node label="All" color="242">
+    <node label="&#128464;" color="242">
       <delete forward="yes" dist="all"/>
       <delete forward="no" dist="all"/>
       <alph/>
@@ -168,29 +168,29 @@
     <alph/>
   </node>
 
-  <node  name="CTL_SPEAK" label="Speak" color="241">
+  <node  name="CTL_SPEAK" label="&#128483;" color="241">
 
-    <node label="Stop" color="242">
+    <node label="&#9209;" color="242">
       <speak what="cancel"/>
       <alph/>
       <root/>
     </node>
-    <node label="Repeat" color="241">
+    <node label="&#128259;" color="241">
       <speak what="repeat"/>
       <alph/>
       <root/>
     </node>
-    <node label="Paragraph" color="-1">
+    <node label="&#182;" color="-1">
       <speak what="paragraph"/>
       <move forward="yes" dist="paragraph"/>
       <alph/>
-      <node label="ClearParagraph" color="242">
+      <node label="&#9114;&#182;" color="242">
         <delete forward="no" dist="paragraph"/>
         <delete forward="no" dist="char"/>
         <alph/>
         <root/>
       </node>
-      <node  name="CTL_SPEAK_PARAGRAPH2" label="SpeakParagraph" color="-1">
+      <node  name="CTL_SPEAK_PARAGRAPH2" label="&#128483;&#182;" color="-1">
         <speak what="paragraph"/>
         <move forward="yes" dist="paragraph"/>
         <alph/>
@@ -199,11 +199,11 @@
       </node>
       <ref name="CTL_SPEAK"/>
     </node>
-    <node label="All" color="-1">
+    <node label="&#128464;" color="-1">
       <speak what="all"/>
       <move forward="yes" dist="all"/>
       <alph/>
-      <node label="ClearAll" color="242">
+      <node label="&#9114;&#128464;" color="242">
         <delete forward="yes" dist="all"/>
         <delete forward="no" dist="all"/>
         <alph/>

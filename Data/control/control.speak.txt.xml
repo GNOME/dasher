@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE control SYSTEM "control.dtd">
-<control name="">
-  <alph/>
-
-  <node label="Stop" color="242">
-    <stop/>
-    <alph/>
-    <root/>
-  </node>
-
-  <node label="Pause" color="241">
-    <pause/>
-    <alph/>
-    <root/>
-  </node>
+<control name="Conversation (ascii)">
+  
 
   <node name="CTL_MOVE" label="Move" color="-1">
     <alph/>

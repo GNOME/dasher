@@ -7,6 +7,6 @@
 <bool name="CopyOnStop" value="True"/>
 <bool name="FullScreen" value="True"/>
 <bool name="TimeStampNewFiles" value="True"/>
-<string name="ControlBoxID" value="Edit Larger Document"/>
+<string name="ControlBoxID" value="Edit Larger Document (ascii)"/>
 <string name="ToolbarID" value="Edit Larger Document"/>
 </settings>

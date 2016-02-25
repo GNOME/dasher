@@ -5,6 +5,6 @@
 <bool name="ConfirmUnsavedFiles" value="True"/>
 <bool name="ControlMode" value="True"/>
 <bool name="FullScreen" value="True"/>
-<string name="ControlBoxID" value="Speak From Prepared Document"/>
+<string name="ControlBoxID" value="Speak From Prepared Document (ascii)"/>
 <string name="ToolbarID" value="Speak From Prepared Document"/>
 </settings>

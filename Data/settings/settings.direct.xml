@@ -6,6 +6,6 @@
 <bool name="ControlMode" value="False"/>
 <bool name="CopyOnStop" value="False"/>
 <bool name="TimeStampNewFiles" value="False"/>
-  <string name="ControlBoxID" value="Direct Entry"/>
+  <string name="ControlBoxID" value="Direct Entry (ascii)"/>
   <string name="ToolbarID" value="Direct Entry"/>
 </settings>

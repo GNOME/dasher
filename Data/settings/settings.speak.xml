@@ -9,6 +9,6 @@
 <bool name="CopyOnStop" value="True"/>
 <bool name="FullScreen" value="True"/>
 <bool name="TimeStampNewFiles" value="False"/>
-<string name="ControlBoxID" value="Conversation"/>
+<string name="ControlBoxID" value="Conversation (ascii)"/>
 <string name="ToolbarID" value="Conversation"/>
 </settings>

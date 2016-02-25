@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE control SYSTEM "control.dtd">
-<control name="Speak From Prepared Document (symbols)">
+<control name="Speak From Prepared Document (ascii)">
 
-  <node name="CTL_MOVE" label="&#10018;" color="-1">
+  <node name="CTL_MOVE" label="Move" color="-1">
     
-    <node name="CTL_MOVE_BACKWARD" label="&#8678;" color="-1">
-      <node label="&#128464;" color="-1">
+    <node name="CTL_MOVE_BACKWARD" label="&lt;=" color="-1">
+      <node label="All" color="-1">
         <move forward="no" dist="all"/>
         <ref name="CTL_MOVE"/>
         <ref name="CTL_SPEAK"/>
       </node>
-      <node label="&#182;" color="-1">
+      <node label="Paragraph" color="-1">
         <move forward="no" dist="paragraph"/>
         <ref name="CTL_MOVE"/>
         <ref name="CTL_SPEAK"/>
       </node>
-      <node label=".&#8265;" color="-1">
+      <node label="Sentence" color="-1">
         <move forward="no" dist="sentence"/>
         <ref name="CTL_MOVE"/>
         <ref name="CTL_SPEAK"/>
       </node>
     </node>
 
-    <node name="CTL_MOVE_FORWARD" label="&#8680;" color="-1">
+    <node name="CTL_MOVE_FORWARD" label="=&gt;" color="-1">
 
-      <node label=".&#8265;" color="-1">
+      <node label="Sentence" color="-1">
         <move forward="yes" dist="sentence"/>
         <ref name="CTL_MOVE"/>
         <ref name="CTL_SPEAK"/>
       </node>
-      <node label="&#182;" color="-1">
+      <node label="Paragraph" color="-1">
         <move forward="yes" dist="paragraph"/>
         <ref name="CTL_MOVE"/>
         <ref name="CTL_SPEAK"/>
       </node>
-      <node label="&#128464;" color="-1">
+      <node label="All" color="-1">
         <move forward="yes" dist="all"/>
         <ref name="CTL_MOVE"/>
         <ref name="CTL_SPEAK"/>
@@ -42,25 +42,25 @@
     </node>
   </node>
 
-  <node  name="CTL_SPEAK" label="&#128483;" color="241">
+  <node  name="CTL_SPEAK" label="Speak" color="241">
 
-    <node label="&#9209;" color="242">
+    <node label="Stop" color="242">
       <speak what="cancel"/>
       <ref name="CTL_MOVE"/>
       <ref name="CTL_SPEAK"/>
     </node>
-    <node label="&#128259;" color="241">
+    <node label="Repeat" color="241">
       <speak what="repeat"/>
       <ref name="CTL_MOVE"/>
       <ref name="CTL_SPEAK"/>
     </node>
-    <node label=".&#8265;" color="-1">
+    <node label="Sentence" color="-1">
       <speak what="sentence"/>
       <move forward="yes" dist="sentence"/>
       <ref name="CTL_MOVE"/>
       <ref name="CTL_SPEAK"/>
     </node>
-    <node label="&#182;" color="-1">
+    <node label="Paragraph" color="-1">
       <speak what="paragraph"/>
       <move forward="yes" dist="paragraph"/>
       <ref name="CTL_MOVE"/>

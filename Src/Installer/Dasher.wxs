@@ -212,11 +212,16 @@
 								<File Id="colour.xml" Name="colour.xml" DiskId="1" Source="..\..\Data\colours\colour.xml"/>
 							</Component>
               <Component Id="Control" Guid="609c8273-df28-4b77-a6d6-173f9766dcef">
-                 <File Id="control.xml" Name="control.xml" DiskId="1" Source="..\..\Data\control\control.xml"/>
+                <File Id="control.411.xml" Name="control.411.xml" DiskId="1" Source="..\..\Data\control\control.411.xml"/>
+                <File Id="control.xml" Name="control.xml" DiskId="1" Source="..\..\Data\control\control.xml"/>
+                <File Id="control.edit.txt.xml" Name="control.edit.txt.xml" DiskId="1" Source="..\..\Data\control\control.edit.txt.xml"/>
+                <File Id="control.prepared_speech.txt.xml" Name="control.prepared_speech.txt.xml" DiskId="1" Source="..\..\Data\control\control.prepared_speech.txt.xml"/>
+                <File Id="control.speak.txt.xml" Name="control.speak.txt.xml" DiskId="1" Source="..\..\Data\control\control.speak.txt.xml"/>
+                <File Id="control.all.txt.xml" Name="control.all.txt.xml" DiskId="1" Source="..\..\Data\control\control.all.txt.xml"/>
+                <File Id="control.generic.xml" Name="control.generic.xml" DiskId="1" Source="..\..\Data\control\control.generic.xml"/>
                 <File Id="control.edit.xml" Name="control.edit.xml" DiskId="1" Source="..\..\Data\control\control.edit.xml"/>
                 <File Id="control.prepared_speech.xml" Name="control.prepared_speech.xml" DiskId="1" Source="..\..\Data\control\control.prepared_speech.xml"/>
                 <File Id="control.speak.xml" Name="control.speak.xml" DiskId="1" Source="..\..\Data\control\control.speak.xml"/>
-                <File Id="control.411.xml" Name="control.411.xml" DiskId="1" Source="..\..\Data\control\control.411.xml"/>
                 <File Id="control.all.xml" Name="control.all.xml" DiskId="1" Source="..\..\Data\control\control.all.xml"/>
               </Component>
               <Component Id="Settings" Guid="778c7950-dfe0-4b3e-91e7-a7c386f0daa2">
@@ -234,7 +239,7 @@
 					<Component Id="ProgramShortcuts" Guid="D28C2189-5E40-4f93-B42E-0CD76D8B5B37" KeyPath="no">
             <Shortcut  Id="pmfShortcutDasher" Name="Dasher 5.00 alpha" Target="[#DasherEXE]" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
             <Shortcut  Id="pmfShortcutDasherSpeak" Name="Dasher for conversation" Target="[#DasherEXE]" Arguments="/config speak" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
-            <Shortcut  Id="pmfShortcutDasherPreparedSpeech" Name="Dasher for giving speeches" Target="[#DasherEXE]" Arguments="/config prepared_speech" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
+            <Shortcut  Id="pmfShortcutDasherPreparedSpeech" Name="Dasher for speeches" Target="[#DasherEXE]" Arguments="/config prepared_speech" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
             <Shortcut  Id="pmfShortcutDasherDirect" Name="Dasher direct entry" Target="[#DasherEXE]" Arguments="/config direct" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
             <Shortcut  Id="pmfShortcutDasherEdit" Name="Dasher for editing" Target="[#DasherEXE]" Arguments="/config edit" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
             <Registry Id="ProgramShortcutsReg" Root="HKCU" Key="Software\Inference Group\Dasher5" Name="ProgramShortcuts" Action="write" Type="string" Value="Dummy Key" KeyPath="yes"/>
@@ -246,7 +251,7 @@
         <Component Id="DesktopShortcuts" Guid="113e7f55-fb83-40a6-8bec-9a143a90434c" KeyPath="no">
           <Shortcut  Id="desktopShortcutDasher" Name="Dasher 5.00 alpha" Target="[#DasherEXE]" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
           <Shortcut  Id="desktopShortcutDasherSpeak" Name="Dasher for conversation" Target="[#DasherEXE]" Arguments="/config speak" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
-          <Shortcut  Id="desktopShortcutDasherPreparedSpeech" Name="Dasher for giving speeches" Target="[#DasherEXE]" Arguments="/config prepared_speech" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
+          <Shortcut  Id="desktopShortcutDasherPreparedSpeech" Name="Dasher for speeches" Target="[#DasherEXE]" Arguments="/config prepared_speech" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
           <Shortcut  Id="desktopShortcutDasherDirect" Name="Dasher direct entry" Target="[#DasherEXE]" Arguments="/config direct" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
           <Shortcut  Id="desktopShortcutDasherEdit" Name="Dasher for editing" Target="[#DasherEXE]" Arguments="/config edit" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
           <Registry Id="DesktopShortcutsReg" Root="HKCU" Key="Software\Inference Group\Dasher5" Name="DesktopShortcuts" Action="write" Type="string" Value="Dummy Key" KeyPath="yes"/>
