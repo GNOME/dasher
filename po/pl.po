@@ -7,14 +7,14 @@
 # Artur Flinta <aflinta@at.kernel.pl>, 2004-2007.
 # Wadim Dziedzic <wdziedzic@aviary.pl>, 2007-2009.
 # Tomasz Dominikowski <dominikowski@gmail.com>, 2008-2009.
-# Piotr Drąg <piotrdrag@gmail.com>, 2009-2015.
-# Aviary.pl <gnomepl@aviary.pl>, 2008-2015.
+# Piotr Drąg <piotrdrag@gmail.com>, 2009-2016.
+# Aviary.pl <gnomepl@aviary.pl>, 2008-2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 21:13+0200\n"
-"PO-Revision-Date: 2015-09-02 21:14+0200\n"
+"POT-Creation-Date: 2016-02-27 15:39+0100\n"
+"PO-Revision-Date: 2016-02-27 15:40+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -30,13 +30,13 @@ msgstr ""
 #. in a window title.
 #: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:14
 #: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:23
-#: ../Src/Gtk2/dasher_main.cpp:865
+#: ../Src/Gtk2/dasher_main.cpp:867
 msgid "Dasher"
 msgstr "Dasher"
 
 #: ../Data/dasher.desktop.in.in.h:2
 msgid "Predictive text entry"
-msgstr "Przewidujące wejście tekstowe"
+msgstr "Przewidujące wpisywanie tekstu"
 
 #: ../Data/dasher.desktop.in.in.h:3
 msgid "Enter text without a keyboard"
@@ -99,8 +99,8 @@ msgid "_About"
 msgstr "_O programie"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:15 ../Data/GUI/dashermaemo.ui.h:4
-#: ../Src/Gtk2/dasher_editor.cpp:817 ../Src/Gtk2/dasher_editor.cpp:851
-#: ../Src/Gtk2/dasher_main.cpp:880
+#: ../Src/Gtk2/dasher_editor.cpp:809 ../Src/Gtk2/dasher_editor.cpp:843
+#: ../Src/Gtk2/dasher_main.cpp:882
 msgid "Select File"
 msgstr "Wybór pliku"
 
@@ -393,62 +393,46 @@ msgid "Control mode"
 msgstr "Tryb sterowania"
 
 #: ../Data/GUI/dasher.preferences.ui.h:59
-msgid "Include Clipboard commands"
-msgstr "Dołączanie poleceń schowka"
-
-#: ../Data/GUI/dasher.preferences.ui.h:60
-msgid "Include Speech commands"
-msgstr "Dołączanie poleceń mowy"
-
-#: ../Data/GUI/dasher.preferences.ui.h:61
-msgid "Force to have Halt command"
-msgstr "Wymuszenie posiadania polecenia Wstrzymaj"
-
-#: ../Data/GUI/dasher.preferences.ui.h:62
-msgid "Include Editing commands"
-msgstr "Dołączanie poleceń redagowania"
-
-#: ../Data/GUI/dasher.preferences.ui.h:63
 msgid "Copy All on stop"
 msgstr "Kopiowanie wszystkiego po zatrzymaniu"
 
-#: ../Data/GUI/dasher.preferences.ui.h:64
+#: ../Data/GUI/dasher.preferences.ui.h:60
 msgid "Speak All on stop"
 msgstr "Mówienie wszystkiego po zatrzymaniu"
 
-#: ../Data/GUI/dasher.preferences.ui.h:65
+#: ../Data/GUI/dasher.preferences.ui.h:61
 msgid "Speak words as you write"
 msgstr "Mówienie słów podczas pisania"
 
-#: ../Data/GUI/dasher.preferences.ui.h:66
+#: ../Data/GUI/dasher.preferences.ui.h:62
 msgid "Editor Font"
 msgstr "Czcionka edytora"
 
-#: ../Data/GUI/dasher.preferences.ui.h:67
+#: ../Data/GUI/dasher.preferences.ui.h:63
 msgid "Select Editor Font"
 msgstr "Wybór czcionki edytora"
 
-#: ../Data/GUI/dasher.preferences.ui.h:68
+#: ../Data/GUI/dasher.preferences.ui.h:64
 msgid "Application Style"
 msgstr "Styl programu"
 
-#: ../Data/GUI/dasher.preferences.ui.h:69
+#: ../Data/GUI/dasher.preferences.ui.h:65
 msgid "Stand-alone"
 msgstr "Samodzielnie"
 
-#: ../Data/GUI/dasher.preferences.ui.h:70
+#: ../Data/GUI/dasher.preferences.ui.h:66
 msgid "Composition"
 msgstr "Skład"
 
-#: ../Data/GUI/dasher.preferences.ui.h:71
+#: ../Data/GUI/dasher.preferences.ui.h:67
 msgid "Direct entry"
 msgstr "Bezpośrednie wprowadzanie"
 
-#: ../Data/GUI/dasher.preferences.ui.h:72
+#: ../Data/GUI/dasher.preferences.ui.h:68
 msgid "Full Screen"
 msgstr "Pełny ekran"
 
-#: ../Data/GUI/dasher.preferences.ui.h:73
+#: ../Data/GUI/dasher.preferences.ui.h:69
 msgid "A_pplication"
 msgstr "_Program"
 
@@ -476,7 +460,7 @@ msgstr "_Dodaj do pliku…"
 msgid "_Import Training Text…"
 msgstr "Za_importuj tekst treningowy…"
 
-#: ../Data/GUI/dasher.traditional.ui.h:8 ../Src/Gtk2/dasher_main.cpp:958
+#: ../Data/GUI/dasher.traditional.ui.h:8 ../Src/Gtk2/dasher_main.cpp:960
 msgid "Quit"
 msgstr "Zakończ"
 
@@ -513,7 +497,7 @@ msgid "_About…"
 msgstr "_O programie…"
 
 #: ../Data/GUI/dasher.traditional.ui.h:20
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:805
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:782
 msgid "Direct Mode"
 msgstr "Tryb bezpośredni"
 
@@ -651,13 +635,9 @@ msgstr "Tryb powiększenia przy ruchu w prawo w trybie kompasu"
 msgid "Compass Mode"
 msgstr "Tryb kompasu"
 
-#: ../Src/DasherCore/ControlManager.cpp:249
-msgid "Done"
-msgstr "Ukończono"
-
 #. /TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
 #. / refers to a setting name in gsettings or equivalent, and should not be translated.
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:311
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:301
 #, c-format
 msgid ""
 "Could not find game sentences file for %s - check alphabet definition, or "
@@ -666,12 +646,12 @@ msgstr ""
 "Nie można odnaleźć pliku zdań gry dla %s — proszę sprawdzić definicję "
 "alfabetu lub zastąpić ustawieniem GameTextFile"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:788
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:771
 msgid "Normal Control"
 msgstr "Zwykłe sterowanie"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:804
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:781
 msgid "Menu Mode"
 msgstr "Tryb menu"
 
@@ -840,7 +820,7 @@ msgid "Training on System Text"
 msgstr "Trening na tekście systemowym"
 
 #. /TRANSLATORS: These 3 messages will be displayed when the user has just chosen a new alphabet. The %s parameter will be the name of the alphabet.
-#: ../Src/DasherCore/NodeCreationManager.cpp:101
+#: ../Src/DasherCore/NodeCreationManager.cpp:90
 #, c-format
 msgid ""
 "No user training text found - if you have written in \"%s\" before, this "
@@ -849,7 +829,7 @@ msgstr ""
 "Nie odnaleziono tekstu treningowego użytkownika — jeśli zapisano w „%s” "
 "wcześniej, to program Dasher nie może uczyć się z poprzednich sesji"
 
-#: ../Src/DasherCore/NodeCreationManager.cpp:102
+#: ../Src/DasherCore/NodeCreationManager.cpp:91
 #, c-format
 msgid ""
 "No training text (user or system) found for \"%s\". Dasher will still work "
@@ -861,7 +841,7 @@ msgstr ""
 "Sugerujemy pobranie pliku tekstu treningowego z witryny programu Dasher lub "
 "skonstruowanie własnego."
 
-#: ../Src/DasherCore/NodeCreationManager.cpp:108
+#: ../Src/DasherCore/NodeCreationManager.cpp:97
 #, c-format
 msgid ""
 "\"%s\" does not specify training file. Dasher will work but entry will be "
@@ -950,29 +930,34 @@ msgstr ""
 "Ostrzeżenie: plik treningu zawiera znak „%s” jako członka grupy „%s”, ale "
 "grupa o tej nazwie nie zawiera go. Ignorowanie określnika grupy."
 
-#: ../Src/DasherCore/SettingsStore.cpp:75
-#: ../Src/Gtk2/DasherAppSettings.cpp:538 ../Src/Gtk2/DasherAppSettings.cpp:572
-#: ../Src/Gtk2/DasherAppSettings.cpp:576
+#: ../Src/DasherCore/SettingsStore.cpp:100
+#: ../Src/Gtk2/DasherAppSettings.cpp:127 ../Src/Gtk2/DasherAppSettings.cpp:131
 msgid "true"
 msgstr "prawda"
 
-#: ../Src/DasherCore/SettingsStore.cpp:77
-#: ../Src/Gtk2/DasherAppSettings.cpp:540 ../Src/Gtk2/DasherAppSettings.cpp:572
-#: ../Src/Gtk2/DasherAppSettings.cpp:576
+#: ../Src/DasherCore/SettingsStore.cpp:100
+msgid "True"
+msgstr "Prawda"
+
+#: ../Src/DasherCore/SettingsStore.cpp:102
+#: ../Src/Gtk2/DasherAppSettings.cpp:127 ../Src/Gtk2/DasherAppSettings.cpp:131
 msgid "false"
 msgstr "fałsz"
+
+#: ../Src/DasherCore/SettingsStore.cpp:102
+msgid "False"
+msgstr "Fałsz"
 
 #. Note to translators: This message will be output for a command line
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but
 #. "VAL" is not true or false.
-#: ../Src/DasherCore/SettingsStore.cpp:83
-#: ../Src/Gtk2/DasherAppSettings.cpp:543
+#: ../Src/DasherCore/SettingsStore.cpp:108
 msgid "boolean value must be specified as 'true' or 'false'."
 msgstr "wartość musi być określona jako „prawda” lub „fałsz”."
 
 #. Note to translators: This is output when command line "--options" doesn't
 #. specify a known option.
-#: ../Src/DasherCore/SettingsStore.cpp:103
+#: ../Src/DasherCore/SettingsStore.cpp:130
 msgid "unknown option, use \"--help-options\" for more information."
 msgstr "nieznana opcja, „--help-options” wyświetli więcej informacji."
 
@@ -1134,39 +1119,53 @@ msgstr "Czas powolnego startu"
 msgid "Two-push Dynamic Mode (New One Button)"
 msgstr "Dynamiczny tryb podwójnego przyciśnięcia (jeden nowy przycisk)"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:569
+#: ../Src/Gtk2/DasherAppSettings.cpp:124
 msgid "Boolean parameters"
 msgstr "Parametry logiczne"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:569 ../Src/Gtk2/DasherAppSettings.cpp:580
-#: ../Src/Gtk2/DasherAppSettings.cpp:591
+#: ../Src/Gtk2/DasherAppSettings.cpp:124 ../Src/Gtk2/DasherAppSettings.cpp:135
+#: ../Src/Gtk2/DasherAppSettings.cpp:146
 msgid "Default"
 msgstr "Domyślny"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:569 ../Src/Gtk2/DasherAppSettings.cpp:580
-#: ../Src/Gtk2/DasherAppSettings.cpp:591
+#: ../Src/Gtk2/DasherAppSettings.cpp:124 ../Src/Gtk2/DasherAppSettings.cpp:135
+#: ../Src/Gtk2/DasherAppSettings.cpp:146
 msgid "Description"
 msgstr "Opis"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:580
+#: ../Src/Gtk2/DasherAppSettings.cpp:135
 msgid "Integer parameters"
 msgstr "Parametry liczb całkowitych"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:591
+#: ../Src/Gtk2/DasherAppSettings.cpp:146
 msgid "String parameters"
 msgstr "Parametry ciągów"
 
+#: ../Src/Gtk2/dasher_editor.cpp:812 ../Src/Gtk2/dasher_main.cpp:550
+#: ../Src/Gtk2/dasher_main.cpp:885
+msgid "_Open"
+msgstr "_Otwórz"
+
+#: ../Src/Gtk2/dasher_editor.cpp:814 ../Src/Gtk2/dasher_editor.cpp:848
+#: ../Src/Gtk2/dasher_main.cpp:549 ../Src/Gtk2/dasher_main.cpp:886
+msgid "_Cancel"
+msgstr "_Anuluj"
+
+#: ../Src/Gtk2/dasher_editor.cpp:846
+msgid "_Save"
+msgstr "_Zapisz"
+
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
-#: ../Src/Gtk2/dasher_main.cpp:206
+#: ../Src/Gtk2/dasher_main.cpp:231
 msgid "option setting is missing \"=\"."
 msgstr "brak znaku „=” przy ustawieniu opcji."
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
-#: ../Src/Gtk2/dasher_main.cpp:222
+#: ../Src/Gtk2/dasher_main.cpp:247
 msgid "Invalid option string specified"
 msgstr "Nieprawidłowy ciąg opcji"
 
-#: ../Src/Gtk2/dasher_main.cpp:586
+#: ../Src/Gtk2/dasher_main.cpp:607
 msgid ""
 "Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering "
 "text in Dasher. Please select a training text to play with:"
@@ -1175,26 +1174,34 @@ msgstr ""
 "ćwiczenie wprowadzania tekstu w programie Dasher. Proszę wybrać tekst "
 "treningowy:"
 
-#: ../Src/Gtk2/dasher_main.cpp:588
+#: ../Src/Gtk2/dasher_main.cpp:609
 msgid "Use Default"
 msgstr "Użycie domyślnego"
 
-#: ../Src/Gtk2/dasher_main.cpp:589
+#: ../Src/Gtk2/dasher_main.cpp:610
 msgid "Choose File..."
 msgstr "Wybierz plik…"
 
-#: ../Src/Gtk2/dasher_main.cpp:590
+#: ../Src/Gtk2/dasher_main.cpp:611
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: ../Src/Gtk2/dasher_main.cpp:613
+#: ../Src/Gtk2/dasher_main.cpp:634
 msgid ""
 "Are you sure you wish to turn off game mode? All unsaved changes will be "
 "lost."
 msgstr ""
 "Na pewno wyłączyć tryb gry? Wszystkie niezapisane zmiany zostaną utracone."
 
-#: ../Src/Gtk2/dasher_main.cpp:920
+#: ../Src/Gtk2/dasher_main.cpp:636
+msgid "No"
+msgstr "Nie"
+
+#: ../Src/Gtk2/dasher_main.cpp:637
+msgid "Yes"
+msgstr "Tak"
+
+#: ../Src/Gtk2/dasher_main.cpp:922
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1205,7 +1212,7 @@ msgstr ""
 "\n"
 "Zmiany zostaną utracone, jeżeli nie będą zapisane."
 
-#: ../Src/Gtk2/dasher_main.cpp:927
+#: ../Src/Gtk2/dasher_main.cpp:929
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1215,50 +1222,42 @@ msgstr ""
 "\n"
 "Zmiany zostaną utracone, jeżeli nie będą zapisane."
 
-#: ../Src/Gtk2/dasher_main.cpp:933
-msgid "Don't save"
-msgstr "Nie zapisuj"
+#: ../Src/Gtk2/dasher_main.cpp:935
+msgid "Quit without saving"
+msgstr "Zakończ bez zapisywania"
 
-#: ../Src/Gtk2/dasher_main.cpp:934 ../Src/Gtk2/dasher_main.cpp:957
+#: ../Src/Gtk2/dasher_main.cpp:936 ../Src/Gtk2/dasher_main.cpp:959
 msgid "Don't quit"
 msgstr "Nie kończ"
 
-#: ../Src/Gtk2/dasher_main.cpp:935
+#: ../Src/Gtk2/dasher_main.cpp:937
 msgid "Save and quit"
 msgstr "Zapisz i zakończ"
 
-#: ../Src/Gtk2/dasher_main.cpp:954
+#: ../Src/Gtk2/dasher_main.cpp:956
 msgid "Are you sure you wish to quit?"
 msgstr "Na pewno zakończyć?"
 
-#: ../Src/Gtk2/dasher_main.cpp:996
+#: ../Src/Gtk2/dasher_main.cpp:998
 msgid "Unable to open help file"
 msgstr "Nie można otworzyć pliku pomocy"
 
-#: ../Src/Gtk2/dasher_main.cpp:1048
+#: ../Src/Gtk2/dasher_main.cpp:1050
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher jest programem do przewidującego wprowadzania tekstu"
 
-#: ../Src/Gtk2/dasher_main.cpp:1053
+#: ../Src/Gtk2/dasher_main.cpp:1055
 msgid "translator-credits"
 msgstr ""
 "Artur Flinta <aflinta@at.kernel.pl>, 2004-2007\n"
 "Wadim Dziedzic <wdziedzic@aviary.pl>, 2007-2009\n"
 "Tomasz Dominikowski <dominikowski@gmail.com>, 2008-2009\n"
-"Piotr Drąg <piotrdrag@gmail.com>, 2009-2015\n"
-"Aviary.pl <gnomepl@aviary.pl>, 2008-2015"
+"Piotr Drąg <piotrdrag@gmail.com>, 2009-2016\n"
+"Aviary.pl <gnomepl@aviary.pl>, 2008-2016"
 
-#: ../Src/Gtk2/GnomeSpeech.cpp:28
-msgid "Unable to initialize speech support\n"
-msgstr "Nie można zainicjować obsługi mowy\n"
-
-#: ../Src/Gtk2/GnomeSpeech.cpp:59
-msgid "Warning: unable to set speech parameters\n"
-msgstr "Uwaga: nie można ustawić parametrów mowy\n"
-
-#: ../Src/Gtk2/GnomeSpeech.cpp:70
-msgid "Unable to initialize voices\n"
-msgstr "Nie można zainicjować głosów\n"
+#: ../Src/Gtk2/module_settings_window.cpp:77
+msgid "_Close"
+msgstr "Za_mknij"
 
 #: ../Src/Gtk2/module_settings_window.cpp:88
 msgid "Dasher Module Options"
@@ -1282,7 +1281,7 @@ msgstr "Piksele pokrywające zakres Y"
 msgid "One Dimensional Mouse Input"
 msgstr "Jednowymiarowe wejście myszy"
 
-#: ../Src/Gtk2/Preferences.cpp:441
+#: ../Src/Gtk2/Preferences.cpp:437
 msgid "Action"
 msgstr "Czynność"
 
@@ -1291,23 +1290,28 @@ msgstr "Czynność"
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
-#: ../Src/main.cc:166
+#: ../Src/main.cc:161
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr ""
 "Styl programu („traditional” — tradycyjny, „direct” — bezpośredni, „compose” "
 "— tworzący lub „fullscreen” — pełnoekranowy)"
 
 #. Note to translators: This is the help string for "--options"
-#: ../Src/main.cc:168
+#: ../Src/main.cc:163
 msgid "Override stored options"
 msgstr "Pomija zapisane opcje"
 
+#: ../Src/main.cc:164
+msgid "XML configuration file name"
+msgstr "Nazwa pliku konfiguracji XML"
+
 #. Note to translators: This is the help string for "--help-options"
-#: ../Src/main.cc:170
+#: ../Src/main.cc:166
 msgid "Describe \"--options\"."
 msgstr "Opisuje „--options”."
 
+#. parse command line options
 #. Note to translators: This is the "--help" description of dasher.
-#: ../Src/main.cc:177
+#: ../Src/main.cc:172
 msgid "- A text input application honouring accessibility"
 msgstr "— program do wprowadzania tekstu obsługujący dostępność"
