@@ -30,7 +30,7 @@ bool CDefaultFilter::GetSettings(SModuleSettings **sets, int *iCount) {
 CDefaultFilter::CDefaultFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName)
   : CDynamicFilter(pCreator, pInterface, pFramerate, iID, szName), CSettingsObserver(pCreator), m_bTurbo(false) {
   m_pStartHandler = 0;
-  m_pAutoSpeedControl = new CAutoSpeedControl(this, pInterface);
+  m_pAutoSpeedControl = new CAutoSpeedControl(this);
 
   // Initialize autocalibration (i.e. seen nothing yet)
   m_iSum = 0;

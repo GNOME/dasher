@@ -12,8 +12,8 @@
 
 using namespace Dasher;
 
-CAutoSpeedControl::CAutoSpeedControl(CSettingsUser *pCreateFrom, CMessageDisplay *pMsgs)
-  : CSettingsUser(pCreateFrom), m_pMsgs(pMsgs) {
+CAutoSpeedControl::CAutoSpeedControl(CSettingsUser *pCreateFrom)
+  : CSettingsUser(pCreateFrom) {
   //scale #samples by #samples = m_dSamplesScale / (current bitrate) + m_dSampleOffset
   m_dSampleScale = 1.5;
   m_dSampleOffset = 1.3;
@@ -94,11 +94,10 @@ inline double CAutoSpeedControl::Variance()
 {
   double avgcos, avgsin;
   avgsin = avgcos = 0.0;
-  DOUBLE_DEQUE::iterator i;
   // find average of cos(theta) and sin(theta)
-  for(i = m_dequeAngles.begin(); i != m_dequeAngles.end(); i++) {
-    avgcos += cos(*i);
-    avgsin += sin(*i);
+  for(auto theta : m_dequeAngles) {
+    avgcos += cos(theta);
+    avgsin += sin(theta);
   }
   avgcos /= (1.0 * m_dequeAngles.size());
   avgsin /= (1.0 * m_dequeAngles.size());
@@ -167,47 +166,35 @@ inline void CAutoSpeedControl::UpdateSigmas(double r, double dFrameRate)
 
 
 void CAutoSpeedControl::SpeedControl(myint iDasherX, myint iDasherY, CDasherView *pView) {
-  if(GetBoolParameter(BP_AUTO_SPEEDCONTROL)) {
+  if (GetBoolParameter(BP_AUTO_SPEEDCONTROL)) {
 
-//  Coordinate transforms:
-	double r,theta;
-	pView->Dasher2Polar(iDasherX, iDasherY, r, theta);
+    //  Coordinate transforms:
+    double r, theta;
+    pView->Dasher2Polar(iDasherX, iDasherY, r, theta);
 
     m_dBitrate = GetLongParameter(LP_MAX_BITRATE) / 100.0; //  stored as long(round(true bitrate * 100))
     double dFrameRate = GetLongParameter(LP_FRAMERATE) / 100.0;
     UpdateSigmas(r, dFrameRate);
 
-//  Data collection:
+    //  Data collection:
 
-    if(r > m_dMinRadius && fabs(theta) < 1.25) {
+    if (r > m_dMinRadius && fabs(theta) < 1.25) {
       m_nSpeedCounter++;
       m_dequeAngles.push_back(theta);
-      while(m_dequeAngles.size() > m_nSpeedSamples) {
-	    m_dequeAngles.pop_front();
+      while (m_dequeAngles.size() > m_nSpeedSamples) {
+        m_dequeAngles.pop_front();
       }
 
     }
     m_dSensitivity = GetLongParameter(LP_AUTOSPEED_SENSITIVITY) / 100.0;
-    if(m_nSpeedCounter > round(m_nSpeedSamples / m_dSensitivity)) {
+    if (m_nSpeedCounter > round(m_nSpeedSamples / m_dSensitivity)) {
       //do speed control every so often!
-
       UpdateSampleSize(dFrameRate);
       UpdateMinRadius();
       UpdateBitrate();
-      long lBitrateTimes100 =  long(round(m_dBitrate * 100)); //Dasher settings want long numerical parameters
-      if (lBitrateTimes100 != GetLongParameter(LP_MAX_BITRATE)) {
-        const char *msg((lBitrateTimes100 > GetLongParameter(LP_MAX_BITRATE)) ? 
-                   _("Auto-increasing speed to %0.2f") : _("Auto-decreasing speed to %0.2f"));
-        char *buf(new char[strlen(msg) + 5]);
-        sprintf(buf, msg, (lBitrateTimes100/100.0));
-        m_pMsgs->Message(buf,false);
-        delete[] buf;
-        SetLongParameter(LP_MAX_BITRATE, lBitrateTimes100);
-      }
+      long lBitrateTimes100 = long(round(m_dBitrate * 100)); //Dasher settings want long numerical parameters
+      SetLongParameter(LP_MAX_BITRATE, lBitrateTimes100);
       m_nSpeedCounter = 0;
-
     }
-
   }
-
 }
