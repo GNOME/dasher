@@ -3,7 +3,6 @@
 
 #include "DasherTypes.h"
 #include "DasherView.h"
-#include "Messages.h"
 #include "SettingsStore.h"
 
 #include <deque>
@@ -13,7 +12,7 @@
 namespace Dasher {
   class CAutoSpeedControl : private CSettingsUser {
  public:
-  CAutoSpeedControl(CSettingsUser *pCreateFrom, CMessageDisplay *pMsgs);
+  CAutoSpeedControl(CSettingsUser *pCreateFrom);
   
   ///
   /// AUTO-SPEED-CONTROL
@@ -74,14 +73,10 @@ namespace Dasher {
   double m_dChange1, m_dChange2, m_dChange3, m_dChange4; // fractional changes to bit rate
   double m_dMinRRate; // controls rate at which min. r adapts HIGHER===SLOWER!
   double m_dSensitivity; // not used, control sensitivity of auto speed control
-  typedef std::deque<double> DOUBLE_DEQUE;
-  DOUBLE_DEQUE m_dequeAngles; // store angles for statistics
+  std::deque<double> m_dequeAngles; // store angles for statistics
   
   //variables for adaptive radius calculations...
   double m_dSigma1, m_dSigma2, m_dMinRadius;
-  
-  CMessageDisplay *m_pMsgs;
-
 };
 }
 /// @}
