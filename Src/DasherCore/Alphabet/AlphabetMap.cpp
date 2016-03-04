@@ -116,7 +116,7 @@ inline int CAlphabetMap::SymbolStream::findNext() {
           const char *msg(_("File ends with incomplete UTF-8 character beginning 0x%x (expecting %i bytes but only %i)"));
           char *mbuf(new char[strlen(msg) + 4]);
           sprintf(mbuf, msg, static_cast<unsigned int>(buf[pos] & 0xff), numChars, len-pos);
-          m_pMsgs->Message(mbuf,true);
+          m_pMsgs->Message(mbuf,false);
           delete[] mbuf;
         }
         return 0;
@@ -127,7 +127,7 @@ inline int CAlphabetMap::SymbolStream::findNext() {
       const char *msg(_("Read invalid UTF-8 character 0x%x"));
       char *mbuf(new char[strlen(msg) + 2]);
       sprintf(mbuf, msg, static_cast<unsigned int>(buf[pos] & 0xff));
-      m_pMsgs->Message(mbuf,true);
+      m_pMsgs->Message(mbuf,false);
       delete[] mbuf;
     }
     ++pos;
