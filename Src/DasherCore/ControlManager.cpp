@@ -274,6 +274,15 @@ public:
   }
 };
 
+// TODO Duplicated logic, here and in DefaultFilter. Refactor. 
+class Stop: public CControlBase::Action {
+public:
+  void happen(CControlBase::CContNode *pNode) {
+    pNode->mgr()->GetDasherInterface()->Done();
+    pNode->mgr()->GetDasherInterface()->GetActiveInputMethod()->pause();
+  }
+};
+
 class Pause : public CControlBase::Action{
 public:
   void happen(CControlBase::CContNode *pNode) {
@@ -342,10 +351,9 @@ CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManage
   m_pSpeech = new SpeechHeader(pInterface);
   m_pCopy = new CopyHeader(pInterface);
   SetRootTemplate(new NodeTemplate("",8)); //default NodeTemplate does nothing
-  GetRootTemplate()->successors.push_back(NULL);
 
   // Key in actions map is name plus arguments in alphabetical order.
-  m_actions["stop"] = new MethodAction<CDasherInterfaceBase>(pInterface, &CDasherInterfaceBase::Done);
+  m_actions["stop"] = new Stop();
   m_actions["pause"] = new Pause();
   if (pInterface->SupportsSpeech()) {
     m_actions["speak what=all"] = new TextDistanceAction(m_pSpeech, EDIT_FILE);
