@@ -61,16 +61,6 @@ void __cdecl __debugbreak(void);
 
 /////////////////////////////////////////////////////////////////////////////
 
-// DJW - useful 'compile time' assertion
-template < int >struct CompileTimeError;
-template <> struct CompileTimeError <true > {
-};
-
-#define STATIC_CHECK(expr, msg) \
-{ CompileTimeError<((expr) != 0)> ERROR_##msg; (void)ERROR_##msg; };
-
-/////////////////////////////////////////////////////////////////////////////
-
 // Pointer checking - some CRTs provide functionality to check the integrity of memory
 
 // DASHER_ASSERT_VALIDPTR_RW(p) asserts that a pointer is valid for read and write
