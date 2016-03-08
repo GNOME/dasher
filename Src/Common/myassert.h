@@ -30,19 +30,9 @@
 
 #ifdef DEBUG
 #ifdef _WIN32
-#ifdef _WIN32_WCE
 
-// Windows CE
-void __cdecl __debugbreak(void);
-#define DASHER_ASSERT(x)   if (!(x)) __debugbreak()
-
-#else
-
-// Other Win32 platforms
 #include <crtdbg.h>
 #define DASHER_ASSERT(expr) _ASSERT(expr)
-
-#endif // _WIN32_WCE
 
 #else 
 

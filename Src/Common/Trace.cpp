@@ -26,12 +26,10 @@ static char THIS_FILE[] = __FILE__;
 #include "Windows.h"
 
 void DasherTraceOutputImpl(const char *pszFormat, va_list vargs) {
-#ifndef _WIN32_WCE
 	// TODO: Reimplement
 //  char buffer[2048];
 //  _vsnprintf(buffer, 2048,pszFormat, vargs);
 //  OutputDebugStringA(buffer);
-#endif
 }
 
 #else

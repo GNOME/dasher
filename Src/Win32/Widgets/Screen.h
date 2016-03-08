@@ -19,10 +19,6 @@
 #include <map>
 #include <unordered_map>
 
-#ifndef _WIN32_WCE
-#include <cmath>
-#endif
-
 /////////////////////////////////////////////////////////////////////////////
 
 class CScreen:public Dasher::CLabelListScreen, private NoClones {

@@ -4,11 +4,6 @@
 #include "../DasherCore/DashIntfScreenMsgs.h"
 #include "../DasherCore/UserLog.h"
 
-#ifdef _WIN32_WCE
-//on WinCE, do not support speech
-#undef WIN32_SPEECH
-#endif
-
 #ifdef WIN32_SPEECH
 #include <sapi.h>
 #endif
