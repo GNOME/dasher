@@ -34,18 +34,16 @@
 //
 
 #include "../Common/Types/int.h"
-#include "../Common/Types/int32.h"
-#include "../Common/Types/int64.h"
 #include <string>
 #include <vector>
 
 namespace Dasher {
   // DasherModel co-ordinates are of type myint
-  typedef Cint64 myint;
-  typedef Cint64 dasherint;
+  typedef int64 myint;
+  typedef int64 dasherint;
 
   // All screen co-ordinates are of type screenint
-  typedef Cint32 screenint;
+  typedef int32 screenint;
 
   // Using a signed symbol type allows "Out of band" ie negative {{{
   // values to be used to flag non-symbol data. For example commands

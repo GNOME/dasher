@@ -9,8 +9,6 @@
 #ifndef __Screen_h__
 #define __Screen_h__
 
-#include "../../Common/Hash.h"
-
 #include "../../DasherCore/DasherScreen.h"
 #include "../../DasherCore/DasherInterfaceBase.h"
 #include "../../Common/NoClones.h"

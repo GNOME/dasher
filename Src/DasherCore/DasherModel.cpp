@@ -24,7 +24,6 @@
 
 #include <iostream>
 #include <cstring>
-#include "../Common/Random.h"
 #include "DasherModel.h"
 #include "DasherView.h"
 #include "Parameters.h"

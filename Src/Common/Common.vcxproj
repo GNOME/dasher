@@ -191,18 +191,12 @@
     <ClInclude Include="Allocators\PooledAlloc.h" />
     <ClInclude Include="Allocators\SimplePooledAlloc.h" />
     <ClInclude Include="Common.h" />
-    <ClInclude Include="Hash.h" />
     <ClInclude Include="MSVC_Unannoy.h" />
     <ClInclude Include="myassert.h" />
     <ClInclude Include="NoClones.h" />
-    <ClInclude Include="Platform.h" />
-    <ClInclude Include="Random.h" />
     <ClInclude Include="SBTree.h" />
     <ClInclude Include="Trace.h" />
     <ClInclude Include="Types\int.h" />
-    <ClInclude Include="Types\int32.h" />
-    <ClInclude Include="Types\int64.h" />
-    <ClInclude Include="Types\Range.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SBTree.cpp" />
