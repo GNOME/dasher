@@ -7,7 +7,7 @@ namespace Dasher{
 // as the enum declarations (could add check in class that enforces this instead)
 const bp_table boolparamtable[] = {
   {BP_DRAW_MOUSE_LINE, "DrawMouseLine", Persistence::PERSISTENT, true, "Draw Mouse Line"},
-  {BP_DRAW_MOUSE, "DrawMouse", Persistence::PERSISTENT, false, "Draw Mouse Position"},
+  {BP_DRAW_MOUSE, "DrawMouse", Persistence::PERSISTENT, true, "Draw Mouse Position"},
   {BP_CURVE_MOUSE_LINE, "CurveMouseLine", Persistence::PERSISTENT, false, "Curve mouse line according to screen nonlinearity"},
   {BP_START_MOUSE, "StartOnLeft", Persistence::PERSISTENT, true, "StartOnLeft"},
   {BP_START_SPACE, "StartOnSpace", Persistence::PERSISTENT, false, "StartOnSpace"},
