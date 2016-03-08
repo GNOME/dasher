@@ -54,7 +54,6 @@ const Tstring CFilenameGUI::Empty = TEXT("");
 CFilenameGUI::CFilenameGUI(HWND WindowWithTitlebar, Tstring AppName, bool NewWithDate)
 :WindowWithTitlebar(WindowWithTitlebar), AppName(AppName), NewWithDate(NewWithDate), Dirty(false), FileAndPath(TEXT("")) {
 
-#ifndef _WIN32_WCE
   TCHAR CurrentDirectory[_MAX_DIR];
   if(GetCurrentDirectory(_MAX_DIR, CurrentDirectory) > 0) {
     OriginalPath = CurrentDirectory;
@@ -63,7 +62,6 @@ CFilenameGUI::CFilenameGUI(HWND WindowWithTitlebar, Tstring AppName, bool NewWit
       OriginalPath += TEXT('\\');       // the directory separator
   }
   else
-#endif
     OriginalPath = TEXT("");
 
   if(NewWithDate) {
@@ -181,12 +179,10 @@ void CFilenameGUI::SetDirty(bool Value) {
 void CFilenameGUI::SetWindowTitle() {
   Tstring TitleText;
 
-#ifndef _WIN32_WCE
   TCHAR PrettyName[_MAX_FNAME];
   if(GetFileTitle(FileAndPath.c_str(), PrettyName, _MAX_FNAME) == 0)
     TitleText = PrettyName;
   else
-#endif
     WinLocalisation::GetResourceString(IDS_UNTITLED_FILE, &TitleText);
 
   if(Dirty)

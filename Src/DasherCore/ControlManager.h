@@ -31,11 +31,6 @@
 #include <map>
 #include <fstream>
 #include <iostream>
-
-#ifndef _WIN32_WCE
-#include <sys/stat.h>
-#endif
-
 #include <string>
 
 #include <expat.h>

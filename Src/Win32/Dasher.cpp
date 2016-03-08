@@ -30,10 +30,8 @@ CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit, Dasher::CSet
   : CDashIntfScreenMsgs(settings, fileUtils), m_hParent(Parent), m_pWindow(pWindow), m_pEdit(pEdit) {
   // This class will be a wrapper for the Dasher 'control' - think ActiveX
 
-#ifndef _WIN32_WCE
   // Set up COM for the accessibility stuff
   CoInitialize(NULL);
-#endif
 #ifdef WIN32_SPEECH
   m_bAttemptedSpeech = false;
 #endif
@@ -59,10 +57,8 @@ CDasher::~CDasher(void) {
 void CDasher::CreateModules() {
   //create default set first.
   CDasherInterfaceBase::CreateModules();
-#ifndef _WIN32_WCE
   RegisterModule(new CSocketInput(this,this));
   RegisterModule(new CBTSocketInput());
-#endif
   RegisterModule(new CDasherMouseInput(m_pCanvas->getwindow()));
 }
 

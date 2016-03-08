@@ -24,10 +24,8 @@
 
 #include "..\Common\WinCommon.h"
 
-#ifndef _WIN32_WCE
 #include <Vsstyle.h>
 #include "../TabletPC/SystemInfo.h"
-#endif
 
 #include "Canvas.h"
 #include "../Dasher.h"
@@ -43,14 +41,6 @@ CCanvas::CCanvas(CDasher *DI) : m_pDasherInterface(DI) {
   m_pScreen = 0;
 #ifndef HAVE_NO_THEME
   m_hTheme = NULL;
-#endif
-
-#ifndef _WIN32_WCE
-
-#else
-  WNDCLASS canvasclass;
-  GetClassInfo(NULL, TEXT("STATIC"), &canvasclass);
-  canvasclass.lpszClassName = TEXT("CANVAS");
 #endif
 }
 
@@ -79,7 +69,6 @@ LRESULT CCanvas::OnCreate(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHan
   m_hTheme = OpenThemeData(m_hWnd, L"Edit");
 #endif
 
-#ifndef _WIN32_WCE
   // If we're a tablet, initialize the event-generator
   if(IsTabletPC()) {
     HRESULT h = m_CursorInRange.Initialize(m_hWnd);
@@ -88,8 +77,6 @@ LRESULT CCanvas::OnCreate(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHan
       return -1;
     }
   }
-#endif
-
   return 0;
 }
 
@@ -299,41 +286,19 @@ LRESULT CCanvas::OnLButtonDblClk(UINT message, WPARAM wParam, LPARAM lParam, BOO
 LRESULT CCanvas::OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
   bHandled = TRUE;
- 
-#ifndef _WIN32_WCE
-  // FIXME - what does this do - please document
-  LPARAM lp = GetMessageExtraInfo();
-  if (lp == 0xFF515702)
-    return 0; 
-  // ---
-#endif
-  
   m_pDasherInterface->KeyDown(GetTickCount(), 100);
-  
-  // TODO: Reimplement
-  //	else if ( m_pDasherInterface->GetBoolParameter(BP_START_STYLUS)  ) 
-  //	{
-  //		// DJW - for the time being we only do stylus mode if not BP_START_MOUSE 
-  //
-  //		if ( m_pDasherInterface->GetBoolParameter(BP_DASHER_PAUSED) )
-  //			m_pDasherInterface->Unpause(GetTickCount());
-  //	}
-  
   SetFocus();
-
   return 0;
 }
 
 LRESULT CCanvas::OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
 	bHandled = TRUE;
-
 	m_pDasherInterface->KeyUp(GetTickCount(), 100);
 	return 0;
 
 }
 
-#ifndef _WIN32_WCE
 // PRLW: These two functions are called on Tablet PCs when the stylus comes
 // within or leaves the detection range of screen. Make these appear as mouse
 // clicks to start/stop on mouse click. (XXX Ideally we would prefer start/stop
@@ -360,7 +325,6 @@ LRESULT CCanvas::OnCursorOutOfRange(UINT message, WPARAM wParam, LPARAM lParam, 
 
 	return 0;
 }
-#endif
 
 LRESULT CCanvas::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
 	if (LOWORD(lParam)>0 && HIWORD(lParam) >0) {

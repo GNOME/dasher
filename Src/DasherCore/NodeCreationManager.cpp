@@ -149,9 +149,6 @@ void CNodeCreationManager::AddExtras(CDasherNode *pParent) {
   //control mode:
   DASHER_ASSERT(pParent->GetChildren().back()->Hbnd() == m_iAlphNorm);
   if (m_pControlManager) {
-#ifdef _WIN32_WCE
-    DASHER_ASSERT(false);
-#endif
     //ACL leave offset as is - like its groupnode parent, but unlike its alphnode siblings,
     //the control node does not enter a symbol....
     CDasherNode *ctl = m_pControlManager->GetRoot(pParent, pParent->offset());
