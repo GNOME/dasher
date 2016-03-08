@@ -8,7 +8,7 @@ bin_PROGRAMS = dasher
 
 #if DOGTK
 
-SUBDIRS = Common DasherCore DasherIM Gtk2
+SUBDIRS = Common DasherCore Gtk2
 dasher_SOURCES = main.cc
 
 AM_CXXFLAGS = \
