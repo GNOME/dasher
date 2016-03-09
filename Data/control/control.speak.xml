@@ -172,18 +172,20 @@
       <speak what="paragraph"/>
       <move forward="yes" dist="paragraph"/>
       <alph/>
-      <node label="&#9114;&#182;" color="242">
-        <delete forward="no" dist="paragraph"/>
-        <delete forward="no" dist="char"/>
-        <alph/>
-        <root/>
-      </node>
       <node  name="CTL_SPEAK_PARAGRAPH2" label="&#128483;&#182;" color="-1">
         <speak what="paragraph"/>
         <move forward="yes" dist="paragraph"/>
         <alph/>
         <ref name="CTL_SPEAK_PARAGRAPH2"/>
         <ref name="CTL_SPEAK"/>
+      </node>
+      <node label="&#9114;&#182;" color="242">
+        <!--Delete previous paragraph and CRLF characters. -->
+        <delete forward="no" dist="paragraph"/>
+        <delete forward="no" dist="char"/>
+        <delete forward="no" dist="char"/>
+        <alph/>
+        <root/>
       </node>
       <ref name="CTL_SPEAK"/>
     </node>

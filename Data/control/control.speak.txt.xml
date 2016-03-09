@@ -12,13 +12,13 @@
         <ref name="CTL_MOVE_BACKWARD"/>
         <ref name="CTL_MOVE_FORWARD"/>
       </node>
-      <node label="Paragraph" color="-1">
+      <node label="Para." color="-1">
         <move forward="no" dist="paragraph"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
         <ref name="CTL_MOVE_FORWARD"/>
       </node>
-      <node label="Sentence" color="-1">
+      <node label="Sent." color="-1">
         <move forward="no" dist="sentence"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
@@ -30,7 +30,7 @@
         <ref name="CTL_MOVE_BACKWARD"/>
         <ref name="CTL_MOVE_FORWARD"/>
       </node>
-      <node label="Letter" color="-1">
+      <node label="Char" color="-1">
         <move forward="no" dist="char"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
@@ -40,7 +40,7 @@
 
     <node name="CTL_MOVE_FORWARD" label="=&gt;" color="-1">
 
-      <node label="Letter" color="-1">
+      <node label="Char" color="-1">
         <move forward="yes" dist="char"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
@@ -52,13 +52,13 @@
         <ref name="CTL_MOVE_BACKWARD"/>
         <ref name="CTL_MOVE_FORWARD"/>
       </node>
-      <node label="Sentence" color="-1">
+      <node label="Sent." color="-1">
         <move forward="yes" dist="sentence"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
         <ref name="CTL_MOVE_FORWARD"/>
       </node>
-      <node label="Paragraph" color="-1">
+      <node label="Para." color="-1">
         <move forward="yes" dist="paragraph"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
@@ -83,13 +83,13 @@
         <ref name="CTL_DELETE_BACKWARD"/>
         <ref name="CTL_DELETE_FORWARD"/>
       </node>
-      <node label="Paragraph" color="-1">
+      <node label="Para." color="-1">
         <delete forward="no" dist="paragraph"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
         <ref name="CTL_DELETE_FORWARD"/>
       </node>
-      <node label="Sentence" color="-1">
+      <node label="Sent." color="-1">
         <delete forward="no" dist="sentence"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
@@ -101,7 +101,7 @@
         <ref name="CTL_DELETE_BACKWARD"/>
         <ref name="CTL_DELETE_FORWARD"/>
       </node>
-      <node label="Letter" color="-1">
+      <node label="Char" color="-1">
         <delete forward="no" dist="char"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
@@ -111,7 +111,7 @@
 
     <node name="CTL_DELETE_FORWARD" label="x&gt;" color="-1">
 
-      <node label="Letter" color="-1">
+      <node label="Char" color="-1">
         <delete forward="yes" dist="char"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
@@ -123,13 +123,13 @@
         <ref name="CTL_DELETE_BACKWARD"/>
         <ref name="CTL_DELETE_FORWARD"/>
       </node>
-      <node label="Sentence" color="-1">
+      <node label="Sent." color="-1">
         <delete forward="yes" dist="sentence"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
         <ref name="CTL_DELETE_FORWARD"/>
       </node>
-      <node label="Paragraph" color="-1">
+      <node label="Para." color="-1">
         <delete forward="yes" dist="paragraph"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
@@ -168,22 +168,24 @@
       <alph/>
       <root/>
     </node>
-    <node label="Paragraph" color="-1">
+    <node label="Para." color="-1">
       <speak what="paragraph"/>
       <move forward="yes" dist="paragraph"/>
       <alph/>
-      <node label="ClearParagraph" color="242">
-        <delete forward="no" dist="paragraph"/>
-        <delete forward="no" dist="char"/>
-        <alph/>
-        <root/>
-      </node>
-      <node  name="CTL_SPEAK_PARAGRAPH2" label="SpeakParagraph" color="-1">
+      <node  name="CTL_SPEAK_PARAGRAPH2" label="SpeakPara." color="-1">
         <speak what="paragraph"/>
         <move forward="yes" dist="paragraph"/>
         <alph/>
         <ref name="CTL_SPEAK_PARAGRAPH2"/>
         <ref name="CTL_SPEAK"/>
+      </node>
+      <node label="ClearPara." color="242">
+        <!--Delete previous paragraph and CRLF characters. -->
+        <delete forward="no" dist="paragraph"/>
+        <delete forward="no" dist="char"/>
+        <delete forward="no" dist="char"/>
+        <alph/>
+        <root/>
       </node>
       <ref name="CTL_SPEAK"/>
     </node>

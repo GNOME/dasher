@@ -10,12 +10,12 @@
         <ref name="CTL_MOVE"/>
         <ref name="CTL_SPEAK"/>
       </node>
-      <node label="Paragraph" color="-1">
+      <node label="Para." color="-1">
         <move forward="no" dist="paragraph"/>
         <ref name="CTL_MOVE"/>
         <ref name="CTL_SPEAK"/>
       </node>
-      <node label="Sentence" color="-1">
+      <node label="Sent." color="-1">
         <move forward="no" dist="sentence"/>
         <ref name="CTL_MOVE"/>
         <ref name="CTL_SPEAK"/>
@@ -24,12 +24,12 @@
 
     <node name="CTL_MOVE_FORWARD" label="=&gt;" color="-1">
 
-      <node label="Sentence" color="-1">
+      <node label="Sent." color="-1">
         <move forward="yes" dist="sentence"/>
         <ref name="CTL_MOVE"/>
         <ref name="CTL_SPEAK"/>
       </node>
-      <node label="Paragraph" color="-1">
+      <node label="Para." color="-1">
         <move forward="yes" dist="paragraph"/>
         <ref name="CTL_MOVE"/>
         <ref name="CTL_SPEAK"/>
@@ -54,13 +54,13 @@
       <ref name="CTL_MOVE"/>
       <ref name="CTL_SPEAK"/>
     </node>
-    <node label="Sentence" color="-1">
+    <node label="Sent." color="-1">
       <speak what="sentence"/>
       <move forward="yes" dist="sentence"/>
       <ref name="CTL_MOVE"/>
       <ref name="CTL_SPEAK"/>
     </node>
-    <node label="Paragraph" color="-1">
+    <node label="Para." color="-1">
       <speak what="paragraph"/>
       <move forward="yes" dist="paragraph"/>
       <ref name="CTL_MOVE"/>

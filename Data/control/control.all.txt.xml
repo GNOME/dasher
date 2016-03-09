@@ -23,13 +23,13 @@
         <ref name="CTL_MOVE_BACKWARD"/>
         <ref name="CTL_MOVE_FORWARD"/>
       </node>
-      <node label="Paragraph" color="-1">
+      <node label="Para." color="-1">
         <move forward="no" dist="paragraph"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
         <ref name="CTL_MOVE_FORWARD"/>
       </node>
-      <node label="Sentence" color="-1">
+      <node label="Sent." color="-1">
         <move forward="no" dist="sentence"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
@@ -47,7 +47,7 @@
         <ref name="CTL_MOVE_BACKWARD"/>
         <ref name="CTL_MOVE_FORWARD"/>
       </node>
-      <node label="Letter" color="-1">
+      <node label="Char" color="-1">
         <move forward="no" dist="char"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
@@ -57,7 +57,7 @@
 
     <node name="CTL_MOVE_FORWARD" label="=&gt;" color="-1">
 
-      <node label="Letter" color="-1">
+      <node label="Char" color="-1">
         <move forward="yes" dist="char"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
@@ -75,13 +75,13 @@
         <ref name="CTL_MOVE_BACKWARD"/>
         <ref name="CTL_MOVE_FORWARD"/>
       </node>   
-      <node label="Sentence" color="-1">
+      <node label="Sent." color="-1">
         <move forward="yes" dist="sentence"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
         <ref name="CTL_MOVE_FORWARD"/>
       </node>
-      <node label="Paragraph" color="-1">
+      <node label="Para." color="-1">
         <move forward="yes" dist="paragraph"/>
         <alph/>
         <ref name="CTL_MOVE_BACKWARD"/>
@@ -105,13 +105,13 @@
         <ref name="CTL_DELETE_BACKWARD"/>
         <ref name="CTL_DELETE_FORWARD"/>
       </node>
-      <node label="Paragraph" color="-1">
+      <node label="Para." color="-1">
         <delete forward="no" dist="paragraph"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
         <ref name="CTL_DELETE_FORWARD"/>
       </node>
-      <node label="Sentence" color="-1">
+      <node label="Sent." color="-1">
         <delete forward="no" dist="sentence"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
@@ -129,7 +129,7 @@
         <ref name="CTL_DELETE_BACKWARD"/>
         <ref name="CTL_DELETE_FORWARD"/>
       </node>
-      <node label="Letter" color="-1">
+      <node label="Char" color="-1">
         <delete forward="no" dist="char"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
@@ -139,7 +139,7 @@
 
     <node name="CTL_DELETE_FORWARD" label="x&gt;" color="-1">
 
-      <node label="Letter" color="-1">
+      <node label="Char" color="-1">
         <delete forward="yes" dist="char"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
@@ -157,13 +157,13 @@
         <ref name="CTL_DELETE_BACKWARD"/>
         <ref name="CTL_DELETE_FORWARD"/>
       </node>
-      <node label="Sentence" color="-1">
+      <node label="Sent." color="-1">
         <delete forward="yes" dist="sentence"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
         <ref name="CTL_DELETE_FORWARD"/>
       </node>
-      <node label="Paragraph" color="-1">
+      <node label="Para." color="-1">
         <delete forward="yes" dist="paragraph"/>
         <alph/>
         <ref name="CTL_DELETE_BACKWARD"/>
@@ -206,12 +206,12 @@
       <alph/>
       <root/>
     </node>
-    <node label="Sentence" color="-1">
+    <node label="Sent." color="-1">
       <copy what="sentence"/>
       <alph/>
       <root/>
     </node>
-    <node label="Paragraph" color="-1">
+    <node label="Para." color="-1">
       <copy what="paragraph"/>
       <alph/>
       <root/>
@@ -251,13 +251,13 @@
       <alph/>
       <root/>
     </node>
-    <node label="Sentence" color="-1">
+    <node label="Sent." color="-1">
       <speak what="sentence"/>
       <move forward="yes" dist="sentence"/>
       <alph/>
       <root/>
     </node>
-    <node label="Paragraph" color="-1">
+    <node label="Para." color="-1">
       <speak what="paragraph"/>
       <move forward="yes" dist="paragraph"/>
       <alph/>
@@ -281,7 +281,7 @@
   
   <!--
   <node label="utf symbols" color="241">
-    <node label="&#128263;&#128172;&#128266;&#128265;&#128264;&#8635;&#9477;Line&#9549;&#11097Sentence" color="242">
+    <node label="&#128263;&#128172;&#128266;&#128265;&#128264;&#8635;&#9477;Line&#9549;&#11097Sent." color="242">
       <alph/>
       <root/>
     </node>
@@ -293,11 +293,11 @@
       <alph/>
       <root/>
     </node>
-    <node label="Copy&#128193;&#128190;&#10008;&#9986;&#9888;&#9776;&#9477;Word&#9679;Letter" color="242">
+    <node label="Copy&#128193;&#128190;&#10008;&#9986;&#9888;&#9776;&#9477;Word&#9679;Char" color="242">
       <alph/>
       <root/>
     </node>
-       <node label="Copy&#128193;&#128190;&#10008;&#9986;&#9888;&#9776;&#9477;Word&#9679;Letter" color="242">
+       <node label="Copy&#128193;&#128190;&#10008;&#9986;&#9888;&#9776;&#9477;Word&#9679;Char" color="242">
       <alph/>
          <root/>
        </node>
