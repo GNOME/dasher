@@ -10,11 +10,11 @@
 			s/&#8680;/=\&gt;/g
 			s/&#128464;/All/g
 			s/&#128463;/Page/g
-			s/&#182;/Paragraph/g
-			s/.&#8265;/Sentence/g
+			s/&#182;/Para./g
+			s/.&#8265;/Sent./g
 			s/&#9473;/Line/g
 			s/&#11052;/Word/g
-			s/&#8226;/Letter/g
+			s/&#8226;/Char/g
 			s/&#10683;/Delete/g
 			s/&#9003;/\&lt;x/g
 			s/&#8998;/x\&gt;/g
