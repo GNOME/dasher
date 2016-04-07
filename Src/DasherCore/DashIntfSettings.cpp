@@ -28,6 +28,5 @@ void CDashIntfSettings::SetLongParameter(int iParameter, long lValue) {
 }
 
 void CDashIntfSettings::SetStringParameter(int iParameter, const string &strValue) {
-  CDasherInterfaceBase::PreSetNotify(iParameter, strValue);
   CDasherInterfaceBase::SetStringParameter(iParameter, strValue);
 }

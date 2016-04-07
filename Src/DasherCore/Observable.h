@@ -22,7 +22,6 @@ public:
   Observable();
   void Register(Observer<T> *pLstnr);
   void Unregister(Observer<T> *pLstnr);
-protected:
   void DispatchEvent(T t);
 private:
   typedef typename std::list< Observer<T>* > ListenerList;

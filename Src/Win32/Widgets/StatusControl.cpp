@@ -10,7 +10,11 @@ CStatusControl::CStatusControl(Dasher::CSettingsUser *pCreateFrom, CAppSettings 
 
 void CStatusControl::HandleEvent(int iParameter) {
 	switch (iParameter) {
-	case  SP_ALPHABET_ID:
+  case  SP_ALPHABET_ID:
+  case  SP_ALPHABET_1:
+  case  SP_ALPHABET_2:
+  case  SP_ALPHABET_3:
+  case  SP_ALPHABET_4:
 		PopulateCombo();
 		break;
 	case LP_MAX_BITRATE:
