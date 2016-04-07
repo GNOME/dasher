@@ -83,6 +83,8 @@
       <PrecompiledHeaderOutputFile>.\Target/Release/Intermediate/DasherControl.pch</PrecompiledHeaderOutputFile>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat />
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
     </ClCompile>
     <Lib>
       <OutputFile>$(OutDir)DasherControl.lib</OutputFile>
