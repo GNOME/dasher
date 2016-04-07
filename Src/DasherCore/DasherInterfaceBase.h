@@ -147,8 +147,6 @@ public:
 
   virtual void HandleEvent(int iParameter);
   
-  void PreSetNotify(int iParameter, const std::string &sValue);
-
   ///Locks/unlocks Dasher. The default here stores the lock message and percentage
   /// in m_strLockMessage, such that NewFrame renders this instead of the canvas
   /// if we are locked. Subclasses may override to implement better (GUI)
@@ -528,6 +526,15 @@ protected:
   /// this interface was created, as ClSet and ResetParameter need to access it.
   /// (TODO _could_ move these into CSettingsUser, but that seems uglier given so few clients?)
   CSettingsStore * const m_pSettingsStore;
+
+  class CPreSetObserver : public Observer<int> {
+    CSettingsStore& m_settingsStore;
+  public:
+    CPreSetObserver(CSettingsStore& settingsStore) : m_settingsStore(settingsStore) {};
+    void HandleEvent(int evt) override;
+  };
+
+  CPreSetObserver m_preSetObserver;
   CFileUtils* m_fileUtils;
 
   //The default expansion policy to use - an amortized policy depending on the LP_NODE_BUDGET parameter.

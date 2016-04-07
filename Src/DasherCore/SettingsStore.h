@@ -36,7 +36,7 @@ namespace Dasher {
 /// The public interface uses UTF-8 strings. All Keys should be
 /// in American English and encodable in ASCII. However,
 /// string Values may contain special characters where appropriate.
-  class CSettingsStore : public Observable<int> {
+class CSettingsStore : public Observable<int> {
 public:
 
   CSettingsStore();
@@ -61,6 +61,7 @@ public:
   void AddParameters(const Settings::bp_table* table, size_t count);
   void AddParameters(const Settings::lp_table* table, size_t count);
   void AddParameters(const Settings::sp_table* table, size_t count);
+  Observable<int>& PreSetObservable() { return pre_set_observable_; }
 
 protected:
     ///Loads all (persistent) prefs from disk, using+storing default values when no
@@ -124,6 +125,7 @@ private:
   };
 
   std::unordered_map<int, Parameter> parameters_;
+  Observable<int> pre_set_observable_;
 };
   /// Superclass for anything that wants to use/access/store persistent settings.
   /// (The nearest thing remaining to the old CDasherComponent,

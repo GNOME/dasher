@@ -81,9 +81,17 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CDasherInterfaceBase::CDasherInterfaceBase(CSettingsStore *pSettingsStore, CFileUtils* fileUtils) : CSettingsUser(pSettingsStore), m_pDasherModel(new CDasherModel()), m_pFramerate(new CFrameRate(this)), m_pSettingsStore(pSettingsStore), m_pLockLabel(NULL) {
+CDasherInterfaceBase::CDasherInterfaceBase(CSettingsStore *pSettingsStore, CFileUtils* fileUtils) 
+  : CSettingsUser(pSettingsStore), 
+  m_pDasherModel(new CDasherModel()), 
+  m_pFramerate(new CFrameRate(this)), 
+  m_pSettingsStore(pSettingsStore), 
+  m_pLockLabel(NULL),
+  m_preSetObserver(*pSettingsStore){
   
   pSettingsStore->Register(this);
+  pSettingsStore->PreSetObservable().Register(&m_preSetObserver);
+
   m_fileUtils = fileUtils;
   
   // Ensure that pointers to 'owned' objects are set to NULL.
@@ -195,26 +203,31 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
 
   delete m_pFramerate;
 }
-
-void CDasherInterfaceBase::PreSetNotify(int iParameter, const std::string &sNewValue) {
-  // FIXME - make this a more general 'pre-set' event in the message
-  // infrastructure
-
+void CDasherInterfaceBase::CPreSetObserver::HandleEvent(int iParameter) {
   switch(iParameter) {
   case SP_ALPHABET_ID:
+    string value = m_settingsStore.GetStringParameter(SP_ALPHABET_ID);
     // Cycle the alphabet history
-    if(GetStringParameter(SP_ALPHABET_ID) != sNewValue) {
-      if(GetStringParameter(SP_ALPHABET_1) != sNewValue) {
-        if(GetStringParameter(SP_ALPHABET_2) != sNewValue) {
-          if(GetStringParameter(SP_ALPHABET_3) != sNewValue)
-            SetStringParameter(SP_ALPHABET_4, GetStringParameter(SP_ALPHABET_3));
-          SetStringParameter(SP_ALPHABET_3, GetStringParameter(SP_ALPHABET_2));
-        }
-        SetStringParameter(SP_ALPHABET_2, GetStringParameter(SP_ALPHABET_1));
-      }
-      SetStringParameter(SP_ALPHABET_1, GetStringParameter(SP_ALPHABET_ID));
-    }
+    vector<string> newHistory;
+    newHistory.push_back(value);
+    string v;
+    if ((v = m_settingsStore.GetStringParameter(SP_ALPHABET_1)) != value)
+      newHistory.push_back(v);
+    if ((v = m_settingsStore.GetStringParameter(SP_ALPHABET_2)) != value)
+      newHistory.push_back(v);
+    if ((v = m_settingsStore.GetStringParameter(SP_ALPHABET_3)) != value)
+      newHistory.push_back(v);
+    if ((v = m_settingsStore.GetStringParameter(SP_ALPHABET_4)) != value)
+      newHistory.push_back(v);
 
+    // Fill empty slots. 
+    while (newHistory.size() < 4)
+      newHistory.push_back("");
+
+    m_settingsStore.SetStringParameter(SP_ALPHABET_1, newHistory[0]);
+    m_settingsStore.SetStringParameter(SP_ALPHABET_2, newHistory[1]);
+    m_settingsStore.SetStringParameter(SP_ALPHABET_3, newHistory[2]);
+    m_settingsStore.SetStringParameter(SP_ALPHABET_4, newHistory[3]);
     break;
   }
 }
