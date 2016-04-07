@@ -5,7 +5,7 @@
     <ProductVersion>3.0</ProductVersion>
     <ProjectGuid>{bbe9e817-e2c5-4081-9612-0738e27cf55a}</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>Dasher 5.00-alpha</OutputName>
+    <OutputName>Dasher 5.00-beta</OutputName>
     <OutputType>Package</OutputType>
     <WixToolPath>$(WIX)\bin\</WixToolPath>
   </PropertyGroup>

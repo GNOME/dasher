@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Name="Dasher 5.00-alpha" 
+	<Product Name="Dasher 5.00-beta" 
            Id="d72a4885-f5b8-4dd2-99f1-a9b284135f5f" 
            Language="1033" 
            Codepage="1252" 
-           Version="4.99.1" 
+           Version="4.99.2" 
            Manufacturer="The Dasher Project" 
            UpgradeCode="47c6c060-524d-49d7-90bf-d4a837947a2f">
-    <Package Keywords="Installer" Description="Dasher 5.00-alpha Installer" 
+    <Package Keywords="Installer" Description="Dasher 5.00-beta Installer" 
              Comments="This will install Dasher" Manufacturer="The Dasher Project" 
              InstallerVersion="100" Languages="1033" Compressed="yes" SummaryCodepage="1252"/>
 		<Media Id="1" Cabinet="Sample.cab" EmbedCab="yes" DiskPrompt="CD-ROM #1"/>
-		<Property Id="DiskPrompt" Value="Dasher 5.00-alpha Installation [1]"/>
+		<Property Id="DiskPrompt" Value="Dasher 5.00-beta Installation [1]"/>
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder" Name="PFiles">
 				<Directory Id="Dasher" Name="Dasher">
@@ -235,9 +235,9 @@
 				</Directory>
 			</Directory>
 			<Directory Id="ProgramMenuFolder" Name="Programs">
-				<Directory Id="ProgramMenuDir" Name="Dasher 5.00-alpha">
+				<Directory Id="ProgramMenuDir" Name="Dasher 5.00">
 					<Component Id="ProgramShortcuts" Guid="D28C2189-5E40-4f93-B42E-0CD76D8B5B37" KeyPath="no">
-            <Shortcut  Id="pmfShortcutDasher" Name="Dasher 5.00 alpha" Target="[#DasherEXE]" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
+            <Shortcut  Id="pmfShortcutDasher" Name="Dasher 5.00 beta" Target="[#DasherEXE]" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
             <Shortcut  Id="pmfShortcutDasherSpeak" Name="Dasher for conversation" Target="[#DasherEXE]" Arguments="/config speak" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
             <Shortcut  Id="pmfShortcutDasherPreparedSpeech" Name="Dasher for speeches" Target="[#DasherEXE]" Arguments="/config prepared_speech" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
             <Shortcut  Id="pmfShortcutDasherDirect" Name="Dasher direct entry" Target="[#DasherEXE]" Arguments="/config direct" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
@@ -249,7 +249,7 @@
 			</Directory>
       <Directory Id="DesktopFolder" Name="Desktop">
         <Component Id="DesktopShortcuts" Guid="113e7f55-fb83-40a6-8bec-9a143a90434c" KeyPath="no">
-          <Shortcut  Id="desktopShortcutDasher" Name="Dasher 5.00 alpha" Target="[#DasherEXE]" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
+          <Shortcut  Id="desktopShortcutDasher" Name="Dasher 5.00 beta" Target="[#DasherEXE]" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
           <Shortcut  Id="desktopShortcutDasherSpeak" Name="Dasher for conversation" Target="[#DasherEXE]" Arguments="/config speak" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
           <Shortcut  Id="desktopShortcutDasherPreparedSpeech" Name="Dasher for speeches" Target="[#DasherEXE]" Arguments="/config prepared_speech" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
           <Shortcut  Id="desktopShortcutDasherDirect" Name="Dasher direct entry" Target="[#DasherEXE]" Arguments="/config direct" WorkingDirectory="INSTALLDIR" Icon="Dasher.exe" IconIndex="0"/>
@@ -260,7 +260,7 @@
 
       </Directory>
 		</Directory>
-		<Feature Id="Complete" Title="Dasher 5.00-alpha" Description="The full Dasher installation." Display="expand" Level="1" ConfigurableDirectory="INSTALLDIR">
+		<Feature Id="Complete" Title="Dasher 5.00-beta" Description="The full Dasher installation." Display="expand" Level="1" ConfigurableDirectory="INSTALLDIR">
 				<ComponentRef Id="MainExecutable"/>
       <ComponentRef Id="ProgramShortcuts"/>
       <ComponentRef Id="DesktopShortcuts"/>
