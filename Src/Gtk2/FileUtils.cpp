@@ -1,5 +1,6 @@
 #include <string>
 #include <stdio.h>
+#include <sys/stat.h>
 
 #include "../Common/Globber.h"
 #include "../DasherCore/AbstractXMLParser.h"
