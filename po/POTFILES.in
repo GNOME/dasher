@@ -46,10 +46,3 @@ Src/Gtk2/module_settings_window.cpp
 Src/Gtk2/mouse_input.h
 Src/Gtk2/Preferences.cpp
 Src/main.cc
-Testing/gtest/fused-src/gtest/gtest-all.cc
-Testing/gtest/fused-src/gtest/gtest.h
-Testing/gtest/include/gtest/internal/gtest-filepath.h
-Testing/gtest/src/gtest.cc
-Testing/gtest/test/gtest-filepath_test.cc
-Testing/gtest/test/gtest_filter_unittest.py
-Testing/gtest/test/gtest_unittest.cc
