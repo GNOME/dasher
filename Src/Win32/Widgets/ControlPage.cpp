@@ -167,7 +167,7 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 	case IDC_BUTTON_PREFS:
 	{
 	  std::string strNewValue;
-	  if (GetSelectedListboxText(IDC_CONTROL_LIST, strNewValue))
+	  if (!GetSelectedListboxText(IDC_CONTROL_LIST, strNewValue))
 		break;
 
 	  SModuleSettings *pSettings = 0;
@@ -182,7 +182,7 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 	case IDC_BUTTON_PREFS2:
 	{
 	  std::string strNewValue;
-	  if (GetSelectedListboxText(IDC_INPUT_LIST, strNewValue))
+	  if (!GetSelectedListboxText(IDC_INPUT_LIST, strNewValue))
 		break;
 
 	  SModuleSettings *pSettings = 0;
