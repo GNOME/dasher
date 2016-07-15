@@ -9,7 +9,7 @@ CDashIntfScreenMsgs::CDashIntfScreenMsgs(CSettingsStore *pSettingsStore, CFileUt
 
 void CDashIntfScreenMsgs::Message(const string &strText, bool bInterrupt) {
   //Just store the messages for Redraw...
-  CDasherScreen::Label *lab = GetView()->Screen()->MakeLabel(strText,GetLongParameter(LP_MESSAGE_FONTSIZE));
+  CDasherScreen::Label *lab = GetView()->Screen()->MakeLabel(strText);
   if (bInterrupt) {
     m_dqModalMessages.push_back(pair<CDasherScreen::Label*,bool>(lab,false));
     if (CInputFilter *fil=GetActiveInputMethod()) fil->pause();
