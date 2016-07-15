@@ -156,8 +156,6 @@ LRESULT CViewPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPar
     if(HIWORD(wParam)==BN_CLICKED || HIWORD(wParam)==LBN_SELCHANGE) {
       if(LOWORD(wParam) != 0 && m_hPropertySheet != 0 && m_hwnd != 0) {
         PropSheet_Changed(m_hPropertySheet, m_hwnd); // enables the 'Apply' button
-        // Behaviour isn't *perfect* since it activates the Apply button even if you, say,
-        // click 'new' alphabet then click Cancel when asked for a name.
       }
     }
     switch (LOWORD(wParam)) {
@@ -166,8 +164,9 @@ LRESULT CViewPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPar
         HWND ListBox = GetDlgItem(m_hwnd, IDC_COLOURS);
         LRESULT CurrentItem = SendMessage(ListBox, LB_GETCURSEL, 0, 0);
         LRESULT CurrentIndex = SendMessage(ListBox, LB_GETITEMDATA, CurrentItem, 0);
-        m_CurrentColours = ColourList[CurrentIndex];
-      }
+		if (CurrentIndex != LB_ERR)
+			m_CurrentColours = ColourList[CurrentIndex];
+	  }
       return TRUE;
  
   case IDC_DFONT_BUTTON:

@@ -87,7 +87,8 @@ CDasherInterfaceBase::CDasherInterfaceBase(CSettingsStore *pSettingsStore, CFile
   m_pFramerate(new CFrameRate(this)), 
   m_pSettingsStore(pSettingsStore), 
   m_pLockLabel(NULL),
-  m_preSetObserver(*pSettingsStore){
+  m_preSetObserver(*pSettingsStore),
+  m_bLastMoved(false) {
   
   pSettingsStore->Register(this);
   pSettingsStore->PreSetObservable().Register(&m_preSetObserver);

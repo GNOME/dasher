@@ -205,7 +205,7 @@ CAlphabetMap::CAlphabetMap(unsigned int InitialTableSize)
 }
 
 CAlphabetMap::~CAlphabetMap() {
-  delete m_pSingleChars;
+  delete[] m_pSingleChars;
 }
 
 void CAlphabetMap::AddParagraphSymbol(symbol Value) {

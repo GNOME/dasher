@@ -133,8 +133,11 @@ bool CAdvancedPage::Apply() {
   HWND ListBox = GetDlgItem(m_hwnd, IDC_CONTROLBOXES);
   LRESULT CurrentItem = SendMessage(ListBox, LB_GETCURSEL, 0, 0);
   LRESULT CurrentIndex = SendMessage(ListBox, LB_GETITEMDATA, CurrentItem, 0);
-  auto CurrentControlBox = m_ControlBoxItems[CurrentIndex];
-  m_pAppSettings->SetStringParameter(SP_CONTROL_BOX_ID, CurrentControlBox);
+  if (CurrentIndex != LB_ERR)
+  {
+	  auto CurrentControlBox = m_ControlBoxItems[CurrentIndex];
+	  m_pAppSettings->SetStringParameter(SP_CONTROL_BOX_ID, CurrentControlBox);
+  }
 
   int fileEncodingIdx = SendMessage(GetDlgItem(m_hwnd, IDC_FILE_ENCODING), CB_GETCURSEL, 0, 0);
   switch (fileEncodingIdx) {

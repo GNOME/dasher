@@ -33,6 +33,8 @@ private:
   
   void PopulateList();
   bool Apply();
+  bool GetSelectedListboxText(int lbxId, std::string & selectedText);
+  void EnablePrefferencesForSelectedModule(int lboxId, int btnId);
 };
 
 #endif  // ndef

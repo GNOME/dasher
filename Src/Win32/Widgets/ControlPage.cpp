@@ -52,26 +52,26 @@ void CControlPage::PopulateList() {
 
   SendMessage(SB_slider, TBM_SETPAGESIZE, 0L, 20);      // PgUp and PgDown change bitrate by reasonable amount
   SendMessage(SB_slider, TBM_SETTICFREQ, 100, 0L);
-  SendMessage(SB_slider, TBM_SETRANGE, FALSE, (LPARAM) MAKELONG(10, 800));
-  
-  speedbox = GetDlgItem(m_hwnd, IDC_SPEEDVAL);  
+  SendMessage(SB_slider, TBM_SETRANGE, FALSE, (LPARAM)MAKELONG(10, 800));
 
-  SendMessage(SB_slider, TBM_SETPOS, TRUE, (LPARAM) m_pAppSettings->GetLongParameter(LP_MAX_BITRATE));
+  speedbox = GetDlgItem(m_hwnd, IDC_SPEEDVAL);
+
+  SendMessage(SB_slider, TBM_SETPOS, TRUE, (LPARAM)m_pAppSettings->GetLongParameter(LP_MAX_BITRATE));
   _sntprintf(m_tcBuffer, 100, TEXT("%0.2f"), m_pAppSettings->GetLongParameter(LP_MAX_BITRATE) / 100.0);
-  SendMessage(speedbox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
+  SendMessage(speedbox, WM_SETTEXT, 0, (LPARAM)m_tcBuffer);
 
   m_hMousePosStyle = GetDlgItem(m_hwnd, IDC_MOUSEPOS_STYLE);
   SendMessage(m_hMousePosStyle, CB_ADDSTRING, 0, (LPARAM)L"Centre circle");
   SendMessage(m_hMousePosStyle, CB_ADDSTRING, 0, (LPARAM)L"Two box");
 
-  if(m_pAppSettings->GetBoolParameter(BP_MOUSEPOS_MODE)) {
+  if (m_pAppSettings->GetBoolParameter(BP_MOUSEPOS_MODE)) {
     SendMessage(m_hMousePosStyle, CB_SETCURSEL, 1, 0);
   }
   else {
     SendMessage(m_hMousePosStyle, CB_SETCURSEL, 0, 0);
   }
 
-  if(m_pAppSettings->GetBoolParameter(BP_MOUSEPOS_MODE) || m_pAppSettings->GetBoolParameter(BP_CIRCLE_START)) {
+  if (m_pAppSettings->GetBoolParameter(BP_MOUSEPOS_MODE) || m_pAppSettings->GetBoolParameter(BP_CIRCLE_START)) {
     SendMessage(GetDlgItem(m_hwnd, IDC_MOUSEPOS), BM_SETCHECK, BST_CHECKED, 0);
   }
   else {
@@ -79,79 +79,38 @@ void CControlPage::PopulateList() {
   }
 
   // all the button checkboxes
-  for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
+  for (int ii = 0; ii < sizeof(menutable) / sizeof(menuentry); ii++)
   {
-    if(m_pAppSettings->GetBoolParameter(menutable[ii].paramNum)) 
-	{
+    if (m_pAppSettings->GetBoolParameter(menutable[ii].paramNum))
+    {
       SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_SETCHECK, BST_CHECKED, 0);
     }
-    else  
-	{
+    else
+    {
       SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_SETCHECK, BST_UNCHECKED, 0);
     }
   }
 
   // List entries:
 
-  for(int i(0); i<sizeof(listtable)/sizeof(menuentry); ++i) {
+  for (int i(0); i < sizeof(listtable) / sizeof(menuentry); ++i) {
     std::vector<std::string> vValues;
     m_pAppSettings->GetPermittedValues(listtable[i].paramNum, vValues);
+    CWindow lbox = GetDlgItem(m_hwnd, listtable[i].idcNum);
+    auto currentParameterValue = m_pAppSettings->GetStringParameter(listtable[i].paramNum);
+    for (auto value : vValues) {
+      wstring Item;
+      WinUTF8::UTF8string_to_wstring(value, Item);
+      int iIdx = lbox.SendMessage(LB_ADDSTRING, 0, (LPARAM)Item.c_str());
 
-    for(std::vector<std::string>::iterator it(vValues.begin()); it != vValues.end(); ++it) {
-      Tstring Item;
-      WinUTF8::UTF8string_to_wstring(*it, Item);
-      int iIdx(SendMessage(GetDlgItem(m_hwnd, listtable[i].idcNum), LB_ADDSTRING, 0, (LPARAM) Item.c_str()));
-
-      if(*it == m_pAppSettings->GetStringParameter(listtable[i].paramNum))
-        SendMessage(GetDlgItem(m_hwnd, listtable[i].idcNum), LB_SETCURSEL, iIdx, 0);
+      if (value == currentParameterValue)
+        lbox.SendMessage(LB_SETCURSEL, iIdx, 0);
     }
   }
-
-// TODO: Pretty horrible - sort this out
-  {
-        int iSelection(SendMessage(GetDlgItem(m_hwnd, IDC_CONTROL_LIST), LB_GETCURSEL, 0, 0));
-    
-        int iLength(SendMessage(GetDlgItem(m_hwnd, IDC_CONTROL_LIST), LB_GETTEXTLEN, iSelection, 0));
-        TCHAR *szData(new TCHAR[iLength + 1]);
-        SendMessage(GetDlgItem(m_hwnd, IDC_CONTROL_LIST), LB_GETTEXT, iSelection, (LPARAM)szData);
-
-        std::string strNewValue;
-        WinUTF8::wstring_to_UTF8string(szData, strNewValue);
-        delete[] szData;
-
-        SModuleSettings *pSettings;
-        int iSettingsCount;
-
-        EnableWindow(GetDlgItem(m_hwnd, IDC_BUTTON_PREFS), m_pDasherInterface->GetModuleSettings(strNewValue, &pSettings, &iSettingsCount));
-      }
-      
-      {
-        int iSelection(SendMessage(GetDlgItem(m_hwnd, IDC_INPUT_LIST), LB_GETCURSEL, 0, 0));
-    
-		if(iSelection != LB_ERR) {
-			int iLength(SendMessage(GetDlgItem(m_hwnd, IDC_INPUT_LIST), LB_GETTEXTLEN, iSelection, 0));
-			TCHAR *szData(new TCHAR[iLength + 1]);
-			SendMessage(GetDlgItem(m_hwnd, IDC_INPUT_LIST), LB_GETTEXT, iSelection, (LPARAM)szData);
-
-			std::string strNewValue;
-			WinUTF8::wstring_to_UTF8string(szData, strNewValue);
-			delete[] szData;
-
-	        SModuleSettings *pSettings;
-			int iSettingsCount;
-
-			EnableWindow(GetDlgItem(m_hwnd, IDC_BUTTON_PREFS2), m_pDasherInterface->GetModuleSettings(strNewValue, &pSettings, &iSettingsCount));
-		}
-		else {
-			EnableWindow(GetDlgItem(m_hwnd, IDC_BUTTON_PREFS2), false);
-		}
-      }
-      
-
+  EnablePrefferencesForSelectedModule(IDC_CONTROL_LIST, IDC_BUTTON_PREFS);
+  EnablePrefferencesForSelectedModule(IDC_INPUT_LIST, IDC_BUTTON_PREFS2);
 }
-
-
-bool CControlPage::Apply() 
+bool CControlPage::Apply()
 {
   int NewSpeed = SendMessage(SB_slider, TBM_GETPOS, 0, 0);
   m_pAppSettings->SetLongParameter( LP_MAX_BITRATE, NewSpeed);
@@ -181,17 +140,11 @@ bool CControlPage::Apply()
   }
 
   for(int i(0); i < sizeof(listtable)/sizeof(menuentry); ++i) {
-    int iSelection(SendMessage(GetDlgItem(m_hwnd, listtable[i].idcNum), LB_GETCURSEL, 0, 0));
-    
-    int iLength(SendMessage(GetDlgItem(m_hwnd, listtable[i].idcNum), LB_GETTEXTLEN, iSelection, 0));
-    TCHAR *szData(new TCHAR[iLength + 1]);
-    SendMessage(GetDlgItem(m_hwnd, listtable[i].idcNum), LB_GETTEXT, iSelection, (LPARAM)szData);
-
     std::string strNewValue;
-    WinUTF8::wstring_to_UTF8string(szData, strNewValue);
-    delete[] szData;
-
-    m_pAppSettings->SetStringParameter(listtable[i].paramNum, strNewValue);
+	if (GetSelectedListboxText(listtable[i].idcNum, strNewValue))
+	{
+		m_pAppSettings->SetStringParameter(listtable[i].paramNum, strNewValue);
+	}
   }
 
 	// Return false (and notify the user) if something is wrong.
@@ -199,128 +152,101 @@ bool CControlPage::Apply()
 }
 
 LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
-	double NewSpeed;
-	switch (message) 
-	{	
-	case WM_COMMAND:
-		switch (LOWORD(wParam)) 
-		{
-	/*	case (IDC_DISPLAY):
-			break;*/
-    case IDC_CONTROL_LIST:
-      {
-        int iSelection(SendMessage(GetDlgItem(m_hwnd, IDC_CONTROL_LIST), LB_GETCURSEL, 0, 0));
-
-        if(iSelection != LB_ERR) {    
-          int iLength(SendMessage(GetDlgItem(m_hwnd, IDC_CONTROL_LIST), LB_GETTEXTLEN, iSelection, 0));
-          TCHAR *szData(new TCHAR[iLength + 1]);
-          SendMessage(GetDlgItem(m_hwnd, IDC_CONTROL_LIST), LB_GETTEXT, iSelection, (LPARAM)szData);
-  
-          std::string strNewValue;
-          WinUTF8::wstring_to_UTF8string(szData, strNewValue);
-          delete[] szData;
-  
-          SModuleSettings *pSettings;
-          int iSettingsCount;
-
-          EnableWindow(GetDlgItem(m_hwnd, IDC_BUTTON_PREFS), m_pDasherInterface->GetModuleSettings(strNewValue, &pSettings, &iSettingsCount));
-        }
-        else {
-          EnableWindow(GetDlgItem(m_hwnd, IDC_BUTTON_PREFS), false);
-        }
-      }
-      break;
-    case IDC_INPUT_LIST:
-      {
-        int iSelection(SendMessage(GetDlgItem(m_hwnd, IDC_INPUT_LIST), LB_GETCURSEL, 0, 0));
-    
-	    	if(iSelection != LB_ERR) {
-          int iLength(SendMessage(GetDlgItem(m_hwnd, IDC_INPUT_LIST), LB_GETTEXTLEN, iSelection, 0));
-          TCHAR *szData(new TCHAR[iLength + 1]);
-          SendMessage(GetDlgItem(m_hwnd, IDC_INPUT_LIST), LB_GETTEXT, iSelection, (LPARAM)szData);
-
-          std::string strNewValue;
-          WinUTF8::wstring_to_UTF8string(szData, strNewValue);
-          delete[] szData;
-
-          SModuleSettings *pSettings;
-          int iSettingsCount;
-
-          EnableWindow(GetDlgItem(m_hwnd, IDC_BUTTON_PREFS2), m_pDasherInterface->GetModuleSettings(strNewValue, &pSettings, &iSettingsCount));
-        }
-        else {
-          EnableWindow(GetDlgItem(m_hwnd, IDC_BUTTON_PREFS2), false);
-        }
-      }
-      break;
-    case IDC_BUTTON_PREFS: 
-      {
-        int iSelection(SendMessage(GetDlgItem(m_hwnd, listtable[0].idcNum), LB_GETCURSEL, 0, 0));
-      
-        if(iSelection != LB_ERR) {
-          int iLength(SendMessage(GetDlgItem(m_hwnd, listtable[0].idcNum), LB_GETTEXTLEN, iSelection, 0));
-          TCHAR *szData(new TCHAR[iLength + 1]);
-          SendMessage(GetDlgItem(m_hwnd, listtable[0].idcNum), LB_GETTEXT, iSelection, (LPARAM)szData);
-
-          std::string strNewValue;
-          WinUTF8::wstring_to_UTF8string(szData, strNewValue);
-          delete[] szData;
-
-          SModuleSettings *pSettings;
-          int iSettingsCount;
-
-          if(!m_pDasherInterface->GetModuleSettings(strNewValue, &pSettings, &iSettingsCount))
-            break;
-
-          CModuleSettings dlg(strNewValue, pSettings, iSettingsCount, m_pAppSettings);
-          dlg.DoModal(m_hwnd);
-        }
-      }
-		  break;
-    case IDC_BUTTON_PREFS2: 
-      {
-        int iSelection(SendMessage(GetDlgItem(m_hwnd, listtable[1].idcNum), LB_GETCURSEL, 0, 0));
-    
-        if(iSelection != LB_ERR) {
-          int iLength(SendMessage(GetDlgItem(m_hwnd, listtable[1].idcNum), LB_GETTEXTLEN, iSelection, 0));
-          TCHAR *szData(new TCHAR[iLength + 1]);
-          SendMessage(GetDlgItem(m_hwnd, listtable[1].idcNum), LB_GETTEXT, iSelection, (LPARAM)szData);
-
-          std::string strNewValue;
-          WinUTF8::wstring_to_UTF8string(szData, strNewValue);
-          delete[] szData;
-
-          SModuleSettings *pSettings;
-          int iSettingsCount;
-
-          if(!m_pDasherInterface->GetModuleSettings(strNewValue, &pSettings, &iSettingsCount))
-            break;
-
-          CModuleSettings dlg(strNewValue, pSettings, iSettingsCount, m_pAppSettings);
-          dlg.DoModal(m_hwnd);
-        }
-      }
-		  break;
-		}
-		break;
-	case WM_HSCROLL:
-		if((LOWORD(wParam) == SB_THUMBPOSITION) | (LOWORD(wParam) == SB_THUMBTRACK)) {
-			// Some messages give the new postion
-			NewSpeed = HIWORD(wParam);
-		}
-		else {
-			// Otherwise we have to ask for it
-			long Pos = SendMessage(SB_slider, TBM_GETPOS, 0, 0);
-			NewSpeed = Pos;
-		}
-		{
-			_sntprintf(m_tcBuffer, 100, TEXT("%0.2f"), NewSpeed / 100);
-			SendMessage(speedbox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
-		}
-		return TRUE;
+  double NewSpeed;
+  switch (message)
+  {
+  case WM_COMMAND:
+	switch (LOWORD(wParam))
+	{
+	case IDC_CONTROL_LIST:
+	  EnablePrefferencesForSelectedModule(IDC_CONTROL_LIST, IDC_BUTTON_PREFS);
+	  break;
+	case IDC_INPUT_LIST:
+	  EnablePrefferencesForSelectedModule(IDC_INPUT_LIST, IDC_BUTTON_PREFS2);
+	  break;
+	case IDC_BUTTON_PREFS:
+	{
+	  std::string strNewValue;
+	  if (GetSelectedListboxText(IDC_CONTROL_LIST, strNewValue))
 		break;
 
-        }
-        // pass on to superclass:
+	  SModuleSettings *pSettings = 0;
+	  int iSettingsCount = 0;
+	  if (!m_pDasherInterface->GetModuleSettings(strNewValue, &pSettings, &iSettingsCount))
+		break;
+
+	  CModuleSettings dlg(strNewValue, pSettings, iSettingsCount, m_pAppSettings);
+	  dlg.DoModal(m_hwnd);
+	}
+	break;
+	case IDC_BUTTON_PREFS2:
+	{
+	  std::string strNewValue;
+	  if (GetSelectedListboxText(IDC_INPUT_LIST, strNewValue))
+		break;
+
+	  SModuleSettings *pSettings = 0;
+	  int iSettingsCount = 0;
+	  if (!m_pDasherInterface->GetModuleSettings(strNewValue, &pSettings, &iSettingsCount))
+		break;
+
+	  CModuleSettings dlg(strNewValue, pSettings, iSettingsCount, m_pAppSettings);
+	  dlg.DoModal(m_hwnd);
+	}
+	break;
+	}
+	break;
+  case WM_HSCROLL:
+	if ((LOWORD(wParam) == SB_THUMBPOSITION) | (LOWORD(wParam) == SB_THUMBTRACK)) {
+	  // Some messages give the new postion
+	  NewSpeed = HIWORD(wParam);
+	}
+	else {
+	  // Otherwise we have to ask for it
+	  long Pos = SendMessage(SB_slider, TBM_GETPOS, 0, 0);
+	  NewSpeed = Pos;
+	}
+	{
+	  _sntprintf(m_tcBuffer, 100, TEXT("%0.2f"), NewSpeed / 100);
+	  SendMessage(speedbox, WM_SETTEXT, 0, (LPARAM)m_tcBuffer);
+	}
+	return TRUE;
+	break;
+
+  }
+  // pass on to superclass:
   return CPrefsPageBase::WndProc(Window, message, wParam, lParam);
+}
+
+bool CControlPage::GetSelectedListboxText(int lboxId, string& selectedText)
+{
+  CWindow lbox = GetDlgItem(m_hwnd, lboxId);
+  int iSelection = lbox.SendMessage(LB_GETCURSEL, 0, 0);
+  if (iSelection == LB_ERR)
+	return false;
+
+  int iLength = lbox.SendMessage(LB_GETTEXTLEN, iSelection, 0);
+  if (iLength == LB_ERR)
+	return false;
+
+  TCHAR* szData = new TCHAR[iLength + 1];
+  int iLen2 = lbox.SendMessage(LB_GETTEXT, iSelection, (LPARAM)szData);
+  if (iLen2 == LB_ERR) {
+	delete[] szData;
+	return false;
+  }
+  WinUTF8::wstring_to_UTF8string(szData, selectedText);
+  delete[] szData;
+  return true;
+
+}
+
+void CControlPage::EnablePrefferencesForSelectedModule(int lboxId, int btnId)
+{
+  std::string strValue;
+  GetSelectedListboxText(lboxId, strValue);
+  SModuleSettings *pSettings = 0;
+  int iSettingsCount = 0;
+  EnableWindow(GetDlgItem(m_hwnd, btnId),
+	m_pDasherInterface->GetModuleSettings(strValue, &pSettings, &iSettingsCount));
 }

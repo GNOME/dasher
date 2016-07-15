@@ -6,6 +6,9 @@
 
 CStatusControl::CStatusControl(Dasher::CSettingsUser *pCreateFrom, CAppSettings *pAppSettings) 
 	: CSettingsObserver(pCreateFrom), m_pAppSettings(pAppSettings) {
+  m_hEdit = m_hUpDown = m_hCombo = m_hSpeedLabel = m_hAlphabetLabel =0;
+
+  m_iEditWidth = m_iEditHeight = 0;
 }
 
 void CStatusControl::HandleEvent(int iParameter) {

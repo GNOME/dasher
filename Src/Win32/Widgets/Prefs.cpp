@@ -111,22 +111,7 @@ LRESULT CPrefs::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
       m_hwnd = Window;
     }
     return TRUE;
-  //case WM_COMMAND:
-  //  switch (LOWORD(wParam)) {
-  //  case (IDC_DISPLAY):
-  //    if(HIWORD(wParam) == EN_CHANGE) {
-  //      HWND Control = GetDlgItem(Window, IDC_DISPLAY);
-  //      LRESULT BufferLength = SendMessage(Control, WM_GETTEXTLENGTH, 0, 0) + 1;        // +1 to allow for terminator
-  //      TCHAR *Buffer = new TCHAR[BufferLength];
-  //      SendMessage(Control, WM_GETTEXT, BufferLength, (LPARAM) Buffer);
-  //      string ItemName;
-  //      SendMessage(GetDlgItem(Window, IDC_TEXT), WM_SETTEXT, 0, (LPARAM) Buffer);
-  //      delete[]Buffer;
-  //    }
-  //    return TRUE;
-  //  default:
-  //    return FALSE;
-  //  }
+
   default:
     return FALSE;
   }

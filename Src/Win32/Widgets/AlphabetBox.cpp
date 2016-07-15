@@ -254,8 +254,9 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
         HWND ListBox = GetDlgItem(m_hwnd, IDC_ALPHABETS);
         LRESULT CurrentItem = SendMessage(ListBox, LB_GETCURSEL, 0, 0);
         LRESULT CurrentIndex = SendMessage(ListBox, LB_GETITEMDATA, CurrentItem, 0);
-        m_CurrentAlphabet = AlphabetList[CurrentIndex];
- 
+		if (CurrentIndex != LB_ERR)
+			m_CurrentAlphabet = AlphabetList[CurrentIndex];
+
       }
       return TRUE;
       break;
