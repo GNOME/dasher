@@ -59,6 +59,52 @@ END
 
 #endif    // APSTUDIO_INVOKED
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_STATUSBAR DIALOGEX 0, 0, 151, 14
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    RTEXT           "Speed:",IDC_STATIC,0,3,29,8
+    EDITTEXT        IDC_SPEED_EDIT,30,0,28,14,ES_RIGHT,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_SPEED_SPIN,"msctls_updown32",UDS_ALIGNRIGHT | UDS_ARROWKEYS,58,0,10,14
+    RTEXT           "Alphabet:",IDC_STATIC,69,3,40,8
+    COMBOBOX        IDC_ALPHABET_COMBO,110,1,48,14,CBS_DROPDOWNLIST,WS_EX_CLIENTEDGE
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_STATUSBAR, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        VERTGUIDE, 148
+        TOPMARGIN, 7
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_STATUSBAR AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
 #endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -281,6 +327,17 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_APPPAGE AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // Icon
 //
 
@@ -386,17 +443,6 @@ BEGIN
     BEGIN
         VALUE "Translation", 0x809, 1200
     END
-END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// AFX_DIALOG_LAYOUT
-//
-
-IDD_APPPAGE AFX_DIALOG_LAYOUT
-BEGIN
-    0
 END
 
 

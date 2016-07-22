@@ -4,46 +4,39 @@
 #include "../Common/WinCommon.h"
 #include "../../DasherCore/SettingsStore.h"
 #include "../AppSettings.h"
+#include "../resource.h"
 
 #include <atlbase.h>
 #include <atlwin.h>
 
-class CStatusControl : public ATL::CWindowImpl<CStatusControl>, public Dasher::CSettingsObserver {
+class CStatusControl : public ATL::CDialogImpl<CStatusControl>, public Dasher::CSettingsObserver {
 public:
 	CStatusControl(Dasher::CSettingsUser *pCreateFrom, CAppSettings *pAppSettings);
 
-  // ATL boilerplate code
-  DECLARE_WND_SUPERCLASS(L"STATUSCONTROL", L"STATIC");
+    enum { IDD = IDD_STATUSBAR};
 
   BEGIN_MSG_MAP(CStatusControl)
-    MESSAGE_HANDLER(WM_COMMAND, OnCommand)
-    MESSAGE_HANDLER(WM_NOTIFY, OnNotify)
+    MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
     MESSAGE_HANDLER(WM_SIZE, OnSize)
+    COMMAND_HANDLER(IDC_ALPHABET_COMBO, CBN_SELCHANGE, OnAlphabetChanged)
+    COMMAND_HANDLER(IDC_SPEED_EDIT, EN_CHANGE, OnSpeedEditChange)
+    NOTIFY_HANDLER(IDC_SPEED_SPIN, UDN_DELTAPOS, OnSpeedSpinChange)
   END_MSG_MAP()
 
   // Message handlers:
-  LRESULT OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-  LRESULT OnNotify(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
   LRESULT OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnAlphabetChanged(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
+  LRESULT OnSpeedEditChange(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
+  LRESULT OnSpeedSpinChange(int idCtrl, LPNMHDR pNMHDR, BOOL& bHandled);
 
-  // Create the window, with children
-  HWND Create(HWND hParent);
 
   int GetHeight() {
-    return m_iEditHeight + 2;
+    return m_dialogHeight;
   }
   void HandleEvent(int iParameter);
 
 private:
-  // Create the child windows of the control
-  void CreateChildren();
-
-  // Initial layout of child windows
-  void LayoutChildrenInitial();
-
-  // Incremental update of child windows
-  void LayoutChildrenUpdate();
-
   // Update the contents of the alphabet seletion combo
   void PopulateCombo();
 
@@ -60,14 +53,10 @@ private:
   CAppSettings *m_pAppSettings;
 
   // Handles to child windows
-  HWND m_hEdit;
-  HWND m_hUpDown;
-  HWND m_hCombo;
-  HWND m_hSpeedLabel;
-  HWND m_hAlphabetLabel;
-
-  int m_iEditWidth;
-  int m_iEditHeight;
+  CWindow m_hEdit;
+  CWindow m_hUpDown;
+  CWindow m_hCombo;
+  int m_dialogHeight;
 };
 
 #endif
