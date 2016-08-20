@@ -8,22 +8,22 @@
 # Žygimantas Beručka <zygis@gnome.org>, 2004-2006.
 # Justina Klingaitė <justina.klingaite@gmail.com>, 2005.
 # Gintautas Miliauskas <gintas@akl.lt>, 2006, 2007, 2009.
-# Aurimas Černius <aurisc4@gmail.com>, 2013.
+# Aurimas Černius <aurisc4@gmail.com>, 2013, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: lt\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-01-08 04:22+0000\n"
-"PO-Revision-Date: 2016-01-08 12:12+0200\n"
+"POT-Creation-Date: 2016-05-19 15:22+0000\n"
+"PO-Revision-Date: 2016-08-14 21:39+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Gtranslator 2.91.7\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
 
@@ -31,7 +31,7 @@ msgstr ""
 #. in a window title.
 #: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:14
 #: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:23
-#: ../Src/Gtk2/dasher_main.cpp:865
+#: ../Src/Gtk2/dasher_main.cpp:867
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -100,8 +100,8 @@ msgid "_About"
 msgstr "_Apie"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:15 ../Data/GUI/dashermaemo.ui.h:4
-#: ../Src/Gtk2/dasher_editor.cpp:817 ../Src/Gtk2/dasher_editor.cpp:851
-#: ../Src/Gtk2/dasher_main.cpp:880
+#: ../Src/Gtk2/dasher_editor.cpp:809 ../Src/Gtk2/dasher_editor.cpp:843
+#: ../Src/Gtk2/dasher_main.cpp:882
 msgid "Select File"
 msgstr "Pasirinkti failą"
 
@@ -395,62 +395,46 @@ msgid "Control mode"
 msgstr "Valdymo veiksena"
 
 #: ../Data/GUI/dasher.preferences.ui.h:59
-msgid "Include Clipboard commands"
-msgstr "Įtraukti iškarpinės komandas"
-
-#: ../Data/GUI/dasher.preferences.ui.h:60
-msgid "Include Speech commands"
-msgstr "Įtraukti kalbos komandas"
-
-#: ../Data/GUI/dasher.preferences.ui.h:61
-msgid "Force to have Halt command"
-msgstr "Priverstinai turėti Halt komandą"
-
-#: ../Data/GUI/dasher.preferences.ui.h:62
-msgid "Include Editing commands"
-msgstr "Įtraukti redagavimo komandas"
-
-#: ../Data/GUI/dasher.preferences.ui.h:63
 msgid "Copy All on stop"
 msgstr "Kopijuoti viską sustojant"
 
-#: ../Data/GUI/dasher.preferences.ui.h:64
+#: ../Data/GUI/dasher.preferences.ui.h:60
 msgid "Speak All on stop"
 msgstr "Pasakyti viską sustojant"
 
-#: ../Data/GUI/dasher.preferences.ui.h:65
+#: ../Data/GUI/dasher.preferences.ui.h:61
 msgid "Speak words as you write"
 msgstr "Kalbos modelis prisitaiko įvedimo metu"
 
-#: ../Data/GUI/dasher.preferences.ui.h:66
+#: ../Data/GUI/dasher.preferences.ui.h:62
 msgid "Editor Font"
 msgstr "Redaktoriaus šriftas"
 
-#: ../Data/GUI/dasher.preferences.ui.h:67
+#: ../Data/GUI/dasher.preferences.ui.h:63
 msgid "Select Editor Font"
 msgstr "Pasirinkti redaktoriaus šriftą"
 
-#: ../Data/GUI/dasher.preferences.ui.h:68
+#: ../Data/GUI/dasher.preferences.ui.h:64
 msgid "Application Style"
 msgstr "Programos stilius"
 
-#: ../Data/GUI/dasher.preferences.ui.h:69
+#: ../Data/GUI/dasher.preferences.ui.h:65
 msgid "Stand-alone"
 msgstr "Atskiras"
 
-#: ../Data/GUI/dasher.preferences.ui.h:70
+#: ../Data/GUI/dasher.preferences.ui.h:66
 msgid "Composition"
 msgstr "Kompozicija"
 
-#: ../Data/GUI/dasher.preferences.ui.h:71
+#: ../Data/GUI/dasher.preferences.ui.h:67
 msgid "Direct entry"
 msgstr "Tiesioginis įrašas"
 
-#: ../Data/GUI/dasher.preferences.ui.h:72
+#: ../Data/GUI/dasher.preferences.ui.h:68
 msgid "Full Screen"
 msgstr "Visame ekrane"
 
-#: ../Data/GUI/dasher.preferences.ui.h:73
+#: ../Data/GUI/dasher.preferences.ui.h:69
 msgid "A_pplication"
 msgstr "_Programa"
 
@@ -478,7 +462,7 @@ msgstr "_Pridėti prie failo..."
 msgid "_Import Training Text…"
 msgstr "_Importuoti treniruočių tekstą..."
 
-#: ../Data/GUI/dasher.traditional.ui.h:8 ../Src/Gtk2/dasher_main.cpp:958
+#: ../Data/GUI/dasher.traditional.ui.h:8 ../Src/Gtk2/dasher_main.cpp:960
 msgid "Quit"
 msgstr "Išeiti"
 
@@ -515,7 +499,7 @@ msgid "_About…"
 msgstr "_Apie..."
 
 #: ../Data/GUI/dasher.traditional.ui.h:20
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:805
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:795
 msgid "Direct Mode"
 msgstr "Tiesioginė veiksena"
 
@@ -587,16 +571,6 @@ msgstr "Bendras klaviatūros pagriebimas"
 msgid "Alternating Direct Mode"
 msgstr "Kintamos srovės veiksena"
 
-#: ../Src/DasherCore/AutoSpeedControl.cpp:200
-#, c-format
-msgid "Auto-increasing speed to %0.2f"
-msgstr "Automatiškai padidinamas greitis iki %0.2f"
-
-#: ../Src/DasherCore/AutoSpeedControl.cpp:200
-#, c-format
-msgid "Auto-decreasing speed to %0.2f"
-msgstr "Automatiškai sumažinamas greitis iki %0.2f"
-
 #: ../Src/DasherCore/ButtonMode.cpp:29
 msgid "Scan time in menu mode (0 to not scan)"
 msgstr "Skaitymo laikas meniu veiksenoje (0 neskaitymui)"
@@ -651,13 +625,9 @@ msgstr "Didinimas judant į dešinę"
 msgid "Compass Mode"
 msgstr "Kompaso veiksena"
 
-#: ../Src/DasherCore/ControlManager.cpp:249
-msgid "Done"
-msgstr "Atlikta"
-
 #. /TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
 #. / refers to a setting name in gsettings or equivalent, and should not be translated.
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:311
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:314
 #, c-format
 msgid ""
 "Could not find game sentences file for %s - check alphabet definition, or "
@@ -666,12 +636,12 @@ msgstr ""
 "Nepavyko rasti žaidimo sakinių failo %s - patikrinkite abėcėlės apibrėžimą "
 "arba perrašykite GameTextFile nustatymą"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:788
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:784
 msgid "Normal Control"
 msgstr "Normalus valdiklis"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:804
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:794
 msgid "Menu Mode"
 msgstr "Meniu veiksena"
 
@@ -839,7 +809,7 @@ msgid "Training on System Text"
 msgstr "Treniruojamasi sisteminiu tekstu"
 
 #. /TRANSLATORS: These 3 messages will be displayed when the user has just chosen a new alphabet. The %s parameter will be the name of the alphabet.
-#: ../Src/DasherCore/NodeCreationManager.cpp:101
+#: ../Src/DasherCore/NodeCreationManager.cpp:90
 #, c-format
 msgid ""
 "No user training text found - if you have written in \"%s\" before, this "
@@ -848,7 +818,7 @@ msgstr ""
 "Nerastas naudotojo treniruočių tekstas - jei anksčiau rašėte į „%s“, tai "
 "reiškia, kad Dasher galbūt nesimoko iš ankstesnių seansų"
 
-#: ../Src/DasherCore/NodeCreationManager.cpp:102
+#: ../Src/DasherCore/NodeCreationManager.cpp:91
 #, c-format
 msgid ""
 "No training text (user or system) found for \"%s\". Dasher will still work "
@@ -859,7 +829,7 @@ msgstr ""
 "veiks, bet įvedimas bus lėtesnis. Siūlome parsisiųsti treniruočių failą iš "
 "Dasher tinklapio arba pasidaryti savo."
 
-#: ../Src/DasherCore/NodeCreationManager.cpp:108
+#: ../Src/DasherCore/NodeCreationManager.cpp:97
 #, c-format
 msgid ""
 "\"%s\" does not specify training file. Dasher will work but entry will be "
@@ -945,26 +915,35 @@ msgstr ""
 "Įspėjimas: treniruočių failas turi simbolį „%s“ kaip grupės „%s“ narį, bet "
 "jokia grupė šiuo pavadinimu neturi simbolio. Nepaisoma grupės."
 
-#: ../Src/DasherCore/SettingsStore.cpp:75 ../Src/Gtk2/DasherAppSettings.cpp:538
-#: ../Src/Gtk2/DasherAppSettings.cpp:572 ../Src/Gtk2/DasherAppSettings.cpp:576
+#: ../Src/DasherCore/SettingsStore.cpp:100
+#: ../Src/Gtk2/DasherAppSettings.cpp:127 ../Src/Gtk2/DasherAppSettings.cpp:131
 msgid "true"
 msgstr "true"
 
-#: ../Src/DasherCore/SettingsStore.cpp:77 ../Src/Gtk2/DasherAppSettings.cpp:540
-#: ../Src/Gtk2/DasherAppSettings.cpp:572 ../Src/Gtk2/DasherAppSettings.cpp:576
+#: ../Src/DasherCore/SettingsStore.cpp:100
+msgid "True"
+msgstr "Teigiama"
+
+#: ../Src/DasherCore/SettingsStore.cpp:102
+#: ../Src/Gtk2/DasherAppSettings.cpp:127 ../Src/Gtk2/DasherAppSettings.cpp:131
 msgid "false"
 msgstr "false"
+
+#: ../Src/DasherCore/SettingsStore.cpp:102
+#| msgid "false"
+msgid "False"
+msgstr "Neigiama"
 
 #. Note to translators: This message will be output for a command line
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but
 #. "VAL" is not true or false.
-#: ../Src/DasherCore/SettingsStore.cpp:83 ../Src/Gtk2/DasherAppSettings.cpp:543
+#: ../Src/DasherCore/SettingsStore.cpp:108
 msgid "boolean value must be specified as 'true' or 'false'."
 msgstr "boolean skaičius privalo būti nustatytas kaip „true“ arba „false“"
 
 #. Note to translators: This is output when command line "--options" doesn't
 #. specify a known option.
-#: ../Src/DasherCore/SettingsStore.cpp:103
+#: ../Src/DasherCore/SettingsStore.cpp:130
 msgid "unknown option, use \"--help-options\" for more information."
 msgstr "nežinoma opcija, daugiau informacijos \"--help-options\" "
 
@@ -1120,39 +1099,54 @@ msgstr "Lėto pasileidimo laikas"
 msgid "Two-push Dynamic Mode (New One Button)"
 msgstr "Dviejų paspaudimų dinaminė veiksena (naujas vienas mygtukas)"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:569
+#: ../Src/Gtk2/DasherAppSettings.cpp:124
 msgid "Boolean parameters"
 msgstr "Dviejų būsenų parametrai"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:569 ../Src/Gtk2/DasherAppSettings.cpp:580
-#: ../Src/Gtk2/DasherAppSettings.cpp:591
+#: ../Src/Gtk2/DasherAppSettings.cpp:124 ../Src/Gtk2/DasherAppSettings.cpp:135
+#: ../Src/Gtk2/DasherAppSettings.cpp:146
 msgid "Default"
 msgstr "Numatytasis"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:569 ../Src/Gtk2/DasherAppSettings.cpp:580
-#: ../Src/Gtk2/DasherAppSettings.cpp:591
+#: ../Src/Gtk2/DasherAppSettings.cpp:124 ../Src/Gtk2/DasherAppSettings.cpp:135
+#: ../Src/Gtk2/DasherAppSettings.cpp:146
 msgid "Description"
 msgstr "Aprašymas"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:580
+#: ../Src/Gtk2/DasherAppSettings.cpp:135
 msgid "Integer parameters"
 msgstr "Visumos parametrai"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:591
+#: ../Src/Gtk2/DasherAppSettings.cpp:146
 msgid "String parameters"
 msgstr "Priemonės parametrai"
 
+#: ../Src/Gtk2/dasher_editor.cpp:812 ../Src/Gtk2/dasher_main.cpp:550
+#: ../Src/Gtk2/dasher_main.cpp:885
+msgid "_Open"
+msgstr "At_verti"
+
+#: ../Src/Gtk2/dasher_editor.cpp:814 ../Src/Gtk2/dasher_editor.cpp:848
+#: ../Src/Gtk2/dasher_main.cpp:549 ../Src/Gtk2/dasher_main.cpp:886
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "_Atsisakyti"
+
+#: ../Src/Gtk2/dasher_editor.cpp:846
+msgid "_Save"
+msgstr "Į_rašyti"
+
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
-#: ../Src/Gtk2/dasher_main.cpp:206
+#: ../Src/Gtk2/dasher_main.cpp:231
 msgid "option setting is missing \"=\"."
 msgstr "parametro nustatymas \"=\" nerastas"
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
-#: ../Src/Gtk2/dasher_main.cpp:222
+#: ../Src/Gtk2/dasher_main.cpp:247
 msgid "Invalid option string specified"
 msgstr "Negaliojama parametro sudėtis"
 
-#: ../Src/Gtk2/dasher_main.cpp:586
+#: ../Src/Gtk2/dasher_main.cpp:607
 msgid ""
 "Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering "
 "text in Dasher. Please select a training text to play with:"
@@ -1161,19 +1155,19 @@ msgstr ""
 "treniruotis įvedinėti tekstą į Dasher. Pasirinkite treniruočių tekstą "
 "žaidimui:"
 
-#: ../Src/Gtk2/dasher_main.cpp:588
+#: ../Src/Gtk2/dasher_main.cpp:609
 msgid "Use Default"
 msgstr "Naudoti numatytąjį"
 
-#: ../Src/Gtk2/dasher_main.cpp:589
+#: ../Src/Gtk2/dasher_main.cpp:610
 msgid "Choose File..."
 msgstr "Pasirinkite failą..."
 
-#: ../Src/Gtk2/dasher_main.cpp:590
+#: ../Src/Gtk2/dasher_main.cpp:611
 msgid "Cancel"
 msgstr "Atsisakyti"
 
-#: ../Src/Gtk2/dasher_main.cpp:613
+#: ../Src/Gtk2/dasher_main.cpp:634
 msgid ""
 "Are you sure you wish to turn off game mode? All unsaved changes will be "
 "lost."
@@ -1181,7 +1175,15 @@ msgstr ""
 "Ar tikrai norite išjungti žaidimo veikseną? Visi neįrašyti pakeitimai bus "
 "prarasti."
 
-#: ../Src/Gtk2/dasher_main.cpp:920
+#: ../Src/Gtk2/dasher_main.cpp:636
+msgid "No"
+msgstr "Ne"
+
+#: ../Src/Gtk2/dasher_main.cpp:637
+msgid "Yes"
+msgstr "Taip"
+
+#: ../Src/Gtk2/dasher_main.cpp:922
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1192,7 +1194,7 @@ msgstr ""
 "\n"
 "Jeigu neišsaugosite, pakeitimai bus prarasti."
 
-#: ../Src/Gtk2/dasher_main.cpp:927
+#: ../Src/Gtk2/dasher_main.cpp:929
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1202,31 +1204,31 @@ msgstr ""
 "\n"
 "Jeigu neišsaugosite, pakeitimai bus prarasti."
 
-#: ../Src/Gtk2/dasher_main.cpp:933
-msgid "Don't save"
-msgstr "Nesaugoti"
+#: ../Src/Gtk2/dasher_main.cpp:935
+msgid "Quit without saving"
+msgstr "Išeiti neįrašius"
 
-#: ../Src/Gtk2/dasher_main.cpp:934 ../Src/Gtk2/dasher_main.cpp:957
+#: ../Src/Gtk2/dasher_main.cpp:936 ../Src/Gtk2/dasher_main.cpp:959
 msgid "Don't quit"
 msgstr "Neišeiti"
 
-#: ../Src/Gtk2/dasher_main.cpp:935
+#: ../Src/Gtk2/dasher_main.cpp:937
 msgid "Save and quit"
 msgstr "Išsaugoti ir išeiti"
 
-#: ../Src/Gtk2/dasher_main.cpp:954
+#: ../Src/Gtk2/dasher_main.cpp:956
 msgid "Are you sure you wish to quit?"
 msgstr "Ar tikrai norite išeiti?"
 
-#: ../Src/Gtk2/dasher_main.cpp:996
+#: ../Src/Gtk2/dasher_main.cpp:998
 msgid "Unable to open help file"
 msgstr "Nepavyko atverti žinyno failo"
 
-#: ../Src/Gtk2/dasher_main.cpp:1048
+#: ../Src/Gtk2/dasher_main.cpp:1050
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher yra prognozuojamo teksto įvedimo programa"
 
-#: ../Src/Gtk2/dasher_main.cpp:1053
+#: ../Src/Gtk2/dasher_main.cpp:1055
 msgid "translator-credits"
 msgstr ""
 "Išvertė:\n"
@@ -1234,17 +1236,9 @@ msgstr ""
 "Žygimantas Beručka <zygis@gnome.org>,\n"
 "Gediminas Čičinskas <wooz@parok.lt>"
 
-#: ../Src/Gtk2/GnomeSpeech.cpp:28
-msgid "Unable to initialize speech support\n"
-msgstr "Nepavyko inicializuoti kalbos palaikymo\n"
-
-#: ../Src/Gtk2/GnomeSpeech.cpp:59
-msgid "Warning: unable to set speech parameters\n"
-msgstr "Įspėjimas: negalima nustatyti kalbėjimo parametrų\n"
-
-#: ../Src/Gtk2/GnomeSpeech.cpp:70
-msgid "Unable to initialize voices\n"
-msgstr "Nepavyko inicializuoti balsų\n"
+#: ../Src/Gtk2/module_settings_window.cpp:77
+msgid "_Close"
+msgstr "_Užverti"
 
 #: ../Src/Gtk2/module_settings_window.cpp:88
 msgid "Dasher Module Options"
@@ -1268,7 +1262,7 @@ msgstr "Pikseliai uždengiantys Y sritį"
 msgid "One Dimensional Mouse Input"
 msgstr "Vieno matavimo pelės įvestis"
 
-#: ../Src/Gtk2/Preferences.cpp:441
+#: ../Src/Gtk2/Preferences.cpp:437
 msgid "Action"
 msgstr "Veiksmas"
 
@@ -1277,21 +1271,59 @@ msgstr "Veiksmas"
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
-#: ../Src/main.cc:166
+#: ../Src/main.cc:161
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr "Programos išvaizda (tradicinė, tiesioginė, kūrimo ar viso ekrano)"
 
 #. Note to translators: This is the help string for "--options"
-#: ../Src/main.cc:168
+#: ../Src/main.cc:163
 msgid "Override stored options"
 msgstr "Nepaisyti įrašytų parametrų"
 
+#: ../Src/main.cc:164
+msgid "XML configuration file name"
+msgstr "XML konfigūracijos failo pavadinimas"
+
 #. Note to translators: This is the help string for "--help-options"
-#: ../Src/main.cc:170
+#: ../Src/main.cc:166
 msgid "Describe \"--options\"."
 msgstr "Apibūdinti \"--options\"."
 
+#. parse command line options
 #. Note to translators: This is the "--help" description of dasher.
-#: ../Src/main.cc:177
+#: ../Src/main.cc:172
 msgid "- A text input application honouring accessibility"
 msgstr "Teksto įvesties programa turinti gerą prieinamumą"
+
+#~ msgid "Include Clipboard commands"
+#~ msgstr "Įtraukti iškarpinės komandas"
+
+#~ msgid "Include Speech commands"
+#~ msgstr "Įtraukti kalbos komandas"
+
+#~ msgid "Force to have Halt command"
+#~ msgstr "Priverstinai turėti Halt komandą"
+
+#~ msgid "Include Editing commands"
+#~ msgstr "Įtraukti redagavimo komandas"
+
+#~ msgid "Auto-increasing speed to %0.2f"
+#~ msgstr "Automatiškai padidinamas greitis iki %0.2f"
+
+#~ msgid "Auto-decreasing speed to %0.2f"
+#~ msgstr "Automatiškai sumažinamas greitis iki %0.2f"
+
+#~ msgid "Done"
+#~ msgstr "Atlikta"
+
+#~ msgid "Don't save"
+#~ msgstr "Nesaugoti"
+
+#~ msgid "Unable to initialize speech support\n"
+#~ msgstr "Nepavyko inicializuoti kalbos palaikymo\n"
+
+#~ msgid "Warning: unable to set speech parameters\n"
+#~ msgstr "Įspėjimas: negalima nustatyti kalbėjimo parametrų\n"
+
+#~ msgid "Unable to initialize voices\n"
+#~ msgstr "Nepavyko inicializuoti balsų\n"
