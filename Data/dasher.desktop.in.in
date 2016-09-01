@@ -1,7 +1,7 @@
 [Desktop Entry]
-_Name=Dasher
-_GenericName=Predictive text entry
-_Comment=Enter text without a keyboard
+Name=Dasher
+GenericName=Predictive text entry
+Comment=Enter text without a keyboard
 Exec=dasher
 Icon=dasher
 Terminal=false
