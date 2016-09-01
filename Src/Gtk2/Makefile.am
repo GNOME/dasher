@@ -1,7 +1,7 @@
 noinst_LTLIBRARIES = libdashergtk.la libdashercontrol.la
 
 noinst_PROGRAMS = generate-schema
-generate_schema_SOURCES = GenerateSchema.cpp $(top_srcdir)/Src/DasherCore/Parameters.cpp
+generate_schema_SOURCES = GenerateSchema.cpp ../DasherCore/Parameters.cpp
 
 #bin_PROGRAMS = dasher-config
 
