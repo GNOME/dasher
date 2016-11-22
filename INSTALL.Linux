@@ -78,3 +78,7 @@ After the installation is done, for Ubuntu and derivatives
 different profiles by running:
 
   ./create-linux-desktop-shortcuts.sh
+
+The Contributor’s Guide
+=======================
+If you would like to contribute to this project, please check out the following guide: https://docs.google.com/document/d/1qosKPV0GXbHs69PyvK9BR3S3oNgdV8il7AVfO1M4Fh4
