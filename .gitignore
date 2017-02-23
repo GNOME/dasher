@@ -21,12 +21,9 @@ stamp-*
 /config.log
 /config.status
 /configure
-/intltool-extract.in
-/intltool-merge.in
-/intltool-update.in
 /libtool
-/po/.intltool-merge-cache
 /po/Makefile.in.in
+/po/Makevars.template
 /po/POTFILES
 /Data/dasher.desktop
 /Data/dasher.desktop.in
