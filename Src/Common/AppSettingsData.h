@@ -34,6 +34,7 @@ Dasher::Settings::bp_table app_boolparamtable[] = {
 #endif
 { APP_BP_MIRROR_LAYOUT, "MirrorLayout", Persistence::PERSISTENT, false, "MirrorLayout" },
 { APP_BP_FULL_SCREEN, "FullScreen", Persistence::PERSISTENT, false, "FullScreen" },
+{ APP_BP_RESET_ON_FOCUS_CHANGE, "ResetOnFocusChange", Persistence::PERSISTENT, true, "ResetOnFocusChange" },
 };
 
 Dasher::Settings::lp_table app_longparamtable[] = {

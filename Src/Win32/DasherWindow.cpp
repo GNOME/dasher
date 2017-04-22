@@ -496,7 +496,8 @@ void CDasherWindow::HandleWinEvent(HWINEVENTHOOK hWinEventHook, DWORD event, HWN
     return;
 
   // Ignore events if not in direct mode
-  if (m_pAppSettings->GetLongParameter(APP_LP_STYLE) != APP_STYLE_DIRECT)
+  if ((m_pAppSettings->GetLongParameter(APP_LP_STYLE) != APP_STYLE_DIRECT) ||
+      !m_pAppSettings->GetBoolParameter(APP_BP_RESET_ON_FOCUS_CHANGE))
     return;
 
   // For now assume all events are focus changes, so reset the buffer

@@ -47,6 +47,7 @@ static menuentry menutable[] = {
   {BP_SPEAK_ALL_ON_STOP, IDC_CHECK3},
   { BP_COPY_ALL_ON_STOP, IDC_COPYONSTOP },
   { APP_BP_MIRROR_LAYOUT, IDC_MIRROR_LAYOUT},
+  { APP_BP_RESET_ON_FOCUS_CHANGE, IDC_RESET_ON_FOCUS_CHANGE},
 };
 
 void CAdvancedPage::PopulateList() {
@@ -71,9 +72,6 @@ void CAdvancedPage::PopulateList() {
       break;
     case APP_STYLE_DIRECT:
       SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_DIRECT), BM_SETCHECK, BST_CHECKED, 0);
-      break;
-    case APP_STYLE_FULLSCREEN:
-      SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_FULL), BM_SETCHECK, BST_CHECKED, 0);
       break;
   }
 
@@ -118,6 +116,10 @@ void CAdvancedPage::PopulateList() {
     fileEncodingCb.SendMessage(CB_SETCURSEL, 0, 0);
     break;
   }
+
+  EnableWindow(ListBox, SendMessage(GetDlgItem(m_hwnd, IDC_CONTROLMODE), BM_GETCHECK, 0, 0) == BST_CHECKED);
+  EnableWindow(GetDlgItem(m_hwnd, IDC_MIRROR_LAYOUT), !SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_DIRECT), BM_GETCHECK, 0, 0) == BST_CHECKED);
+  EnableWindow(GetDlgItem(m_hwnd, IDC_RESET_ON_FOCUS_CHANGE), SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_DIRECT), BM_GETCHECK, 0, 0) == BST_CHECKED);
 }
 
 bool CAdvancedPage::Apply() {
@@ -127,8 +129,6 @@ bool CAdvancedPage::Apply() {
     m_pAppSettings->SetLongParameter(APP_LP_STYLE, 1);
   else if(SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_DIRECT), BM_GETCHECK, 0, 0))
     m_pAppSettings->SetLongParameter(APP_LP_STYLE, 2);
-  else if(SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_FULL), BM_GETCHECK, 0, 0))
-    m_pAppSettings->SetLongParameter(APP_LP_STYLE, 3);
 
   HWND ListBox = GetDlgItem(m_hwnd, IDC_CONTROLBOXES);
   LRESULT CurrentItem = SendMessage(ListBox, LB_GETCURSEL, 0, 0);
@@ -202,6 +202,12 @@ LRESULT CAdvancedPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
     break;
     case IDC_CONTROLMODE:
       EnableWindow(GetDlgItem(m_hwnd, IDC_CONTROLBOXES), SendMessage(GetDlgItem(m_hwnd, IDC_CONTROLMODE), BM_GETCHECK, 0, 0) == BST_CHECKED);
+      break;
+    case IDC_STYLE_COMPOSITION:
+    case IDC_STYLE_DIRECT:
+    case IDC_STYLE_STANDALONE:
+        EnableWindow(GetDlgItem(m_hwnd, IDC_MIRROR_LAYOUT), !SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_DIRECT), BM_GETCHECK, 0, 0) == BST_CHECKED);
+        EnableWindow(GetDlgItem(m_hwnd, IDC_RESET_ON_FOCUS_CHANGE), SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_DIRECT), BM_GETCHECK, 0, 0) == BST_CHECKED);
       break;
     }
   }

@@ -47,6 +47,7 @@
 #define IDC_THICKLINE                   1020
 #define IDC_COPYONSTOP                  1020
 #define IDC_MIRROR_LAYOUT               1021
+#define IDC_RESET_ON_FOCUS_CHANGE       1022
 #define IDC_SPACE                       1036
 #define IDC_UNIFORMVAL                  1040
 #define IDC_CHECK3                      1071
@@ -75,7 +76,6 @@
 #define IDC_STYLE_STANDALONE            1122
 #define IDC_STYLE_COMPOSITION           1123
 #define IDC_STYLE_DIRECT                1124
-#define IDC_STYLE_FULL                  1125
 #define IDC_MOUSEPOS_STYLE              1144
 #define IDC_AUTOCALIBRATE               1145
 #define IDC_CONTROLMODE                 1146
