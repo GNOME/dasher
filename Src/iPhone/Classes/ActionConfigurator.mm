@@ -144,7 +144,6 @@ using Dasher::Settings::GetParameterName;
       int *params;
       DASHER_ASSERT([indexPath section]==0);
       params=OTHER_BPS;
-      }
       int iParameter = params[[indexPath row]];
       [sw addTarget:self action:@selector(paramSlid:) forControlEvents:UIControlEventValueChanged];
       cell.textLabel.text = NSStringFromStdString(GetParameterName(iParameter));

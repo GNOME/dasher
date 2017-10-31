@@ -12,6 +12,7 @@
 #import "DefaultFilter.h"
 #import "StylusFilter.h"
 #import "Vec3.h"
+#import "FileUtils.h"
 
 @class DasherAppDelegate;
 
@@ -52,31 +53,32 @@ public:
   void SetTiltAxes(Vec3 main, float off, Vec3 slow, float off2);
   virtual void WriteTrainFile(const std::string &filename,const std::string &strNewText);
   virtual int GetFileSize(const std::string &strFileName);
-  bool SupportsClipboard() {return true;}
-  void CopyToClipboard(const std::string &strText);
-  bool SupportsSpeech();
-  void Speak(const std::string &strText, bool bInterrupt);
-  void ClearAllContext();
-  std::string GetAllContext();
-  std::string GetContext(unsigned int iStart, unsigned int iLength);
-  unsigned int ctrlMove(bool bForwards, Dasher::CControlManager::EditDistance dist);
-  unsigned int ctrlDelete(bool bForwards, Dasher::CControlManager::EditDistance dist);
-  void SetLockStatus(const string &strText, int iPercent);
-  void editOutput(const string &strText, Dasher::CDasherNode *pNode);
-  void editDelete(const string &strText, Dasher::CDasherNode *pNode);
-  void editConvert(Dasher::CDasherNode *pNode);
-  void editProtect(Dasher::CDasherNode *pNode);
+  bool SupportsClipboard() override {return true;}
+  void CopyToClipboard(const std::string &strText) override;
+  bool SupportsSpeech() override;
+  void Speak(const std::string &strText, bool bInterrupt) override;
+  void ClearAllContext() override;
+  std::string GetAllContext() override;
+  std::string GetContext(unsigned int iStart, unsigned int iLength) override;
+  unsigned int ctrlMove(bool bForwards, Dasher::CControlManager::EditDistance dist) override;
+  unsigned int ctrlDelete(bool bForwards, Dasher::CControlManager::EditDistance dist) override;
+  void SetLockStatus(const string &strText, int iPercent) override;
+  void editOutput(const string &strText, Dasher::CDasherNode *pNode) override;
+  void editDelete(const string &strText, Dasher::CDasherNode *pNode) override;
+  void editConvert(Dasher::CDasherNode *pNode) override;
+  void editProtect(Dasher::CDasherNode *pNode) override;
   ///Override for asynchronous messages only...TODO?
-  void Message(const string &strText, bool bInterrupt);
-  Dasher::CGameModule *CreateGameModule();
+  void Message(const string &strText, bool bInterrupt) override;
+  Dasher::CGameModule *CreateGameModule() override;
   
-  void HandleEvent(int iParameter);
-  void EnterGameMode(Dasher::CGameModule *pGameModule);
+  void HandleEvent(int iParameter) override;
+  void EnterGameMode(Dasher::CGameModule *pGameModule) override;
   void LeaveGameMode();
 
-  void ScanFiles(AbstractParser *parser, const std::string &strPattern);
+  // void ScanFiles(AbstractParser *parser, const std::string &strPattern);
+  int GetAllContextLenght() override;
 private:
-  virtual void CreateModules();
+  virtual void CreateModules() override;
   
   ///
   /// Pass events coming from the core to the appropriate handler.
@@ -90,4 +92,5 @@ private:
   Dasher::CIPhoneTiltInput *m_pTiltDevice;
   Dasher::UndoubledTouch *m_pUndoubledTouch;
   Dasher::CIPhoneTwoFingerInput *m_pTwoFingerDevice;
+  FileUtils m_fileUtils;
 };

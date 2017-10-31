@@ -75,7 +75,7 @@ private:
   UIWebView *m_pWebView;
 };
 
-CDasherInterfaceBridge::CDasherInterfaceBridge(DasherAppDelegate *aDasherApp) : CDashIntfScreenMsgs(new COSXSettingsStore()),
+CDasherInterfaceBridge::CDasherInterfaceBridge(DasherAppDelegate *aDasherApp) : CDashIntfScreenMsgs(new COSXSettingsStore(), &m_fileUtils),
 dasherApp(aDasherApp),
 userPath([[NSString stringWithFormat:@"%@/", [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]] retain]) {
 }
@@ -125,10 +125,13 @@ void CDasherInterfaceBridge::Realize() {
   [dasherApp setAlphabet:GetActiveAlphabet()];
   //don't call HandleEvent, would call superclass and reconstruct the NCManager!
   //TODO maybe better to make ChangeAlphabet virtual and override that?  
-
+    dispatch_async(dispatch_get_main_queue(), ^{
+    
   [dasherApp glView].animating=YES;
+    });
 }
 
+/*
 void CDasherInterfaceBridge::ScanFiles(AbstractParser *parser, const std::string &strPattern) {
 
   string strPath(StdStringFromNSString([[NSBundle mainBundle] bundlePath])+"/"+strPattern);
@@ -147,7 +150,7 @@ void CDasherInterfaceBridge::ScanFiles(AbstractParser *parser, const std::string
   globScan(parser, user, sys);
 
 }
-
+*/
 /*void CDasherInterfaceBridge::ScanForFiles(AbstractFileParser *parser, const std::string &strName) {
   NSFileManager *mgr = [NSFileManager defaultManager];
   NSArray *names = [[mgr enumeratorAtPath:systemPath] allObjects];
@@ -209,6 +212,7 @@ void CDasherInterfaceBridge::editProtect(CDasherNode *pSource) {
 }
 
 void CDasherInterfaceBridge::Message(const string &strMessage, bool bInterrupt) {
+  NSLog(@"Message: %s", strMessage.c_str());
   if (bInterrupt)
     CDashIntfScreenMsgs::Message(strMessage,true);
   else
@@ -250,6 +254,11 @@ string CDasherInterfaceBridge::GetContext(unsigned int iOffset, unsigned int iLe
   return StdStringFromNSString([dasherApp textAtOffset:iOffset Length:iLength]);
 }
 
+/// Subclasses should return the length of whole text. In letters, not bytes.
+int CDasherInterfaceBridge::GetAllContextLenght() {
+  return (int)[[dasherApp allText] length];
+}
+
 unsigned int CDasherInterfaceBridge::ctrlMove(bool bForwards, CControlManager::EditDistance dist) {
   return [dasherApp move:dist forwards:bForwards];
 }
@@ -271,8 +280,8 @@ int CDasherInterfaceBridge::GetFileSize(const std::string &strFileName) {
 void CDasherInterfaceBridge::WriteTrainFile(const std::string &filename,const std::string &strNewText) {
   if(strNewText.length() == 0)
     return;
-  
-  std::string strFilename(StdStringFromNSString(userPath) + filename);
+    
+  std::string strFilename(StdStringFromNSString((const NSString*)userPath) + filename);
   
   NSLog(@"Write train file: %s", strFilename.c_str());
   

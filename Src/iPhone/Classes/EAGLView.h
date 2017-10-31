@@ -23,12 +23,13 @@ public:
   CDasherScreenBridge(EAGLView *_view, Dasher::screenint iWidth, Dasher::screenint iHeight, GLshort backingWidth, GLshort backingHeight, GLfloat tc_x, GLfloat tc_y, GLuint *textures);
   ///Only for EAGLView to call...
   void resize(Dasher::screenint iWidth, Dasher::screenint iHeight, GLshort backingWidth, GLshort backingHeight, GLfloat tc_x, GLfloat tc_y);
-  void Display();
-  void SendMarker(int iMarker);
-  
+  void Display() override;
+  void SendMarker(int iMarker) override;
+  // Returns always true, because touch is used instead of mouse
+  bool IsWindowUnderCursor() override { return YES; }
 protected:
-  void RenderStringOntoCGContext(NSString *str, CGContextRef context, unsigned int iFontSize, bool bWrap);
-  CGSize TextSize(NSString *str, unsigned int iFontSize, bool bWrap);
+  void RenderStringOntoCGContext(NSString *str, CGContextRef context, unsigned int iFontSize, bool bWrap) override;
+  CGSize TextSize(NSString *str, unsigned int iFontSize, bool bWrap) override;
 };
 
 /*

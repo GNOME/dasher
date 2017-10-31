@@ -57,9 +57,9 @@ namespace Dasher {
 
     class CContNode : public CDasherNode {
     public:
-      CControlBase *mgr() const {return m_pMgr;}
+      CControlBase *mgr() const override {return m_pMgr;}
       CContNode(int iOffset, int iColour, NodeTemplate *pTemplate, CControlBase *pMgr);
-      CDasherScreen::Label *getLabel() { return m_pTemplate->m_pLabel; }
+      CDasherScreen::Label *getLabel() override { return m_pTemplate->m_pLabel; }
 
       bool bShove() override {return false;}
       double SpeedMul() override;
@@ -67,10 +67,10 @@ namespace Dasher {
       /// Provide children for the supplied node
       ///
 
-      virtual void PopulateChildren();
-      virtual int ExpectedNumChildren();
+      virtual void PopulateChildren() override;
+      virtual int ExpectedNumChildren() override;
 
-      virtual void Output();
+      virtual void Output() override;
 
     private:
       NodeTemplate *m_pTemplate;
@@ -79,7 +79,7 @@ namespace Dasher {
 
     class Action {
     public:
-      virtual ~Action() = default;
+      virtual ~Action() { };
       virtual int calculateNewOffset(CControlBase::CContNode *pNode, int offsetBefore) { return offsetBefore; }
         virtual void happen(CContNode *pNode) {}
     };

@@ -15,14 +15,12 @@
 @class FliteTTS;
 
 @interface DasherAppDelegate : UIViewController <UIApplicationDelegate, UIActionSheetDelegate, UITextViewDelegate, UIWebViewDelegate> {
-    UIWindow *window;
     EAGLView *glView;
   FliteTTS *fliteEng;
 	TextView *textView;
   UIWebView *webView;
 	NSRange selectedText;
 	CDasherInterfaceBridge* _dasherInterface;
-	UIButton *speedBtn;
 	UIToolbar *tools;
   UITextView *messageLabel;
   UISlider *speedSlider;
@@ -56,6 +54,10 @@
 
 @property (readonly) CDasherInterfaceBridge *dasherInterface;
 @property BOOL allowsRotation;
+@property (nonatomic, retain) UIWindow *window;
+@property (nonatomic, retain) UILabel *speedLabel;
+
+@property (nonatomic, assign) CGFloat speedChangeStep;
 @end
 
 @interface UIViewController (lockable)

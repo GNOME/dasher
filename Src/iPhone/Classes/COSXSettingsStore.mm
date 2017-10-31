@@ -63,3 +63,7 @@ void COSXSettingsStore::SaveSetting(const std::string & Key, long Value) {
 void COSXSettingsStore::SaveSetting(const std::string & Key, const std::string & Value) {
   [[NSUserDefaults standardUserDefaults] setObject:NSStringFromStdString(Value) forKey:NSStringFromStdString(Key)];
 }
+
+bool COSXSettingsStore::IsParameterSaved(const std::string &Key) {
+    return [[NSUserDefaults standardUserDefaults] objectForKey:NSStringFromStdString(Key)];
+}

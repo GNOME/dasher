@@ -62,6 +62,8 @@ public:
   void AddParameters(const Settings::lp_table* table, size_t count);
   void AddParameters(const Settings::sp_table* table, size_t count);
   Observable<CParameterChange>& PreSetObservable() { return pre_set_observable_; }
+    
+  virtual bool IsParameterSaved(const std::string & Key) { return false; }; // avoid undef sub-classes error
 
 protected:
     ///Loads all (persistent) prefs from disk, using+storing default values when no
@@ -145,6 +147,7 @@ private:
     CSettingsUser(CSettingsStore *pSettingsStore);
   public:
     virtual ~CSettingsUser();
+    bool IsParameterSaved(const std::string & Key);
   protected:
     ///Create a new SettingsUser, inheriting+sharing settings from the creator.
     CSettingsUser(CSettingsUser *pCreateFrom);

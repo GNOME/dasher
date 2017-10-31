@@ -304,7 +304,7 @@ int numSections = sizeof(allMeths) / sizeof(allMeths[0]);
   if (iPhonePrefKeys) {
     for (NSString **key=iPhonePrefKeys; *key; key++) {
       UISwitch *sw=[self makeSwitch:*key onView:view atY:&y];
-      sw.tag=(int)*key;
+      sw.tag=(NSInteger)*key;
       sw.on = [ud boolForKey:*key];
       [sw addTarget:self action:@selector(boolUserDefChanged:) forControlEvents:UIControlEventValueChanged];
     }

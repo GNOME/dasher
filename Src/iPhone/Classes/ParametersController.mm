@@ -66,9 +66,9 @@ using Dasher::Settings::GetParameterName;
       [sw addTarget:self action:@selector(boolParamChanged:) forControlEvents:UIControlEventValueChanged];
     } else if (settings[i].iType == T_LONG) {
       UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(10.0, y, appSize.width-20, 20.0)] autorelease];
-      label.textAlignment = UITextAlignmentCenter;
+      label.textAlignment = NSTextAlignmentCenter;
       UISlider *slider = [[[UISlider alloc] initWithFrame:CGRectMake(10.0, y+20, appSize.width-20, 20.0)] autorelease];
-      slider.tag = (int)label; label.tag=(int)&settings[i];
+      slider.tag = (NSInteger)label; label.tag=(NSInteger)&settings[i];
       slider.minimumValue = settings[i].iMin; slider.maximumValue = settings[i].iMax;
       slider.value = intf->GetLongParameter(settings[i].iParameter);
       [slider addTarget:self action:@selector(longParamChanged:) forControlEvents:UIControlEventValueChanged];

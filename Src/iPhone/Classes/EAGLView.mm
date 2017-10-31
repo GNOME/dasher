@@ -35,7 +35,7 @@ void CDasherScreenBridge::resize(screenint iWidth, screenint iHeight, GLshort ba
 void CDasherScreenBridge::Display() {
   if (!view.readyToDisplay) return; //can't display anything yet!
   OpenGLScreen::Display();
-  [view displayCallback];
+    [view displayCallback];
 };
   
 void CDasherScreenBridge::SendMarker(int iMarker) {
@@ -178,7 +178,7 @@ bool operator==(CGPoint p,CGPoint q) {
 - (void)drawView {
 	[EAGLContext setCurrentContext:context];
   if (animating) {
-    dasherApp.dasherInterface->NewFrame(get_time(), false);  
+    dasherApp.dasherInterface->NewFrame(get_time(), false);
     [self performSelector:@selector(drawView) withObject:nil afterDelay:animationInterval];
   }
 }
@@ -206,9 +206,10 @@ bool operator==(CGPoint p,CGPoint q) {
 	//CGRect r = [self bounds];
     //glViewport(r.origin.x, r.origin.y, r.size.width, r.size.height);
 
+    // set backingWidth and backingHeight
     glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &backingWidth);
     glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &backingHeight);
-	
+    
     if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES) {
         NSLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
         return NO;
@@ -235,10 +236,13 @@ bool operator==(CGPoint p,CGPoint q) {
 	glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 	//glOrthof(0.0, 1.0, 1.0, 0.0, -1.0, 1.0);
+/*
 #if !TARGET_IPHONE_SIMULATOR || __IPHONE_3_0
 #define IntToFixed(A) A<<16
 #endif
-    glOrthox(0, IntToFixed(backingWidth), IntToFixed(backingHeight), 0, IntToFixed(-1), IntToFixed(1));
+*/
+#define IntToFixed(A) A
+    glOrthof(0, IntToFixed(backingWidth), IntToFixed(backingHeight), 0, IntToFixed(-1), IntToFixed(1));
     glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	

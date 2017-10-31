@@ -286,6 +286,8 @@ void CSettingsUser::SetBoolParameter(int iParameter, bool bValue) {s_pSettingsSt
 void CSettingsUser::SetLongParameter(int iParameter, long lValue) {s_pSettingsStore->SetLongParameter(iParameter, lValue);}
 void CSettingsUser::SetStringParameter(int iParameter, const std::string &strValue) {s_pSettingsStore->SetStringParameter(iParameter, strValue);}
 
+bool CSettingsUser::IsParameterSaved(const std::string &Key) { return s_pSettingsStore->IsParameterSaved(Key); }
+
 CSettingsObserver::CSettingsObserver(CSettingsUser *pCreateFrom) {
   DASHER_ASSERT(pCreateFrom);
   s_pSettingsStore->Register(this);
