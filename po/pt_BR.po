@@ -11,14 +11,14 @@
 # Jonh Wendell <jwendell@gnome.org>, 2009, 2010.
 # Flamarion Jorge <jorge.flamarion@gmail.com>, 2011.
 # Enrico Nicoletto <liverig@gmail.com>, 2013.
-# Rafael Fontenelle <rafaelff@gnome.org>, 2013, 2016.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2013, 2016, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&"
-"keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-09-01 16:47+0000\n"
-"PO-Revision-Date: 2016-09-06 11:02-0200\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=dasher&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-12-28 10:02+0000\n"
+"PO-Revision-Date: 2018-01-08 20:00-0200\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Virtaal 1.0.0-beta1\n"
 "X-Project-Style: gnome\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
@@ -47,7 +47,6 @@ msgstr "Digite texto sem um teclado"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: Data/dasher.desktop.in.in:8
-#| msgid "Dasher"
 msgid "dasher"
 msgstr "dasher"
 
@@ -401,35 +400,39 @@ msgstr "Falar tudo ao parar"
 msgid "Speak words as you write"
 msgstr "Falar as palavras na medida em que você escreve"
 
-#: Data/GUI/dasher.preferences.ui:1297
+#: Data/GUI/dasher.preferences.ui:1283
+msgid "Confirm unsaved files"
+msgstr "Confirmar arquivos não salvos"
+
+#: Data/GUI/dasher.preferences.ui:1314
 msgid "Editor Font"
 msgstr "Fonte do editor"
 
-#: Data/GUI/dasher.preferences.ui:1315
+#: Data/GUI/dasher.preferences.ui:1332
 msgid "Select Editor Font"
 msgstr "Selecionar fonte do editor"
 
-#: Data/GUI/dasher.preferences.ui:1343
+#: Data/GUI/dasher.preferences.ui:1360
 msgid "Application Style"
 msgstr "Estilo do aplicativo"
 
-#: Data/GUI/dasher.preferences.ui:1365
+#: Data/GUI/dasher.preferences.ui:1382
 msgid "Stand-alone"
 msgstr "Independente"
 
-#: Data/GUI/dasher.preferences.ui:1380
+#: Data/GUI/dasher.preferences.ui:1397
 msgid "Composition"
 msgstr "Composição"
 
-#: Data/GUI/dasher.preferences.ui:1397
+#: Data/GUI/dasher.preferences.ui:1414
 msgid "Direct entry"
 msgstr "Entrada direta"
 
-#: Data/GUI/dasher.preferences.ui:1414
+#: Data/GUI/dasher.preferences.ui:1431
 msgid "Full Screen"
 msgstr "Tela cheia"
 
-#: Data/GUI/dasher.preferences.ui:1454
+#: Data/GUI/dasher.preferences.ui:1471
 msgid "A_pplication"
 msgstr "A_plicativo"
 
@@ -459,7 +462,7 @@ msgstr "_Importar texto de treinamento…"
 
 # Mative Sair, pois se aplica também a um botão no diálogo de saída do Dasher
 # Button description
-#: Data/GUI/dasher.traditional.ui:65 Src/Gtk2/dasher_main.cpp:960
+#: Data/GUI/dasher.traditional.ui:65 Src/Gtk2/dasher_main.cpp:966
 msgid "Quit"
 msgstr "Sair"
 
@@ -496,7 +499,7 @@ msgid "_About…"
 msgstr "_Sobre…"
 
 #: Data/GUI/dasher.traditional.ui:134
-#: Src/DasherCore/DasherInterfaceBase.cpp:795
+#: Src/DasherCore/DasherInterfaceBase.cpp:797
 msgid "Direct Mode"
 msgstr "Modo direto"
 
@@ -548,7 +551,7 @@ msgid ""
 "not exist"
 msgstr ""
 "Nota: A configuração de GameTextFile especifica o arquivo de jogo de frases "
-"\"%s\", mas o mesmo não existe"
+"“%s”, mas o mesmo não existe"
 
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
 #: Src/DasherCore/AlternatingDirectMode.cpp:28 Src/DasherCore/ButtonMode.cpp:28
@@ -624,21 +627,21 @@ msgstr "Modo compasso"
 
 #. /TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
 #. / refers to a setting name in gsettings or equivalent, and should not be translated.
-#: Src/DasherCore/DasherInterfaceBase.cpp:314
+#: Src/DasherCore/DasherInterfaceBase.cpp:316
 #, c-format
 msgid ""
 "Could not find game sentences file for %s - check alphabet definition, or "
 "override with GameTextFile setting"
 msgstr ""
-"Não foi possível localizar o arquivo de jogo de frases para %s - verifique a "
+"Não foi possível localizar o arquivo de jogo de frases para %s – verifique a "
 "definição de alfabeto ou sobrescreva com a configuração de GameTextFile"
 
-#: Src/DasherCore/DasherInterfaceBase.cpp:784
+#: Src/DasherCore/DasherInterfaceBase.cpp:786
 msgid "Normal Control"
 msgstr "Controle normal"
 
 #. TODO: specialist factory for button mode
-#: Src/DasherCore/DasherInterfaceBase.cpp:794
+#: Src/DasherCore/DasherInterfaceBase.cpp:796
 msgid "Menu Mode"
 msgstr "Modo menu"
 
@@ -663,7 +666,7 @@ msgid ""
 "Screen geometry (mostly for tall thin screens) - 0=old-style, 1=square no-"
 "xhair, 2=squish, 3=squish+log"
 msgstr ""
-"Geometria da tela (principalmente para telas altas finas) - 0=estilo antigo, "
+"Geometria da tela (principalmente para telas altas finas) – 0=estilo antigo, "
 "1=quadrados sem xhair, 2=squish, 3=squish+log"
 
 #: Src/DasherCore/DefaultFilter.cpp:18
@@ -731,9 +734,9 @@ msgid ""
 "Warning: training file contains character '%s' as member of group '%s', but "
 "no group of that name contains the character; ignoring group specifier"
 msgstr ""
-"Aviso: o arquivo de treinamento contém o caractere \"%s\" como membro do "
-"grupo \"%s\", mas nenhum grupo daquele nome contém este caractere; ignorando "
-"o especificador de grupo"
+"Aviso: o arquivo de treinamento contém o caractere “%s” como membro do grupo "
+"“%s”, mas nenhum grupo daquele nome contém este caractere; ignorando o "
+"especificador de grupo"
 
 #: Src/DasherCore/MandarinAlphMgr.cpp:199
 #, c-format
@@ -742,9 +745,9 @@ msgid ""
 "no group of that name contains the character. Dasher will not be able to "
 "learn how you want to write this character."
 msgstr ""
-"Aviso: o arquivo de treinamento contém o caractere \"%s\" como membro do "
-"grupo \"%s\", mas nenhum grupo daquele nome contém este caractere. O Dasher "
-"não será capaz de aprender como você deseja escrever este caractere."
+"Aviso: o arquivo de treinamento contém o caractere “%s” como membro do grupo "
+"“%s”, mas nenhum grupo daquele nome contém este caractere. O Dasher não será "
+"capaz de aprender como você deseja escrever este caractere."
 
 #: Src/DasherCore/MandarinAlphMgr.cpp:200 Src/DasherCore/RoutingAlphMgr.cpp:147
 #, c-format
@@ -753,9 +756,9 @@ msgid ""
 "alphabet contains several such groups. Dasher will not be able to learn how "
 "you want to write this character."
 msgstr ""
-"Aviso: o arquivo de treinamento contém o caractere \"%s\" como membro do "
-"grupo \"%s\", mas o alfabeto contém vários destes grupos. O Dasher não será "
-"capaz de aprender como você deseja escrever este caractere."
+"Aviso: o arquivo de treinamento contém o caractere “%s” como membro do grupo "
+"“%s”, mas o alfabeto contém vários destes grupos. O Dasher não será capaz de "
+"aprender como você deseja escrever este caractere."
 
 #: Src/DasherCore/MandarinAlphMgr.cpp:220 Src/DasherCore/RoutingAlphMgr.cpp:164
 #, c-format
@@ -763,13 +766,10 @@ msgid ""
 "Warning: in training file, annotation '<%s>' is followed by another "
 "annotation and will be ignored"
 msgstr ""
-"Aviso: no arquivo de treinamento, a anotação \"<%s>\" é seguida por outra "
+"Aviso: no arquivo de treinamento, a anotação “<%s>” é seguida por outra "
 "anotação e será ignorada"
 
-#. /TRANSLATORS: first string will be the filename; after the end of the string,
-#. / some number of output (e.g. Chinese) characters will be appended,
-#. / the number of which is the integer here
-#: Src/DasherCore/MandarinAlphMgr.cpp:244
+#: Src/DasherCore/MandarinAlphMgr.cpp:247
 #, c-format
 msgid ""
 "In file %s, the following %i symbol appeared without annotations saying how "
@@ -789,6 +789,18 @@ msgstr[1] ""
 "formas. O Dasher não será capaz de aprender como você deseja inserir estes "
 "símbolos:"
 
+#: Src/DasherCore/MandarinAlphMgr.cpp:251
+#, c-format
+msgid ""
+"In file %s, the following %i symbols appeared without annotations saying how "
+"they should be entered, but each can be entered in several ways. Dasher will "
+"not be able to learn how you want to enter these symbols:"
+msgstr ""
+"No arquivo %s, os %i símbolos a seguir aparecem sem anotações informando "
+"como eles deveriam ser inseridos, mas cada um pode ser inserido de várias "
+"formas. O Dasher não será capaz de aprender como você deseja inserir estes "
+"símbolos:"
+
 #: Src/DasherCore/NodeCreationManager.cpp:33
 msgid "Training on User Text"
 msgstr "Treinar no texto do usuário"
@@ -804,8 +816,8 @@ msgid ""
 "No user training text found - if you have written in \"%s\" before, this "
 "means Dasher may not be learning from previous sessions"
 msgstr ""
-"Nenhum texto de treinamento de usuário localizado - se você escreveu em \"%"
-"s\" antes, isso significa que o Dasher pode não estar aprendendo de sessões "
+"Nenhum texto de treinamento de usuário localizado – se você escreveu em “%s” "
+"antes, isso significa que o Dasher pode não estar aprendendo de sessões "
 "anteriores"
 
 #: Src/DasherCore/NodeCreationManager.cpp:91
@@ -815,7 +827,7 @@ msgid ""
 "but entry will be slower. We suggest downloading a training text file from "
 "the Dasher website, or constructing your own."
 msgstr ""
-"Nenhum texto de treinamento (usuário ou sistema) localizado para \"%s\". O "
+"Nenhum texto de treinamento (usuário ou sistema) localizado para “%s”. O "
 "Dasher ainda vai funcionar, mas a entrada será mais lenta. Nós sugerimos "
 "baixar um arquivo de texto de treinamento do site do Dasher, ou construir o "
 "seu próprio."
@@ -826,9 +838,9 @@ msgid ""
 "\"%s\" does not specify training file. Dasher will work but entry will be "
 "slower. Check you have the latest version of the alphabet definition."
 msgstr ""
-"\"%s\" não especifica um arquivo de treinamento. O Dasher irá funcionar, "
-"porém a entrada será mais lenta. Certifique-se de que você tem a última "
-"versão da definição de alfabeto."
+"“%s” não especifica um arquivo de treinamento. O Dasher irá funcionar, porém "
+"a entrada será mais lenta. Certifique-se de que você tem a última versão da "
+"definição de alfabeto."
 
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
 #: Src/DasherCore/OneButtonDynamicFilter.cpp:31
@@ -904,8 +916,8 @@ msgid ""
 "Warning: training file contains character '%s' as member of group '%s', but "
 "no group of that name contains the character. Ignoring group specifier."
 msgstr ""
-"Aviso: o arquivo de treinamento contém o caractere \"%s\" como membro do "
-"grupo \"%s\", mas nenhum grupo daquele nome contém o caractere. Ignorando o "
+"Aviso: o arquivo de treinamento contém o caractere “%s” como membro do grupo "
+"“%s”, mas nenhum grupo daquele nome contém o caractere. Ignorando o "
 "especificador do grupo."
 
 #: Src/DasherCore/SettingsStore.cpp:100 Src/Gtk2/DasherAppSettings.cpp:127
@@ -931,14 +943,13 @@ msgstr "Falso"
 #. "VAL" is not true or false.
 #: Src/DasherCore/SettingsStore.cpp:108
 msgid "boolean value must be specified as 'true' or 'false'."
-msgstr ""
-"o valor booleano deve ser especificado como \"verdadeiro\" ou \"falso\"."
+msgstr "o valor booleano deve ser especificado como “verdadeiro” ou “falso”."
 
 #. Note to translators: This is output when command line "--options" doesn't
 #. specify a known option.
 #: Src/DasherCore/SettingsStore.cpp:130
 msgid "unknown option, use \"--help-options\" for more information."
-msgstr "opção desconhecida, use \"--help-option\" para mais informações."
+msgstr "opção desconhecida, use “--help-option” para mais informações."
 
 #: Src/DasherCore/SocketInputBase.cpp:27
 msgid "Port:"
@@ -984,14 +995,14 @@ msgstr "Erro ao criar socket"
 
 #: Src/DasherCore/SocketInputBase.cpp:116
 msgid "Error binding to socket - already in use?"
-msgstr "Erro ao associar socket - já está sendo usado?"
+msgstr "Erro ao associar socket – já está sendo usado?"
 
 # Me pareceu estar faltando um dois-pontos (:) após warning; acrescentei - Rafael
 #: Src/DasherCore/SocketInputBase.cpp:169
 #, c-format
 msgid "Warning truncating socket input label '%s' to %i characters."
 msgstr ""
-"Aviso: truncando o rótulo de entrada do socket \"%s\" para %i caracteres."
+"Aviso: truncando o rótulo de entrada do socket “%s” para %i caracteres."
 
 #: Src/DasherCore/SocketInputBase.cpp:195
 msgid "Socket input: Error reading from socket"
@@ -1010,7 +1021,7 @@ msgstr ""
 
 #: Src/DasherCore/StylusFilter.cpp:10
 msgid "Max time for a 'tap' (anything longer is held)"
-msgstr "Tempo máximo para um \"toque\" (qualquer coisa mais longa é mantida)"
+msgstr "Tempo máximo para um “toque” (qualquer coisa mais longa é mantida)"
 
 #: Src/DasherCore/StylusFilter.h:12
 msgid "Stylus Control"
@@ -1029,7 +1040,7 @@ msgstr ""
 #: Src/DasherCore/Trainer.cpp:101
 #, c-format
 msgid "Unable to open file \"%s\" for reading"
-msgstr "Não foi possível abrir o arquivo \"%s\" para leitura"
+msgstr "Não foi possível abrir o arquivo “%s” para leitura"
 
 #: Src/DasherCore/TwoButtonDynamicFilter.cpp:30
 msgid "Button offset"
@@ -1119,6 +1130,16 @@ msgstr "Parâmetros de inteiros"
 msgid "String parameters"
 msgstr "Parâmetros de string"
 
+#. Note to translators: This is the version keyword showing for the command line option "--version"
+#: Src/Gtk2/DasherAppSettings.cpp:161
+msgid "Version"
+msgstr "Versão"
+
+#. Note to translators: This is the license keyword showing for the command line option "--version"
+#: Src/Gtk2/DasherAppSettings.cpp:163
+msgid "License"
+msgstr "Licença"
+
 #: Src/Gtk2/dasher_editor.cpp:812 Src/Gtk2/dasher_main.cpp:550
 #: Src/Gtk2/dasher_main.cpp:885
 msgid "_Open"
@@ -1136,7 +1157,7 @@ msgstr "_Salvar"
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
 #: Src/Gtk2/dasher_main.cpp:231
 msgid "option setting is missing \"=\"."
-msgstr "faltando opção de configuração \"=\"."
+msgstr "faltando opção de configuração “=”."
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
 #: Src/Gtk2/dasher_main.cpp:247
@@ -1158,7 +1179,7 @@ msgstr "Usar padrão"
 
 #: Src/Gtk2/dasher_main.cpp:610
 msgid "Choose File..."
-msgstr "Escolher arquivo..."
+msgstr "Escolher arquivo…"
 
 #: Src/Gtk2/dasher_main.cpp:611
 msgid "Cancel"
@@ -1180,7 +1201,7 @@ msgstr "Não"
 msgid "Yes"
 msgstr "Sim"
 
-#: Src/Gtk2/dasher_main.cpp:922
+#: Src/Gtk2/dasher_main.cpp:928
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1191,7 +1212,7 @@ msgstr ""
 "\n"
 "Suas alterações serão perdidas se você não salvá-las."
 
-#: Src/Gtk2/dasher_main.cpp:929
+#: Src/Gtk2/dasher_main.cpp:935
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1201,42 +1222,42 @@ msgstr ""
 "\n"
 "Suas alterações serão perdidas se você não salvá-las."
 
-#: Src/Gtk2/dasher_main.cpp:935
+#: Src/Gtk2/dasher_main.cpp:941
 msgid "Quit without saving"
 msgstr "Sair sem salvar"
 
-#: Src/Gtk2/dasher_main.cpp:936 Src/Gtk2/dasher_main.cpp:959
+#: Src/Gtk2/dasher_main.cpp:942 Src/Gtk2/dasher_main.cpp:965
 msgid "Don't quit"
 msgstr "Não sair"
 
-#: Src/Gtk2/dasher_main.cpp:937
+#: Src/Gtk2/dasher_main.cpp:943
 msgid "Save and quit"
 msgstr "Salvar e sair"
 
-#: Src/Gtk2/dasher_main.cpp:956
+#: Src/Gtk2/dasher_main.cpp:962
 msgid "Are you sure you wish to quit?"
 msgstr "Tem certeza que deseja sair?"
 
-#: Src/Gtk2/dasher_main.cpp:998
+#: Src/Gtk2/dasher_main.cpp:1004
 msgid "Unable to open help file"
 msgstr "Não foi possível abrir o arquivo de ajuda"
 
-#: Src/Gtk2/dasher_main.cpp:1050
+#: Src/Gtk2/dasher_main.cpp:1056
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher é um aplicativo de entrada preditiva de texto"
 
-#: Src/Gtk2/dasher_main.cpp:1055
+#: Src/Gtk2/dasher_main.cpp:1061
 msgid "translator-credits"
 msgstr ""
 "Rodrigo Lima <rdlima@terra.com.br>\n"
-"Goedson Teixeira Paixao <goedson@debian.org>\n"
+"Goedson Teixeira Paixão <goedson@debian.org>\n"
 "Og Maciel <ogmaciel@ubuntu.com>\n"
-"Leonardo Ferreira Fontenele <leonardof@gnome.org>\n"
+"Leonardo Ferreira Fontenelle <leonardof@gnome.org>\n"
 "Vladimir Melo <vladimirmelo@foresightlinux.org>\n"
-"Fabricio Godoy <skarllot@gmail.com>\n"
+"Fabrício Godoy <skarllot@gmail.com>\n"
 "Djavan Fagundes <dnoway@gmail.com>\n"
 "Enrico Nicoletto <liverig@gmail.com>\n"
-"Rafael Ferreira <rafaelff@gnome.org>"
+"Rafael Fontenelle <rafaelff@gnome.org>"
 
 #: Src/Gtk2/module_settings_window.cpp:77
 msgid "_Close"
@@ -1264,7 +1285,7 @@ msgstr "Pixels cobrindo intervalo Y"
 msgid "One Dimensional Mouse Input"
 msgstr "Entrada de mouse unidimensional"
 
-#: Src/Gtk2/Preferences.cpp:437
+#: Src/Gtk2/Preferences.cpp:438
 msgid "Action"
 msgstr "Ação"
 
@@ -1273,45 +1294,46 @@ msgstr "Ação"
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
-#: Src/main.cc:161
+#: Src/main.cc:162
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr "Estilo do aplicativo (traditional, direct, compose ou fullscreen)"
 
 #. Note to translators: This is the help string for "--options"
-#: Src/main.cc:163
+#: Src/main.cc:164
 msgid "Override stored options"
 msgstr "Sobrescreve opções armazenadas"
 
-#: Src/main.cc:164
+#: Src/main.cc:165
 msgid "XML configuration file name"
 msgstr "Nome de arquivo de configuração XML"
 
 #. Note to translators: This is the help string for "--help-options"
-#: Src/main.cc:166
+#: Src/main.cc:167
 msgid "Describe \"--options\"."
-msgstr "Descreve \"--options\"."
+msgstr "Descreve “--options”."
+
+#. Note to translators: This is the help string for "--version"
+#: Src/main.cc:169
+msgid "Show the version details."
+msgstr "Mostra os detalhes da versão"
 
 #. parse command line options
 #. Note to translators: This is the "--help" description of dasher.
-#: Src/main.cc:172
+#: Src/main.cc:175
 msgid "- A text input application honouring accessibility"
 msgstr "- Um aplicativo de entrada de texto honrando a acessibilidade"
+
+#. Note to translators: This is the help string for unrecognized command line options. Do not translate 'dasher --help' part.
+#: Src/main.cc:182
+#| msgid "unknown option, use \"--help-options\" for more information."
+msgid "Try 'dasher --help' for more information."
+msgstr "Tente “dasher --help” para mais informações."
 
 #~ msgid "Auto-increasing speed to %0.2f"
 #~ msgstr "Aumentar a velocidade automaticamente para %0.2f"
 
 #~ msgid "Auto-decreasing speed to %0.2f"
 #~ msgstr "Diminuir a velocidade automaticamente para %0.2f"
-
-#~ msgid ""
-#~ "In file %s, the following %i symbols appeared without annotations saying "
-#~ "how they should be entered, but each can be entered in several ways. "
-#~ "Dasher will not be able to learn how you want to enter these symbols:"
-#~ msgstr ""
-#~ "No arquivo %s, os %i símbolos a seguir aparecem sem anotações informando "
-#~ "como eles deveriam ser inseridos, mas cada um pode ser inserido de várias "
-#~ "formas. O Dasher não será capaz de aprender como você deseja inserir "
-#~ "estes símbolos:"
 
 #~ msgid "Include Clipboard commands"
 #~ msgstr "Incluir comandos da área de transferência"
