@@ -73,7 +73,9 @@ IPhonePrefsObserver::~IPhonePrefsObserver() {
   if (self = [super init]) {
     tilt=_tilt;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationDidChange:) name:UIApplicationDidChangeStatusBarOrientationNotification object:[UIApplication sharedApplication]];
-    [self orientationDidChange:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self orientationDidChange:nil];
+    });
   }
   return self;
 }

@@ -30,3 +30,7 @@ void CDashIntfSettings::SetLongParameter(int iParameter, long lValue) {
 void CDashIntfSettings::SetStringParameter(int iParameter, const string &strValue) {
   CDasherInterfaceBase::SetStringParameter(iParameter, strValue);
 }
+
+bool CDashIntfSettings::IsParameterSaved(std::string & Key) {
+    return CDasherInterfaceBase::IsParameterSaved(Key);
+}

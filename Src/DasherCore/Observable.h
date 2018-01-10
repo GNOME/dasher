@@ -9,7 +9,7 @@ template <typename  T> class Observable;
 ///Thing that listens to events - parameterized by the type of event.
 template <typename T> class Observer {
 public:
-  virtual ~Observer() = default;
+  virtual ~Observer() {};
   ///Called to indicate an event has occurred! Subclasses must implement.
   virtual void HandleEvent(T evt)=0;
 };

@@ -46,7 +46,7 @@ public:
   void SetBoolParameter(int iParameter, bool bValue);
   void SetLongParameter(int iParameter, long lValue);
   void SetStringParameter(int iParameter, const string &sValue);
-
+  bool IsParameterSaved(std::string & Key);
 };
 
 }

@@ -10,17 +10,18 @@
 #include <glob.h>
 #include <string.h>
 
-void globScan(AbstractParser *parser, const char **usrPaths, const char **sysPaths) {
+void globScan(AbstractParser *parser, const char **usrPaths, const char **sysPaths, int(*error_callback)(const char *,int)) {
   int flags = GLOB_MARK | GLOB_NOSORT;
   glob_t info;
-  int numUser = 0;
+  size_t numUser = 0;
+  memset(&info, 0, sizeof(info));
   while (*usrPaths) {
-    glob(*usrPaths++, flags, NULL, &info); //NULL error function
+    glob(*usrPaths++, flags, error_callback, &info); //NULL error function
     flags |= GLOB_APPEND;
   }
   numUser = info.gl_pathc;
   while (*sysPaths) {
-    glob(*sysPaths++, flags, NULL, &info);
+    glob(*sysPaths++, flags, error_callback, &info);
     flags |= GLOB_APPEND;
   }
   
@@ -32,4 +33,8 @@ void globScan(AbstractParser *parser, const char **usrPaths, const char **sysPat
     }
   }
   globfree(&info);
+}
+
+void globScan(AbstractParser *parser, const char **usrPaths, const char **sysPaths) {
+    globScan(parser, usrPaths, sysPaths, NULL);
 }

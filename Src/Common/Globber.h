@@ -14,4 +14,9 @@
 void globScan(AbstractParser *parser,
               const char **userPaths,
               const char **systemPaths);
+void globScan(AbstractParser *parser, 
+              const char **usrPaths, 
+              const char **sysPaths, 
+              int(*error_callback)(const char *,int));
+
 #endif

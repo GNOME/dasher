@@ -289,6 +289,124 @@
 		33F87A240FB1C775003E737C /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33F87A230FB1C775003E737C /* MainWindow.xib */; };
 		33F87A720FB1CB91003E737C /* Dasher_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 33F87A710FB1CB91003E737C /* Dasher_small.png */; };
 		33FDB7F5135F310E00D6C952 /* UserLogBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FDB7F4135F310E00D6C952 /* UserLogBase.cpp */; };
+		8B9329E01FA8DC1E005159D5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B9329DF1FA8DC1E005159D5 /* Images.xcassets */; };
+		8BE2EA7B1FB27E2500F7543A /* training_spyNew_fullyAnnotated.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA791FB27E2400F7543A /* training_spyNew_fullyAnnotated.txt */; };
+		8BE2EA7C1FB27E2500F7543A /* training_spyNew.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA7A1FB27E2400F7543A /* training_spyNew.txt */; };
+		8BE2EAEB1FB27E5400F7543A /* alphabet.faroese.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA7D1FB27E4700F7543A /* alphabet.faroese.xml */; };
+		8BE2EAEC1FB27E5400F7543A /* alphabet.Estonian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA7E1FB27E4700F7543A /* alphabet.Estonian.xml */; };
+		8BE2EAED1FB27E5400F7543A /* alphabet.Ndebele.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA7F1FB27E4800F7543A /* alphabet.Ndebele.xml */; };
+		8BE2EAEE1FB27E5400F7543A /* alphabet.Yoruba.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA801FB27E4800F7543A /* alphabet.Yoruba.xml */; };
+		8BE2EAEF1FB27E5400F7543A /* alphabet.Belarusian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA811FB27E4800F7543A /* alphabet.Belarusian.xml */; };
+		8BE2EAF01FB27E5400F7543A /* alphabet.Xhosa.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA821FB27E4800F7543A /* alphabet.Xhosa.xml */; };
+		8BE2EAF11FB27E5400F7543A /* alphabet.turkmen.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA831FB27E4800F7543A /* alphabet.turkmen.xml */; };
+		8BE2EAF21FB27E5400F7543A /* alphabet.Marathi.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA841FB27E4800F7543A /* alphabet.Marathi.xml */; };
+		8BE2EAF31FB27E5400F7543A /* alphabet.akan.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA851FB27E4800F7543A /* alphabet.akan.xml */; };
+		8BE2EAF41FB27E5400F7543A /* alphabet.bosnian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA861FB27E4900F7543A /* alphabet.bosnian.xml */; };
+		8BE2EAF51FB27E5400F7543A /* alphabet.lao.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA871FB27E4900F7543A /* alphabet.lao.xml */; };
+		8BE2EAF61FB27E5400F7543A /* alphabet.macedonian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA881FB27E4900F7543A /* alphabet.macedonian.xml */; };
+		8BE2EAF71FB27E5400F7543A /* alphabet.maltese.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA891FB27E4900F7543A /* alphabet.maltese.xml */; };
+		8BE2EAF81FB27E5400F7543A /* alphabet.Tamil.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA8A1FB27E4900F7543A /* alphabet.Tamil.xml */; };
+		8BE2EAF91FB27E5400F7543A /* alphabet.Oriya.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA8B1FB27E4900F7543A /* alphabet.Oriya.xml */; };
+		8BE2EAFA1FB27E5400F7543A /* alphabet.sanskrit.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA8C1FB27E4900F7543A /* alphabet.sanskrit.xml */; };
+		8BE2EAFB1FB27E5400F7543A /* alphabet.Tsonga.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA8D1FB27E4900F7543A /* alphabet.Tsonga.xml */; };
+		8BE2EAFC1FB27E5400F7543A /* alphabet.abc.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA8E1FB27E4900F7543A /* alphabet.abc.xml */; };
+		8BE2EAFD1FB27E5400F7543A /* alphabet.pashto.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA8F1FB27E4900F7543A /* alphabet.pashto.xml */; };
+		8BE2EAFE1FB27E5400F7543A /* alphabet.Azerbaijani.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA901FB27E4A00F7543A /* alphabet.Azerbaijani.xml */; };
+		8BE2EAFF1FB27E5400F7543A /* alphabet.kirundi.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA911FB27E4A00F7543A /* alphabet.kirundi.xml */; };
+		8BE2EB001FB27E5400F7543A /* alphabet.Moldavian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA921FB27E4A00F7543A /* alphabet.Moldavian.xml */; };
+		8BE2EB011FB27E5400F7543A /* alphabet.Urdu.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA931FB27E4A00F7543A /* alphabet.Urdu.xml */; };
+		8BE2EB021FB27E5400F7543A /* alphabet.Esperanto.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA941FB27E4A00F7543A /* alphabet.Esperanto.xml */; };
+		8BE2EB031FB27E5400F7543A /* alphabet.AfaanOromo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA951FB27E4A00F7543A /* alphabet.AfaanOromo.xml */; };
+		8BE2EB041FB27E5400F7543A /* alphabet.thaana.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA961FB27E4A00F7543A /* alphabet.thaana.xml */; };
+		8BE2EB051FB27E5400F7543A /* alphabet.corsican.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA971FB27E4A00F7543A /* alphabet.corsican.xml */; };
+		8BE2EB061FB27E5400F7543A /* alphabet.Hawaiian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA981FB27E4A00F7543A /* alphabet.Hawaiian.xml */; };
+		8BE2EB071FB27E5400F7543A /* alphabet.croatian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA991FB27E4A00F7543A /* alphabet.croatian.xml */; };
+		8BE2EB081FB27E5400F7543A /* alphabet.Sepedi.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA9A1FB27E4B00F7543A /* alphabet.Sepedi.xml */; };
+		8BE2EB091FB27E5400F7543A /* alphabet.spyTones2New.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA9B1FB27E4B00F7543A /* alphabet.spyTones2New.xml */; };
+		8BE2EB0A1FB27E5400F7543A /* alphabet.Sami.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA9C1FB27E4B00F7543A /* alphabet.Sami.xml */; };
+		8BE2EB0B1FB27E5400F7543A /* alphabet.catalan.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA9D1FB27E4B00F7543A /* alphabet.catalan.xml */; };
+		8BE2EB0C1FB27E5400F7543A /* alphabet.ScotsGaelic.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA9E1FB27E4B00F7543A /* alphabet.ScotsGaelic.xml */; };
+		8BE2EB0D1FB27E5400F7543A /* alphabet.kirghiz.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EA9F1FB27E4B00F7543A /* alphabet.kirghiz.xml */; };
+		8BE2EB0E1FB27E5400F7543A /* alphabet.afrikaans.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAA01FB27E4B00F7543A /* alphabet.afrikaans.xml */; };
+		8BE2EB0F1FB27E5400F7543A /* alphabet.Slovenian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAA11FB27E4B00F7543A /* alphabet.Slovenian.xml */; };
+		8BE2EB101FB27E5400F7543A /* alphabet.Sesotho.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAA21FB27E4B00F7543A /* alphabet.Sesotho.xml */; };
+		8BE2EB111FB27E5400F7543A /* alphabet.Malayalam.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAA31FB27E4B00F7543A /* alphabet.Malayalam.xml */; };
+		8BE2EB121FB27E5400F7543A /* alphabet.pinyin2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAA41FB27E4C00F7543A /* alphabet.pinyin2.xml */; };
+		8BE2EB131FB27E5400F7543A /* alphabet.spyNew.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAA51FB27E4C00F7543A /* alphabet.spyNew.xml */; };
+		8BE2EB141FB27E5400F7543A /* alphabet.Icelandic.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAA61FB27E4C00F7543A /* alphabet.Icelandic.xml */; };
+		8BE2EB151FB27E5400F7543A /* alphabet.Tajik.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAA71FB27E4C00F7543A /* alphabet.Tajik.xml */; };
+		8BE2EB161FB27E5400F7543A /* alphabet.latvian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAA81FB27E4C00F7543A /* alphabet.latvian.xml */; };
+		8BE2EB171FB27E5400F7543A /* alphabet.Armenian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAA91FB27E4C00F7543A /* alphabet.Armenian.xml */; };
+		8BE2EB181FB27E5400F7543A /* alphabet.latin.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAAA1FB27E4C00F7543A /* alphabet.latin.xml */; };
+		8BE2EB191FB27E5400F7543A /* alphabet.tigrinya.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAAB1FB27E4C00F7543A /* alphabet.tigrinya.xml */; };
+		8BE2EB1A1FB27E5400F7543A /* alphabet.arabic.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAAC1FB27E4C00F7543A /* alphabet.arabic.xml */; };
+		8BE2EB1B1FB27E5400F7543A /* alphabet_langcodes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAAD1FB27E4D00F7543A /* alphabet_langcodes.txt */; };
+		8BE2EB1C1FB27E5400F7543A /* alphabet.bopoTrad.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAAE1FB27E4D00F7543A /* alphabet.bopoTrad.xml */; };
+		8BE2EB1D1FB27E5400F7543A /* alphabet.somali.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAAF1FB27E4D00F7543A /* alphabet.somali.xml */; };
+		8BE2EB1E1FB27E5400F7543A /* alphabet.georgian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAB01FB27E4D00F7543A /* alphabet.georgian.xml */; };
+		8BE2EB1F1FB27E5400F7543A /* alphabet.venda.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAB11FB27E4D00F7543A /* alphabet.venda.xml */; };
+		8BE2EB201FB27E5400F7543A /* alphabet.serbian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAB21FB27E4D00F7543A /* alphabet.serbian.xml */; };
+		8BE2EB211FB27E5400F7543A /* alphabet.ukrainian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAB31FB27E4D00F7543A /* alphabet.ukrainian.xml */; };
+		8BE2EB221FB27E5400F7543A /* alphabet.koreanNested.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAB41FB27E4D00F7543A /* alphabet.koreanNested.xml */; };
+		8BE2EB231FB27E5400F7543A /* alphabet.korean.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAB51FB27E4D00F7543A /* alphabet.korean.xml */; };
+		8BE2EB241FB27E5400F7543A /* alphabet.Indonesian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAB61FB27E4D00F7543A /* alphabet.Indonesian.xml */; };
+		8BE2EB251FB27E5400F7543A /* alphabet.Thai2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAB71FB27E4E00F7543A /* alphabet.Thai2.xml */; };
+		8BE2EB261FB27E5400F7543A /* alphabet.Turkish.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAB81FB27E4E00F7543A /* alphabet.Turkish.xml */; };
+		8BE2EB271FB27E5400F7543A /* alphabet.Malay.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAB91FB27E4E00F7543A /* alphabet.Malay.xml */; };
+		8BE2EB281FB27E5400F7543A /* alphabet.bopomofo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EABA1FB27E4E00F7543A /* alphabet.bopomofo.xml */; };
+		8BE2EB291FB27E5400F7543A /* alphabet.Vietnamese.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EABB1FB27E4E00F7543A /* alphabet.Vietnamese.xml */; };
+		8BE2EB2A1FB27E5400F7543A /* alphabet.amharic.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EABC1FB27E4E00F7543A /* alphabet.amharic.xml */; };
+		8BE2EB2B1FB27E5400F7543A /* alphabet.luxembourgish.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EABD1FB27E4E00F7543A /* alphabet.luxembourgish.xml */; };
+		8BE2EB2C1FB27E5400F7543A /* alphabet.perl.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EABE1FB27E4E00F7543A /* alphabet.perl.xml */; };
+		8BE2EB2D1FB27E5400F7543A /* alphabet.ewe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EABF1FB27E4E00F7543A /* alphabet.ewe.xml */; };
+		8BE2EB2E1FB27E5400F7543A /* alphabet.iso8859.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAC01FB27E4E00F7543A /* alphabet.iso8859.xml */; };
+		8BE2EB2F1FB27E5400F7543A /* alphabet.Hindi.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAC11FB27E4F00F7543A /* alphabet.Hindi.xml */; };
+		8BE2EB301FB27E5400F7543A /* alphabet.kazakh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAC21FB27E4F00F7543A /* alphabet.kazakh.xml */; };
+		8BE2EB311FB27E5400F7543A /* alphabet.Katakana.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAC31FB27E4F00F7543A /* alphabet.Katakana.xml */; };
+		8BE2EB321FB27E5400F7543A /* alphabet.romansch.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAC41FB27E4F00F7543A /* alphabet.romansch.xml */; };
+		8BE2EB331FB27E5400F7543A /* alphabet.cherokee.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAC51FB27E4F00F7543A /* alphabet.cherokee.xml */; };
+		8BE2EB341FB27E5400F7543A /* alphabet.breton.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAC61FB27E4F00F7543A /* alphabet.breton.xml */; };
+		8BE2EB351FB27E5400F7543A /* alphabet.IrishGaelic.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAC71FB27E4F00F7543A /* alphabet.IrishGaelic.xml */; };
+		8BE2EB361FB27E5400F7543A /* alphabet.Punjabi.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAC81FB27E4F00F7543A /* alphabet.Punjabi.xml */; };
+		8BE2EB371FB27E5400F7543A /* alphabet.kurdish.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAC91FB27E4F00F7543A /* alphabet.kurdish.xml */; };
+		8BE2EB381FB27E5400F7543A /* alphabet.lithuanian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EACA1FB27E4F00F7543A /* alphabet.lithuanian.xml */; };
+		8BE2EB391FB27E5400F7543A /* alphabet.Austen.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EACB1FB27E5000F7543A /* alphabet.Austen.xml */; };
+		8BE2EB3A1FB27E5400F7543A /* alphabet.galician.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EACC1FB27E5000F7543A /* alphabet.galician.xml */; };
+		8BE2EB3B1FB27E5400F7543A /* alphabet.ethiopic.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EACD1FB27E5000F7543A /* alphabet.ethiopic.xml */; };
+		8BE2EB3C1FB27E5400F7543A /* alphabet.Kannada.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EACE1FB27E5000F7543A /* alphabet.Kannada.xml */; };
+		8BE2EB3D1FB27E5400F7543A /* alphabet.Assamese.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EACF1FB27E5000F7543A /* alphabet.Assamese.xml */; };
+		8BE2EB3E1FB27E5400F7543A /* alphabet.adangbe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAD01FB27E5000F7543A /* alphabet.adangbe.xml */; };
+		8BE2EB3F1FB27E5400F7543A /* alphabet.Slovak.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAD11FB27E5000F7543A /* alphabet.Slovak.xml */; };
+		8BE2EB401FB27E5400F7543A /* alphabet.klingon.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAD21FB27E5000F7543A /* alphabet.klingon.xml */; };
+		8BE2EB411FB27E5400F7543A /* alphabet.Tswana.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAD31FB27E5000F7543A /* alphabet.Tswana.xml */; };
+		8BE2EB421FB27E5400F7543A /* alphabet.uzbek.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAD41FB27E5100F7543A /* alphabet.uzbek.xml */; };
+		8BE2EB431FB27E5400F7543A /* alphabet.Sinhala.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAD51FB27E5100F7543A /* alphabet.Sinhala.xml */; };
+		8BE2EB441FB27E5400F7543A /* alphabet.Filipino.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAD61FB27E5100F7543A /* alphabet.Filipino.xml */; };
+		8BE2EB451FB27E5400F7543A /* alphabet.ga.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAD71FB27E5100F7543A /* alphabet.ga.xml */; };
+		8BE2EB461FB27E5400F7543A /* alphabet.spyTonesNew.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAD81FB27E5100F7543A /* alphabet.spyTonesNew.xml */; };
+		8BE2EB471FB27E5400F7543A /* alphabet.ipa.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAD91FB27E5100F7543A /* alphabet.ipa.xml */; };
+		8BE2EB481FB27E5400F7543A /* alphabet.Thai.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EADA1FB27E5200F7543A /* alphabet.Thai.xml */; };
+		8BE2EB491FB27E5400F7543A /* alphabet.norwegian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EADB1FB27E5200F7543A /* alphabet.norwegian.xml */; };
+		8BE2EB4A1FB27E5400F7543A /* alphabet.Zulu.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EADC1FB27E5200F7543A /* alphabet.Zulu.xml */; };
+		8BE2EB4B1FB27E5400F7543A /* alphabet.Swati.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EADD1FB27E5200F7543A /* alphabet.Swati.xml */; };
+		8BE2EB4C1FB27E5400F7543A /* alphabet.myanmar.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EADE1FB27E5200F7543A /* alphabet.myanmar.xml */; };
+		8BE2EB4D1FB27E5400F7543A /* alphabet.Telugu.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EADF1FB27E5200F7543A /* alphabet.Telugu.xml */; };
+		8BE2EB4E1FB27E5400F7543A /* alphabet.Bulgarian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAE01FB27E5200F7543A /* alphabet.Bulgarian.xml */; };
+		8BE2EB4F1FB27E5400F7543A /* alphabet.runic.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAE11FB27E5200F7543A /* alphabet.runic.xml */; };
+		8BE2EB501FB27E5400F7543A /* alphabet.cangjie.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAE21FB27E5300F7543A /* alphabet.cangjie.xml */; };
+		8BE2EB511FB27E5400F7543A /* alphabet.hausa.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAE31FB27E5300F7543A /* alphabet.hausa.xml */; };
+		8BE2EB521FB27E5400F7543A /* alphabet.ogham.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAE41FB27E5300F7543A /* alphabet.ogham.xml */; };
+		8BE2EB531FB27E5400F7543A /* alphabet.latex.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAE51FB27E5300F7543A /* alphabet.latex.xml */; };
+		8BE2EB541FB27E5400F7543A /* alphabet.occitan.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAE61FB27E5300F7543A /* alphabet.occitan.xml */; };
+		8BE2EB551FB27E5400F7543A /* alphabet.Igbo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAE71FB27E5300F7543A /* alphabet.Igbo.xml */; };
+		8BE2EB561FB27E5400F7543A /* alphabet.Gujarati.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAE81FB27E5300F7543A /* alphabet.Gujarati.xml */; };
+		8BE2EB571FB27E5400F7543A /* alphabet.Romanian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAE91FB27E5300F7543A /* alphabet.Romanian.xml */; };
+		8BE2EB581FB27E5400F7543A /* alphabet.nepali.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EAEA1FB27E5400F7543A /* alphabet.nepali.xml */; };
+		8BE2EB5A1FB27E6B00F7543A /* colour.ean.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EB591FB27E6A00F7543A /* colour.ean.xml */; };
+		8BE2EB631FB2891500F7543A /* rewind@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EB5D1FB2891400F7543A /* rewind@3x.png */; };
+		8BE2EB651FB2891500F7543A /* fast-forward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EB5F1FB2891400F7543A /* fast-forward@2x.png */; };
+		8BE2EB661FB2891500F7543A /* fast-forward@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BE2EB601FB2891400F7543A /* fast-forward@3x.png */; };
+		94A831C71F79274F0017BA2D /* FileUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94A831C61F79274F0017BA2D /* FileUtils.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -753,7 +871,126 @@
 		33F87A230FB1C775003E737C /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		33F87A710FB1CB91003E737C /* Dasher_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dasher_small.png; sourceTree = "<group>"; };
 		33FDB7F4135F310E00D6C952 /* UserLogBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserLogBase.cpp; sourceTree = "<group>"; };
+		8B9329DF1FA8DC1E005159D5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Dasher/Images.xcassets; sourceTree = "<group>"; };
+		8BE2EA791FB27E2400F7543A /* training_spyNew_fullyAnnotated.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_spyNew_fullyAnnotated.txt; sourceTree = "<group>"; };
+		8BE2EA7A1FB27E2400F7543A /* training_spyNew.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_spyNew.txt; sourceTree = "<group>"; };
+		8BE2EA7D1FB27E4700F7543A /* alphabet.faroese.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.faroese.xml; sourceTree = "<group>"; };
+		8BE2EA7E1FB27E4700F7543A /* alphabet.Estonian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Estonian.xml; sourceTree = "<group>"; };
+		8BE2EA7F1FB27E4800F7543A /* alphabet.Ndebele.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Ndebele.xml; sourceTree = "<group>"; };
+		8BE2EA801FB27E4800F7543A /* alphabet.Yoruba.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Yoruba.xml; sourceTree = "<group>"; };
+		8BE2EA811FB27E4800F7543A /* alphabet.Belarusian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Belarusian.xml; sourceTree = "<group>"; };
+		8BE2EA821FB27E4800F7543A /* alphabet.Xhosa.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Xhosa.xml; sourceTree = "<group>"; };
+		8BE2EA831FB27E4800F7543A /* alphabet.turkmen.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.turkmen.xml; sourceTree = "<group>"; };
+		8BE2EA841FB27E4800F7543A /* alphabet.Marathi.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Marathi.xml; sourceTree = "<group>"; };
+		8BE2EA851FB27E4800F7543A /* alphabet.akan.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.akan.xml; sourceTree = "<group>"; };
+		8BE2EA861FB27E4900F7543A /* alphabet.bosnian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.bosnian.xml; sourceTree = "<group>"; };
+		8BE2EA871FB27E4900F7543A /* alphabet.lao.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.lao.xml; sourceTree = "<group>"; };
+		8BE2EA881FB27E4900F7543A /* alphabet.macedonian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.macedonian.xml; sourceTree = "<group>"; };
+		8BE2EA891FB27E4900F7543A /* alphabet.maltese.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.maltese.xml; sourceTree = "<group>"; };
+		8BE2EA8A1FB27E4900F7543A /* alphabet.Tamil.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Tamil.xml; sourceTree = "<group>"; };
+		8BE2EA8B1FB27E4900F7543A /* alphabet.Oriya.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Oriya.xml; sourceTree = "<group>"; };
+		8BE2EA8C1FB27E4900F7543A /* alphabet.sanskrit.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.sanskrit.xml; sourceTree = "<group>"; };
+		8BE2EA8D1FB27E4900F7543A /* alphabet.Tsonga.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Tsonga.xml; sourceTree = "<group>"; };
+		8BE2EA8E1FB27E4900F7543A /* alphabet.abc.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.abc.xml; sourceTree = "<group>"; };
+		8BE2EA8F1FB27E4900F7543A /* alphabet.pashto.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.pashto.xml; sourceTree = "<group>"; };
+		8BE2EA901FB27E4A00F7543A /* alphabet.Azerbaijani.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Azerbaijani.xml; sourceTree = "<group>"; };
+		8BE2EA911FB27E4A00F7543A /* alphabet.kirundi.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.kirundi.xml; sourceTree = "<group>"; };
+		8BE2EA921FB27E4A00F7543A /* alphabet.Moldavian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Moldavian.xml; sourceTree = "<group>"; };
+		8BE2EA931FB27E4A00F7543A /* alphabet.Urdu.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Urdu.xml; sourceTree = "<group>"; };
+		8BE2EA941FB27E4A00F7543A /* alphabet.Esperanto.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Esperanto.xml; sourceTree = "<group>"; };
+		8BE2EA951FB27E4A00F7543A /* alphabet.AfaanOromo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.AfaanOromo.xml; sourceTree = "<group>"; };
+		8BE2EA961FB27E4A00F7543A /* alphabet.thaana.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.thaana.xml; sourceTree = "<group>"; };
+		8BE2EA971FB27E4A00F7543A /* alphabet.corsican.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.corsican.xml; sourceTree = "<group>"; };
+		8BE2EA981FB27E4A00F7543A /* alphabet.Hawaiian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Hawaiian.xml; sourceTree = "<group>"; };
+		8BE2EA991FB27E4A00F7543A /* alphabet.croatian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.croatian.xml; sourceTree = "<group>"; };
+		8BE2EA9A1FB27E4B00F7543A /* alphabet.Sepedi.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Sepedi.xml; sourceTree = "<group>"; };
+		8BE2EA9B1FB27E4B00F7543A /* alphabet.spyTones2New.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyTones2New.xml; sourceTree = "<group>"; };
+		8BE2EA9C1FB27E4B00F7543A /* alphabet.Sami.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Sami.xml; sourceTree = "<group>"; };
+		8BE2EA9D1FB27E4B00F7543A /* alphabet.catalan.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.catalan.xml; sourceTree = "<group>"; };
+		8BE2EA9E1FB27E4B00F7543A /* alphabet.ScotsGaelic.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.ScotsGaelic.xml; sourceTree = "<group>"; };
+		8BE2EA9F1FB27E4B00F7543A /* alphabet.kirghiz.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.kirghiz.xml; sourceTree = "<group>"; };
+		8BE2EAA01FB27E4B00F7543A /* alphabet.afrikaans.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.afrikaans.xml; sourceTree = "<group>"; };
+		8BE2EAA11FB27E4B00F7543A /* alphabet.Slovenian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Slovenian.xml; sourceTree = "<group>"; };
+		8BE2EAA21FB27E4B00F7543A /* alphabet.Sesotho.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Sesotho.xml; sourceTree = "<group>"; };
+		8BE2EAA31FB27E4B00F7543A /* alphabet.Malayalam.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Malayalam.xml; sourceTree = "<group>"; };
+		8BE2EAA41FB27E4C00F7543A /* alphabet.pinyin2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.pinyin2.xml; sourceTree = "<group>"; };
+		8BE2EAA51FB27E4C00F7543A /* alphabet.spyNew.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyNew.xml; sourceTree = "<group>"; };
+		8BE2EAA61FB27E4C00F7543A /* alphabet.Icelandic.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Icelandic.xml; sourceTree = "<group>"; };
+		8BE2EAA71FB27E4C00F7543A /* alphabet.Tajik.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Tajik.xml; sourceTree = "<group>"; };
+		8BE2EAA81FB27E4C00F7543A /* alphabet.latvian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.latvian.xml; sourceTree = "<group>"; };
+		8BE2EAA91FB27E4C00F7543A /* alphabet.Armenian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Armenian.xml; sourceTree = "<group>"; };
+		8BE2EAAA1FB27E4C00F7543A /* alphabet.latin.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.latin.xml; sourceTree = "<group>"; };
+		8BE2EAAB1FB27E4C00F7543A /* alphabet.tigrinya.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.tigrinya.xml; sourceTree = "<group>"; };
+		8BE2EAAC1FB27E4C00F7543A /* alphabet.arabic.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.arabic.xml; sourceTree = "<group>"; };
+		8BE2EAAD1FB27E4D00F7543A /* alphabet_langcodes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = alphabet_langcodes.txt; sourceTree = "<group>"; };
+		8BE2EAAE1FB27E4D00F7543A /* alphabet.bopoTrad.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.bopoTrad.xml; sourceTree = "<group>"; };
+		8BE2EAAF1FB27E4D00F7543A /* alphabet.somali.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.somali.xml; sourceTree = "<group>"; };
+		8BE2EAB01FB27E4D00F7543A /* alphabet.georgian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.georgian.xml; sourceTree = "<group>"; };
+		8BE2EAB11FB27E4D00F7543A /* alphabet.venda.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.venda.xml; sourceTree = "<group>"; };
+		8BE2EAB21FB27E4D00F7543A /* alphabet.serbian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.serbian.xml; sourceTree = "<group>"; };
+		8BE2EAB31FB27E4D00F7543A /* alphabet.ukrainian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.ukrainian.xml; sourceTree = "<group>"; };
+		8BE2EAB41FB27E4D00F7543A /* alphabet.koreanNested.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.koreanNested.xml; sourceTree = "<group>"; };
+		8BE2EAB51FB27E4D00F7543A /* alphabet.korean.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.korean.xml; sourceTree = "<group>"; };
+		8BE2EAB61FB27E4D00F7543A /* alphabet.Indonesian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Indonesian.xml; sourceTree = "<group>"; };
+		8BE2EAB71FB27E4E00F7543A /* alphabet.Thai2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Thai2.xml; sourceTree = "<group>"; };
+		8BE2EAB81FB27E4E00F7543A /* alphabet.Turkish.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Turkish.xml; sourceTree = "<group>"; };
+		8BE2EAB91FB27E4E00F7543A /* alphabet.Malay.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Malay.xml; sourceTree = "<group>"; };
+		8BE2EABA1FB27E4E00F7543A /* alphabet.bopomofo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.bopomofo.xml; sourceTree = "<group>"; };
+		8BE2EABB1FB27E4E00F7543A /* alphabet.Vietnamese.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Vietnamese.xml; sourceTree = "<group>"; };
+		8BE2EABC1FB27E4E00F7543A /* alphabet.amharic.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.amharic.xml; sourceTree = "<group>"; };
+		8BE2EABD1FB27E4E00F7543A /* alphabet.luxembourgish.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.luxembourgish.xml; sourceTree = "<group>"; };
+		8BE2EABE1FB27E4E00F7543A /* alphabet.perl.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.perl.xml; sourceTree = "<group>"; };
+		8BE2EABF1FB27E4E00F7543A /* alphabet.ewe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.ewe.xml; sourceTree = "<group>"; };
+		8BE2EAC01FB27E4E00F7543A /* alphabet.iso8859.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.iso8859.xml; sourceTree = "<group>"; };
+		8BE2EAC11FB27E4F00F7543A /* alphabet.Hindi.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Hindi.xml; sourceTree = "<group>"; };
+		8BE2EAC21FB27E4F00F7543A /* alphabet.kazakh.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.kazakh.xml; sourceTree = "<group>"; };
+		8BE2EAC31FB27E4F00F7543A /* alphabet.Katakana.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Katakana.xml; sourceTree = "<group>"; };
+		8BE2EAC41FB27E4F00F7543A /* alphabet.romansch.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.romansch.xml; sourceTree = "<group>"; };
+		8BE2EAC51FB27E4F00F7543A /* alphabet.cherokee.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.cherokee.xml; sourceTree = "<group>"; };
+		8BE2EAC61FB27E4F00F7543A /* alphabet.breton.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.breton.xml; sourceTree = "<group>"; };
+		8BE2EAC71FB27E4F00F7543A /* alphabet.IrishGaelic.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.IrishGaelic.xml; sourceTree = "<group>"; };
+		8BE2EAC81FB27E4F00F7543A /* alphabet.Punjabi.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Punjabi.xml; sourceTree = "<group>"; };
+		8BE2EAC91FB27E4F00F7543A /* alphabet.kurdish.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.kurdish.xml; sourceTree = "<group>"; };
+		8BE2EACA1FB27E4F00F7543A /* alphabet.lithuanian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.lithuanian.xml; sourceTree = "<group>"; };
+		8BE2EACB1FB27E5000F7543A /* alphabet.Austen.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Austen.xml; sourceTree = "<group>"; };
+		8BE2EACC1FB27E5000F7543A /* alphabet.galician.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.galician.xml; sourceTree = "<group>"; };
+		8BE2EACD1FB27E5000F7543A /* alphabet.ethiopic.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.ethiopic.xml; sourceTree = "<group>"; };
+		8BE2EACE1FB27E5000F7543A /* alphabet.Kannada.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Kannada.xml; sourceTree = "<group>"; };
+		8BE2EACF1FB27E5000F7543A /* alphabet.Assamese.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Assamese.xml; sourceTree = "<group>"; };
+		8BE2EAD01FB27E5000F7543A /* alphabet.adangbe.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.adangbe.xml; sourceTree = "<group>"; };
+		8BE2EAD11FB27E5000F7543A /* alphabet.Slovak.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Slovak.xml; sourceTree = "<group>"; };
+		8BE2EAD21FB27E5000F7543A /* alphabet.klingon.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.klingon.xml; sourceTree = "<group>"; };
+		8BE2EAD31FB27E5000F7543A /* alphabet.Tswana.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Tswana.xml; sourceTree = "<group>"; };
+		8BE2EAD41FB27E5100F7543A /* alphabet.uzbek.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.uzbek.xml; sourceTree = "<group>"; };
+		8BE2EAD51FB27E5100F7543A /* alphabet.Sinhala.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Sinhala.xml; sourceTree = "<group>"; };
+		8BE2EAD61FB27E5100F7543A /* alphabet.Filipino.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Filipino.xml; sourceTree = "<group>"; };
+		8BE2EAD71FB27E5100F7543A /* alphabet.ga.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.ga.xml; sourceTree = "<group>"; };
+		8BE2EAD81FB27E5100F7543A /* alphabet.spyTonesNew.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyTonesNew.xml; sourceTree = "<group>"; };
+		8BE2EAD91FB27E5100F7543A /* alphabet.ipa.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.ipa.xml; sourceTree = "<group>"; };
+		8BE2EADA1FB27E5200F7543A /* alphabet.Thai.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Thai.xml; sourceTree = "<group>"; };
+		8BE2EADB1FB27E5200F7543A /* alphabet.norwegian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.norwegian.xml; sourceTree = "<group>"; };
+		8BE2EADC1FB27E5200F7543A /* alphabet.Zulu.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Zulu.xml; sourceTree = "<group>"; };
+		8BE2EADD1FB27E5200F7543A /* alphabet.Swati.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Swati.xml; sourceTree = "<group>"; };
+		8BE2EADE1FB27E5200F7543A /* alphabet.myanmar.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.myanmar.xml; sourceTree = "<group>"; };
+		8BE2EADF1FB27E5200F7543A /* alphabet.Telugu.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Telugu.xml; sourceTree = "<group>"; };
+		8BE2EAE01FB27E5200F7543A /* alphabet.Bulgarian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Bulgarian.xml; sourceTree = "<group>"; };
+		8BE2EAE11FB27E5200F7543A /* alphabet.runic.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.runic.xml; sourceTree = "<group>"; };
+		8BE2EAE21FB27E5300F7543A /* alphabet.cangjie.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.cangjie.xml; sourceTree = "<group>"; };
+		8BE2EAE31FB27E5300F7543A /* alphabet.hausa.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.hausa.xml; sourceTree = "<group>"; };
+		8BE2EAE41FB27E5300F7543A /* alphabet.ogham.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.ogham.xml; sourceTree = "<group>"; };
+		8BE2EAE51FB27E5300F7543A /* alphabet.latex.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.latex.xml; sourceTree = "<group>"; };
+		8BE2EAE61FB27E5300F7543A /* alphabet.occitan.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.occitan.xml; sourceTree = "<group>"; };
+		8BE2EAE71FB27E5300F7543A /* alphabet.Igbo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Igbo.xml; sourceTree = "<group>"; };
+		8BE2EAE81FB27E5300F7543A /* alphabet.Gujarati.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Gujarati.xml; sourceTree = "<group>"; };
+		8BE2EAE91FB27E5300F7543A /* alphabet.Romanian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.Romanian.xml; sourceTree = "<group>"; };
+		8BE2EAEA1FB27E5400F7543A /* alphabet.nepali.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.nepali.xml; sourceTree = "<group>"; };
+		8BE2EB591FB27E6A00F7543A /* colour.ean.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = colour.ean.xml; sourceTree = "<group>"; };
+		8BE2EB5D1FB2891400F7543A /* rewind@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rewind@3x.png"; sourceTree = "<group>"; };
+		8BE2EB5F1FB2891400F7543A /* fast-forward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fast-forward@2x.png"; sourceTree = "<group>"; };
+		8BE2EB601FB2891400F7543A /* fast-forward@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fast-forward@3x.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94A831C51F79274E0017BA2D /* FileUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtils.h; sourceTree = "<group>"; };
+		94A831C61F79274F0017BA2D /* FileUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FileUtils.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -776,6 +1013,8 @@
 		080E96DDFE201D6D7F000001 /* IPhone Classes */ = {
 			isa = PBXGroup;
 			children = (
+				94A831C51F79274E0017BA2D /* FileUtils.h */,
+				94A831C61F79274F0017BA2D /* FileUtils.mm */,
 				333F6F4A11A8A6EF002E2BDF /* FliteTTS.h */,
 				333F6F4B11A8A6EF002E2BDF /* FliteTTS.m */,
 				334B1BEF11232A8E007A6DFF /* ParametersController.h */,
@@ -853,6 +1092,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8BE2EB5F1FB2891400F7543A /* fast-forward@2x.png */,
+				8BE2EB601FB2891400F7543A /* fast-forward@3x.png */,
+				8BE2EB5D1FB2891400F7543A /* rewind@3x.png */,
+				8B9329DF1FA8DC1E005159D5 /* Images.xcassets */,
 				3302678A11B8040D00C07880 /* spanner_lg.png */,
 				3302678B11B8040D00C07880 /* spanner.png */,
 				332F34D8103D9858008448D7 /* palette.png */,
@@ -893,6 +1136,116 @@
 		331F28B60F7A9C270044EB9C /* alphabets */ = {
 			isa = PBXGroup;
 			children = (
+				8BE2EAAD1FB27E4D00F7543A /* alphabet_langcodes.txt */,
+				8BE2EA8E1FB27E4900F7543A /* alphabet.abc.xml */,
+				8BE2EAD01FB27E5000F7543A /* alphabet.adangbe.xml */,
+				8BE2EA951FB27E4A00F7543A /* alphabet.AfaanOromo.xml */,
+				8BE2EAA01FB27E4B00F7543A /* alphabet.afrikaans.xml */,
+				8BE2EA851FB27E4800F7543A /* alphabet.akan.xml */,
+				8BE2EABC1FB27E4E00F7543A /* alphabet.amharic.xml */,
+				8BE2EAAC1FB27E4C00F7543A /* alphabet.arabic.xml */,
+				8BE2EAA91FB27E4C00F7543A /* alphabet.Armenian.xml */,
+				8BE2EACF1FB27E5000F7543A /* alphabet.Assamese.xml */,
+				8BE2EACB1FB27E5000F7543A /* alphabet.Austen.xml */,
+				8BE2EA901FB27E4A00F7543A /* alphabet.Azerbaijani.xml */,
+				8BE2EA811FB27E4800F7543A /* alphabet.Belarusian.xml */,
+				8BE2EABA1FB27E4E00F7543A /* alphabet.bopomofo.xml */,
+				8BE2EAAE1FB27E4D00F7543A /* alphabet.bopoTrad.xml */,
+				8BE2EA861FB27E4900F7543A /* alphabet.bosnian.xml */,
+				8BE2EAC61FB27E4F00F7543A /* alphabet.breton.xml */,
+				8BE2EAE01FB27E5200F7543A /* alphabet.Bulgarian.xml */,
+				8BE2EAE21FB27E5300F7543A /* alphabet.cangjie.xml */,
+				8BE2EA9D1FB27E4B00F7543A /* alphabet.catalan.xml */,
+				8BE2EAC51FB27E4F00F7543A /* alphabet.cherokee.xml */,
+				8BE2EA971FB27E4A00F7543A /* alphabet.corsican.xml */,
+				8BE2EA991FB27E4A00F7543A /* alphabet.croatian.xml */,
+				8BE2EA941FB27E4A00F7543A /* alphabet.Esperanto.xml */,
+				8BE2EA7E1FB27E4700F7543A /* alphabet.Estonian.xml */,
+				8BE2EACD1FB27E5000F7543A /* alphabet.ethiopic.xml */,
+				8BE2EABF1FB27E4E00F7543A /* alphabet.ewe.xml */,
+				8BE2EA7D1FB27E4700F7543A /* alphabet.faroese.xml */,
+				8BE2EAD61FB27E5100F7543A /* alphabet.Filipino.xml */,
+				8BE2EAD71FB27E5100F7543A /* alphabet.ga.xml */,
+				8BE2EACC1FB27E5000F7543A /* alphabet.galician.xml */,
+				8BE2EAB01FB27E4D00F7543A /* alphabet.georgian.xml */,
+				8BE2EAE81FB27E5300F7543A /* alphabet.Gujarati.xml */,
+				8BE2EAE31FB27E5300F7543A /* alphabet.hausa.xml */,
+				8BE2EA981FB27E4A00F7543A /* alphabet.Hawaiian.xml */,
+				8BE2EAC11FB27E4F00F7543A /* alphabet.Hindi.xml */,
+				8BE2EAA61FB27E4C00F7543A /* alphabet.Icelandic.xml */,
+				8BE2EAE71FB27E5300F7543A /* alphabet.Igbo.xml */,
+				8BE2EAB61FB27E4D00F7543A /* alphabet.Indonesian.xml */,
+				8BE2EAD91FB27E5100F7543A /* alphabet.ipa.xml */,
+				8BE2EAC71FB27E4F00F7543A /* alphabet.IrishGaelic.xml */,
+				8BE2EAC01FB27E4E00F7543A /* alphabet.iso8859.xml */,
+				8BE2EACE1FB27E5000F7543A /* alphabet.Kannada.xml */,
+				8BE2EAC31FB27E4F00F7543A /* alphabet.Katakana.xml */,
+				8BE2EAC21FB27E4F00F7543A /* alphabet.kazakh.xml */,
+				8BE2EA9F1FB27E4B00F7543A /* alphabet.kirghiz.xml */,
+				8BE2EA911FB27E4A00F7543A /* alphabet.kirundi.xml */,
+				8BE2EAD21FB27E5000F7543A /* alphabet.klingon.xml */,
+				8BE2EAB51FB27E4D00F7543A /* alphabet.korean.xml */,
+				8BE2EAB41FB27E4D00F7543A /* alphabet.koreanNested.xml */,
+				8BE2EAC91FB27E4F00F7543A /* alphabet.kurdish.xml */,
+				8BE2EA871FB27E4900F7543A /* alphabet.lao.xml */,
+				8BE2EAE51FB27E5300F7543A /* alphabet.latex.xml */,
+				8BE2EAAA1FB27E4C00F7543A /* alphabet.latin.xml */,
+				8BE2EAA81FB27E4C00F7543A /* alphabet.latvian.xml */,
+				8BE2EACA1FB27E4F00F7543A /* alphabet.lithuanian.xml */,
+				8BE2EABD1FB27E4E00F7543A /* alphabet.luxembourgish.xml */,
+				8BE2EA881FB27E4900F7543A /* alphabet.macedonian.xml */,
+				8BE2EAB91FB27E4E00F7543A /* alphabet.Malay.xml */,
+				8BE2EAA31FB27E4B00F7543A /* alphabet.Malayalam.xml */,
+				8BE2EA891FB27E4900F7543A /* alphabet.maltese.xml */,
+				8BE2EA841FB27E4800F7543A /* alphabet.Marathi.xml */,
+				8BE2EA921FB27E4A00F7543A /* alphabet.Moldavian.xml */,
+				8BE2EADE1FB27E5200F7543A /* alphabet.myanmar.xml */,
+				8BE2EA7F1FB27E4800F7543A /* alphabet.Ndebele.xml */,
+				8BE2EAEA1FB27E5400F7543A /* alphabet.nepali.xml */,
+				8BE2EADB1FB27E5200F7543A /* alphabet.norwegian.xml */,
+				8BE2EAE61FB27E5300F7543A /* alphabet.occitan.xml */,
+				8BE2EAE41FB27E5300F7543A /* alphabet.ogham.xml */,
+				8BE2EA8B1FB27E4900F7543A /* alphabet.Oriya.xml */,
+				8BE2EA8F1FB27E4900F7543A /* alphabet.pashto.xml */,
+				8BE2EABE1FB27E4E00F7543A /* alphabet.perl.xml */,
+				8BE2EAA41FB27E4C00F7543A /* alphabet.pinyin2.xml */,
+				8BE2EAC81FB27E4F00F7543A /* alphabet.Punjabi.xml */,
+				8BE2EAE91FB27E5300F7543A /* alphabet.Romanian.xml */,
+				8BE2EAC41FB27E4F00F7543A /* alphabet.romansch.xml */,
+				8BE2EAE11FB27E5200F7543A /* alphabet.runic.xml */,
+				8BE2EA9C1FB27E4B00F7543A /* alphabet.Sami.xml */,
+				8BE2EA8C1FB27E4900F7543A /* alphabet.sanskrit.xml */,
+				8BE2EA9E1FB27E4B00F7543A /* alphabet.ScotsGaelic.xml */,
+				8BE2EA9A1FB27E4B00F7543A /* alphabet.Sepedi.xml */,
+				8BE2EAB21FB27E4D00F7543A /* alphabet.serbian.xml */,
+				8BE2EAA21FB27E4B00F7543A /* alphabet.Sesotho.xml */,
+				8BE2EAD51FB27E5100F7543A /* alphabet.Sinhala.xml */,
+				8BE2EAD11FB27E5000F7543A /* alphabet.Slovak.xml */,
+				8BE2EAA11FB27E4B00F7543A /* alphabet.Slovenian.xml */,
+				8BE2EAAF1FB27E4D00F7543A /* alphabet.somali.xml */,
+				8BE2EAA51FB27E4C00F7543A /* alphabet.spyNew.xml */,
+				8BE2EA9B1FB27E4B00F7543A /* alphabet.spyTones2New.xml */,
+				8BE2EAD81FB27E5100F7543A /* alphabet.spyTonesNew.xml */,
+				8BE2EADD1FB27E5200F7543A /* alphabet.Swati.xml */,
+				8BE2EAA71FB27E4C00F7543A /* alphabet.Tajik.xml */,
+				8BE2EA8A1FB27E4900F7543A /* alphabet.Tamil.xml */,
+				8BE2EADF1FB27E5200F7543A /* alphabet.Telugu.xml */,
+				8BE2EA961FB27E4A00F7543A /* alphabet.thaana.xml */,
+				8BE2EADA1FB27E5200F7543A /* alphabet.Thai.xml */,
+				8BE2EAB71FB27E4E00F7543A /* alphabet.Thai2.xml */,
+				8BE2EAAB1FB27E4C00F7543A /* alphabet.tigrinya.xml */,
+				8BE2EA8D1FB27E4900F7543A /* alphabet.Tsonga.xml */,
+				8BE2EAD31FB27E5000F7543A /* alphabet.Tswana.xml */,
+				8BE2EAB81FB27E4E00F7543A /* alphabet.Turkish.xml */,
+				8BE2EA831FB27E4800F7543A /* alphabet.turkmen.xml */,
+				8BE2EAB31FB27E4D00F7543A /* alphabet.ukrainian.xml */,
+				8BE2EA931FB27E4A00F7543A /* alphabet.Urdu.xml */,
+				8BE2EAD41FB27E5100F7543A /* alphabet.uzbek.xml */,
+				8BE2EAB11FB27E4D00F7543A /* alphabet.venda.xml */,
+				8BE2EABB1FB27E4E00F7543A /* alphabet.Vietnamese.xml */,
+				8BE2EA821FB27E4800F7543A /* alphabet.Xhosa.xml */,
+				8BE2EA801FB27E4800F7543A /* alphabet.Yoruba.xml */,
+				8BE2EADC1FB27E5200F7543A /* alphabet.Zulu.xml */,
 				33CBB4E4101FA33E00510BF9 /* alphabet.Greek.xml */,
 				33CBB4E5101FA33E00510BF9 /* alphabet.Hebrew.xml */,
 				33CBB4E6101FA33E00510BF9 /* alphabet.hiragana.xml */,
@@ -964,6 +1317,7 @@
 		332F3495103D8F54008448D7 /* colours */ = {
 			isa = PBXGroup;
 			children = (
+				8BE2EB591FB27E6A00F7543A /* colour.ean.xml */,
 				332F3496103D8F54008448D7 /* colour.blue.xml */,
 				332F3497103D8F54008448D7 /* colour.dtd */,
 				332F3498103D8F54008448D7 /* colour.euroasian.xml */,
@@ -1378,6 +1732,8 @@
 		33627F980F7A82CE000C8818 /* training */ = {
 			isa = PBXGroup;
 			children = (
+				8BE2EA791FB27E2400F7543A /* training_spyNew_fullyAnnotated.txt */,
+				8BE2EA7A1FB27E2400F7543A /* training_spyNew.txt */,
 				33CBB4F4101FA35900510BF9 /* training_basque_ES.txt */,
 				33CBB4C7101F9E5F00510BF9 /* training_czechC_CS.txt */,
 				33CBB4C8101F9E5F00510BF9 /* training_englishLC_GB.txt */,
@@ -1441,6 +1797,9 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0900;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Dasher" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
@@ -1466,44 +1825,88 @@
 			buildActionMask = 2147483647;
 			files = (
 				332BCAB40F71621400585DBD /* expat.dsp in Resources */,
+				8BE2EB1A1FB27E5400F7543A /* alphabet.arabic.xml in Resources */,
+				8BE2EB331FB27E5400F7543A /* alphabet.cherokee.xml in Resources */,
 				332BCAB50F71621400585DBD /* expat_static.dsp in Resources */,
 				332BCAB60F71621400585DBD /* expatw.dsp in Resources */,
+				8BE2EB3B1FB27E5400F7543A /* alphabet.ethiopic.xml in Resources */,
 				332BCAB70F71621400585DBD /* expatw_static.dsp in Resources */,
+				8BE2EB0E1FB27E5400F7543A /* alphabet.afrikaans.xml in Resources */,
 				332BCAB80F71621400585DBD /* libexpat.def in Resources */,
+				8BE2EAEE1FB27E5400F7543A /* alphabet.Yoruba.xml in Resources */,
 				332BCAB90F71621400585DBD /* libexpatw.def in Resources */,
+				8BE2EB531FB27E5400F7543A /* alphabet.latex.xml in Resources */,
 				3344FE380F71717C00506EAA /* DasherViewSquare.inl in Resources */,
 				33627FBA0F7A82CF000C8818 /* training_albanian_SQ.txt in Resources */,
 				33627FBD0F7A82CF000C8818 /* training_bengali_BD.txt in Resources */,
+				8BE2EB291FB27E5400F7543A /* alphabet.Vietnamese.xml in Resources */,
+				8B9329E01FA8DC1E005159D5 /* Images.xcassets in Resources */,
+				8BE2EB321FB27E5400F7543A /* alphabet.romansch.xml in Resources */,
+				8BE2EB661FB2891500F7543A /* fast-forward@3x.png in Resources */,
 				33627FBF0F7A82CF000C8818 /* training_canna_JP.txt in Resources */,
+				8BE2EB301FB27E5400F7543A /* alphabet.kazakh.xml in Resources */,
 				33627FC10F7A82CF000C8818 /* training_czech_CS.txt in Resources */,
+				8BE2EB391FB27E5400F7543A /* alphabet.Austen.xml in Resources */,
+				8BE2EB491FB27E5400F7543A /* alphabet.norwegian.xml in Resources */,
+				8BE2EB1E1FB27E5400F7543A /* alphabet.georgian.xml in Resources */,
 				33627FC20F7A82CF000C8818 /* training_danish_DK.txt in Resources */,
 				33627FC40F7A82CF000C8818 /* training_dutch_NL.txt in Resources */,
+				8BE2EAED1FB27E5400F7543A /* alphabet.Ndebele.xml in Resources */,
 				33627FC50F7A82CF000C8818 /* training_english_GB.txt in Resources */,
+				8BE2EB281FB27E5400F7543A /* alphabet.bopomofo.xml in Resources */,
 				33627FC60F7A82CF000C8818 /* training_finnish_FI.txt in Resources */,
 				33627FC70F7A82CF000C8818 /* training_french_FR.txt in Resources */,
 				33627FC80F7A82CF000C8818 /* training_german_DE.txt in Resources */,
+				8BE2EB2F1FB27E5400F7543A /* alphabet.Hindi.xml in Resources */,
+				8BE2EB651FB2891500F7543A /* fast-forward@2x.png in Resources */,
+				8BE2EAF41FB27E5400F7543A /* alphabet.bosnian.xml in Resources */,
+				8BE2EB3E1FB27E5400F7543A /* alphabet.adangbe.xml in Resources */,
 				33627FC90F7A82CF000C8818 /* training_greek_GR.txt in Resources */,
 				33627FCA0F7A82CF000C8818 /* training_hebrew_IL.txt in Resources */,
 				33627FCB0F7A82CF000C8818 /* training_hiragana60_JP.txt in Resources */,
+				8BE2EB4A1FB27E5400F7543A /* alphabet.Zulu.xml in Resources */,
 				33627FCC0F7A82CF000C8818 /* training_hiragana83_JP.txt in Resources */,
+				8BE2EB021FB27E5400F7543A /* alphabet.Esperanto.xml in Resources */,
+				8BE2EB1B1FB27E5400F7543A /* alphabet_langcodes.txt in Resources */,
 				33627FCD0F7A82CF000C8818 /* training_hungarian_HU.txt in Resources */,
+				8BE2EB1C1FB27E5400F7543A /* alphabet.bopoTrad.xml in Resources */,
 				33627FCE0F7A82CF000C8818 /* training_italian_IT.txt in Resources */,
 				33627FCF0F7A82CF000C8818 /* training_mongolian_MN.txt in Resources */,
+				8BE2EB551FB27E5400F7543A /* alphabet.Igbo.xml in Resources */,
 				33627FD00F7A82CF000C8818 /* training_persian_IR.txt in Resources */,
 				33627FD10F7A82CF000C8818 /* training_polish_PL.txt in Resources */,
+				8BE2EB1F1FB27E5400F7543A /* alphabet.venda.xml in Resources */,
+				8BE2EB581FB27E5400F7543A /* alphabet.nepali.xml in Resources */,
+				8BE2EB111FB27E5400F7543A /* alphabet.Malayalam.xml in Resources */,
 				33627FD20F7A82CF000C8818 /* training_portuguese_BR.txt in Resources */,
+				8BE2EB541FB27E5400F7543A /* alphabet.occitan.xml in Resources */,
 				33627FD30F7A82CF000C8818 /* training_russian_RU.txt in Resources */,
+				8BE2EB3C1FB27E5400F7543A /* alphabet.Kannada.xml in Resources */,
 				33627FD40F7A82CF000C8818 /* training_spanish_ES.txt in Resources */,
 				33627FD50F7A82CF000C8818 /* training_swahili_KE.txt in Resources */,
+				8BE2EB201FB27E5400F7543A /* alphabet.serbian.xml in Resources */,
 				33627FD60F7A82CF000C8818 /* training_swedish_SE.txt in Resources */,
+				8BE2EB2D1FB27E5400F7543A /* alphabet.ewe.xml in Resources */,
 				33627FD70F7A82CF000C8818 /* training_turkish_TR.txt in Resources */,
+				8BE2EAFF1FB27E5400F7543A /* alphabet.kirundi.xml in Resources */,
+				8BE2EAFC1FB27E5400F7543A /* alphabet.abc.xml in Resources */,
 				33627FD80F7A82CF000C8818 /* training_welsh_GB.txt in Resources */,
+				8BE2EB2C1FB27E5400F7543A /* alphabet.perl.xml in Resources */,
 				331F29430F7A9C270044EB9C /* alphabet-nest.xsl in Resources */,
 				331F29440F7A9C270044EB9C /* alphabet-nest2.xsl in Resources */,
+				8BE2EB231FB27E5400F7543A /* alphabet.korean.xml in Resources */,
+				8BE2EAFE1FB27E5400F7543A /* alphabet.Azerbaijani.xml in Resources */,
+				8BE2EB401FB27E5400F7543A /* alphabet.klingon.xml in Resources */,
 				331F294A0F7A9C270044EB9C /* alphabet.albanian.xml in Resources */,
+				8BE2EB011FB27E5400F7543A /* alphabet.Urdu.xml in Resources */,
 				331F295E0F7A9C270044EB9C /* alphabet.czech.xml in Resources */,
+				8BE2EB4D1FB27E5400F7543A /* alphabet.Telugu.xml in Resources */,
 				331F295F0F7A9C270044EB9C /* alphabet.danish.xml in Resources */,
+				8BE2EB191FB27E5400F7543A /* alphabet.tigrinya.xml in Resources */,
+				8BE2EB2A1FB27E5400F7543A /* alphabet.amharic.xml in Resources */,
+				8BE2EB571FB27E5400F7543A /* alphabet.Romanian.xml in Resources */,
 				331F29600F7A9C270044EB9C /* alphabet.dtd in Resources */,
+				8BE2EB2E1FB27E5400F7543A /* alphabet.iso8859.xml in Resources */,
 				331F29610F7A9C270044EB9C /* alphabet.dutch.xml in Resources */,
 				331F29620F7A9C270044EB9C /* alphabet.english.xml in Resources */,
 				331F29630F7A9C270044EB9C /* alphabet.englishC.xml in Resources */,
@@ -1511,13 +1914,21 @@
 				331F296B0F7A9C270044EB9C /* alphabet.finnish2.xml in Resources */,
 				331F296C0F7A9C270044EB9C /* alphabet.french.xml in Resources */,
 				331F29700F7A9C270044EB9C /* alphabet.german.xml in Resources */,
+				8BE2EB061FB27E5400F7543A /* alphabet.Hawaiian.xml in Resources */,
+				8BE2EB4F1FB27E5400F7543A /* alphabet.runic.xml in Resources */,
 				331F297F0F7A9C270044EB9C /* alphabet.italian.xml in Resources */,
 				331F29A30F7A9C270044EB9C /* alphabet.polish.xml in Resources */,
 				331F29A90F7A9C270044EB9C /* alphabet.russian.xml in Resources */,
+				8BE2EB361FB27E5400F7543A /* alphabet.Punjabi.xml in Resources */,
+				8BE2EB441FB27E5400F7543A /* alphabet.Filipino.xml in Resources */,
+				8BE2EB241FB27E5400F7543A /* alphabet.Indonesian.xml in Resources */,
+				8BE2EB501FB27E5400F7543A /* alphabet.cangjie.xml in Resources */,
 				331F29B40F7A9C270044EB9C /* alphabet.spanish.xml in Resources */,
 				331F29B50F7A9C270044EB9C /* alphabet.swahili.xml in Resources */,
+				8BE2EAEF1FB27E5400F7543A /* alphabet.Belarusian.xml in Resources */,
 				331F29C80F7A9C270044EB9C /* alphabet.welsh.xml in Resources */,
 				331F29CA0F7A9C270044EB9C /* alphabet.xsl in Resources */,
+				8BE2EB251FB27E5400F7543A /* alphabet.Thai2.xml in Resources */,
 				331F29CB0F7A9C270044EB9C /* alphabet.xsl.good in Resources */,
 				33F879F70FB1C27A003E737C /* Dasher.png in Resources */,
 				33F87A240FB1C775003E737C /* MainWindow.xib in Resources */,
@@ -1526,52 +1937,117 @@
 				3334D99A101627A00077948A /* alphabet.hungarian.xml in Resources */,
 				3334D99C101627DE0077948A /* alphabet.mongolian.xml in Resources */,
 				33CBB4CD101F9E5F00510BF9 /* training_czechC_CS.txt in Resources */,
+				8BE2EAF51FB27E5400F7543A /* alphabet.lao.xml in Resources */,
+				8BE2EB121FB27E5400F7543A /* alphabet.pinyin2.xml in Resources */,
 				33CBB4CE101F9E5F00510BF9 /* training_englishLC_GB.txt in Resources */,
 				33CBB4CF101F9E5F00510BF9 /* training_frenchC_FR.txt in Resources */,
+				8BE2EB631FB2891500F7543A /* rewind@3x.png in Resources */,
 				33CBB4D0101F9E5F00510BF9 /* training_italianC_IT.txt in Resources */,
+				8BE2EB421FB27E5400F7543A /* alphabet.uzbek.xml in Resources */,
 				33CBB4D1101F9E5F00510BF9 /* training_portugueseC_BR.txt in Resources */,
+				8BE2EB411FB27E5400F7543A /* alphabet.Tswana.xml in Resources */,
+				8BE2EB311FB27E5400F7543A /* alphabet.Katakana.xml in Resources */,
 				33CBB4D2101F9E5F00510BF9 /* training_spanishC_ES.txt in Resources */,
+				8BE2EB161FB27E5400F7543A /* alphabet.latvian.xml in Resources */,
 				33CBB4E3101FA31C00510BF9 /* alphabet.basque.xml in Resources */,
+				8BE2EB461FB27E5400F7543A /* alphabet.spyTonesNew.xml in Resources */,
+				8BE2EAEC1FB27E5400F7543A /* alphabet.Estonian.xml in Resources */,
 				33CBB4EC101FA33E00510BF9 /* alphabet.Greek.xml in Resources */,
 				33CBB4ED101FA33E00510BF9 /* alphabet.Hebrew.xml in Resources */,
 				33CBB4EE101FA33E00510BF9 /* alphabet.hiragana.xml in Resources */,
 				33CBB4EF101FA33E00510BF9 /* alphabet.hiragana2.xml in Resources */,
 				33CBB4F0101FA33E00510BF9 /* alphabet.japanese.canna.xml in Resources */,
+				8BE2EB221FB27E5400F7543A /* alphabet.koreanNested.xml in Resources */,
+				8BE2EB0B1FB27E5400F7543A /* alphabet.catalan.xml in Resources */,
 				33CBB4F1101FA33E00510BF9 /* alphabet.persian.xml in Resources */,
+				8BE2EAF91FB27E5400F7543A /* alphabet.Oriya.xml in Resources */,
 				33CBB4F2101FA33E00510BF9 /* alphabet.portuguese.xml in Resources */,
+				8BE2EB131FB27E5400F7543A /* alphabet.spyNew.xml in Resources */,
+				8BE2EB5A1FB27E6B00F7543A /* colour.ean.xml in Resources */,
+				8BE2EAF01FB27E5400F7543A /* alphabet.Xhosa.xml in Resources */,
 				33CBB4F3101FA33E00510BF9 /* alphabet.swedish.xml in Resources */,
+				8BE2EAF81FB27E5400F7543A /* alphabet.Tamil.xml in Resources */,
+				8BE2EB171FB27E5400F7543A /* alphabet.Armenian.xml in Resources */,
+				8BE2EAF71FB27E5400F7543A /* alphabet.maltese.xml in Resources */,
+				8BE2EB3D1FB27E5400F7543A /* alphabet.Assamese.xml in Resources */,
 				33CBB4F5101FA35900510BF9 /* training_basque_ES.txt in Resources */,
+				8BE2EB521FB27E5400F7543A /* alphabet.ogham.xml in Resources */,
 				33F61A5510123FBE00DB7685 /* mail.png in Resources */,
 				3334D44C1013620D0077948A /* cog.png in Resources */,
 				3334D49210137A1C0077948A /* pen.png in Resources */,
+				8BE2EB3F1FB27E5400F7543A /* alphabet.Slovak.xml in Resources */,
 				3334D4A3101385060077948A /* tilt.png in Resources */,
 				3334D4BC1014713B0077948A /* globe.png in Resources */,
+				8BE2EAF11FB27E5400F7543A /* alphabet.turkmen.xml in Resources */,
 				3334D4D31014740B0077948A /* misc.png in Resources */,
+				8BE2EB211FB27E5400F7543A /* alphabet.ukrainian.xml in Resources */,
 				332F34A3103D8F54008448D7 /* colour.blue.xml in Resources */,
+				8BE2EB511FB27E5400F7543A /* alphabet.hausa.xml in Resources */,
+				8BE2EB181FB27E5400F7543A /* alphabet.latin.xml in Resources */,
+				8BE2EB471FB27E5400F7543A /* alphabet.ipa.xml in Resources */,
 				332F34A4103D8F54008448D7 /* colour.dtd in Resources */,
+				8BE2EB051FB27E5400F7543A /* alphabet.corsican.xml in Resources */,
+				8BE2EB001FB27E5400F7543A /* alphabet.Moldavian.xml in Resources */,
 				332F34A5103D8F54008448D7 /* colour.euroasian.xml in Resources */,
+				8BE2EAF21FB27E5400F7543A /* alphabet.Marathi.xml in Resources */,
+				8BE2EB071FB27E5400F7543A /* alphabet.croatian.xml in Resources */,
+				8BE2EA7C1FB27E2500F7543A /* training_spyNew.txt in Resources */,
+				8BE2EB1D1FB27E5400F7543A /* alphabet.somali.xml in Resources */,
 				332F34A6103D8F54008448D7 /* colour.euroasian2.xml in Resources */,
 				332F34A7103D8F54008448D7 /* colour.euroasian3.xml in Resources */,
+				8BE2EB031FB27E5400F7543A /* alphabet.AfaanOromo.xml in Resources */,
+				8BE2EB271FB27E5400F7543A /* alphabet.Malay.xml in Resources */,
+				8BE2EB481FB27E5400F7543A /* alphabet.Thai.xml in Resources */,
 				332F34A8103D8F54008448D7 /* colour.jamie.xml in Resources */,
+				8BE2EB0D1FB27E5400F7543A /* alphabet.kirghiz.xml in Resources */,
+				8BE2EB0F1FB27E5400F7543A /* alphabet.Slovenian.xml in Resources */,
+				8BE2EB341FB27E5400F7543A /* alphabet.breton.xml in Resources */,
+				8BE2EB091FB27E5400F7543A /* alphabet.spyTones2New.xml in Resources */,
+				8BE2EB151FB27E5400F7543A /* alphabet.Tajik.xml in Resources */,
 				332F34A9103D8F54008448D7 /* colour.rainbow.xml in Resources */,
+				8BE2EB261FB27E5400F7543A /* alphabet.Turkish.xml in Resources */,
+				8BE2EAEB1FB27E5400F7543A /* alphabet.faroese.xml in Resources */,
+				8BE2EB381FB27E5400F7543A /* alphabet.lithuanian.xml in Resources */,
 				332F34AA103D8F54008448D7 /* colour.thai.xml in Resources */,
+				8BE2EB4B1FB27E5400F7543A /* alphabet.Swati.xml in Resources */,
+				8BE2EB081FB27E5400F7543A /* alphabet.Sepedi.xml in Resources */,
+				8BE2EB431FB27E5400F7543A /* alphabet.Sinhala.xml in Resources */,
+				8BE2EB0A1FB27E5400F7543A /* alphabet.Sami.xml in Resources */,
 				332F34AB103D8F54008448D7 /* colour.vowels.xml in Resources */,
 				332F34AC103D8F54008448D7 /* colour.vowels2.xml in Resources */,
+				8BE2EAFD1FB27E5400F7543A /* alphabet.pashto.xml in Resources */,
+				8BE2EAF61FB27E5400F7543A /* alphabet.macedonian.xml in Resources */,
+				8BE2EA7B1FB27E2500F7543A /* training_spyNew_fullyAnnotated.txt in Resources */,
 				332F34AD103D8F54008448D7 /* colour.xml in Resources */,
 				332F34AE103D8F54008448D7 /* colour.xsl in Resources */,
+				8BE2EAF31FB27E5400F7543A /* alphabet.akan.xml in Resources */,
+				8BE2EB4C1FB27E5400F7543A /* alphabet.myanmar.xml in Resources */,
 				332F34AF103D8F54008448D7 /* Makefile.am in Resources */,
 				332F34D9103D9858008448D7 /* palette.png in Resources */,
+				8BE2EB4E1FB27E5400F7543A /* alphabet.Bulgarian.xml in Resources */,
 				333F707711A8AA66002E2BDF /* us_pos.tree in Resources */,
+				8BE2EB141FB27E5400F7543A /* alphabet.Icelandic.xml in Resources */,
 				33DA5E2D11B70FA100011CD2 /* paste.png in Resources */,
 				3302672811B7F0D000C07880 /* copy.png in Resources */,
+				8BE2EB3A1FB27E5400F7543A /* alphabet.galician.xml in Resources */,
 				3302675611B7F80800C07880 /* bubble.png in Resources */,
+				8BE2EB041FB27E5400F7543A /* alphabet.thaana.xml in Resources */,
 				3302675711B7F80800C07880 /* bubbletrash.png in Resources */,
+				8BE2EB0C1FB27E5400F7543A /* alphabet.ScotsGaelic.xml in Resources */,
+				8BE2EB561FB27E5400F7543A /* alphabet.Gujarati.xml in Resources */,
 				3302678111B8026900C07880 /* scissors.png in Resources */,
+				8BE2EB451FB27E5400F7543A /* alphabet.ga.xml in Resources */,
 				3302678C11B8040D00C07880 /* spanner_lg.png in Resources */,
+				8BE2EB2B1FB27E5400F7543A /* alphabet.luxembourgish.xml in Resources */,
 				3302678D11B8040D00C07880 /* spanner.png in Resources */,
+				8BE2EAFB1FB27E5400F7543A /* alphabet.Tsonga.xml in Resources */,
+				8BE2EB101FB27E5400F7543A /* alphabet.Sesotho.xml in Resources */,
+				8BE2EB351FB27E5400F7543A /* alphabet.IrishGaelic.xml in Resources */,
+				8BE2EAFA1FB27E5400F7543A /* alphabet.sanskrit.xml in Resources */,
 				3378A267133543B800A96C5D /* control.xml in Resources */,
 				3304E31313C6121A000B2971 /* Default~ipad.png in Resources */,
 				339E340E13C6206E007A2BCC /* Default.png in Resources */,
+				8BE2EB371FB27E5400F7543A /* alphabet.kurdish.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1601,6 +2077,7 @@
 				3344FE210F71717C00506EAA /* ColourIO.cpp in Sources */,
 				3344FE220F71717C00506EAA /* ControlManager.cpp in Sources */,
 				3344FE240F71717C00506EAA /* ConversionManager.cpp in Sources */,
+				94A831C71F79274F0017BA2D /* FileUtils.mm in Sources */,
 				3344FE260F71717C00506EAA /* CustomColours.cpp in Sources */,
 				3344FE270F71717C00506EAA /* DasherButtons.cpp in Sources */,
 				3344FE310F71717C00506EAA /* DasherInterfaceBase.cpp in Sources */,
@@ -1761,13 +2238,29 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = "";
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Dasher_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-stdlib=libc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.uk.acecentre.dasher;
 				PRODUCT_NAME = Dasher;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -1775,32 +2268,70 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Alan Lawrence (YB2RM5STT4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = K45HHA96ND;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Dasher_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-stdlib=libc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.uk.acecentre.dasher;
 				PRODUCT_NAME = Dasher;
+				PROVISIONING_PROFILE = "ff8b4df8-6a9a-44fc-b876-16bead9f9001";
+				PROVISIONING_PROFILE_SPECIFIER = "Dasher-Dist";
 			};
 			name = Release;
 		};
 		33B24B510FB1D08C0016C8DE /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					HAVE_EXPAT_CONFIG_H,
 					HAVE_CONFIG_H,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"${SRCROOT}/lib",
 					"${SRCROOT}",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -1812,37 +2343,73 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = K45HHA96ND;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Dasher_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-stdlib=libc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.uk.acecentre.dasher;
 				PRODUCT_NAME = Dasher;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ff8b4df8-6a9a-44fc-b876-16bead9f9001";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Dasher-Dist";
 			};
 			name = Distribution;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					HAVE_EXPAT_CONFIG_H,
 					HAVE_CONFIG_H,
 					DEBUG,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"${SRCROOT}/lib",
 					"${SRCROOT}",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "";
@@ -1855,21 +2422,42 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					HAVE_EXPAT_CONFIG_H,
 					HAVE_CONFIG_H,
 				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"${SRCROOT}/lib",
 					"${SRCROOT}",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";

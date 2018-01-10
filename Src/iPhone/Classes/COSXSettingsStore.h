@@ -24,6 +24,8 @@ public:
   std::string GetParamName(int iParameter);
 
   //int GetParameterIndex(const std::string &  Key);
+    
+  bool IsParameterSaved(const std::string & Key);
 
 private:
 

@@ -12,5 +12,5 @@
 unsigned long get_time();
 
 NSString *NSStringFromStdString(const std::string& aString);
-std::string StdStringFromNSString(NSString *aString);
+std::string StdStringFromNSString(const NSString *const aString);
 

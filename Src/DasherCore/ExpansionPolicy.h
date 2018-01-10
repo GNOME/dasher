@@ -23,7 +23,7 @@ namespace Dasher {
 class CExpansionPolicy
 {
 public:
-  virtual ~CExpansionPolicy() = default;
+    virtual ~CExpansionPolicy() { };
   ///dMaxCost should be the value returned by pushNode from the call for the node most closely enclosing pNode (that was pushed!)
   ///for the first (outermost) node, i.e. when no enclosing node has been passed, (+ive) INFINITY should be passed in.
 	virtual double pushNode(CDasherNode *pNode, int iDasherMinY, int iDasherMaxY, bool bExpand, double dMaxCost)=0;
@@ -43,7 +43,6 @@ class NoExpansions : public CExpansionPolicy
 {
 public:
   NoExpansions() = default;
-  ~NoExpansions() override = default;
 	double pushNode(CDasherNode *pNode, int iMin, int iMax, bool bExpand, double dMaxCost) override {return dMaxCost;}
   bool apply() override {return false;}
 };
@@ -54,7 +53,6 @@ class BudgettingPolicy : public CExpansionPolicy
 {
 public:
   BudgettingPolicy(CDasherModel *pModel, unsigned int iNodeBudget);
-  ~BudgettingPolicy() override = default;
   ///sets cost according to getCost(pNode,iMin,iMax);
   ///then assures node is cheaper (less important) than its parent;
   ///then adds to relevant queue

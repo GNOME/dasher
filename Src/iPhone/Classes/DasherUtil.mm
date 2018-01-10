@@ -34,7 +34,7 @@ NSString *NSStringFromStdString(const std::string& aString)
   return [NSString stringWithUTF8String:aString.c_str()];
 }
 
-std::string StdStringFromNSString(NSString *aString)
+std::string StdStringFromNSString(const NSString *const aString)
 {
   std::string result;
 

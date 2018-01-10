@@ -324,7 +324,7 @@ public:
 
     return pNode->mgr()->GetDasherInterface()->ctrlOffsetAfterMove(offsetBefore + 1, m_bForwards, m_dist) - 1;
   }
-  virtual void happen(CControlBase::CContNode *pNode) {
+  virtual void happen(CControlBase::CContNode *pNode) override {
     pNode->mgr()->GetDasherInterface()->ctrlDelete(m_bForwards, m_dist);
   }
 };

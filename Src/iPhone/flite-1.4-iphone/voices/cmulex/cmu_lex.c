@@ -356,7 +356,7 @@ cst_lexicon *cmu_lex_init()
 #ifdef CST_NO_STATIC_LEX
     /* cmu_lex.data will be set elsewhere */
 #else
-    cmu_lex.data = cmu_lex_data;
+    cmu_lex.data = (unsigned char*)cmu_lex_data;
 #endif
     cmu_lex.num_bytes = cmu_lex_num_bytes;
     cmu_lex.phone_table = (char **) cmu_lex_phone_table;
