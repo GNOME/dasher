@@ -1,25 +1,25 @@
-# Hungarian translation of dasher.
-# Copyright (C) 2004-2016 Free Software Foundation, Inc.
+# Hungarian translation for dasher.
+# Copyright (C) 2004, 2006, 2007, 2008, 2009, 2010, 2013, 2014, 2016, 2018 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dasher package.
 #
-# Andras Timar <timar at gnome dot hu>, 2004.
-# Laszlo Dvornik <dvornik at gnome dot hu>, 2004.
-# Gabor Kelemen <kelemeng at gnome dot hu>, 2006, 2007, 2008, 2009, 2010.
-# Balázs Úr <urbalazs at gmail dot com>, 2013, 2014, 2016.
+# András Tímár <timar at gnome dot hu>, 2004.
+# László Dvornik <dvornik at gnome dot hu>, 2004.
+# Gábor Kelemen <kelemeng at gnome dot hu>, 2006, 2007, 2008, 2009, 2010.
+# Balázs Úr <urbalazs at gmail dot com>, 2013, 2014, 2016, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-09-01 16:47+0000\n"
-"PO-Revision-Date: 2016-09-01 20:34+0200\n"
-"Last-Translator: Meskó Balázs <meskobalazs@gmail.com>\n"
+"POT-Creation-Date: 2018-01-31 16:25+0000\n"
+"PO-Revision-Date: 2018-02-25 21:22+0100\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <gnome at fsf dot hu>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Lokalize 1.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
@@ -40,7 +40,6 @@ msgstr "Szövegbevitel billentyűzet nélkül"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: Data/dasher.desktop.in.in:8
-#| msgid "Dasher"
 msgid "dasher"
 msgstr "dasher"
 
@@ -394,35 +393,39 @@ msgstr "Összes felolvasása leállításkor"
 msgid "Speak words as you write"
 msgstr "Szavak felolvasása írás közben"
 
-#: Data/GUI/dasher.preferences.ui:1297
+#: Data/GUI/dasher.preferences.ui:1283
+msgid "Confirm unsaved files"
+msgstr "Nem mentett fájlok megerősítése"
+
+#: Data/GUI/dasher.preferences.ui:1314
 msgid "Editor Font"
 msgstr "Szerkesztő betűkészlete"
 
-#: Data/GUI/dasher.preferences.ui:1315
+#: Data/GUI/dasher.preferences.ui:1332
 msgid "Select Editor Font"
 msgstr "Szerkesztő betűkészletének kiválasztása"
 
-#: Data/GUI/dasher.preferences.ui:1343
+#: Data/GUI/dasher.preferences.ui:1360
 msgid "Application Style"
 msgstr "Alkalmazás stílusa"
 
-#: Data/GUI/dasher.preferences.ui:1365
+#: Data/GUI/dasher.preferences.ui:1382
 msgid "Stand-alone"
 msgstr "Önálló"
 
-#: Data/GUI/dasher.preferences.ui:1380
+#: Data/GUI/dasher.preferences.ui:1397
 msgid "Composition"
 msgstr "Kompozíció"
 
-#: Data/GUI/dasher.preferences.ui:1397
+#: Data/GUI/dasher.preferences.ui:1414
 msgid "Direct entry"
 msgstr "Közvetlen bevitel"
 
-#: Data/GUI/dasher.preferences.ui:1414
+#: Data/GUI/dasher.preferences.ui:1431
 msgid "Full Screen"
 msgstr "Teljes képernyő"
 
-#: Data/GUI/dasher.preferences.ui:1454
+#: Data/GUI/dasher.preferences.ui:1471
 msgid "A_pplication"
 msgstr "_Alkalmazás"
 
@@ -450,7 +453,7 @@ msgstr "_Hozzáfűzés fájlhoz…"
 msgid "_Import Training Text…"
 msgstr "Gyakorlószöveg _importálása…"
 
-#: Data/GUI/dasher.traditional.ui:65 Src/Gtk2/dasher_main.cpp:960
+#: Data/GUI/dasher.traditional.ui:65 Src/Gtk2/dasher_main.cpp:966
 msgid "Quit"
 msgstr "Kilépés"
 
@@ -487,7 +490,7 @@ msgid "_About…"
 msgstr "_Névjegy…"
 
 #: Data/GUI/dasher.traditional.ui:134
-#: Src/DasherCore/DasherInterfaceBase.cpp:795
+#: Src/DasherCore/DasherInterfaceBase.cpp:797
 msgid "Direct Mode"
 msgstr "Közvetlen mód"
 
@@ -616,7 +619,7 @@ msgstr "Iránytű mód"
 
 #. /TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
 #. / refers to a setting name in gsettings or equivalent, and should not be translated.
-#: Src/DasherCore/DasherInterfaceBase.cpp:314
+#: Src/DasherCore/DasherInterfaceBase.cpp:316
 #, c-format
 msgid ""
 "Could not find game sentences file for %s - check alphabet definition, or "
@@ -625,12 +628,12 @@ msgstr ""
 "Nem található a játék mondat fájl ehhez: %s - ellenőrizze az ábécé "
 "meghatározást, vagy írja felül a GameTextFile beállítással"
 
-#: Src/DasherCore/DasherInterfaceBase.cpp:784
+#: Src/DasherCore/DasherInterfaceBase.cpp:786
 msgid "Normal Control"
 msgstr "Normális vezérlés"
 
 #. TODO: specialist factory for button mode
-#: Src/DasherCore/DasherInterfaceBase.cpp:794
+#: Src/DasherCore/DasherInterfaceBase.cpp:796
 msgid "Menu Mode"
 msgstr "Menü mód"
 
@@ -760,10 +763,7 @@ msgstr ""
 "Figyelmeztetés: a gyakorlófájlban a(z) „<%s>” magyarázatot egy másik "
 "magyarázat követi és mellőzve lesz"
 
-#. /TRANSLATORS: first string will be the filename; after the end of the string,
-#. / some number of output (e.g. Chinese) characters will be appended,
-#. / the number of which is the integer here
-#: Src/DasherCore/MandarinAlphMgr.cpp:244
+#: Src/DasherCore/MandarinAlphMgr.cpp:247
 #, c-format
 msgid ""
 "In file %s, the following %i symbol appeared without annotations saying how "
@@ -779,6 +779,18 @@ msgstr[0] ""
 "Dasher nem lesz képes megtanulni, hogy hogyan szeretné megadni ezt a "
 "szimbólumot:"
 msgstr[1] ""
+"A(z) %s fájlban a következő %i szimbólum jelent meg magyarázatok nélkül, "
+"amelyek megmondják, hogyan kellene megadni, de megadhatók számos módon. A "
+"Dasher nem lesz képes megtanulni, hogy hogyan szeretné megadni ezeket a "
+"szimbólumokat:"
+
+#: Src/DasherCore/MandarinAlphMgr.cpp:251
+#, c-format
+msgid ""
+"In file %s, the following %i symbols appeared without annotations saying how "
+"they should be entered, but each can be entered in several ways. Dasher will "
+"not be able to learn how you want to enter these symbols:"
+msgstr ""
 "A(z) %s fájlban a következő %i szimbólum jelent meg magyarázatok nélkül, "
 "amelyek megmondják, hogyan kellene megadni, de megadhatók számos módon. A "
 "Dasher nem lesz képes megtanulni, hogy hogyan szeretné megadni ezeket a "
@@ -1112,6 +1124,16 @@ msgstr "Egész paraméterek"
 msgid "String parameters"
 msgstr "Karakterlánc paraméterek"
 
+#. Note to translators: This is the version keyword showing for the command line option "--version"
+#: Src/Gtk2/DasherAppSettings.cpp:161
+msgid "Version"
+msgstr "Verzió"
+
+#. Note to translators: This is the license keyword showing for the command line option "--version"
+#: Src/Gtk2/DasherAppSettings.cpp:163
+msgid "License"
+msgstr "Licenc"
+
 #: Src/Gtk2/dasher_editor.cpp:812 Src/Gtk2/dasher_main.cpp:550
 #: Src/Gtk2/dasher_main.cpp:885
 msgid "_Open"
@@ -1173,7 +1195,7 @@ msgstr "Nem"
 msgid "Yes"
 msgstr "Igen"
 
-#: Src/Gtk2/dasher_main.cpp:922
+#: Src/Gtk2/dasher_main.cpp:928
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1184,7 +1206,7 @@ msgstr ""
 "\n"
 "Ha nem menti őket, akkor változtatásai elvesznek."
 
-#: Src/Gtk2/dasher_main.cpp:929
+#: Src/Gtk2/dasher_main.cpp:935
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1194,31 +1216,31 @@ msgstr ""
 "\n"
 "Ha nem menti őket, akkor változtatásai elvesznek."
 
-#: Src/Gtk2/dasher_main.cpp:935
+#: Src/Gtk2/dasher_main.cpp:941
 msgid "Quit without saving"
 msgstr "Kilépés mentés nélkül"
 
-#: Src/Gtk2/dasher_main.cpp:936 Src/Gtk2/dasher_main.cpp:959
+#: Src/Gtk2/dasher_main.cpp:942 Src/Gtk2/dasher_main.cpp:965
 msgid "Don't quit"
 msgstr "Nem lépek ki"
 
-#: Src/Gtk2/dasher_main.cpp:937
+#: Src/Gtk2/dasher_main.cpp:943
 msgid "Save and quit"
 msgstr "Mentés és kilépés"
 
-#: Src/Gtk2/dasher_main.cpp:956
+#: Src/Gtk2/dasher_main.cpp:962
 msgid "Are you sure you wish to quit?"
 msgstr "Biztosan ki akar lépni?"
 
-#: Src/Gtk2/dasher_main.cpp:998
+#: Src/Gtk2/dasher_main.cpp:1004
 msgid "Unable to open help file"
 msgstr "A súgófájl nem nyitható meg"
 
-#: Src/Gtk2/dasher_main.cpp:1050
+#: Src/Gtk2/dasher_main.cpp:1056
 msgid "Dasher is a predictive text entry application"
 msgstr "A Dasher egy prediktív szövegbeviteli alkalmazás"
 
-#: Src/Gtk2/dasher_main.cpp:1055
+#: Src/Gtk2/dasher_main.cpp:1061
 msgid "translator-credits"
 msgstr ""
 "Dvornik László <dvornik@gnome.hu>\n"
@@ -1252,7 +1274,7 @@ msgstr "Az Y tartományt lefedő képpontok"
 msgid "One Dimensional Mouse Input"
 msgstr "Egydimenziós egérbemenet"
 
-#: Src/Gtk2/Preferences.cpp:437
+#: Src/Gtk2/Preferences.cpp:438
 msgid "Action"
 msgstr "Művelet"
 
@@ -1261,140 +1283,39 @@ msgstr "Művelet"
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
-#: Src/main.cc:161
+#: Src/main.cc:162
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr ""
 "Alkalmazás stílusa (a traditional, direct, compose vagy fullscreen egyike)"
 
 #. Note to translators: This is the help string for "--options"
-#: Src/main.cc:163
+#: Src/main.cc:164
 msgid "Override stored options"
 msgstr "Tárolt beállítások felülbírálása"
 
-#: Src/main.cc:164
+#: Src/main.cc:165
 msgid "XML configuration file name"
 msgstr "XML-beállítófájlnév"
 
 #. Note to translators: This is the help string for "--help-options"
-#: Src/main.cc:166
+#: Src/main.cc:167
 msgid "Describe \"--options\"."
 msgstr "A „--options” leírása."
 
+#. Note to translators: This is the help string for "--version"
+#: Src/main.cc:169
+msgid "Show the version details."
+msgstr "A verziórészletek megjelenítése."
+
 #. parse command line options
 #. Note to translators: This is the "--help" description of dasher.
-#: Src/main.cc:172
+#: Src/main.cc:175
 msgid "- A text input application honouring accessibility"
 msgstr ""
 "– Szövegbeviteli alkalmazás, amely figyelembe veszi az akadálymentesítést"
 
-#~ msgid "Auto-increasing speed to %0.2f"
-#~ msgstr "Sebesség automatikus növelése %0.2f értékig"
+#. Note to translators: This is the help string for unrecognized command line options. Do not translate 'dasher --help' part.
+#: Src/main.cc:182
+msgid "Try 'dasher --help' for more information."
+msgstr "További információkért próbálja a „dasher --help” parancsot."
 
-#~ msgid "Auto-decreasing speed to %0.2f"
-#~ msgstr "Sebesség automatikus csökkentése %0.2f értékig"
-
-#~ msgid ""
-#~ "In file %s, the following %i symbols appeared without annotations saying "
-#~ "how they should be entered, but each can be entered in several ways. "
-#~ "Dasher will not be able to learn how you want to enter these symbols:"
-#~ msgstr ""
-#~ "A(z) %s fájlban a következő %i szimbólum jelent meg magyarázatok nélkül, "
-#~ "amelyek megmondják, hogyan kellene megadni, de megadhatók számos módon. A "
-#~ "Dasher nem lesz képes megtanulni, hogy hogyan szeretné megadni ezeket a "
-#~ "szimbólumokat:"
-
-#~ msgid "Include Clipboard commands"
-#~ msgstr "A vágólap parancsok felvétele"
-
-#~ msgid "Include Speech commands"
-#~ msgstr "A beszéd parancsok felvétele"
-
-#~ msgid "Force to have Halt command"
-#~ msgstr "A Halt parancs kényszerítése"
-
-#~ msgid "Include Editing commands"
-#~ msgstr "A szerkesztés parancsok felvétele"
-
-#~ msgid "Done"
-#~ msgstr "Kész"
-
-#~ msgid "Don't save"
-#~ msgstr "Ne mentse"
-
-#~ msgid "Unable to initialize speech support\n"
-#~ msgstr "Nem lehet előkészíteni a beszédtámogatást\n"
-
-#~ msgid "Warning: unable to set speech parameters\n"
-#~ msgstr "Figyelmeztetés: nem lehet beállítani a beszéd paramétereket\n"
-
-#~ msgid "Unable to initialize voices\n"
-#~ msgstr "A hangok nem készíthetők elő\n"
-
-#~ msgid "A_ppend to file"
-#~ msgstr "_Hozzáfűzés fájlhoz"
-
-#~ msgid "Dasher _Tutorial"
-#~ msgstr "Dasher _ismertető"
-
-#~ msgid "Pr_eferences"
-#~ msgstr "_Beállítások"
-
-#~ msgid "_Contents"
-#~ msgstr "_Tartalom"
-
-#~ msgid "Demo!"
-#~ msgstr "Bemutató!"
-
-#~ msgid "Full Demo"
-#~ msgstr "Teljes bemutató"
-
-#~ msgid "Launch Dasher Game & Demo mode!"
-#~ msgstr "A Dasher játék és bemutató módjának indítása!"
-
-#~ msgid "Level:"
-#~ msgstr "Szint:"
-
-#~ msgid "New sentence"
-#~ msgstr "Új mondat"
-
-#~ msgid "Score:"
-#~ msgstr "Pontszám:"
-
-#~ msgid "Actions"
-#~ msgstr "Műveletek"
-
-#~ msgid "Dock application window"
-#~ msgstr "Alkalmazásablak dokkolása"
-
-#~ msgid "Zoom steps"
-#~ msgstr "Nagyítás lépései"
-
-#~ msgid "Well done!"
-#~ msgstr "Szép volt!"
-
-#~ msgid "Automatic calibration"
-#~ msgstr "Automatikus kalibráció:"
-
-#~ msgid "Eyetracker Mode"
-#~ msgstr "Szemkövető mód"
-
-#~ msgid "Distance for 1st button UP"
-#~ msgstr "Távolság az első gomb FEL irányához"
-
-#~ msgid "Distance for 1st button DOWN"
-#~ msgstr "Távolság az első gomb LE irányához"
-
-#~ msgid "Show Button"
-#~ msgstr "Gomb megjelenítése"
-
-#~ msgid "Control Mode"
-#~ msgstr "Vezérlési mód"
-
-#~ msgid "Auto On Stop"
-#~ msgstr "Automatikus leállítás"
-
-#~ msgid "Enter Text"
-#~ msgstr "Szövegbevitel"
-
-#~ msgid "Script"
-#~ msgstr "Parancsfájl"

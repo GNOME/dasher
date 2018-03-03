@@ -10,16 +10,16 @@ msgstr ""
 "Project-Id-Version: dasher master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-03-12 03:40+0000\n"
-"PO-Revision-Date: 2017-03-20 00:38+0700\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"POT-Creation-Date: 2017-12-28 10:02+0000\n"
+"PO-Revision-Date: 2018-01-31 13:53+0700\n"
+"Last-Translator: Kukuh Syafaat <syafaatkukuh@gmail.com>\n"
 "Language-Team: GNOME Indonesian Translation Team <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
@@ -39,7 +39,6 @@ msgstr "Masukan teks tanpa papan tik"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: Data/dasher.desktop.in.in:8
-#| msgid "Dasher"
 msgid "dasher"
 msgstr "dasher"
 
@@ -393,35 +392,39 @@ msgstr "Ucapkan Semua saat berhenti"
 msgid "Speak words as you write"
 msgstr "Ucapkan kata sewaktu Anda menulis"
 
-#: Data/GUI/dasher.preferences.ui:1297
+#: Data/GUI/dasher.preferences.ui:1283
+msgid "Confirm unsaved files"
+msgstr "Konfirmasikan berkas yang belum disimpan"
+
+#: Data/GUI/dasher.preferences.ui:1314
 msgid "Editor Font"
 msgstr "Fonta Penyunting"
 
-#: Data/GUI/dasher.preferences.ui:1315
+#: Data/GUI/dasher.preferences.ui:1332
 msgid "Select Editor Font"
 msgstr "Pilih Fonta Penyunting"
 
-#: Data/GUI/dasher.preferences.ui:1343
+#: Data/GUI/dasher.preferences.ui:1360
 msgid "Application Style"
 msgstr "Gaya Aplikasi"
 
-#: Data/GUI/dasher.preferences.ui:1365
+#: Data/GUI/dasher.preferences.ui:1382
 msgid "Stand-alone"
 msgstr "Berdiri sendiri"
 
-#: Data/GUI/dasher.preferences.ui:1380
+#: Data/GUI/dasher.preferences.ui:1397
 msgid "Composition"
 msgstr "Komposisi"
 
-#: Data/GUI/dasher.preferences.ui:1397
+#: Data/GUI/dasher.preferences.ui:1414
 msgid "Direct entry"
 msgstr "Masukan langsung"
 
-#: Data/GUI/dasher.preferences.ui:1414
+#: Data/GUI/dasher.preferences.ui:1431
 msgid "Full Screen"
 msgstr "Layar Penuh"
 
-#: Data/GUI/dasher.preferences.ui:1454
+#: Data/GUI/dasher.preferences.ui:1471
 msgid "A_pplication"
 msgstr "A_plikasi"
 
@@ -449,7 +452,7 @@ msgstr "_Tambahkan ke berkas…"
 msgid "_Import Training Text…"
 msgstr "_Impor Teks Pelatihan…"
 
-#: Data/GUI/dasher.traditional.ui:65 Src/Gtk2/dasher_main.cpp:960
+#: Data/GUI/dasher.traditional.ui:65 Src/Gtk2/dasher_main.cpp:966
 msgid "Quit"
 msgstr "Keluar"
 
@@ -486,7 +489,7 @@ msgid "_About…"
 msgstr "Tent_ang…"
 
 #: Data/GUI/dasher.traditional.ui:134
-#: Src/DasherCore/DasherInterfaceBase.cpp:795
+#: Src/DasherCore/DasherInterfaceBase.cpp:797
 msgid "Direct Mode"
 msgstr "Moda Langsung"
 
@@ -615,7 +618,7 @@ msgstr "Moda Kompas"
 
 #. /TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
 #. / refers to a setting name in gsettings or equivalent, and should not be translated.
-#: Src/DasherCore/DasherInterfaceBase.cpp:314
+#: Src/DasherCore/DasherInterfaceBase.cpp:316
 #, c-format
 msgid ""
 "Could not find game sentences file for %s - check alphabet definition, or "
@@ -624,12 +627,12 @@ msgstr ""
 "Tak bisa temukan berkas kalimat permainan bagi %s - periksa definisi "
 "alfabet, atau timpa dengan pengaturan GameTextFile"
 
-#: Src/DasherCore/DasherInterfaceBase.cpp:784
+#: Src/DasherCore/DasherInterfaceBase.cpp:786
 msgid "Normal Control"
 msgstr "Kendali Normal"
 
 #. TODO: specialist factory for button mode
-#: Src/DasherCore/DasherInterfaceBase.cpp:794
+#: Src/DasherCore/DasherInterfaceBase.cpp:796
 msgid "Menu Mode"
 msgstr "Moda Menu"
 
@@ -753,10 +756,7 @@ msgstr ""
 "Peringatan: dalam berkas latihan, anotasi '<%s>' diikuti oleh anotasi lain "
 "dan akan diabaikan"
 
-#. /TRANSLATORS: first string will be the filename; after the end of the string,
-#. / some number of output (e.g. Chinese) characters will be appended,
-#. / the number of which is the integer here
-#: Src/DasherCore/MandarinAlphMgr.cpp:244
+#: Src/DasherCore/MandarinAlphMgr.cpp:247
 #, c-format
 msgid ""
 "In file %s, the following %i symbol appeared without annotations saying how "
@@ -771,6 +771,18 @@ msgstr[0] ""
 "bagaimana mereka mesti dimasukkan, tapi itu dapat dimasukkan dengan beberapa "
 "cara. Dasher tak akan bisa belajar bagaimana Anda ingin memasukkan simbol "
 "ini."
+
+#: Src/DasherCore/MandarinAlphMgr.cpp:251
+#, c-format
+msgid ""
+"In file %s, the following %i symbols appeared without annotations saying how "
+"they should be entered, but each can be entered in several ways. Dasher will "
+"not be able to learn how you want to enter these symbols:"
+msgstr ""
+"Dalam berkas %s, simbol %i berikut muncul tanpa anotasi yang menyatakan "
+"bagaimana mereka mesti dimasukkan, tapi masing-masing dimasukkan dengan "
+"beberapa cara. Dasher tak akan bisa belajar bagaimana Anda ingin memasukkan "
+"simbol ini:"
 
 #: Src/DasherCore/NodeCreationManager.cpp:33
 msgid "Training on User Text"
@@ -1097,6 +1109,16 @@ msgstr "Parameter bilangan bulat"
 msgid "String parameters"
 msgstr "Parameter string"
 
+#. Note to translators: This is the version keyword showing for the command line option "--version"
+#: Src/Gtk2/DasherAppSettings.cpp:161
+msgid "Version"
+msgstr "Versi"
+
+#. Note to translators: This is the license keyword showing for the command line option "--version"
+#: Src/Gtk2/DasherAppSettings.cpp:163
+msgid "License"
+msgstr "Lisensi"
+
 #: Src/Gtk2/dasher_editor.cpp:812 Src/Gtk2/dasher_main.cpp:550
 #: Src/Gtk2/dasher_main.cpp:885
 msgid "_Open"
@@ -1158,7 +1180,7 @@ msgstr "Tidak"
 msgid "Yes"
 msgstr "Ya"
 
-#: Src/Gtk2/dasher_main.cpp:922
+#: Src/Gtk2/dasher_main.cpp:928
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1169,7 +1191,7 @@ msgstr ""
 "\n"
 "Perubahan yang anda lakukan akan hilang jika anda tidak menyimpannya."
 
-#: Src/Gtk2/dasher_main.cpp:929
+#: Src/Gtk2/dasher_main.cpp:935
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1179,36 +1201,37 @@ msgstr ""
 "\n"
 "Perubahan·yang·anda·lakukan·akan·hilang·jika·anda·tidak·menyimpannya."
 
-#: Src/Gtk2/dasher_main.cpp:935
+#: Src/Gtk2/dasher_main.cpp:941
 msgid "Quit without saving"
 msgstr "Keluar tanpa menyimpan"
 
-#: Src/Gtk2/dasher_main.cpp:936 Src/Gtk2/dasher_main.cpp:959
+#: Src/Gtk2/dasher_main.cpp:942 Src/Gtk2/dasher_main.cpp:965
 msgid "Don't quit"
 msgstr "Jangan keluar"
 
-#: Src/Gtk2/dasher_main.cpp:937
+#: Src/Gtk2/dasher_main.cpp:943
 msgid "Save and quit"
 msgstr "Simpan dan keluar"
 
-#: Src/Gtk2/dasher_main.cpp:956
+#: Src/Gtk2/dasher_main.cpp:962
 msgid "Are you sure you wish to quit?"
 msgstr "Anda yakin ingin keluar?"
 
-#: Src/Gtk2/dasher_main.cpp:998
+#: Src/Gtk2/dasher_main.cpp:1004
 msgid "Unable to open help file"
 msgstr "Tak bisa membuka berkas bantuan"
 
-#: Src/Gtk2/dasher_main.cpp:1050
+#: Src/Gtk2/dasher_main.cpp:1056
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher adalah aplikasi isian teks yang prediktif"
 
-#: Src/Gtk2/dasher_main.cpp:1055
+#: Src/Gtk2/dasher_main.cpp:1061
 msgid "translator-credits"
 msgstr ""
 "Ahmad Riza H Nst <rizahnst@eriagempita.co.id>, 2004, 2006.\n"
 "Mohammad DAMT <mdamt@gnome.org>, 2004.\n"
-"Andika Triwidada <andika@gmail.com>, 2010, 2012, 2013, 2016, 2017."
+"Andika Triwidada <andika@gmail.com>, 2010, 2012, 2013, 2016, 2017.\n"
+"Kukuh Syafaat <syafaatkukuh@gmail.com>, 2018."
 
 #: Src/Gtk2/module_settings_window.cpp:77
 msgid "_Close"
@@ -1236,7 +1259,7 @@ msgstr "Piksel yang mencakup jangkauan Y"
 msgid "One Dimensional Mouse Input"
 msgstr "Masukan Tetikus Satu Dimensi"
 
-#: Src/Gtk2/Preferences.cpp:437
+#: Src/Gtk2/Preferences.cpp:438
 msgid "Action"
 msgstr "Aksi"
 
@@ -1245,26 +1268,36 @@ msgstr "Aksi"
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
-#: Src/main.cc:161
+#: Src/main.cc:162
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr "Gaya aplikasi (tradisional, langsung, compose, atau layar penuh)"
 
 #. Note to translators: This is the help string for "--options"
-#: Src/main.cc:163
+#: Src/main.cc:164
 msgid "Override stored options"
 msgstr "Timpa opsi tersimpan"
 
-#: Src/main.cc:164
+#: Src/main.cc:165
 msgid "XML configuration file name"
 msgstr "Nama berkas konfigurasi XML"
 
 #. Note to translators: This is the help string for "--help-options"
-#: Src/main.cc:166
+#: Src/main.cc:167
 msgid "Describe \"--options\"."
 msgstr "Jelaskan \"--options\"."
 
+#. Note to translators: This is the help string for "--version"
+#: Src/main.cc:169
+msgid "Show the version details."
+msgstr "Tampilkan rincian versi."
+
 #. parse command line options
 #. Note to translators: This is the "--help" description of dasher.
-#: Src/main.cc:172
+#: Src/main.cc:175
 msgid "- A text input application honouring accessibility"
 msgstr "- Suatu aplikasi masukan teks yang menghormati aksesibilitas"
+
+#. Note to translators: This is the help string for unrecognized command line options. Do not translate 'dasher --help' part.
+#: Src/main.cc:182
+msgid "Try 'dasher --help' for more information."
+msgstr "Gunakan 'dasher --help' untuk informasi lebih banyak."

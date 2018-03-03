@@ -6,17 +6,17 @@
 # Hendrik Richter <hendrikr@gnome.org>, 2006,
 # Thomas Gier <mail@thomasgier.de>, 2007.
 # Andre Klapper <ak-47@gmx.net>, 2008.
-# Mario Blättermann <mario.blaettermann@gmail.com>, 2010-2011, 2016.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2010-2011, 2016, 2018.
 # Christian Kirbach <Christian.Kirbach@googlemail.com>, 2009, 2010.
 # Wolfgang Stöggl <c72578@yahoo.de>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-09-01 16:47+0000\n"
-"PO-Revision-Date: 2016-09-03 22:04+0200\n"
+"POT-Creation-Date: 2018-01-31 16:25+0000\n"
+"PO-Revision-Date: 2018-02-05 20:09+0100\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
@@ -44,7 +44,6 @@ msgstr "Texteingabe ohne Tastatur"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: Data/dasher.desktop.in.in:8
-#| msgid "Dasher"
 msgid "dasher"
 msgstr "dasher"
 
@@ -399,35 +398,39 @@ msgstr "Alles beim Anhalten vorlesen"
 msgid "Speak words as you write"
 msgstr "Worte während des Schreibens vorlesen"
 
-#: Data/GUI/dasher.preferences.ui:1297
+#: Data/GUI/dasher.preferences.ui:1283
+msgid "Confirm unsaved files"
+msgstr "Bestätigung bei ungespeicherten Dateien"
+
+#: Data/GUI/dasher.preferences.ui:1314
 msgid "Editor Font"
 msgstr "Editor-Schriftart"
 
-#: Data/GUI/dasher.preferences.ui:1315
+#: Data/GUI/dasher.preferences.ui:1332
 msgid "Select Editor Font"
 msgstr "Editor-Schriftart auswählen"
 
-#: Data/GUI/dasher.preferences.ui:1343
+#: Data/GUI/dasher.preferences.ui:1360
 msgid "Application Style"
 msgstr "Anwendungsstil"
 
-#: Data/GUI/dasher.preferences.ui:1365
+#: Data/GUI/dasher.preferences.ui:1382
 msgid "Stand-alone"
 msgstr "Eigenständig"
 
-#: Data/GUI/dasher.preferences.ui:1380
+#: Data/GUI/dasher.preferences.ui:1397
 msgid "Composition"
 msgstr "Anordnung"
 
-#: Data/GUI/dasher.preferences.ui:1397
+#: Data/GUI/dasher.preferences.ui:1414
 msgid "Direct entry"
 msgstr "Direkte Eingabe"
 
-#: Data/GUI/dasher.preferences.ui:1414
+#: Data/GUI/dasher.preferences.ui:1431
 msgid "Full Screen"
 msgstr "Vollbild"
 
-#: Data/GUI/dasher.preferences.ui:1454
+#: Data/GUI/dasher.preferences.ui:1471
 msgid "A_pplication"
 msgstr "A_nwendung"
 
@@ -455,7 +458,7 @@ msgstr "An Datei _anhängen"
 msgid "_Import Training Text…"
 msgstr "_Trainingstext importieren …"
 
-#: Data/GUI/dasher.traditional.ui:65 Src/Gtk2/dasher_main.cpp:960
+#: Data/GUI/dasher.traditional.ui:65 Src/Gtk2/dasher_main.cpp:966
 msgid "Quit"
 msgstr "Verlassen"
 
@@ -492,7 +495,7 @@ msgid "_About…"
 msgstr "_Info …"
 
 #: Data/GUI/dasher.traditional.ui:134
-#: Src/DasherCore/DasherInterfaceBase.cpp:795
+#: Src/DasherCore/DasherInterfaceBase.cpp:797
 msgid "Direct Mode"
 msgstr "Direkter Modus"
 
@@ -622,7 +625,7 @@ msgstr "Kompass-Modus"
 
 #. /TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
 #. / refers to a setting name in gsettings or equivalent, and should not be translated.
-#: Src/DasherCore/DasherInterfaceBase.cpp:314
+#: Src/DasherCore/DasherInterfaceBase.cpp:316
 #, c-format
 msgid ""
 "Could not find game sentences file for %s - check alphabet definition, or "
@@ -631,12 +634,12 @@ msgstr ""
 "Spieldatei für %s konnte nicht gefunden werden. Überprüfen Sie die "
 "Alphabetdefinition oder überschreiben Sie die Einstellung für GameTextFile."
 
-#: Src/DasherCore/DasherInterfaceBase.cpp:784
+#: Src/DasherCore/DasherInterfaceBase.cpp:786
 msgid "Normal Control"
 msgstr "Normale Steuerung"
 
 #. TODO: specialist factory for button mode
-#: Src/DasherCore/DasherInterfaceBase.cpp:794
+#: Src/DasherCore/DasherInterfaceBase.cpp:796
 msgid "Menu Mode"
 msgstr "Menümodus"
 
@@ -767,10 +770,7 @@ msgstr ""
 "Warnung: Trainingsdatei enthält die Anmerkung »<%s>« gefolgt von einer "
 "anderen Anmerkung. Die erste Anmerkung wird ignoriert."
 
-#. /TRANSLATORS: first string will be the filename; after the end of the string,
-#. / some number of output (e.g. Chinese) characters will be appended,
-#. / the number of which is the integer here
-#: Src/DasherCore/MandarinAlphMgr.cpp:244
+#: Src/DasherCore/MandarinAlphMgr.cpp:247
 #, c-format
 msgid ""
 "In file %s, the following %i symbol appeared without annotations saying how "
@@ -786,6 +786,18 @@ msgstr[0] ""
 "eingegeben werden. Dasher wird nicht lernen können, wie sie dieses Symbol "
 "eingeben wollen:"
 msgstr[1] ""
+"In der Datei %s kommen folgende %i Symbole vor, ohne dass eine Anmerkung "
+"erklärt, wie sie eingegeben werden sollen, aber jedes Symbol kann auf "
+"verschiedene Wege eingegeben werden. Dasher wird nicht lernen können, wie "
+"sie diese Symbole eingeben wollen:"
+
+#: Src/DasherCore/MandarinAlphMgr.cpp:251
+#, c-format
+msgid ""
+"In file %s, the following %i symbols appeared without annotations saying how "
+"they should be entered, but each can be entered in several ways. Dasher will "
+"not be able to learn how you want to enter these symbols:"
+msgstr ""
 "In der Datei %s kommen folgende %i Symbole vor, ohne dass eine Anmerkung "
 "erklärt, wie sie eingegeben werden sollen, aber jedes Symbol kann auf "
 "verschiedene Wege eingegeben werden. Dasher wird nicht lernen können, wie "
@@ -1126,6 +1138,16 @@ msgstr "Ganzzahl-Parameter"
 msgid "String parameters"
 msgstr "Zeichenkette-Parameter"
 
+#. Note to translators: This is the version keyword showing for the command line option "--version"
+#: Src/Gtk2/DasherAppSettings.cpp:161
+msgid "Version"
+msgstr "Version"
+
+#. Note to translators: This is the license keyword showing for the command line option "--version"
+#: Src/Gtk2/DasherAppSettings.cpp:163
+msgid "License"
+msgstr "Lizenz"
+
 #: Src/Gtk2/dasher_editor.cpp:812 Src/Gtk2/dasher_main.cpp:550
 #: Src/Gtk2/dasher_main.cpp:885
 msgid "_Open"
@@ -1187,7 +1209,7 @@ msgstr "Nein"
 msgid "Yes"
 msgstr "Ja"
 
-#: Src/Gtk2/dasher_main.cpp:922
+#: Src/Gtk2/dasher_main.cpp:928
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1198,7 +1220,7 @@ msgstr ""
 "\n"
 "Falls Sie die Änderungen nicht speichern, gehen sie unwiderruflich verloren."
 
-#: Src/Gtk2/dasher_main.cpp:929
+#: Src/Gtk2/dasher_main.cpp:935
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1208,31 +1230,31 @@ msgstr ""
 "\n"
 "Falls Sie die Änderungen nicht speichern, gehen sie unwiderruflich verloren."
 
-#: Src/Gtk2/dasher_main.cpp:935
+#: Src/Gtk2/dasher_main.cpp:941
 msgid "Quit without saving"
 msgstr "Schließen, ohne zu speichern"
 
-#: Src/Gtk2/dasher_main.cpp:936 Src/Gtk2/dasher_main.cpp:959
+#: Src/Gtk2/dasher_main.cpp:942 Src/Gtk2/dasher_main.cpp:965
 msgid "Don't quit"
 msgstr "Nicht beenden"
 
-#: Src/Gtk2/dasher_main.cpp:937
+#: Src/Gtk2/dasher_main.cpp:943
 msgid "Save and quit"
 msgstr "Speichern und beenden"
 
-#: Src/Gtk2/dasher_main.cpp:956
+#: Src/Gtk2/dasher_main.cpp:962
 msgid "Are you sure you wish to quit?"
 msgstr "Sind Sie sicher, dass Sie das Programm beenden möchten?"
 
-#: Src/Gtk2/dasher_main.cpp:998
+#: Src/Gtk2/dasher_main.cpp:1004
 msgid "Unable to open help file"
 msgstr "Die Hilfedatei kann nicht geöffnet werden"
 
-#: Src/Gtk2/dasher_main.cpp:1050
+#: Src/Gtk2/dasher_main.cpp:1056
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher ist eine Anwendung zur vorausschauenden Texteingabe"
 
-#: Src/Gtk2/dasher_main.cpp:1055
+#: Src/Gtk2/dasher_main.cpp:1061
 msgid "translator-credits"
 msgstr ""
 "Christian Neumair <chris@gnome-de.org>\n"
@@ -1270,7 +1292,7 @@ msgstr "Pixel, die den Y-Bereich abdecken"
 msgid "One Dimensional Mouse Input"
 msgstr "Eindimensionale Mauseingabe"
 
-#: Src/Gtk2/Preferences.cpp:437
+#: Src/Gtk2/Preferences.cpp:438
 msgid "Action"
 msgstr "Aktion"
 
@@ -1279,183 +1301,36 @@ msgstr "Aktion"
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
-#: Src/main.cc:161
+#: Src/main.cc:162
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr "Anwendungsstil (»traditional«, »direct«, »compose« or »fullscreen«)"
 
 #. Note to translators: This is the help string for "--options"
-#: Src/main.cc:163
+#: Src/main.cc:164
 msgid "Override stored options"
 msgstr "Gespeicherte Optionen überschreiben"
 
-#: Src/main.cc:164
+#: Src/main.cc:165
 msgid "XML configuration file name"
 msgstr "Name der XML-Konfigurationsdatei"
 
 #. Note to translators: This is the help string for "--help-options"
-#: Src/main.cc:166
+#: Src/main.cc:167
 msgid "Describe \"--options\"."
 msgstr "Beschreibt »--options«\"."
 
+#. Note to translators: This is the help string for "--version"
+#: Src/main.cc:169
+msgid "Show the version details."
+msgstr "Zeigt die Versionsdetails."
+
 #. parse command line options
 #. Note to translators: This is the "--help" description of dasher.
-#: Src/main.cc:172
+#: Src/main.cc:175
 msgid "- A text input application honouring accessibility"
 msgstr "- Eine Anwendung zur barrierefreien Texteingabe"
 
-#~ msgid "Auto-increasing speed to %0.2f"
-#~ msgstr "Geschwindigkeit wird automatisch auf %0.2f erhöht"
-
-#~ msgid "Auto-decreasing speed to %0.2f"
-#~ msgstr "Geschwindigkeit wird automatisch auf %0.2f verringert"
-
-#~ msgid ""
-#~ "In file %s, the following %i symbols appeared without annotations saying "
-#~ "how they should be entered, but each can be entered in several ways. "
-#~ "Dasher will not be able to learn how you want to enter these symbols:"
-#~ msgstr ""
-#~ "In der Datei %s kommen folgende %i Symbole vor, ohne dass eine Anmerkung "
-#~ "erklärt, wie sie eingegeben werden sollen, aber jedes Symbol kann auf "
-#~ "verschiedene Wege eingegeben werden. Dasher wird nicht lernen können, wie "
-#~ "sie diese Symbole eingeben wollen:"
-
-#~ msgid "Include Clipboard commands"
-#~ msgstr "Befehle der Zwischenablage einschließen"
-
-#~ msgid "Include Speech commands"
-#~ msgstr "Sprachbefehle einschließen"
-
-#~ msgid "Force to have Halt command"
-#~ msgstr "Vorhandensein des Halt-Befehls erzwingen"
-
-#~ msgid "Include Editing commands"
-#~ msgstr "Befehle zum Bearbeiten einschließen"
-
-#~ msgid "Done"
-#~ msgstr "Abgeschlossen"
-
-#~ msgid "Don't save"
-#~ msgstr "Nicht speichern"
-
-#~ msgid "Unable to initialize speech support\n"
-#~ msgstr "Initialisierung der Sprachunterstützung fehlgeschlagen\n"
-
-#~ msgid "Warning: unable to set speech parameters\n"
-#~ msgstr "Warnung: Sprachparameter konnten nicht gesetzt werden\n"
-
-#~ msgid "Unable to initialize voices\n"
-#~ msgstr "Stimmen konnten nicht initialisiert werden\n"
-
-#~ msgid "Zoom steps"
-#~ msgstr "Vergrößerungsschritte"
-
-#~ msgid "Training file contains unknown source alphabet character %s"
-#~ msgstr "Die Trainingsdatei enthält unbekanntes Zeichen %s im Quellalphabet"
-
-#~ msgid "Training file contains unknown target alphabet character %s"
-#~ msgstr "Die Trainingsdatei enthält unbekanntes Zeichen %s im Zielalphabet"
-
-#~ msgid "A_ppend to file"
-#~ msgstr "An Datei _anhängen"
-
-#~ msgid "Dasher _Tutorial"
-#~ msgstr "Dasher-_Anleitung"
-
-#~ msgid "Pr_eferences"
-#~ msgstr "_Einstellungen"
-
-#~ msgid "_Contents"
-#~ msgstr "In_halte"
-
-#~ msgid "_Import Training Text"
-#~ msgstr "_Trainingstext importieren"
-
-#~ msgid "Demo!"
-#~ msgstr "Demonstration!"
-
-#~ msgid "Full Demo"
-#~ msgstr "Volle Demonstration"
-
-#~ msgid "Launch Dasher Game & Demo mode!"
-#~ msgstr "Den Spiel- & Demonstrationsmodus von Dasher starten."
-
-#~ msgid "Level:"
-#~ msgstr "Level:"
-
-#~ msgid "New sentence"
-#~ msgstr "Neuer Satz"
-
-#~ msgid "Score:"
-#~ msgstr "Punkte:"
-
-#~ msgid "Distance for 1st button UP"
-#~ msgstr "Entfernung für ersten Knopf HOCH"
-
-#~ msgid "Distance for 1st button DOWN"
-#~ msgstr "Entfernung für ersten Knopf RUNTER"
-
-#~ msgid "Enter Text"
-#~ msgstr "Text eingeben"
-
-#~ msgid "Script"
-#~ msgstr "Skript"
-
-#~ msgid "Dock application window"
-#~ msgstr "Angedocktes Fenster"
-
-#~ msgid "Well done!"
-#~ msgstr "Gut gemacht!"
-
-#~ msgid "Actions"
-#~ msgstr "Aktionen"
-
-#~ msgid "Automatic calibration"
-#~ msgstr "Automatische Kalibrierung"
-
-#~ msgid "Eyetracker Mode"
-#~ msgstr "Eyetracker-Modus"
-
-#~ msgid "Show Button"
-#~ msgstr "Knopf anzeigen"
-
-#~ msgid "Control Mode"
-#~ msgstr "Steuermodus"
-
-#~ msgid "Auto On Stop"
-#~ msgstr "Automatisch beim Beenden"
-
-#~ msgid "Speak"
-#~ msgstr "Sprechen"
-
-#~ msgid "All"
-#~ msgstr "Alle"
-
-#~ msgid "Last"
-#~ msgstr "Letzter"
-
-#~ msgid "Repeat"
-#~ msgstr "Wiederholen"
-
-#~ msgid "abcdefghijk ABCDEFGHIJK"
-#~ msgstr "AaBbCcIiPpQqÄäÖöÜüß012369@€,;/|(){}#„“»«"
-
-#~ msgid "A_ppend to file..."
-#~ msgstr "An Datei _anhängen …"
-
-#~ msgid "Pr_eferences..."
-#~ msgstr "_Einstellungen …"
-
-#~ msgid "_About..."
-#~ msgstr "_Info …"
-
-#~ msgid "_Contents..."
-#~ msgstr "In_halte …"
-
-#~ msgid "_Import Training Text..."
-#~ msgstr "_Trainingstext importieren …"
-
-#~ msgid "\n"
-#~ msgstr "\n"
-
-#~ msgid "Multiple press count"
-#~ msgstr "Anzahl für mehrfaches Drücken"
+#. Note to translators: This is the help string for unrecognized command line options. Do not translate 'dasher --help' part.
+#: Src/main.cc:182
+msgid "Try 'dasher --help' for more information."
+msgstr "Bitte rufen Sie »dasher --help« für weitere Informationen auf."

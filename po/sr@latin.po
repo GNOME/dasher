@@ -1,17 +1,17 @@
 # Serbian translation of dasher
-# Courtesy of Prevod.org team (http://prevod.org/) -- 2003—2016.
+# Courtesy of Prevod.org team (http://prevod.org/) -- 2003—2018.
 # This file is distributed under the same license as the dasher package.
 # Danilo Šegan <dsegan@gmx.net>
 # Igor Nestorović <igor@prevod.org> 2005
 # Slobodan D. Sredojević <slobo@akrep.be>, 2010.
-# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2011—2016.
+# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2011—2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&"
-"keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-09-01 16:47+0000\n"
-"PO-Revision-Date: 2016-09-04 18:16+0200\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=dasher"
+"&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2018-01-31 16:25+0000\n"
+"PO-Revision-Date: 2018-02-22 23:58+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: srpski <gnome-sr@googlegroups.org>\n"
 "Language: sr\n"
@@ -394,35 +394,39 @@ msgstr "Izgovori sve pri zaustavljanju"
 msgid "Speak words as you write"
 msgstr "Izgovara reči čim ih napišete"
 
-#: Data/GUI/dasher.preferences.ui:1297
+#: Data/GUI/dasher.preferences.ui:1283
+msgid "Confirm unsaved files"
+msgstr "Potvrdi nesačuvane datoteke"
+
+#: Data/GUI/dasher.preferences.ui:1314
 msgid "Editor Font"
 msgstr "Slovni lik uređivača"
 
-#: Data/GUI/dasher.preferences.ui:1315
+#: Data/GUI/dasher.preferences.ui:1332
 msgid "Select Editor Font"
 msgstr "Izaberite slovni lik uređivača"
 
-#: Data/GUI/dasher.preferences.ui:1343
+#: Data/GUI/dasher.preferences.ui:1360
 msgid "Application Style"
 msgstr "Stil programa"
 
-#: Data/GUI/dasher.preferences.ui:1365
+#: Data/GUI/dasher.preferences.ui:1382
 msgid "Stand-alone"
 msgstr "Samostalno"
 
-#: Data/GUI/dasher.preferences.ui:1380
+#: Data/GUI/dasher.preferences.ui:1397
 msgid "Composition"
 msgstr "Kompozicija"
 
-#: Data/GUI/dasher.preferences.ui:1397
+#: Data/GUI/dasher.preferences.ui:1414
 msgid "Direct entry"
 msgstr "Direktan unos"
 
-#: Data/GUI/dasher.preferences.ui:1414
+#: Data/GUI/dasher.preferences.ui:1431
 msgid "Full Screen"
 msgstr "Ceo ekran"
 
-#: Data/GUI/dasher.preferences.ui:1454
+#: Data/GUI/dasher.preferences.ui:1471
 msgid "A_pplication"
 msgstr "_Program"
 
@@ -450,7 +454,7 @@ msgstr "_Dodaj u datoteku…"
 msgid "_Import Training Text…"
 msgstr "_Uvezi tekst za uvežbavanje…"
 
-#: Data/GUI/dasher.traditional.ui:65 Src/Gtk2/dasher_main.cpp:960
+#: Data/GUI/dasher.traditional.ui:65 Src/Gtk2/dasher_main.cpp:966
 msgid "Quit"
 msgstr "Izađi"
 
@@ -487,7 +491,7 @@ msgid "_About…"
 msgstr "_O programu…"
 
 #: Data/GUI/dasher.traditional.ui:134
-#: Src/DasherCore/DasherInterfaceBase.cpp:795
+#: Src/DasherCore/DasherInterfaceBase.cpp:797
 msgid "Direct Mode"
 msgstr "Direktan režim"
 
@@ -615,7 +619,7 @@ msgstr "Režim busole"
 
 #. /TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
 #. / refers to a setting name in gsettings or equivalent, and should not be translated.
-#: Src/DasherCore/DasherInterfaceBase.cpp:314
+#: Src/DasherCore/DasherInterfaceBase.cpp:316
 #, c-format
 msgid ""
 "Could not find game sentences file for %s - check alphabet definition, or "
@@ -624,12 +628,12 @@ msgstr ""
 "Ne mogu da pronađem datoteku iskaza igre za „%s“ — proverite definiciju "
 "alfabeta, ili prepišite pdešavanjima iz datoteke teksta igre"
 
-#: Src/DasherCore/DasherInterfaceBase.cpp:784
+#: Src/DasherCore/DasherInterfaceBase.cpp:786
 msgid "Normal Control"
 msgstr "Uobičajene kontrole"
 
 #. TODO: specialist factory for button mode
-#: Src/DasherCore/DasherInterfaceBase.cpp:794
+#: Src/DasherCore/DasherInterfaceBase.cpp:796
 msgid "Menu Mode"
 msgstr "Režim izbornika"
 
@@ -752,10 +756,7 @@ msgstr ""
 "Upozorenje: u datoteci uvežbavanja, za pribeleškom „<%s>“ sledi druga "
 "pribeleška i zato će biti zanemarena"
 
-#. /TRANSLATORS: first string will be the filename; after the end of the string,
-#. / some number of output (e.g. Chinese) characters will be appended,
-#. / the number of which is the integer here
-#: Src/DasherCore/MandarinAlphMgr.cpp:244
+#: Src/DasherCore/MandarinAlphMgr.cpp:247
 #, c-format
 msgid ""
 "In file %s, the following %i symbol appeared without annotations saying how "
@@ -781,6 +782,18 @@ msgstr[3] ""
 "U datoteci „%s“, pojavio se %i sledeći simbol bez pribeleški govoreći kako "
 "bi trebao da bude unesen, ali može biti unesen na nekoliko načina. Jurišnik "
 "neće biti u mogućnosti da nauči kako želite da unesete taj simbol:"
+
+#: Src/DasherCore/MandarinAlphMgr.cpp:251
+#, c-format
+msgid ""
+"In file %s, the following %i symbols appeared without annotations saying how "
+"they should be entered, but each can be entered in several ways. Dasher will "
+"not be able to learn how you want to enter these symbols:"
+msgstr ""
+"U datoteci „%s“, pratećih %i simbola se pojavilo bez pribeleški govoreći "
+"kako bi trebali da budu unešeni, ali svaki može biti unešen na nekoliko "
+"načina. Jurišnik neće biti u mogućnosti da nauči kako želite da unesete te "
+"simbole:"
 
 #: Src/DasherCore/NodeCreationManager.cpp:33
 msgid "Training on User Text"
@@ -1103,6 +1116,16 @@ msgstr "Celobrojni parametri"
 msgid "String parameters"
 msgstr "Znakovni parametri"
 
+#. Note to translators: This is the version keyword showing for the command line option "--version"
+#: Src/Gtk2/DasherAppSettings.cpp:161
+msgid "Version"
+msgstr "Izdanje"
+
+#. Note to translators: This is the license keyword showing for the command line option "--version"
+#: Src/Gtk2/DasherAppSettings.cpp:163
+msgid "License"
+msgstr "Dozvola"
+
 #: Src/Gtk2/dasher_editor.cpp:812 Src/Gtk2/dasher_main.cpp:550
 #: Src/Gtk2/dasher_main.cpp:885
 msgid "_Open"
@@ -1164,7 +1187,7 @@ msgstr "Ne"
 msgid "Yes"
 msgstr "Da"
 
-#: Src/Gtk2/dasher_main.cpp:922
+#: Src/Gtk2/dasher_main.cpp:928
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1175,7 +1198,7 @@ msgstr ""
 "\n"
 "Ukoliko ih ne sačuvate, one će biti izgubljene."
 
-#: Src/Gtk2/dasher_main.cpp:929
+#: Src/Gtk2/dasher_main.cpp:935
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1185,31 +1208,31 @@ msgstr ""
 "\n"
 "Ukoliko ih ne sačuvate, one će biti izgubljene."
 
-#: Src/Gtk2/dasher_main.cpp:935
+#: Src/Gtk2/dasher_main.cpp:941
 msgid "Quit without saving"
 msgstr "Izađi bez čuvanja"
 
-#: Src/Gtk2/dasher_main.cpp:936 Src/Gtk2/dasher_main.cpp:959
+#: Src/Gtk2/dasher_main.cpp:942 Src/Gtk2/dasher_main.cpp:965
 msgid "Don't quit"
 msgstr "Ne izlazi"
 
-#: Src/Gtk2/dasher_main.cpp:937
+#: Src/Gtk2/dasher_main.cpp:943
 msgid "Save and quit"
 msgstr "Sačuvaj i izađi"
 
-#: Src/Gtk2/dasher_main.cpp:956
+#: Src/Gtk2/dasher_main.cpp:962
 msgid "Are you sure you wish to quit?"
 msgstr "Da li sigurno želite da izađete?"
 
-#: Src/Gtk2/dasher_main.cpp:998
+#: Src/Gtk2/dasher_main.cpp:1004
 msgid "Unable to open help file"
 msgstr "Ne mogu da otvorim datoteku za pomoć"
 
-#: Src/Gtk2/dasher_main.cpp:1050
+#: Src/Gtk2/dasher_main.cpp:1056
 msgid "Dasher is a predictive text entry application"
 msgstr "Jurišnik služi za predvidivo unošenje teksta"
 
-#: Src/Gtk2/dasher_main.cpp:1055
+#: Src/Gtk2/dasher_main.cpp:1061
 msgid "translator-credits"
 msgstr ""
 "Danilo Šegan <danilo@gnome.org>\n"
@@ -1244,7 +1267,7 @@ msgstr "Tačkice koje obuhvataju Y opseg"
 msgid "One Dimensional Mouse Input"
 msgstr "Jednodimenzioni režim za unos mišem"
 
-#: Src/Gtk2/Preferences.cpp:437
+#: Src/Gtk2/Preferences.cpp:438
 msgid "Action"
 msgstr "Radnje"
 
@@ -1253,45 +1276,46 @@ msgstr "Radnje"
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
-#: Src/main.cc:161
+#: Src/main.cc:162
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr "Stilovi programa (traditional, direct, compose i fullscreen)"
 
 #. Note to translators: This is the help string for "--options"
-#: Src/main.cc:163
+#: Src/main.cc:164
 msgid "Override stored options"
 msgstr "Prepiši sačuvane opcije"
 
-#: Src/main.cc:164
+#: Src/main.cc:165
 msgid "XML configuration file name"
 msgstr "IksML naziv datoteke podešavanja"
 
 #. Note to translators: This is the help string for "--help-options"
-#: Src/main.cc:166
+#: Src/main.cc:167
 msgid "Describe \"--options\"."
 msgstr "Opis za „--options“."
 
+#. Note to translators: This is the help string for "--version"
+#: Src/main.cc:169
+msgid "Show the version details."
+msgstr "Prikazuje pojedinosti o izdanju."
+
 #. parse command line options
 #. Note to translators: This is the "--help" description of dasher.
-#: Src/main.cc:172
+#: Src/main.cc:175
 msgid "- A text input application honouring accessibility"
 msgstr "— Program za pristupačniji unos teksta"
+
+#. Note to translators: This is the help string for unrecognized command line options. Do not translate 'dasher --help' part.
+#: Src/main.cc:182
+#| msgid "unknown option, use \"--help-options\" for more information."
+msgid "Try 'dasher --help' for more information."
+msgstr "Probajte „--help“ za više podataka."
 
 #~ msgid "Auto-increasing speed to %0.2f"
 #~ msgstr "Samostalno povećaj brzinu na %0.2f"
 
 #~ msgid "Auto-decreasing speed to %0.2f"
 #~ msgstr "Samostalno smanji brzinu na %0.2f"
-
-#~ msgid ""
-#~ "In file %s, the following %i symbols appeared without annotations saying "
-#~ "how they should be entered, but each can be entered in several ways. "
-#~ "Dasher will not be able to learn how you want to enter these symbols:"
-#~ msgstr ""
-#~ "U datoteci „%s“, pratećih %i simbola se pojavilo bez pribeleški govoreći "
-#~ "kako bi trebali da budu unešeni, ali svaki može biti unešen na nekoliko "
-#~ "načina. Jurišnik neće biti u mogućnosti da nauči kako želite da unesete "
-#~ "te simbole:"
 
 #~ msgid "Include Clipboard commands"
 #~ msgstr "Uključi naredbe beležnice"

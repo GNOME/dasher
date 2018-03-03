@@ -8,10 +8,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2016-09-01 16:47+0000\n"
-"PO-Revision-Date: 2016-09-05 22:25+0200\n"
+"POT-Creation-Date: 2017-04-01 09:15+0000\n"
+"PO-Revision-Date: 2017-04-30 13:41+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.11\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
@@ -39,7 +39,6 @@ msgstr "Mata in text utan ett tangentbord"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: Data/dasher.desktop.in.in:8
-#| msgid "Dasher"
 msgid "dasher"
 msgstr "dasher"
 
@@ -61,7 +60,7 @@ msgstr "_Alternativ"
 
 #: Data/GUI/dashermaemofullscreen.ui:77
 msgid "_Edit Font"
-msgstr "_Redigera typsnitt"
+msgstr "_Redigeringstypsnitt"
 
 #: Data/GUI/dashermaemofullscreen.ui:84
 msgid "_Dasher Font"

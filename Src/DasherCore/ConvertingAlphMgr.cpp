@@ -27,7 +27,7 @@ CConvertingAlphMgr::~CConvertingAlphMgr() {
 CDasherNode *CConvertingAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymbol) {
   //int i=m_pAlphabet->iEnd;
   if (iSymbol == m_pAlphabet->iEnd) {
-    vector<unsigned int> *pCProb = pParent->GetProbInfo();
+    vector<unsigned int> *pCProb(pParent->GetProbInfo());
     DASHER_ASSERT(pCProb->size() == m_pAlphabet->iEnd+1);//initial 0, final conversion prob
 
     //this used to be the "CloneAlphContext" method. Why it uses the
