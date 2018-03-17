@@ -9,8 +9,8 @@ before_install:
   - sudo apt-get update -qq
 
 install:
-  - sudo apt-get install -qq g++-4.8
-  - export CXX="g++-4.8o"
+  - sudo apt-get install -qq g++-5
+  - export CXX="g++-5"
   - sudo apt-get install autoconf
   - sudo apt-get install automake
   - sudo apt-get install m4
