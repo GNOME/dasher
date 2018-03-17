@@ -1,11 +1,6 @@
 AC_PREREQ(2.59)
-<<<<<<< HEAD
 AC_INIT([dasher], 
   m4_esyscmd_s([build-aux/mkversion]),
-=======
-AC_INIT([dasher],
-  m4_esyscmd(build-aux/mkversion),
->>>>>>> 44a144a3f3dc1947f5f436128fcc6a3e68a9b615
   [http://bugzilla.gnome.org/enter_bug.cgi?product=dasher],
   [dasher],
   [http://www.inference.phy.cam.ac.uk/dasher/])
