@@ -11,15 +11,9 @@ before_install:
 install:
   - sudo apt-get install -qq g++-5
   - export CXX="g++-5"
-  - sudo apt-get install autoconf
-  - sudo apt-get install automake
   - sudo apt-get install m4
-  - sudo apt-get install libtool
   - sudo apt-get install libevent-dev
-  - sudo apt-get install perl 
   - sudo apt-get install pkg-config 
-  - sudo apt-get install expat
-  - sudo apt-get install gnome-common
   - sudo apt-get install expat
   - sudo apt-get install gnome-common
   - sudo apt-get install gnome-doc-utils
@@ -33,9 +27,6 @@ before_script:
 script:
   - ./configure && make
   - sudo make install
-
-after_script:
-  - /usr/local/bin/dasher
 
 after_failure:
   - cat ./config.log
