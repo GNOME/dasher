@@ -15,7 +15,7 @@ install:
   - sudo apt-get install automake
   - sudo apt-get install m4
   - sudo apt-get install libtool
-  - sudo apt-get install libevent
+  - sudo apt-get install libevent-dev
   - sudo apt-get install perl 
   - sudo apt-get install pkg-config 
   - sudo apt-get install expat
@@ -28,7 +28,8 @@ install:
   - sudo apt-get install libspeechd-dev
 
 before_script:
-  - ./autogen.sh --tags --enable-speech=yes
+  - ./autogen.sh --enable-speech=yes
+  - ./autogen.sh --enable-speech=yes
 
 script:
   - ./configure && make && make install
