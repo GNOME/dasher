@@ -29,7 +29,6 @@ install:
 
 before_script:
   - ./autogen.sh --enable-speech=yes
-  - ./autogen.sh --enable-speech=yes
 
 script:
   - ./configure && make && make install
