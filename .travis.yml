@@ -19,7 +19,7 @@ install:
   - sudo apt-get install libspeechd-dev
 
 before_script:
-  - ./autogen.sh --enable-speech=yes
+  - ./autogen.sh --tags --enable-speech=yes
 
 script:
   - ./configure && make && make install
