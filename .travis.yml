@@ -31,7 +31,8 @@ before_script:
   - ./autogen.sh --enable-speech=yes
 
 script:
-  - ./configure && make && make install
+  - ./configure && make
+  - sudo make install
 
 after_script:
   - /usr/local/bin/dasher
