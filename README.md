@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.org/mortheria/dasher.svg?branch=master)](https://travis-ci.org/mortheria/dasher)
+## Build Status:
+Linux:
+[![Build Status](https://travis-ci.org/dasher-project/dasher.svg?branch=master)](https://travis-ci.org/dasher-project/dasher)
 
 ## Dasher Version 4.11
 
