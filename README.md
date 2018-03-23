@@ -1,5 +1,10 @@
+Dasher Version 4.11
+-------------------
 ## Build Status:
 
+Windows:
+[![Build status](https://ci.appveyor.com/api/projects/status/hpvrm5230qlay15m?svg=true)](https://ci.appveyor.com/project/erdemkiraz/dasher)
+\-
 Linux:
 [![Build Status](https://travis-ci.org/dasher-project/dasher.svg?branch=master)](https://travis-ci.org/dasher-project/dasher)
 \-
