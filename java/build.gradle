@@ -7,3 +7,9 @@ dependencies {
 repositories {
     jcenter()
 }
+
+test {
+    testLogging { // For printing more details: http://mrhaki.blogspot.com.tr/2013/05/gradle-goodness-show-more-information.html
+        exceptionFormat = 'full'
+    }
+}
