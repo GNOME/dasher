@@ -1,5 +1,5 @@
-# Dassher Java Installation and Code Explanation
-This document contains 5 part about dassher's java version.
+# Dasher Java Installation and Code Explanation
+This document contains 5 part about Dasher's java version.
 
 * Installing and testing(1)
 * Licensing(2)
@@ -113,7 +113,7 @@ This project builds an applet, not a standalone application.
 This is all obviously quite old, and some modern browsers (notably Chrome and Edge) don't support Java applets anymore. However, as of the time of writing 
 (and checking https://superuser.com/questions/1213341/how-to-get-a-browser-that-supports-java), Internet Explorer and Firefox ESR should still be able to show JDasher.
 
-## Licencing(2)
+## Licensing(2)
 
 This program is free software; you can redistribute it and/or modifyit under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
