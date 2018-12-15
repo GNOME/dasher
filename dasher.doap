@@ -13,7 +13,7 @@ allowing high rates of text entry.</description>
   <homepage rdf:resource="http://www.inference.phy.cam.ac.uk/dasher/" />
   <mailing-list rdf:resource="http://groups.yahoo.com/group/dasher-text-entry/" />
   <download-page rdf:resource="http://download.gnome.org/sources/dasher/" />
-  <bug-database rdf:resource="http://bugzilla.gnome.org/browse.cgi?product=dasher" />
+  <bug-database rdf:resource="https://gitlab.gnome.org/GNOME/dasher/issues/" />
 
   <category rdf:resource="http://api.gnome.org/doap-extensions#apps" />
   <programming-language>C++</programming-language>
