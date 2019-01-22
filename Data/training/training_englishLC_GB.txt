@@ -3,8 +3,8 @@ the dasher project. dasher is an information-efficient text-entry interface, dri
 dasher is a competitive text-entry system wherever a full-size keyboard cannot be used - for example, (1) on a palmtop computer; (2) on a wearable computer; (3) when operating a computer one-handed, by joystick, touchscreen, trackball, or mouse; (4) when operating a computer with zero hands (i.e., by eyetracker).
 we expect the eyetracking  version of dasher to be an especially big hit,  as it allows the user to write text as fast as normal handwriting.
 dasher is fast, efficient, easy to learn, and fun to use.
-<em>dasher is like an arcade game: `attack of the killer alphabets', perhaps.</em>
-<small>financial times, 5th february 2002</small>.
+dasher is like an arcade game: `attack of the killer alphabets', perhaps.
+financial times, 5th february 2002.
 dasher is a zooming interface. you point  where you want to go, and the display zooms in  wherever you point.
 the world into which you are zooming is painted with  letters, so that any point you zoom in on corresponds to a piece of text.
 the more you zoom in, the longer the piece of text you have written. you choose what you write by choosing where to zoom.
@@ -12,9 +12,9 @@ to make the interface efficient, our software uses the predictions of a language
 probable pieces of text are given more real-estate, so they are quick and easy to select.
 improbable pieces of text (for example, text with spelling mistakes) are given less space, so they are harder to write.
 the language model learns all the time: if you use a novel word once, it  is easier to write next time.
-a big advantage of dasher over other predictive text-entry interfaces is that it is <b>mode-free</b>: the user does not need to switch from a writing mode to an "accept-model-predictions" mode.
+a big advantage of dasher over other predictive text-entry interfaces is that it is mode-free: the user does not need to switch from a writing mode to an "accept-model-predictions" mode.
 another advantage is that it is easy to train the model	on any writing style: simply load up an example	file, then write away!
-imagine <b>a library containing all possible books</b>, ordered alphabetically on a single shelf.
+imagine a library containing all possible books, ordered alphabetically on a single shelf.
 books in which the first letter is "a" are at the left hand side.
 books in which the first letter is "z" are at the right.
 the first book in the "a" section reads "aaaa..."; somewhere to its right are books that start "all good things must come to an end..."; a tiny bit further to the right are books that start "all good things must come to an enema...".
@@ -24,14 +24,14 @@ first, they walk into the "a" section of the library.
 there, they are confronted by books starting "aa", "ab",
 looking more closely at the "al" section, they can find books starting "ala", "alb",... "alz"
 by looking ever more closely at the shelf, the writer can find the book containing the text he wishes to write.
-thus writing can be described as  <b>zooming in on an alphabetical library, steering as you go</b>.
+thus writing can be described as  zooming in on an alphabetical library, steering as you go.
 this is exactly how dasher works, except for one crucial point ...
-<em>we alter the size of the shelf space devoted to each book in proportion to <b>the probability</b> of the corresponding text.</em>
+we alter the size of the shelf space devoted to each book in proportion to the probability of the corresponding text.
 for example, not very many books start with an "x", so we devote less space to "x..." books, and more to the more plausible books, thus making it easier to find books that contain probable text.
-<h2> tips for novices </h2>
-<b>the single most important concept</b> that a novice user needs to understand is that one should always continue <em>inside</em> the text written so far: to select the book that contains "all" as its first word, one does <b>not</b> enter the "a" section of the library, then exit the "a" section, and enter the "l" section.
-one enters the "a" section, then finds the "al" section that is <em>within</em> the "a" section, then enters the "all" section <em>within</em> the "al" section.
-<b>the second most important idea</b> is that what you have written depends <em>only</em> on where you finally end up in the library, not on how you got there; so there is no need to steer carefully on your way to your destination. <b>you are allowed to cut corners.</b>
+ tips for novices
+the single most important concept that a novice user needs to understand is that one should always continue inside the text written so far: to select the book that contains "all" as its first word, one does not enter the "a" section of the library, then exit the "a" section, and enter the "l" section.
+one enters the "a" section, then finds the "al" section that is within the "a" section, then enters the "all" section within the "al" section.
+the second most important idea is that what you have written depends only on where you finally end up in the library, not on how you got there; so there is no need to steer carefully on your way to your destination. you are allowed to cut corners.
 the dasher software consists of a language-modelling module, a rendering module, and a dynamics module.
 dasher is brought to you by the inference group, led by david mackay, cavendish laboratory, madingley road, cambridge.
 the research version of the software was developed by david ward. the project manager is phil cowans.
