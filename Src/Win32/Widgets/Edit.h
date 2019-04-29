@@ -86,6 +86,7 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   bool ConfirmAndSaveIfNeeded();
   bool Save();
   // Functions for Windows GUI to call
+  void Lock();
   void New();
   void Open();
   void SaveAs();

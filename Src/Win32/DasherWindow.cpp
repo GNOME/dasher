@@ -262,6 +262,9 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
     m_pDasher->SetBuffer(0);
     return 0;
   }
+  case ID_FILE_LOCK:
+    m_pEdit->Lock();
+	return 0;
   case ID_FILE_OPEN:
     m_pEdit->Open();
     return 0;

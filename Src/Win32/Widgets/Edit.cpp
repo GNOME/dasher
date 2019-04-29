@@ -136,6 +136,11 @@ bool CEdit::ConfirmAndSaveIfNeeded() {
   return true;
 }
 
+void CEdit::Lock() {
+	bool isLocked = m_pAppSettings->GetBoolParameter(APP_BP_RESET_ON_FOCUS_CHANGE);
+	m_pAppSettings->SetBoolParameter(APP_BP_RESET_ON_FOCUS_CHANGE, !isLocked);
+}
+
 void CEdit::New() {
   if (ConfirmAndSaveIfNeeded())
     TNew(TEXT(""));

@@ -3,6 +3,7 @@
 // Used by Dasher.rc
 //
 #define IDC_MYICON                      2
+#define IDS_FILE_LOCK                   102
 #define IDS_APP_TITLE                   103
 #define IDD_ABOUTBOX                    105
 #define IDM_ABOUT                       106
@@ -106,6 +107,7 @@
 #define ID_EDIT_PASTE                   32805
 #define ID_EDIT_CUT                     32806
 #define ID_EDIT_COPY                    32807
+#define ID_FILE_LOCK                    32808
 
 // Next default values for new objects
 // 
