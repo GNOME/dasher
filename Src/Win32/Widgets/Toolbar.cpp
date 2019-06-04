@@ -29,10 +29,11 @@ struct SToolbarButton {
   int iString;
   int iStringID;
   int iCommand;
+  bool iCheck = false;
 };
 
 SToolbarButton sButtons[] = {
-  { STD_FILENEW, 0, IDS_FILE_LOCK, ID_FILE_LOCK },
+  { STD_HELP, 0, IDS_FILE_LOCK, ID_FILE_LOCK, true },
   { -1, -1, 0, 0 },
   {STD_FILENEW, 1, IDS_FILE_NEW, ID_FILE_NEW},
   {STD_FILEOPEN, 2, IDS_FILE_OPEN, ID_FILE_OPEN},
@@ -140,7 +141,9 @@ void CToolbar::CreateToolbar() {
     // TODO: Not sure if this is the best way to handle the separator
     if(sButtons[i].iBitmap == -1)
       pButtons[i].fsStyle = TBSTYLE_SEP;
-    else
+    else if(sButtons[i].iCheck)
+	  pButtons[i].fsStyle = BTNS_CHECK;
+	else
       pButtons[i].fsStyle = TBSTYLE_BUTTON;
     pButtons[i].iString = sButtons[i].iString;
   }
