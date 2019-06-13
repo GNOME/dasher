@@ -223,10 +223,6 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
     CPrefs Prefs(m_hWnd, m_pDasher, m_pAppSettings);
     return 0;
   }
-  case ID_HELP_CONTENTS:
-    HtmlHelp(m_hWnd, L"Dasher.chm", HH_DISPLAY_INDEX, NULL);
-    return 0;
-    // XXXPW
 #if 0
   case ID_GAMEMODE: {
     unsigned int checkState(GetMenuState(m_hMenu, ID_GAMEMODE, MF_BYCOMMAND));

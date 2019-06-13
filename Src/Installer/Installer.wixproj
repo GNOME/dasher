@@ -130,5 +130,5 @@
       <Name>WixUIExtension</Name>
     </WixExtension>
   </ItemGroup>
-  <Import Project="$(ProgramFiles)\MSBuild\Microsoft\WiX\v3.x\Wix.targets" />
+  <Import Project="$(ProgramFiles)\MSBuild\Microsoft\WiX\v3.x\wix.targets" />
 </Project>

@@ -20,9 +20,6 @@
 							<File Id="DasherEXE" Name="Dasher.exe" DiskId="1" Source="..\Win32\Target\Release\Dasher.exe" Vital="yes"/>
 							<File Id="ExpatDLL" Name="libexpat.dll" DiskId="1" Source="$(env.EXPAT)\bin\libexpat.dll" Vital="yes"/>
 						</Component>
-						<Component Id="Help" Guid="cf486329-8d04-462b-afd4-e8e0bccc9c95">
-							<File Id="HelpFile" Name="Dasher.chm" DiskId="1" Source="..\..\Data\Help\Win32\dasher.chm"/>
-						</Component>
 						<Directory Id="SystemRC" Name="system.rc">
 							<Component Id="Alphabets" Guid="e734711a-0e68-4897-b7a6-7a60a20062b5">
 								<File Id="alphabet.AfaanOromo.xml" Name="alphabet.AfaanOromo.xml" DiskId="1" Source="..\..\Data\alphabets\alphabet.AfaanOromo.xml"/>
@@ -269,7 +266,6 @@
       <ComponentRef Id="Colours"/>
       <ComponentRef Id="Control"/>
       <ComponentRef Id="Settings"/>				
-				<ComponentRef Id="Help"/>
 		</Feature>
 		<WixVariable Id="WixUILicenseRtf" Value="License.rtf"/>
 		<WixVariable Id="WixUIDialogBmp" Value="Background.bmp"/>
