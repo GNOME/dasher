@@ -414,14 +414,7 @@ GTKBUILD_LIBS="$X_LIBS $GTK_LIBS $GIO_LIBS $SETTINGS_LIBS $gthread_LIBS $hildon_
 AC_SUBST(GTKBUILD_CFLAGS)
 AC_SUBST(GTKBUILD_LIBS)
 
-AC_MSG_CHECKING([for gnome-doc-utils])
-dnl Avoid default action which is to complain if not found
-GNOME_DOC_INIT([0.9.0],[gdu_cv_have_gdu=yes],[gdu_cv_have_gdu=no])
-AC_MSG_RESULT($gdu_cv_have_gdu)
-
-if test x"$WITHGNOME" = xtrue -a x"$gdu_cv_have_gdu" = xno ; then
-    AC_MSG_ERROR([gnome-doc-utils not found!])
-fi
+YELP_HELP_INIT
 
 dnl XXX PRLW How is this better than the standard
 dnl gdu_cv_have_gdu && enable_scrollkeeper ?
