@@ -14,9 +14,7 @@ EXTRA_DIST = \
 		MAINTAINERS \
 		m4/pkg.m4 \
 		m4/dgconf-2.m4 \
-		m4/gnome-doc-utils.m4 \
 		m4/nls.m4 \
-		gnome-doc-utils.make \
 		.tarball-version \
 		build-aux/mkversion
 
