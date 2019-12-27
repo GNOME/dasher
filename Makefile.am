@@ -5,7 +5,7 @@ ACLOCAL_AMFLAGS = -I m4
 distuninstallcheck_listfiles = \
 		find . -type f -print | \
 		grep -v '^\./var/scrollkeeper' | \
-		grep -v '^\./share/gnome/help'
+		grep -v '^\./share/help'
 
 EXTRA_DIST = \
 		INSTALL.Linux \
@@ -14,9 +14,7 @@ EXTRA_DIST = \
 		MAINTAINERS \
 		m4/pkg.m4 \
 		m4/dgconf-2.m4 \
-		m4/gnome-doc-utils.m4 \
 		m4/nls.m4 \
-		gnome-doc-utils.make \
 		.tarball-version \
 		build-aux/mkversion
 
