@@ -17,7 +17,7 @@ based distributions the following can be used.
 
   packages="g++
             gnome-common
-            gnome-doc-utils
+            yelp-tools
             libatspi2.0-dev
             libgtk-3-dev
             libspeechd-dev"
