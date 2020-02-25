@@ -12,4 +12,4 @@ environment:
   APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
 
 build:
-  project: Src\Win32\Dasher.sln
+  project: Dasher.sln
