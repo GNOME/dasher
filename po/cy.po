@@ -350,7 +350,7 @@ msgstr "<b>Cyfluniad rheoli botymau</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:10 ../Src/Gtk2/dashermaemo.glade.h:10
 msgid "<b>Button modes:</b>"
-msgstr "<b>Modd botwm:/b>"
+msgstr "<b>Modd botwm:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:11 ../Src/Gtk2/dashergpe.glade.h:8
 #: ../Src/Gtk2/dashermaemo.glade.h:11
@@ -417,7 +417,7 @@ msgstr "<b>Yn Dechrau Ac Yn Aros:</b>"
 #: ../Src/Gtk2/dasher.glade.h:25 ../Src/Gtk2/dashergpe.glade.h:15
 #: ../Src/Gtk2/dashermaemo.glade.h:24
 msgid "<b>Toggle button Mode:</b>"
-msgstr "<b>Modd y botwm togl:/b>"
+msgstr "<b>Modd y botwm togl:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:26 ../Src/Gtk2/dashergpe.glade.h:16
 #: ../Src/Gtk2/dashermaemo.glade.h:25
