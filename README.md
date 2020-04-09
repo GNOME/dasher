@@ -1,4 +1,4 @@
-Dasher Version 4.11
+Dasher Version 5
 -------------------
 ## Build Status:
 
@@ -11,7 +11,7 @@ Linux:
 Java:
 [![CircleCI Build Status](https://circleci.com/gh/dasher-project/dasher.svg?style=shield)](https://circleci.com/gh/dasher-project/dasher)
 
-## Dasher Version 4.11
+## Description
 
 Dasher is a zooming predictive text entry system, designed for situations
 where keyboard input is impractical (for instance, accessibility or PDAs). It
@@ -48,10 +48,11 @@ MS Windows CE:
 
 ## Platform Specific Notes
 
-* Solaris: Dasher has been tested on Solaris 10. You will need to
-  upgrade to gnome-doc-utils 0.3.2 to install the documentation, which
-  in turn will require libxml 2.6.12 and libxslt 1.1.8. These packages
-  are not required to run dasher once it is built.
+### Solaris
+
+Dasher has been tested on Solaris 10. You will need to upgrade to gnome-doc-utils 0.3.2 to install the documentation, which
+in turn will require libxml 2.6.12 and libxslt 1.1.8. These packages
+are not required to run dasher once it is built.
 
 There have been some issues with the gthread-2.0 pkgconfig file
 including compiler flags which are not understood by the compiler. You
@@ -60,13 +61,14 @@ removed.
 
 GNU make (gmake) must be used if building gnome documentation.
 
-* Darwin / OS-X: The native UI in the macos directory is badly out of
-  date and will almost definitely require considerable effort to
-  build. We do not currently have the resources to maintain this port,
-  but if you are interested in contributing then let us know
-  (dasher@inf.phy.cam.ac.uk). The GTK2 front end should build on Darwin
-  with minimal changes, and with a recent enough version of GTK will not
-  require the X11 server.
+### macOS
+
+The native UI in the MacOSX directory builds in Xcode 11.3
+and has been tested on macOS 10.14.
+
+The GTK2 front end should
+build on Darwin with minimal changes, and with a recent enough version of GTK will not
+require the X11 server.
 
 ## Installation Instructions
 

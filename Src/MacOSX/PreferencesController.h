@@ -16,13 +16,10 @@
 @class DasherApp;
 
 @interface PreferencesController : NSObject
-{
-  DasherApp *dasherApp;
+@property (strong) IBOutlet NSPanel *panel;
+@property (weak) DasherApp *dasherApp;
   
-  IBOutlet NSPanel *panel;
-  int fontToAlter;
-  
-}
+
 
 + (id)preferencesController;
 - (id)init;

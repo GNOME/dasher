@@ -77,7 +77,7 @@ private:
 };
 
 COSXDasherControl::COSXDasherControl(DasherApp *aDasherApp)
-: CDashIntfScreenMsgs(new COSXSettingsStore()), dasherApp(aDasherApp), dasherEdit(nil),
+: CDashIntfScreenMsgs(new COSXSettingsStore(),this), dasherApp(aDasherApp), dasherEdit(nil),
   userDir([[NSString stringWithFormat:@"%@/Library/Application Support/Dasher/", NSHomeDirectory()] retain]) {
 }
 
@@ -108,19 +108,21 @@ void COSXDasherControl::Realize2() {
 
 void COSXDasherControl::ScanFiles(AbstractParser *parser, const string &strPattern) {
 
-  string strPath(StdStringFromNSString([[NSBundle mainBundle] resourcePath])+"/"+strPattern);
+  if (![[NSFileManager defaultManager] fileExistsAtPath:userDir isDirectory:NULL]) {
+    // userDir doesn't exist => create it, ready to receive stuff
+    (void)[[NSFileManager defaultManager] createDirectoryAtPath:userDir withIntermediateDirectories:YES attributes:nil error:nil];
+  }
+  
+  const string strPath(StdStringFromNSString([[NSBundle mainBundle] resourcePath])+"/"+strPattern);
   const char *sys[2];
   sys[0] = strPath.c_str();
   sys[1] = NULL;
   
-  const char *user[2]; user[1] = NULL;
-  if ([[NSFileManager defaultManager] fileExistsAtPath:userDir isDirectory:NULL]) {
-    user[0] = (StdStringFromNSString(userDir)+strPattern).c_str();
-  } else {
-    // userDir doesn't exist => create it, ready to receive stuff
-    (void)[[NSFileManager defaultManager] createDirectoryAtPath:userDir withIntermediateDirectories:YES attributes:nil error:nil];
-    user[0] = 0;
-  }
+  const char *user[2];
+  const string userPath = StdStringFromNSString(userDir) + strPattern;
+  user[0] = userPath.c_str();
+  user[1] = NULL;
+  
   globScan(parser, user, sys);
 }
 
@@ -197,19 +199,23 @@ void COSXDasherControl::Train(NSString *fileName) {
   CDasherInterfaceBase::ImportTrainingText(f);
 }
 
-void COSXDasherControl::WriteTrainFile(const std::string &filename, const std::string &strNewText) {
+bool COSXDasherControl::WriteUserDataFile(const std::string &filename, const std::string &strNewText, bool append)
+{
   if(strNewText.length() == 0)
-    return;
+    return false;
   
   std::string strFilename(StdStringFromNSString(userDir) + filename);
   
-  NSLog(@"Write train file: %s", strFilename.c_str());
-  
-  int fd=open(strFilename.c_str(),O_CREAT|O_WRONLY|O_APPEND,S_IRUSR|S_IWUSR);
+  NSLog(@"Write user data file: %s", strFilename.c_str());
+  int flg=O_CREAT|O_WRONLY;
+  int mode=S_IRUSR|S_IWUSR;
+  if(append)
+    flg|=O_APPEND;
+  int fd=open(strFilename.c_str(),flg, mode);
   write(fd,strNewText.c_str(),strNewText.length());
   close(fd);
+  return true;
 }
-
 
 NSDictionary *COSXDasherControl::ParameterDictionary() {
   static NSMutableDictionary *parameterDictionary = nil;
@@ -317,7 +323,10 @@ std::string COSXDasherControl::GetContext(unsigned int iOffset, unsigned int iLe
 std::string COSXDasherControl::GetAllContext() {
   return StdStringFromNSString([dasherEdit allContext]);
 }
-
+int COSXDasherControl::GetAllContextLenght()
+{
+  return StdStringFromNSString([dasherEdit allContext]).length();
+}
 void COSXDasherControl::ClearAllContext() {
   [dasherEdit clearContext];
   SetBuffer(0);

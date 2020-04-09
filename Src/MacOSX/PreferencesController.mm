@@ -32,6 +32,9 @@ static NSString * const StartHandlerParamNames[2] = {
 
 @implementation PreferencesController
 
+@synthesize panel;
+@synthesize dasherApp;
+
 - (id)defaultsValueForKey:(NSString *)aKey {
   return [[NSUserDefaultsController sharedUserDefaultsController] valueForKeyPath:[NSString stringWithFormat:@"values.%@", aKey]];
 }
@@ -102,7 +105,10 @@ static NSString * const StartHandlerParamNames[2] = {
 
 - (void)makeKeyAndOrderFront:(id)sender {
   if (panel == nil) {
-    [NSBundle loadNibNamed:@"Preferences" owner:self];
+    //[NSBundle loadNibNamed:@"Preferences" owner:self];
+	  [[NSBundle mainBundle] loadNibNamed:@"Preferences"
+										   owner:self
+								 topLevelObjects:nil];
   }
   
   [panel makeKeyAndOrderFront:self];

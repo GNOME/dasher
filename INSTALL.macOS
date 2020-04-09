@@ -1,0 +1,20 @@
+Building Dasher for macOS
+=========================
+
+1. Open Src/MacOSX/Dasher.xcodeproj in Xcode
+2. Select 'Dasher' (release build) or 'Debug' (debug build) scheme
+3. Click the build/run button
+
+Building from the command line
+==============================\
+
+Ensure you have xcode command line tools installed.
+
+In a shell, execute:
+
+cd Src/MacOSX
+xcodebuild -scheme Dasher build
+
+Or, to output the built app to a custom location:
+
+xcodebuild -scheme Dasher SYMROOT="/tmp/dest" build
