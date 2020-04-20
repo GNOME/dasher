@@ -25,7 +25,7 @@ may be found in the Doc/ subdirectory
 
 Dasher makes use of the following third party software (note that this
 list is potentially inaccurate or incomplete - please send any
-corrections to 'dasherteam@yahoogroups.com):
+corrections to dasherteam@yahoogroups.com):
 
 General:
 
@@ -63,6 +63,8 @@ GNU make (gmake) must be used if building gnome documentation.
 
 ### macOS
 
+The macOS version has [its own README](README_macOS.md).
+
 The native UI in the MacOSX directory builds in Xcode 11.3
 and has been tested on macOS 10.14.
 
@@ -72,7 +74,7 @@ require the X11 server.
 
 ## Installation Instructions
 
-Please see the file INSTALL.<platform> for details on how to build and
+Please see the file INSTALL.[platform] for details on how to build and
 install Dasher from source on your host system.
 
 ## Font Support
@@ -117,7 +119,7 @@ please send any comments to 'dasher@inf.phy.cam.ac.uk'.
 
 You can find the Dasher website at:
 
-http://www.inference.phy.cam.ac.uk/dasher/
+http://www.inference.org.uk/dasher/
 
 Thank you for trying Dasher,
 
