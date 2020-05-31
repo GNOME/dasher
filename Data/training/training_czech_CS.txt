@@ -1415,7 +1415,8 @@ Ačkoli byla finální podoba programu vytvořena již před drahným časem, ne
 
 Horká linka: Umíte ŘÍDIT AUTO? Zákazník: Víte, upřímně řečeno, já nejsem moc technický typ. Chci se jenom autem dostat z místa na místo! Zdroj: http://data.club.cc.cmu.edu/-tina/humor
 
-<HEAD><TITLE>Přehled rubrik</TITLE><BASE TARGET="Rubrika"></HEAD><BODY>OOO aneb "Obsah Občanského občasníku":
+Přehled rubrik
+OOO aneb "Obsah Občanského občasníku":
 
 Ruší tím vzdálenosti a způsobuje, že začíná být jedno, kde mají ve světě podniky umístěny závody. Tak se průmysl stěhuje tam, kde je výroba celosvětově nejefektivnější a nejlevnější. Dnes je zejména v anglosaském světě běžné, že mají firmy pobočky v mnoha zemích světa.
 
