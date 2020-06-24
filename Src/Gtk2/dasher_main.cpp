@@ -996,7 +996,7 @@ dasher_main_command_help(DasherMain *pSelf) {
   GError *err = NULL;
 
   scr = gtk_widget_get_screen(GTK_WIDGET(pPrivate->pMainWindow));
-  if (!gtk_show_uri(scr, "ghelp:dasher", gtk_get_current_event_time(), &err)) {
+  if (!gtk_show_uri(scr, "help:dasher", gtk_get_current_event_time(), &err)) {
     GtkWidget *d;
     d = gtk_message_dialog_new(GTK_WINDOW(pPrivate->pMainWindow),
                                GTK_DIALOG_MODAL,

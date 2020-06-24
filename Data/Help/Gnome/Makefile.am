@@ -1,10 +1,8 @@
-include $(top_srcdir)/gnome-doc-utils.make
-dist-hook: doc-dist-hook
+@YELP_HELP_RULES@
 
-DOC_MODULE = dasher
-DOC_ENTITIES =
-DOC_INCLUDES = 
-DOC_FIGURES = figures/figure2.png \
+HELP_ID = dasher
+HELP_FILES = index.docbook
+HELP_MEDIA = figures/figure2.png \
 		figures/main.png \
 		figures/prefs1.png \
 		figures/prefs2.png \
@@ -20,5 +18,5 @@ DOC_FIGURES = figures/figure2.png \
 		figures/exampleHad3a.png \
 		figures/exampleHad4.png
 
-DOC_LINGUAS = ca cs de el en_GB es eu fr oc ro ru sl sv zh_CN
+HELP_LINGUAS = ca cs de el en_GB es eu fr oc ro ru sl sv zh_CN
 
