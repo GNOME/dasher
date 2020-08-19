@@ -57,8 +57,6 @@ AC_ARG_WITH([gnome],
 	  WITHGNOME=false 
 	else
 	  WITHGNOME=true
-	  # Need to work out how to translate replaced variables before uncommenting
-	  # AC_CONFIG_FILES([Data/Help/Gnome/C/dasher.xml])
 	fi, 
 	WITHGNOME=true)
 
@@ -413,9 +411,7 @@ GTKBUILD_LIBS="$X_LIBS $GTK_LIBS $GIO_LIBS $SETTINGS_LIBS $gthread_LIBS $hildon_
 AC_SUBST(GTKBUILD_CFLAGS)
 AC_SUBST(GTKBUILD_LIBS)
 
-if test x"$WITHGNOME" = xtrue -a x"$gdu_cv_have_gdu" = xno ; then
-    YELP_HELP_INIT
-fi
+YELP_HELP_INIT
 
 AC_CONFIG_FILES([Data/dasher.desktop.in
 		 Data/Makefile
