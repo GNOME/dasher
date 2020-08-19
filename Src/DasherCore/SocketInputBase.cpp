@@ -112,7 +112,7 @@ bool Dasher::CSocketInputBase::StartListening() {
   name.sin_family = AF_INET;
   name.sin_port = htons(port);
   name.sin_addr.s_addr = htonl(INADDR_ANY);
-  if(bind(sock, (struct sockaddr *)&name, sizeof(name)) < 0) {
+  if(::bind(sock, (struct sockaddr *)&name, sizeof(name)) < 0) {
     ReportErrnoError(_("Error binding to socket - already in use?"));
     DASHER_SOCKET_CLOSE_FUNCTION(sock);
     sock = -1;
