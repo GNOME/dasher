@@ -10,9 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher.master\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2018-01-31 16:25+0000\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dasher/issues\n"
+"POT-Creation-Date: 2020-07-16 20:38+0000\n"
 "PO-Revision-Date: 2018-02-22 13:10+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: es <gnome-es-list@gnome.org>\n"
@@ -38,11 +37,6 @@ msgstr "Entrada de texto predictivo"
 #: Data/dasher.desktop.in.in:5
 msgid "Enter text without a keyboard"
 msgstr "Introduzca texto sin un teclado"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: Data/dasher.desktop.in.in:8
-msgid "dasher"
-msgstr "dasher"
 
 #: Data/GUI/dashermaemofullscreen.ui:10 Data/GUI/dasher.traditional.ui:17
 msgid "_File"
@@ -546,15 +540,14 @@ msgstr ""
 "de juego «%s» pero no existe"
 
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
-#: Src/DasherCore/AlternatingDirectMode.cpp:28
-#: Src/DasherCore/ButtonMode.cpp:28 Src/DasherCore/CompassMode.cpp:28
-#: Src/DasherCore/StylusFilter.cpp:11
+#: Src/DasherCore/AlternatingDirectMode.cpp:28 Src/DasherCore/ButtonMode.cpp:28
+#: Src/DasherCore/CompassMode.cpp:28 Src/DasherCore/StylusFilter.cpp:11
 msgid "Frames over which to perform zoom"
 msgstr "Marcos sobre los que ampliar"
 
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
-#: Src/DasherCore/AlternatingDirectMode.cpp:30
-#: Src/DasherCore/ButtonMode.cpp:39 Src/DasherCore/CompassMode.cpp:32
+#: Src/DasherCore/AlternatingDirectMode.cpp:30 Src/DasherCore/ButtonMode.cpp:39
+#: Src/DasherCore/CompassMode.cpp:32
 msgid "Global keyboard grab"
 msgstr "Obtención global del teclado"
 
@@ -714,8 +707,7 @@ msgstr "Tiempo durante el cual el usuario necesitará ayuda antes de mostrarla"
 msgid "When we give help, show the shortest path to the target sentence?"
 msgstr "Al ayudar, ¿mostrar el camino más corto a la sentencia objetivo?"
 
-#: Src/DasherCore/MandarinAlphMgr.cpp:176
-#: Src/DasherCore/RoutingAlphMgr.cpp:128
+#: Src/DasherCore/MandarinAlphMgr.cpp:176 Src/DasherCore/RoutingAlphMgr.cpp:128
 #, c-format
 msgid ""
 "Warning: faulty alphabet definition: training-start delimiter %s must be a "
@@ -746,8 +738,7 @@ msgstr ""
 "miembro del grupo «%s», pero ningún grupo con ese nombre contiene el "
 "carácter; Dasher no podrá aprender cómo quiere escribir este carácter."
 
-#: Src/DasherCore/MandarinAlphMgr.cpp:200
-#: Src/DasherCore/RoutingAlphMgr.cpp:147
+#: Src/DasherCore/MandarinAlphMgr.cpp:200 Src/DasherCore/RoutingAlphMgr.cpp:147
 #, c-format
 msgid ""
 "Warning: training file contains character '%s' as member of group '%s', but "
@@ -758,8 +749,7 @@ msgstr ""
 "miembro del grupo «%s», pero el alfabeto contiene varios grupos. Dasher no "
 "podrá aprender cómo quiere escribir este carácter."
 
-#: Src/DasherCore/MandarinAlphMgr.cpp:220
-#: Src/DasherCore/RoutingAlphMgr.cpp:164
+#: Src/DasherCore/MandarinAlphMgr.cpp:220 Src/DasherCore/RoutingAlphMgr.cpp:164
 #, c-format
 msgid ""
 "Warning: in training file, annotation '<%s>' is followed by another "
@@ -1170,7 +1160,7 @@ msgid ""
 "Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering "
 "text in Dasher. Please select a training text to play with:"
 msgstr ""
-"Bienvenido al modo juego de Dasher. El modo juego es una manera divertida de "
+"Bienvenido/a al modo juego de Dasher. El modo juego es una manera divertida de "
 "introducir texto en Dasher. Seleccione un texto de entrenamiento con el que "
 "jugar:"
 
@@ -1320,9 +1310,11 @@ msgstr "- Una aplicación de entrada de texto para accesibilidad"
 
 #. Note to translators: This is the help string for unrecognized command line options. Do not translate 'dasher --help' part.
 #: Src/main.cc:182
-#| msgid "unknown option, use \"--help-options\" for more information."
 msgid "Try 'dasher --help' for more information."
 msgstr "Pruebe «dasher --help» para obtener más información."
+
+#~ msgid "dasher"
+#~ msgstr "dasher"
 
 #~ msgid "Auto-increasing speed to %0.2f"
 #~ msgstr "Aumentar la velocidad automáticamente a %0.2f"
