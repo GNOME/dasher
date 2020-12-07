@@ -1,92 +1,50 @@
 # Dasher help swedish translation
-# Copyright © 2017 Dasher's COPYRIGHT HOLDER
+# Copyright © 2006-2020 Dasher's COPYRIGHT HOLDER
 # This file is distributed under the same license as the dasher package.
 #
 # Translators:
+# Daniel Nylander <po@danielnylander.se>, 2006, 2009.
 # Josef Andersson <l10nl18nsweja@gmail.com>, 2017.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
-"POT-Creation-Date: 2017-07-31 15:30+0000\n"
-"PO-Revision-Date: 2017-04-30 21:29+0200\n"
-"Last-Translator: Josef Andersson <l10nl18nsweja@gmail.com>\n"
+"POT-Creation-Date: 2020-08-19 10:33+0000\n"
+"PO-Revision-Date: 2020-12-07 22:25+0100\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.4.2\n"
 
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: C/dasher.xml:188(None) C/dasher.xml:232(None)
-msgid "@@image: 'figures/a-z.gif'; md5=0df765cb06d1873c4b77ccfa2aec273a"
-msgstr "@@image: 'figures/a-z.gif'; md5=0df765cb06d1873c4b77ccfa2aec273a"
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: C/dasher.xml:191(None) C/dasher.xml:235(None)
-msgid "@@image: 'figures/aa-az.gif'; md5=499378b5a346d9a1fff3317ed7bca624"
-msgstr "@@image: 'figures/aa-az.gif'; md5=499378b5a346d9a1fff3317ed7bca624"
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: C/dasher.xml:194(None) C/dasher.xml:238(None)
-msgid "@@image: 'figures/ala-alz.gif'; md5=c1d38e5e5cd6234737ff5e80c8120416"
-msgstr "@@image: 'figures/ala-alz.gif'; md5=c1d38e5e5cd6234737ff5e80c8120416"
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: C/dasher.xml:263(None)
-msgid "@@image: 'figures/object.gif'; md5=f961ced3b16182985421dba58cbb130d"
-msgstr "@@image: 'figures/object.gif'; md5=f961ced3b16182985421dba58cbb130d"
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: C/dasher.xml:339(None)
-msgid ""
-"@@image: 'figures/exampleHad2.png'; md5=c3a7c8f985519a90d739117aa4e1e064"
+#. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
+msgctxt "_"
+msgid "translator-credits"
 msgstr ""
-"@@image: 'figures/exampleHad2.png'; md5=c3a7c8f985519a90d739117aa4e1e064"
+"Daniel Nylander <po@danielnylander.se>, 2006, 2009\n"
+"Josef Andersson <l10nl18nsweja@gmail.com>, 2017\n"
+"Anders Jonsson <anders.jonsson@norsjovallen.se>, 2020"
 
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: C/dasher.xml:357(None)
-msgid ""
-"@@image: 'figures/exampleHad2a.png'; md5=1d124560d223498f876122bcd85afaac"
-msgstr ""
-"@@image: 'figures/exampleHad2a.png'; md5=1d124560d223498f876122bcd85afaac"
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: C/dasher.xml:369(None)
-msgid ""
-"@@image: 'figures/exampleHad3a.png'; md5=0bcd661209391842cf47f00b767146b3"
-msgstr ""
-"@@image: 'figures/exampleHad3a.png'; md5=0bcd661209391842cf47f00b767146b3"
-
-#. When image changes, this message will be marked fuzzy or untranslated for you.
-#. It doesn't matter what you translate it to: it's not used at all.
-#: C/dasher.xml:398(None)
-msgid ""
-"@@image: 'figures/exampleHad4.png'; md5=9974616612b5c811cb2c161093c8523c"
-msgstr ""
-"@@image: 'figures/exampleHad4.png'; md5=9974616612b5c811cb2c161093c8523c"
-
-#: C/dasher.xml:5(title)
+#. (itstool) path: articleinfo/title
+#: C/dasher.xml:5
 msgid "Dasher Manual"
 msgstr "Handbok för Dasher"
 
-#: C/dasher.xml:6(corpauthor) C/dasher.xml:9(holder)
+#. (itstool) path: articleinfo/corpauthor
+#: C/dasher.xml:6
 msgid "The Dasher Project"
 msgstr "Dasher-projektet"
 
-#: C/dasher.xml:8(year)
-msgid "2010"
-msgstr "2010"
+#. (itstool) path: articleinfo/copyright
+#: C/dasher.xml:7
+msgid "<year>2010</year> <holder>The Dasher Project</holder>"
+msgstr "<year>2010</year> <holder>Dasher-projektet</holder>"
 
-#: C/dasher.xml:12(para)
+#. (itstool) path: legalnotice/para
+#: C/dasher.xml:12
 msgid ""
 "Permission is granted to make and distribute verbatim copies of this manual "
 "provided the copyright notice and this permission notice are preserved on "
@@ -96,7 +54,8 @@ msgstr ""
 "att upphovsrättsmeddelandet och detta rättighetsmeddelande bevaras i alla "
 "kopior."
 
-#: C/dasher.xml:14(para)
+#. (itstool) path: legalnotice/para
+#: C/dasher.xml:14
 msgid ""
 "Permission is granted to copy and distribute modified versions of this "
 "manual under the conditions for verbatim copying, provided that the entire "
@@ -107,7 +66,8 @@ msgstr ""
 "ges under villkoren för kopiering, förutsatt att hela det resulterande "
 "arbetet distribueras under identiska villkor."
 
-#: C/dasher.xml:17(para)
+#. (itstool) path: legalnotice/para
+#: C/dasher.xml:17
 msgid ""
 "Permission is granted to copy and distribute translations of this manual "
 "into another language, under the above conditions for modified versions, "
@@ -119,33 +79,40 @@ msgstr ""
 "att detta rättighetsmeddelande ska uttryckas i en översättning godkänd av "
 "Free Software Foundation."
 
-#: C/dasher.xml:20(para)
+#. (itstool) path: legalnotice/para
+#: C/dasher.xml:20
 msgid "UNIX is a trademark of X/Open Group."
 msgstr "UNIX är ett varumärke tillhörande X/Open Group."
 
-#: C/dasher.xml:21(para)
+#. (itstool) path: legalnotice/para
+#: C/dasher.xml:21
 msgid "Linux is a trademark of Linus Torvalds."
 msgstr "Linux är ett varumärke tillhörande Linus Torvalds."
 
-#: C/dasher.xml:22(para)
+#. (itstool) path: legalnotice/para
+#: C/dasher.xml:22
 msgid "X Window System is a trademark of X Consortium, Inc."
 msgstr "X Window System är ett varumärke tillhörande X Consortium, Inc."
 
-#: C/dasher.xml:23(para)
+#. (itstool) path: legalnotice/para
+#: C/dasher.xml:23
 msgid "Windows is a trademark of Microsoft Corp."
 msgstr "Windows är ett varumärke tillhörande Microsoft Corp."
 
-#: C/dasher.xml:24(para)
+#. (itstool) path: legalnotice/para
+#: C/dasher.xml:24
 msgid "Macintosh and Apple are trademarks of Apple Computer, Inc."
 msgstr "Macintosh och Apple är varumärken tillhörande Apple Computer, Inc."
 
-#: C/dasher.xml:25(para)
+#. (itstool) path: legalnotice/para
+#: C/dasher.xml:25
 msgid "All other trademarks are property of their respective owners."
 msgstr ""
 "Alla andra varumärken och upphovsrätter refererade till ägs av deras "
 "respektive ägare."
 
-#: C/dasher.xml:28(para)
+#. (itstool) path: abstract/para
+#: C/dasher.xml:28
 msgid ""
 "Dasher is an accessible text entry application that uses pointing gestures "
 "rather than typing. It is designed to be fast while fun to use."
@@ -154,43 +121,33 @@ msgstr ""
 "istället för att skriva på tangentbord. Det är designat till att vara snabbt "
 "men samtidigt roligt att använda."
 
-#: C/dasher.xml:33(revnumber)
-msgid "1.0.0"
-msgstr "1.0.0"
+#. (itstool) path: revhistory/revision
+#: C/dasher.xml:32
+msgid "<revnumber>1.0.0</revnumber> <date>2004-02-08</date>"
+msgstr "<revnumber>1.0.0</revnumber> <date>2004-02-08</date>"
 
-#: C/dasher.xml:34(date)
-msgid "2004-02-08"
-msgstr "2004-02-08"
+#. (itstool) path: revhistory/revision
+#: C/dasher.xml:36
+msgid "<revnumber>1.1.0</revnumber> <date>2006-03-31</date>"
+msgstr "<revnumber>1.1.0</revnumber> <date>2006-03-31</date>"
 
-#: C/dasher.xml:37(revnumber)
-msgid "1.1.0"
-msgstr "1.1.0"
+#. (itstool) path: revhistory/revision
+#: C/dasher.xml:40
+msgid "<revnumber>1.2.0</revnumber> <date>2006-07-11</date>"
+msgstr "<revnumber>1.2.0</revnumber> <date>2006-07-11</date>"
 
-#: C/dasher.xml:38(date)
-msgid "2006-03-31"
-msgstr "2006-03-31"
+#. (itstool) path: revhistory/revision
+#: C/dasher.xml:44
+msgid "<revnumber>1.2.1</revnumber> <date>2006-09-02</date>"
+msgstr "<revnumber>1.2.1</revnumber> <date>2006-09-02</date>"
 
-#: C/dasher.xml:41(revnumber)
-msgid "1.2.0"
-msgstr "1.2.0"
-
-#: C/dasher.xml:42(date)
-msgid "2006-07-11"
-msgstr "2006-07-11"
-
-#: C/dasher.xml:45(revnumber)
-msgid "1.2.1"
-msgstr "1.2.1"
-
-#: C/dasher.xml:46(date)
-msgid "2006-09-02"
-msgstr "2006-09-02"
-
-#: C/dasher.xml:52(title)
+#. (itstool) path: sect1/title
+#: C/dasher.xml:52
 msgid "Introduction"
 msgstr "Introduktion"
 
-#: C/dasher.xml:53(para)
+#. (itstool) path: sect1/para
+#: C/dasher.xml:53
 msgid ""
 "<application>Dasher</application> is an information-efficient text-entry "
 "interface, driven by natural continuous pointing gestures. Dasher is a "
@@ -208,7 +165,8 @@ msgstr ""
 "eller utan händer (med huvudmus eller ögonspårning). Det här dokumentet "
 "beskriver version 4.2.0 av <application>Dasher</application>."
 
-#: C/dasher.xml:59(para)
+#. (itstool) path: sect1/para
+#: C/dasher.xml:59
 msgid ""
 "<application>Dasher</application> can be started by selecting "
 "<guimenuitem>Dasher</guimenuitem> from the <guisubmenu>Accessibility </"
@@ -216,19 +174,22 @@ msgid ""
 "command <command>dasher</command> on the command line."
 msgstr ""
 "<application>Dasher</application> startas genom att välja "
-"<guimenuitem>Dasher</guimenuitem> från undermenyn <guisubmenu>Hjälpmedel "
-"</guisubmenu> i <guimenu>Huvudmenyn</guimenu> eller genom att köra kommandot "
+"<guimenuitem>Dasher</guimenuitem> från undermenyn <guisubmenu>Hjälpmedel </"
+"guisubmenu> i <guimenu>Huvudmenyn</guimenu> eller genom att köra kommandot "
 "<command>dasher</command> på kommandoraden."
 
-#: C/dasher.xml:65(title)
+#. (itstool) path: sect1/title
+#: C/dasher.xml:65
 msgid "What's New"
 msgstr "Vad är nytt"
 
-#: C/dasher.xml:68(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:68
 msgid "New features In version 4.2"
 msgstr "Nya funktioner i version 4.2"
 
-#: C/dasher.xml:71(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:71
 msgid ""
 "There is an automatic speed control, which will speed up Dasher when it "
 "senses you are able to go faster."
@@ -236,7 +197,8 @@ msgstr ""
 "Det finns en automatisk hastighetskontroll som kommer att snabba upp Dasher "
 "när det känner av att du kan skriva snabbare."
 
-#: C/dasher.xml:74(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:74
 msgid ""
 "There is a new socket interface allowing Dasher to listen to head-trackers "
 "or gaze-trackers or EEG-interfaces without going through the mouse."
@@ -245,7 +207,8 @@ msgstr ""
 "lyssna till huvudspårning, ögonspårning eller EEG-gränssnitt utan att "
 "använda musen."
 
-#: C/dasher.xml:77(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:77
 msgid ""
 "There are several `button modes' for people who want to drive Dasher using "
 "one, two, three, or four switches."
@@ -253,7 +216,8 @@ msgstr ""
 "Det finns flera olika ”knapplägen” för de som vill använda Dasher med en, "
 "två, tre eller fyra växlar."
 
-#: C/dasher.xml:80(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:80
 msgid ""
 "There is a `click mode', for people who like to point where they want to go, "
 "and click to take a single step in that direction. This is aimed at "
@@ -263,11 +227,13 @@ msgstr ""
 "och klicka för att förflytta sig ett enkelt steg i den riktningen. Detta "
 "riktar sig främst till nybörjare"
 
-#: C/dasher.xml:86(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:86
 msgid "What's coming in version 4.4"
 msgstr "Vad kommer i version 4.4"
 
-#: C/dasher.xml:87(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:87
 msgid ""
 "We will implement a game-mode for Dasher: this will help novices learn to "
 "write. A teaching hand will guide the novice when he goes astray, and "
@@ -275,10 +241,11 @@ msgid ""
 msgstr ""
 "Vi kommer att implementera ett spelläge för Dasher; det kommer att hjälpa "
 "nybörjare att lära sig att skriva. En hjälpande hand kommer att guida "
-"novisen när han går vilse, och nybörjare som skriver snabbare utan behöva "
-"hjälp kommer att vinna massor av poäng."
+"novisen när han går vilse, och nybörjare som skriver snabbare utan att "
+"behöva hjälp kommer att vinna massor av poäng."
 
-#: C/dasher.xml:91(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:91
 msgid ""
 "New language models will be added, which will make predictions at the word "
 "level as well as the letter level."
@@ -286,11 +253,13 @@ msgstr ""
 "Nya språkmodeller kommer att läggas till, vilket kommer att skapa "
 "förutsägelser på ordnivå såväl som på bokstavsnivå."
 
-#: C/dasher.xml:94(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:94
 msgid "Japanese and Chinese will be fully supported."
 msgstr "Japanska och kinesiska kommer att stödjas fullt ut."
 
-#: C/dasher.xml:96(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:96
 msgid ""
 "The Dasher team also hopes to create a free web-cam-based head tracker and "
 "gaze tracker, `FreeVIM', by December 2006."
@@ -298,19 +267,23 @@ msgstr ""
 "Dasher-teamet hoppas kunna skapa en fri webbkamerabaserad huvud- och "
 "ögonspårare, ”FreeVIM“ till December 2006."
 
-#: C/dasher.xml:101(title)
+#. (itstool) path: sect1/title
+#: C/dasher.xml:101
 msgid "Dasher Basics"
 msgstr "Grundläggande i Dasher"
 
-#: C/dasher.xml:106(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:106
 msgid "On a palmtop computer;"
 msgstr "På en handdator;"
 
-#: C/dasher.xml:109(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:109
 msgid "on a wearable computer;"
 msgstr "på en kroppsnära dator;"
 
-#: C/dasher.xml:112(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:112
 msgid ""
 "when operating a computer one-handed, by joystick, touchscreen, trackball, "
 "or mouse;"
@@ -318,7 +291,8 @@ msgstr ""
 "när en dator sköts med endast en hand, med styrspak, pekskärm, styrkula "
 "eller mus;"
 
-#: C/dasher.xml:116(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:116
 msgid ""
 "when operating a computer with zero hands (i.e., by head-mouse or by "
 "eyetracker)."
@@ -326,31 +300,35 @@ msgstr ""
 "när en dator sköts helt utan händer (t.ex. med huvudmus eller en "
 "ögonspårare)."
 
-#: C/dasher.xml:102(para)
+#. (itstool) path: sect1/para
+#: C/dasher.xml:102
 msgid ""
 "Dasher is an information-efficient text-entry interface, driven by natural "
 "continuous pointing gestures. Dasher is a competitive text-entry system "
-"wherever a full-size keyboard cannot be used - for example, <placeholder-1/> "
-"The eyetracking version of Dasher allows an experienced user to write text "
-"as fast as normal handwriting - 29 words per minute; using a mouse, "
-"experienced users can write at 39 words per minute."
+"wherever a full-size keyboard cannot be used - for example, <_:"
+"itemizedlist-1/> The eyetracking version of Dasher allows an experienced "
+"user to write text as fast as normal handwriting - 29 words per minute; "
+"using a mouse, experienced users can write at 39 words per minute."
 msgstr ""
 "Dasher är ett informationseffektivt textinmatningsgränssnitt, drivet av "
 "naturliga kontinuerliga pekgester. Dasher är ett konkurrenskraftig "
 "textinmatningssystem när ett komplett tangentbord inte kan användas - till "
-"exempel, <placeholder-1/> Ögonspårningsversionen av Dasher låter en erfaren "
-"användare skriva text lika snabbt som normal handskrift - 29 ord per minut; "
-"med en mus kan erfarna användare skriva 39 ord per minut."
+"exempel, <_:itemizedlist-1/> Ögonspårningsversionen av Dasher låter en "
+"erfaren användare skriva text lika snabbt som normal handskrift - 29 ord per "
+"minut; med en mus kan erfarna användare skriva 39 ord per minut."
 
-#: C/dasher.xml:123(para)
+#. (itstool) path: sect1/para
+#: C/dasher.xml:123
 msgid "Dasher can be used to write efficiently in any language."
 msgstr "Dasher kan användas för att skriva effektivt i alla språk."
 
-#: C/dasher.xml:125(para)
+#. (itstool) path: sect1/para
+#: C/dasher.xml:125
 msgid "Dasher is fast and fun to learn."
 msgstr "Dasher är snabbt och roligt att lära sig."
 
-#: C/dasher.xml:130(para)
+#. (itstool) path: sect1/para
+#: C/dasher.xml:130
 msgid ""
 "Dasher is <emphasis>free software</emphasis>. It's distributed under the "
 "same license as GNU/Linux, the GPL."
@@ -358,21 +336,25 @@ msgstr ""
 "Dasher är <emphasis>fri programvara</emphasis>. Det distribueras under samma "
 "licens som GNU/Linux, licensen GPL."
 
-#: C/dasher.xml:134(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:134
 msgid "How does Dasher work?"
 msgstr "Hur fungerar Dasher?"
 
-#: C/dasher.xml:137(attribution)
+#. (itstool) path: blockquote/attribution
+#: C/dasher.xml:137
 msgid "Financial Times, 5th February 2002"
 msgstr "Financial Times, 5:e februari 2002"
 
-#: C/dasher.xml:138(para)
+#. (itstool) path: blockquote/para
+#: C/dasher.xml:138
 msgid ""
 "Dasher is like an arcade game: `Attack of the killer alphabets', perhaps."
 msgstr ""
 "Dasher är kanske likt ett arkadspel: ”Attacken från de dödliga alfabeten”."
 
-#: C/dasher.xml:141(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:141
 msgid ""
 "Dasher is a zooming interface. You point where you want to go, and the "
 "display zooms in wherever you point. The world into which you are zooming is "
@@ -386,7 +368,8 @@ msgstr ""
 "du zoomar in, desto längre är texten du har skrivit. Du kan välja vad du "
 "vill skriva genom att välja var du vill zooma in."
 
-#: C/dasher.xml:146(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:146
 msgid ""
 "To make the interface efficient, we use the predictions of a language model "
 "to determine how much of the world is devoted to each piece of text. "
@@ -403,7 +386,8 @@ msgstr ""
 "tiden: om du använder ett ovanligt ord en gång lär den sig det enklare nästa "
 "gång."
 
-#: C/dasher.xml:154(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:154
 msgid ""
 "A big advantage of Dasher over other predictive text-entry interfaces that "
 "offer word-completions to the user is that it is <emphasis>mode-free</"
@@ -415,7 +399,8 @@ msgstr ""
 "att det är <emphasis>lägesfritt</emphasis>: användaren behöver inte byta "
 "från skrivläge till ett <quote>acceptera-modell-förutsägelse</quote>-läge."
 
-#: C/dasher.xml:158(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:158
 msgid ""
 "Another advantage is that it is easy to train the model on any writing "
 "style: simply load up an example file, then write away!"
@@ -423,7 +408,8 @@ msgstr ""
 "En annan fördel är att det är enkelt att träna modellen på vilken skrivstil "
 "som helst: öppna en exempelfil och skriv bara på!"
 
-#: C/dasher.xml:161(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:161
 msgid ""
 "It's quite hard to convey in words what Dasher looks like, so please visit "
 "<ulink url=\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http"
@@ -433,11 +419,13 @@ msgstr ""
 "url=\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\">http://www."
 "inference.phy.cam.ac.uk/dasher/</ulink> för att se filmer."
 
-#: C/dasher.xml:166(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:166
 msgid "Dasher explained -- the library analogy"
 msgstr "Dasher förklarat -- biblioteksliknelsen"
 
-#: C/dasher.xml:167(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:167
 msgid ""
 "Imagine <emphasis>a library containing all possible books</emphasis>, "
 "ordered alphabetically on a single shelf. Books in which the first letter is "
@@ -447,10 +435,9 @@ msgid ""
 "quote>; (z) at the bottom. The first book in the <quote>a</quote>; section "
 "reads <quote><computeroutput>aaaaaaaaaaaa</computeroutput>...</quote>; "
 "somewhere to its right are books that start <quote><computeroutput>all good "
-"things must come to an\n"
-"          end</computeroutput>...</quote>; a tiny bit further to the right "
-"are books that start <quote><computeroutput>all good things must come to an\n"
-"        enema</computeroutput>...</quote>."
+"things must come to an end</computeroutput>...</quote>; a tiny bit further "
+"to the right are books that start <quote><computeroutput>all good things "
+"must come to an enema</computeroutput>...</quote>."
 msgstr ""
 "Föreställ dig <emphasis>ett bibliotek som innehåller alla möjliga böcker</"
 "emphasis>, sorterade alfabetiskt på en hylla. Böcker i vilken den första "
@@ -458,14 +445,14 @@ msgstr ""
 "bokstaven <quote>ö</quote> är först är till höger. I bilden (i) nedan är "
 "hyllan visad vertikalt med <quote>vänster</quote>; (a) överst och "
 "<quote>höger</quote> (ö) nederst. Den första boken i <quote>a</quote>-"
-"sektionen läser <quote><computeroutput>aaaaaaaaaaaa</computeroutput>...</"
-"quote>; någonstans till höger finns böcker som börjar med "
-"<quote><computeroutput>alla bra böcker\n"
-"          slutar</computeroutput>...</quote>; lite mer till höger finns "
-"böcker som börjar med <quote><computeroutput>alla bra böcker slutspel\n"
-"        </computeroutput>...</quote>."
+"sektionen börjar med <quote><computeroutput>aaaaaaaaaaaa</computeroutput>..."
+"</quote>; någonstans till höger finns böcker som börjar med "
+"<quote><computeroutput>alla bra böcker slutar</computeroutput>...</quote>; "
+"lite mer till höger finns böcker som börjar med <quote><computeroutput>alla "
+"bra böcker slutspel</computeroutput>...</quote>."
 
-#: C/dasher.xml:180(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:180
 msgid ""
 "When someone writes a piece of text, their choice of the text string can be "
 "viewed as a choice of a book from this library of all books - the book that "
@@ -478,36 +465,74 @@ msgstr ""
 "texten. Hur väljer de den boken? Låt oss föreställa oss att de vill skriva "
 "<quote><computeroutput>alla bra böcker</computeroutput>...</quote>;"
 
-#: C/dasher.xml:185(title) C/dasher.xml:229(title)
+#. (itstool) path: figure/title
+#: C/dasher.xml:185 C/dasher.xml:229
 msgid "The library of all books."
 msgstr "Alla böckers bibliotek."
 
-#: C/dasher.xml:198(para)
-msgid ""
-"First, they walk into the <quote><computeroutput>a</computeroutput></quote>; "
-"section of the library. There, they are confronted by books starting "
-"<quote><computeroutput>aa</computeroutput></quote>;, "
-"<quote><computeroutput>ab</computeroutput></quote>, "
-"<quote><computeroutput>ac</computeroutput>...</quote>; "
-"<quote><computeroutput>az</computeroutput></quote>; [Picture (ii)]. Looking "
-"more closely at the <quote><computeroutput>al</computeroutput></quote>; "
-"section, they can find books starting <quote><computeroutput>ala</"
-"computeroutput></quote>;, <quote>;<computeroutput>alb</computeroutput></"
-"quote>;,...; <quote><computeroutput>alz</computeroutput></quote>; [Picture "
-"(iii)]."
-msgstr ""
-"Först går de in i bibliotekets sektion <quote><computeroutput>a</"
-"computeroutput></quote>. Där finner de böcker som börjar med "
-"<quote><computeroutput>aa</computeroutput></quote>;, "
-"<quote><computeroutput>ab</computeroutput></quote>, "
-"<quote><computeroutput>ac</computeroutput>...</quote>; "
-"<quote><computeroutput>aö</computeroutput></quote>; [Bild (ii)]. Vid närmare "
-"titt på sektion <quote><computeroutput>al</computeroutput></quote> finner de "
-"böcker som börjar med <quote><computeroutput>ala</computeroutput></quote>;, "
-"<quote>;<computeroutput>alb</computeroutput></quote>;,...; "
-"<quote><computeroutput>alö</computeroutput></quote>; [Bild (iii)]."
+#. (itstool) path: imageobject/imagedata
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/dasher.xml:188 C/dasher.xml:232
+#| msgid "@@image: 'figures/a-z.gif'; md5=0df765cb06d1873c4b77ccfa2aec273a"
+msgctxt "_"
+msgid "external ref='figures/a-z.gif' md5='0df765cb06d1873c4b77ccfa2aec273a'"
+msgstr "external ref='figures/a-z.gif' md5='0df765cb06d1873c4b77ccfa2aec273a'"
 
-#: C/dasher.xml:214(para)
+#. (itstool) path: imageobject/imagedata
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/dasher.xml:191 C/dasher.xml:235
+#| msgid "@@image: 'figures/aa-az.gif'; md5=499378b5a346d9a1fff3317ed7bca624"
+msgctxt "_"
+msgid "external ref='figures/aa-az.gif' md5='499378b5a346d9a1fff3317ed7bca624'"
+msgstr ""
+"external ref='figures/aa-az.gif' md5='499378b5a346d9a1fff3317ed7bca624'"
+
+#. (itstool) path: imageobject/imagedata
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/dasher.xml:194 C/dasher.xml:238
+#| msgid "@@image: 'figures/ala-alz.gif'; md5=c1d38e5e5cd6234737ff5e80c8120416"
+msgctxt "_"
+msgid ""
+"external ref='figures/ala-alz.gif' md5='c1d38e5e5cd6234737ff5e80c8120416'"
+msgstr ""
+"external ref='figures/ala-alz.gif' md5='c1d38e5e5cd6234737ff5e80c8120416'"
+
+#. (itstool) path: sect2/para
+#: C/dasher.xml:198
+msgid ""
+"First, they walk into the <quote> <computeroutput>a</computeroutput> </"
+"quote>; section of the library. There, they are confronted by books starting "
+"<quote> <computeroutput>aa</computeroutput> </quote>;, <quote> "
+"<computeroutput>ab</computeroutput> </quote>, <quote><computeroutput>ac</"
+"computeroutput>...</quote>; <quote> <computeroutput>az</computeroutput> </"
+"quote>; [Picture (ii)]. Looking more closely at the <quote> "
+"<computeroutput>al</computeroutput> </quote>; section, they can find books "
+"starting <quote> <computeroutput>ala</computeroutput> </quote>;, <quote>;"
+"<computeroutput>alb</computeroutput></quote>;,...; <quote> "
+"<computeroutput>alz</computeroutput> </quote>; [Picture (iii)]."
+msgstr ""
+"Först går de in i bibliotekets avsnitt <quote> <computeroutput>a</"
+"computeroutput> </quote>. Där finner de böcker som börjar med <quote> "
+"<computeroutput>aa</computeroutput> </quote>;, <quote> <computeroutput>ab</"
+"computeroutput> </quote>, <quote> <computeroutput>ac</computeroutput>...</"
+"quote>; <quote> <computeroutput>aö</computeroutput> </quote>; [Bild (ii)]. "
+"Vid närmare titt på avsnittet <quote> <computeroutput>al</computeroutput> </"
+"quote> finner de böcker som börjar med <quote> <computeroutput>ala</"
+"computeroutput> </quote>;, <quote>;<computeroutput>alb</computeroutput></"
+"quote>;,...; <quote> <computeroutput>alö</computeroutput> </quote>; [Bild "
+"(iii)]."
+
+#. (itstool) path: sect2/para
+#: C/dasher.xml:214
 msgid ""
 "By looking ever more closely at the shelf, the writer can find the book "
 "containing the text he wishes to write. Thus writing can be described as "
@@ -519,12 +544,13 @@ msgstr ""
 "<emphasis>zooma in på ett alfabetiskt bibliotek, där styrningen sker "
 "allteftersom du färdas</emphasis>."
 
-#: C/dasher.xml:218(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:218
 msgid ""
 "This is exactly how Dasher works, except for one crucial point: <emphasis>we "
 "alter the SIZE of the shelf space devoted to each book in proportion to the "
 "probability of the corresponding text.</emphasis> For example, not very many "
-"books start with an <quote><computeroutput>x</computeroutput></quote>;, so "
+"books start with an <quote> <computeroutput>x</computeroutput> </quote>;, so "
 "we devote less space to <quote><computeroutput>x</computeroutput>...;</"
 "quote>; books, and more to the more plausible books, thus making it easier "
 "to find books that contain probable text."
@@ -532,12 +558,13 @@ msgstr ""
 "Det är precis så Dasher fungerar, förutom en viktig punkt: <emphasis>vi "
 "ändrar STORLEKEN för hyllutrymmet avsett för varje bok i proportion mot "
 "sannolikheten av motsvarande text.</emphasis> Till exempel börjar inte många "
-"böcker med <quote><computeroutput>x</computeroutput></quote>;, Så vi lämnar "
-"mindre utrymme för böcker på <quote><computeroutput>x</computeroutput>...;</"
-"quote> och fler till aktuellare böcker, vilket gör det enklare att hitta "
-"böcker som innehåller sannolik text."
+"böcker med <quote> <computeroutput>x</computeroutput> </quote>;, Så vi "
+"lämnar mindre utrymme för böcker på <quote><computeroutput>x</"
+"computeroutput>...;</quote> och fler till aktuellare böcker, vilket gör det "
+"enklare att hitta böcker som innehåller sannolik text."
 
-#: C/dasher.xml:226(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:226
 msgid ""
 "Here is the corresponding sequence of pictures of the library in Dasher. "
 "(The character <quote>_</quote>; denotes the space character.)"
@@ -545,13 +572,8 @@ msgstr ""
 "Här är motsvarande bildsekvens i Dashers bibliotek. (Tecknet <quote>_</"
 "quote> motsvarar blankstegstecknet.)"
 
-#. \begin{center}
-#. \begin{tabular}{ccc}
-#. \mbox{\psfig{figure=images/a-z.m.gif.50.ps}}&
-#. \mbox{\psfig{figure=images/aa-az.m.gif.50.ps}}&
-#. \mbox{\psfig{figure=images/ala-alz.m.gif.50.ps}}\#. (i)&(ii)&(iii)\#. \end{tabular}
-#. \end{center}
-#: C/dasher.xml:253(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:253
 msgid ""
 "Dasher can be trained on examples of any writing style, and it learns all "
 "the time, picking up your personal turns of phrase."
@@ -559,7 +581,8 @@ msgstr ""
 "Dasher kan tränas på vilken skrivstil som helst och lär sig hela tiden, samt "
 "plockar upp din personliga frasstil."
 
-#: C/dasher.xml:256(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:256
 msgid ""
 "The image below shows the state of the Dasher interface while the user is "
 "writing the word `objection'; alternative words that could easily be written "
@@ -569,11 +592,26 @@ msgstr ""
 "skriver ordet ”objection”; alternativa ord som enkelt skulle kunna skrivas "
 "vid denna punkt omfattar `objective', `objects_', och `object_oriented'."
 
-#: C/dasher.xml:260(title)
+#. (itstool) path: figure/title
+#: C/dasher.xml:260
 msgid "Writing `objection' in Dasher."
 msgstr "Skriva ”objection” i Dasher."
 
-#: C/dasher.xml:268(para)
+#. (itstool) path: imageobject/imagedata
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/dasher.xml:263
+#| msgid "@@image: 'figures/object.gif'; md5=f961ced3b16182985421dba58cbb130d"
+msgctxt "_"
+msgid ""
+"external ref='figures/object.gif' md5='f961ced3b16182985421dba58cbb130d'"
+msgstr ""
+"external ref='figures/object.gif' md5='f961ced3b16182985421dba58cbb130d'"
+
+#. (itstool) path: sect2/para
+#: C/dasher.xml:268
 msgid ""
 "If you find Dasher hard to imagine based on these static pictures, please "
 "take a look at the movies on <ulink url=\"http://www.inference.phy.cam.ac.uk/"
@@ -584,11 +622,13 @@ msgstr ""
 "phy.cam.ac.uk/dasher/\" type=\"http\">http://www.inference.phy.cam.ac.uk/"
 "dasher/</ulink>."
 
-#: C/dasher.xml:275(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:275
 msgid "Tips for novices"
 msgstr "Tips för nybörjare"
 
-#: C/dasher.xml:276(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:276
 msgid ""
 "Don't give up if it takes you a minute or two to get started - within ten "
 "minutes, you'll be blazing along. It's a lot like driving a car. You should "
@@ -616,7 +656,8 @@ msgstr ""
 "<emphasis>Försök att inte ta saker och dra dem. Försök att avgöra vart du "
 "vill gå och peka där.</emphasis>"
 
-#: C/dasher.xml:287(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:287
 msgid ""
 "<emphasis>The single most important concept</emphasis> that a novice user "
 "needs to understand is that one should always continue <emphasis>inside</"
@@ -635,34 +676,35 @@ msgstr ""
 "innehåller <quote>alla</quote> som sitt första ord, går man <emphasis>inte</"
 "emphasis> in i <quote>a</quote>-avsnittet i biblioteket och sedan ut ur "
 "<quote>a</quote>-avsnittet och in i <quote>l</quote>-avsnittet. Man går in i "
-"avsnittet <quote>a</quote>; hittar sedan <quote>al</quote> som är inom "
-"<emphasis></emphasis><quote>a</quote>; sedan in i avsnitt <quote>alla</"
-"quote><emphasis>inom</emphasis> avsnitt <quote>all</quote> som i sin tur "
-"finns i avsnittet <quote>al</quote>."
+"avsnittet <quote>a</quote>; hittar sedan <quote>al</quote> som är "
+"<emphasis>inom</emphasis> avsnittet <quote>a</quote>; sedan in i avsnittet "
+"<quote>alla</quote> <emphasis>inom</emphasis> avsnitt <quote>all</quote> som "
+"i sin tur finns <emphasis>inom</emphasis> avsnittet <quote>al</quote>."
 
-#: C/dasher.xml:297(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:297
 msgid ""
-"It's just like finding a name in a phonebook. To find "
-"<quote><computeroutput>Alison</computeroutput></quote>;, you don't go to the "
-"<quote><computeroutput>A</computeroutput></quote>; section of the phonebook, "
-"then the <quote>;<computeroutput>L</computeroutput></quote>; section: you go "
-"into the <quote><computeroutput>A</computeroutput></quote>; section, then "
-"find <emphasis>within it</emphasis> the <quote><computeroutput>Al</"
-"computeroutput></quote>; section, and so forth. Once you are in the "
-"<quote><computeroutput>Al</computeroutput></quote>; section, you never leave "
-"it."
+"It's just like finding a name in a phonebook. To find <quote> "
+"<computeroutput>Alison</computeroutput> </quote>;, you don't go to the "
+"<quote> <computeroutput>A</computeroutput> </quote>; section of the "
+"phonebook, then the <quote>;<computeroutput>L</computeroutput></quote>; "
+"section: you go into the <quote> <computeroutput>A</computeroutput> </"
+"quote>; section, then find <emphasis>within it</emphasis> the <quote> "
+"<computeroutput>Al</computeroutput> </quote>; section, and so forth. Once "
+"you are in the <quote> <computeroutput>Al</computeroutput> </quote>; "
+"section, you never leave it."
 msgstr ""
-"Det är precis som att hitta ett namn i en telefonbok. För att hitta "
-"<quote><computeroutput>Alison</computeroutput></quote> går du inte till "
-"avsnitt <quote><computeroutput>A</computeroutput></quote> och sedan till "
-"avsnitt <quote>;<computeroutput>L</computeroutput></quote> i telefonboken: "
-"du går till avsnitt <quote><computeroutput>A</computeroutput></quote> och "
-"hittar sedan <emphasis>inom det</emphasis> avsnittet "
-"<quote><computeroutput>Al</computeroutput></quote> och så vidare. När du väl "
-"är inom avsnittet <quote><computeroutput>Al</computeroutput></quote> lämnar "
-"du det aldrig."
+"Det är precis som att hitta ett namn i en telefonbok. För att hitta <quote> "
+"<computeroutput>Alison</computeroutput> </quote> går du inte till avsnitt "
+"<quote> <computeroutput>A</computeroutput> </quote> och sedan till avsnitt "
+"<quote>;<computeroutput>L</computeroutput></quote> i telefonboken: du går "
+"till avsnitt <quote><computeroutput>A</computeroutput></quote> och hittar "
+"sedan <emphasis>inom det</emphasis> avsnittet <quote> <computeroutput>Al</"
+"computeroutput> </quote> och så vidare. När du väl är inom avsnittet <quote> "
+"<computeroutput>Al</computeroutput> </quote> lämnar du det aldrig."
 
-#: C/dasher.xml:310(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:310
 msgid ""
 "<emphasis>The second most important idea</emphasis> is that what you have "
 "written depends <emphasis>only</emphasis> on where you finally end up in the "
@@ -677,11 +719,12 @@ msgstr ""
 "<emphasis>endast</emphasis> beror på var du slutligen hamnar i biblioteket, "
 "inte på hur du kom dit; så det finns inget behov av att styra rätt på vägen "
 "till din destination. <emphasis>Du tillåts ta genvägar.</emphasis> "
-"(Exempelvis i föregående bild, om du ville skriva ”objekts_are” skulle det "
+"(Exempelvis i föregående bild, om du ville skriva ”objects_are” skulle det "
 "vara ok att flytta musen rakt till bokstäverna ”are”, även om detta tar "
 "musen över den oönskade gråa ”i”-rutan.)"
 
-#: C/dasher.xml:320(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:320
 msgid ""
 "<emphasis>Common errors.</emphasis> Often, a beginner who is trying to find "
 "a particular letter will drive the display forwards fast while hunting for "
@@ -708,19 +751,36 @@ msgstr ""
 "finnas baserat på bokstäverna du <emphasis>kan</emphasis> se. Peka sedan mot "
 "rätt plats och gå in i den andra bokstavens ruta."
 
-#: C/dasher.xml:332(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:332
 msgid "Example"
 msgstr "Exempel"
 
-#: C/dasher.xml:334(title)
+#. (itstool) path: figure/title
+#: C/dasher.xml:334
 msgid ""
-"Writing <quote><computeroutput>I once had a whim</computeroutput></quote>;. "
-"Where should the user steer now?"
+"Writing <quote> <computeroutput>I once had a whim</computeroutput> </"
+"quote>;. Where should the user steer now?"
 msgstr ""
-"Skriver <quote><computeroutput>I once had a whim</computeroutput></quote>; "
+"Skriver <quote> <computeroutput>I once had a whim</computeroutput> </quote>; "
 "Vart ska användaren styra nu?"
 
-#: C/dasher.xml:343(para)
+#. (itstool) path: imageobject/imagedata
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/dasher.xml:339
+#| msgid ""
+#| "@@image: 'figures/exampleHad2.png'; md5=c3a7c8f985519a90d739117aa4e1e064"
+msgctxt "_"
+msgid ""
+"external ref='figures/exampleHad2.png' md5='c3a7c8f985519a90d739117aa4e1e064'"
+msgstr ""
+"external ref='figures/exampleHad2.png' md5='c3a7c8f985519a90d739117aa4e1e064'"
+
+#. (itstool) path: sect2/para
+#: C/dasher.xml:343
 msgid ""
 "Imagine you want to write `<computeroutput>I once had a whim</"
 "computeroutput>'. You write `<computeroutput>I once ha...</computeroutput>' "
@@ -746,7 +806,8 @@ msgstr ""
 "”<computeroutput>b</computeroutput>” och ”<computeroutput>c</"
 "computeroutput>”."
 
-#: C/dasher.xml:353(title)
+#. (itstool) path: figure/title
+#: C/dasher.xml:353
 msgid ""
 "Some alternative letter <computeroutput>d</computeroutput>s, with a "
 "beginner's error highlighted"
@@ -754,7 +815,24 @@ msgstr ""
 "Några alternativa bokstäver <computeroutput>d</computeroutput> med en "
 "nybörjares fel markerade"
 
-#: C/dasher.xml:361(para)
+#. (itstool) path: imageobject/imagedata
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/dasher.xml:357
+#| msgid ""
+#| "@@image: 'figures/exampleHad2a.png'; md5=1d124560d223498f876122bcd85afaac"
+msgctxt "_"
+msgid ""
+"external ref='figures/exampleHad2a.png' "
+"md5='1d124560d223498f876122bcd85afaac'"
+msgstr ""
+"external ref='figures/exampleHad2a.png' "
+"md5='1d124560d223498f876122bcd85afaac'"
+
+#. (itstool) path: sect2/para
+#: C/dasher.xml:361
 msgid ""
 "A common beginner's mistake is to keep rushing forward and spot "
 "<emphasis>any</emphasis> of these letter <computeroutput>d</"
@@ -768,36 +846,53 @@ msgstr ""
 "\"figHad3\"/> vad som händer om användaren zoomar mot <computeroutput>d</"
 "computeroutput> markerat i <xref linkend=\"figHad2\"/>."
 
-#: C/dasher.xml:366(title)
+#. (itstool) path: figure/title
+#: C/dasher.xml:366
 msgid ""
 "What happens when you select the wrong <computeroutput>d</computeroutput>"
 msgstr "Vad händer när du väljer fel <computeroutput>d</computeroutput>"
 
-#: C/dasher.xml:375(para)
+#. (itstool) path: imageobject/imagedata
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/dasher.xml:369
+#| msgid ""
+#| "@@image: 'figures/exampleHad3a.png'; md5=0bcd661209391842cf47f00b767146b3"
+msgctxt "_"
+msgid ""
+"external ref='figures/exampleHad3a.png' "
+"md5='0bcd661209391842cf47f00b767146b3'"
+msgstr ""
+"external ref='figures/exampleHad3a.png' "
+"md5='0bcd661209391842cf47f00b767146b3'"
+
+#. (itstool) path: sect2/para
+#: C/dasher.xml:375
 msgid ""
 "If you go in this <computeroutput>d</computeroutput>, you are writing "
-"`<computeroutput>I\n"
-"          once </computeroutput><emphasis>head</emphasis><computeroutput>..."
-"</computeroutput>'. The other two <computeroutput>d</computeroutput>s "
-"labelled by red arrows (in <xref linkend=\"figHad1\"/>) correspond to "
-"writing `<computeroutput>I once\n"
-"          </computeroutput><emphasis>heard</emphasis><computeroutput>...</"
-"computeroutput>' and `<computeroutput>I once\n"
-"        </computeroutput><emphasis>hedge</emphasis><computeroutput>...</"
+"`<computeroutput>I once </computeroutput><emphasis>head</"
+"emphasis><computeroutput>...</computeroutput>'. The other two "
+"<computeroutput>d</computeroutput>s labelled by red arrows (in <xref linkend="
+"\"figHad1\"/>) correspond to writing `<computeroutput>I once </"
+"computeroutput><emphasis>heard</emphasis><computeroutput>...</"
+"computeroutput>' and `<computeroutput>I once </"
+"computeroutput><emphasis>hedge</emphasis><computeroutput>...</"
 "computeroutput>'."
 msgstr ""
 "Om du går in i <computeroutput>d</computeroutput> skriver du "
-"`<computeroutput>I\n"
-"          once </computeroutput><emphasis>head</emphasis><computeroutput>..."
-"</computeroutput>'. De andra två <computeroutput>d</computeroutput>:na "
-"markerade av röda pilar (i <xref linkend=\"figHad1\"/>) motsvarar att skriva "
-"”<computeroutput>I once\n"
-"          </computeroutput><emphasis>heard</emphasis><computeroutput>...</"
-"computeroutput>” och ”<computeroutput>I once\n"
-"        </computeroutput><emphasis>hedge</emphasis><computeroutput>...</"
+"”<computeroutput>I once </computeroutput><emphasis>head</"
+"emphasis><computeroutput>...</computeroutput>”. De andra två "
+"<computeroutput>d</computeroutput>:na markerade av röda pilar (i <xref "
+"linkend=\"figHad1\"/>) motsvarar att skriva ”<computeroutput>I once </"
+"computeroutput><emphasis>heard</emphasis><computeroutput>...</"
+"computeroutput>” och ”<computeroutput>I once </"
+"computeroutput><emphasis>hedge</emphasis><computeroutput>...</"
 "computeroutput>”."
 
-#: C/dasher.xml:384(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:384
 msgid ""
 "It is crucial to understand that there is only one correct "
 "<computeroutput>d</computeroutput>, namely the <computeroutput>d</"
@@ -812,22 +907,38 @@ msgstr ""
 "”<computeroutput>a</computeroutput>' i sekvensen `<computeroutput>I once ha</"
 "computeroutput>”. Den blåa rutan är markerad i <xref linkend=\"figHad4\"/>."
 
-#: C/dasher.xml:390(title)
+#. (itstool) path: figure/title
+#: C/dasher.xml:390
 msgid ""
 "The correct letter <computeroutput>d</computeroutput> is the one marked by "
 "the green arrow. This example illustrates the rule <quote>always keep going "
 "<emphasis>inside</emphasis> the box that you want</quote>; in this case, the "
 "blue box associated with the letter <computeroutput>a</computeroutput> of "
-"the word <quote><computeroutput>had</computeroutput></quote>;"
+"the word <quote> <computeroutput>had</computeroutput> </quote>;"
 msgstr ""
 "Den korrekta bokstaven <computeroutput>d</computeroutput> är den som är "
 "markerad av den gröna pilen. Detta exempel illustrerar regeln att "
 "<quote>alltid fortsätta <emphasis>inuti</emphasis> rutan du vill till, </"
 "quote>; i detta fall, den blå rutan associerad med bokstaven "
-"<computeroutput>a</computeroutput> för ordet <quote><computeroutput>had</"
-"computeroutput></quote>;"
+"<computeroutput>a</computeroutput> för ordet <quote> <computeroutput>had</"
+"computeroutput> </quote>;"
 
-#: C/dasher.xml:403(para)
+#. (itstool) path: imageobject/imagedata
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/dasher.xml:398
+#| msgid ""
+#| "@@image: 'figures/exampleHad4.png'; md5=9974616612b5c811cb2c161093c8523c"
+msgctxt "_"
+msgid ""
+"external ref='figures/exampleHad4.png' md5='9974616612b5c811cb2c161093c8523c'"
+msgstr ""
+"external ref='figures/exampleHad4.png' md5='9974616612b5c811cb2c161093c8523c'"
+
+#. (itstool) path: sect2/para
+#: C/dasher.xml:403
 msgid ""
 "If you ever leave that blue box (as we did in <xref linkend=\"figHad3\"/>) "
 "then we lose the letter `<computeroutput>a</computeroutput>'."
@@ -835,19 +946,23 @@ msgstr ""
 "Om du någonsin lämnar den blå rutan (som vi gjorde i <xref linkend="
 "\"figHad3\"/>) så förlorar vi bokstaven ”<computeroutput>a</computeroutput>”."
 
-#: C/dasher.xml:408(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:408
 msgid "Summary"
 msgstr "Sammanfattning"
 
-#: C/dasher.xml:410(emphasis)
-msgid "Don't click. Don't drag. And don't speed."
-msgstr "Klicka inte. Dra inte. Stressa inte."
+#. (itstool) path: sect2/para
+#: C/dasher.xml:409
+msgid "<emphasis>Don't click. Don't drag. And don't speed.</emphasis>"
+msgstr "<emphasis>Klicka inte. Dra inte. Stressa inte.</emphasis>"
 
-#: C/dasher.xml:415(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:415
 msgid "What do the colours mean?"
 msgstr "Vad betyder färgerna?"
 
-#: C/dasher.xml:418(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:418
 msgid ""
 "<emphasis>white</emphasis> squares contain the space characters (always "
 "placed at the bottom of the alphabet);"
@@ -855,14 +970,16 @@ msgstr ""
 "<emphasis>vita</emphasis> fyrkanter innehåller blankstegstecken (alltid "
 "placerade längst ned i alfabetet);"
 
-#: C/dasher.xml:423(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:423
 msgid ""
 "a special <emphasis>yellow</emphasis> box contains the upper case characters "
 "[A-Z];"
 msgstr ""
 "en speciell <emphasis>gul</emphasis> ruta innehåller stora bokstäver [A-Ö];"
 
-#: C/dasher.xml:428(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:428
 msgid ""
 "a <emphasis>red</emphasis> box contains numerals [0-9] (if the full alphabet "
 "is enabled);"
@@ -870,7 +987,8 @@ msgstr ""
 "en <emphasis>röd</emphasis> ruta innehåller siffror [0-9] (om hela alfabetet "
 "är aktiverat);"
 
-#: C/dasher.xml:433(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:433
 msgid ""
 "a <emphasis>green</emphasis> box contains punctuation characters (with the "
 "characters most similar to the space character [.,;:-] placed at the bottom, "
@@ -884,7 +1002,8 @@ msgstr ""
 "bokstäver med liknande roller med liknande färger: skiljetecken liknande "
 "[.,;:-] färgas skifferblåa;"
 
-#: C/dasher.xml:440(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:440
 msgid ""
 "the other colours are included simply to discriminate the squares from each "
 "other."
@@ -892,7 +1011,8 @@ msgstr ""
 "de andra färgerna inkluderas endast för att du ska kunna urskilja "
 "fyrkanterna från varandra."
 
-#: C/dasher.xml:444(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:444
 msgid ""
 "In languages with accents (grave, acute, circumflex, etc), the accents are "
 "displayed in an <emphasis>orange</emphasis> box."
@@ -900,7 +1020,8 @@ msgstr ""
 "I språk med accenter (en grav accent, en akut accent, cirkumflex med mera) "
 "visas accenterna i en <emphasis>orange</emphasis> ruta."
 
-#: C/dasher.xml:448(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:448
 msgid ""
 "In the Japanese version of Dasher, colours are used to distinguish the "
 "different hiragana groups (eg ka,ki,ku,ke,ko are orange)."
@@ -908,7 +1029,8 @@ msgstr ""
 "I den japanska versionen av Dasher används färger för att skilja på de olika "
 "hiragana-grupperna (exempelvis är ka, ki, ku, ke, ko orange)."
 
-#: C/dasher.xml:452(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:452
 msgid ""
 "In the Korean version of Dasher, three different colours are used to "
 "distinguish initial consonants, vowels, and terminal consonants."
@@ -916,11 +1038,15 @@ msgstr ""
 "I den koreanska versionen av Dasher används tre olika färger för att skilja "
 "ut initiala konsonanter, vokaler och slutkonsonanter."
 
-#: C/dasher.xml:416(para)
-msgid "In the English-language desktop version 3 of Dasher, <placeholder-1/>"
-msgstr "I den engelskspråkiga skrivbordsversion 3 av Dasher, <placeholder-1/>"
+#. (itstool) path: sect2/para
+#: C/dasher.xml:416
+msgid ""
+"In the English-language desktop version 3 of Dasher, <_:itemizedlist-1/>"
+msgstr ""
+"I den engelskspråkiga skrivbordsversion 3 av Dasher, <_:itemizedlist-1/>"
 
-#: C/dasher.xml:457(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:457
 msgid ""
 "You can alter the colour scheme by editing the <computeroutput>colour</"
 "computeroutput> and <computeroutput>alphabet</computeroutput> xml files, as "
@@ -930,11 +1056,13 @@ msgstr ""
 "<computeroutput>färg</computeroutput> och <computeroutput>alfabetet</"
 "computeroutput> som beskrivet i <xref linkend=\"personalising\"/>."
 
-#: C/dasher.xml:462(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:462
 msgid "How to start dasher (version 4)"
 msgstr "Hur man startar dasher (version 4)"
 
-#: C/dasher.xml:463(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:463
 msgid ""
 "Set the dasher application running; when the dasher window comes up, either "
 "click the left mouse button or press the space bar to set it going. [One of "
@@ -947,7 +1075,8 @@ msgstr ""
 "mellanslag) när du är klar för att stoppa Dasher. Din dators mus "
 "kontrollerar Dasher."
 
-#: C/dasher.xml:468(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:468
 msgid ""
 "Adjust the speed slider to fix the maximum speed Dasher will zoom at. A "
 "speed of 1 is good for a beginner, increasing to 2 after 5 minutes' "
@@ -957,11 +1086,13 @@ msgstr ""
 "zoomhastighet. En hastighet på 1 är bra för en nybörjare, öka till 2 efter "
 "fem minuters övning och till 4 när du är expert."
 
-#: C/dasher.xml:473(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:473
 msgid "How to start dasher (version 2) on pocket PC"
 msgstr "Hur man startar dasher (version 2) på Pocket PC"
 
-#: C/dasher.xml:474(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:474
 msgid ""
 "Install, run (wait a few seconds for it to load up the training file), then "
 "touch the screen with the stylus to make dasher move."
@@ -969,7 +1100,8 @@ msgstr ""
 "Installera, kör (vänta några få sekunder för att öppna träningsfilen), rör "
 "sedan skärmen med styluspennan för att få Dasher att röra sig."
 
-#: C/dasher.xml:477(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:477
 msgid ""
 "There are three special strongly-coloured squares in this version of Dasher, "
 "coloured yellow, red (in some releases only), and green; all three squares "
@@ -982,11 +1114,13 @@ msgstr ""
 "producerar inte tecken; dessa rutor indikerar undergrupper av alfabetet. "
 "(Versaler, siffror (endast i några utgåvor) och skiljetecken.)"
 
-#: C/dasher.xml:770(title)
+#. (itstool) path: sect1/title
+#: C/dasher.xml:770
 msgid "How to use Dasher in real life"
 msgstr "Hur man använder Dasher i verkliga livet"
 
-#: C/dasher.xml:772(para)
+#. (itstool) path: sect1/para
+#: C/dasher.xml:772
 msgid ""
 "Dasher can be used to communicate through your computer, and (to some "
 "degree) to control your computer. Obviously, the simplest way to communicate "
@@ -999,11 +1133,13 @@ msgstr ""
 "allteftersom du skriver. Men det finns många olika sätt att kommunicera "
 "genom Dasher."
 
-#: C/dasher.xml:778(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:778
 msgid "Copy to clipboard"
 msgstr "Kopiera till urklipp"
 
-#: C/dasher.xml:780(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:780
 msgid ""
 "If you have the `copy on stop' feature switched on, then, every time you "
 "stop Dasher, the contents of Dasher's text box get copied directly to your "
@@ -1015,11 +1151,13 @@ msgstr ""
 "urklipp. Du kan använda funktionen ”Klistra in” i ett annat program för att "
 "överföra vad du skrivit."
 
-#: C/dasher.xml:786(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:786
 msgid "Speaking"
 msgstr "Tal"
 
-#: C/dasher.xml:788(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:788
 msgid ""
 "Dasher connects to your computer's built-in text-to-speech system. There are "
 "several ways to use Dasher for speaking."
@@ -1027,7 +1165,8 @@ msgstr ""
 "Dasher ansluter till din dators inbyggda text-till-tal-system. Det finns "
 "flera sätt för Dasher att tala på."
 
-#: C/dasher.xml:791(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:791
 msgid ""
 "You can choose to have Dasher `speak each word': every time you pass through "
 "the end of a word (by entering a space character for example), that word "
@@ -1037,15 +1176,17 @@ msgstr ""
 "genom slutet av ett ord (genom att ange exempelvis ett blanksteg), sägs det "
 "ordet direkt."
 
-#: C/dasher.xml:794(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:794
 msgid ""
 "You can also choose to have Dasher `speak on stop': every time you stop "
 "Dasher moving, everything that is in the text box gets spoken."
 msgstr ""
-"Du kan också välja att låta Dasher ”tala vid stopp”: var gång du stoppar "
+"Du kan också välja att låta Dasher ”läs upp vid stopp”: var gång du stoppar "
 "Dasher från rörelse blir allt som är i textrutan sagt."
 
-#: C/dasher.xml:797(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:797
 msgid ""
 "Finally, you can speak exactly when you want to by switching on "
 "<emphasis>Control Mode</emphasis> (which is under the Options Menu in Dasher "
@@ -1058,19 +1199,22 @@ msgid ""
 "was last spoken)."
 msgstr ""
 "Slutligen kan du säga vad du vill när du vill genom att slå på "
-"<emphasis>Kontrolläge</emphasis> (som finns under menyn Alternativ i Dasher "
-"version 3). Detta läge tar fram en extra ruta i Dashers alfabet, färgad grå, "
-"som fungerar litegrann som escape-tangenten på ett tangentbord. Om du går in "
-"i Kontroll-rutan kommer du att hitta flera kontrollrelaterade alternativ: "
-"Stoppa (röd); pausa (gul); Flytta; Ta bort; och Tala. Inuti Tala-rutan finns "
-"alternativen att ”tala allt”, ”tala nytt” (endast de nya ord som du skrev "
-"sedan sista yttrandet) och ”tala igen” (som säger vad som senast sades)."
+"<emphasis>Styrningsläge</emphasis> (som finns under menyn Alternativ i "
+"Dasher version 3). Detta läge tar fram en extra ruta i Dashers alfabet, "
+"färgad grå, som fungerar litegrann som escape-tangenten på ett tangentbord. "
+"Om du går in i Styrningsrutan kommer du att hitta flera styrningsrelaterade "
+"alternativ: Stoppa (röd); pausa (gul); Flytta; Ta bort; och Läs upp. Inuti "
+"Läs upp-rutan finns alternativen att ”läs upp allt”, ”läs upp nytt” (endast "
+"de nya ord som du skrev sedan sista yttrandet) och ”läs upp igen” (som säger "
+"vad som senast sades)."
 
-#: C/dasher.xml:807(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:807
 msgid "Save to file"
 msgstr "Spara till fil"
 
-#: C/dasher.xml:809(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:809
 msgid ""
 "You can save whatever is in the text box of Dasher as a plain text file by "
 "clicking the `Save file' icon in the icon bar, or using the menus at the top "
@@ -1080,11 +1224,13 @@ msgstr ""
 "på ikonen ”Spara fil” på ikonraden, eller använda menyerna överst i "
 "Dasherfönstret (välj Arkiv och sedan Spara)."
 
-#: C/dasher.xml:815(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:815
 msgid "Send text to other window"
 msgstr "Skicka text till andra fönster"
 
-#: C/dasher.xml:817(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:817
 msgid ""
 "You can also have whatever is written in Dasher be directly beamed to "
 "another window. Enable the `send text to other window' option under the "
@@ -1095,11 +1241,13 @@ msgstr ""
 "fönster” under menyn alternativ. Sedan kommer fönstret du väljer att få "
 "Dashers utdata."
 
-#: C/dasher.xml:826(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:826
 msgid "Font sizes"
 msgstr "Typsnittsstorlekar"
 
-#: C/dasher.xml:828(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:828
 msgid ""
 "Dasher has a text box (where the text appears) and a Dasher canvas (where "
 "all the fun zooming action happens). You can change the font sizes of both "
@@ -1121,11 +1269,13 @@ msgstr ""
 "för Dashers storlek som erbjuder tre att välja på, med namn i stil med: "
 "small, medium och large."
 
-#: C/dasher.xml:839(title)
+#. (itstool) path: sect1/title
+#: C/dasher.xml:839
 msgid "Personalizing Dasher"
 msgstr "Personalisera Dasher"
 
-#: C/dasher.xml:840(para)
+#. (itstool) path: sect1/para
+#: C/dasher.xml:840
 msgid ""
 "There are three classes of files you can tweak in order to make Dasher work "
 "better for you: <computeroutput>alphabet</computeroutput> files, "
@@ -1137,11 +1287,13 @@ msgstr ""
 "<computeroutput>färg</computeroutput>filer och <computeroutput>tränings</"
 "computeroutput>filer."
 
-#: C/dasher.xml:845(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:845
 msgid "Personalizing the language model"
 msgstr "Personalisera språkmodellen"
 
-#: C/dasher.xml:846(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:846
 msgid ""
 "Dasher's predictions (in version 3 of Dasher) are based not on a dictionary "
 "but on a training text of ordinary text. For example, when you download "
@@ -1155,7 +1307,8 @@ msgstr ""
 "<filename>training_english_GB.txt</filename>. Detta är 300 kbyte av "
 "engelska, inhämtad från olika dokument på internet."
 
-#: C/dasher.xml:856(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:856
 msgid ""
 "If possible, provide Dasher with a training text in your own style -- a "
 "plain text file made from documents you have written before, and containing "
@@ -1167,7 +1320,8 @@ msgstr ""
 "djurnamn, vänners namn och så vidare. Lägg till eller ersätt den "
 "ursprungliga filen."
 
-#: C/dasher.xml:862(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:862
 msgid ""
 "If you think your personal training file may have become corrupted with "
 "rubbish text, edit it using any plain text editor. (Or ask a friend to do "
@@ -1177,7 +1331,8 @@ msgstr ""
 "skräptext, redigera den med en vanlig textredigerare. (Eller be din vän göra "
 "detta för dig.)"
 
-#: C/dasher.xml:867(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:867
 msgid ""
 "If you use Dasher for many months, the personal training file may become so "
 "large that Dasher becomes slow to start up; if so, edit the training file "
@@ -1187,25 +1342,28 @@ msgstr ""
 "att bli så stora att Dasher startar långsamt; i så fall, redigera "
 "träningsfilen med en vanlig textredigerare."
 
-#: C/dasher.xml:851(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:851
 msgid ""
 "When you use Dasher, it stores everything you write in another personal file "
 "with the same name as the training file. Next time you use Dasher, it reads "
 "in the original training file and everything you wrote last time, to help it "
 "predict better. Dasher learns all the time. To get the best results from "
-"Dasher: <placeholder-1/>"
+"Dasher: <_:itemizedlist-1/>"
 msgstr ""
 "När du använder Dasher lagrar det allt du skriver i en annan personlig fil "
 "med samma namn som träningsfilen. Nästa gång du använder Dasher läser det in "
 "den ursprungliga träningsfilen och allt du skrivit senast, för att ge bättre "
 "förutsägelser. Dasher lär sig hela tiden. För att få bästa resultat från "
-"Dasher: <placeholder-1/>"
+"Dasher: <_:itemizedlist-1/>"
 
-#: C/dasher.xml:874(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:874
 msgid "Personalizing the alphabet"
 msgstr "Personalisera alfabetet"
 
-#: C/dasher.xml:875(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:875
 msgid ""
 "Which characters are available to you, and their order, is determined by the "
 "alphabet file. For example, you might use <filename>alphabet.english.xml</"
@@ -1233,11 +1391,13 @@ msgstr ""
 "bakgrundsfärgens siffra för rutan för denna symbol (<computeroutput>b=</"
 "computeroutput>...), som det finns mer av nedan."
 
-#: C/dasher.xml:887(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:887
 msgid "Personalizing the colour scheme"
 msgstr "Personalisera färgschemat"
 
-#: C/dasher.xml:888(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:888
 msgid ""
 "You can change the colours of the Dasher world in two ways. The colour file "
 "(for example <filename>colour.xml</filename> or <filename>colour.euroasian."
@@ -1249,21 +1409,21 @@ msgstr ""
 "filename>) specificerar de 200 färgerna i paletten Dasher kan använda. Varje "
 "rad specificerar röda, gröna och blåa värden."
 
-#: C/dasher.xml:893(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:893
 msgid ""
 "These colours are used to colour multiple objects in dasher. If for example "
 "you want to change the colour of the <quote>red line</quote>;, change the "
 "second colour line of the colour file, which reads <computeroutput>&lt;"
-"colour r=\"255\"\n"
-"          g=\"0\" b=\"0\"/&gt;</computeroutput>."
+"colour r=\"255\" g=\"0\" b=\"0\"/&gt;</computeroutput>."
 msgstr ""
 "Dessa färger används för att färglägga flera objekt i Dasher. Om du till "
 "exempel vill ändra färgen för den <quote>röda raden</quote>;, ändra den "
-"andra färgraden i färgfilen, som innehåller\n"
-"<computeroutput>&lt;colour r=\"255\"\n"
-"          g=\"0\" b=\"0\"/&gt;</computeroutput>."
+"andra färgraden i färgfilen, som innehåller <computeroutput>&lt;colour r="
+"\"255\" g=\"0\" b=\"0\"/&gt;</computeroutput>."
 
-#: C/dasher.xml:899(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:899
 msgid ""
 "You can change which of these colours is used for each symbol's box by "
 "changing the <quote>b</quote>; field for that symbol in the alphabet file."
@@ -1271,15 +1431,18 @@ msgstr ""
 "Du kan ändra vilken av dessa färger som används för varje symbols ruta genom "
 "att ändra fältet <quote>b</quote> för varje symbol i alfabetsfilen."
 
-#: C/dasher.xml:908(title)
+#. (itstool) path: sect1/title
+#: C/dasher.xml:908
 msgid "Languages"
 msgstr "Språk"
 
-#: C/dasher.xml:910(para)
+#. (itstool) path: sect1/para
+#: C/dasher.xml:910
 msgid "Dasher works in hundreds of languages."
 msgstr "Dasher fungerar på hundratals olika språk."
 
-#: C/dasher.xml:912(para)
+#. (itstool) path: sect1/para
+#: C/dasher.xml:912
 msgid ""
 "For each language there is an alphabet file (or possibly more than one "
 "alphabet file). On the Dasher website we aim to supply at least one training "
@@ -1291,7 +1454,8 @@ msgstr ""
 "en träningsfil för varje språk. Om vi inte har en bra träningstext för ditt "
 "språk, hjälp oss genom att skapa en och sända den till oss."
 
-#: C/dasher.xml:917(para)
+#. (itstool) path: sect1/para
+#: C/dasher.xml:917
 msgid ""
 "See the Dasher website for the list of languages supported by Dasher. As of "
 "October 2005, all the major languages of the world are well supported, with "
@@ -1305,11 +1469,13 @@ msgstr ""
 "(hiragana och pin-yin). I Dasher version 4 kommer vi stöda japanska och "
 "kinesiska fullt ut."
 
-#: C/dasher.xml:930(title)
+#. (itstool) path: sect1/title
+#: C/dasher.xml:930
 msgid "Dasher Special Needs Guide"
 msgstr "Dashers guide för speciella behov"
 
-#: C/dasher.xml:932(para)
+#. (itstool) path: sect1/para
+#: C/dasher.xml:932
 msgid ""
 "Dasher is designed on the principle of getting <emphasis>as much information "
 "as possible</emphasis> from the gestures you can make."
@@ -1317,7 +1483,8 @@ msgstr ""
 "Dasher är designat på principen om att ta fram <emphasis>så mycket "
 "information som möjligt</emphasis> från de gester du kan göra."
 
-#: C/dasher.xml:937(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:937
 msgid ""
 "<emphasis>Continuous</emphasis> gestures (conveyed via a joystick, trackpad, "
 "head mouse, or gaze tracker, for example) often achieve the highest rates of "
@@ -1326,7 +1493,8 @@ msgstr ""
 "<emphasis>Kontinuerliga</emphasis> gester (med en styrspak, styrplatta, "
 "huvudmus eller ögonspårning) når oftast de högre nivåerna av skrivning."
 
-#: C/dasher.xml:942(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:942
 msgid ""
 "<emphasis>Discrete</emphasis> gestures (switches, button presses) may be "
 "able to convey information in three different ways:"
@@ -1334,7 +1502,8 @@ msgstr ""
 "<emphasis>Diskreta</emphasis> gester (växlar, knapptryckningar) kan förmedla "
 "information på tre olika sätt:"
 
-#: C/dasher.xml:947(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:947
 msgid ""
 "The <emphasis>time</emphasis> at which you press a button can convey "
 "information. (This idea is used in grid systems controlled by a single "
@@ -1344,7 +1513,8 @@ msgstr ""
 "information. (Idén används i rutnätssystem kontrollerade av en enskild "
 "knapp.)"
 
-#: C/dasher.xml:952(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:952
 msgid ""
 "<emphasis>How long</emphasis> you press a button for can convey information. "
 "(This idea is used in Morse code, where two durations are distinguished.)"
@@ -1352,7 +1522,8 @@ msgstr ""
 "<emphasis>Hur länge</emphasis> du trycker ned en knapp kan avslöja "
 "information. (Denna idé används i Morse-kod där längden är utmärkande.)"
 
-#: C/dasher.xml:957(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:957
 msgid ""
 "The <emphasis>choice</emphasis> of <emphasis>which</emphasis> button you "
 "press can convey information. (This idea is used in ordinary keyboards.)"
@@ -1361,19 +1532,22 @@ msgstr ""
 "trycka ned kan förmedla information. (Denna idé används i vanliga "
 "tangentbord.)"
 
-#: C/dasher.xml:935(para)
+#. (itstool) path: sect1/para
+#: C/dasher.xml:935
 msgid ""
 "We can get information from whichever of the following is easiest for you: "
-"<placeholder-1/>"
+"<_:orderedlist-1/>"
 msgstr ""
-"Vi kan få information från vilkensom av följande som är lättast för dig: "
-"<placeholder-1/>"
+"Vi kan få information från vilkendera av följande som är lättast för dig: <_:"
+"orderedlist-1/>"
 
-#: C/dasher.xml:965(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:965
 msgid "Continuous gestures"
 msgstr "Kontinuerliga gester"
 
-#: C/dasher.xml:966(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:966
 msgid ""
 "Dasher's normal mode (<emphasis>mouse mode</emphasis>) is driven by a two-"
 "dimensional continuous steering gesture. Dasher also has a <emphasis>one-"
@@ -1384,7 +1558,8 @@ msgstr ""
 "<emphasis>endimensionellt läge</emphasis> för användare som endast kan "
 "kontrollera en dimension."
 
-#: C/dasher.xml:970(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:970
 msgid ""
 "Can you make one or two continuous gestures? If you can operate a joystick, "
 "mouse, trackpad, or rollerball, then you have a two-dimensional control. If "
@@ -1420,7 +1595,8 @@ msgstr ""
 "Headmouse.html\" type=\"http\">http://www.inference.phy.cam.ac.uk/dasher/"
 "Headmouse.html</ulink>."
 
-#: C/dasher.xml:984(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:984
 msgid ""
 "If you are severely paralysed, the best option may be a gaze tracker. Do you "
 "have control of where your eyes are looking? With a gaze tracker we can "
@@ -1445,7 +1621,8 @@ msgstr ""
 "och med Metrovisions ögonspårare. Alla tre av dessa system är kompletta "
 "datorer med ögonspårningskameror fästa."
 
-#: C/dasher.xml:994(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:994
 msgid ""
 "If joysticks, mice, rollerballs, and gaze trackers don't work, there may be "
 "a few other ways to convey a continuous one-dimensional signal. Lips and "
@@ -1465,11 +1642,13 @@ msgstr ""
 "ett bälte och lite gummisnodd, och vår mest erfarna användare kan skriva 15 "
 "ord i minuten med enbart andning."
 
-#: C/dasher.xml:1002(title)
+#. (itstool) path: sect3/title
+#: C/dasher.xml:1002
 msgid "Starting and stopping"
 msgstr "Start och stopp"
 
-#: C/dasher.xml:1003(para)
+#. (itstool) path: sect3/para
+#: C/dasher.xml:1003
 msgid ""
 "There are several ways of starting and stopping Dasher. Pressing a button "
 "(for example, the left mouse button or the space bar) is one option. But if "
@@ -1490,19 +1669,20 @@ msgstr ""
 "en knapp (till exempel den vänstra musknappen eller mellanslag) är ett "
 "alternativ. Men om du inte kan trycka ned några knappar är det möjligt att "
 "starta och stoppa med endast kontinuerlig gester: i menyn för alternativ, "
-"välj <quote>starta vid position</quote>; och slå på <quote>kontrolläge</"
-"quote>;. När kontrolläge är aktiverat inkluderar Dasher-alfabetet en "
+"välj <quote>starta vid position</quote>; och slå på <quote>styrningsläge</"
+"quote>;. När styrningsläge är aktiverat inkluderar Dasher-alfabetet en "
 "speciell kontrollnod (lite som tangenten <computeroutput>Esc</"
-"computeroutput> på ett tangentbord) inom vilka olika kontrollfunktioner "
+"computeroutput> på ett tangentbord) inom vilka olika styrningsfunktioner "
 "finns tillgängliga. När du är inuti en kontrollnod, rör sig Dasher för "
 "säkerhets skull långsammare än normalt. Kontrollnodsalternativ omfattar "
 "”paus” och ”stopp”. Använd ”paus” om du är halvvägs genom att skriva något "
 "och vill pausa en stund. Använd ”stopp” när du är klar. <command>Paus</"
 "command> och <command>stopp</command> ger samma beteende, förutom att "
 "<command>stopp</command> kan skapa andra automatiska åtgärder eller "
-"handlingar såsom ”tala vid stopp” eller ”kopiera texten vid stopp”."
+"handlingar såsom ”läs upp vid stopp” eller ”kopiera texten vid stopp”."
 
-#: C/dasher.xml:1017(para)
+#. (itstool) path: sect3/para
+#: C/dasher.xml:1017
 msgid ""
 "When Dasher is paused or stopped, it can be restarted using any of the "
 "starting methods that are enabled. If `start on position' is enabled, then "
@@ -1518,11 +1698,13 @@ msgstr ""
 "det andra (gula) målet. (Vi använder två mål i sekvens för att göra det "
 "svårt att starta Dasher av misstag.)"
 
-#: C/dasher.xml:1024(title)
+#. (itstool) path: sect3/title
+#: C/dasher.xml:1024
 msgid "Recommendations for head-tracking"
 msgstr "Rekommendationer för huvudspårning"
 
-#: C/dasher.xml:1025(para)
+#. (itstool) path: sect3/para
+#: C/dasher.xml:1025
 msgid ""
 "Many trackers have `smoothing' options, which determine the frequency with "
 "which the mouse position is updated; these options are normally used to "
@@ -1536,7 +1718,8 @@ msgstr ""
 "Vi gillar direkt skapade, råa och ryckiga muskoordinater. Om det finns en "
 "”utjämnings”-kontroll, stäng av den."
 
-#: C/dasher.xml:1030(para)
+#. (itstool) path: sect3/para
+#: C/dasher.xml:1030
 msgid ""
 "The `gain' (sometimes called the `speed') of the head-tracker is also an "
 "important setting to adjust. Some trackers' gains can be adjusted in "
@@ -1556,11 +1739,13 @@ msgstr ""
 "förstärkningsinställning som känns behaglig. Jag gillar hög förstärkning "
 "eftersom det låter mig styra med väldigt små huvudrörelser."
 
-#: C/dasher.xml:1039(title)
+#. (itstool) path: sect3/title
+#: C/dasher.xml:1039
 msgid "Recommendations for gaze-tracking"
 msgstr "Rekommendationer för ögonspårning"
 
-#: C/dasher.xml:1040(para)
+#. (itstool) path: sect3/para
+#: C/dasher.xml:1040
 msgid ""
 "For good results with gaze trackers, we strongly recommend that the gaze-"
 "tracker be made to be as responsive as possible. Many trackers have "
@@ -1586,7 +1771,8 @@ msgstr ""
 "inställningarna för andra program. Be tillverkaren av ögonspåraren att göra "
 "det enkelt att ändra inställningar vid byte av program."
 
-#: C/dasher.xml:1051(para)
+#. (itstool) path: sect3/para
+#: C/dasher.xml:1051
 msgid ""
 "Dasher has several options designed for use with gaze-trackers. We recommend "
 "using <emphasis>eyetracker mode</emphasis> (under Options/Preferences/"
@@ -1595,11 +1781,12 @@ msgid ""
 msgstr ""
 "Dasher har flera alternativ designade för användning med ögonspårare. Vi "
 "rekommenderar att använda <emphasis>ögonspårningsläge</emphasis> (under "
-"Alternativ/Inställningar/Kontroll). I detta läge är dynamikerna i Dasher "
+"Alternativ/Inställningar/Styrning). I detta läge är dynamikerna i Dasher "
 "smått annorlunda än standarddynamiken, vilket gör felrättningen enklare med "
 "blick."
 
-#: C/dasher.xml:1056(para)
+#. (itstool) path: sect3/para
+#: C/dasher.xml:1056
 msgid ""
 "If your gaze-tracker's calibration drifts with time, for example when your "
 "head moves, then you should select the <emphasis>Autocalibrate eyetracker</"
@@ -1619,7 +1806,8 @@ msgstr ""
 "(spetsen av den röda linjen) och ögonspårarens musposition (visas av "
 "systemets muspekare)."
 
-#: C/dasher.xml:1064(para)
+#. (itstool) path: sect3/para
+#: C/dasher.xml:1064
 msgid ""
 "To avoid difficulties with the mouse being bounded by the top and bottom of "
 "the screen, we recommend choosing a window size for Dasher that is "
@@ -1631,7 +1819,8 @@ msgstr ""
 "<emphasis>inte</emphasis> är av helskärmsstorlek. Placera Dasherfönstret så "
 "att det finns marginal ovan och under Dashers rityta."
 
-#: C/dasher.xml:1069(para)
+#. (itstool) path: sect3/para
+#: C/dasher.xml:1069
 msgid ""
 "<emphasis>Technical note:</emphasis> As well as through mouse emulation, "
 "Dasher is able to receive tracking information from gaze trackers, head "
@@ -1645,11 +1834,13 @@ msgstr ""
 "alternativ kan konfigureras i avsnittet ”Inmatningsenhet” i dialogen "
 "inställningar."
 
-#: C/dasher.xml:1076(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:1076
 msgid "Discrete Gestures"
 msgstr "Diskreta gester"
 
-#: C/dasher.xml:1077(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:1077
 msgid ""
 "We have several versions of <emphasis>button Dasher</emphasis>, available in "
 "Dasher Version 4."
@@ -1657,11 +1848,13 @@ msgstr ""
 "Vi har flera olika versioner av <emphasis>knappen Dasher</emphasis> "
 "tillgänglig i Dasher version 4."
 
-#: C/dasher.xml:1081(title)
+#. (itstool) path: sect3/title
+#: C/dasher.xml:1081
 msgid "Are time-critical gestures not an option?"
 msgstr "Är tidskritiska gester inte ett alternativ?"
 
-#: C/dasher.xml:1082(para)
+#. (itstool) path: sect3/para
+#: C/dasher.xml:1082
 msgid ""
 "Some ways of conveying information make use of the <emphasis>timing</"
 "emphasis> of gestures. However, some people can't make gestures at a "
@@ -1673,7 +1866,8 @@ msgstr ""
 "tidpunkt. Till exempel kan personer med spastiska rörelse ha det svårt att "
 "utföra en åtgärd ”precis nu!”"
 
-#: C/dasher.xml:1086(para)
+#. (itstool) path: sect3/para
+#: C/dasher.xml:1086
 msgid ""
 "If time-critical gestures are not an option, go to <xref linkend="
 "\"no_time_critical\"/>."
@@ -1681,7 +1875,8 @@ msgstr ""
 "Om tidskritiska gester inte är ett alternativ, gå till <xref linkend="
 "\"no_time_critical\"/>."
 
-#: C/dasher.xml:1088(para)
+#. (itstool) path: sect3/para
+#: C/dasher.xml:1088
 msgid ""
 "If you <emphasis>can</emphasis> convey information by <emphasis>precisely "
 "timed</emphasis> gestures, go to section <xref linkend=\"timed\"/>."
@@ -1690,11 +1885,13 @@ msgstr ""
 "<emphasis>precisa tidpunkter</emphasis>, gå till avsnittet <xref linkend="
 "\"timed\"/>."
 
-#: C/dasher.xml:1093(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:1093
 msgid "`Timeless' choices of Dasher"
 msgstr "”Tidlösa” val i Dasher"
 
-#: C/dasher.xml:1099(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:1099
 msgid ""
 "If so, try <emphasis>click mode</emphasis>. Go to <xref linkend="
 "\"time_critical_button\"/>."
@@ -1702,7 +1899,8 @@ msgstr ""
 "I så fall, prova <emphasis>klickläge</emphasis>. Gå till <xref linkend="
 "\"time_critical_button\"/>."
 
-#: C/dasher.xml:1103(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:1103
 msgid ""
 "Otherwise try <emphasis>direct button mode</emphasis> or <emphasis>menu "
 "button mode</emphasis>. Go to <xref linkend=\"no_time_critical_button\"/>."
@@ -1711,24 +1909,27 @@ msgstr ""
 "<emphasis>menyknappsläge</emphasis>. Gå till <xref linkend="
 "\"no_time_critical_button\"/>."
 
-#: C/dasher.xml:1094(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:1094
 msgid ""
 "So, you want to steer Dasher at your own pace. Can you make fairly-accurate "
 "continuous gestures, given time? For example, can you position a pointer "
 "accurately on a screen, then press a button to indicate that you are ready? "
-"Or can you touch a touch-screen fairly accurately? <placeholder-1/>"
+"Or can you touch a touch-screen fairly accurately? <_:itemizedlist-1/>"
 msgstr ""
 "Så du vill styra Dasher i din egen fart? Kan du skapa hyfsat korrekta "
 "kontinuerliga gester om du erbjuds tillräcklig tid? Exempelvis, kan du "
 "positionera en pekare korrekt på en skärm och sedan trycka ned en knapp för "
 "att indikera att du är redo? Eller kan du trycka på en touch-skärm hyfsat "
-"korrekt?<placeholder-1/>"
+"korrekt? <_:itemizedlist-1/>"
 
-#: C/dasher.xml:1109(title)
+#. (itstool) path: sect3/title
+#: C/dasher.xml:1109
 msgid "`Timeless' continuous Dasher: click mode"
 msgstr "”Tidlös” kontinuerlig Dasher: klickläge"
 
-#: C/dasher.xml:1111(para)
+#. (itstool) path: sect3/para
+#: C/dasher.xml:1111
 msgid ""
 "In <emphasis>click mode</emphasis>, you position the mouse pointer where you "
 "want to go, then press a button when you are ready. Dasher then zooms in on "
@@ -1738,7 +1939,8 @@ msgstr ""
 "och trycker sedan på en knapp när du är redo. Dasher zoomar sedan in på "
 "positionen du väljer."
 
-#: C/dasher.xml:1115(para)
+#. (itstool) path: sect3/para
+#: C/dasher.xml:1115
 msgid ""
 "Alternatively, if you have a touch screen, a single touch on the screen "
 "initiates a zoom to that position."
@@ -1746,19 +1948,23 @@ msgstr ""
 "Alternativt, om du har en touch-skärm kommer ett enkelt tryck på skärmen att "
 "initiera en zoom till den positionen."
 
-#: C/dasher.xml:1119(title)
+#. (itstool) path: sect3/title
+#: C/dasher.xml:1119
 msgid "`Timeless' choices of Button Dasher"
 msgstr "”Tidlösa” val av knappar i Dasher"
 
-#: C/dasher.xml:1120(para)
+#. (itstool) path: sect3/para
+#: C/dasher.xml:1120
 msgid "How many different switches, keys, or buttons can you easily operate?"
 msgstr "Hur många olika växlar, tangenter eller knappar kan du enkelt hantera?"
 
-#: C/dasher.xml:1123(term)
+#. (itstool) path: varlistentry/term
+#: C/dasher.xml:1123
 msgid "1"
 msgstr "1"
 
-#: C/dasher.xml:1125(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:1125
 msgid ""
 "With just one button, the only timeless way to convey information is by the "
 "<emphasis>duration</emphasis> of your button-presses. Can you make a "
@@ -1772,11 +1978,13 @@ msgstr ""
 "<emphasis>menyknapp-Dasher</emphasis>. Koppla ihop dina korta tryck till "
 "åtgärden ”meny” och dina långa tryck med åtgärden ”välj”."
 
-#: C/dasher.xml:1133(term)
+#. (itstool) path: varlistentry/term
+#: C/dasher.xml:1133
 msgid "2"
 msgstr "2"
 
-#: C/dasher.xml:1135(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:1135
 msgid ""
 "You can use <emphasis>menu button-Dasher</emphasis>. Connect one button to "
 "the `menu' action, and the other to the `select' action. If one button is "
@@ -1786,11 +1994,13 @@ msgstr ""
 "åtgärden ”meny” och den andra till åtgärden ”välj“. Om en knapp är enklare "
 "att trycka ned, gör så att den knappen blir ”meny”-knappen."
 
-#: C/dasher.xml:1141(term)
+#. (itstool) path: varlistentry/term
+#: C/dasher.xml:1141
 msgid "2.5"
 msgstr "2,5"
 
-#: C/dasher.xml:1143(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:1143
 msgid ""
 "If you can easily press two buttons, and, for special occasions, you are "
 "able to press a third button, you can use <emphasis>menu button-Dasher</"
@@ -1800,7 +2010,8 @@ msgstr ""
 "trycka ned en tredje knapp, kan du använda <emphasis>menyknapp-Dasher</"
 "emphasis> eller <emphasis>direktknapp-Dasher</emphasis>."
 
-#: C/dasher.xml:1148(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:1148
 msgid ""
 "Set up <emphasis>menu button-Dasher</emphasis> as described above, and use "
 "the third button as your escape key -- to make Dasher go away, for example. "
@@ -1810,7 +2021,8 @@ msgstr ""
 "den tredje knappen som din escape-tangent -- för att få Dasher att försvinna "
 "till exempel. [Denna egenskap finns för tillfället inte i Dasher.]"
 
-#: C/dasher.xml:1153(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:1153
 msgid ""
 "In <emphasis>direct button-Dasher</emphasis>, each button produces a "
 "particular navigation action such as `up', `down', or `back'. If you have "
@@ -1822,11 +2034,13 @@ msgstr ""
 "mappa de bekvämaste två till ”upp” och ”ned” och den obekväma knappen till "
 "”bakåt”."
 
-#: C/dasher.xml:1162(term)
+#. (itstool) path: varlistentry/term
+#: C/dasher.xml:1162
 msgid "3"
 msgstr "3"
 
-#: C/dasher.xml:1164(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:1164
 msgid ""
 "You can use <emphasis>direct button-Dasher</emphasis> or <emphasis>menu "
 "button-Dasher</emphasis> as described above."
@@ -1834,11 +2048,13 @@ msgstr ""
 "Du kan använda <emphasis>direktknapp-Dasher</emphasis> eller "
 "<emphasis>menyknapp-Dasher</emphasis> som beskrivet ovan."
 
-#: C/dasher.xml:1169(term)
+#. (itstool) path: varlistentry/term
+#: C/dasher.xml:1169
 msgid "4, 5, 6, or 7"
 msgstr "4, 5, 6 eller 7"
 
-#: C/dasher.xml:1171(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:1171
 msgid ""
 "With more than three buttons, you have the option to use <emphasis>direct "
 "button-Dasher</emphasis> with three, four, five, or six `forward' "
@@ -1850,11 +2066,13 @@ msgstr ""
 "<emphasis>menyknapp-Dasher</emphasis> också, även om den använder endast två "
 "knappar."
 
-#: C/dasher.xml:1178(term)
+#. (itstool) path: varlistentry/term
+#: C/dasher.xml:1178
 msgid "8 or more"
 msgstr "8 eller mer"
 
-#: C/dasher.xml:1180(para)
+#. (itstool) path: listitem/para
+#: C/dasher.xml:1180
 msgid ""
 "Try <emphasis>direct button-Dasher</emphasis> and <emphasis>menu button-"
 "Dasher</emphasis>. With this many buttons, you also have the option of using "
@@ -1868,11 +2086,13 @@ msgstr ""
 "mobiltelefoner. Du borde kanske också testa <emphasis>Tapir</emphasis>, ett "
 "skärmtangentbord från Dasherutvecklarna."
 
-#: C/dasher.xml:1192(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:1192
 msgid "Button Dashers that exploit timing"
 msgstr "Knapp-Dasher som använder tid"
 
-#: C/dasher.xml:1193(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:1193
 msgid ""
 "There are two Dasher modes which make use of precise timing information, and "
 "generally require fewer button presses than the nn-time-critical modes:"
@@ -1880,11 +2100,13 @@ msgstr ""
 "Det finns två Dasher-lägen som använder precis tidinformation och rent "
 "allmänt kräver mindre knapptryck än nn-tidskritiska lägen:"
 
-#: C/dasher.xml:1196(title)
+#. (itstool) path: sect3/title
+#: C/dasher.xml:1196
 msgid "(One button) dynamic mode"
 msgstr "(En knapp) dynamiskt läge"
 
-#: C/dasher.xml:1197(para)
+#. (itstool) path: sect3/para
+#: C/dasher.xml:1197
 msgid ""
 "When started, Dasher will zoom towards a point towards the top or bottom of "
 "the display. A short button press will switch the point of zoom to the "
@@ -1896,11 +2118,13 @@ msgstr ""
 "motsatt sida. Text kan anges genom att trycka ned knappen när den önskade "
 "fasen når kanten på displayen."
 
-#: C/dasher.xml:1203(title)
+#. (itstool) path: sect3/title
+#: C/dasher.xml:1203
 msgid "Two button dynamic mode"
 msgstr "Två knappars dynamiskt läge"
 
-#: C/dasher.xml:1204(para)
+#. (itstool) path: sect3/para
+#: C/dasher.xml:1204
 msgid ""
 "Dasher zooms continuously towards the centre of the screen, with the two "
 "buttons being used to shift the display up and down. The buttons should be "
@@ -1910,11 +2134,13 @@ msgstr ""
 "används för att skifta display upp och nedåt. Knapparna ska tryckas ned "
 "närhelst den önskade texten justeras med de två markörerna."
 
-#: C/dasher.xml:1209(title)
+#. (itstool) path: sect3/title
+#: C/dasher.xml:1209
 msgid "Correcting errors"
 msgstr "Rätta fel"
 
-#: C/dasher.xml:1210(para)
+#. (itstool) path: sect3/para
+#: C/dasher.xml:1210
 msgid ""
 "In either dynamic mode, there are three options for error correction: using "
 "an additional button, long presses or multiple presses. In all cases these "
@@ -1928,31 +2154,35 @@ msgstr ""
 "en konstant hastighet. I detta läge kommer ett tryck att stoppa Dasher och "
 "ett andra tryck kommer åter försätta Dasher i framåtzoomning."
 
-#: C/dasher.xml:1219(title)
+#. (itstool) path: sect1/title
+#: C/dasher.xml:1219
 msgid "Summary of Dasher Modes"
 msgstr "Sammanfattning av Dasher-lägen"
 
-#: C/dasher.xml:1220(para)
+#. (itstool) path: sect1/para
+#: C/dasher.xml:1220
 msgid ""
 "The various modes of <application>Dasher</application> are listed below. The "
-"mode may be changed via the <emphasis><quote>edit</quote></emphasis> menu. "
-"Select <emphasis><quote>Preferences</quote></emphasis> and then "
-"<emphasis><quote>Control</quote></emphasis>. Each mode has a number of "
-"variable parameters associated with it which can be adjusted using the "
+"mode may be changed via the <emphasis> <quote>edit</quote> </emphasis> menu. "
+"Select <emphasis> <quote>Preferences</quote> </emphasis> and then <emphasis> "
+"<quote>Control</quote> </emphasis>. Each mode has a number of variable "
+"parameters associated with it which can be adjusted using the "
 "<emphasis>options</emphasis> button located below the mode menu."
 msgstr ""
 "De olika lägena i <application>Dasher</application> listas nedan. Läget kan "
-"ändras via <emphasis><quote>redigera</quote></emphasis>-menyn. Välj "
-"<emphasis><quote>Inställningar</quote></emphasis> och sedan "
-"<emphasis><quote>Kontroll</quote></emphasis>. Varje läge har ett antal "
-"variabla parametrar associerade med sig vilka kan justeras med "
-"<emphasis>alternativ</emphasis>-knappen placerad i lägesmenyn."
+"ändras via <emphasis> <quote>redigera</quote> </emphasis>-menyn. Välj "
+"<emphasis> <quote>Inställningar</quote> </emphasis> och sedan <emphasis> "
+"<quote>Styrning</quote> </emphasis>. Varje läge har ett antal variabla "
+"parametrar associerade med sig vilka kan justeras med <emphasis>alternativ</"
+"emphasis>-knappen placerad i lägesmenyn."
 
-#: C/dasher.xml:1231(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:1231
 msgid "Normal"
 msgstr "Normal"
 
-#: C/dasher.xml:1232(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:1232
 msgid ""
 "The original <application>Dasher</application> mode. Functions using a two "
 "dimensional steering gesture, from a mouse, say. A one-dimensional mode is "
@@ -1975,11 +2205,13 @@ msgstr ""
 "till i de två rutorna i sekvens. I det senare fallet måste stopp ske genom "
 "kontrolläge."
 
-#: C/dasher.xml:1243(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:1243
 msgid "Click Mode"
 msgstr "Klickläge"
 
-#: C/dasher.xml:1244(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:1244
 msgid ""
 "In <emphasis>click mode</emphasis> you position the mouse pointer where you "
 "want to go, then press the button when you are ready. <application>Dasher</"
@@ -1989,11 +2221,13 @@ msgstr ""
 "tryck sedan på knappen när du är redo. <application>Dasher</application> "
 "zoomar sedan dit du klickade."
 
-#: C/dasher.xml:1250(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:1250
 msgid "Menu Mode"
 msgstr "Menyläge"
 
-#: C/dasher.xml:1251(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:1251
 msgid ""
 "One button is used to select a location, and once a second button is pressed "
 "<application>Dasher</application> zooms to that location. The large box "
@@ -2003,11 +2237,13 @@ msgstr ""
 "ned zoomar <application>Dasher</application> till den platsen. Den stora "
 "rutan som visas sist i cykeln används för att zooma ut."
 
-#: C/dasher.xml:1257(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:1257
 msgid "Direct Mode"
 msgstr "Direktläge"
 
-#: C/dasher.xml:1258(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:1258
 msgid ""
 "Direct mode is similar to menu mode, except boxes are assigned directly to "
 "each button rather than being selected in sequence."
@@ -2015,11 +2251,13 @@ msgstr ""
 "Direktläge liknar menyläge, förutom att rutor tilldelas till varje knapp "
 "direkt istället för att väljas i sekvens."
 
-#: C/dasher.xml:1263(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:1263
 msgid "Compass Mode"
 msgstr "Kompassläge"
 
-#: C/dasher.xml:1264(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:1264
 msgid ""
 "Compass mode makes use of four buttons. Two buttons are used to control "
 "vertical position. When the required vertical position has been reached a "
@@ -2033,11 +2271,13 @@ msgstr ""
 "användaren välja vertikal position igen. En fjärde knapp zoomar ut om ett "
 "fel begås."
 
-#: C/dasher.xml:1271(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:1271
 msgid "(One Button) Dynamic Mode"
 msgstr "(En knapp) Dynamiskt läge"
 
-#: C/dasher.xml:1272(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:1272
 msgid ""
 "<application>Dasher</application> continually zooms in and a single button "
 "may be used to move <quote>up</quote> and <quote>down</quote>. There is also "
@@ -2052,11 +2292,13 @@ msgstr ""
 "<quote>ned</quote>. En tredje knapp, långa tryck eller flera tryck kan "
 "användas för att zooma in och ut och rätta fel."
 
-#: C/dasher.xml:1281(title)
+#. (itstool) path: sect2/title
+#: C/dasher.xml:1281
 msgid "Two Button Dynamic Mode"
 msgstr "Tvåknappars dynamiskt läge"
 
-#: C/dasher.xml:1282(para)
+#. (itstool) path: sect2/para
+#: C/dasher.xml:1282
 msgid ""
 "<application>Dasher</application> continually zooms in, whilst two buttons "
 "are used to control vertical motion. Correction is performed in the same way "
@@ -2066,15 +2308,17 @@ msgstr ""
 "används för att kontrollera vertikal rörelse. Rättning utförs på samma sätt "
 "som i enknappars dynamiskt läge."
 
-#: C/dasher.xml:1294(title)
+#. (itstool) path: sect1/title
+#: C/dasher.xml:1294
 msgid "Authors"
 msgstr "Upphovsmän"
 
-#: C/dasher.xml:1295(para)
+#. (itstool) path: sect1/para
+#: C/dasher.xml:1295
 msgid ""
 "<application>Dasher</application> was written by the members of The Dasher "
 "Project (<email>dasher@inf.phy.cam.ac.uk</email>). To find more information "
-"about it, please visit <application>Dasher's</application><ulink url="
+"about it, please visit <application>Dasher's</application> <ulink url="
 "\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\">Web page</"
 "ulink>. Please send all comments, suggestions, and bug reports to the <ulink "
 "url=\"http://bugzilla.gnome.org/enter_bug.cgi?product=dasher\" type=\"http"
@@ -2086,17 +2330,18 @@ msgid ""
 msgstr ""
 "<application>Dasher</application> skapades av medlemmarna i Dasher-projektet "
 "(<email>dasher@inf.phy.cam.ac.uk</email>). För att få mer information besök "
-"<application>Dashers</application><ulink url=\"http://www.inference.phy.cam."
+"<application>Dashers</application> <ulink url=\"http://www.inference.phy.cam."
 "ac.uk/dasher/\" type=\"http\">webbplats</ulink>. Skicka kommentarer, förslag "
 "och felrapporter till <ulink url=\"http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=dasher\" type=\"http\">GNOME felrapporteringsdatabas</ulink>. "
+"product=dasher\" type=\"http\">GNOME:s felrapporteringsdatabas</ulink>. "
 "Instruktioner för att skicka in felrapporter kan hittas på nätet på <ulink "
 "url=\"http://bugzilla.gnome.org/page.cgi?id=bug-writing.html\" type=\"http"
 "\"> http://bugzilla.gnome.org/page.cgi?id=bug-writing.html</ulink>. Om du "
 "använder GNOME 1.1 eller senare kan du också använda kommandot <command>bug-"
 "buddy</command> för att lämna in felrapporter."
 
-#: C/dasher.xml:1305(para)
+#. (itstool) path: sect1/para
+#: C/dasher.xml:1305
 msgid ""
 "This manual was written by The Dasher Project (<email>dasher@inf.phy.cam.ac."
 "uk</email>). Please send all comments and suggestions regarding the manual "
@@ -2107,12 +2352,32 @@ msgstr ""
 "uk</email>). Skicka alla kommentarer och förslag angående handboken till "
 "Dokumentationsprojekt för GNOME på <email>gnome-doc-list@gnome.org</email>."
 
-#. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
-#: C/dasher.xml:0(None)
-msgid "translator-credits"
-msgstr ""
-"Daniel Nylander <po@danielnylander.se>, 2006, 2009\n"
-"Josef Andersson <l10nl18nsweja@gmail.com>, 2017"
+#~ msgid "2010"
+#~ msgstr "2010"
+
+#~ msgid "1.0.0"
+#~ msgstr "1.0.0"
+
+#~ msgid "2004-02-08"
+#~ msgstr "2004-02-08"
+
+#~ msgid "1.1.0"
+#~ msgstr "1.1.0"
+
+#~ msgid "2006-03-31"
+#~ msgstr "2006-03-31"
+
+#~ msgid "1.2.0"
+#~ msgstr "1.2.0"
+
+#~ msgid "2006-07-11"
+#~ msgstr "2006-07-11"
+
+#~ msgid "1.2.1"
+#~ msgstr "1.2.1"
+
+#~ msgid "2006-09-02"
+#~ msgstr "2006-09-02"
 
 #~ msgid "2006"
 #~ msgstr "2006"
