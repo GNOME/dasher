@@ -135,12 +135,6 @@ AC_ARG_WITH([cairo],
 	 fi, 
 	 WITHCAIRO=true)
 
-AC_ARG_WITH([gsettings],
-	[AS_HELP_STRING([--with-gsettings],
-		[store user preferences using GSettings (default is YES)])])
-AC_ARG_VAR([GLIB_COMPILE_SCHEMAS],
-	[Path to glib-compile-schemas, used for compiling GSettings schema])
-
 if test x"$WITHGTK" = xtrue
 then 
 	PKG_CHECK_MODULES(GTK, gtk+-3.0,
@@ -157,7 +151,6 @@ else
 	BUILDGTK=false
 fi
 
-DAM_GCONF_SOURCE_2
 if test x$BUILDGTK = xtrue
 then
 	PKG_CHECK_MODULES(GIO, gio-2.0,
@@ -179,32 +172,6 @@ then
 	)
 	CFLAGS="$save_CFLAGS"
 	LIBS="$save_LIBS"
-
-	AS_IF([test "x$with_gsettings" != "xno" -a "x$ac_cv_func_g_settings_new" = "xyes"],
-		[AC_CHECK_TOOLS([GLIB_COMPILE_SCHEMAS], [glib-compile-schemas])
-         have_gsettings=true
-		 have_gconf=false
-		 AC_DEFINE([WITH_GSETTINGS], 1, [Use GSettings])],
-		[have_gsettings=false
-		 PKG_CHECK_MODULES(GCONF, gconf-2.0,
-			[have_gconf=true
-			 AC_DEFINE([WITH_GCONF], 1, [Use GConf])
-			 SETTINGS_CFLAGS=$GCONF_CFLAGS
-			 SETTINGS_LIBS=$GCONF_LIBS],
-			[have_gconf=false
-			 AC_MSG_WARN([Neither a glib with GSettings, nor GConf were detected - user preferences will not be stored.])])
-		])
-	AS_IF([test "x$with_gsettings" = "xyes" -a $have_gsettings = false],
-		[AC_MSG_ERROR([GSettings requested but not found])])
-	AC_MSG_CHECKING([which settings store to use])
-	AS_IF(
-		[test $have_gsettings = true  -a $have_gconf = false],
-			[AC_MSG_RESULT([GSettings])],
-		[test $have_gsettings = false -a $have_gconf = true],
-			[AC_MSG_RESULT([GConf])],
-		[test $have_gsettings = false -a $have_gconf = false],
-			[AC_MSG_RESULT([none])],
-		[AC_MSG_ERROR([Logic error in configure.ac - please send bug report!])])
 
 	# GtkBuilder's autoconnect feature requires dasher to be
 	# linked with the --export-dynamic flag. pkg-config does not

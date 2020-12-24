@@ -59,22 +59,6 @@ know!
 
    --with-qte          Build binaries using the QTE environment.
 
-GSettings
-=========
-
-Note that in the GNOME 3 world, GSettings, part of glib, replace
-GConf.  By default, dasher's "configure" will use GSettings if
-found.  If not it will use GConf if found.  This can be influenced
-by the --with-gsettings flag to configure.  If on running dasher,
-you see
-
-  GLib-GIO-ERROR **: Settings schema 'org.gnome.Dasher' is not installed
-
-  aborting...
-
-try adding the directory which contains "dasher.gschema.xml",
-usually ${prefix}/share/glib-2.0/schemas, to the environment variable
-GSETTINGS_SCHEMA_DIR.
 
 Desktop Shortcuts
 =================
