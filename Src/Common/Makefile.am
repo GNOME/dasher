@@ -18,9 +18,6 @@ libdashermisc_la_SOURCES = \
 		Platform/stdminmax.h \
 		Types/int.h
 
-#		IOstreamDasherEdit.cc   I have no idea what this does, but it's broken now
-#		IOstreamDasherEdit.h 
-
 libdashermisc_la_LIBADD = $(LTLIBOBJS)
 
 AM_CXXFLAGS = -I$(srcdir)/../DasherCore
