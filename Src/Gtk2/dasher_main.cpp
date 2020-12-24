@@ -358,12 +358,10 @@ dasher_main_load_interface(DasherMain *pSelf) {
   pPrivate->pXML     = dasher_main_open_gui_xml(pSelf, szGUIFilename);
   pPrivate->pPrefXML = dasher_main_open_gui_xml(pSelf, szPrefGUIFilename);
 
-#ifndef HAVE_GTK_SHOW_URI
   GtkAction *helpact =
            GTK_ACTION(gtk_builder_get_object(pPrivate->pXML, "action_help"));
   gtk_action_set_sensitive(helpact, false);
   gtk_action_set_visible(helpact, false);
-#endif
 
   // Save the details of some of the widgets for later
   //  pPrivate->pActionPane = gtk_builder_get_object(pPrivate->pXML, "vbox39");
@@ -864,13 +862,17 @@ dasher_main_command_preferences_alphabet(DasherMain *pSelf) {
 
 static void 
 dasher_main_command_help(DasherMain *pSelf) {
-#ifdef HAVE_GTK_SHOW_URI
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
-  GdkScreen *scr;
   GError *err = NULL;
 
+#ifndef HAVE_GTK_SHOW_URI_ON_WINDOW
+  GdkScreen *scr;
   scr = gtk_widget_get_screen(GTK_WIDGET(pPrivate->pMainWindow));
-  if (!gtk_show_uri(scr, "help:dasher", gtk_get_current_event_time(), &err)) {
+  if (!gtk_show_uri(scr, "help:dasher", gtk_get_current_event_time(), &err))
+#else
+  if (!gtk_show_uri_on_window(pPrivate->pMainWindow, "help:dasher", gtk_get_current_event_time(), &err))
+#endif
+  {
     GtkWidget *d;
     d = gtk_message_dialog_new(GTK_WINDOW(pPrivate->pMainWindow),
                                GTK_DIALOG_MODAL,
@@ -883,7 +885,6 @@ dasher_main_command_help(DasherMain *pSelf) {
 
     g_error_free (err);
   }
-#endif
 }
 
 static void 

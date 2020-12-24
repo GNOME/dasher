@@ -157,11 +157,7 @@ then
 	CPPFLAGS="$CPPFLAGS $GTK_CFLAGS"
 	LIBS="$LIBS $GTK_LIBS"
 	AC_CHECK_HEADERS([gdk/gdkkeysyms-compat.h])
-	AC_CHECK_FUNCS([gtk_show_uri], [],
-		[if test "x$ac_cv_func_gtk_show_uri" = "xno"; then
-			AC_MSG_WARN([This version of GTK+ doesn't provide gtk_show_uri - help will not be displayed from within dasher.])
-		fi]
-	)
+	AC_CHECK_FUNCS([gtk_show_uri_on_window])
 	CFLAGS="$save_CFLAGS"
 	LIBS="$save_LIBS"
 
