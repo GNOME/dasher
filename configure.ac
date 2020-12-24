@@ -82,9 +82,6 @@ AC_ARG_WITH([gpe],
          fi, 
 	 WITHGPE=false)
 
-AC_ARG_ENABLE([a11y],
-	[AS_HELP_STRING([--enable-a11y],
-		[with Gtk2 use cspi rather than Xtst for direct entry mode if found (default is YES)])])
 AC_ARG_ENABLE([atspi],
 	[AS_HELP_STRING([--enable-atspi],
 		[with Gtk3 use atspi rather than Xtst for direct entry mode if found (default is YES)])])
@@ -246,11 +243,6 @@ PKG_CHECK_MODULES([ATSPI],
 	[have_libatspi=yes],
 	[have_libatspi=no])
 
-PKG_CHECK_MODULES([CSPI],
-	[bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0 cspi-1.0 atk],
-	[have_libcspi=yes],
-	[have_libcspi=no])
-
 AS_IF(	[test x$no_x = xyes],
 	[AC_MSG_WARN([X development libraries not found])],
 	[X_LIBS="$X_LIBS $X_PRE_LIBS -lX11 $X_EXTRA_LIBS"])
@@ -264,17 +256,11 @@ AS_IF(	[test $have_libatspi = yes -a x$enable_atspi != xno],
 		[connect_using=libatspi],
 	[test $have_libatspi = no -a x$enable_atspi = xyes],
 		[AC_MSG_ERROR([atspi 2 requested but not found])],
-	[test $have_libcspi = yes -a x$enable_a11y != xno],
-		[connect_using=libcspi
-		 AC_DEFINE([USE_CSPI], 1, [Use the libcspi for direct mode])],
-	[test $have_libcspi = no -a x$enable_a11y = xyes],
-		[AC_MSG_ERROR([cspi requested but not found])],
 	[test $have_libxtst = yes],
 		[connect_using=libxtst
 		 X_LIBS="$X_LIBS -lXtst"],
 	[AC_MSG_ERROR([No method to send characters into another application found])])
 
-AM_CONDITIONAL(USE_CSPI,  test $connect_using = libcspi)
 AM_CONDITIONAL(USE_ATSPI, test $connect_using = libatspi)
 
 if test x"$WITHJAPANESE" = xtrue; then

@@ -13,11 +13,6 @@
 /* Just to make sure the symbols for the editor are visible. */
 // #include <Gtk2/dasher_editor_internal.h>
 
-// TODO: This shouldn't need to be here
-#ifdef USE_CSPI
-#include <libbonobo.h>
-#endif
-
 #ifdef WITH_GPE
 #include <gpe/init.h>
 #endif
@@ -189,15 +184,6 @@ int main(int argc, char *argv[]) {
   init_xsettings();
 #else
   gtk_init(&argc, &argv);
-#endif
-
-#ifdef USE_CSPI
-  if(!bonobo_is_initialized()) {
-    if(!bonobo_init(&argc, argv)) {
-      g_error("Can't initialize Bonobo...\n");
-    }
-    bonobo_activate();
-  }
 #endif
 
   g_set_application_name("Dasher");

@@ -20,9 +20,6 @@ AM_CXXFLAGS = \
 	-DPROGDATA=\"$(pkgdatadir)\" \
 	-DSYSCONFDIR=\"$(sysconfdir)\" \
 	-DPACKAGE_LOCALE_DIR=\"$(datadir)/locale\"
-if USE_CSPI
-AM_CXXFLAGS += @CSPI_CFLAGS@
-endif
 
 dasher_LDADD = \
 	Gtk2/libdashergtk.la \
