@@ -13,10 +13,6 @@
 /* Just to make sure the symbols for the editor are visible. */
 // #include <Gtk2/dasher_editor_internal.h>
 
-#ifdef WITH_MAEMO
-#include <libosso.h>
-#endif
-
 // TODO: This shouldn't need to be here
 #ifdef USE_CSPI
 #include <libbonobo.h>
@@ -39,14 +35,6 @@
 DasherMain *g_pDasherMain;
 
 
-// Stuff imported from dasher.cc
-
-#ifdef WITH_MAEMO
-  osso_context_t *osso_context;
-#endif
-
-
-
 //static GtkWidget *vbox; // Main vbox (top level under main window)
 // GdkPixbuf *p;                   // Hmm... descriptive names
 // GtkWidget *pw;
@@ -62,10 +50,6 @@ DasherMain *g_pDasherMain;
 // GtkWidget *file_selector;
 //GtkWidget *g_pEditPane = 0;
 //GtkWidget *g_pActionPane = 0;
-
-#ifdef WITH_MAEMO
-Window g_xOldIMWindow; 
-#endif
 
 //DasherAction *g_pAction = 0;
 
@@ -207,10 +191,6 @@ int main(int argc, char *argv[]) {
   gtk_init(&argc, &argv);
 #endif
 
-#ifdef WITH_MAEMO
-  osso_context = osso_initialize("dasher", PACKAGE_VERSION, TRUE, NULL);
-#endif
-
 #ifdef USE_CSPI
   if(!bonobo_is_initialized()) {
     if(!bonobo_init(&argc, argv)) {
@@ -221,9 +201,7 @@ int main(int argc, char *argv[]) {
 #endif
 
   g_set_application_name("Dasher");
-#ifndef WITH_MAEMO
   gtk_window_set_default_icon_name("dasher");
-#endif
 
 
   g_pDasherMain = dasher_main_new(&argc, &argv, &sCommandLine);
@@ -251,10 +229,6 @@ int main(int argc, char *argv[]) {
 }
 
 void clean_up() {
-#ifdef WITH_MAEMO
-  osso_deinitialize(osso_context);
-#endif
-
   /* TODO: check that this really does the right thing with the references counting */
   if(g_pDasherMain)
     g_object_unref(G_OBJECT(g_pDasherMain));

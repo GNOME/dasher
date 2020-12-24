@@ -23,11 +23,7 @@ const bp_table boolparamtable[] = {
   {BP_SOCKET_DEBUG, "SocketInputDebug", Persistence::PERSISTENT, false, "Print information about socket input processing to console"},
   {BP_CIRCLE_START, "CircleStart", Persistence::PERSISTENT, false, "Start on circle mode"},
   {BP_GLOBAL_KEYBOARD, "GlobalKeyboard", Persistence::PERSISTENT, false, "Whether to assume global control of the keyboard"},
-#ifdef WITH_MAEMO
-  {BP_NONLINEAR_Y, "NonlinearY", Persistence::PERSISTENT, false, "Apply nonlinearities to Y axis (i.e. compress top &amp; bottom)"},
-#else
   {BP_NONLINEAR_Y, "NonlinearY", Persistence::PERSISTENT, true, "Apply nonlinearities to Y axis (i.e. compress top &amp; bottom)"},
-#endif
   {BP_STOP_OUTSIDE, "PauseOutside", Persistence::PERSISTENT, false, "Whether to stop when pointer leaves canvas area"},
 #ifdef TARGET_OS_IPHONE
   {BP_BACKOFF_BUTTON, "BackoffButton", Persistence::PERSISTENT, false, "Whether to enable the extra backoff button in dynamic mode"},
@@ -78,18 +74,14 @@ const lp_table longparamtable[] = {
 #endif
   {LP_R, "ButtonModeNonuniformity", Persistence::PERSISTENT, 0, "Button mode box non-uniformity"},
   {LP_RIGHTZOOM, "ButtonCompassModeRightZoom", Persistence::PERSISTENT, 5120, "Zoomfactor (*1024) for compass mode"},
-#if defined(WITH_MAEMO) || defined (TARGET_OS_IPHONE)
+#ifdef TARGET_OS_IPHONE
   {LP_NODE_BUDGET, "NodeBudget", Persistence::PERSISTENT, 1000, "Target (min) number of node objects to maintain"},
 #else
   {LP_NODE_BUDGET, "NodeBudget", Persistence::PERSISTENT, 3000, "Target (min) number of node objects to maintain"},
 #endif
   {LP_OUTLINE_WIDTH, "OutlineWidth", Persistence::PERSISTENT, 0, "Absolute value is line width to draw boxes (fill iff >=0)" },
   {LP_MIN_NODE_SIZE, "MinNodeSize", Persistence::PERSISTENT, 50, "Minimum size of node (in dasher coords) to draw" }, 
-#ifdef WITH_MAEMO
-  {LP_NONLINEAR_X, "NonLinearX", Persistence::PERSISTENT, 0, "Nonlinear compression of X-axis (0 = none, higher = more extreme)"},
-#else
   {LP_NONLINEAR_X, "NonLinearX", Persistence::PERSISTENT, 5, "Nonlinear compression of X-axis (0 = none, higher = more extreme)"},
-#endif
   {LP_AUTOSPEED_SENSITIVITY, "AutospeedSensitivity", Persistence::PERSISTENT, 100, "Sensitivity of automatic speed control (percent)"},
   {LP_SOCKET_PORT, "SocketPort", Persistence::PERSISTENT, 20320, "UDP/TCP socket to use for network socket input"},
   {LP_SOCKET_INPUT_X_MIN, "SocketInputXMinTimes1000", Persistence::PERSISTENT, 0, "Bottom of range of X values expected from network input"},
@@ -139,7 +131,7 @@ const sp_table stringparamtable[] = {
   {SP_GAME_TEXT_FILE, "GameTextFile", Persistence::PERSISTENT, "", "User-specified file with strings to practice writing"},
   {SP_SOCKET_INPUT_X_LABEL, "SocketInputXLabel", Persistence::PERSISTENT, "x", "Label preceding X values for network input"},
   {SP_SOCKET_INPUT_Y_LABEL, "SocketInputYLabel", Persistence::PERSISTENT, "y", "Label preceding Y values for network input"},
-#if defined(WITH_MAEMO) || defined(TARGET_OS_IPHONE)
+#ifdef TARGET_OS_IPHONE
   {SP_INPUT_FILTER, "InputFilter", Persistence::PERSISTENT, "Stylus Control", "Input filter used to provide the current control mode"},
 #else
   {SP_INPUT_FILTER, "InputFilter", Persistence::PERSISTENT, "Normal Control", "Input filter used to provide the current control mode"},

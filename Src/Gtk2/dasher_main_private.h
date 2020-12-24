@@ -27,15 +27,6 @@ struct _DasherMainPrivate {
   GtkListStore *pAlphabetList;
   GtkAccelGroup *pAccel;
 
-  // Widgets used for maemo
-#ifdef WITH_MAEMO
-  DasherMaemoHelper *pMaemoHelper;
-#ifdef WITH_MAEMOFULLSCREEN
-  HildonProgram *pProgram;
-  HildonWindow *pHWindow;
-#endif
-#endif
-
   // Properties of the main window
   int iWidth;
   int iHeight;

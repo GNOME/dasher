@@ -27,14 +27,10 @@ Dasher::Settings::bp_table app_boolparamtable[] = {
   { APP_BP_TIME_STAMP, "TimeStampNewFiles", Persistence::PERSISTENT, true, "TimeStampNewFiles" },
   { APP_BP_CONFIRM_UNSAVED, "ConfirmUnsavedFiles", Persistence::PERSISTENT, true, "ConfirmUnsavedFiles" },
   {APP_BP_SHOW_TOOLBAR, "ViewToolbar", Persistence::PERSISTENT, true, "ViewToolbar"},
-#ifdef WITH_MAEMO
-  { APP_BP_SHOW_STATUSBAR, "ViewStatusbar", Persistence::PERSISTENT, false, "ViewStatusbar" },
-#else
   { APP_BP_SHOW_STATUSBAR, "ViewStatusbar", Persistence::PERSISTENT, true, "ViewStatusbar" },
-#endif
-{ APP_BP_MIRROR_LAYOUT, "MirrorLayout", Persistence::PERSISTENT, false, "MirrorLayout" },
-{ APP_BP_FULL_SCREEN, "FullScreen", Persistence::PERSISTENT, false, "FullScreen" },
-{ APP_BP_RESET_ON_FOCUS_CHANGE, "ResetOnFocusChange", Persistence::PERSISTENT, true, "ResetOnFocusChange" },
+  { APP_BP_MIRROR_LAYOUT, "MirrorLayout", Persistence::PERSISTENT, false, "MirrorLayout" },
+  { APP_BP_FULL_SCREEN, "FullScreen", Persistence::PERSISTENT, false, "FullScreen" },
+  { APP_BP_RESET_ON_FOCUS_CHANGE, "ResetOnFocusChange", Persistence::PERSISTENT, true, "ResetOnFocusChange" },
 };
 
 Dasher::Settings::lp_table app_longparamtable[] = {
@@ -46,16 +42,9 @@ Dasher::Settings::lp_table app_longparamtable[] = {
   {APP_LP_STYLE, "AppStyle", Persistence::PERSISTENT, 0, "Application style"},
   {APP_LP_X, "XPosition", Persistence::PERSISTENT, 100, "X location of window"},
   {APP_LP_Y, "YPosition", Persistence::PERSISTENT, 100, "Y location of window"},
-#ifdef WITH_MAEMO
-  {APP_LP_MAEMO_SIZE, "MaemoSize", Persistence::PERSISTENT, 0, "Size of Maemo input window"},
-#endif
 };
 
 Dasher::Settings::sp_table app_stringparamtable[] = {
-#ifdef WITH_MAEMO
-  {APP_SP_EDIT_FONT, "EditFont", Persistence::PERSISTENT, "Sans 20", "EditFont"},
-#else
   {APP_SP_EDIT_FONT, "EditFont", Persistence::PERSISTENT, "Sans 10", "EditFont"},
-#endif
-{ APP_SP_TOOLBAR_ID, "ToolbarID", Persistence::PERSISTENT, "", "ToolbarID" },
+  {APP_SP_TOOLBAR_ID, "ToolbarID", Persistence::PERSISTENT, "", "ToolbarID"},
 };

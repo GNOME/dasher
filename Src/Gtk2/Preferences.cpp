@@ -34,8 +34,6 @@ struct _BoolTranslation {
 
 // Checkbox widgets which map directly to boolean parameters
 
-#ifndef WITH_MAEMO
-
 BoolTranslation sBoolTranslationTable[] = {
   {BP_DRAW_MOUSE_LINE, "showmouselinebutton", NULL},
   {BP_DRAW_MOUSE, "showmousebutton", NULL},
@@ -54,8 +52,6 @@ BoolTranslation sBoolTranslationTable[] = {
   {APP_BP_CONFIRM_UNSAVED, "confirm_unsaved_files", NULL}
 };
 
-#endif
-
 // List widgets which map directly to string parameters
 
 typedef struct _StringTranslation StringTranslation;
@@ -68,23 +64,12 @@ struct _StringTranslation {
   GtkWidget *pHelper;
 };
 
-#ifdef WITH_MAEMO
-
-StringTranslation sStringTranslationTable[] = {
-  {SP_ALPHABET_ID, "AlphabetTree", NULL, NULL, NULL},
-  {SP_COLOUR_ID, "ColorTree", NULL, NULL, NULL},
-};
-
-#else
-
 StringTranslation sStringTranslationTable[] = {
   {SP_ALPHABET_ID, "AlphabetTree", NULL, NULL, NULL},
   {SP_COLOUR_ID, "ColorTree", NULL, NULL, NULL},
   {SP_INPUT_FILTER, "input_filter_tree_view", NULL, "button13", NULL},
   {SP_INPUT_DEVICE, "input_tree_view", NULL, "button25", NULL}
 };
-
-#endif
 
 // TODO: Look at coding convention stuff for gobjets
 
@@ -248,12 +233,6 @@ DasherPreferencesDialogue *dasher_preferences_dialogue_new(GtkBuilder *pXML, Das
   dasher_preferences_dialogue_refresh_widget(pDasherPref, -1);
   dasher_preferences_dialogue_update_special(pDasherPref, -1);
 
-#ifdef WITH_MAEMO
-#ifndef WITH_MAEMOFULLSCREEN
-  gtk_widget_hide(gtk_builder_get_object(pXML, "displaysizebox"));
-#endif
-#endif
-
 #ifndef JAPANESE
   gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pXML, "radiobutton9")));
 #endif
@@ -271,11 +250,6 @@ void dasher_preferences_dialogue_show(DasherPreferencesDialogue *pSelf, gint iPa
   // main Dasher window
   
   //  gtk_window_set_transient_for(pPrivate->pPreferencesWindow,pPrivate->pMainWindow);
-#ifdef WITH_MAEMO
-#ifndef WITH_MAEMOFULLSCREEN
-  // gtk_window_set_keep_above(pPrivate->pPreferencesWindow, true);
-#endif
-#endif
   // TODO: reimplement
   //  gtk_window_set_keep_above(pPrivate->pPreferencesWindow, dasher_main_topmost(g_pDasherMain));
 
@@ -299,12 +273,10 @@ void dasher_preferences_dialogue_initialise_tables(DasherPreferencesDialogue *pS
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
  
 
-#ifndef WITH_MAEMO
   int iNumBoolEntries = sizeof(sBoolTranslationTable) / sizeof(BoolTranslation);
   for(int i(0); i < iNumBoolEntries; ++i) {
     sBoolTranslationTable[i].pWidget = GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, sBoolTranslationTable[i].szWidgetName));
   }
-#endif
 
   int iNumStringEntries = sizeof(sStringTranslationTable) / sizeof(StringTranslation);
   for(int i(0); i < iNumStringEntries; ++i) {
@@ -344,14 +316,12 @@ extern "C" gboolean dasher_preferences_refresh_foreach_function(GtkTreeModel *pM
 void dasher_preferences_dialogue_refresh_widget(DasherPreferencesDialogue *pSelf, gint iParameter) {
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
 
-#ifndef WITH_MAEMO
   int iNumBoolEntries = sizeof(sBoolTranslationTable) / sizeof(BoolTranslation);
   for(int i(0); i < iNumBoolEntries; ++i) {
     if((iParameter == -1) || (sBoolTranslationTable[i].iParameter == iParameter)) {
       gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget), pPrivate->pAppSettings->GetBool(sBoolTranslationTable[i].iParameter));
     }
   }
-#endif
 
   // TODO: I believe that this is being called initially before the
   // widgets are realised, so the selection isn't being correctly
@@ -378,7 +348,6 @@ void dasher_preferences_dialogue_refresh_widget(DasherPreferencesDialogue *pSelf
 }
 
 static void dasher_preferences_dialogue_refresh_parameter(DasherPreferencesDialogue *pSelf, GtkWidget *pWidget, gpointer pUserData) {
-#ifndef WITH_MAEMO
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
   
   int iNumBoolEntries = sizeof(sBoolTranslationTable) / sizeof(BoolTranslation);
@@ -392,7 +361,6 @@ static void dasher_preferences_dialogue_refresh_parameter(DasherPreferencesDialo
       }
     }
   }
-#endif
 }
 
 // TODO: Is this function actually useful? (conversely, is the other call to RefreshFoo elsewhere any use?)
@@ -503,7 +471,6 @@ static void dasher_preferences_dialogue_populate_special_speed(DasherPreferences
 }
 
 static void dasher_preferences_dialogue_populate_special_mouse_start(DasherPreferencesDialogue *pSelf) {
-#ifndef WITH_MAEMO
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
 
   pPrivate->pMousePosButton = GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "mouseposbutton"));
@@ -520,7 +487,6 @@ static void dasher_preferences_dialogue_populate_special_mouse_start(DasherPrefe
   else {
     gtk_toggle_button_set_active(pPrivate->pMousePosButton, false);
   }
-#endif 
 }
 
 static void dasher_preferences_dialogue_populate_special_orientation(DasherPreferencesDialogue *pSelf) {
@@ -557,7 +523,6 @@ static void dasher_preferences_dialogue_populate_special_orientation(DasherPrefe
 }
 
 static void dasher_preferences_dialogue_populate_special_appstyle(DasherPreferencesDialogue *pSelf) {
-#ifndef WITH_MAEMO  
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
 
   switch(pPrivate->pAppSettings->GetLong(APP_LP_STYLE)) {
@@ -574,18 +539,15 @@ static void dasher_preferences_dialogue_populate_special_appstyle(DasherPreferen
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "appstyle_fullscreen")), TRUE);
     break;
   }
-#endif
 }
 
 static void dasher_preferences_dialogue_populate_special_linewidth(DasherPreferencesDialogue *pSelf) {
-#ifndef WITH_MAEMO
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
 
   if(pPrivate->pAppSettings->GetLong(LP_LINE_WIDTH) > 1)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "thicklinebutton")), true);
   else
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "thicklinebutton")), false);
-#endif
 }
 
 
@@ -889,16 +851,3 @@ extern "C" gboolean preferences_hide(GtkWidget *widget, gpointer user_data) {
   gtk_widget_hide(GTK_WIDGET(pPrivate->pPreferencesWindow));
   return TRUE;
 }
-
-
-// --- TODOS:
-
-#ifdef WITH_MAEMO
-extern "C" void on_window_size_changed(GtkWidget *widget, gpointer user_data) {
-  if(GTK_TOGGLE_BUTTON(widget)->active)
-    dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_MAEMO_SIZE, 1);
-  else
-    dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_MAEMO_SIZE, 0);
-}
-#endif
-

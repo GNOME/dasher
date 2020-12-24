@@ -6,9 +6,6 @@
 #include "dasher.h"
 #include "dasher_lock_dialogue.h"
 
-#ifdef WITH_MAEMO
-#include <hildon-widgets/hildon-banner.h>
-#endif
 #include <iostream>
 
 // TODO: Make this a real class
@@ -19,7 +16,6 @@ GtkLabel *m_pLockMessage;
 unsigned long lastTime;
 
 void dasher_lock_dialogue_new(GtkBuilder *pXML, GtkWindow *pMainWindow) {
-#ifndef WITH_MAEMO
   m_pLockWindow = GTK_WINDOW(gtk_builder_get_object(pXML, "lock_window"));
   m_pLockProgress = GTK_PROGRESS_BAR(gtk_builder_get_object(pXML, "lock_progress"));
   m_pLockMessage = GTK_LABEL(gtk_builder_get_object(pXML, "lock_message"));
@@ -28,9 +24,6 @@ void dasher_lock_dialogue_new(GtkBuilder *pXML, GtkWindow *pMainWindow) {
   gtk_widget_hide(GTK_WIDGET(m_pLockWindow));
   
   gtk_window_set_transient_for(m_pLockWindow, pMainWindow);
-#else
-  m_pLockWindow = 0;
-#endif
 }
 
 extern "C" void on_lock_info(GtkDasherControl *pDasherControl, gpointer pLockInfo, gpointer pUserData) {
@@ -41,7 +34,6 @@ extern "C" void on_lock_info(GtkDasherControl *pDasherControl, gpointer pLockInf
 
   //Whether to perform a full refresh of GUI components (too expensive to do every time):
   bool bFullRefresh(pInfo->time-lastTime > 100);
-#ifndef WITH_MAEMO
   GtkWidget *pWinWidget(GTK_WIDGET(m_pLockWindow));
   if(pInfo->iPercent!=-1) {
     gtk_label_set_text(m_pLockMessage, pInfo->szMessage);
@@ -55,22 +47,6 @@ extern "C" void on_lock_info(GtkDasherControl *pDasherControl, gpointer pLockInf
     bFullRefresh = true;
     gtk_widget_hide(pWinWidget);
   }
-#else
-  if(pInfo->iPercent!=-1) {
-    if(!m_pLockWindow) {
-      bFullRefresh = true;
-      m_pLockWindow = hildon_banner_show_progress(NULL, NULL, pInfo->szMessage);
-    }
-    hildon_banner_set_fraction(HILDON_BANNER(m_pLockWindow), pInfo->iPercent / 100.0);
-  }
-  else {
-    if(m_pLockWindow) {
-      bFullRefresh = true;
-      gtk_widget_destroy(GTK_WIDGET(m_pLockWindow));
-    }
-    m_pLockWindow = 0;
-  }
-#endif
 
   if (bFullRefresh) {
     //This takes too long, on some hardware / software versions, to perform every time

@@ -108,7 +108,6 @@ AC_ARG_ENABLE([joystick],
          fi, 
 	 WITHJOYSTICK=false)
 
-
 AC_ARG_ENABLE([tilt],
 	 AS_HELP_STRING([--enable-tilt],[Build with experimental support for tilt sensor input (experimental -- default is NO)]),
 	 if test "x$enableval" = "xno"; then
@@ -117,31 +116,6 @@ AC_ARG_ENABLE([tilt],
 	   WITHTILT=true;
          fi, 
 	 WITHTILT=false)
-
-
-AC_ARG_WITH([maemo],
-	AS_HELP_STRING([--with-maemo],[build with Maemo support (default is NO)]),
-	if test "x$withval" = "xyes"; then
-	   WITHMAEMO=true;
-	   WITHGNOME=false;
-	   enable_a11y=no;
-	else
-	   WITHMAEMO=false;
-        fi,
-	WITHMAEMO=false)
-
-AC_ARG_WITH([maemo-fullscreen],
-	AS_HELP_STRING([--with-maemo-fullscreen],[build as standalone Maemo fullscreen app (default is NO)]),
-	if test "x$withval" = "xyes"; then
-	   WITHMAEMOFULLSCREEN=true;
-	   WITHMAEMO=true;
-	   WITHGNOME=false;
-	   enable_a11y=no;
-	else
-	   WITHMAEMOFULLSCREEN=false;
-        fi,
-	WITHMAEMOFULLSCREEN=false)
-
 
 dnl AC_ARG_WITH([darwin],
 dnl 	AS_HELP_STRING([--with-darwin],[build with Darwin (Mac OS X) support (default is NO)]),
@@ -361,16 +335,6 @@ dnl if test x"$WITHDARWIN" = xtrue ; then
 dnl         AC_DEFINE([WITH_DARWIN], 1, [Targeting Darwin/X11])
 dnl fi
 
-if test x"$WITHMAEMO" = xtrue; then
-      AC_DEFINE([WITH_MAEMO], 1, [Maemo is present])
-      PKG_CHECK_MODULES(hildon, hildon-libs)
-      AC_CHECK_LIB(osso, osso_initialize,, AC_MSG_ERROR([Osso library not found.]))
-fi			
-
-if test x"$WITHMAEMOFULLSCREEN" = xtrue; then
-      AC_DEFINE([WITH_MAEMOFULLSCREEN], 1, [Building as fullscreen Maemo app])
-fi
-
 if test x"$WITHCAIRO" = xtrue; then
 	PKG_CHECK_MODULES(cairo, cairo)
 	AC_DEFINE([WITH_CAIRO], 1, [use cairo])
@@ -383,16 +347,11 @@ fi
 AC_SUBST(gthread_LIBS)
 AC_SUBST(gthread_CFLAGS)
 
-AC_SUBST(hildon_LIBS)
-AC_SUBST(hildon_CFLAGS)
-
 AM_CONDITIONAL(DOGTK, test x$BUILDGTK = xtrue)
 AM_CONDITIONAL(DOQTE, test x$WITHQTE = xtrue)
 AM_CONDITIONAL(USE_SPEECHDISPATCHER, test $speech_module = speechdispatcher)
 AM_CONDITIONAL(GNOME_HELP, test x$WITHGNOME = xtrue)
 AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
-AM_CONDITIONAL(WITH_MAEMO, test x$WITHMAEMO = xtrue)
-AM_CONDITIONAL(WITH_MAEMOFULLSCREEN, test x$WITHMAEMOFULLSCREEN = xtrue)
 AM_CONDITIONAL(JAPANESE, test x$WITHJAPANESE = xtrue)
 AM_CONDITIONAL(JOYSTICK, test x$WITHJOYSTICK = xtrue)
 
@@ -404,9 +363,9 @@ if test x"$WITHGPE" = xtrue ; then
 	SETTINGS_LIBS="-lgpewidget -lXsettings-client -lXsettings"
 fi
 
-GTKBUILD_CFLAGS="$GTK_CFLAGS $GIO_CFLAGS $SETTINGS_CFLAGS $gthread_CFLAGS $hildon_CFLAGS"
+GTKBUILD_CFLAGS="$GTK_CFLAGS $GIO_CFLAGS $SETTINGS_CFLAGS $gthread_CFLAGS"
 
-GTKBUILD_LIBS="$X_LIBS $GTK_LIBS $GIO_LIBS $SETTINGS_LIBS $gthread_LIBS $hildon_LIBS"
+GTKBUILD_LIBS="$X_LIBS $GTK_LIBS $GIO_LIBS $SETTINGS_LIBS $gthread_LIBS"
 
 AC_SUBST(GTKBUILD_CFLAGS)
 AC_SUBST(GTKBUILD_LIBS)

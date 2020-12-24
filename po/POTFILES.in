@@ -2,9 +2,6 @@
 # Please keep this file sorted alphabetically.
 # Use "make check" to check for missing files:
 Data/dasher.desktop.in.in
-Data/GUI/dashermaemofullscreen.ui
-Data/GUI/dashermaemo.preferences.ui
-Data/GUI/dashermaemo.ui
 Data/GUI/dasher.preferences.ui
 Data/GUI/dasher.traditional.ui
 Src/DasherCore/AbstractXMLParser.cpp

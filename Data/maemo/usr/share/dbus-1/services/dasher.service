@@ -1,3 +1,0 @@
-[D-BUS Service]
-Name=com.nokia.dasher
-Exec=/usr/bin/dasher
