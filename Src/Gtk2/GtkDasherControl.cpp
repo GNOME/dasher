@@ -57,11 +57,7 @@ enum {
 #define GTK_DASHER_CONTROL_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE((o), GTK_DASHER_TYPE_CONTROL, GtkDasherControlPrivate));
 
 /* TODO: is it still sensible to derive from Box, given that its just a canvas now*/
-#if GTK_CHECK_VERSION (3,0,0)
 G_DEFINE_TYPE(GtkDasherControl, gtk_dasher_control, GTK_TYPE_BOX);
-#else
-G_DEFINE_TYPE(GtkDasherControl, gtk_dasher_control, GTK_TYPE_VBOX);
-#endif
 
 static void gtk_dasher_control_finalize(GObject * pObject);
 

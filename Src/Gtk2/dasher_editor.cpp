@@ -17,11 +17,7 @@
 #include "GtkDasherControl.h"
 #include "../DasherCore/ControlManager.h"
 
-#if GTK_CHECK_VERSION (3,0,0)
 G_DEFINE_TYPE(DasherEditor, dasher_editor, GTK_TYPE_BOX);
-#else
-G_DEFINE_TYPE(DasherEditor, dasher_editor, GTK_TYPE_VBOX);
-#endif
 
 /* Signals */
 enum {
@@ -199,13 +195,8 @@ dasher_editor_finalize(GObject *pObject) {
 DasherEditor*
 dasher_editor_new(void)
 {
-#if GTK_CHECK_VERSION (3,0,0)
   return
     DASHER_EDITOR(g_object_new(DASHER_TYPE_EDITOR, "orientation", GTK_ORIENTATION_VERTICAL, NULL));
-#else
-  return
-    DASHER_EDITOR(g_object_new(DASHER_TYPE_EDITOR, NULL));
-#endif
 }
 
 void
@@ -708,11 +699,7 @@ dasher_editor_internal_handle_font(DasherEditor *pSelf, const gchar *szFont) {
     DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
 
     PangoFontDescription *pFD = pango_font_description_from_string(szFont);
-#if GTK_CHECK_VERSION(3, 0, 0)
     gtk_widget_override_font(GTK_WIDGET(pPrivate->pTextView), pFD);
-#else
-    gtk_widget_modify_font(GTK_WIDGET(pPrivate->pTextView), pFD);
-#endif
   }
 }
 

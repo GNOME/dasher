@@ -48,11 +48,7 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl,
   m_pVBox = GTK_WIDGET(pVBox);
   pClipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
   m_pCanvas = gtk_drawing_area_new();
-#if GTK_CHECK_VERSION (2,18,0)
   gtk_widget_set_can_focus(m_pCanvas, TRUE);
-#else
-  GTK_WIDGET_SET_FLAGS(m_pCanvas, GTK_CAN_FOCUS);
-#endif
   gtk_widget_set_double_buffered(m_pCanvas, FALSE);
 
   GtkWidget *pFrame = gtk_frame_new(NULL);
@@ -242,12 +238,7 @@ void CDasherControl::RealizeCanvas(GtkWidget *pWidget) {
 int CDasherControl::CanvasConfigureEvent() {
   GtkAllocation a;
 
-#if GTK_CHECK_VERSION (2,18,0)
   gtk_widget_get_allocation(m_pCanvas, &a);
-#else
-  a.width  = m_pCanvas->allocation.width;
-  a.height = m_pCanvas->allocation.height;
-#endif
 
   m_pScreen->resize(a.width,a.height);
   ScreenResized(m_pScreen);
@@ -434,32 +425,20 @@ int CDasherControl::TimerEvent() {
   GdkWindow *default_root_window = gdk_get_default_root_window();
   GdkWindow *window = gtk_widget_get_window(m_pCanvas);
 
-#if GTK_CHECK_VERSION (3,0,0)
   GdkDeviceManager *device_manager =
     gdk_display_get_device_manager(gdk_window_get_display(window));
   GdkDevice *pointer = gdk_device_manager_get_client_pointer(device_manager);
 
   gdk_window_get_device_position(window, pointer, &x, &y, NULL);
-#else
-  gdk_window_get_pointer(window, &x, &y, NULL);
-#endif
   m_pMouseInput->SetCoordinates(x, y);
 
-#if GTK_CHECK_VERSION (3,0,0)
   gdk_window_get_device_position(default_root_window, pointer, &x, &y, NULL);
-#else
-  gdk_window_get_pointer(default_root_window, &x, &y, NULL);
-#endif
 
   int iRootWidth;
   int iRootHeight;
 
-#ifdef HAVE_GDK_WINDOW_GET_WIDTH
   iRootWidth  = gdk_window_get_width (default_root_window);
   iRootHeight = gdk_window_get_height(default_root_window);
-#else
-  gdk_drawable_get_size(default_root_window, &iRootWidth, &iRootHeight);
-#endif
 
   if(GetLongParameter(LP_YSCALE) < 10)
     SetLongParameter(LP_YSCALE, 10);
@@ -495,11 +474,7 @@ int CDasherControl::TimerEvent() {
 
       int iMouseX = 0;
       int iMouseY = 0;  
-#if GTK_CHECK_VERSION (3,0,0)
       gdk_window_get_device_position(NULL, pointer, &iMouseX, &iMouseY, NULL);
-#else
-      gdk_window_get_pointer(NULL, &iMouseX, &iMouseY, NULL);
-#endif
 
       // TODO: This sort of thing shouldn't be in specialised methods, move into base class somewhere
       pUserLog->AddMouseLocationNormalized(iMouseX, iMouseY, true, GetNats());

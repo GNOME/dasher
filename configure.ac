@@ -136,9 +136,7 @@ if test x"$WITHGTK" = xtrue
 then 
 	PKG_CHECK_MODULES(GTK, gtk+-3.0,
 		[GTKHERE=true],
-		[PKG_CHECK_MODULES(GTK, gtk+-2.0 >= 2.14.0,
-			[GTKHERE=true],
-			[GTKHERE=false])]) 
+		[GTKHERE=false])
 fi
 
 if test x"$GTKHERE" = xtrue -a x"$WITHQTE" != xtrue
@@ -159,11 +157,8 @@ then
 	CPPFLAGS="$CPPFLAGS $GTK_CFLAGS"
 	LIBS="$LIBS $GTK_LIBS"
 	AC_CHECK_HEADERS([gdk/gdkkeysyms-compat.h])
-	AC_CHECK_FUNCS([gtk_builder_new gtk_show_uri gdk_window_get_width gtk_cairo_should_draw_window g_settings_new], [],
-		[if test "x$ac_cv_func_gtk_builder_new" = "xno"; then
-			AC_MSG_ERROR([A version of GTK+ providing GtkBuilder is necessary.])
-		fi
-		if test "x$ac_cv_func_gtk_show_uri" = "xno"; then
+	AC_CHECK_FUNCS([gtk_show_uri], [],
+		[if test "x$ac_cv_func_gtk_show_uri" = "xno"; then
 			AC_MSG_WARN([This version of GTK+ doesn't provide gtk_show_uri - help will not be displayed from within dasher.])
 		fi]
 	)

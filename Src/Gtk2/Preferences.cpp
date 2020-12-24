@@ -337,11 +337,7 @@ void dasher_preferences_dialogue_refresh_widget(DasherPreferencesDialogue *pSelf
       pUserData[1] = GTK_TREE_VIEW(sStringTranslationTable[i].pWidget);
       pUserData[2] = pSelf;
 
-#if GTK_CHECK_VERSION (2,20,0)
       if(sStringTranslationTable[i].pWidget && gtk_widget_get_realized(sStringTranslationTable[i].pWidget))
-#else
-      if(sStringTranslationTable[i].pWidget && GTK_WIDGET_REALIZED(sStringTranslationTable[i].pWidget))
-#endif
         gtk_tree_model_foreach(pModel, dasher_preferences_refresh_foreach_function, pUserData);
     }
   }
@@ -712,7 +708,6 @@ extern "C" void languagemodel(GtkRadioButton *widget, gpointer user_data) {
   //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
 
-#if GTK_CHECK_VERSION (2,20,0)
   if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget))==TRUE) {
     if( !strcmp( gtk_buildable_get_name( GTK_BUILDABLE(widget) ), "radiobutton6" ) ) {
       pPrivate->pAppSettings->SetLong(LP_LANGUAGE_MODEL_ID, 0 );
@@ -724,19 +719,6 @@ extern "C" void languagemodel(GtkRadioButton *widget, gpointer user_data) {
       pPrivate->pAppSettings->SetLong(LP_LANGUAGE_MODEL_ID, 4 );
     }
   }
-#else
-  if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget))==TRUE) {
-    if( !strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton6" ) ) {
-      pPrivate->pAppSettings->SetLong(LP_LANGUAGE_MODEL_ID, 0 );
-    } else if (!strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton7" )) {
-      pPrivate->pAppSettings->SetLong(LP_LANGUAGE_MODEL_ID, 2 );
-    } else if (!strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton8" )) {
-      pPrivate->pAppSettings->SetLong(LP_LANGUAGE_MODEL_ID, 3 );
-    } else if (!strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton9" )) {
-      pPrivate->pAppSettings->SetLong(LP_LANGUAGE_MODEL_ID, 4 );
-    }
-  }
-#endif
 }
 
 extern "C" void uniform_changed(GtkHScale *hscale) {
@@ -786,7 +768,6 @@ extern "C" void on_appstyle_changed(GtkWidget *widget, gpointer user_data) {
   //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
 
-#if GTK_CHECK_VERSION (2,20,0)
   if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget))) {
     if(!strcmp(gtk_buildable_get_name(GTK_BUILDABLE(widget)), "appstyle_classic"))
       pPrivate->pAppSettings->SetLong(APP_LP_STYLE, 0);
@@ -797,18 +778,6 @@ extern "C" void on_appstyle_changed(GtkWidget *widget, gpointer user_data) {
     else if(!strcmp(gtk_buildable_get_name(GTK_BUILDABLE(widget)), "appstyle_fullscreen"))
       pPrivate->pAppSettings->SetLong(APP_LP_STYLE, 3);
   }
-#else
-  if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget))) {
-    if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_classic"))
-      pPrivate->pAppSettings->SetLong(APP_LP_STYLE, 0);
-    else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_compose"))
-      pPrivate->pAppSettings->SetLong(APP_LP_STYLE, 1);
-    else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_direct"))
-      pPrivate->pAppSettings->SetLong(APP_LP_STYLE, 2);
-    else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_fullscreen"))
-      pPrivate->pAppSettings->SetLong(APP_LP_STYLE, 3);
-  }
-#endif
 }
 
 extern "C" void on_dasher_font_changed(GtkFontButton *pButton, gpointer pUserData) {
