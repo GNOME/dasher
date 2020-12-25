@@ -4,8 +4,6 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
 bin_PROGRAMS = dasher
 
-#if DOGTK
-
 SUBDIRS = Common DasherCore Gtk2
 dasher_SOURCES = main.cc
 
@@ -30,12 +28,3 @@ dasher_LDADD = \
 	$(GTKBUILD_LIBS) \
 	$(SPEECH_LIBS) \
 	-lexpat
-#endif
-
-#if DOQTE
-
-#QTDIR=/usr/share/qte2
-
-#SUBDIRS = DasherCore
-
-#endif

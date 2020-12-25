@@ -31,8 +31,6 @@ AC_PROG_CXX
 
 AC_PROG_LD_GNU
 
-WITHGTK=true;
-
 PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.6)
 
 AC_LANG_PUSH(C++)
@@ -63,15 +61,6 @@ AC_ARG_WITH([gnome],
 AC_ARG_ENABLE([speech],
 	[AS_HELP_STRING([--enable-speech=@<:@speechdispatcher@:>@],
 		[build with speech support (default is YES)])])
-
-AC_ARG_WITH([qte],
-	 AS_HELP_STRING([--with-qte],[build with QTE support (default is NO -- currently untested)]), 
-	 if test "x$withval" = "xno"; then
-	   WITHQTE=false; 
-	 else
-	   WITHQTE=true;
-         fi, 
-	 WITHQTE=false)
 
 AC_ARG_WITH([gpe],
 	 AS_HELP_STRING([--with-gpe],[build with GPE support (default is NO -- currently untested)]), 
@@ -132,43 +121,26 @@ AC_ARG_WITH([cairo],
 	 fi, 
 	 WITHCAIRO=true)
 
-if test x"$WITHGTK" = xtrue
-then 
-	PKG_CHECK_MODULES(GTK, gtk+-3.0,
-		[GTKHERE=true],
-		[GTKHERE=false])
-fi
+PKG_CHECK_MODULES(GTK, gtk+-3.0)
 
-if test x"$GTKHERE" = xtrue -a x"$WITHQTE" != xtrue
-then
-	BUILDGTK=true
-else 
-	BUILDGTK=false
-fi
+PKG_CHECK_MODULES(GIO, gio-2.0,
+	[AC_DEFINE(HAVE_GIO, 1, [gio exists so use gvfs])])
 
-if test x$BUILDGTK = xtrue
-then
-	PKG_CHECK_MODULES(GIO, gio-2.0,
-		[AC_DEFINE(HAVE_GIO, 1, [gio exists so use gvfs])])
+save_CFLAGS="$CFLAGS"
+save_LIBS="$LIBS"
+CFLAGS="$CFLAGS $GTK_CFLAGS"
+CPPFLAGS="$CPPFLAGS $GTK_CFLAGS"
+LIBS="$LIBS $GTK_LIBS"
+AC_CHECK_HEADERS([gdk/gdkkeysyms-compat.h])
+AC_CHECK_FUNCS([gtk_show_uri_on_window])
+CFLAGS="$save_CFLAGS"
+LIBS="$save_LIBS"
 
-	save_CFLAGS="$CFLAGS"
-	save_LIBS="$LIBS"
-	CFLAGS="$CFLAGS $GTK_CFLAGS"
-	CPPFLAGS="$CPPFLAGS $GTK_CFLAGS"
-	LIBS="$LIBS $GTK_LIBS"
-	AC_CHECK_HEADERS([gdk/gdkkeysyms-compat.h])
-	AC_CHECK_FUNCS([gtk_show_uri_on_window])
-	CFLAGS="$save_CFLAGS"
-	LIBS="$save_LIBS"
-
-	# GtkBuilder's autoconnect feature requires dasher to be
-	# linked with the --export-dynamic flag. pkg-config does not
-	# provide it, and libtool knows what to do with -export-dynamic.
-	# (We need this e.g., for <object class="DasherEditor">)
-	GTK_LIBS="$GTK_LIBS -export-dynamic"
-else
-	AC_MSG_ERROR("Unable to find GTK or another necessary library.")
-fi
+# GtkBuilder's autoconnect feature requires dasher to be
+# linked with the --export-dynamic flag. pkg-config does not
+# provide it, and libtool knows what to do with -export-dynamic.
+# (We need this e.g., for <object class="DasherEditor">)
+GTK_LIBS="$GTK_LIBS -export-dynamic"
 
 if test x"$DEBUG" = xtrue; then
 	AC_DEFINE([DEBUG], 1, [Additional debug checks enabled])
@@ -284,15 +256,10 @@ if test x"$WITHCAIRO" = xtrue; then
 	AC_DEFINE([WITH_CAIRO], 1, [use cairo])
 fi
 
-if test x"$BUILDGTK" = xtrue; then 
-	PKG_CHECK_MODULES(gthread, gthread-2.0)
-fi
-
+PKG_CHECK_MODULES(gthread, gthread-2.0)
 AC_SUBST(gthread_LIBS)
 AC_SUBST(gthread_CFLAGS)
 
-AM_CONDITIONAL(DOGTK, test x$BUILDGTK = xtrue)
-AM_CONDITIONAL(DOQTE, test x$WITHQTE = xtrue)
 AM_CONDITIONAL(USE_SPEECHDISPATCHER, test $speech_module = speechdispatcher)
 AM_CONDITIONAL(GNOME_HELP, test x$WITHGNOME = xtrue)
 AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
