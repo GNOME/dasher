@@ -135,7 +135,8 @@ msgstr "Velocitat"
 msgid "Adapt speed automatically"
 msgstr "Adapta la velocitat automàticament"
 
-#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
+#. The way in which you would like to control dasher, e.g., using buttons for
+#. up/down, buttons for select, etc.
 #: Data/GUI/dashermaemo.preferences.ui:261
 msgid "Control"
 msgstr "Control"
@@ -152,7 +153,8 @@ msgstr "Amplia la finestra d'entrada"
 msgid "Orientation"
 msgstr "Orientació"
 
-#. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
+#. The default display orientation for the selected alphabet, i.e., left to
+#. right for English, right to left for Arabic, etc.
 #: Data/GUI/dashermaemo.preferences.ui:360 Data/GUI/dasher.preferences.ui:344
 msgid "Alphabet Default"
 msgstr "La predeterminada de l'alfabet"
@@ -243,7 +245,7 @@ msgid ""
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
-"Utilitzeu aquest control per ajustar les mides\n"
+"Utilitzeu aquest control per a ajustar les mides\n"
 "relatives de les caixes de les lletres. Tingueu en compte que\n"
 "si seleccioneu valors alts, reduireu la velocitat d'escriptura."
 
@@ -251,7 +253,8 @@ msgstr ""
 msgid "Direction"
 msgstr "Direcció"
 
-#. This means that you always want to write left-to-right regardless of the normal direction for the alphabet you are using
+#. This means that you always want to write left-to-right regardless of the
+#. normal direction for the alphabet you are using
 #: Data/GUI/dasher.preferences.ui:359
 msgid "Always Left-to-Right"
 msgstr "Sempre d'esquerra a dreta"
@@ -272,7 +275,8 @@ msgstr "Sempre de baix a dalt"
 msgid "_Language"
 msgstr "_Idioma"
 
-#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
+#. The way in which you would like to control dasher, e.g., using buttons for
+#. up/down, buttons for select, etc.
 #: Data/GUI/dasher.preferences.ui:463
 msgid "Control Style"
 msgstr "Estil del control"
@@ -530,7 +534,8 @@ msgstr ""
 msgid "Read invalid UTF-8 character 0x%x"
 msgstr "S'ha llegit el caràcter UTF-8 no vàlid 0x%x"
 
-#. /TRANSLATORS: the string "GameTextFile" is the name of a setting in gsettings
+#. /TRANSLATORS: the string "GameTextFile" is the name of a setting in
+#. gsettings
 #. / (or equivalent), and should not be translated. The %s is the value of that
 #. / setting (this message displayed only if the user has provided a value)
 #: Src/DasherCore/AlphabetManager.cpp:213
@@ -542,13 +547,15 @@ msgstr ""
 "Nota: el paràmetre GameTextFile especifica el fitxer d'oracions de joc «%s», "
 "però aquest no existeix"
 
-#. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
+#. TRANSLATORS: The number of time steps over which to perform the zooming
+#. motion in button mode.
 #: Src/DasherCore/AlternatingDirectMode.cpp:28 Src/DasherCore/ButtonMode.cpp:28
 #: Src/DasherCore/CompassMode.cpp:28 Src/DasherCore/StylusFilter.cpp:11
 msgid "Frames over which to perform zoom"
 msgstr "Intervals en els quals fer zoom"
 
-#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
+#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the
+#. Dasher window doesn't have keyboard focus.
 #: Src/DasherCore/AlternatingDirectMode.cpp:30 Src/DasherCore/ButtonMode.cpp:39
 #: Src/DasherCore/CompassMode.cpp:32
 msgid "Global keyboard grab"
@@ -571,11 +578,12 @@ msgstr "Nombre de caixes cap endavant"
 msgid "Safety margin"
 msgstr "Marge de seguretat"
 
-#. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
+#. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same
+#. size, or different sizes - this is the extent to which the sizes are allowed
+#. to differ from each other.
 #. XXX PRLW: 128 log(2) = 89, where 2 is the ratio of adjacent boxes
 #. * however the code seems to use ratio = (129/127)^-r, instead of
 #. * ratio = exp(r/128) used in the design document
-#.
 #: Src/DasherCore/ButtonMode.cpp:37
 msgid "Box non-uniformity"
 msgstr "Caixa no uniforme"
@@ -591,8 +599,8 @@ msgstr "Zoom màxim"
 #: Src/DasherCore/ClickFilter.cpp:15
 msgid "Draw guides on screen to show area into which a click will zoom"
 msgstr ""
-"Dibuixa unes guies a la pantalla per mostrar a quina àrea s'ampliarà en fer-"
-"hi clic"
+"Dibuixa unes guies a la pantalla per a mostrar a quina àrea s'ampliarà en "
+"fer-hi clic"
 
 #. TRANSLATORS: As dasher's on-screen coordinate space is not flat,
 #. the straight guide lines should in fact really be curved. This option
@@ -600,14 +608,15 @@ msgstr ""
 #: Src/DasherCore/ClickFilter.cpp:19
 msgid "Curve lines to follow the non-linearity of the view transform"
 msgstr ""
-"Corba les línies per seguir la no linealitat de la transformació de la "
+"Corba les línies per a seguir la no linealitat de la transformació de la "
 "visualització"
 
 #: Src/DasherCore/ClickFilter.h:23
 msgid "Click Mode"
 msgstr "Mode de clic"
 
-#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
+#. TRANSLATORS: The zoom factor per press when moving to the right in compass
+#. mode.
 #: Src/DasherCore/CompassMode.cpp:30
 msgid "Right zoom"
 msgstr "Ampliació a la dreta"
@@ -618,7 +627,8 @@ msgid "Compass Mode"
 msgstr "Mode de brúixola"
 
 #. /TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
-#. / refers to a setting name in gsettings or equivalent, and should not be translated.
+#. / refers to a setting name in gsettings or equivalent, and should not be
+#. translated.
 #: Src/DasherCore/DasherInterfaceBase.cpp:316
 #, c-format
 msgid ""
@@ -801,7 +811,8 @@ msgstr "Entrenament en text d'usuari"
 msgid "Training on System Text"
 msgstr "Entrenament en text del sistema"
 
-#. /TRANSLATORS: These 3 messages will be displayed when the user has just chosen a new alphabet. The %s parameter will be the name of the alphabet.
+#. /TRANSLATORS: These 3 messages will be displayed when the user has just
+#. chosen a new alphabet. The %s parameter will be the name of the alphabet.
 #: Src/DasherCore/NodeCreationManager.cpp:90
 #, c-format
 msgid ""
@@ -834,18 +845,23 @@ msgstr ""
 "l'entrada serà més lenta. Comproveu que teniu la versió més recent de la "
 "definició de l'alfabet."
 
-#. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
+#. TRANSLATORS: The time for which a button must be held before it counts as a
+#. 'long' (rather than short) press.
 #: Src/DasherCore/OneButtonDynamicFilter.cpp:31
 #: Src/DasherCore/TwoButtonDynamicFilter.cpp:32
 msgid "Long press time"
 msgstr "Temps de pressió llarg"
 
-#. TRANSLATORS: Double-clicks are special in some situations (they cause us to start reversing). This is the time in which the button must be pressed twice to count.
+#. TRANSLATORS: Double-clicks are special in some situations (they cause us to
+#. start reversing). This is the time in which the button must be pressed twice
+#. to count.
 #: Src/DasherCore/OneButtonDynamicFilter.cpp:33
 msgid "Double-press time"
 msgstr "Temps de doble pressió"
 
-#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
+#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows
+#. a single button to be dedicated to activating backoff, rather than using
+#. multiple presses of other buttons.
 #: Src/DasherCore/OneButtonDynamicFilter.cpp:35
 msgid "Enable backoff button"
 msgstr "Habilita el botó d'endarreriment"
@@ -898,7 +914,8 @@ msgstr "Factor pel qual ampliar"
 msgid "Lag before user actually pushes button (ms)"
 msgstr "Retard abans que l'usuari premi un botó (en ms)"
 
-#. COneDimensionalFilter(CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
+#. COneDimensionalFilter(CSettingsStore *pSettingsStore, CDasherInterfaceBase
+#. *pInterface, CDasherModel *m_pDasherModel);
 #: Src/DasherCore/OneDimensionalFilter.h:12
 msgid "One Dimensional Mode"
 msgstr "Mode d'una sola dimensió"
@@ -1006,7 +1023,8 @@ msgstr "Entrada de sòcol: s'ha produït un error de lectura del sòcol"
 msgid "Dasher Socket Input error: %s: %s"
 msgstr "S'ha produït un error d'entrada de sòcol del Dasher: %s: %s"
 
-#. TODO should probably pop up a Gtk error message and think about how to do i18n:
+#. TODO should probably pop up a Gtk error message and think about how to do
+#. i18n:
 #: Src/DasherCore/SocketInput.cpp:31
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Sòcol d'entrada del Dasher: no s'ha pogut llançar el flux lector."
@@ -1039,13 +1057,19 @@ msgstr "No s'ha pogut obrir el fitxer «%s» per a lectura"
 msgid "Button offset"
 msgstr "Desplaçament del botó"
 
-#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the maximum time between two presses to count as _part_of_ a multi-press gesture
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on
+#. double clicks) in some situations. This is the maximum time between two
+#. presses to count as _part_of_ a multi-press gesture
 #. (potentially more than two presses).
 #: Src/DasherCore/TwoButtonDynamicFilter.cpp:35
 msgid "Multiple press interval"
 msgstr "Interval de pressió múltiple"
 
-#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
+#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows
+#. a single button to be dedicated to activating backoff, rather than using
+#. multiple presses of other buttons, and another to be dedicated to starting
+#. and stopping. 'Button' in this context is a physical hardware device, not a
+#. UI element.
 #: Src/DasherCore/TwoButtonDynamicFilter.cpp:37
 #: Src/DasherCore/TwoPushDynamicFilter.cpp:36
 msgid "Enable backoff and start/stop buttons"
@@ -1056,12 +1080,14 @@ msgstr "Habilita els botons d'endarreriment i inici/atura"
 msgid "Reverse up and down buttons"
 msgstr "Inverteix els botons d'anar cap amunt i cap avall"
 
-#. TRANSLATORS: Pushing the up/down button twice quickly has the same effect as pushing the other
-#. button once; in this case, one must push three times (or push-and-hold) to reverse.
+#. TRANSLATORS: Pushing the up/down button twice quickly has the same effect as
+#. pushing the other
+#. button once; in this case, one must push three times (or push-and-hold) to
+#. reverse.
 #: Src/DasherCore/TwoButtonDynamicFilter.cpp:42
 msgid "Double-click is opposite up/down — triple to reverse"
 msgstr ""
-"El doble clic és el contrari d'amunt/avall — feu tres clics per invertir-ho"
+"El doble clic és el contrari d'amunt/avall — feu tres clics per a invertir-ho"
 
 #: Src/DasherCore/TwoButtonDynamicFilter.cpp:52
 msgid "Two Button Dynamic Mode"
@@ -1126,12 +1152,14 @@ msgstr "Paràmetres enters"
 msgid "String parameters"
 msgstr "Paràmetres de cadena"
 
-#. Note to translators: This is the version keyword showing for the command line option "--version"
+#. Note to translators: This is the version keyword showing for the command
+#. line option "--version"
 #: Src/Gtk2/DasherAppSettings.cpp:161
 msgid "Version"
 msgstr "Versió"
 
-#. Note to translators: This is the license keyword showing for the command line option "--version"
+#. Note to translators: This is the license keyword showing for the command
+#. line option "--version"
 #: Src/Gtk2/DasherAppSettings.cpp:163
 msgid "License"
 msgstr "Llicència"
@@ -1150,12 +1178,14 @@ msgstr "_Cancel·la"
 msgid "_Save"
 msgstr "_Desa"
 
-#. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
+#. Note to translators: This message will be output for command line errors
+#. when the "=" in --options=foo is missing.
 #: Src/Gtk2/dasher_main.cpp:231
 msgid "option setting is missing \"=\"."
 msgstr "falta l'«=» al paràmetre de l'opció."
 
-#. Note to translators: This string will be output when --options= specifies an unknown option.
+#. Note to translators: This string will be output when --options= specifies an
+#. unknown option.
 #: Src/Gtk2/dasher_main.cpp:247
 msgid "Invalid option string specified"
 msgstr "S'ha especificat una opció de cadena no vàlida"
@@ -1165,7 +1195,7 @@ msgid ""
 "Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering "
 "text in Dasher. Please select a training text to play with:"
 msgstr ""
-"Benvingut al mode de joc del Dasher. El mode de joc és una manera divertida "
+"Us donem la benvinguda al mode de joc del Dasher. El mode de joc és una manera divertida "
 "de practicar la introducció de text al Dasher. Seleccioneu un text "
 "d'entrenament per a jugar-hi:"
 
@@ -1271,7 +1301,8 @@ msgstr "Entrada de ratolí"
 msgid "Pixels covering Y range"
 msgstr "Píxels que cobreixen el rang Y"
 
-#. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
+#. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for
+#. some disabled users.
 #: Src/Gtk2/mouse_input.h:51
 msgid "One Dimensional Mouse Input"
 msgstr "Entrada de ratolí d'una sola dimensió"
@@ -1280,11 +1311,19 @@ msgstr "Entrada de ratolí d'una sola dimensió"
 msgid "Action"
 msgstr "Acció"
 
-#. {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
-#. {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
-#. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
-#. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
-#. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
+#. {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing
+#. information to stdout", NULL},
+#. {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences
+#. window only", NULL},
+#. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry
+#. mode", NULL},
+#. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout",
+#. NULL},
+#. Note to translators: This is the help string for "--appstyle". The four
+#. options in brackets MUST either NOT be translated or at least it MUST be
+#. clear that they must be used in english. Otherwise a user running a non-
+#. english system will receive an error message when using the translated one
+#. instead of the english one and has no chance to find out the correct option.
 #: Src/main.cc:162
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr ""
@@ -1316,7 +1355,8 @@ msgstr "Mostra els detalls de la versió."
 msgid "- A text input application honouring accessibility"
 msgstr "- Una aplicació d'entrada de text que respecta l'accessibilitat"
 
-#. Note to translators: This is the help string for unrecognized command line options. Do not translate 'dasher --help' part.
+#. Note to translators: This is the help string for unrecognized command line
+#. options. Do not translate 'dasher --help' part.
 #: Src/main.cc:182
 msgid "Try 'dasher --help' for more information."
 msgstr "Proveu «dasher --help» per a més informació."
