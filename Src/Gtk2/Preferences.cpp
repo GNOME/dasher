@@ -590,7 +590,7 @@ static void dasher_preferences_dialogue_populate_special_dasher_font(DasherPrefe
 
   GObject *pDasherFontButton = gtk_builder_get_object(pPrivate->pXML, "dasher_fontbutton");
 
-  gtk_font_button_set_font_name(GTK_FONT_BUTTON(pDasherFontButton), 
+  gtk_font_chooser_set_font(GTK_FONT_CHOOSER(pDasherFontButton),
                                 pPrivate->pAppSettings->GetString(SP_DASHER_FONT).c_str());
 }
 
@@ -599,7 +599,7 @@ static void dasher_preferences_dialogue_populate_special_edit_font(DasherPrefere
 
   GObject *pEditFontButton = gtk_builder_get_object(pPrivate->pXML, "edit_fontbutton");
 
-  gtk_font_button_set_font_name(GTK_FONT_BUTTON(pEditFontButton), 
+  gtk_font_chooser_set_font(GTK_FONT_CHOOSER(pEditFontButton),
                                 pPrivate->pAppSettings->GetString(APP_SP_EDIT_FONT).c_str());
 }
  
@@ -784,14 +784,14 @@ extern "C" void on_dasher_font_changed(GtkFontButton *pButton, gpointer pUserDat
   DasherMainPrivate *pMainPrivate = DASHER_MAIN_GET_PRIVATE(pUserData);
   pMainPrivate->pAppSettings->SetString(
                                  SP_DASHER_FONT, 
-                                 gtk_font_button_get_font_name(pButton));
+                                 gtk_font_chooser_get_font(GTK_FONT_CHOOSER(pButton)));
 }
 
 extern "C" void on_edit_font_changed(GtkFontButton *pButton, gpointer pUserData) {
   DasherMainPrivate *pMainPrivate = DASHER_MAIN_GET_PRIVATE(pUserData);
   pMainPrivate->pAppSettings->SetString(
                                  APP_SP_EDIT_FONT, 
-                                 gtk_font_button_get_font_name(pButton));
+                                 gtk_font_chooser_get_font(GTK_FONT_CHOOSER(pButton)));
 }
 
 extern "C" void set_dasher_fontsize(GtkWidget *pWidget, gboolean pUserData) {
