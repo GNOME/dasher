@@ -110,11 +110,9 @@ Japanese language model from the 'Prediction' section.
 
 ## Support and Feedback
 
-Please file any bug reports in the GNOME Bugzilla system:
+Please file any bug reports in [the GNOME GitLab system](https://gitlab.gnome.org/GNOME/dasher/-/issues).
 
-http://bugzilla.gnome.org/
-
-using the 'dasher' package name. We also appreciate general feedback -
+We also appreciate general feedback -
 please send any comments to 'dasher@inf.phy.cam.ac.uk'.
 
 You can find the Dasher website at:
