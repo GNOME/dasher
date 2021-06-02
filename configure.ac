@@ -103,14 +103,6 @@ dnl 	   WITHDARWIN=false;
 dnl 	fi,
 dnl 	WITHDARWIN=false)
 
-AC_ARG_WITH([cairo],
-	 AS_HELP_STRING([--with-cairo],[build with cairo support (default is YES)]),
-	 if test "x$withval" = "xno"; then
-	   WITHCAIRO=false; 
-	 else
-	   WITHCAIRO=true;
-	 fi, 
-	 WITHCAIRO=true)
 
 PKG_CHECK_MODULES(GTK, gtk+-3.0)
 
@@ -238,10 +230,7 @@ dnl if test x"$WITHDARWIN" = xtrue ; then
 dnl         AC_DEFINE([WITH_DARWIN], 1, [Targeting Darwin/X11])
 dnl fi
 
-if test x"$WITHCAIRO" = xtrue; then
-	PKG_CHECK_MODULES(cairo, cairo)
-	AC_DEFINE([WITH_CAIRO], 1, [use cairo])
-fi
+PKG_CHECK_MODULES(cairo, cairo)
 
 PKG_CHECK_MODULES(gthread, gthread-2.0)
 AC_SUBST(gthread_LIBS)

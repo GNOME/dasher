@@ -13,8 +13,6 @@
 
 #include <iostream>
 
-#if WITH_CAIRO
-
 #define BEGIN_DRAWING_BACKEND				\
   cairo_save(cr)
 
@@ -23,24 +21,6 @@
 
 #define SET_COLOR_BACKEND(c)				\
   cairo_set_source(cr, cairo_colours[(c)])
-
-#else /* WITHOUT_CAIRO */
-
-#define BEGIN_DRAWING_BACKEND				\
-  GdkGCValues origvalues;				\
-  gdk_gc_get_values(graphics_context,&origvalues)
-
-#define END_DRAWING_BACKEND				\
-  gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND)
-
-#define SET_COLOR_BACKEND(c)				\
-  do {							\
-    GdkColor _c = colours[(c)];				\
-    gdk_colormap_alloc_color(colormap, &_c, FALSE, TRUE);	\
-    gdk_gc_set_foreground (graphics_context, &_c);	\
-  } while (0)
-
-#endif /* WITH_CAIRO */
 
 // Some other useful macros (for all backends)
 
@@ -192,44 +172,20 @@ private:
 
   void InitSurfaces();
   void DestroySurfaces();
-#if WITH_CAIRO
 
-  cairo_surface_t *m_pDisplaySurface;
-  cairo_surface_t *m_pDecorationSurface;
-  //cairo_surface_t *m_pOnscreenSurface;
-
-  cairo_surface_t *m_pOffscreenbuffer;
-
-#else
-
-  ///
   /// The offscreen buffer containing the 'background'
-  ///
+  cairo_surface_t *m_pDisplaySurface;
 
-  GdkPixmap *m_pDisplayBuffer;
-
-  /// 
   /// The offscreen buffer containing the full display. This is
   /// constructed by first copying the display buffer across and then
   /// drawing decorations such as the mouse cursor on top.
-  ///
+  cairo_surface_t *m_pDecorationSurface;
 
-  GdkPixmap *m_pDecorationBuffer;
-
-  ///
   /// The onscreen buffer - copied onscreen whenever an expose event occurs.
-  ///
+  //cairo_surface_t *m_pOnscreenSurface;
 
-  //GdkPixmap *m_pOnscreenBuffer;
-
-  ///
   /// Pointer to which of the offscreen buffers is currently active.
-  ///
-
-  GdkPixmap *m_pOffscreenBuffer;
-  //GdkPixmap *m_pDummyBuffer;
-
-#endif
+  cairo_surface_t *m_pOffscreenbuffer;
 
   std::string m_strFontName;
   std::map<unsigned int,PangoFontDescription *> m_mFonts;
@@ -244,16 +200,11 @@ private:
 
   PangoLayout *GetLayout(CPangoLabel *label, unsigned int iFontSize);
 
-#if WITH_CAIRO
   cairo_t *display_cr;
   cairo_t *decoration_cr;
 
   cairo_t *cr; // offscreen
   cairo_pattern_t **cairo_colours;
-#else
-  GdkColor *colours;
-#endif  
-
 };
 
 #endif
