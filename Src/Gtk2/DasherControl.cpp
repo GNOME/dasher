@@ -30,11 +30,7 @@ extern "C" gint canvas_configure_event(GtkWidget *widget, GdkEventConfigure *eve
 extern "C" gint key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data);
 extern "C" void canvas_destroy_event(GtkWidget *pWidget, gpointer pUserData);
 extern "C" gboolean canvas_focus_event(GtkWidget *widget, GdkEventFocus *event, gpointer data);
-#ifdef HAVE_GTK_CAIRO_SHOULD_DRAW_WINDOW
 extern "C" gint canvas_draw_event(GtkWidget *widget, cairo_t *cr, gpointer data);
-#else
-extern "C" gint canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data);
-#endif
 
 static bool g_iTimeoutID = 0;
 
@@ -72,11 +68,7 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl,
   g_signal_connect(m_pCanvas, "key_press_event", G_CALLBACK(key_press_event), this);
 
   g_signal_connect(m_pCanvas, "focus_in_event", G_CALLBACK(canvas_focus_event), this);
-#ifdef HAVE_GTK_CAIRO_SHOULD_DRAW_WINDOW
   g_signal_connect(m_pCanvas, "draw", G_CALLBACK(canvas_draw_event), this);
-#else
-  g_signal_connect(m_pCanvas, "expose_event", G_CALLBACK(canvas_expose_event), this);
-#endif
 
   char *home_dir = getenv("HOME");
   char *user_data_dir = new char[strlen(home_dir) + 10];
@@ -493,7 +485,7 @@ int CDasherControl::LongTimerEvent() {
 
 gboolean CDasherControl::ExposeEvent() {
   NewFrame(get_time(), true);
-  return 0;
+  return FALSE;
 }
 
 void CDasherControl::Done() {
@@ -627,10 +619,6 @@ extern "C" gboolean canvas_focus_event(GtkWidget *widget, GdkEventFocus *event, 
   return static_cast < CDasherControl * >(data)->FocusEvent(widget, event);
 }
 
-#ifdef HAVE_GTK_CAIRO_SHOULD_DRAW_WINDOW
 extern "C" gint canvas_draw_event(GtkWidget *widget, cairo_t *cr, gpointer data) {
-#else
-extern "C" gint canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data) {
-#endif
   return ((CDasherControl*)data)->ExposeEvent();
 }
