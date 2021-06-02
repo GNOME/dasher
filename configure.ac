@@ -62,15 +62,6 @@ AC_ARG_ENABLE([speech],
 	[AS_HELP_STRING([--enable-speech=@<:@speechdispatcher@:>@],
 		[build with speech support (default is YES)])])
 
-AC_ARG_WITH([gpe],
-	 AS_HELP_STRING([--with-gpe],[build with GPE support (default is NO -- currently untested)]), 
-	 if test "x$withval" = "xno"; then
-	   WITHGPE=false; 
-	 else
-	   WITHGPE=true;
-         fi, 
-	 WITHGPE=false)
-
 AC_ARG_ENABLE([atspi],
 	[AS_HELP_STRING([--enable-atspi],
 		[with Gtk3 use atspi rather than Xtst for direct entry mode if found (default is YES)])])
@@ -243,10 +234,6 @@ if test x"$WITHTILT" = xtrue; then
 	AC_DEFINE([TILT], 1, [Tilt input support enabled])
 fi
 
-if test x"$WITHGPE" = xtrue; then
-	AC_DEFINE([WITH_GPE], 1, [gpe is present])
-fi
-
 dnl if test x"$WITHDARWIN" = xtrue ; then
 dnl         AC_DEFINE([WITH_DARWIN], 1, [Targeting Darwin/X11])
 dnl fi
@@ -262,17 +249,11 @@ AC_SUBST(gthread_CFLAGS)
 
 AM_CONDITIONAL(USE_SPEECHDISPATCHER, test $speech_module = speechdispatcher)
 AM_CONDITIONAL(GNOME_HELP, test x$WITHGNOME = xtrue)
-AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
 AM_CONDITIONAL(JAPANESE, test x$WITHJAPANESE = xtrue)
 AM_CONDITIONAL(JOYSTICK, test x$WITHJOYSTICK = xtrue)
 
 AC_SUBST(GTK_CFLAGS)
 AC_SUBST(GTK_LIBS)
-
-if test x"$WITHGPE" = xtrue ; then
-	SETTINGS_CFLAGS=" "
-	SETTINGS_LIBS="-lgpewidget -lXsettings-client -lXsettings"
-fi
 
 GTKBUILD_CFLAGS="$GTK_CFLAGS $GIO_CFLAGS $SETTINGS_CFLAGS $gthread_CFLAGS"
 

@@ -1,6 +1,6 @@
 DasherCore      - The Dasher Engine
 Win32           - The MS Windows GUI, coded using the Windows API (not MFC).
-Gtk2		- The Unix GUI, coded using GTK2. Also includes GPE code.
+Gtk2		- The Unix GUI, coded using GTK2.
 MacOSX		- The MacOS X GUI, coded using Cocoa.
 Qt		- The QTopia GUI, aimed at QT-based palmtops
 Your platform here:

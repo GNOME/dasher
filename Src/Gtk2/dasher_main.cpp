@@ -406,9 +406,6 @@ dasher_main_load_interface(DasherMain *pSelf) {
   //  dasher_main_build_context_menu(pSelf);
 
   // Set up any non-registry-dependent options
-#ifdef WITH_GPE
-  gtk_window_set_decorated(pPrivate->pMainWindow, false);
-#endif
   
   // Hide any widgets which aren't appropriate for this mode
   if(pPrivate->pAppSettings->GetLong(APP_LP_STYLE) == APP_STYLE_DIRECT) {

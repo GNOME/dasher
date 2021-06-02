@@ -5,12 +5,6 @@ noinst_LTLIBRARIES = libdashergtk.la libdashercontrol.la
 
 #bin_PROGRAMS = dasher-config
 
-if WITH_GPE
-settings_store = gpesettings_store.cc gpesettings_store.h
-else
-settings_store = 
-endif
-
 #dasher_config_SOURCES = \
 #		DasherAppSettings.cpp \
 #		DasherAppSettings.h \
@@ -40,8 +34,7 @@ libdashercontrol_la_SOURCES = \
 		custom_marshal.cpp \
 		custom_marshal.h \
 		joystick_input.h \
-		mouse_input.h \
-		$(settings_store)
+		mouse_input.h
 
 if USE_SPEECHDISPATCHER
 libdashercontrol_la_SOURCES += SpeechDispatcher.cpp

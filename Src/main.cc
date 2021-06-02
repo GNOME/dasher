@@ -13,16 +13,8 @@
 /* Just to make sure the symbols for the editor are visible. */
 // #include <Gtk2/dasher_editor_internal.h>
 
-#ifdef WITH_GPE
-#include <gpe/init.h>
-#endif
-
 #include "dasher.h"
 #include "dasher_main.h"
-
-#ifdef WITH_GPE
-#include "gpesettings_store.h"
-#endif
 
 //extern int optind;
 //extern const gchar *filename;
@@ -179,12 +171,7 @@ int main(int argc, char *argv[]) {
     return 0;
   }
 
-#ifdef WITH_GPE
-  gpe_application_init(&argc, &argv);
-  init_xsettings();
-#else
   gtk_init(&argc, &argv);
-#endif
 
   g_set_application_name("Dasher");
   gtk_window_set_default_icon_name("dasher");

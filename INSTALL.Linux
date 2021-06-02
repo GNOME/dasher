@@ -55,8 +55,6 @@ correctly build without modifications to the source code. If you are
 willing to invest some time in getting these up to date, please let us
 know!
 
-   --with-gpe          Build binaries for the GPE palmtop environment.
-
    --with-qte          Build binaries using the QTE environment.
 
 
