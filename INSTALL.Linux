@@ -49,15 +49,6 @@ Options
                        for debugging, as accessibility is now built-in
                        and doesn't bring in more dependencies.
 
-   The following options include code which is significantly out of
-date and currently untested. It is likely that these options will not
-correctly build without modifications to the source code. If you are
-willing to invest some time in getting these up to date, please let us
-know!
-
-   --with-qte          Build binaries using the QTE environment.
-
-
 Desktop Shortcuts
 =================
 After the installation is done, for Ubuntu and derivatives
