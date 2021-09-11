@@ -1,4 +1,4 @@
-# Danish translation of dasher.
+# Danish translation for dasher.
 # Copyright (C) 2018 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dasher package.
 # Ole Laursen <olau@hardworking.dk>, 2004.
@@ -25,19 +25,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2018-01-31 16:25+0000\n"
-"PO-Revision-Date: 2018-03-06 18:43+0100\n"
-"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+"Project-Id-Version: dasher master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dasher/issues\n"
+"POT-Creation-Date: 2020-07-16 20:38+0000\n"
+"PO-Revision-Date: 2020-11-30 00:00+0200\n"
+"Last-Translator: scootergrisen\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.7.1\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
@@ -54,11 +52,6 @@ msgstr "Forudsigende tekstindtastning"
 #: Data/dasher.desktop.in.in:5
 msgid "Enter text without a keyboard"
 msgstr "Skriv tekst uden et tastatur"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: Data/dasher.desktop.in.in:8
-msgid "dasher"
-msgstr "dasher"
 
 #: Data/GUI/dashermaemofullscreen.ui:10 Data/GUI/dasher.traditional.ui:17
 msgid "_File"
@@ -376,7 +369,7 @@ msgstr "Meget stor skrifttype"
 
 #: Data/GUI/dasher.preferences.ui:1107
 msgid "_Appearance"
-msgstr "_Visning"
+msgstr "_Udseende"
 
 #: Data/GUI/dasher.preferences.ui:1135
 msgid "Application Options"
@@ -513,7 +506,7 @@ msgstr "Direkte-tilstand"
 
 #: Data/GUI/dasher.traditional.ui:135
 msgid "_Direct Mode"
-msgstr "_Direkte tilstand"
+msgstr "_Direkte-tilstand"
 
 #: Data/GUI/dasher.traditional.ui:141
 msgid "_Game Mode"
@@ -723,9 +716,12 @@ msgstr ""
 msgid "Time for which user must need help before help drawn"
 msgstr "Tidsperiode som bruger har brug for hjælp før hjælp tegnes"
 
+# scootergrisen: fra gennemlæsning: Kunne man omformulere? Målsætning (goal/objective) leder tankerne hen på noget andet.
+# scootergrisen: fra gennemlæsning: målets sætning?
+# scootergrisen: fra gennemlæsning: sætning for målet?
 #: Src/DasherCore/GameModule.cpp:11
 msgid "When we give help, show the shortest path to the target sentence?"
-msgstr "Når vi giver hjælp, så vis den korteste sti til målsætningen"
+msgstr "Skal den korteste sti til målsætningen vises, når vi giver hjælp?"
 
 #: Src/DasherCore/MandarinAlphMgr.cpp:176 Src/DasherCore/RoutingAlphMgr.cpp:128
 #, c-format
@@ -1002,17 +998,16 @@ msgstr "Fejl ved binding til sokkel - allerede i brug?"
 #: Src/DasherCore/SocketInputBase.cpp:169
 #, c-format
 msgid "Warning truncating socket input label '%s' to %i characters."
-msgstr "Advarsel: Afkorter etiket for sokkelinddata “%s” til %i tegn."
+msgstr "Advarsel: Afkorter etiket for sokkelinput “%s” til %i tegn."
 
 #: Src/DasherCore/SocketInputBase.cpp:195
 msgid "Socket input: Error reading from socket"
-msgstr "Sokkelinddata: Fejl ved læsning fra sokkel"
+msgstr "Sokkelinput: Fejl ved læsning fra sokkel"
 
-# næste har også den her form.
 #: Src/DasherCore/SocketInputBase.cpp:297
 #, c-format
 msgid "Dasher Socket Input error: %s: %s"
-msgstr "Dasher sokkelinddatafejl: %s: %s"
+msgstr "Dasher sokkelinputfejl: %s: %s"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: Src/DasherCore/SocketInput.cpp:31
@@ -1238,7 +1233,7 @@ msgstr "Er du sikker på, at du ønsker at afslutte?"
 
 #: Src/Gtk2/dasher_main.cpp:1004
 msgid "Unable to open help file"
-msgstr "Kan ikke åbne hjælpfil"
+msgstr "Kan ikke åbne hjælpefil"
 
 #: Src/Gtk2/dasher_main.cpp:1056
 msgid "Dasher is a predictive text entry application"
@@ -1253,8 +1248,9 @@ msgstr ""
 "Joe Hansen\n"
 "Alan Mortensen\n"
 "\n"
-"Dansk-gruppen <dansk@dansk-gruppen.dk>\n"
-"Mere info: http://www.dansk-gruppen.dk"
+"Dansk-gruppen\n"
+"Websted http://dansk-gruppen.dk\n"
+"E-mail <dansk@dansk-gruppen.dk>"
 
 #: Src/Gtk2/module_settings_window.cpp:77
 msgid "_Close"
@@ -1327,4 +1323,3 @@ msgstr ""
 #: Src/main.cc:182
 msgid "Try 'dasher --help' for more information."
 msgstr "Prøv “dasher --help” for at få mere information."
-
