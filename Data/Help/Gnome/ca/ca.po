@@ -714,7 +714,7 @@ msgstr ""
 "a on us hauríeu de dirigir</emphasis>. La lletra següent <emphasis>està</"
 "emphasis> allà, immediatament dins del primer quadre on heu entrat. Les "
 "lletres estan ordenades alfabèticament. Si no podeu veure la lletra, "
-"imagineu-vos on ha d'estar basant-vos amb les lletres que <emphasis>podeu</"
+"imagineu-vos on ha d'estar basant-vos en les lletres que <emphasis>podeu</"
 "emphasis> veure. Llavors apunteu a la ubicació de la dreta i entreu al "
 "quadre de la segona lletra."
 
