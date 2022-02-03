@@ -1,5 +1,5 @@
-Dasher Version 5
--------------------
+## Dasher Version 5
+
 ## Build Status:
 
 Windows:
@@ -29,22 +29,22 @@ corrections to dasherteam@yahoogroups.com):
 
 General:
 
-* The Expat XML parser (required)
+- The Expat XML parser (required)
 
 Linux (see INSTALL.Linux for build time requirements):
 
-* GTK+ (2.6 or greater) (required)
-* GNOME (optional, but highly recommended)
-* Libcanna (optional, for Hiragana to Kanji conversion)
+- GTK+ (2.6 or greater) (required)
+- GNOME (optional, but highly recommended)
+- Libcanna (optional, for Hiragana to Kanji conversion)
 
 MS Windows:
 
-* MS Speech API (optional)
-* MS Table API (optional - required for tablet start/stop mode)
+- MS Speech API (optional)
+- MS Table API (optional - required for tablet start/stop mode)
 
 MS Windows CE:
 
-* (not sure - if anyone knows then please fill this in)
+- (not sure - if anyone knows then please fill this in)
 
 ## Platform Specific Notes
 
@@ -119,6 +119,6 @@ You can find the Dasher website at:
 
 http://www.inference.org.uk/dasher/
 
-Thank you for trying Dasher,
+## License
 
-The Dasher Team
+Dasher is licensed under the [MIT](./LICENSE) license.
