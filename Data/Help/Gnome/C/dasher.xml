@@ -846,7 +846,7 @@
       <para>Dasher's predictions (in version 3 of Dasher) are based not on a dictionary but on a
         training text of ordinary text. For example, when you download Dasher version 3, it comes
         with a file called <filename>training_english_GB.txt</filename>. This is 300 kbytes of
-        ordinary English harvested from various documents on the Internet. </para>
+        ordinary english harvested from various documents on the internet. </para>
 
       <para> When you use Dasher, it stores everything you write in another personal file with the
         same name as the training file. Next time you use Dasher, it reads in the original training
@@ -1195,7 +1195,7 @@
       <sect3 id="onebutton">
         <title>(One button) dynamic mode</title>
         <para>When started, Dasher will zoom towards a point towards the top or bottom of the
-          display. A short button press will switch the point of zoom to the opposite side. Text can
+          display. A short button press will switch the point of zoom to the oposite side. Text can
           be entered by pressing the button when the desired phrase reaches the edge of the
         display.</para>
       </sect3>
@@ -1249,7 +1249,7 @@
     <sect2 id="menu">
       <title>Menu Mode</title>
       <para> One button is used to select a location, and once a second button is pressed
-          <application>Dasher</application> zooms to that location. The large box occurring last in
+          <application>Dasher</application> zooms to that location. The large box occuring last in
         the cycle is used to zoom out.</para>
     </sect2>
 
