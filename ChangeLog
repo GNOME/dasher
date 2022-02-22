@@ -1,11 +1,4 @@
-Please see the commit messages in the git repository, either by fetching
-the repository with
-
-  git clone git://git.gnome.org/dasher
-  cd dasher
-  git log
-
-or via the web interface at
+2007-07-09  Phil Cowans  <pjc51@cam.ac.uk>
 
   http://git.gnome.org/browse/dasher/log/
 
