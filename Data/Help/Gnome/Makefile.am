@@ -18,4 +18,4 @@ HELP_MEDIA =    figures/figure2.png \
 		figures/exampleHad3a.png \
 		figures/exampleHad4.png
 
-HELP_LINGUAS =	ca cs de el en_GB es eu fr oc ro ru sl sv zh_CN
+HELP_LINGUAS = en_GB es eu oc ro ru sl sv zh_CN
