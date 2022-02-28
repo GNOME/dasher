@@ -2,8 +2,6 @@
 
 ## Build Status:
 
-Windows:
-[![Build status](https://ci.appveyor.com/api/projects/status/3qopfgq5rd2jao1x/branch/master?svg=true)](https://ci.appveyor.com/project/cagdasgerede/dasher-j1fle/branch/master)
 \-
 Linux:
 [![Build Status](https://travis-ci.org/dasher-project/dasher.svg?branch=master)](https://travis-ci.org/dasher-project/dasher)
