@@ -80,8 +80,6 @@ public:
   const std::string &GetGameModeFile() const {return GameModeFile;}
 
   const std::string & GetPalette() const {return PreferredColours;}
-  
-  const std::string & GetLanguageCode() const {return LanguageCode;}
 
   symbol GetParagraphSymbol() const {return iParagraphCharacter;}
 
@@ -139,7 +137,6 @@ private:
   std::string TrainingFile;
   std::string GameModeFile;
   std::string PreferredColours;
-  std::string LanguageCode; //LanguageCode in IETF Format. https://en.wikipedia.org/wiki/IETF_language_tag
   Opts::AlphabetTypes Type;
   Opts::ScreenOrientations Orientation;
 
