@@ -13,45 +13,35 @@
 #include <vector>
 
 namespace Dasher {
-  /// \ingroup LM
-  /// \{
-  class CKanjiConversion {
-  public:
-    CKanjiConversion();
-    virtual ~ CKanjiConversion();
-
-    virtual int ConvertKanji(std::string);
-
-    class CPhrase {
-    public:
-      CPhrase() {
-      };
-      CPhrase(CPhrase * p) {
-        candidate_list = p->candidate_list;
-      };
-      ~CPhrase() {
-        candidate_list.clear();
-      };
-      std::vector < std::string > candidate_list;
-    };
-
-    std::vector < CPhrase > phrase;       //      a list of phrases
-
-    bool IsInit;                  // true if dictionary is loaded
+  class CKanjiConversion;
+} class CKanjiConversion {
+public:
+  CKanjiConversion() {
+    IsInit = 0;
   };
-  /// \}
-  
-  inline CKanjiConversion::CKanjiConversion(){
+  ~CKanjiConversion() {
     IsInit = 0;
-  }
-  
-  inline CKanjiConversion::~CKanjiConversion(){
-    IsInit = 0;
-  }
-  
-  inline int CKanjiConversion::ConvertKanji(std::string s){
-    return 0;
-  }
-}
+  };
+
+  virtual int ConvertKanji(std::string) = 0;
+  //int context_id;
+
+  class CPhrase {
+  public:
+    CPhrase() {
+    };
+    CPhrase(CPhrase * p) {
+      candidate_list = p->candidate_list;
+    };
+    ~CPhrase() {
+      candidate_list.clear();
+    };
+    std::vector < std::string > candidate_list;
+  };
+
+  std::vector < CPhrase > phrase;       //      a list of phrases
+
+  bool IsInit;                  // true if dictionary is loaded
+};
 
 #endif /* #ifndef __KanjiConversion_H__ */

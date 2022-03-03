@@ -19,16 +19,14 @@
 #define BUFSIZE 10240
 
 namespace Dasher {
-  /// \ingroup LM
-  /// \{
-  class CKanjiConversionCanna:public CKanjiConversion {
-  public:
-    CKanjiConversionCanna();
-    virtual ~ CKanjiConversionCanna();
+  class CKanjiConversion;
+} class CKanjiConversionCanna:public CKanjiConversion {
+public:
+  CKanjiConversionCanna();
+  ~CKanjiConversionCanna();
 
-    int ConvertKanji(std::string);
-    int context_id;
-  };
-  /// \}
-}
+  int ConvertKanji(std::string);
+  int context_id;
+};
+
 #endif /* #ifndef __KanjiConversionCanna_H__ */
