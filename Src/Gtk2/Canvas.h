@@ -159,8 +159,8 @@ public:
 
   // Redeclare to make public and adjust cairo/gdk surface sizes
   void resize(screenint w,screenint h);
-  // Returns true if cursor is over visible part of this window.
-  bool IsWindowUnderCursor() override;
+  // Returns true if point on screen is not obscured by another window
+  bool IsPointVisible(screenint x, screenint y) override { return true; }
 
 private:
 

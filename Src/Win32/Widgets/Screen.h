@@ -69,8 +69,8 @@ public:
 
   void SendMarker(int iMarker) override;
 
-  // Returns true if cursor is over visible part of this window.
-  bool IsWindowUnderCursor() override;
+  // Returns true if point on screen is not obscured by another window
+  bool IsPointVisible(screenint x, screenint y) override;
 
   void RealDisplay(HDC hDC, RECT r);
   void resize(screenint w, screenint h);

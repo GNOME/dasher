@@ -44,7 +44,7 @@ void CTwoBoxStartHandler::Timer(unsigned long iTime, dasherint iDasherX, dasheri
 
   if ((iNewScreenY >= iBoxMin) && (iNewScreenY <= iBoxMax) 
 	  && (iNewScreenX >= 8) && (iNewScreenX <= pView->Screen()->GetWidth() - 16)
-	  && pView->Screen()->IsWindowUnderCursor()) {
+	  && pView->Screen()->IsPointVisible(iNewScreenX, iNewScreenY)) {
     if(m_iBoxEntered == std::numeric_limits<long>::max()) {
       m_iBoxEntered = iTime;
     }

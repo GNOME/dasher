@@ -5,7 +5,6 @@
 
 #include "../DasherCore/DasherTypes.h"
 
-
 using namespace Dasher;
 
 CCanvas::CCanvas(GtkWidget *pCanvas)
@@ -65,16 +64,6 @@ void CCanvas::resize(screenint w,screenint h) {
   CDasherScreen::resize(w,h);
   InitSurfaces();
 } 
-
-bool CCanvas::IsWindowUnderCursor() {
-  GdkDisplay * gdkDisplay = gdk_display_get_default();
-  gint winx,winy;
-  // unfortunately under X we cannot arbritrarily find which window
-  // lives at a location. Only underneath the cursor.
-  GdkWindow * window = gdk_display_get_window_at_pointer(gdkDisplay, &winx, &winy);  
-  return window == gtk_widget_get_window(m_pCanvas);
-}
-
 
 void CCanvas::Display() {
   // FIXME - Some of this stuff is probably not needed

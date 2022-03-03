@@ -82,7 +82,7 @@ void CCircleStartHandler::Timer(unsigned long iTime, dasherint mouseX, dasherint
   screenint x,y;
   pView->Dasher2Screen(mouseX, mouseY, x, y);
   int dx=x-ctr.x, dy=y-ctr.y;
-  const bool inCircleNow = dx*dx + dy*dy <= (m_iScreenRadius * m_iScreenRadius) && pView->Screen()->IsWindowUnderCursor();
+  const bool inCircleNow = dx*dx + dy*dy <= (m_iScreenRadius * m_iScreenRadius) && pView->Screen()->IsPointVisible(x,y);
 
   if (inCircleNow) {
     if (m_bInCircle) {
