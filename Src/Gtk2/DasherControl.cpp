@@ -122,12 +122,6 @@ std::string CDasherControl::GetAllContext() {
   return gtk_dasher_control_get_all_text(m_pDasherControl);
 }
 
-int CDasherControl::GetAllContextLenght()
-{
-  auto text = gtk_dasher_control_get_all_text(m_pDasherControl);
-  return g_utf8_strlen(text.c_str(),-1);
-}
-
 std::string CDasherControl::GetTextAroundCursor(CControlManager::EditDistance dist) {
   return gtk_dasher_control_get_text_around_cursor(m_pDasherControl, dist);
 }
