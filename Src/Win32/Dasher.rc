@@ -429,12 +429,12 @@ BEGIN
     BEGIN
         BLOCK "080904b0"
         BEGIN
-            VALUE "Comments", "Dasher is an information efficient text-entry system controlled by a pointer or switch. It is licensed under the GPL."
+            VALUE "Comments", "Dasher is an information efficient text-entry system controlled by a pointer or switch. It is licensed under the MIT."
             VALUE "CompanyName", "Inference Group, Cavendish Laboratory, University of Cambridge"
             VALUE "FileDescription", "Dasher"
             VALUE "FileVersion", "4.99.9998.1"
             VALUE "InternalName", "Dasher"
-            VALUE "LegalCopyright", "Copyright © 1998-2016 The Dasher Project"
+            VALUE "LegalCopyright", "Copyright ï¿½ 1998-2016 The Dasher Project"
             VALUE "OriginalFilename", "dasher.exe"
             VALUE "ProductName", "Dasher"
             VALUE "ProductVersion", "4.99.9998.1"

@@ -16,7 +16,7 @@ where keyboard input is impractical (for instance, accessibility or PDAs). It
 is usable with highly limited amounts of physical input while still allowing
 high rates of text entry.
 
-Dasher is Free software released under the GPL. Further documentation
+Dasher is released under the MIT license. Further documentation
 may be found in the Doc/ subdirectory
 
 ## Requirements

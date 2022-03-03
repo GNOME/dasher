@@ -928,7 +928,7 @@ dasher_main_command_about(DasherMain *pSelf) {
                         "comments", _("Dasher is a predictive text entry application"), 
                         "copyright", "Copyright \xC2\xA9 1998-2011 The Dasher Project", 
                         "documenters", documenters,
-                        "license", "GPL 2+",
+                        "license", "MIT",
                         "logo-icon-name", "dasher",
                         "translator-credits", _("translator-credits"),
                         "version", PACKAGE_VERSION,
