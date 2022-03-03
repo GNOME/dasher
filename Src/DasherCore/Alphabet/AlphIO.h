@@ -49,16 +49,45 @@ namespace Dasher {
 /// so can create/manipulate instances.)
 class Dasher::CAlphIO : public AbstractXMLParser {
 public:
-
-  ///Create a new AlphIO. Initially, it will have only a 'default' alphabet
-  /// definition (English); further alphabets may be loaded in by calling the
-  /// Parse... methods inherited from Abstract[XML]Parser
-  CAlphIO(CMessageDisplay *pMsgs);
-  
-  virtual ~CAlphIO();
-  void GetAlphabets(std::vector < std::string > *AlphabetList) const;
-  std::string GetDefault();
-  const CAlphInfo *GetInfo(const std::string & AlphID) const;
+	// This structure completely describes the characters used in alphabet
+	struct AlphInfo
+	{
+		// Basic information
+		std::string AlphID;
+		bool Mutable; // If from user we may play. If from system defaults this is immutable. User should take a copy.
+		
+		// Complete description of the alphabet:
+		std::string TrainingFile;
+        std::string GameModeFile;
+	    std::string PreferredColours;
+		Opts::AlphabetTypes Encoding;
+		Opts::AlphabetTypes Type;
+		Opts::ScreenOrientations Orientation;
+		struct character
+		{
+			std::string Display;
+			std::string Text;
+		        int Colour;
+		        std::string Foreground;
+		};
+		struct group
+		{
+			std::string Description;
+			std::vector< character > Characters;
+			int Colour;
+			std::string Label;
+		};
+		std::vector< group > Groups;
+	    character ParagraphCharacter; // display and edit text of paragraph character. Use ("", "") if no paragraph character.
+		character SpaceCharacter; // display and edit text of Space character. Typically (" ", "_"). Use ("", "") if no space character.
+		character ControlCharacter; // display and edit text of Control character. Typically ("", "Control"). Use ("", "") if no control character.
+	};
+	
+	CAlphIO(std::string SystemLocation, std::string UserLocation, std::vector<std::string> Filenames);
+	void GetAlphabets(std::vector< std::string >* AlphabetList) const;
+	const AlphInfo& GetInfo(const std::string& AlphID);
+	void SetInfo(const AlphInfo& NewInfo);
+	void Delete(const std::string& AlphID);
 private:
   CAlphInfo::character *SpaceCharacter, *ParagraphCharacter;
   std::vector<SGroupInfo *> m_vGroups;

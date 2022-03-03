@@ -318,34 +318,196 @@ void CAlphIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
     return;
   }
 
-  if(strcmp(name, "protect") == 0) {
-    if (!InputInfo->EndConvertCharacter) InputInfo->EndConvertCharacter = new CAlphInfo::character();
-    ReadCharAtts(atts, *(InputInfo->EndConvertCharacter));
-    return;
-  }
-
-  if(strcmp(name, "context") == 0) {
-    while(*atts != 0) {
-      if(strcmp(*atts, "default") == 0) {
-        InputInfo->m_strDefaultContext = *(atts+1);
-      }
-      atts += 2;
-    }
-    return;
-  }
-
-  if(strcmp(name, "s") == 0) {
-
-    if (m_vGroups.empty()) InputInfo->iNumChildNodes++; else m_vGroups.back()->iNumChildNodes++;
-    InputInfo->m_vCharacters.resize(InputInfo->m_vCharacters.size()+1);
-    CAlphInfo::character &Ch(InputInfo->m_vCharacters.back());
-
-    // FIXME - need to do a more sensible job of ensuring that
-    // defaults are correct (plus more generally fixing behaviour when
-    // incomplete/invalid XML is supplied)
-    ReadCharAtts(atts, Ch);
-    return;
-  }
+void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_Char **atts)
+{
+	CAlphIO* Me = (CAlphIO*) userData;
+	
+	Me->CData = "";
+	
+	if (strcmp(name, "alphabet")==0) {
+		AlphInfo NewInfo;
+		Me->InputInfo = NewInfo;
+		Me->InputInfo.Mutable = Me->LoadMutable;
+		Me->InputInfo.SpaceCharacter.Colour = -1;
+		Me->InputInfo.ParagraphCharacter.Colour = -1;
+		Me->InputInfo.ControlCharacter.Colour = -1;
+		while (*atts!=0) {
+			if (strcmp(*atts, "name")==0) {
+				atts++;
+				Me->InputInfo.AlphID = *atts;
+				atts--;
+			}
+			atts += 2;
+		}
+		return;
+	}
+	
+	if (strcmp(name, "orientation")==0) {
+		while (*atts!=0) {
+			if (strcmp(*atts, "type")) {
+				atts++;
+				if (strcmp(*atts, "RL")) {
+					Me->InputInfo.Orientation = Opts::LeftToRight;
+				} else if (strcmp(*atts, "TB")) {
+					Me->InputInfo.Orientation = Opts::TopToBottom;
+				} else if (strcmp(*atts, "BT")) {
+					Me->InputInfo.Orientation = Opts::BottomToTop;
+				} else
+					Me->InputInfo.Orientation = Opts::LeftToRight;
+				atts--;
+			}
+			atts += 2;
+		}
+		return;
+	}
+	
+	if (strcmp(name, "encoding")==0) {
+		while (*atts!=0) {
+			if (strcmp(*atts, "type")==0) {
+				atts++;
+				Me->InputInfo.Type = Me->StoT[*atts];
+				atts--;
+			}
+			atts += 2;
+		}
+		return;
+	}
+	
+	if (strcmp(name, "space")==0) {
+		while (*atts!=0) {
+			if (strcmp(*atts, "t")==0) {
+				atts++;
+				Me->InputInfo.SpaceCharacter.Text = *atts;
+				atts--;
+			}
+			if (strcmp(*atts, "d")==0) {
+				atts++;
+				Me->InputInfo.SpaceCharacter.Display = *atts;
+				atts--;
+			}
+			if (strcmp(*atts, "b")==0) {
+			  atts++;
+			  Me->InputInfo.SpaceCharacter.Colour = atoi(*atts);
+			  atts--;
+			}
+			if (strcmp(*atts, "f")==0) {
+			  atts++;
+			  Me->InputInfo.SpaceCharacter.Foreground = *atts;
+			  atts--;
+			}
+			atts += 2;
+		}
+		return;
+	}
+	if (strcmp(name, "paragraph")==0) {
+		while (*atts!=0) {
+			if (strcmp(*atts, "d")==0) {
+			  atts++;
+			  Me->InputInfo.ParagraphCharacter.Display = *atts;
+#ifdef WIN32
+			  Me->InputInfo.ParagraphCharacter.Text = "\r\n";
+#else
+			  Me->InputInfo.ParagraphCharacter.Text = "\n";
+#endif	
+			  atts--;
+			}
+			if (strcmp(*atts, "b")==0) {
+			  atts++;
+			  Me->InputInfo.ParagraphCharacter.Colour = atoi(*atts);
+			  atts--;
+			}
+			if (strcmp(*atts, "f")==0) {
+			  atts++;
+			  Me->InputInfo.ParagraphCharacter.Foreground = *atts;
+			  atts--;
+			}
+			atts += 2;
+		}
+		return;
+	}
+	if (strcmp(name, "control")==0) {
+		while (*atts!=0) {
+			if (strcmp(*atts, "t")==0) {
+				atts++;
+				Me->InputInfo.ControlCharacter.Text = *atts;
+				atts--;
+			}
+			if (strcmp(*atts, "d")==0) {
+				atts++;
+				Me->InputInfo.ControlCharacter.Display = *atts;
+				atts--;
+			}
+			if (strcmp(*atts, "b")==0) {
+				atts++;
+				Me->InputInfo.ControlCharacter.Colour = atoi(*atts);
+				atts--;
+			}
+			if (strcmp(*atts, "f")==0) {
+				atts++;
+				Me->InputInfo.ControlCharacter.Foreground = *atts;
+				atts--;
+			}
+			atts += 2;
+		}
+		return;
+	}
+	
+	if (strcmp(name, "group")==0) {
+		AlphInfo::group NewGroup;
+		NewGroup.Colour=-1;
+		NewGroup.Label="";
+		Me->InputInfo.Groups.push_back(NewGroup);
+		while (*atts!=0) {
+			if (strcmp(*atts, "name")==0) {
+				atts++;
+				Me->InputInfo.Groups.back().Description = *atts;
+				atts--;
+			}
+			if (strcmp(*atts, "b")==0) {
+				atts++;
+				Me->InputInfo.Groups.back().Colour = atoi(*atts);
+				atts--;
+			}
+            if (strcmp(*atts, "label")==0) {
+                atts++;
+				Me->InputInfo.Groups.back().Label = *atts; 
+                atts--;
+            }
+			atts += 2;
+		}
+		return;
+	}
+	
+	if (strcmp(name, "s")==0) {
+		AlphInfo::character NewCharacter;
+		NewCharacter.Colour=-1;
+		Me->InputInfo.Groups.back().Characters.push_back(NewCharacter);
+		AlphInfo::character& Ch = Me->InputInfo.Groups.back().Characters.back();
+		while (*atts!=0) {
+			if (strcmp(*atts, "t")==0) {
+				atts++;
+				Ch.Text = *atts; 
+				atts--;
+			}
+			if (strcmp(*atts, "d")==0) {
+				atts++;
+				Ch.Display = *atts;
+				atts--;
+			}
+			if (strcmp(*atts, "b")==0) {
+			        atts++;
+				Ch.Colour = atoi(*atts);
+				atts--;
+			}
+			if (strcmp(*atts, "f")==0) {
+			        atts++;
+				Ch.Foreground = *atts;
+				atts--;
+			}
+			atts += 2;
+		}
+		return;
+	}
 }
 
 void CAlphIO::ReadCharAtts(const XML_Char **atts, CAlphInfo::character &ch) {
