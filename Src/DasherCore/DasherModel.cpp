@@ -572,8 +572,157 @@ void CDasherModel::ScheduleZoom(dasherint y1, dasherint y2, int nsteps) {
 }
 
 
-void CDasherModel::ClearScheduledSteps() {
-  m_deGotoQueue.clear();
+void CDasherModel::Push_Node(CDasherNode* pNode) 
+{
+	if ( pNode->Children() )
+	{
+		// if there are children just give them a poke
+		unsigned int i;
+		for (i=0;i< pNode->ChildCount() ;i++)
+			pNode->Children()[i]->Alive(true);
+		return;
+	}
+
+	// This ASSERT seems to routinely fail
+	//DASHER_ASSERT(pNode->Symbol()!=0);
+
+
+	// if we haven't got a context then derive it
+	
+	if (! pNode->Context() )
+	{
+
+		CLanguageModel::Context cont;
+		// sym0
+		if ( pNode->Symbol() < m_pcAlphabet->GetNumberTextSymbols() && pNode->Symbol()>0) 
+		{
+			CDasherNode* pParent = pNode->Parent();
+			DASHER_ASSERT (pParent != NULL) ;
+			// Normal symbol - derive context from parent
+			cont =  m_pLanguageModel->CloneContext( pParent->Context() );
+			m_pLanguageModel->EnterSymbol( cont, pNode->Symbol() );
+		}
+		else
+		{
+			// For new "root" nodes (such as under control mode), we want to 
+			// mimic the root context
+			cont = CreateEmptyContext();
+			EnterText(cont, ". ");
+		}
+		pNode->SetContext(cont);
+
+	}
+
+	pNode->Alive(true);
+
+	if ( pNode->Symbol()== GetControlSymbol() || pNode->ControlChild() ) 
+	{
+
+		ControlTree* pControlTreeChildren = pNode->GetControlTree();
+	
+		if ( pControlTreeChildren == NULL ) 
+		{ 
+			// Root of the tree 
+			pControlTreeChildren = GetControlTree();
+		}
+		else 
+		{ 
+			// some way down
+			pControlTreeChildren = pControlTreeChildren->children;
+		}
+
+		// Count total number of children
+
+		// Always 1 child for a root symbol
+		int iChildCount=1;
+
+		// Control children
+		ControlTree* pTemp = pControlTreeChildren;
+		while(pTemp != NULL)
+		{
+			iChildCount++;
+			pTemp = pTemp->next;
+		}
+		
+		// Now we go back and build the node tree	  
+		int quantum=int(GetLongParameter(LP_NORMALIZATION)/iChildCount);
+
+		CDasherNode** ppChildren = new CDasherNode* [iChildCount];
+
+		ColorSchemes ChildScheme;
+		if (pNode->ColorScheme() == Nodes1)
+		{
+			ChildScheme = Nodes2;
+		} 
+		else 
+		{
+			ChildScheme = Nodes1;
+		}
+
+		int i=0;
+		// First a root node that takes up back to the text alphabet
+		ppChildren[i]=new CDasherNode(*this,pNode,0,0,Opts::Nodes1,0,int((i+1)*quantum),m_pLanguageModel,false,240);
+		i++;
+
+		// Now the control children
+		pTemp = pControlTreeChildren;
+		while( pTemp != NULL)
+		{
+			if (pTemp->colour != -1)
+			{
+				ppChildren[i]=new CDasherNode(*this,pNode,0,i,ChildScheme,int(i*quantum),int((i+1)*quantum),m_pLanguageModel,true,pTemp->colour, pTemp);
+			} 
+			else 
+			{
+				ppChildren[i]=new CDasherNode(*this,pNode,0,i,ChildScheme,int(i*quantum),int((i+1)*quantum),m_pLanguageModel,true,(i%99)+11, pTemp);
+			}
+			i++;
+			pTemp = pTemp->next;
+		}
+		pNode->SetChildren(ppChildren, iChildCount);
+		return;
+	}
+
+	vector<symbol> newchars;   // place to put this list of characters
+	vector<unsigned int> cum;   // for the probability list
+
+	GetProbs(pNode->Context(),newchars,cum,GetLongParameter(LP_NORMALIZATION));
+	int iChildCount=newchars.size();
+
+	DASHER_TRACEOUTPUT("ChildCount %d\n",iChildCount);
+	// work out cumulative probs in place
+	for (int i=1;i<iChildCount;i++)
+		cum[i]+=cum[i-1];
+
+	CDasherNode** ppChildren = new CDasherNode *[iChildCount];
+
+	// create the children
+	ColorSchemes NormalScheme, SpecialScheme;
+	if (( pNode->ColorScheme()==Nodes1 ) || (pNode->ColorScheme()==Special1 ))
+	{
+		NormalScheme = Nodes2;
+		SpecialScheme = Special2;
+	} 
+	else 
+	{
+		NormalScheme = Nodes1;
+		SpecialScheme = Special1;
+	}
+
+	ColorSchemes ChildScheme;
+
+	int iLbnd=0;
+	for (int j=0; j< iChildCount; j++)
+	{
+		if (newchars[j]== GetSpaceSymbol())
+			ChildScheme = SpecialScheme;
+		else
+			ChildScheme = NormalScheme;
+		ppChildren[j]=new CDasherNode(*this,pNode,newchars[j],j,ChildScheme,iLbnd,cum[j],m_pLanguageModel,false,GetColour(j));
+		iLbnd = cum[j];
+	}
+	pNode->SetChildren(ppChildren,iChildCount);
+
 }
 
 
@@ -588,7 +737,95 @@ void CDasherModel::AbortOffset() {
   m_Rootmin += m_iDisplayOffset;
   m_Rootmax += m_iDisplayOffset;
 
-  m_iDisplayOffset = 0;
+//////
+// This section calculates the exact dasher coordinate they want to be aiming at
+// and then draws the pointer there
+    myint currDasherMax, currDasherMin, currDasherRange;
+
+    // Current location in the target string that we are comparing
+    // for correctness
+    CDasherNode *currNode = m_model->Root();
+
+    if(!currNode)
+        return INT64_MIN;
+
+    myint norm = GetLongParameter(LP_NORMALIZATION);
+    // These represent the scaled range of dasher coordinates
+    // start at the current root but grow as you backtrack
+    currDasherMax = m_model->Rootmax();
+    currDasherMin = m_model->Rootmin();
+    currDasherRange = currDasherMax - currDasherMin;
+
+    // Now find the normalized dasher coordinates for the node we're using as
+    // the "correct path" node, the last correctly typed symbol 
+    // (or going back as far as we can without overflow)
+    while(positionOfRoot > posOfFirstDifference)
+    {
+        // IF no parent, but not yet at node of first difference
+        // need to just draw up or down arrow again
+        if(!currNode->Parent())
+        {
+            if( alphabetmap.Get(CurrentTarget.substr(posOfFirstDifference,1), &KeyIsPrefix) < 
+                    alphabetmap.Get(Context.substr(posOfFirstDifference,1), &KeyIsPrefix) )
+                return INT64_MIN+1;
+            else
+                return INT64_MAX;
+        }
+
+        myint nodeupper, nodelower, noderange;
+        
+        nodeupper = currNode->Hbnd();
+        nodelower = currNode->Lbnd();
+        noderange = nodeupper-nodelower;
+
+        currDasherMax += (norm - nodeupper) * currDasherRange / noderange;
+        currDasherMin -= nodelower * currDasherRange / noderange;
+        currDasherRange =  currDasherMax - currDasherMin;
+
+        currNode = currNode->Parent();
+        positionOfRoot--;
+    }
+
+
+    // The location we examine first is where we last matched a symbol
+    // So, matching 3 symbols means we look at element 3 (zero-based), 4th elem
+    int currLocation = positionOfRoot;
+
+    DASHER_ASSERT(currNode);
+  
+    // With the original root's dasher coordinates, find where pointer should be
+    // Go through this loop until no child is found along the target string
+    bool foundChild=true;
+    while(foundChild)
+    {
+        foundChild = false;
+        int childrencount = currNode->ChildCount();
+         
+        if(childrencount > 0)
+        {
+            CDasherNode **children = currNode->Children();
+            for(int ii = 0; ii<childrencount; ii++)
+            {
+                int symbol = m_model->GetAlphabet().GetAlphabetMap().Get(CurrentTarget.substr(currLocation,1), &KeyIsPrefix);
+                if(children[ii]->Symbol() == symbol)
+                {
+                    foundChild = true;
+                    currLocation++;
+                    currNode = children[ii];
+                    
+                    // Calculate new dasher high/low/range coords for the child we want
+                    currDasherMax -= ((norm - currNode->Hbnd()) * currDasherRange)  / norm;
+                    currDasherMin += currNode->Lbnd() * currDasherRange / norm;
+                    currDasherRange = currDasherMax - currDasherMin;
+                    break;
+                }
+            }
+        }
+        else
+            break;
+    }
+
+    return (currDasherMax - currDasherRange/2);
 }
 
 void CDasherModel::LimitRoot(int iMaxWidth) {

@@ -54,7 +54,159 @@ static char THIS_FILE[] = __FILE__;
 // anything which uses radically different co-ordinate transforms, and
 // we can always override if necessary.
 
-// FIXME - duplicated 'mode' code throught - needs to be fixed (actually, mode related stuff, Input2Dasher etc should probably be at least partially in some other class)
+/////////////////////////////////////////////////////////////////////////////
+
+void CDasherViewSquare::RenderNodes()
+{
+  Screen().Blank();
+  
+  DASHER_ASSERT(DasherModel().Root()!=0);
+  
+  //DASHER_TRACEOUTPUT("RenderNodes\n");
+  
+  // Render nodes to screen object (should use off screen buffer)
+  
+  RecursiveRender(DasherModel().Root(), DasherModel().Rootmin(), DasherModel().Rootmax(), DasherVisibleMaxX());
+  
+  // DelayDraw the text nodes
+  m_DelayDraw.Draw(Screen());
+
+  Crosshair(DasherModel().DasherOX()); // add crosshair
+}
+
+void CDasherViewSquare::HandleEvent( Dasher::CEvent *pEvent ) {
+	// Let the parent class do its stuff
+	CDasherView::HandleEvent( pEvent );
+
+	// And then interpret events for ourself
+	if(	pEvent->m_iEventType == 1 ) {
+		Dasher::CParameterNotificationEvent	*pEvt( static_cast<	Dasher::CParameterNotificationEvent	* >( pEvent	));
+		switch(	pEvt->m_iParameter ) {
+
+			default:
+				break;
+		}
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+int CDasherViewSquare::RecursiveRender(CDasherNode* pRender, myint y1,myint y2,int mostleft)
+{
+	DASHER_ASSERT_VALIDPTR_RW(pRender);
+
+	// Decide which colour to use when rendering the child
+
+	int Color;
+
+  	if (GetBoolParameter(BP_COLOUR_MODE)==true) 
+	{
+	  if (pRender->Colour()!=-1) {
+	    Color = pRender->Colour();
+	  } else {
+	    if (pRender->Symbol()==DasherModel().GetSpaceSymbol()) {
+	      Color = 9;
+	    } else if (pRender->Symbol()==DasherModel().GetControlSymbol()) {
+	      Color = 8;
+	    } else {
+	      Color = (pRender->Symbol()%3)+10;
+	    }
+	  }
+	} else {
+	  Color = pRender->Phase()%3; 
+	}
+
+	if ((pRender->ColorScheme()%2)==1 && Color<130 && GetBoolParameter(BP_COLOUR_MODE)==true) { // We don't loop on high
+	  Color+=130;                                // colours
+	}
+
+	//	DASHER_TRACEOUTPUT("%x ",Render);
+	
+	std::string display;
+	if (pRender->GetControlTree()!=NULL) 
+		display = pRender->GetControlTree()->text;
+
+	if (RenderNode(pRender->Symbol(), Color, pRender->ColorScheme(), y1, y2, mostleft, display))
+	{
+		// yuk
+		if (!pRender->ControlChild() && pRender->Symbol() < DasherModel().GetAlphabet().GetNumberTextSymbols() )
+			RenderGroups(pRender, y1, y2);
+	}
+	else
+	{
+		pRender->Kill();
+		return 0;
+	}
+
+	int iChildCount = pRender->ChildCount();
+	if (!iChildCount)
+	  return 0;
+
+	int norm=GetLongParameter(LP_NORMALIZATION);
+	for (int i=0; i< iChildCount; i++) 
+	{
+		CDasherNode* pChild = pRender->Children()[i];
+		if ( pChild->Alive() ) 
+		{
+			myint Range=y2-y1;
+			myint newy1=y1+(Range * pChild->Lbnd() )/norm;
+			myint newy2=y1+(Range * pChild->Hbnd() )/norm;
+			RecursiveRender(pChild, newy1, newy2, mostleft);
+		}
+	}
+	return 1;
+
+
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CDasherViewSquare::RenderGroups(CDasherNode* Render, myint y1, myint y2)
+{
+	CDasherNode** Children = Render->Children();
+	if (!Children)
+		return;
+	int current=0;
+	int lower=0;
+	int upper=0;
+    std::string Label="";
+
+	myint range=y2-y1;
+	
+	const CAlphabet& alphabet = DasherModel().GetAlphabet();
+
+	for (int iGroup=1; iGroup < alphabet.GetGroupCount();  iGroup++) 
+	{
+		int lower = alphabet.GetGroupStart(iGroup);
+		int upper = alphabet.GetGroupEnd(iGroup);
+	
+		myint lbnd=Children[lower]->Lbnd();
+		myint hbnd=Children[upper-1]->Hbnd();
+		myint newy1=y1+(range*lbnd)/(int)GetLongParameter(LP_NORMALIZATION);
+		myint newy2=y1+(range*hbnd)/(int)GetLongParameter(LP_NORMALIZATION);
+		int mostleft;
+		if (GetBoolParameter(BP_COLOUR_MODE)==true) 
+		{
+			std::string Label = DasherModel().GroupLabel(iGroup);
+			int Colour = DasherModel().GroupColour(iGroup);
+                  
+            if (Colour!=-1) 
+			{
+				RenderNode(0,DasherModel().GroupColour(iGroup),Opts::Groups,newy1,newy2,mostleft,Label);
+			} 
+			else 
+			{
+			    RenderNode(0,(current%3)+110,Opts::Groups,newy1,newy2,mostleft,Label);
+			}
+		} 
+		else 
+		{
+			RenderNode(0,current-1,Opts::Groups,newy1,newy2,mostleft,Label);
+		}
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////
 
 CDasherViewSquare::CDasherViewSquare(CSettingsUser *pCreateFrom, CDasherScreen *DasherScreen, Opts::ScreenOrientations orient)
 : CDasherView(DasherScreen,orient), CSettingsUserObserver(pCreateFrom), m_Y1(4), m_Y2(0.95 * CDasherModel::MAX_Y), m_Y3(0.05 * CDasherModel::MAX_Y), m_bVisibleRegionValid(false) {
@@ -72,15 +224,258 @@ void CDasherViewSquare::SetOrientation(Opts::ScreenOrientations newOrient) {
   SetScaleFactor();
 }
 
-void CDasherViewSquare::HandleEvent(int iParameter) {
-  switch (iParameter) {
-    case LP_MARGIN_WIDTH:
-    case BP_NONLINEAR_Y:
-    case LP_NONLINEAR_X:
-    case LP_GEOMETRY:
-      m_bVisibleRegionValid = false;
-      SetScaleFactor();
-  }
+/////////////////////////////////////////////////////////////////////////////
+
+int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
+	myint y1, myint y2, int& mostleft, const std::string& displaytext)
+{
+	DASHER_ASSERT(y2>=y1);
+
+// //	DASHER_TRACEOUTPUT("RenderNode Symbol:%d Colour:%d, ColourScheme:%d Display:%s \n",Character,Color,ColorScheme,displaytext.c_str());
+// 	//DASHER_TRACEOUTPUT("RenderNode %I64d %I64d",y1,y2);
+
+// 	// Get the screen positions of the node in co-ords such that dasher RHS runs from 0 to DasherModel.DasherY
+// 	screenint s1,s2;
+// 	Cint32 iSize = dashery2screen(y1,y2,s1,s2);
+
+// 	// Actual height in pixels
+// 	Cint32 iHeight = Cint32( (Cint32) (iSize * CanvasY)/ (Cint32) DasherModel().DasherY() );
+
+// 	if (iHeight <=1)
+// 		return 0;
+
+// 	// horizontal width of the square is controlled by the true size (y2-y1) in Dasher world
+
+		
+// 	// All squares are right-aligned.
+// 	screenint iRight=CanvasX;
+		
+// 	screenint iNewleft=iLeft, iNewtop=s1, iNewright=iRight, iNewbottom=s2;
+
+// 	// Do the rotation
+// 	MapScreen(&iNewleft, &iNewtop);
+// 	MapScreen(&iNewright, &iNewbottom);
+
+//	DASHER_TRACEOUTPUT("--------- %i %i\n",iNewtop,iNewbottom);
+
+	//Screen().DrawRectangle(iNewleft, iNewtop, iNewright, iNewbottom, Color, ColorScheme);
+
+
+	// FIXME - Get sensibel limits here (to allow for non-linearities)
+
+ 	screenint s1,s2;
+ 	Cint32 iSize = dashery2screen(y1,y2,s1,s2);
+
+ 	// Actual height in pixels
+ 	Cint32 iHeight = Cint32( (Cint32) (iSize * CanvasY)/ (Cint32) DasherModel().DasherY() );
+
+	if( iHeight <= 1 )
+	  return 0; // We're too small to render
+
+	if(( y1 > DasherVisibleMaxY() ) || ( y2 < DasherVisibleMinY() ))
+	  return 0; // We're entirely off screen, so don't render.
+
+	myint iDasherSize( y2 - y1 );
+#
+	// FIXME - get rid of pointless assignment below
+
+	int iTruncation( GetLongParameter(LP_TRUNCATION) ); // Trucation farction times 100;
+	int iTruncationType( GetLongParameter(LP_TRUNCATIONTYPE) );
+
+	if( iTruncation == 0 ) { // Regular squares
+	  DasherDrawRectangle( iDasherSize, y2, 0, y1, Color, ColorScheme );
+	}
+	else {
+	  int iDasherY( DasherModel().DasherY() );
+
+	  int iSpacing( iDasherY / 128 ); // FIXME - assuming that this is an integer below
+
+
+	  int iXStart;
+	  
+	  switch( iTruncationType ) {
+	  case 0:
+	    iXStart = 0;
+	    break;
+	  case 1:
+	    iXStart = iSize - iSize * iTruncation / 200;
+	    break;
+	  case 2:
+	    iXStart = iSize - iSize * iTruncation / 100;
+	    break;
+	  }
+
+
+	  int iTipMin( (y2 - y1) * iTruncation / (200) + y1 );
+	  int iTipMax( y2 - (y2 - y1) * iTruncation / (200) );
+	  
+	  
+
+	  int iLowerMin( ((y1+1) / iSpacing)*iSpacing );
+	  int iLowerMax( ((iTipMin-1) / iSpacing )*iSpacing );
+
+	  int iUpperMin( ((iTipMax+1) / iSpacing )*iSpacing );
+	  int iUpperMax( ((y2-1) / iSpacing)*iSpacing );
+
+	  if( iLowerMin < 0 )
+	    iLowerMin = 0;
+	  
+	  if( iLowerMax < 0 )
+	    iLowerMax = 0;
+
+	  if( iUpperMin < 0 )
+	    iUpperMin = 0;
+	  
+	  if( iUpperMax < 0 )
+	    iUpperMax = 0;
+	  
+
+	  if( iLowerMin > iDasherY )
+	    iLowerMin = iDasherY;
+	  
+	  if( iLowerMax > iDasherY )
+	    iLowerMax = iDasherY;
+
+	  if( iUpperMin > iDasherY )
+	    iUpperMin = iDasherY;
+	  
+	  if( iUpperMax > iDasherY )
+	    iUpperMax = iDasherY;
+
+	  while( iLowerMin < y1 ) 
+	    iLowerMin += iSpacing;
+
+	  while( iLowerMax > iTipMin)
+	    iLowerMax -= iSpacing;
+	   
+	  while( iUpperMin < iTipMax )
+	    iUpperMin += iSpacing;
+
+	  while( iUpperMax > y2 )
+	    iUpperMax -= iSpacing;
+
+
+	  int iLowerCount( (iLowerMax - iLowerMin) / iSpacing + 1 );
+	  int iUpperCount( (iUpperMax - iUpperMin) / iSpacing + 1 );
+
+	  if( iLowerCount < 0 )
+	    iLowerCount = 0;
+	  
+	  if( iUpperCount < 0 )
+	    iUpperCount = 0;
+
+	  int iTotalCount( iLowerCount + iUpperCount + 6 );
+
+	  myint *x =  new myint[iTotalCount] ;
+	  myint *y =  new myint[iTotalCount] ;
+
+	  // Weird duplication here is to make truncated squares possible too
+
+	  x[0] = 0;
+	  y[0] = y1;
+	  x[1] = iXStart;
+	  y[1] = y1;
+
+	  x[iLowerCount + 2] = iDasherSize;
+	  y[iLowerCount + 2] = iTipMin;
+	  x[iLowerCount + 3] = iDasherSize;
+	  y[iLowerCount + 3] = iTipMax;
+
+	  x[iTotalCount - 2] = iXStart;
+	  y[iTotalCount - 2] = y2;
+	  x[iTotalCount - 1] = 0;
+	  y[iTotalCount - 1] = y2;
+
+	  for( int i(0); i < iLowerCount; ++i ) {
+	    x[i+2] = (iLowerMin + i * iSpacing - y1) * (iDasherSize - iXStart) / (iTipMin - y1) + iXStart;
+	    y[i+2] = iLowerMin + i * iSpacing;
+	  }
+
+	  for( int j(0); j < iUpperCount; ++j ) {
+ 	    x[j+iLowerCount + 4] = (y2 - (iUpperMin + j * iSpacing)) * (iDasherSize - iXStart) / (y2 - iTipMax) + iXStart;
+	    y[j+iLowerCount + 4] = iUpperMin + j * iSpacing;
+	  }
+	  
+	  DasherPolygon( x, y, iTotalCount, Color );
+
+	delete x;
+	delete y;
+
+	}
+	
+	myint iDasherAnchorX( iDasherSize );
+
+	myint iDasherAnchorY( (std::min(y2 , DasherVisibleMaxY()) + std::max(y1, DasherVisibleMinY()))/2 );
+	
+	std::string sDisplayText;
+	
+	if( displaytext != std::string("") )
+	  sDisplayText = displaytext;
+	else
+	  sDisplayText = DasherModel().GetDisplayText(Character);
+	
+	DasherDrawText( iDasherAnchorX, y1, iDasherAnchorX, y2, sDisplayText, mostleft );
+	
+	return 1;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CDasherViewSquare::CheckForNewRoot()
+{
+	CDasherNode * const root=DasherModel().Root();
+	CDasherNode ** const children=root->Children();
+
+
+	myint y1=DasherModel().Rootmin();
+	myint y2=DasherModel().Rootmax();
+
+	// This says that the root node must enclose everything visible.
+	// Tiny probability characters near the bottom will cause a problem
+	// with forcing to reparent to the previous one.
+
+	if ((y1>myint(0) || y2 < DasherModel().DasherY() || dasherx2screen(y2-y1)>0)) {
+		DasherModel().Reparent_root(root->Lbnd(),root->Hbnd());
+		return;
+	}
+
+	if (children==0)
+		return;
+
+	int alive=0;
+	int theone=0;
+	unsigned int i;
+
+	// Find whether there is exactly one alive child; if more, we don't care.
+	for (i=0;i<root->ChildCount();i++) 
+	{
+		if (children[i]->Alive()) 
+		{
+			alive++;
+			theone=i;
+            if(alive>1) break; 
+		}
+	}
+
+	if (alive==1) 
+	{	  
+	// We must have zoomed sufficiently that only one child of the root node 
+	// is still alive.  Let's make it the root.
+
+	  y1=DasherModel().Rootmin();
+	  y2=DasherModel().Rootmax();
+	  myint range=y2-y1;
+
+	  myint newy1=y1+(range*children[theone]->Lbnd())/(int)GetLongParameter(LP_NORMALIZATION);
+	  myint newy2=y1+(range*children[theone]->Hbnd())/(int)GetLongParameter(LP_NORMALIZATION);
+	  if (newy1<myint(0) && newy2> DasherModel().DasherY()) {
+	    myint left=dasherx2screen(newy2-newy1);
+	    if (left<myint(0)) {
+	      DasherModel().Make_root(theone);
+	      return;
+	    }
+	  }
+	}
 }
 
 CDasherNode *CDasherViewSquare::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax,
