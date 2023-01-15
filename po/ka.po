@@ -1,22 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Ekaterine Papava <papava.e@gtu.ge>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dasher/issues\n"
 "POT-Creation-Date: 2021-11-14 13:38+0000\n"
-"PO-Revision-Date: 2022-08-12 06:37+0200\n"
-"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"PO-Revision-Date: 2023-01-15 12:35+0100\n"
+"Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: \n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
@@ -209,19 +209,19 @@ msgstr "პატარა ფონტი"
 
 #: Data/GUI/dasher.preferences.ui:1055
 msgid "Large font "
-msgstr ""
+msgstr "დიდი ფონტი"
 
 #: Data/GUI/dasher.preferences.ui:1072
 msgid "Very large font"
-msgstr ""
+msgstr "ძალიან დიდი ფონტი"
 
 #: Data/GUI/dasher.preferences.ui:1107
 msgid "_Appearance"
-msgstr ""
+msgstr "_გარეგნობა"
 
 #: Data/GUI/dasher.preferences.ui:1135
 msgid "Application Options"
-msgstr ""
+msgstr "პროგრამის პარამეტრები"
 
 #: Data/GUI/dasher.preferences.ui:1157
 msgid "Timestamp new files"
@@ -333,7 +333,7 @@ msgstr "ასლი"
 
 #: Data/GUI/dasher.traditional.ui:90
 msgid "Copy _All"
-msgstr ""
+msgstr "ყველაფრის _კოპირება"
 
 #: Data/GUI/dasher.traditional.ui:97
 msgid "Paste"
@@ -341,7 +341,7 @@ msgstr "ჩასმა"
 
 #: Data/GUI/dasher.traditional.ui:104
 msgid "Pr_eferences…"
-msgstr ""
+msgstr "_მორგება…"
 
 #: Data/GUI/dasher.traditional.ui:105
 msgid "Preferences"
@@ -353,7 +353,7 @@ msgstr "_დახმარება"
 
 #: Data/GUI/dasher.traditional.ui:118
 msgid "_Contents…"
-msgstr ""
+msgstr "_შიგთავსი…"
 
 #: Data/GUI/dasher.traditional.ui:119
 msgid "Help"
@@ -361,20 +361,20 @@ msgstr "დახმარება"
 
 #: Data/GUI/dasher.traditional.ui:127
 msgid "_About…"
-msgstr ""
+msgstr "პროგრამის _შესახებ…"
 
 #: Data/GUI/dasher.traditional.ui:134
 #: Src/DasherCore/DasherInterfaceBase.cpp:797
 msgid "Direct Mode"
-msgstr ""
+msgstr "პირდაპირი რეჟიმი"
 
 #: Data/GUI/dasher.traditional.ui:135
 msgid "_Direct Mode"
-msgstr ""
+msgstr "_პირდაპირი რეჟიმი"
 
 #: Data/GUI/dasher.traditional.ui:141
 msgid "_Game Mode"
-msgstr ""
+msgstr "_თამაშის რეჟიმი"
 
 #: Data/GUI/dasher.traditional.ui:296
 msgid "Speed:"
@@ -382,11 +382,11 @@ msgstr "სიჩქარე:"
 
 #: Data/GUI/dasher.traditional.ui:342
 msgid "Alphabet:"
-msgstr ""
+msgstr "ანბანი:"
 
 #: Data/GUI/dasher.traditional.ui:392
 msgid "Please Wait…"
-msgstr ""
+msgstr "გთხოვთ, მოითმინოთ…"
 
 #. think XML_LChar==char, depends on preprocessor variables...
 #. /TRANSLATORS: the first string is the error message from the XML Parser;
@@ -500,12 +500,12 @@ msgstr ""
 
 #: Src/DasherCore/DasherInterfaceBase.cpp:786
 msgid "Normal Control"
-msgstr ""
+msgstr "ნორმალური კონტროლი"
 
 #. TODO: specialist factory for button mode
 #: Src/DasherCore/DasherInterfaceBase.cpp:796
 msgid "Menu Mode"
-msgstr ""
+msgstr "მენიუს რეჟიმი"
 
 #: Src/DasherCore/DefaultFilter.cpp:14
 msgid "Vertical distance from mouse/gaze to target (400=screen height)"
@@ -676,12 +676,12 @@ msgstr ""
 #: Src/DasherCore/TwoButtonDynamicFilter.cpp:43
 #: Src/DasherCore/TwoPushDynamicFilter.cpp:37
 msgid "Slow startup"
-msgstr ""
+msgstr "ნელი გაშვება"
 
 #: Src/DasherCore/OneButtonDynamicFilter.cpp:37
 #: Src/DasherCore/TwoButtonDynamicFilter.cpp:44
 msgid "Startup time"
-msgstr ""
+msgstr "გაშვების დრო"
 
 #: Src/DasherCore/OneButtonDynamicFilter.cpp:38
 #: Src/DasherCore/TwoButtonDynamicFilter.cpp:46
@@ -801,7 +801,7 @@ msgstr ""
 #. TODO This is not a very good error message even in English...???
 #: Src/DasherCore/SocketInputBase.cpp:108
 msgid "Error creating socket"
-msgstr ""
+msgstr "სოკეტის შექმნის შეცდომა"
 
 #: Src/DasherCore/SocketInputBase.cpp:116
 msgid "Error binding to socket - already in use?"
@@ -832,7 +832,7 @@ msgstr ""
 
 #: Src/DasherCore/StylusFilter.h:12
 msgid "Stylus Control"
-msgstr ""
+msgstr "სტილუსის კონტროლი"
 
 #. no context switch commands will be executed!
 #: Src/DasherCore/Trainer.cpp:34
@@ -849,7 +849,7 @@ msgstr ""
 
 #: Src/DasherCore/TwoButtonDynamicFilter.cpp:30
 msgid "Button offset"
-msgstr ""
+msgstr "ღილაკის წანაცვლება"
 
 #. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the maximum time between two presses to count as _part_of_ a multi-press gesture
 #. (potentially more than two presses).
@@ -917,7 +917,7 @@ msgstr ""
 #: Src/Gtk2/DasherAppSettings.cpp:124 Src/Gtk2/DasherAppSettings.cpp:135
 #: Src/Gtk2/DasherAppSettings.cpp:146
 msgid "Default"
-msgstr ""
+msgstr "ნაგულისხმები"
 
 #: Src/Gtk2/DasherAppSettings.cpp:124 Src/Gtk2/DasherAppSettings.cpp:135
 #: Src/Gtk2/DasherAppSettings.cpp:146
@@ -950,7 +950,7 @@ msgstr "აირჩიეთ ფაილი"
 #: Src/Gtk2/dasher_editor.cpp:799 Src/Gtk2/dasher_main.cpp:448
 #: Src/Gtk2/dasher_main.cpp:754
 msgid "_Open"
-msgstr ""
+msgstr "_გახსნა"
 
 #: Src/Gtk2/dasher_editor.cpp:801 Src/Gtk2/dasher_editor.cpp:835
 #: Src/Gtk2/dasher_main.cpp:447 Src/Gtk2/dasher_main.cpp:755
@@ -959,7 +959,7 @@ msgstr "გაუქმება"
 
 #: Src/Gtk2/dasher_editor.cpp:833
 msgid "_Save"
-msgstr ""
+msgstr "_შენახვა"
 
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
 #: Src/Gtk2/dasher_main.cpp:225
@@ -997,7 +997,7 @@ msgstr ""
 
 #: Src/Gtk2/dasher_main.cpp:534
 msgid "No"
-msgstr ""
+msgstr "არა"
 
 #: Src/Gtk2/dasher_main.cpp:535
 msgid "Yes"
@@ -1020,15 +1020,15 @@ msgstr ""
 
 #: Src/Gtk2/dasher_main.cpp:810
 msgid "Quit without saving"
-msgstr ""
+msgstr "შენახვის გარეშე გასვლა"
 
 #: Src/Gtk2/dasher_main.cpp:811 Src/Gtk2/dasher_main.cpp:834
 msgid "Don't quit"
-msgstr ""
+msgstr "არ გახვიდე"
 
 #: Src/Gtk2/dasher_main.cpp:812
 msgid "Save and quit"
-msgstr ""
+msgstr "შენახვა და გასვლა"
 
 #: Src/Gtk2/dasher_main.cpp:831
 msgid "Are you sure you wish to quit?"
@@ -1036,7 +1036,7 @@ msgstr ""
 
 #: Src/Gtk2/dasher_main.cpp:877
 msgid "Unable to open help file"
-msgstr ""
+msgstr "დახმარების ფაილის გახსნის შეცდომა"
 
 #: Src/Gtk2/dasher_main.cpp:928
 msgid "Dasher is a predictive text entry application"
