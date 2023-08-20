@@ -5,11 +5,12 @@
 # Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>, 2005.
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2006, 2008, 2009, 2010.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2007.
+# Asier Sarasua Garmendia  <asiersarasua@ni.eus>, 2022, 2023.
 msgid ""
 msgstr "Project-Id-Version: eu_to_be_translate\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dasher/issues\n"
-"POT-Creation-Date: 2020-12-25 13:00+0000\n"
-"PO-Revision-Date: 2022-04-22 10:00+0100\n"
+"POT-Creation-Date: 2022-09-23 19:55+0000\n"
+"PO-Revision-Date: 2023-08-20 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -23,7 +24,7 @@ msgstr "Project-Id-Version: eu_to_be_translate\n"
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
 #: Data/dasher.desktop.in.in:3 Data/GUI/dasher.traditional.ui:196
-#: Src/Gtk2/dasher_main.cpp:739
+#: Src/Gtk2/dasher_main.cpp:736
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -91,8 +92,7 @@ msgid ""
 "Use this control to adjust the relative sizes of the\n"
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
-msgstr "Erabili kontrol hau letra-koadroen tamaina erlatiboak doitzeko. \n"
-"Kontuan izan balio altuak hautatzean idazketa-prozesua\n"
+msgstr "Erabili kontrol hau letra-koadroen tamaina erlatiboak doitzeko. Kontuan izan balio altuak hautatzean idazketa-prozesua\n"
 "moteltzen dela."
 
 #: Data/GUI/dasher.preferences.ui:322
@@ -319,7 +319,7 @@ msgstr "_Erantsi fitxategiari..."
 msgid "_Import Training Text…"
 msgstr "_Inportatu trebatzeko testua..."
 
-#: Data/GUI/dasher.traditional.ui:65 Src/Gtk2/dasher_main.cpp:838
+#: Data/GUI/dasher.traditional.ui:65 Src/Gtk2/dasher_main.cpp:835
 msgid "Quit"
 msgstr "Irten"
 
@@ -445,7 +445,7 @@ msgstr "Eskaneatze-denbora menu moduan (0 ez eskaneatzeko)"
 
 #: Src/DasherCore/ButtonMode.cpp:30
 msgid "Number of forward boxes"
-msgstr ""
+msgstr "Aurreranzko kutxen kopurua"
 
 #: Src/DasherCore/ButtonMode.cpp:31
 msgid "Safety margin"
@@ -517,7 +517,7 @@ msgstr "Saguaren/begiradaren eta helburuaren arteko distantzia bertikala (400=pa
 
 #: Src/DasherCore/DefaultFilter.cpp:15
 msgid "Learn offset (previous) automatically, e.g. gazetrackers"
-msgstr ""
+msgstr "Ikasi desplazamendua (aurrekoa) automatikoki, adibidez begiradaren jarraipena"
 
 #: Src/DasherCore/DefaultFilter.cpp:16
 msgid ""
@@ -576,14 +576,14 @@ msgstr "Laguntza ematen dugunean, erakutsi helburuko esaldirako biderik laburren
 msgid ""
 "Warning: faulty alphabet definition: training-start delimiter %s must be a "
 "single unicode character. May be unable to process training file."
-msgstr ""
+msgstr "Abisua: alfabetoaren definizio akastuna: entrenamenduaren hasierako %s adierazleak unicode karaktere bakuna izan behar du Agian ezin da entrenamendu-fitxategia prozesatu"
 
 #: Src/DasherCore/MandarinAlphMgr.cpp:186
 #, c-format
 msgid ""
 "Warning: training file contains character '%s' as member of group '%s', but "
 "no group of that name contains the character; ignoring group specifier"
-msgstr ""
+msgstr "Abisua: entrenamendu-fitxategiak '%s' karakterea du '%s' taldearen kidetzat, baina ez dago karaktere hori duen izen horretako talderik; ez ikusiarena egiten talde-bereizleari"
 
 #: Src/DasherCore/MandarinAlphMgr.cpp:199
 #, c-format
@@ -591,7 +591,7 @@ msgid ""
 "Warning: training file contains character '%s' as member of group '%s', but "
 "no group of that name contains the character. Dasher will not be able to "
 "learn how you want to write this character."
-msgstr ""
+msgstr "Abisua: entrenamendu-fitxategiak '%s' karakterea du '%s' taldearen kidetzat, baina ez dago karaktere hori duen izen horretako talderik. Dasher aplikazioak ezin du ikasi nola idatzi nahi duzun karaktere hori."
 
 #: Src/DasherCore/MandarinAlphMgr.cpp:200 Src/DasherCore/RoutingAlphMgr.cpp:147
 #, c-format
@@ -599,14 +599,14 @@ msgid ""
 "Warning: training file contains character '%s' as member of group '%s', but "
 "alphabet contains several such groups. Dasher will not be able to learn how "
 "you want to write this character."
-msgstr ""
+msgstr "Abisua: entrenamendu-fitxategiak '%s' karakterea du '%s' taldearen kidetzat, baina alfabetoak horrelako talde anitz ditu. Dasher aplikazioak ezin du ikasi nola idatzi nahi duzun karaktere hori."
 
 #: Src/DasherCore/MandarinAlphMgr.cpp:220 Src/DasherCore/RoutingAlphMgr.cpp:164
 #, c-format
 msgid ""
 "Warning: in training file, annotation '<%s>' is followed by another "
 "annotation and will be ignored"
-msgstr ""
+msgstr "Abisua: entrenamendu-fitxategian, '<%s>' oharpenaren ondoren beste oharpen bat dago, ez ikusiarena egingo zaio azken horri"
 
 #: Src/DasherCore/MandarinAlphMgr.cpp:247
 #, c-format
@@ -618,8 +618,8 @@ msgid_plural ""
 "In file %s, the following %i symbols appeared without annotations saying how "
 "they should be entered, but each can be entered in several ways. Dasher will "
 "not be able to learn how you want to enter these symbols:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s fitxategian, %i ikurra nola sartu behar den adierazten duen oharpenik gabe ageri da, baina modu batean baino gehiagotan sartu daiteke. Dasher aplikazioak ezin du ikasi nola sartu nahi duzun ikur hori."
+msgstr[1] "%s fitxategian, %i ikurrak nola sartu behar diren adierazten duten oharpenik gabe ageri dira, baina modu batean baino gehiagotan sartu daitezke. Dasher aplikazioak ezin du ikasi nola sartu nahi dituzun ikur horiek:"
 
 #: Src/DasherCore/MandarinAlphMgr.cpp:251
 #, c-format
@@ -627,7 +627,7 @@ msgid ""
 "In file %s, the following %i symbols appeared without annotations saying how "
 "they should be entered, but each can be entered in several ways. Dasher will "
 "not be able to learn how you want to enter these symbols:"
-msgstr ""
+msgstr "%s fitxategian, hurrengo %i ikurrak nola sartu behar diren adierazten duten oharpenik gabe ageri dira, baina modu batean baino gehiagotan sartu daitezke. Dasher aplikazioak ezin du ikasi nola sartu nahi dituzun ikur horiek:"
 
 #: Src/DasherCore/NodeCreationManager.cpp:33
 msgid "Training on User Text"
@@ -651,14 +651,14 @@ msgid ""
 "No training text (user or system) found for \"%s\". Dasher will still work "
 "but entry will be slower. We suggest downloading a training text file from "
 "the Dasher website, or constructing your own."
-msgstr ""
+msgstr "Ez da entrenamendu-testurik (erabiltzailearena zein sistemakoa) aurkitu \"%s\" elementurako. Dasher aplikazioak funtzionatuko du, baina motelagoa izango da. Dasher-en webgunetik entrenamenduko testu-fitxategi bat deskargatzea edo berezko bat eraikitzea aholkatzen dugu."
 
 #: Src/DasherCore/NodeCreationManager.cpp:97
 #, c-format
 msgid ""
 "\"%s\" does not specify training file. Dasher will work but entry will be "
 "slower. Check you have the latest version of the alphabet definition."
-msgstr ""
+msgstr "\"%s\"(e)k ez du entrenamendu-fitxategirik zehaztu. Dasher aplikazioak funtzionatuko du, baina motelagoa izango da. Egiaztatu alfabeto-definizioaren azken bertsioa duzula."
 
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
 #: Src/DasherCore/OneButtonDynamicFilter.cpp:31
@@ -814,7 +814,7 @@ msgstr "Errorea socket-arekin lotzean - norbait erabiltzen ari al da?"
 #: Src/DasherCore/SocketInputBase.cpp:169
 #, c-format
 msgid "Warning truncating socket input label '%s' to %i characters."
-msgstr ""
+msgstr "Abisua socket-aren sarrerako  '%s' etiketa %i karakteretara moztean."
 
 #: Src/DasherCore/SocketInputBase.cpp:195
 msgid "Socket input: Error reading from socket"
@@ -844,7 +844,7 @@ msgstr "Estilo-kontrola"
 msgid ""
 "Warning: faulty alphabet definition, escape sequence %s must be a single "
 "unicode character. This may worsen Dasher's text prediction."
-msgstr ""
+msgstr "Abisua: alfabetoaren definizio akastuna, %s ihes-sekuentziak unicode karaktere bakuna izan behar du Horrek Dasher-en testu-iragarpena okertu dezake."
 
 #: Src/DasherCore/Trainer.cpp:101
 #, c-format
@@ -947,17 +947,17 @@ msgid "License"
 msgstr "Lizentzia"
 
 #: Src/Gtk2/dasher_editor.cpp:796 Src/Gtk2/dasher_editor.cpp:830
-#: Src/Gtk2/dasher_main.cpp:754
+#: Src/Gtk2/dasher_main.cpp:751
 msgid "Select File"
 msgstr "Hautatu fitxategia"
 
-#: Src/Gtk2/dasher_editor.cpp:799 Src/Gtk2/dasher_main.cpp:451
-#: Src/Gtk2/dasher_main.cpp:757
+#: Src/Gtk2/dasher_editor.cpp:799 Src/Gtk2/dasher_main.cpp:448
+#: Src/Gtk2/dasher_main.cpp:754
 msgid "_Open"
 msgstr "_Ireki"
 
 #: Src/Gtk2/dasher_editor.cpp:801 Src/Gtk2/dasher_editor.cpp:835
-#: Src/Gtk2/dasher_main.cpp:450 Src/Gtk2/dasher_main.cpp:758
+#: Src/Gtk2/dasher_main.cpp:447 Src/Gtk2/dasher_main.cpp:755
 msgid "_Cancel"
 msgstr "_Utzi"
 
@@ -975,39 +975,39 @@ msgstr "aukeraren ezarpenean \"=\" falta da"
 msgid "Invalid option string specified"
 msgstr "Baliogabeko aukeraren katea zehaztu da"
 
-#: Src/Gtk2/dasher_main.cpp:508
+#: Src/Gtk2/dasher_main.cpp:505
 msgid ""
 "Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering "
 "text in Dasher. Please select a training text to play with:"
-msgstr "Ongi etorri Dasher-aplikazioaren joko-modura. Modu hau Dasher-en testua sartzea praktikatzeko modu dibertigarria da. Hautatu zein entrenamendu-testurekin hasi nahi duzun:"
+msgstr "Ongi etorri Dasher aplikazioaren joko-modura. Modu hau Dasher-en testua sartzea praktikatzeko modu dibertigarria da. Hautatu zein entrenamendu-testurekin hasi nahi duzun:"
 
-#: Src/Gtk2/dasher_main.cpp:510
+#: Src/Gtk2/dasher_main.cpp:507
 msgid "Use Default"
 msgstr "Erabili lehenetsia"
 
-#: Src/Gtk2/dasher_main.cpp:511
+#: Src/Gtk2/dasher_main.cpp:508
 msgid "Choose File..."
 msgstr "Aukeratu fitxategia…"
 
-#: Src/Gtk2/dasher_main.cpp:512
+#: Src/Gtk2/dasher_main.cpp:509
 msgid "Cancel"
 msgstr "Utzi"
 
-#: Src/Gtk2/dasher_main.cpp:535
+#: Src/Gtk2/dasher_main.cpp:532
 msgid ""
 "Are you sure you wish to turn off game mode? All unsaved changes will be "
 "lost."
 msgstr "Ziur zaude joko-modua desaktibatu nahi duzula? Gorde gabeko aldaketa guztiak galduko dira."
 
-#: Src/Gtk2/dasher_main.cpp:537
+#: Src/Gtk2/dasher_main.cpp:534
 msgid "No"
 msgstr "Ez"
 
-#: Src/Gtk2/dasher_main.cpp:538
+#: Src/Gtk2/dasher_main.cpp:535
 msgid "Yes"
 msgstr "Bai"
 
-#: Src/Gtk2/dasher_main.cpp:800
+#: Src/Gtk2/dasher_main.cpp:797
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1017,7 +1017,7 @@ msgstr "Nahi duzu aldaketak %s(e)n gorde?\n"
 "\n"
 "Aldaketak galdu egingo dira ez badituzu gordetzen."
 
-#: Src/Gtk2/dasher_main.cpp:807
+#: Src/Gtk2/dasher_main.cpp:804
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1026,31 +1026,31 @@ msgstr "Aldaketak gorde nahi dituzu?\n"
 "\n"
 "Aldaketak galdu egingo dira ez badituzu gordetzen."
 
-#: Src/Gtk2/dasher_main.cpp:813
+#: Src/Gtk2/dasher_main.cpp:810
 msgid "Quit without saving"
 msgstr "Irten gorde gabe"
 
-#: Src/Gtk2/dasher_main.cpp:814 Src/Gtk2/dasher_main.cpp:837
+#: Src/Gtk2/dasher_main.cpp:811 Src/Gtk2/dasher_main.cpp:834
 msgid "Don't quit"
 msgstr "Ez irten"
 
-#: Src/Gtk2/dasher_main.cpp:815
+#: Src/Gtk2/dasher_main.cpp:812
 msgid "Save and quit"
 msgstr "Gorde eta irten"
 
-#: Src/Gtk2/dasher_main.cpp:834
+#: Src/Gtk2/dasher_main.cpp:831
 msgid "Are you sure you wish to quit?"
 msgstr "Ziur zaude irtetzea nahi duzula?"
 
-#: Src/Gtk2/dasher_main.cpp:880
+#: Src/Gtk2/dasher_main.cpp:877
 msgid "Unable to open help file"
 msgstr "Ezin da laguntzako fitxategia ireki"
 
-#: Src/Gtk2/dasher_main.cpp:931
+#: Src/Gtk2/dasher_main.cpp:928
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher sarrerako testu-aurresalearen aplikazio bat da"
 
-#: Src/Gtk2/dasher_main.cpp:936
+#: Src/Gtk2/dasher_main.cpp:933
 msgid "translator-credits"
 msgstr "Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>"
 
@@ -1089,37 +1089,37 @@ msgstr "Ekintza"
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
-#: Src/main.cc:141
+#: Src/main.cc:133
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr "Aplikazio-estiloa ('traditional' (tradizionala), 'direct' (zuzena), 'compose' (konposatua) edo 'fullscreen' (pantaila osoa))"
 
 #. Note to translators: This is the help string for "--options"
-#: Src/main.cc:143
+#: Src/main.cc:135
 msgid "Override stored options"
 msgstr "Gainidatzi gordetako aukerak"
 
-#: Src/main.cc:144
+#: Src/main.cc:136
 msgid "XML configuration file name"
 msgstr "Konfiguraziorako XML fitxategiaren izena"
 
 #. Note to translators: This is the help string for "--help-options"
-#: Src/main.cc:146
+#: Src/main.cc:138
 msgid "Describe \"--options\"."
 msgstr "Azaldu \"--options\"."
 
 #. Note to translators: This is the help string for "--version"
-#: Src/main.cc:148
+#: Src/main.cc:140
 msgid "Show the version details."
 msgstr "Erakutsi bertsioaren xehetasunak."
 
 #. parse command line options
 #. Note to translators: This is the "--help" description of dasher.
-#: Src/main.cc:154
+#: Src/main.cc:146
 msgid "- A text input application honouring accessibility"
 msgstr "- Testua idazteko aplikazioa erabilgarritasunerako"
 
 #. Note to translators: This is the help string for unrecognized command line options. Do not translate 'dasher --help' part.
-#: Src/main.cc:161
+#: Src/main.cc:153
 msgid "Try 'dasher --help' for more information."
 msgstr "Probatu 'dasher --help' informazio gehiago jasotzeko."
 
