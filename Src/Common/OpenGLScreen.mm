@@ -55,7 +55,7 @@ void OpenGLScreen::Display() {
 	}
   glDisableClientState(GL_TEXTURE_COORD_ARRAY);
   glDisableClientState(GL_VERTEX_ARRAY);
-	glFlush();
+  glFlush();
 }
 
 void OpenGLScreen::SetColourScheme(const CColourIO::ColourInfo *pColourScheme) {
@@ -111,7 +111,7 @@ void OpenGLScreen::Polygon(point *points, int iNum, int iFillColour, int iOutlin
     glVertexPointer(2, GL_SHORT, 0, coords);
     glDrawArrays(GL_LINE_LOOP, 0, iNum);
   }
-  delete coords;  
+  delete[] coords;
 }
 
 void OpenGLScreen::DrawRectangle(int x1, int y1, int x2, int y2, int iFillColorIndex, int iOutlineColour, int iThickness) {
