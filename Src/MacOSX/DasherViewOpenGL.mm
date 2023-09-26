@@ -270,6 +270,9 @@ private:
 
 - (void)reshape {
   NSSize sz=[self bounds].size;
+  // bounds is returned in pixels, but we need to work in 'points'. They differ for high-DPI retina displays.
+  sz = [self convertSizeToBacking:sz];
+  
   screenint w=sz.width,h=sz.height;
   [self gl_reshape:w :h];
   aquaDasherScreen->resize(w, h, tc_x, tc_y);
@@ -306,19 +309,38 @@ private:
   tc_x = w/(double)tw;
   tc_y = h/(double)th;
   
-  glViewport(0, 0, w, h);
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-//  glOrtho(0, w, 0, h, -1.0, 1.0);
-  glOrtho(0, w, h, 0, -1.0, 1.0);
-  glMatrixMode(GL_MODELVIEW);
-  glLoadIdentity();
+  for (int i=0; i<2; i++)
+  {
+    // Render scaling goes wrong on window size on recent macOS if we don't bind a framebuffer here.
+    // To be on the safe side we'll re-setup _both_ framebuffers.
+    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBuffers[i]);
+    
+    glViewport(0, 0, w, h);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    //  glOrtho(0, w, 0, h, -1.0, 1.0);
+    
+    glOrtho(0, w, h, 0, -1.0, 1.0);
+        
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+  }
 }
 
 - (NSPoint)mouseLocation {
-  NSPoint p = [[self window] mouseLocationOutsideOfEventStream];
-  return [self convertPoint:p fromView:nil];
+  NSPoint point = [[self window] mouseLocationOutsideOfEventStream];
+  
+  // y coordinate of view is flipped
+  point.y = self.bounds.size.height - point.y;
+
+  // adjust for retina displays
+  double scaleFactor = [[self window] backingScaleFactor];
+  point.x *= scaleFactor;
+  point.y *= scaleFactor;
+  
+  return point;
 }
+
 
 - (void)redisplay {
   [self setNeedsDisplay:YES];
