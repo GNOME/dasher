@@ -27,9 +27,10 @@ namespace Dasher {
       AlphabetLetter(OpenGLScreen *pScreen, const std::string &strText, unsigned int iWrapSize);
       ~AlphabetLetter();
       void PrepareTexture();
-    };    
+    };
+    double screenToOpenGLScaleFactor;
   public:
-    OpenGLScreen(screenint iWidth, screenint iHeight, GLshort backingWidth, GLshort backingHeight, GLfloat tc_x, GLfloat tc_y, GLuint *textures);
+    OpenGLScreen(screenint iWidth, screenint iHeight, GLshort backingWidth, GLshort backingHeight, GLfloat tc_x, GLfloat tc_y, GLuint *textures, double screenToOpenGLScaleFactor = 1.0);
     ~OpenGLScreen();
     
     ///Note, subclasses should override to additionally have buffers ready, etc.

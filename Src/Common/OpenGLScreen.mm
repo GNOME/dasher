@@ -15,8 +15,8 @@ using namespace std;
 
 #define BASE_SIZE 32
 
-OpenGLScreen::OpenGLScreen(screenint iWidth, screenint iHeight, GLshort backingWidth, GLshort backingHeight, GLfloat tc_x, GLfloat tc_y, GLuint *_textures)
-: CLabelListScreen(iWidth,iHeight), colourTable(NULL), circ_rad(-1.0f), circ_coords(NULL), circPoints(0), textures(_textures) {
+OpenGLScreen::OpenGLScreen(screenint iWidth, screenint iHeight, GLshort backingWidth, GLshort backingHeight, GLfloat tc_x, GLfloat tc_y, GLuint *_textures, double _screenToOpenGLScaleFactor)
+: CLabelListScreen(iWidth,iHeight), colourTable(NULL), circ_rad(-1.0f), circ_coords(NULL), circPoints(0), textures(_textures), screenToOpenGLScaleFactor(_screenToOpenGLScaleFactor) {
   resize(iWidth,iHeight,backingWidth,backingHeight,tc_x,tc_y);
 }
 
@@ -83,7 +83,7 @@ void OpenGLScreen::Polyline(point *Points, int iNum, int iWidth, int iColour) {
 	}
 	glDisable(GL_TEXTURE_2D);
 	glColor4f(colourTable[iColour].r, colourTable[iColour].g, colourTable[iColour].b, 1.0);
-	glLineWidth(iWidth);
+  glLineWidth(iWidth * screenToOpenGLScaleFactor);
   glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(2, GL_SHORT, 0, coords);
 	glDrawArrays(GL_LINE_STRIP, 0, iNum);
