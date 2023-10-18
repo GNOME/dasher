@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dasher/issues\n"
-"POT-Creation-Date: 2022-09-06 15:22+0000\n"
-"PO-Revision-Date: 2023-07-02 15:47+0300\n"
+"POT-Creation-Date: 2023-08-11 11:27+0000\n"
+"PO-Revision-Date: 2023-10-17 01:15+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4\n"
 "X-POOTLE-MTIME: 1426251530.000000\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
@@ -1020,7 +1020,7 @@ msgstr "_Aç"
 #: Src/Gtk2/dasher_editor.cpp:801 Src/Gtk2/dasher_editor.cpp:835
 #: Src/Gtk2/dasher_main.cpp:447 Src/Gtk2/dasher_main.cpp:755
 msgid "_Cancel"
-msgstr "_İptal"
+msgstr "İ_ptal"
 
 #: Src/Gtk2/dasher_editor.cpp:833
 msgid "_Save"
