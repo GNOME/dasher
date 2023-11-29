@@ -70,6 +70,8 @@
 - (IBAction)saveDoc:(id)sender;
 - (IBAction)saveDocAs:(id)sender;
 - (IBAction)revertToSaved:(id)sender;
+- (IBAction)onGameMode:(id)sender;
+- (IBAction)onDirectMode:(id)sender;
 
 @property (assign) DasherViewOpenGL *dasherView;
 

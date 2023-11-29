@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22155" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22155"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,13 +18,13 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="503" y="367" width="398" height="357"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1470" height="919"/>
             <value key="minSize" type="size" width="112" height="50"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="398" height="357"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="493">
+                    <popUpButton imageHugsTitle="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="493">
                         <rect key="frame" x="17" y="320" width="135" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" title="Item1" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="497" id="534">
@@ -68,16 +68,16 @@
                     <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="578">
                         <rect key="frame" x="0.0" y="304" width="399" height="54"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <clipView key="contentView" ambiguous="YES" id="EDU-XW-Ea0">
-                            <rect key="frame" x="1" y="1" width="382" height="52"/>
+                        <clipView key="contentView" id="EDU-XW-Ea0">
+                            <rect key="frame" x="1" y="1" width="397" height="52"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView ambiguous="YES" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" usesRuler="YES" allowsNonContiguousLayout="YES" spellingCorrection="YES" smartInsertDelete="YES" id="581" customClass="DasherTextView">
-                                    <rect key="frame" x="0.0" y="0.0" width="382" height="52"/>
+                                <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" usesRuler="YES" allowsNonContiguousLayout="YES" spellingCorrection="YES" smartInsertDelete="YES" id="581" customClass="DasherTextView">
+                                    <rect key="frame" x="0.0" y="0.0" width="397" height="52"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="382" height="52"/>
+                                    <size key="minSize" width="397" height="52"/>
                                     <size key="maxSize" width="463" height="10000000"/>
                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <connections>
@@ -87,12 +87,12 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="580">
+                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="580">
                             <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="579">
-                            <rect key="frame" x="383" y="1" width="15" height="52"/>
+                        <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="579">
+                            <rect key="frame" x="382" y="1" width="16" height="52"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <connections>
@@ -134,6 +134,7 @@
                             </menuItem>
                             <menuItem title="Direct Mode" keyEquivalent="d" id="536">
                                 <connections>
+                                    <action selector="onDirectMode:" target="226" id="cgt-fi-uNX"/>
                                     <binding destination="226" name="value" keyPath="directMode" id="566">
                                         <dictionary key="options">
                                             <integer key="NSAllowsEditingMultipleValuesSelection" value="0"/>
@@ -145,6 +146,7 @@
                             </menuItem>
                             <menuItem title="Game Mode" keyEquivalent="g" id="564">
                                 <connections>
+                                    <action selector="onGameMode:" target="226" id="n8S-Kx-jf2"/>
                                     <binding destination="226" name="value" keyPath="gameModeOn" id="565">
                                         <dictionary key="options">
                                             <integer key="NSAllowsEditingMultipleValuesSelection" value="0"/>
@@ -570,6 +572,7 @@
                 </menuItem>
                 <menuItem title="Direct Mode" keyEquivalent="d" id="567">
                     <connections>
+                        <action selector="onDirectMode:" target="226" id="mTc-0r-uDv"/>
                         <binding destination="226" name="value" keyPath="directMode" id="568">
                             <dictionary key="options">
                                 <integer key="NSAllowsEditingMultipleValuesSelection" value="0"/>
@@ -581,6 +584,7 @@
                 </menuItem>
                 <menuItem title="Game Mode" keyEquivalent="g" id="546">
                     <connections>
+                        <action selector="onGameMode:" target="226" id="ljR-bR-sif"/>
                         <binding destination="226" name="value" keyPath="gameModeOn" id="554">
                             <dictionary key="options">
                                 <integer key="NSAllowsEditingMultipleValuesSelection" value="0"/>
@@ -591,6 +595,7 @@
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="-37" y="535"/>
         </menu>
         <userDefaultsController representsSharedInstance="YES" id="540"/>
     </objects>

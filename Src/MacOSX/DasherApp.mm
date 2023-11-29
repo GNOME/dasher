@@ -407,4 +407,13 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
   return textView;
 }
 
+- (IBAction)onGameMode:(id)sender {
+    
+}
+
+- (IBAction)onDirectMode:(id)sender {
+    
+}
+
+
 @end
