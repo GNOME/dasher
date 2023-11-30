@@ -222,6 +222,137 @@ KeycodeToUnicodeViaUnicodeResource(
   return actuallength;
 }
 
+/*
+ *----------------------------------------------------------------------
+ *
+ * KeycodeToUnicodeViaKCHRResource --
+ *
+ *        Given MacOS key event data this function generates the Unicode
+ *        characters.  It does this using a 'KCHR' and the KeyTranslate API.
+ *
+ *        The parameter deadKeyStatePtr can be NULL, if no deadkey handling
+ *        is needed.
+ *
+ * Results:
+ *        The number of characters generated if any, 0 if we are waiting for
+ *        another byte of a dead-key sequence. Fills in the uniChars array
+ *        with a Unicode string.
+ *
+ * Side Effects:
+ *        None
+ *
+ *----------------------------------------------------------------------
+ */
+
+static int
+KeycodeToUnicodeViaKCHRResource(
+                                UniChar * uniChars, int maxChars,
+                                Ptr kchr, TextEncoding encoding,
+                                EventKind eKind,
+                                UInt32 keycode, UInt32 modifiers,
+                                UInt32 * deadKeyStatePtr)
+{
+  UInt32 result;
+  char macBuff[3];
+  char * macStr;
+  int macStrLen;
+  UInt32 dummy_state = 0;
+  
+  
+  if (NULL == deadKeyStatePtr) {
+    deadKeyStatePtr = &dummy_state;
+  }
+  
+  keycode |= modifiers;
+  result = KeyTranslate(kchr, keycode, deadKeyStatePtr);
+  
+  if ((0 == result) && (0 != dummy_state)) {
+    /*
+     * 'dummy_state' gets only filled if the caller did not want deadkey
+     * processing (deadKeyStatePtr was NULL originally), but we still
+     * have a deadkey.  We just push the keycode for the space bar to get
+     * the real key value.
+     */
+    
+    result = KeyTranslate(kchr, 0x31, deadKeyStatePtr);
+    *deadKeyStatePtr = 0;
+  }
+  
+  if ((0 == result) && (0 != *deadKeyStatePtr)) {
+    /*
+     * More data later
+     */
+    
+    return 0; 
+  }
+  
+  macBuff[0] = (char) (result >> 16);
+  macBuff[1] = (char)  result;
+  macBuff[2] = 0;
+  
+  if (0 != macBuff[0]) {
+    /*
+     * If the first byte is valid, the second is too
+     */
+    
+    macStr = macBuff;
+    macStrLen = 2;
+  } else if (0 != macBuff[1]) {
+    /*
+     * Only the second is valid
+     */
+    
+    macStr = macBuff+1;
+    macStrLen = 1;
+  } else {
+    /*
+     * No valid bytes at all -- shouldn't happen
+     */
+    
+    macStr = NULL;
+    macStrLen = 0;
+  }
+  
+  if (macStrLen <= 0) {
+    return 0;
+  } else {
+    
+    /*
+     * Use the CFString conversion routines.  This is the easiest and
+     * most compatible way to get from an 8-bit string and a MacOS script
+     * code to a Unicode string.
+     *
+     * FIXME: The system ships with an Irish 'KCHR' but without the
+     * corresponding macCeltic encoding, which triggers the error below.
+     * Tcl doesn't have the macCeltic encoding either right now, so until
+     * we get that, we can just as well stick to this code.  The right
+     * fix would be to use the Tcl encodings and add macCeltic and
+     * probably others there.  Suitable Unicode data files for the
+     * missing encodings are available from www.evertype.com.
+     */
+    
+    CFStringRef cfString;
+    int uniStrLen;
+    
+    cfString = CFStringCreateWithCStringNoCopy(
+                                               NULL, macStr, encoding, kCFAllocatorNull);
+    if (cfString == NULL) {
+      fprintf(stderr, "CFString: Can't convert with encoding %d\n",
+              (int) encoding);
+      return 0;
+    }
+    
+    uniStrLen = CFStringGetLength(cfString);
+    if (uniStrLen > maxChars) {
+      uniStrLen = maxChars;
+    }
+    CFStringGetCharacters(cfString, CFRangeMake(0,uniStrLen), uniChars);
+    CFRelease(cfString);
+    
+    return uniStrLen;
+  }
+}
+
 
 /*
  *----------------------------------------------------------------------
@@ -351,30 +482,73 @@ GetKeyboardLayout (Ptr * resourcePtr, TextEncoding * encodingPtr)
     KLSInit();
   }
   
-  /*
-   * Use the Keyboard Layout Services (these functions only exist since
-                                       * 10.2).
-   */
-  
-  (*KLGetCurrentKeyboardLayoutPtr)(&currentLayout);
-  
-  if (currentLayout != NULL) {
+  if (KLGetCurrentKeyboardLayoutPtr != NULL) {
     
     /*
-     * The layout pointer could in theory be the same for different
-     * layouts, only the id gives us the information that the
-     * keyboard has actually changed.  OTOH the layout object can
-     * also change and it could still be the same layoutid.
+     * Use the Keyboard Layout Services (these functions only exist since
+                                         * 10.2).
      */
     
-    (*KLGetKeyboardLayoutPropertyPtr)(currentLayout, kKLIdentifier,
-                                      (const void**)&currentLayoutId);
+    (*KLGetCurrentKeyboardLayoutPtr)(&currentLayout);
     
-    if ((lastLayout != currentLayout)
-        || (lastLayoutId != currentLayoutId)) {
+    if (currentLayout != NULL) {
+      
+      /*
+       * The layout pointer could in theory be the same for different
+       * layouts, only the id gives us the information that the
+       * keyboard has actually changed.  OTOH the layout object can
+       * also change and it could still be the same layoutid.
+       */
+      
+      (*KLGetKeyboardLayoutPropertyPtr)(currentLayout, kKLIdentifier,
+                                        (const void**)&currentLayoutId);
+      
+      if ((lastLayout != currentLayout)
+          || (lastLayoutId != currentLayoutId)) {
+        
+#ifdef TK_MAC_DEBUG
+        fprintf (stderr, "GetKeyboardLayout(): Use KLS\n");
+#endif
+        
+        hasLayoutChanged = true;
+        
+        /*
+         * Reinitialize all relevant variables.
+         */
+        
+        lastLayout = currentLayout;
+        lastLayoutId = currentLayoutId;
+        uchr = NULL;
+        KCHR = NULL;
+        
+        if (((*KLGetKeyboardLayoutPropertyPtr)(currentLayout,
+                                               kKLuchrData, (const void**)&uchr)
+             == noErr)
+            && (uchr != NULL)) {
+          /* done */
+        } else if (((*KLGetKeyboardLayoutPropertyPtr)(currentLayout,
+                                                      kKLKCHRData, (const void**)&KCHR)
+                    == noErr)
+                   && (KCHR != NULL)) {
+          /* done */
+        }
+      }
+    }
+    
+  } else {
+    
+    /*
+     * Use the classic approach as shown in Apple code samples, loading
+     * the keyboard resources directly.  This is broken for 10.3 and
+     * possibly already in 10.2.
+     */
+    
+    currentLayoutId = GetScriptVariable(currentKeyScript,smKeyScript);
+    
+    if ((lastLayout == NULL) || (lastLayoutId != currentLayoutId)) {
       
 #ifdef TK_MAC_DEBUG
-      fprintf (stderr, "GetKeyboardLayout(): Use KLS\n");
+      fprintf (stderr, "GetKeyboardLayout(): Use GetResource()\n");
 #endif
       
       hasLayoutChanged = true;
@@ -383,21 +557,25 @@ GetKeyboardLayout (Ptr * resourcePtr, TextEncoding * encodingPtr)
        * Reinitialize all relevant variables.
        */
       
-      lastLayout = currentLayout;
+      lastLayout = (KeyboardLayoutRef)-1; 
       lastLayoutId = currentLayoutId;
       uchr = NULL;
       KCHR = NULL;
       
-      if (((*KLGetKeyboardLayoutPropertyPtr)(currentLayout,
-                                             kKLuchrData, (const void**)&uchr)
-           == noErr)
-          && (uchr != NULL)) {
-        /* done */
-      } else if (((*KLGetKeyboardLayoutPropertyPtr)(currentLayout,
-                                                    kKLKCHRData, (const void**)&KCHR)
-                  == noErr)
-                 && (KCHR != NULL)) {
-        /* done */
+      /*
+       * Get the new layout resource in the classic way.
+       */
+      
+      if (handle != NULL) {
+        HUnlock(handle);
+      }
+      
+      if ((handle = GetResource('uchr',currentLayoutId)) != NULL) {
+        HLock(handle);
+        uchr = *handle;
+      } else if ((handle = GetResource('KCHR',currentLayoutId)) != NULL) {
+        HLock(handle);
+        KCHR = *handle;
       }
     }
   }
@@ -495,8 +673,9 @@ TkMacOSXKeycodeToUnicode(
                                              uniChars, maxChars, resource, eKind,
                                              keycode, modifiers, deadKeyStatePtr);
   } else {
-    fprintf (stderr, "Unsupported legacy KCHR keyboard resource");
-    return -1; // Not sure what is best here. This shouldn't happen on MacOS > 10.2 (released 2002)
+    len = KeycodeToUnicodeViaKCHRResource(
+                                          uniChars, maxChars, resource, encoding, eKind,
+                                          keycode, modifiers, deadKeyStatePtr);
   }
   
   return len;
