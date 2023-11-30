@@ -11,6 +11,11 @@
  * I've modified it to take out the tk related stuff, leaving only the Mac Keyboard stuff.  I've kept
  * the original names of the functions because there seemed to be equal arguments for keeping them
  * as for changing them.
+ 
+ * Update November 2023: Further hacked to remove calls to defunct library methods. Amazingly the code seems to fallback
+ * to alternative methods that work adequately. Ideally this whole file needs to be removed/replaced with
+ * an up to date alternative.
+
  *
  * As requested, the original copyright notice is reproduced here:
  */
@@ -264,7 +269,8 @@ KeycodeToUnicodeViaKCHRResource(
   }
   
   keycode |= modifiers;
-  result = KeyTranslate(kchr, keycode, deadKeyStatePtr);
+// KeyTranslate no longer exists. This code path was not being called on systems I tested Nov 2023.
+//  result = KeyTranslate(kchr, keycode, deadKeyStatePtr);
   
   if ((0 == result) && (0 != dummy_state)) {
     /*
@@ -273,8 +279,8 @@ KeycodeToUnicodeViaKCHRResource(
      * have a deadkey.  We just push the keycode for the space bar to get
      * the real key value.
      */
-    
-    result = KeyTranslate(kchr, 0x31, deadKeyStatePtr);
+// KeyTranslate no longer exists. This code path was not being called on systems I tested Nov 2023.
+//    result = KeyTranslate(kchr, 0x31, deadKeyStatePtr);
     *deadKeyStatePtr = 0;
   }
   
@@ -487,6 +493,7 @@ GetKeyboardLayout (Ptr * resourcePtr, TextEncoding * encodingPtr)
     /*
      * Use the Keyboard Layout Services (these functions only exist since
                                          * 10.2).
+       (But no longer seem to exist (macOS 13.5), Nov 2023)
      */
     
     (*KLGetCurrentKeyboardLayoutPtr)(&currentLayout);
@@ -542,8 +549,9 @@ GetKeyboardLayout (Ptr * resourcePtr, TextEncoding * encodingPtr)
      * the keyboard resources directly.  This is broken for 10.3 and
      * possibly already in 10.2.
      */
-    
-    currentLayoutId = GetScriptVariable(currentKeyScript,smKeyScript);
+
+    // Nov 2023: This call is to a defunct method. Leaving currentLayoutId zero seems to work, empirically.
+//    currentLayoutId = GetScriptVariable(currentKeyScript,smKeyScript);
     
     if ((lastLayout == NULL) || (lastLayoutId != currentLayoutId)) {
       
