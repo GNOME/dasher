@@ -27,8 +27,8 @@
 class COSXDasherScreen : public OpenGLScreen {
   DasherViewOpenGL *dasherView;
 public:
-  COSXDasherScreen(DasherViewOpenGL *_dasherView,screenint iWidth, screenint iHeight, GLfloat tc_x, GLfloat tc_y, GLuint *textures)
-  : OpenGLScreen(iWidth, iHeight, iWidth, iHeight,tc_x,tc_y,textures), dasherView(_dasherView) {
+  COSXDasherScreen(DasherViewOpenGL *_dasherView,screenint iWidth, screenint iHeight, GLfloat tc_x, GLfloat tc_y, GLuint *textures, double screenToOpenGLScaleFactor)
+  : OpenGLScreen(iWidth, iHeight, iWidth, iHeight,tc_x,tc_y,textures,screenToOpenGLScaleFactor), dasherView(_dasherView) {
     RegenerateLabels(); //no actual labels, so just initialize fontAttrs
   }
     
@@ -52,6 +52,7 @@ public:
   bool IsWindowUnderCursor() override { return YES; }
 protected:
   void RenderStringOntoCGContext(NSString *string, CGContextRef context, unsigned int iFontSize, bool bWrap) {
+    iFontSize *= screenToOpenGLScaleFactor;
     NSGraphicsContext *old = [NSGraphicsContext currentContext];
     [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:context flipped:YES]];
 
@@ -68,6 +69,7 @@ protected:
   }
   
   CGSize TextSize(NSString *str, unsigned int iFontSize, bool bWrap) {
+    iFontSize *= screenToOpenGLScaleFactor;
     NSDictionary *attrs =[NSDictionary dictionaryWithObject:(Font(iFontSize)) forKey:NSFontAttributeName];
     return NSSizeToCGSize(bWrap ? ([str boundingRectWithSize:NSMakeSize(GetWidth(), CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs].size) : ([str sizeWithAttributes:attrs]));
   }
@@ -187,7 +189,8 @@ private:
 //  }
   
   if (self = [super initWithFrame:aFrame pixelFormat:pixFmt]) {
-        // init open gl
+    // init open gl
+    self.wantsBestResolutionOpenGLSurface = YES;
     [self gl_init];
     [self setFrameSize:aFrame.size];
     //note these give us framebuffer _references_...
@@ -240,7 +243,10 @@ private:
   self.cachedFontName=[[NSUserDefaults standardUserDefaults] objectForKey:@"DasherFont"];
 
   NSSize sz = [self bounds].size;
-  aquaDasherScreen = new COSXDasherScreen(self, sz.width, sz.height, tc_x, tc_y, textures);
+  sz = [self convertSizeToBacking:sz];
+  
+  double screenUnitsToOpenGLUnitsScaleFactor = [[self window] backingScaleFactor];
+  aquaDasherScreen = new COSXDasherScreen(self, sz.width, sz.height, tc_x, tc_y, textures, screenUnitsToOpenGLUnitsScaleFactor);
   [dasherApp changeScreen:aquaDasherScreen];
   
   [self adjustTrackingRect];
@@ -270,6 +276,9 @@ private:
 
 - (void)reshape {
   NSSize sz=[self bounds].size;
+  // bounds is returned in pixels, but we need to work in 'points'. They differ for high-DPI retina displays.
+  sz = [self convertSizeToBacking:sz];
+  
   screenint w=sz.width,h=sz.height;
   [self gl_reshape:w :h];
   aquaDasherScreen->resize(w, h, tc_x, tc_y);
@@ -306,19 +315,38 @@ private:
   tc_x = w/(double)tw;
   tc_y = h/(double)th;
   
-  glViewport(0, 0, w, h);
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-//  glOrtho(0, w, 0, h, -1.0, 1.0);
-  glOrtho(0, w, h, 0, -1.0, 1.0);
-  glMatrixMode(GL_MODELVIEW);
-  glLoadIdentity();
+  for (int i=0; i<2; i++)
+  {
+    // Render scaling goes wrong on window size on recent macOS if we don't bind a framebuffer here.
+    // To be on the safe side we'll re-setup _both_ framebuffers.
+    glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBuffers[i]);
+    
+    glViewport(0, 0, w, h);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    //  glOrtho(0, w, 0, h, -1.0, 1.0);
+    
+    glOrtho(0, w, h, 0, -1.0, 1.0);
+        
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+  }
 }
 
 - (NSPoint)mouseLocation {
-  NSPoint p = [[self window] mouseLocationOutsideOfEventStream];
-  return [self convertPoint:p fromView:nil];
+  NSPoint point = [[self window] mouseLocationOutsideOfEventStream];
+  
+  // y coordinate of view is flipped
+  point.y = self.bounds.size.height - point.y;
+
+  // adjust for retina displays
+  double scaleFactor = [[self window] backingScaleFactor];
+  point.x *= scaleFactor;
+  point.y *= scaleFactor;
+  
+  return point;
 }
+
 
 - (void)redisplay {
   [self setNeedsDisplay:YES];
