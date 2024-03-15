@@ -1297,13 +1297,13 @@
         (<email>dasher@inf.phy.cam.ac.uk</email>). To find more information about it, please visit
         <application>Dasher's</application>
       <ulink url="http://www.inference.phy.cam.ac.uk/dasher/" type="http">Web page</ulink>. Please
-      send all comments, suggestions, and bug reports to the <ulink url="http://bugzilla.gnome.org/enter_bug.cgi?product=dasher"
+      send all comments, suggestions, and bug reports to the <ulink url="https://gitlab.gnome.org/GNOME/dasher/-/issues/"
         type="http">GNOME bug tracking database</ulink>. Instructions for submitting bug reports can
-      be found on-line at <ulink url="http://bugzilla.gnome.org/page.cgi?id=bug-writing.html" type="http">
-        http://bugzilla.gnome.org/page.cgi?id=bug-writing.html</ulink>. If you are using GNOME 1.1 or later, you can
-      also use command <command>bug-buddy</command> for submitting bug reports.</para>
+      be found on-line at <ulink url="https://handbook.gnome.org/issues/reporting.html" type="http">
+        https://handbook.gnome.org/issues/reporting.html</ulink>.</para>
     <para> This manual was written by The Dasher Project (<email>dasher@inf.phy.cam.ac.uk</email>).
-      Please send all comments and suggestions regarding the manual to the GNOME Documentation
-      Project at <email>gnome-doc-list@gnome.org</email>.</para>
+      Please send all comments and suggestions regarding the manual to the
+        <ulink url="https://gitlab.gnome.org/GNOME/dasher/-/issues/" type="http">GNOME bug tracking
+        database</ulink>.</para>
   </sect1>
 </article>
