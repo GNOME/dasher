@@ -1,24 +1,24 @@
 # Dasher help swedish translation
-# Copyright © 2006-2020 Dasher's COPYRIGHT HOLDER
+# Copyright © 2006-2024 Dasher's COPYRIGHT HOLDER
 # This file is distributed under the same license as the dasher package.
 #
 # Translators:
 # Daniel Nylander <po@danielnylander.se>, 2006, 2009.
 # Josef Andersson <l10nl18nsweja@gmail.com>, 2017.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2020.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2020, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
-"POT-Creation-Date: 2020-08-19 10:33+0000\n"
-"PO-Revision-Date: 2020-12-07 22:25+0100\n"
+"POT-Creation-Date: 2024-03-15 08:37+0000\n"
+"PO-Revision-Date: 2024-03-15 11:08+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -117,8 +117,8 @@ msgid ""
 "Dasher is an accessible text entry application that uses pointing gestures "
 "rather than typing. It is designed to be fast while fun to use."
 msgstr ""
-"Dasher är ett hjälpmedelsprogram för textinmatning som använder pekgester "
-"istället för att skriva på tangentbord. Det är designat till att vara snabbt "
+"Dasher är ett hjälpmedelsprogram för textinmatning som använder pekgester i "
+"stället för att skriva på tangentbord. Det är designat till att vara snabbt "
 "men samtidigt roligt att använda."
 
 #. (itstool) path: revhistory/revision
@@ -412,8 +412,9 @@ msgstr ""
 #: C/dasher.xml:161
 msgid ""
 "It's quite hard to convey in words what Dasher looks like, so please visit "
-"<ulink url=\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http"
-"\">http://www.inference.phy.cam.ac.uk/dasher/</ulink> to see movies."
+"<ulink url=\"http://www.inference.phy.cam.ac.uk/dasher/\" "
+"type=\"http\">http://www.inference.phy.cam.ac.uk/dasher/</ulink> to see "
+"movies."
 msgstr ""
 "Det är ganska svårt att beskriva hur Dasher ser ut med ord, så besök <ulink "
 "url=\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\">http://www."
@@ -476,7 +477,6 @@ msgstr "Alla böckers bibliotek."
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
 #: C/dasher.xml:188 C/dasher.xml:232
-#| msgid "@@image: 'figures/a-z.gif'; md5=0df765cb06d1873c4b77ccfa2aec273a"
 msgctxt "_"
 msgid "external ref='figures/a-z.gif' md5='0df765cb06d1873c4b77ccfa2aec273a'"
 msgstr "external ref='figures/a-z.gif' md5='0df765cb06d1873c4b77ccfa2aec273a'"
@@ -487,7 +487,6 @@ msgstr "external ref='figures/a-z.gif' md5='0df765cb06d1873c4b77ccfa2aec273a'"
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
 #: C/dasher.xml:191 C/dasher.xml:235
-#| msgid "@@image: 'figures/aa-az.gif'; md5=499378b5a346d9a1fff3317ed7bca624"
 msgctxt "_"
 msgid "external ref='figures/aa-az.gif' md5='499378b5a346d9a1fff3317ed7bca624'"
 msgstr ""
@@ -499,7 +498,6 @@ msgstr ""
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
 #: C/dasher.xml:194 C/dasher.xml:238
-#| msgid "@@image: 'figures/ala-alz.gif'; md5=c1d38e5e5cd6234737ff5e80c8120416"
 msgctxt "_"
 msgid ""
 "external ref='figures/ala-alz.gif' md5='c1d38e5e5cd6234737ff5e80c8120416'"
@@ -603,7 +601,6 @@ msgstr "Skriva ”objection” i Dasher."
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
 #: C/dasher.xml:263
-#| msgid "@@image: 'figures/object.gif'; md5=f961ced3b16182985421dba58cbb130d"
 msgctxt "_"
 msgid ""
 "external ref='figures/object.gif' md5='f961ced3b16182985421dba58cbb130d'"
@@ -647,7 +644,7 @@ msgstr ""
 "kommer det att gå snabbt. Det är som att köra en bil. Du bör <emphasis>börja "
 "med att köra försiktigt</emphasis>. Om du inte kan avgöra vart du ska, "
 "<emphasis>sluta kör</emphasis>. Du kommer förmodligen lära dig Dasher "
-"snabbast om du kommer till det med bilförarliknelser i åtanke istället för "
+"snabbast om du kommer till det med bilförarliknelser i åtanke i stället för "
 "vanliga datoranvändarliknelser. Exempelvis fungerar navigeringen inte genom "
 "att DRA men genom att STYRA: om bilar fungerade som Windows-datorer skulle "
 "du behöva <quote>ta tag i</quote> vägdelen du ville ha, och sedan "
@@ -771,8 +768,6 @@ msgstr ""
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
 #: C/dasher.xml:339
-#| msgid ""
-#| "@@image: 'figures/exampleHad2.png'; md5=c3a7c8f985519a90d739117aa4e1e064"
 msgctxt "_"
 msgid ""
 "external ref='figures/exampleHad2.png' md5='c3a7c8f985519a90d739117aa4e1e064'"
@@ -821,8 +816,6 @@ msgstr ""
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
 #: C/dasher.xml:357
-#| msgid ""
-#| "@@image: 'figures/exampleHad2a.png'; md5=1d124560d223498f876122bcd85afaac"
 msgctxt "_"
 msgid ""
 "external ref='figures/exampleHad2a.png' "
@@ -842,9 +835,9 @@ msgid ""
 msgstr ""
 "Ett vanligt nybörjarfel är att fortsätta framåt och inte markera "
 "<emphasis>några</emphasis> av dessa bokstäver <computeroutput>d</"
-"computeroutput> och zooma in i dem. Exempelvis visar <xref linkend="
-"\"figHad3\"/> vad som händer om användaren zoomar mot <computeroutput>d</"
-"computeroutput> markerat i <xref linkend=\"figHad2\"/>."
+"computeroutput> och zooma in i dem. Exempelvis visar <xref "
+"linkend=\"figHad3\"/> vad som händer om användaren zoomar mot "
+"<computeroutput>d</computeroutput> markerat i <xref linkend=\"figHad2\"/>."
 
 #. (itstool) path: figure/title
 #: C/dasher.xml:366
@@ -858,8 +851,6 @@ msgstr "Vad händer när du väljer fel <computeroutput>d</computeroutput>"
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
 #: C/dasher.xml:369
-#| msgid ""
-#| "@@image: 'figures/exampleHad3a.png'; md5=0bcd661209391842cf47f00b767146b3"
 msgctxt "_"
 msgid ""
 "external ref='figures/exampleHad3a.png' "
@@ -874,8 +865,8 @@ msgid ""
 "If you go in this <computeroutput>d</computeroutput>, you are writing "
 "`<computeroutput>I once </computeroutput><emphasis>head</"
 "emphasis><computeroutput>...</computeroutput>'. The other two "
-"<computeroutput>d</computeroutput>s labelled by red arrows (in <xref linkend="
-"\"figHad1\"/>) correspond to writing `<computeroutput>I once </"
+"<computeroutput>d</computeroutput>s labelled by red arrows (in <xref "
+"linkend=\"figHad1\"/>) correspond to writing `<computeroutput>I once </"
 "computeroutput><emphasis>heard</emphasis><computeroutput>...</"
 "computeroutput>' and `<computeroutput>I once </"
 "computeroutput><emphasis>hedge</emphasis><computeroutput>...</"
@@ -929,8 +920,6 @@ msgstr ""
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
 #: C/dasher.xml:398
-#| msgid ""
-#| "@@image: 'figures/exampleHad4.png'; md5=9974616612b5c811cb2c161093c8523c"
 msgctxt "_"
 msgid ""
 "external ref='figures/exampleHad4.png' md5='9974616612b5c811cb2c161093c8523c'"
@@ -943,8 +932,9 @@ msgid ""
 "If you ever leave that blue box (as we did in <xref linkend=\"figHad3\"/>) "
 "then we lose the letter `<computeroutput>a</computeroutput>'."
 msgstr ""
-"Om du någonsin lämnar den blå rutan (som vi gjorde i <xref linkend="
-"\"figHad3\"/>) så förlorar vi bokstaven ”<computeroutput>a</computeroutput>”."
+"Om du någonsin lämnar den blå rutan (som vi gjorde i <xref "
+"linkend=\"figHad3\"/>) så förlorar vi bokstaven ”<computeroutput>a</"
+"computeroutput>”."
 
 #. (itstool) path: sect2/title
 #: C/dasher.xml:408
@@ -1419,8 +1409,8 @@ msgid ""
 msgstr ""
 "Dessa färger används för att färglägga flera objekt i Dasher. Om du till "
 "exempel vill ändra färgen för den <quote>röda raden</quote>;, ändra den "
-"andra färgraden i färgfilen, som innehåller <computeroutput>&lt;colour r="
-"\"255\" g=\"0\" b=\"0\"/&gt;</computeroutput>."
+"andra färgraden i färgfilen, som innehåller <computeroutput>&lt;colour "
+"r=\"255\" g=\"0\" b=\"0\"/&gt;</computeroutput>."
 
 #. (itstool) path: sect2/para
 #: C/dasher.xml:899
@@ -1828,7 +1818,7 @@ msgid ""
 "option can be configured in the 'Input Device' section of the 'preferences' "
 "dialogue."
 msgstr ""
-"<emphasis>Teknisk kommentar:</emphasis> Så väl som genom musemulering kan "
+"<emphasis>Teknisk kommentar:</emphasis> Förutom genom musemulering kan "
 "Dasher ta hand om spårningsinformation från ögonspårning, huvudspårning "
 "eller liknande system direkt genom ett systemuttag (socket). Detta "
 "alternativ kan konfigureras i avsnittet ”Inmatningsenhet” i dialogen "
@@ -1869,11 +1859,11 @@ msgstr ""
 #. (itstool) path: sect3/para
 #: C/dasher.xml:1086
 msgid ""
-"If time-critical gestures are not an option, go to <xref linkend="
-"\"no_time_critical\"/>."
+"If time-critical gestures are not an option, go to <xref "
+"linkend=\"no_time_critical\"/>."
 msgstr ""
-"Om tidskritiska gester inte är ett alternativ, gå till <xref linkend="
-"\"no_time_critical\"/>."
+"Om tidskritiska gester inte är ett alternativ, gå till <xref "
+"linkend=\"no_time_critical\"/>."
 
 #. (itstool) path: sect3/para
 #: C/dasher.xml:1088
@@ -1882,8 +1872,8 @@ msgid ""
 "timed</emphasis> gestures, go to section <xref linkend=\"timed\"/>."
 msgstr ""
 "Om du <emphasis>kan</emphasis> förmedla information genom gester vid "
-"<emphasis>precisa tidpunkter</emphasis>, gå till avsnittet <xref linkend="
-"\"timed\"/>."
+"<emphasis>precisa tidpunkter</emphasis>, gå till avsnittet <xref "
+"linkend=\"timed\"/>."
 
 #. (itstool) path: sect2/title
 #: C/dasher.xml:1093
@@ -1893,11 +1883,11 @@ msgstr "”Tidlösa” val i Dasher"
 #. (itstool) path: listitem/para
 #: C/dasher.xml:1099
 msgid ""
-"If so, try <emphasis>click mode</emphasis>. Go to <xref linkend="
-"\"time_critical_button\"/>."
+"If so, try <emphasis>click mode</emphasis>. Go to <xref "
+"linkend=\"time_critical_button\"/>."
 msgstr ""
-"I så fall, prova <emphasis>klickläge</emphasis>. Gå till <xref linkend="
-"\"time_critical_button\"/>."
+"I så fall, prova <emphasis>klickläge</emphasis>. Gå till <xref "
+"linkend=\"time_critical_button\"/>."
 
 #. (itstool) path: listitem/para
 #: C/dasher.xml:1103
@@ -1906,8 +1896,8 @@ msgid ""
 "button mode</emphasis>. Go to <xref linkend=\"no_time_critical_button\"/>."
 msgstr ""
 "Prova annars <emphasis>direktknappläge</emphasis> eller "
-"<emphasis>menyknappsläge</emphasis>. Gå till <xref linkend="
-"\"no_time_critical_button\"/>."
+"<emphasis>menyknappsläge</emphasis>. Gå till <xref "
+"linkend=\"no_time_critical_button\"/>."
 
 #. (itstool) path: sect2/para
 #: C/dasher.xml:1094
@@ -2249,7 +2239,7 @@ msgid ""
 "each button rather than being selected in sequence."
 msgstr ""
 "Direktläge liknar menyläge, förutom att rutor tilldelas till varje knapp "
-"direkt istället för att väljas i sekvens."
+"direkt i stället för att väljas i sekvens."
 
 #. (itstool) path: sect2/title
 #: C/dasher.xml:1263
@@ -2318,39 +2308,37 @@ msgstr "Upphovsmän"
 msgid ""
 "<application>Dasher</application> was written by the members of The Dasher "
 "Project (<email>dasher@inf.phy.cam.ac.uk</email>). To find more information "
-"about it, please visit <application>Dasher's</application> <ulink url="
-"\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\">Web page</"
+"about it, please visit <application>Dasher's</application> <ulink "
+"url=\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\">Web page</"
 "ulink>. Please send all comments, suggestions, and bug reports to the <ulink "
-"url=\"http://bugzilla.gnome.org/enter_bug.cgi?product=dasher\" type=\"http"
-"\">GNOME bug tracking database</ulink>. Instructions for submitting bug "
-"reports can be found on-line at <ulink url=\"http://bugzilla.gnome.org/page."
-"cgi?id=bug-writing.html\" type=\"http\"> http://bugzilla.gnome.org/page.cgi?"
-"id=bug-writing.html</ulink>. If you are using GNOME 1.1 or later, you can "
-"also use command <command>bug-buddy</command> for submitting bug reports."
+"url=\"https://gitlab.gnome.org/GNOME/dasher/-/issues/\" type=\"http\">GNOME "
+"bug tracking database</ulink>. Instructions for submitting bug reports can "
+"be found on-line at <ulink url=\"https://handbook.gnome.org/issues/reporting."
+"html\" type=\"http\"> https://handbook.gnome.org/issues/reporting.html</"
+"ulink>."
 msgstr ""
 "<application>Dasher</application> skapades av medlemmarna i Dasher-projektet "
 "(<email>dasher@inf.phy.cam.ac.uk</email>). För att få mer information besök "
 "<application>Dashers</application> <ulink url=\"http://www.inference.phy.cam."
 "ac.uk/dasher/\" type=\"http\">webbplats</ulink>. Skicka kommentarer, förslag "
-"och felrapporter till <ulink url=\"http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=dasher\" type=\"http\">GNOME:s felrapporteringsdatabas</ulink>. "
+"och felrapporter till <ulink url=\"https://gitlab.gnome.org/GNOME/dasher/-/"
+"issues/\" type=\"http\">GNOMEs felrapporteringsdatabas</ulink>. "
 "Instruktioner för att skicka in felrapporter kan hittas på nätet på <ulink "
-"url=\"http://bugzilla.gnome.org/page.cgi?id=bug-writing.html\" type=\"http"
-"\"> http://bugzilla.gnome.org/page.cgi?id=bug-writing.html</ulink>. Om du "
-"använder GNOME 1.1 eller senare kan du också använda kommandot <command>bug-"
-"buddy</command> för att lämna in felrapporter."
+"url=\"https://handbook.gnome.org/issues/reporting.html\" type=\"http\"> "
+"https://handbook.gnome.org/issues/reporting.html</ulink>."
 
 #. (itstool) path: sect1/para
-#: C/dasher.xml:1305
+#: C/dasher.xml:1304
 msgid ""
 "This manual was written by The Dasher Project (<email>dasher@inf.phy.cam.ac."
 "uk</email>). Please send all comments and suggestions regarding the manual "
-"to the GNOME Documentation Project at <email>gnome-doc-list@gnome.org</"
-"email>."
+"to the <ulink url=\"https://gitlab.gnome.org/GNOME/dasher/-/issues/\" "
+"type=\"http\">GNOME bug tracking database</ulink>."
 msgstr ""
 "Den här handboken skrevs av Dasherprojektet (<email>dasher@inf.phy.cam.ac."
 "uk</email>). Skicka alla kommentarer och förslag angående handboken till "
-"Dokumentationsprojekt för GNOME på <email>gnome-doc-list@gnome.org</email>."
+"<ulink url=\"https://gitlab.gnome.org/GNOME/dasher/-/issues/\" "
+"type=\"http\">GNOMEs felrapporteringsdatabas</ulink>."
 
 #~ msgid "2010"
 #~ msgstr "2010"
