@@ -1,6 +1,6 @@
 AC_PREREQ(2.59)
 AC_INIT([dasher], [m4_esyscmd_s([build-aux/mkversion])],
-  [http://bugzilla.gnome.org/enter_bug.cgi?product=dasher],
+  [https://gitlab.gnome.org/GNOME/dasher/-/issues/],
   [dasher],
   [http://www.inference.phy.cam.ac.uk/dasher/])
 
