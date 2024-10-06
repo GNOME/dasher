@@ -2,7 +2,159 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <alphabets langcode="ja">
-<alphabet name="Pure Katakana, no halfwidths">
+
+<alphabet name="Japanese &#12395;&#12411;&#12435;&#12372; Katakana">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Hiragana</palette>
+<train>training_Japanese_JP.txt</train>
+<space d="&#x25a1;" t=" " b="9" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="katakana merged, no halfwidths" b="3">
+	<group name="A small" b="60">
+	<s d="&#x30A1;" t="&#x30A1;"  b="11"  note=" SMALL A "/>
+	<s d="&#x30A3;" t="&#x30A3;"  b="11"  note=" SMALL I "/>
+	<s d="&#x30A5;" t="&#x30A5;"  b="11"  note=" SMALL U "/>
+	<s d="&#x30A7;" t="&#x30A7;"  b="11"  note=" SMALL E "/>
+	<s d="&#x30A9;" t="&#x30A9;"  b="11"  note=" SMALL O "/>
+	</group>
+
+	<group name="A Gyo" b="50">
+	<s d="&#x30A2;" t="&#x30A2;" note="ア" />
+	<s d="&#x30A4;" t="&#x30A4;" note="イ" />
+	<s d="&#x30A6;" t="&#x30A6;" note="ウ" />
+	<s d="&#x30A8;" t="&#x30A8;" note="エ" />
+	<s d="&#x30AA;" t="&#x30AA;" note="オ" />
+	</group>
+
+	<group name="KA-GA Gyo" b="61">
+	<s d="&#x30AB;" t="&#x30AB;" note="カ" />
+	<s d="&#x30AC;" t="&#x30AC;" note="ガ" />
+	<s d="&#x30AD;" t="&#x30AD;" note="キ" />
+	<s d="&#x30AE;" t="&#x30AE;" note="ギ" />
+	<s d="&#x30AF;" t="&#x30AF;" note="ク" />
+	<s d="&#x30B0;" t="&#x30B0;" note="グ" />
+	<s d="&#x30B1;" t="&#x30B1;" note="ケ" />
+	<s d="&#x30B2;" t="&#x30B2;" note="ゲ" />
+	<s d="&#x30B3;" t="&#x30B3;" note="コ" />
+	<s d="&#x30B4;" t="&#x30B4;" note="ゴ" />
+	</group>
+
+	<group name="SA-ZA Gyo" b="62">
+	<s d="&#x30B5;" t="&#x30B5;" note="サ" />
+	<s d="&#x30B6;" t="&#x30B6;" note="ザ" />
+	<s d="&#x30B7;" t="&#x30B7;" note="シ" />
+	<s d="&#x30B8;" t="&#x30B8;" note="ジ" />
+	<s d="&#x30B9;" t="&#x30B9;" note="ス" />
+	<s d="&#x30BA;" t="&#x30BA;" note="ズ" />
+	<s d="&#x30BB;" t="&#x30BB;" note="セ" />
+	<s d="&#x30BC;" t="&#x30BC;" note="ゼ" />
+	<s d="&#x30BD;" t="&#x30BD;" note="ソ" />
+	<s d="&#x30BE;" t="&#x30BE;" note="ゾ" />
+	</group>
+
+	<group name="TA-DA Gyo" b="63">
+	<s d="&#x30BF;" t="&#x30BF;" note="タ" />
+	<s d="&#x30C0;" t="&#x30C0;" note="ダ" />
+	<s d="&#x30C1;" t="&#x30C1;" note="チ" />
+	<s d="&#x30C2;" t="&#x30C2;" note="ヂ" />
+	<s d="&#x30C4;" t="&#x30C4;" note="ツ" />
+	<s d="&#x30C3;" t="&#x30C3;" note=" SMALL TU "/>
+	<s d="&#x30C5;" t="&#x30C5;" note="ヅ" />
+	<s d="&#x30C6;" t="&#x30C6;" note="テ" />
+	<s d="&#x30C7;" t="&#x30C7;" note="デ" />
+	<s d="&#x30C8;" t="&#x30C8;" note="ト" />
+	<s d="&#x30C9;" t="&#x30C9;" note="ド" />
+	</group>
+
+	<group name="NA Gyo" b="64">
+	<s d="&#x30CA;" t="&#x30CA;" note="ナ" />
+	<s d="&#x30CB;" t="&#x30CB;" note="ニ" />
+	<s d="&#x30CC;" t="&#x30CC;" note="ヌ" />
+	<s d="&#x30CD;" t="&#x30CD;" note="ネ" />
+	<s d="&#x30CE;" t="&#x30CE;" note="ノ" />
+	</group>
+
+	<group name="HA-BA-PA Gyo" b="65">
+	<s d="&#x30CF;" t="&#x30CF;" note="ハ" />
+	<s d="&#x30D0;" t="&#x30D0;" note="バ" />
+	<s d="&#x30D1;" t="&#x30D1;" note="パ" />
+	<s d="&#x30D2;" t="&#x30D2;" note="ヒ" />
+	<s d="&#x30D3;" t="&#x30D3;" note="ビ" />
+	<s d="&#x30D4;" t="&#x30D4;" note="ピ" />
+	<s d="&#x30D5;" t="&#x30D5;" note="フ" />
+	<s d="&#x30D6;" t="&#x30D6;" note="ブ" />
+	<s d="&#x30D7;" t="&#x30D7;" note="プ" />
+	<s d="&#x30D8;" t="&#x30D8;" note="ヘ" />
+	<s d="&#x30D9;" t="&#x30D9;" note="ベ" />
+	<s d="&#x30DA;" t="&#x30DA;" note="ペ" />
+	<s d="&#x30DB;" t="&#x30DB;" note="ホ" />
+	<s d="&#x30DC;" t="&#x30DC;" note="ボ" />
+	<s d="&#x30DD;" t="&#x30DD;" note="ポ" />
+	</group>
+
+	<group name="MA Gyo" b="66">
+	<s d="&#x30DE;" t="&#x30DE;" note="マ" />
+	<s d="&#x30DF;" t="&#x30DF;" note="ミ" />
+	<s d="&#x30E0;" t="&#x30E0;" note="ム" />
+	<s d="&#x30E1;" t="&#x30E1;" note="メ" />
+	<s d="&#x30E2;" t="&#x30E2;" note="モ" />
+	</group>
+
+	<group name="YA Gyo" b="9">
+	<s d="&#x30E4;" t="&#x30E4;" note="ヤ" />
+	<s d="&#x30E6;" t="&#x30E6;" note="ユ" />
+	<s d="&#x30E8;" t="&#x30E8;" note="ヨ" />
+	<s d="&#x30E3;" t="&#x30E3;"  b="17"  note=" SMALL YA "/>
+	<s d="&#x30E5;" t="&#x30E5;"  b="17"  note=" SMALL YU "/>
+	<s d="&#x30E7;" t="&#x30E7;"  b="17"  note=" SMALL YO "/>
+	</group>
+
+	<group name="RA Gyo" b="68">
+	<s d="&#x30E9;" t="&#x30E9;" note="ラ" />
+	<s d="&#x30EA;" t="&#x30EA;" note="リ" />
+	<s d="&#x30EB;" t="&#x30EB;" note="ル" />
+	<s d="&#x30EC;" t="&#x30EC;" note="レ" />
+	<s d="&#x30ED;" t="&#x30ED;" note="ロ" />
+	</group>
+
+	<group name="WA Gyo" b="69">
+	<s d="&#x30EF;" t="&#x30EF;" note="ワ" />
+	<s d="&#x30F2;" t="&#x30F2;" note="ヲ" />
+	<s d="&#x30F3;" t="&#x30F3;" note="ン" />
+	</group>
+</group> 
+
+<group name="Numerals"  b="113" >
+	<s d="1" t="1"  b="35" />
+	<s d="2" t="2"  b="36" />
+	<s d="3" t="3"  b="34" />
+	<s d="4" t="4"  b="35" />
+	<s d="5" t="5"  b="36" />
+	<s d="6" t="6"  b="34" />
+	<s d="7" t="7"  b="35" />
+	<s d="8" t="8"  b="36" />
+	<s d="9" t="9"  b="34" />
+	<s d="0" t="0"  b="35" />
+</group>
+<group name="Punctuation"  b="9" >
+	<s d="&#12540;" t="&#12540;" note="Japanese long dash (long tone)" b="95" />
+<!--	<s d="&#65294;"  t="." b="10"/> -->
+	<s d="&#x00A5;" t="&#x00A5;" b="87" note="yen" />
+	<s d="&#x300C;" t="&#x300C;" b="90" note="Asian left single quotation mark"   />
+	<s d="&#x300D;" t="&#x300D;" b="91" note="Asian right single quotation mark"  />
+	<s d="&#x300E;" t="&#x300E;" b="92" note="Asian left double quotation mark"   />
+	<s d="&#x300F;" t="&#x300F;" b="93" note="Asian right double quotation mark"  />
+	<s d="&#65311;" t="&#65311;" note="Japanese question mark" b="94" />
+	<s d="&#12289;" t="&#12289;" b="90" note="Asian comma"/>
+	<s d="&#12290;" t="&#12290;" b="91" note="Japanese full-stop"  />
+</group>
+
+
+</alphabet>
+
+<!--<alphabet name="Japanese Katakana + Hiragana (Bottom display)">
 <orientation type="TB"/>
 <encoding type="Western"/>
 <palette>Hiragana</palette>
@@ -11,10 +163,14 @@
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="katakana, finalized" b="3">
+<s d="&#x30A1;" t="&#x30A1;"  b="10"  note=" SMALL A "/>
+<s d="&#x30A3;" t="&#x30A3;"  b="87"  note=" SMALL I "/>
+<s d="&#x30A5;" t="&#x30A5;"  b="87"  note=" SMALL U "/>
+<s d="&#x30A7;" t="&#x30A7;"  b="10"  note=" SMALL E "/>
+<s d="&#x30A9;" t="&#x30A9;"  b="10"  note=" SMALL O "/>
 <s d="&#x30A2;" t="&#x30A2;"  b="10"  note=" A "/>
 <s d="&#x30A4;" t="&#x30A4;"  b="87"  note=" I "/>
 <s d="&#x30A6;" t="&#x30A6;"  b="87"  note=" U "/>
-<!-- <s d="&#x30F4;" t="&#x30F4;"  b="87"  note=" VU "/> -->
 <s d="&#x30A8;" t="&#x30A8;"  b="10"  note=" E "/>
 <s d="&#x30AA;" t="&#x30AA;"  b="10"  note=" O "/>
 <s d="&#x30AB;" t="&#x30AB;"  b="88"  note=" KA "/>
@@ -81,21 +237,8 @@
 <s d="&#x30EC;" t="&#x30EC;"  b="18"  note=" RE "/>
 <s d="&#x30ED;" t="&#x30ED;"  b="18"  note=" RO "/>
 <s d="&#x30EF;" t="&#x30EF;"  b="96"  note=" WA "/>
-<!-- <s d="&#x30F7;" t="&#x30F7;"  b="96" note="? VA "/> -->
-<!-- <s d="&#x30F0;" t="&#x30F0;"  b="96"  note=" WI "/> -->
-<!-- <s d="&#x30F8;" t="&#x30F8;"  b="19" note="? VI "/> -->
-<!-- <s d="&#x30F1;" t="&#x30F1;"  b="96"  note=" WE "/> -->
-<!-- <s d="&#x30F9;" t="&#x30F9;"  b="19" note="? VE "/> -->
 <s d="&#x30F2;" t="&#x30F2;"  b="96"  note=" WO "/>
-<!-- <s d="&#x30FA;" t="&#x30FA;"  b="19" note="? VO "/> -->
 <s d="&#x30F3;" t="&#x30F3;"  b="91"  note=" N "/>
-<group name="Smalls">
-<s d="&#x30A1;" t="&#x30A1;"  b="10"  note=" SMALL A "/>
-<s d="&#x30A3;" t="&#x30A3;"  b="87"  note=" SMALL I "/>
-<s d="&#x30A5;" t="&#x30A5;"  b="87"  note=" SMALL U "/>
-<s d="&#x30A7;" t="&#x30A7;"  b="10"  note=" SMALL E "/>
-<s d="&#x30A9;" t="&#x30A9;"  b="10"  note=" SMALL O "/>
-<s d="&#x30C3;" t="&#x30C3;"  b="13"  note=" SMALL TU "/>
 <s d="&#x30E3;" t="&#x30E3;"  b="17"  note=" SMALL YA "/>
 <s d="&#x30E5;" t="&#x30E5;"  b="17"  note=" SMALL YU "/>
 <s d="&#x30E7;" t="&#x30E7;"  b="17"  note=" SMALL YO "/>
@@ -133,6 +276,7 @@
 <s d="&#12385;" t="&#12385;" b="13" note=" TI " />
 <s d="&#12386;" t="&#12386;" b="90" note=" DI " />
 <s d="&#12388;" t="&#12388;" b="90" note=" TU " />
+<s d="&#12387;" t="&#12387;" b="99" note=" SMALL TU " />
 <s d="&#12389;" t="&#12389;" b="13" note=" DU " />
 <s d="&#12390;" t="&#12390;" b="90" note=" TE " />
 <s d="&#12391;" t="&#12391;" b="13" note=" DE " />
@@ -172,24 +316,15 @@
 <s d="&#12428;" t="&#12428;" b="95" note=" RE " />
 <s d="&#12429;" t="&#12429;" b="18" note=" RO " />
 <s d="&#12431;" t="&#12431;" b="96" note=" WA " />
-<!-- <s d="&#12432;" t="&#12432;" b="19" note=" WI " /> -->
-<!-- <s d="&#12433;" t="&#12433;" b="96" note=" WE " /> -->
 <s d="&#12434;" t="&#12434;" b="19" note=" WO " />
 <s d="&#12435;" t="&#12435;" b="14" note=" N " />
 <group name="smalls">
-<s d="&#12353;" t="&#12353;" b="10" note=" SMALL A " />
-<s d="&#12355;" t="&#12355;" b="10" note=" SMALL I " />
-<s d="&#12357;" t="&#12357;" b="10" note=" SMALL U " />
-<s d="&#12359;" t="&#12359;" b="10" note=" SMALL E " />
-<s d="&#12361;" t="&#12361;" b="10" note=" SMALL O " />
-<s d="&#12387;" t="&#12387;" b="13" note=" SMALL TU " />
 <s d="&#12419;" t="&#12419;" b="17" note=" SMALL YA " />
 <s d="&#12421;" t="&#12421;" b="17" note=" SMALL YU " />
-<s d="&#12423;" t="&#12423;" b="17" note=" SMALL YO " />
-<s d="&#12430;" t="&#12430;" b="19" note=" SMALL WA " />
+<s d="&#12423;" t="&#12423;" b="17" note=" SMALL YO " />>
 </group>
 </group>
-</alphabet>
+</alphabet>-->
 <!--<group name="katakana, no halfwidths or smalls" b="3">
 <s d="&#x30A2;" t="&#x30A2;"  b="10"  note=" A "/>
 <s d="&#x30A4;" t="&#x30A4;"  b="87"  note=" I "/>
@@ -273,16 +408,16 @@
 </group>-->
 <!--Note: there was also another group, "katakana, no halfwidths or smalls, malfunctioning Vs removed", identical to previous except those characters with a ? in the _note_ attribute, were removed.-->
 <!--<group name="katakana, no halfwidths, just a few smalls" b="3">
-<s d="&#x30A1;" t="&#x30A1;"  b="10"  note=" SMALL A "/>
 <s d="&#x30A2;" t="&#x30A2;"  b="10"  note=" A "/>
+<s d="&#x30A1;" t="&#x30A1;"  b="10"  note=" SMALL A "/>
 <s d="&#x30A3;" t="&#x30A3;"  b="87"  note=" SMALL I "/>
-<s d="&#x30A4;" t="&#x30A4;"  b="87"  note=" I "/>
 <s d="&#x30A5;" t="&#x30A5;"  b="87"  note=" SMALL U "/>
+<s d="&#x30A7;" t="&#x30A7;"  b="10"  note=" SMALL E "/>
+<s d="&#x30A9;" t="&#x30A9;"  b="10"  note=" SMALL O "/>
+<s d="&#x30A4;" t="&#x30A4;"  b="87"  note=" I "/>
 <s d="&#x30A6;" t="&#x30A6;"  b="87"  note=" U "/>
 <s d="&#x30F4;" t="&#x30F4;"  b="87"  note=" VU "/>
-<s d="&#x30A7;" t="&#x30A7;"  b="10"  note=" SMALL E "/>
 <s d="&#x30A8;" t="&#x30A8;"  b="10"  note=" E "/>
-<s d="&#x30A9;" t="&#x30A9;"  b="10"  note=" SMALL O "/>
 <s d="&#x30AA;" t="&#x30AA;"  b="10"  note=" O "/>
 <s d="&#x30AB;" t="&#x30AB;"  b="88"  note=" KA "/>
 <s d="&#x30AC;" t="&#x30AC;"  b="88"  note=" GA "/>
@@ -358,125 +493,19 @@
 <s d="&#x30FA;" t="&#x30FA;"  b="19" note="? VO "/>
 <s d="&#x30F3;" t="&#x30F3;"  b="91"  note=" N "/>
 </group>-->
-<alphabet name="Pure Katakana, halfwidths, many smalls">
-<orientation type="LR"/><!-- Halfwidths are only used when writing horizontally -->
+
+
+<!--
+<alphabet name="Japanese &#12395;&#12411;&#12435;&#12372; Katakana Halfwidths">
+<orientation type="LR"/> 
 <encoding type="Western"/>
 <palette>Hiragana</palette>
 <train>training_Japanese_JP.txt</train>
 <space d="&#x25a1;" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
-<group name="katakana merged, no halfwidths" b="3">
-<s d="&#x30A2;" t="&#x30A2;"  b="10"  note=" A "/>
-<s d="&#x30A4;" t="&#x30A4;"  b="87"  note=" I "/>
-<s d="&#x30A6;" t="&#x30A6;"  b="87"  note=" U "/>
-<s d="&#x30F4;" t="&#x30F4;"  b="87"  note=" VU "/>
-<s d="&#x30A8;" t="&#x30A8;"  b="10"  note=" E "/>
-<s d="&#x30AA;" t="&#x30AA;"  b="10"  note=" O "/>
-<s d="&#x30AB;" t="&#x30AB;"  b="88"  note=" KA "/>
-<s d="&#x30AC;" t="&#x30AC;"  b="88"  note=" GA "/>
-<s d="&#x30AD;" t="&#x30AD;"  b="11"  note=" KI "/>
-<s d="&#x30AE;" t="&#x30AE;"  b="11"  note=" GI "/>
-<s d="&#x30AF;" t="&#x30AF;"  b="88"  note=" KU "/>
-<s d="&#x30B0;" t="&#x30B0;"  b="88"  note=" GU "/>
-<s d="&#x30B1;" t="&#x30B1;"  b="88"  note=" KE "/>
-<s d="&#x30B2;" t="&#x30B2;"  b="88"  note=" GE "/>
-<s d="&#x30B3;" t="&#x30B3;"  b="11"  note=" KO "/>
-<s d="&#x30B4;" t="&#x30B4;"  b="11"  note=" GO "/>
-<s d="&#x30B5;" t="&#x30B5;"  b="12"  note=" SA "/>
-<s d="&#x30B6;" t="&#x30B6;"  b="12"  note=" ZA "/>
-<s d="&#x30B7;" t="&#x30B7;"  b="89"  note=" SI "/>
-<s d="&#x30B8;" t="&#x30B8;"  b="89"  note=" ZI "/>
-<s d="&#x30B9;" t="&#x30B9;"  b="12"  note=" SU "/>
-<s d="&#x30BA;" t="&#x30BA;"  b="12"  note=" ZU "/>
-<s d="&#x30BB;" t="&#x30BB;"  b="89"  note=" SE "/>
-<s d="&#x30BC;" t="&#x30BC;"  b="89"  note=" ZE "/>
-<s d="&#x30BD;" t="&#x30BD;"  b="12"  note=" SO "/>
-<s d="&#x30BE;" t="&#x30BE;"  b="12"  note=" ZO "/>
-<s d="&#x30BF;" t="&#x30BF;"  b="13"  note=" TA "/>
-<s d="&#x30C0;" t="&#x30C0;"  b="13"  note=" DA "/>
-<s d="&#x30C1;" t="&#x30C1;"  b="90"  note=" TI "/>
-<s d="&#x30C2;" t="&#x30C2;"  b="90"  note=" DI "/>
-<s d="&#x30C4;" t="&#x30C4;"  b="13"  note=" TU "/>
-<s d="&#x30C5;" t="&#x30C5;"  b="13"  note=" DU "/>
-<s d="&#x30C6;" t="&#x30C6;"  b="90"  note=" TE "/>
-<s d="&#x30C7;" t="&#x30C7;"  b="90"  note=" DE "/>
-<s d="&#x30C8;" t="&#x30C8;"  b="13"  note=" TO "/>
-<s d="&#x30C9;" t="&#x30C9;"  b="13"  note=" DO "/>
-<s d="&#x30CA;" t="&#x30CA;"  b="14"  note=" NA "/>
-<s d="&#x30CB;" t="&#x30CB;"  b="14"  note=" NI "/>
-<s d="&#x30CC;" t="&#x30CC;"  b="14"  note=" NU "/>
-<s d="&#x30CD;" t="&#x30CD;"  b="14"  note=" NE "/>
-<s d="&#x30CE;" t="&#x30CE;"  b="14"  note=" NO "/>
-<s d="&#x30CF;" t="&#x30CF;"  b="15"  note=" HA "/>
-<s d="&#x30D0;" t="&#x30D0;"  b="15"  note=" BA "/>
-<s d="&#x30D1;" t="&#x30D1;"  b="92"  note=" PA "/>
-<s d="&#x30D2;" t="&#x30D2;"  b="15"  note=" HI "/>
-<s d="&#x30D3;" t="&#x30D3;"  b="15"  note=" BI "/>
-<s d="&#x30D4;" t="&#x30D4;"  b="92"  note=" PI "/>
-<s d="&#x30D5;" t="&#x30D5;"  b="15"  note=" HU "/>
-<s d="&#x30D6;" t="&#x30D6;"  b="15"  note=" BU "/>
-<s d="&#x30D7;" t="&#x30D7;"  b="92"  note=" PU "/>
-<s d="&#x30D8;" t="&#x30D8;"  b="15"  note=" HE "/>
-<s d="&#x30D9;" t="&#x30D9;"  b="15"  note=" BE "/>
-<s d="&#x30DA;" t="&#x30DA;"  b="92"  note=" PE "/>
-<s d="&#x30DB;" t="&#x30DB;"  b="15"  note=" HO "/>
-<s d="&#x30DC;" t="&#x30DC;"  b="15"  note=" BO "/>
-<s d="&#x30DD;" t="&#x30DD;"  b="92"  note=" PO "/>
-<s d="&#x30DE;" t="&#x30DE;"  b="16"  note=" MA "/>
-<s d="&#x30DF;" t="&#x30DF;"  b="16"  note=" MI "/>
-<s d="&#x30E0;" t="&#x30E0;"  b="16"  note=" MU "/>
-<s d="&#x30E1;" t="&#x30E1;"  b="16"  note=" ME "/>
-<s d="&#x30E2;" t="&#x30E2;"  b="16"  note=" MO "/>
-<s d="&#x30E4;" t="&#x30E4;"  b="17"  note=" YA "/>
-<s d="&#x30E6;" t="&#x30E6;"  b="17"  note=" YU "/>
-<s d="&#x30E8;" t="&#x30E8;"  b="17"  note=" YO "/>
-<s d="&#x30E9;" t="&#x30E9;"  b="18"  note=" RA "/>
-<s d="&#x30EA;" t="&#x30EA;"  b="18"  note=" RI "/>
-<s d="&#x30EB;" t="&#x30EB;"  b="18"  note=" RU "/>
-<s d="&#x30EC;" t="&#x30EC;"  b="18"  note=" RE "/>
-<s d="&#x30ED;" t="&#x30ED;"  b="18"  note=" RO "/>
-<s d="&#x30EF;" t="&#x30EF;"  b="96"  note=" WA "/>
-<s d="&#x30F7;" t="&#x30F7;"  b="96" note="? VA "/>
-<s d="&#x30F0;" t="&#x30F0;"  b="96"  note=" WI "/>
-<s d="&#x30F8;" t="&#x30F8;"  b="19" note="? VI "/>
-<s d="&#x30F1;" t="&#x30F1;"  b="96"  note=" WE "/>
-<s d="&#x30F9;" t="&#x30F9;"  b="19" note="? VE "/>
-<s d="&#x30F2;" t="&#x30F2;"  b="96"  note=" WO "/>
-<s d="&#x30FA;" t="&#x30FA;"  b="19" note="? VO "/>
-<s d="&#x30F3;" t="&#x30F3;"  b="91"  note=" N "/>
-<group name="Smalls (extra!)">
-<s d="&#x30A1;" t="&#x30A1;"  b="10"  note=" SMALL A "/>
-<s d="&#x30A3;" t="&#x30A3;"  b="87"  note=" SMALL I "/>
-<s d="&#x30A5;" t="&#x30A5;"  b="87"  note=" SMALL U "/>
-<s d="&#x30A7;" t="&#x30A7;"  b="10"  note=" SMALL E "/>
-<s d="&#x30A9;" t="&#x30A9;"  b="10"  note=" SMALL O "/>
-<s d="&#x30F5;" t="&#x30F5;"  b="11"  note=" SMALL KA "/>
-<s d="&#x31F0;" t="&#x31F0;"  b="11"   note="? SMALL KU "/>
-<s d="&#x30F6;" t="&#x30F6;"  b="11"  note=" SMALL KE "/>
-<s d="&#x31F1;" t="&#x31F1;"  b="89"  note="? SMALL SI "/>
-<s d="&#x31F2;" t="&#x31F2;"  b="12"  note="? SMALL SU "/>
-<s d="&#x30C3;" t="&#x30C3;"  b="13"  note=" SMALL TU "/>
-<s d="&#x31F3;" t="&#x31F3;"  b="13"  note="? SMALL TO "/>
-<s d="&#x31F4;" t="&#x31F4;"  b="14"  note="? SMALL NU "/>
-<s d="&#x31F5;" t="&#x31F5;"  b="15" note="? SMALL HA "/>
-<s d="&#x31F6;" t="&#x31F6;"  b="15" note="? SMALL HI "/>
-<s d="&#x31F7;" t="&#x31F7;"  b="15" note="? SMALL HU "/>
-<s d="&#x31F8;" t="&#x31F8;"  b="15" note="? SMALL HE "/>
-<s d="&#x31F9;" t="&#x31F9;"  b="15" note="? SMALL HO "/>
-<s d="&#x31FA;" t="&#x31FA;"  b="16" note="? SMALL MU "/>
-<s d="&#x30E3;" t="&#x30E3;"  b="17"  note=" SMALL YA "/>
-<s d="&#x30E5;" t="&#x30E5;"  b="17"  note=" SMALL YU "/>
-<s d="&#x30E7;" t="&#x30E7;"  b="17"  note=" SMALL YO "/>
-<s d="&#x31FB;" t="&#x31FB;"  b="18" note="? SMALL RA "/>
-<s d="&#x31FC;" t="&#x31FC;"  b="18" note="? SMALL RI "/>
-<s d="&#x31FD;" t="&#x31FD;"  b="18" note="? SMALL RU "/>
-<s d="&#x31FE;" t="&#x31FE;"  b="18" note="? SMALL RE "/>
-<s d="&#x31FF;" t="&#x31FF;"  b="18" note="? SMALL RO "/>
-<s d="&#x30EE;" t="&#x30EE;"  b="19"  note=" SMALL WA "/>
-</group>
-</group>
 <group name="katakana merged, halfwidths only" b="3">
+	<group name="A Gyo" b="50">
 <s d="&#xFF71;" t="&#xFF71;"  b="87"  note="HALFWIDTH  A "/>
 <s d="&#xFF72;" t="&#xFF72;"  b="10"  note="HALFWIDTH  I "/>
 <s d="&#xFF73;" t="&#xFF73;"  b="10"  note="HALFWIDTH  U "/>
@@ -495,6 +524,7 @@
 <s d="&#xFF80;" t="&#xFF80;"  b="90"  note="HALFWIDTH  TA "/>
 <s d="&#xFF81;" t="&#xFF81;"  b="13"  note="HALFWIDTH  TI "/>
 <s d="&#xFF82;" t="&#xFF82;"  b="90"  note="HALFWIDTH  TU "/>
+<s d="&#xFF6F;" t="&#xFF6F;"  b="90"  note="HALFWIDTH  SMALL TU "/>
 <s d="&#xFF83;" t="&#xFF83;"  b="13"  note="HALFWIDTH  TE "/>
 <s d="&#xFF84;" t="&#xFF84;"  b="90"  note="HALFWIDTH  TO "/>
 <s d="&#xFF85;" t="&#xFF85;"  b="91"  note="HALFWIDTH  NA "/>
@@ -520,8 +550,9 @@
 <s d="&#xFF99;" t="&#xFF99;"  b="95"  note="HALFWIDTH  RU "/>
 <s d="&#xFF9A;" t="&#xFF9A;"  b="95"  note="HALFWIDTH  RE "/>
 <s d="&#xFF9B;" t="&#xFF9B;"  b="95"  note="HALFWIDTH  RO "/>
+	<group name="WA Gyo" b="69">
 <s d="&#xFF9C;" t="&#xFF9C;"  b="19"  note="HALFWIDTH  WA "/>
-<s d="&#xFF66;" t="&#xFF66;"  b="96" note="? HALFWIDTH  WO "/>
+<s d="&#xFF66;" t="&#xFF66;"  b="96"  note="HALFWIDTH  WO "/>
 <s d="&#xFF9D;" t="&#xFF9D;"  b="14"  note="HALFWIDTH  N "/>
 <group name="Smalls">
 <s d="&#xFF67;" t="&#xFF67;"  b="87"  note="HALFWIDTH  SMALL A "/>
@@ -529,13 +560,41 @@
 <s d="&#xFF69;" t="&#xFF69;"  b="10"  note="HALFWIDTH  SMALL U "/>
 <s d="&#xFF6A;" t="&#xFF6A;"  b="87"  note="HALFWIDTH  SMALL E "/>
 <s d="&#xFF6B;" t="&#xFF6B;"  b="87"  note="HALFWIDTH  SMALL O "/>
-<s d="&#xFF6F;" t="&#xFF6F;"  b="90"  note="HALFWIDTH  SMALL TU "/>
 <s d="&#xFF6C;" t="&#xFF6C;"  b="94"  note="HALFWIDTH  SMALL YA "/>
 <s d="&#xFF6D;" t="&#xFF6D;"  b="94"  note="HALFWIDTH  SMALL YU "/>
 <s d="&#xFF6E;" t="&#xFF6E;"  b="94"  note="HALFWIDTH  SMALL YO "/>
 </group>
 </group>
-<group name="Hiragana, finalized" b="0">
+
+
+<group name="Numerals"  b="113" >
+	<s d="1" t="1"  b="35" />
+	<s d="2" t="2"  b="36" />
+	<s d="3" t="3"  b="34" />
+	<s d="4" t="4"  b="35" />
+	<s d="5" t="5"  b="36" />
+	<s d="6" t="6"  b="34" />
+	<s d="7" t="7"  b="35" />
+	<s d="8" t="8"  b="36" />
+	<s d="9" t="9"  b="34" />
+	<s d="0" t="0"  b="35" />
+</group>
+<group name="Punctuation"  b="9" >
+	<s d="&#12540;" t="&#12540;" note="Japanese long dash (long tone)" b="95" />
+	<s d="&#x00A5;" t="&#x00A5;" b="87" note="yen" />
+	<s d="&#x300C;" t="&#x300C;" b="90" note="Asian left single quotation mark"   />
+	<s d="&#x300D;" t="&#x300D;" b="91" note="Asian right single quotation mark"  />
+	<s d="&#x300E;" t="&#x300E;" b="92" note="Asian left double quotation mark"   />
+	<s d="&#x300F;" t="&#x300F;" b="93" note="Asian right double quotation mark"  />
+	<s d="&#65311;" t="&#65311;" note="Japanese question mark" b="94" />
+	<s d="&#12289;" t="&#12289;" b="90" note="Asian comma"/>
+	<s d="&#12290;" t="&#12290;" b="91" note="Japanese full-stop"  />
+</group>
+
+
+</alphabet>-->
+
+<!--<group name="Hiragana, finalized" b="0">
 <s d="&#12354;" t="&#12354;" b="87"  note=" A " />
 <s d="&#12356;" t="&#12356;" b="87"  note=" I " />
 <s d="&#12358;" t="&#12358;" b="87"  note=" U " />
@@ -605,8 +664,6 @@
 <s d="&#12428;" t="&#12428;" b="95" note=" RE " />
 <s d="&#12429;" t="&#12429;" b="18" note=" RO " />
 <s d="&#12431;" t="&#12431;" b="96" note=" WA " />
-<!-- <s d="&#12432;" t="&#12432;" b="19" note=" WI " /> -->
-<!-- <s d="&#12433;" t="&#12433;" b="96" note=" WE " /> -->
 <s d="&#12434;" t="&#12434;" b="19" note=" WO " />
 <s d="&#12435;" t="&#12435;" b="14" note=" N " />
 <group name="smalls">
@@ -616,13 +673,110 @@
 <s d="&#12359;" t="&#12359;" b="10" note=" SMALL E " />
 <s d="&#12361;" t="&#12361;" b="10" note=" SMALL O " />
 <s d="&#12387;" t="&#12387;" b="13" note=" SMALL TU " />
+<s d="&#12430;" t="&#12430;" b="19" note=" SMALL WA " />
 <s d="&#12419;" t="&#12419;" b="17" note=" SMALL YA " />
 <s d="&#12421;" t="&#12421;" b="17" note=" SMALL YU " />
 <s d="&#12423;" t="&#12423;" b="17" note=" SMALL YO " />
-<s d="&#12430;" t="&#12430;" b="19" note=" SMALL WA " />
 </group>
 </group>
-</alphabet>
+<group name="Hiragana" b="0">
+	<group name="A Gyo" b="50">
+		<s d="&#12354;" t="&#12354;" b="80"  note=" A " />
+		<s d="&#12356;" t="&#12356;" b="70"  note=" I " />
+		<s d="&#12358;" t="&#12358;" b="80"  note=" U " />
+		<s d="&#12360;" t="&#12360;" b="70"  note=" E " />
+		<s d="&#12362;" t="&#12362;" b="80"  note=" O " />
+	</group>
+	<group name="KA-GA Gyo" b="61">
+		<s d="&#12363;" t="&#12363;" b="81" note=" KA " />
+		<s d="&#12364;" t="&#12364;" b="71" note=" GA " />
+		<s d="&#12365;" t="&#12365;" b="71" note=" KI " />
+		<s d="&#12366;" t="&#12366;" b="81" note=" GI " />
+		<s d="&#12367;" t="&#12367;" b="81" note=" KU " />
+		<s d="&#12368;" t="&#12368;" b="71" note=" GU " />
+		<s d="&#12369;" t="&#12369;" b="71" note=" KE " />
+		<s d="&#12370;" t="&#12370;" b="81" note=" GE " />
+		<s d="&#12371;" t="&#12371;" b="81" note=" KO " />
+		<s d="&#12372;" t="&#12372;" b="71" note=" GO " />
+	</group>
+	<group name="SA-ZA Gyo" b="62">
+		<s d="&#12373;" t="&#12373;" b="72" note=" SA " />
+		<s d="&#12374;" t="&#12374;" b="82" note=" ZA " />
+		<s d="&#12375;" t="&#12375;" b="82" note=" SI " />
+		<s d="&#12376;" t="&#12376;" b="72" note=" ZI " />
+		<s d="&#12377;" t="&#12377;" b="72" note=" SU " />
+		<s d="&#12378;" t="&#12378;" b="82" note=" ZU " />
+		<s d="&#12379;" t="&#12379;" b="82" note=" SE " />
+		<s d="&#12380;" t="&#12380;" b="72" note=" ZE " />
+		<s d="&#12381;" t="&#12381;" b="72" note=" SO " />
+		<s d="&#12382;" t="&#12382;" b="82" note=" ZO " />
+	</group>
+	<group name="TA-DA Gyo" b="63">
+		<s d="&#12383;" t="&#12383;" b="73" note=" TA " />
+		<s d="&#12384;" t="&#12384;" b="73" note=" DA " />
+		<s d="&#12385;" t="&#12385;" b="83" note=" TI " />
+		<s d="&#12386;" t="&#12386;" b="83" note=" DI " />
+		<s d="&#12388;" t="&#12388;" b="73" note=" TU " />
+		<s d="&#12387;" t="&#12387;" b="99" note=" SMALL TU " />
+		<s d="&#12389;" t="&#12389;" b="73" note=" DU " />
+		<s d="&#12390;" t="&#12390;" b="83" note=" TE " />
+		<s d="&#12391;" t="&#12391;" b="83" note=" DE " />
+		<s d="&#12392;" t="&#12392;" b="73" note=" TO " />
+		<s d="&#12393;" t="&#12393;" b="73" note=" DO " />
+	</group>
+	<group name="NA Gyo" b="64">
+		<s d="&#12394;" t="&#12394;" b="74" note=" NA " />
+		<s d="&#12395;" t="&#12395;" b="84" note=" NI " />
+		<s d="&#12396;" t="&#12396;" b="74" note=" NU " />
+		<s d="&#12397;" t="&#12397;" b="84" note=" NE " />
+		<s d="&#12398;" t="&#12398;" b="74" note=" NO " />
+	</group>
+	<group name="HA-BA-PA Gyo" b="65">
+		<s d="&#12399;" t="&#12399;" b="75" note=" HA " />
+		<s d="&#12400;" t="&#12400;" b="85" note=" BA " />
+		<s d="&#12401;" t="&#12401;" b="75" note=" PA " />
+		<s d="&#12402;" t="&#12402;" b="85" note=" HI " />
+		<s d="&#12403;" t="&#12403;" b="75" note=" BI " />
+		<s d="&#12404;" t="&#12404;" b="85" note=" PI " />
+		<s d="&#12405;" t="&#12405;" b="75" note=" HU " />
+		<s d="&#12406;" t="&#12406;" b="85" note=" BU " />
+		<s d="&#12407;" t="&#12407;" b="75" note=" PU " />
+		<s d="&#12408;" t="&#12408;" b="85" note=" HE " />
+		<s d="&#12409;" t="&#12409;" b="75" note=" BE " />
+		<s d="&#12410;" t="&#12410;" b="85" note=" PE " />
+		<s d="&#12411;" t="&#12411;" b="75" note=" HO " />
+		<s d="&#12412;" t="&#12412;" b="85" note=" BO " />
+		<s d="&#12413;" t="&#12413;" b="75" note=" PO " />
+	</group>
+	<group name="MA Gyo" b="66">
+		<s d="&#12414;" t="&#12414;" b="76" note=" MA " />
+		<s d="&#12415;" t="&#12415;" b="86" note=" MI " />
+		<s d="&#12416;" t="&#12416;" b="76" note=" MU " />
+		<s d="&#12417;" t="&#12417;" b="86" note=" ME " />
+		<s d="&#12418;" t="&#12418;" b="76" note=" MO " />
+	</group>
+	<group name="YA Gyo" b="67">
+		<s d="&#12420;" t="&#12420;" b="87" note=" YA " />
+		<s d="&#12419;" t="&#12419;" b="99" note=" SMALL YA " />
+		<s d="&#12422;" t="&#12422;" b="77" note=" YU " />
+		<s d="&#12421;" t="&#12421;" b="97" note=" SMALL YU " />
+		<s d="&#12424;" t="&#12424;" b="87" note=" YO " />
+		<s d="&#12423;" t="&#12423;" b="99" note=" SMALL YO " />
+	</group>
+	<group name="RA Gyo" b="68">
+		<s d="&#12425;" t="&#12425;" b="78" note=" RA " />
+		<s d="&#12426;" t="&#12426;" b="88" note=" RI " />
+		<s d="&#12427;" t="&#12427;" b="78" note=" RU " />
+		<s d="&#12428;" t="&#12428;" b="88" note=" RE " />
+		<s d="&#12429;" t="&#12429;" b="78" note=" RO " />
+	</group>
+	<group name="WA Gyo" b="69">
+		<s d="&#12431;" t="&#12431;" b="89" note=" WA " />
+		<s d="&#12434;" t="&#12434;" b="79" note=" WO " />
+		<s d="&#12435;" t="&#12435;" b="59" note=" N " />
+	</group>
+</group>
+</alphabet>--> 
 <!--<group name="katakana merged" b="3"> 
 <s d="&#x30A1;" t="&#x30A1;"  b="10"  note=" SMALL A "/>
 <s d="&#xFF67;" t="&#xFF67;"  b="87"  note="HALFWIDTH  SMALL A "/>
