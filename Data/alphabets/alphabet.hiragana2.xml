@@ -2,7 +2,7 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <alphabets langcode="ja">
-<alphabet name="Hiragana &#12402;&#12425;&#12364;&#12394; 83 + 0-9">
+<alphabet name="Japanese &#12395;&#12411;&#12435;&#12372; Hiragana 79">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <train>training_hiragana83_JP.txt</train>
@@ -11,15 +11,15 @@
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="83 Letters (actually 81)" b="0">
-<s d="&#12353;" t="&#12353;" b="99" note=" SMALL A " />
+<s d="&#12353;" t="&#12353;" b="70" note=" SMALL A " />
+<s d="&#12355;" t="&#12355;" b="70" note=" SMALL I " />
+<s d="&#12357;" t="&#12357;" b="70" note=" SMALL U " />
+<s d="&#12359;" t="&#12359;" b="70" note=" SMALL E " />
+<s d="&#12361;" t="&#12361;" b="70" note=" SMALL O " />
 <s d="&#12354;" t="&#12354;" b="80"  note=" A " />
-<s d="&#12355;" t="&#12355;" b="99" note=" SMALL I " />
 <s d="&#12356;" t="&#12356;" b="70"  note=" I " />
-<s d="&#12357;" t="&#12357;" b="99" note=" SMALL U " />
 <s d="&#12358;" t="&#12358;" b="80"  note=" U " />
-<s d="&#12359;" t="&#12359;" b="99" note=" SMALL E " />
 <s d="&#12360;" t="&#12360;" b="70"  note=" E " />
-<s d="&#12361;" t="&#12361;" b="99" note=" SMALL O " />
 <s d="&#12362;" t="&#12362;" b="80" note=" O " />
 <s d="&#12363;" t="&#12363;" b="71"  note=" KA " />
 <s d="&#12364;" t="&#12364;" b="81"  note=" GA " />
@@ -117,7 +117,7 @@
 <s d="&#12290;" t="&#12290;" b="91" note="Japanese full-stop"  />
 </group>
 </alphabet>
-<alphabet name="Hiragana &#12402;&#12425;&#12364;&#12394; 60 + 0-9">
+<alphabet name="Japanese &#12395;&#12411;&#12435;&#12372; Hiragana 54">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <train>training_hiragana60_JP.txt</train>
@@ -137,15 +137,15 @@
 <s d="&#12540;" t="&#12540;" note="Japanese long dash (long tone)" b="95" />
 </group>
 <group name="60 Letters (actually 55)" b="0"   visible="off">
-<s d="&#12353;" t="&#12353;" b="99" note=" SMALL A " />
+<s d="&#12353;" t="&#12353;" b="70" note=" SMALL A " />
+<s d="&#12355;" t="&#12355;" b="70" note=" SMALL I " />
+<s d="&#12357;" t="&#12357;" b="70" note=" SMALL U " />
+<s d="&#12359;" t="&#12359;" b="70" note=" SMALL E " />
+<s d="&#12361;" t="&#12361;" b="70" note=" SMALL O " />
 <s d="&#12354;" t="&#12354;" b="80" note=" A " />
-<s d="&#12355;" t="&#12355;" b="99" note=" SMALL I " />
 <s d="&#12356;" t="&#12356;" b="70" note=" I " />
-<s d="&#12357;" t="&#12357;" b="99" note=" SMALL U " />
 <s d="&#12358;" t="&#12358;" b="80" note=" U " />
-<s d="&#12359;" t="&#12359;" b="99" note=" SMALL E " />
 <s d="&#12360;" t="&#12360;" b="70" note=" E " />
-<s d="&#12361;" t="&#12361;" b="99" note=" SMALL O " />
 <s d="&#12362;" t="&#12362;" b="80" note=" O " />
 <s d="&#12363;" t="&#12363;" b="71" note=" KA " />
 <s d="&#12365;" t="&#12365;" b="81" note=" KI " />
@@ -217,7 +217,7 @@
 <s d="&#12290;" t="&#12290;" b="91" note="Japanese full-stop"  />
 </group>
 </alphabet>
-<alphabet name="Hiragana(Grouped) &#12402;&#12425;&#12364;&#12394; 60 + 0-9">
+<alphabet name="Japanese &#12395;&#12411;&#12435;&#12372; Hiragana 54 (Grouped)">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <train>training_hiragana60_JP.txt</train>
@@ -231,15 +231,15 @@
 <s d="&#12540;" t="&#12540;" note="Japanese long dash (long tone)" b="95" />
 </group>
 <group name="A" b="190" label="&#12354;"   visible="off">
-<s d="&#12353;" t="&#12353;" b="99" note=" SMALL A " />
+<s d="&#12353;" t="&#12353;" b="70" note=" SMALL A " />
+<s d="&#12355;" t="&#12355;" b="70" note=" SMALL I " />
+<s d="&#12357;" t="&#12357;" b="70" note=" SMALL U " />
+<s d="&#12359;" t="&#12359;" b="70" note=" SMALL E " />
+<s d="&#12361;" t="&#12361;" b="70" note=" SMALL O " />
 <s d="&#12354;" t="&#12354;" b="80"  note=" A " />
-<s d="&#12355;" t="&#12355;" b="99" note=" SMALL I " />
 <s d="&#12356;" t="&#12356;" b="70"  note=" I " />
-<s d="&#12357;" t="&#12357;" b="99" note=" SMALL U " />
 <s d="&#12358;" t="&#12358;" b="80"  note=" U " />
-<s d="&#12359;" t="&#12359;" b="99" note=" SMALL E " />
 <s d="&#12360;" t="&#12360;" b="70"  note=" E " />
-<s d="&#12361;" t="&#12361;" b="99" note=" SMALL O " />
 <s d="&#12362;" t="&#12362;" b="80" note=" O " />
 </group>
 <group name="KA" b="191" label="&#12363;">
@@ -331,7 +331,7 @@
 <s d="&#12290;" t="&#12290;" b="91" note="Japanese full-stop"  />
 </group>
 </alphabet>
-<alphabet name="Hiragana(Alternate Grouped) &#12402;&#12425;&#12364;&#12394; 60 + 0-9">
+<alphabet name="Japanese &#12395;&#12411;&#12435;&#12372; Hiragana 54 (Alternate Grouped)">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <train>training_hiragana60_JP.txt</train>
