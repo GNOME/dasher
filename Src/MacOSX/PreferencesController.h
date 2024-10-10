@@ -17,6 +17,9 @@
 
 @interface PreferencesController : NSObject
 @property (strong) IBOutlet NSPanel *panel;
+@property (strong) IBOutlet NSTableView *languageTableView;
+@property (strong) IBOutlet NSTableView *inputFilterTableView;
+@property (strong) IBOutlet NSTableView *colorTableView;
 @property (weak) DasherApp *dasherApp;
   
 

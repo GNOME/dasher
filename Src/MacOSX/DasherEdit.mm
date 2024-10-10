@@ -33,9 +33,9 @@ using namespace Dasher;
 }
 
 - (void)sendString:(NSString *)aString {
-  if (AXUIElementRef aTargetApp = [appWatcher targetAppUIElementRef]) {
-    [[UnicharGenerator sharedInstance] postKeyboardEventsToUIElementRef:aTargetApp unicharString:aString];
-  }
+    if (int pid = [appWatcher targetAppPid]) {
+      [[UnicharGenerator sharedInstance] postKeyboardEventsToPID: pid unicharString: aString];
+    }
 }
 
 - (void)outputCallback:(NSString *)aString {

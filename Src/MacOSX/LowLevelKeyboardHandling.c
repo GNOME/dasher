@@ -76,6 +76,8 @@
 
 #import "LowLevelKeyboardHandling.h"
 #import <mach-o/dyld.h>
+#include <CoreFoundation/CoreFoundation.h>
+#include <stdio.h>
 
 static int KLSIsInitialized = false;
 
@@ -270,7 +272,7 @@ KeycodeToUnicodeViaKCHRResource(
   
   keycode |= modifiers;
 // KeyTranslate no longer exists. This code path was not being called on systems I tested Nov 2023.
-//  result = KeyTranslate(kchr, keycode, deadKeyStatePtr);
+// result = KeyTranslate(kchr, keycode, deadKeyStatePtr);
   
   if ((0 == result) && (0 != dummy_state)) {
     /*
@@ -280,7 +282,7 @@ KeycodeToUnicodeViaKCHRResource(
      * the real key value.
      */
 // KeyTranslate no longer exists. This code path was not being called on systems I tested Nov 2023.
-//    result = KeyTranslate(kchr, 0x31, deadKeyStatePtr);
+// result = KeyTranslate(kchr, 0x31, deadKeyStatePtr);
     *deadKeyStatePtr = 0;
   }
   
@@ -543,12 +545,49 @@ GetKeyboardLayout (Ptr * resourcePtr, TextEncoding * encodingPtr)
     }
     
   } else {
-    
+     // printf("Currentlayout calling id--->");
     /*
      * Use the classic approach as shown in Apple code samples, loading
      * the keyboard resources directly.  This is broken for 10.3 and
      * possibly already in 10.2.
      */
+
+     TISInputSourceRef currentKeyboardLayout = TISCopyCurrentKeyboardInputSource();
+      if (currentKeyboardLayout) {
+        // Getting the layout's name
+        CFStringRef layoutName = TISGetInputSourceProperty(currentKeyboardLayout, kTISPropertyLocalizedName);
+        
+        // Getting the layout's unique ID
+        CFStringRef currentLayoutId = TISGetInputSourceProperty(currentKeyboardLayout, kTISPropertyInputSourceID);
+        
+        if (layoutName) {
+            // Convert CFStringRef to C string for printf
+            const char* layoutNameCStr = CFStringGetCStringPtr(layoutName, kCFStringEncodingUTF8);
+            if (layoutNameCStr == NULL) {
+                char buffer[256];
+                if (CFStringGetCString(layoutName, buffer, sizeof(buffer), kCFStringEncodingUTF8)) {
+                    layoutNameCStr = buffer;
+                }
+            }
+            //printf("Current keyboard layout name: %s\n", layoutNameCStr);
+        }
+        
+        if (currentLayoutId) {
+            // Convert CFStringRef to C string for printf
+            const char* layoutIdCStr = CFStringGetCStringPtr(currentLayoutId, kCFStringEncodingUTF8);
+            if (layoutIdCStr == NULL) {
+                char buffer[256];
+                if (CFStringGetCString(currentLayoutId, buffer, sizeof(buffer), kCFStringEncodingUTF8)) {
+                    layoutIdCStr = buffer;
+                }
+            }
+            //printf("Current keyboard layout ID: %s\n", layoutIdCStr);
+        }
+        
+        CFRelease(currentKeyboardLayout);
+    } else {
+        //printf("Could not get the current keyboard layout ID.\n");
+    }
 
     // Nov 2023: This call is to a defunct method. Leaving currentLayoutId zero seems to work, empirically.
 //    currentLayoutId = GetScriptVariable(currentKeyScript,smKeyScript);
@@ -674,7 +713,6 @@ TkMacOSXKeycodeToUnicode(
   Ptr resource = NULL;
   TextEncoding encoding;
   int len;
-  
   
   if (GetKeyboardLayout(&resource,&encoding)) {
     len = KeycodeToUnicodeViaUnicodeResource(

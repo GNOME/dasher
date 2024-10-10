@@ -10,6 +10,7 @@
 #import "PreferencesController.h"
 #import "DasherUtil.h"
 #import "DasherTextView.h"
+#import "config.h"
 
 /*
  * Created by Doug Dickinson (dasher AT DressTheMonkey DOT plus DOT com), 18 April 2003
@@ -98,6 +99,7 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
       [self setAquaDasherControl:new COSXDasherControl(self)];
       spQ = [[Queue alloc] init];
       _keyboardHelper = new CKeyboardHelper();
+      dasherPanelUI.delegate = self;
     }
 
   return self;
@@ -146,7 +148,10 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
   // with no automatic checking of the menuitem pending, any changes we make
   // to the gameModeOn property will be correctly reflected in the menu... 
   if (obj) {
-    if (directMode) self.directMode=false; //turn off direct mode first _if_necessary_ (properties do not check for no-change)
+    if (directMode) {
+      self.directMode = false; //turn off direct mode first _if_necessary_ (properties do not check for no-change)
+      appWatcher.directMode = false;
+    }
     if (!aquaDasherControl->GetGameModule())
       aquaDasherControl->EnterGameMode(NULL);
   } else if (aquaDasherControl->GetGameModule())
@@ -158,9 +163,21 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
   if (bVal) self.gameModeOn=false; //exit game mode
   aquaDasherControl->SetEdit(bVal ? [[[DirectEdit alloc] initWithIntf:aquaDasherControl AppWatcher:appWatcher] autorelease] : textView);
   self->directMode = bVal;
+  appWatcher.directMode = bVal;
+    
+  // Save on local storage.
+  NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+  [userDefaults setBool: bVal forKey: DASHER_DIRECT_MODE];
+  
+  if (bVal) {
+    [dasherPanelUI setLevel: NSFloatingWindowLevel];
+  } else {
+    [dasherPanelUI setLevel: NSNormalWindowLevel];
+    [dasherPanelUI makeKeyAndOrderFront: nil];
+  }
 }
 
--(BOOL)directMode {
+- (BOOL)directMode {
   return self->directMode;
 }
 
@@ -170,7 +187,11 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
 
 - (void)finishRealization {
   aquaDasherControl->Realize2();
-  [self setDirectMode:directMode];
+  
+  NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+  BOOL directModeValue = [userDefaults boolForKey: DASHER_DIRECT_MODE];
+
+  [self setDirectMode: directModeValue];
 }
 
 - (void)awakeFromNib {
@@ -415,5 +436,11 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
     
 }
 
+// NSWindowDelegate
+- (void)windowDidBecomeKey:(NSNotification *)notification {
+  if (!directMode) {
+    [NSApp activateIgnoringOtherApps:YES];
+  }
+}
 
 @end

@@ -19,7 +19,7 @@
 @class AppWatcher;
 @class DasherTextView;
 
-@interface DasherApp : NSObject
+@interface DasherApp : NSObject <NSWindowDelegate, NSSpeechSynthesizerDelegate>
 {
   IBOutlet NSWindow *dasherPanelUI;
   

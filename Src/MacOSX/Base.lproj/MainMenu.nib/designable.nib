@@ -14,11 +14,11 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Dasher" autorecalculatesKeyViewLoop="NO" frameAutosaveName="DasherMain" animationBehavior="default" id="21" userLabel="Window">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+        <window title="Dasher" autorecalculatesKeyViewLoop="NO" frameAutosaveName="DasherMain" animationBehavior="default" id="21" userLabel="Window" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" nonactivatingPanel="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="503" y="367" width="398" height="357"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1470" height="919"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="775"/>
             <value key="minSize" type="size" width="112" height="50"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="398" height="357"/>
@@ -69,15 +69,15 @@
                         <rect key="frame" x="0.0" y="304" width="399" height="54"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <clipView key="contentView" id="EDU-XW-Ea0">
-                            <rect key="frame" x="1" y="1" width="397" height="52"/>
+                            <rect key="frame" x="1" y="1" width="382" height="52"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" usesRuler="YES" allowsNonContiguousLayout="YES" spellingCorrection="YES" smartInsertDelete="YES" id="581" customClass="DasherTextView">
-                                    <rect key="frame" x="0.0" y="0.0" width="397" height="52"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="382" height="52"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="397" height="52"/>
+                                    <size key="minSize" width="382" height="52"/>
                                     <size key="maxSize" width="463" height="10000000"/>
                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <connections>
@@ -92,7 +92,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="579">
-                            <rect key="frame" x="382" y="1" width="16" height="52"/>
+                            <rect key="frame" x="383" y="1" width="15" height="52"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <connections>

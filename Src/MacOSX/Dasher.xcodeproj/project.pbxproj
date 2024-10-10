@@ -1897,6 +1897,7 @@
 				);
 				INFOPLIST_FILE = "Info-Dasher.plist";
 				LIBRARY_SEARCH_PATHS = /Volumes/Home/UsersAnnex/dougie/Projects/Dasher/Dasher_17/Src/Common/Expat;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_CFLAGS = (
 					"-D",
 					EXCLUDE_CONFIG,
@@ -1931,6 +1932,7 @@
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Info-Dasher.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_CFLAGS = (
 					"-D",
 					EXCLUDE_CONFIG,
@@ -1962,6 +1964,7 @@
 					GL_SILENCE_DEPRECATION,
 				);
 				INFOPLIST_FILE = "Info-Dasher.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_CFLAGS = (
 					"-D",
 					EXCLUDE_CONFIG,
@@ -2097,7 +2100,7 @@
 				198D19FC08965C4800CE3CC9 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Deployment;
 		};
 		198D19FD08965C4800CE3CC9 /* Build configuration list for PBXProject "Dasher" */ = {
 			isa = XCConfigurationList;
@@ -2107,7 +2110,7 @@
 				198D1A0008965C4800CE3CC9 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = Deployment;
 		};
 /* End XCConfigurationList section */
 	};

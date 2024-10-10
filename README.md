@@ -117,7 +117,7 @@ please send any comments to 'dasher@inf.phy.cam.ac.uk'.
 
 You can find the Dasher website at:
 
-http://www.inference.org.uk/dasher/
+https://inference.org.uk/dasher/
 
 Thank you for trying Dasher,
 

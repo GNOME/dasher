@@ -7,7 +7,6 @@
 //
 
 #import "KeyboardEvent.h"
-
 #import <Carbon/Carbon.h>
 
 static UInt32 modifierKeyMask[] = {shiftKey, optionKey, controlKey};
@@ -21,8 +20,46 @@ static int modifierKeyMaskLen = sizeof(modifierKeyMask) / sizeof(UInt32);
 {
   AXError error;
   
-//  NSLog(@"posting: charCode:%d keyCode:%d %@", aCharCode, aKeyCode, isKeyDown ? @"down" : @"up");
-  error = AXUIElementPostKeyboardEvent(aUIElementRef, (CGCharCode)aCharCode, (CGKeyCode)aKeyCode, isKeyDown);
+//  NSLog(@"posting: charCode:%d keyCode:%d %@", aCharCode, aKeyCode, isKeyDown ? @"down" : @"u
+    error = AXUIElementPostKeyboardEvent(aUIElementRef, (CGCharCode)aCharCode, (CGKeyCode)aKeyCode, NSKeyDown);
+}
+
+- (void)postToPID:(int)pid keyCode:(CGKeyCode)aKeyCode modifierKeyCode:(CGKeyCode)modifyCode keyDown:(BOOL)isKeyDown
+{
+    if (isKeyDown) {
+        CGEventRef keyDownEvent = CGEventCreateKeyboardEvent(NULL, aKeyCode, true);
+        
+        // Shift
+        if (modifyCode == 56) {
+            CGEventSetFlags(keyDownEvent, kCGEventFlagMaskShift);
+        }
+        // Option (Alt)
+        else if (modifyCode == 58) {
+            CGEventSetFlags(keyDownEvent, kCGEventFlagMaskAlternate);
+        }
+        // Control
+        else if (modifyCode == 59) {
+            CGEventSetFlags(keyDownEvent, kCGEventFlagMaskControl);
+        }
+        CGEventPostToPid(pid, keyDownEvent);
+        CFRelease(keyDownEvent);
+    } else {
+        CGEventRef keyUpEvent = CGEventCreateKeyboardEvent(NULL, aKeyCode, false);
+        // Shift
+        if (modifyCode == 56) {
+            CGEventSetFlags(keyUpEvent, kCGEventFlagMaskShift);
+        }
+        // Option (Al
+        else if (modifyCode == 58) {
+            CGEventSetFlags(keyUpEvent, kCGEventFlagMaskAlternate);
+        }
+        // Control
+        else if (modifyCode == 59) {
+            CGEventSetFlags(keyUpEvent, kCGEventFlagMaskControl);
+        }
+        CGEventPostToPid(pid, keyUpEvent);
+        CFRelease(keyUpEvent);
+    }
 }
 
 - (void)postToUIElementRef:(AXUIElementRef)aUIElementRef
@@ -50,6 +87,26 @@ static int modifierKeyMaskLen = sizeof(modifierKeyMask) / sizeof(UInt32);
        }
      }    
    }
+}
+
+- (void)postToPID:(int)pid {
+    int i, j;
+    for (i = 0; i < _eventCount; i++) {
+        BOOL hasModifyKey = false;
+        CGKeyCode keycode = _keyCodes[i];
+        for (j = 0; j < modifierKeyMaskLen; j++) {
+            if (_modifierStates[i] & modifierKeyMask[j]) {
+                hasModifyKey = true;
+                [self postToPID:pid keyCode: keycode modifierKeyCode: modifierKeyCode[j] keyDown:true];
+                [self postToPID:pid keyCode: keycode modifierKeyCode: modifierKeyCode[j]  keyDown:false];
+            }
+        }
+        
+        if (!hasModifyKey) {
+            [self postToPID:pid keyCode: keycode modifierKeyCode: 0 keyDown:true];
+            [self postToPID:pid keyCode: keycode modifierKeyCode: 0 keyDown:false];
+        }
+    }
 }
 
 + (id)keyboardEventWithUnicharString:(NSString *)aUnicharSring keyCodes:(UInt16 *)aKeyCodeList modifierStates:(UInt32 *)aModiferStateList count:(int)aCount

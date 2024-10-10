@@ -10,6 +10,7 @@
 #import "ModuleSettingsController.h"
 #import "DasherApp.h"
 #import "DasherUtil.h"
+#import "config.h"
 
 static PreferencesController *preferencesController = nil;
 
@@ -30,10 +31,20 @@ static NSString * const StartHandlerParamNames[2] = {
 #define numStartHandlerParams (sizeof(StartHandlerParamNames)/sizeof(StartHandlerParamNames[0]))
 
 
+@interface PreferencesController ()
+
+@property BOOL panelLoaded;
+
+@end
+
 @implementation PreferencesController
 
 @synthesize panel;
+@synthesize languageTableView;
+@synthesize inputFilterTableView;
+@synthesize colorTableView;
 @synthesize dasherApp;
+@synthesize panelLoaded;
 
 - (id)defaultsValueForKey:(NSString *)aKey {
   return [[NSUserDefaultsController sharedUserDefaultsController] valueForKeyPath:[NSString stringWithFormat:@"values.%@", aKey]];
@@ -105,13 +116,43 @@ static NSString * const StartHandlerParamNames[2] = {
 
 - (void)makeKeyAndOrderFront:(id)sender {
   if (panel == nil) {
-    //[NSBundle loadNibNamed:@"Preferences" owner:self];
-	  [[NSBundle mainBundle] loadNibNamed:@"Preferences"
-										   owner:self
-								 topLevelObjects:nil];
+    [[NSBundle mainBundle] loadNibNamed:@"Preferences"
+                                         owner:self
+                               topLevelObjects:nil];
+    panelLoaded = YES;
+  }
+
+  [panel makeKeyAndOrderFront: self];
+      
+  // Restore saved value.
+  NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+  NSString *alphabetID = [userDefaults objectForKey: DASHER_ALPHABET_ID];
+  
+  if (alphabetID) {
+    [self setDefaultsValue: alphabetID forKey:@"AlphabetID"];
+    NSUInteger index = [[self permittedValuesForAlphabetID] indexOfObject: alphabetID];
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex: index];
+    [self.languageTableView selectRowIndexes:indexSet byExtendingSelection:NO];
+    [self.languageTableView scrollRowToVisible: index];
   }
   
-  [panel makeKeyAndOrderFront:self];
+  NSString *inputFilter = [userDefaults objectForKey: DASHER_INPUTFILTER];
+  if (inputFilter) {
+    [self setDefaultsValue: inputFilter forKey:@"InputFilter"];
+    NSUInteger index = [[self permittedValuesForInputFilter] indexOfObject: inputFilter];
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex: index];
+    [self.inputFilterTableView selectRowIndexes:indexSet byExtendingSelection:NO];
+    [self.inputFilterTableView scrollRowToVisible: index];
+  }
+  
+  NSString *colourId = [userDefaults objectForKey: DASHER_COLOURID];
+  if (colourId) {
+    [self setDefaultsValue: colourId forKey:@"ColourID"];
+    NSUInteger index = [[self permittedValuesForColourID] indexOfObject: colourId];
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex: index];
+    [self.colorTableView selectRowIndexes:indexSet byExtendingSelection:NO];
+    [self.colorTableView scrollRowToVisible: index];
+  }
 }
 
 -(void)inputFilterSettings:(NSString *)selectedObject {
@@ -142,10 +183,15 @@ static NSString * const StartHandlerParamNames[2] = {
   // then selectionIndexesForAlphabetID is called again.
   // WHY?!?!?!
   // So: ignore the call with an empty set; but what to do about the '0'?
-  if ([anIndexSet count]==1)
-    [self setDefaultsValue:[[[self permittedValuesForAlphabetID] objectsAtIndexes:anIndexSet] lastObject] forKey:@"AlphabetID"];
+    if (panelLoaded && [anIndexSet count]==1) {
+        NSString *alphabetID = [[[self permittedValuesForAlphabetID] objectsAtIndexes:anIndexSet] lastObject];
+        [self setDefaultsValue: alphabetID forKey:@"AlphabetID"];
+        
+        // Save selected alphabetID on local.
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject: alphabetID forKey: DASHER_ALPHABET_ID];
+    }
 }
-
 
 - (NSArray *)permittedValuesForColourID {
   return [dasherApp permittedValuesForParameter:SP_COLOUR_ID];
@@ -165,7 +211,14 @@ static NSString * const StartHandlerParamNames[2] = {
   // then selectionIndexesForColourID is called again.
   // WHY?!?!?!
   // So: ignore the call with an empty set; but what to do about the '0'?  if ([anIndexSet count]==1)
-    [self setDefaultsValue:[[[self permittedValuesForColourID] objectsAtIndexes:anIndexSet] lastObject] forKey:@"ColourID"];
+    if (panelLoaded && [anIndexSet count]==1) {
+        NSString *colourId = [[[self permittedValuesForColourID] objectsAtIndexes:anIndexSet] lastObject];
+        [self setDefaultsValue: colourId forKey:@"ColourID"];
+        
+        // Save selected colourId on local.
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject: colourId forKey: DASHER_COLOURID];
+    }
 }
 
 
@@ -187,8 +240,14 @@ static NSString * const StartHandlerParamNames[2] = {
   // then selectionIndexesForInputFilter is called again.
   // WHY?!?!?!
   // So: ignore the call with an empty set; but what to do about the '0'?
-  if ([anIndexSet count]==1)
-    [self setDefaultsValue:[[[self permittedValuesForInputFilter] objectsAtIndexes:anIndexSet] lastObject] forKey:@"InputFilter"];
+    if (panelLoaded && [anIndexSet count]==1) {
+        NSString *inputFilter = [[[self permittedValuesForInputFilter] objectsAtIndexes:anIndexSet] lastObject];
+        [self setDefaultsValue: inputFilter forKey:@"InputFilter"];
+        
+        // Save selected input filter on local.
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject: inputFilter forKey: DASHER_INPUTFILTER];
+    }
 }
 
 
