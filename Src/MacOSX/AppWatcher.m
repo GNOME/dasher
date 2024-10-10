@@ -31,6 +31,16 @@
   return AXUIElementCreateApplication(pid);
 }
 
+- (int)targetAppPid {
+
+  if ([self targetAppInfo] == nil) {
+    return -1;
+  }
+  
+  pid_t pid = [[[self targetAppInfo] valueForKey:@"NSApplicationProcessIdentifier"] intValue];
+  return pid;
+}
+
 - (void)awakeFromNib {
   NSSortDescriptor *d = [[[NSSortDescriptor alloc] initWithKey:@"NSApplicationName" ascending:YES selector:@selector(caseInsensitiveCompare:)] autorelease];
   [appsController setSortDescriptors:[NSArray arrayWithObject:d]];
@@ -79,6 +89,8 @@
 - (void)seeAppLaunch:(NSNotification *)note {
   if ([self addAppInfo:[note userInfo]]) {
     [appsController rearrangeObjects];
+    
+    [self seeAppActive: note];
   }
 }
 
@@ -90,13 +102,12 @@
 // TODO problem if two apps have the same name - happens too infrequently to worry over now
 // fix would be to have method -uniqueName which includes the psn for names which are ==
 - (BOOL)addAppInfo:(NSDictionary *)anAppInfo {
-  // exclude ourselves and don't add duplicates
-  BOOL result = NO;
-  if (![[anAppInfo objectForKey:@"NSApplicationName"] isEqualToString:[self applicationName]] && [self indexOfAppWithInfo:anAppInfo] == NSNotFound) {
-    [[self apps] addObject:anAppInfo];
-    result = YES;
-  }
-  return result;
+    BOOL result = NO;
+    if ([self indexOfAppWithInfo:anAppInfo] == NSNotFound) {
+        [[self apps] addObject:anAppInfo];
+        result = YES;
+    }
+    return result;
 }
 
 - (void)seeAppDie:(NSNotification *)note {
@@ -111,11 +122,23 @@
   }
 }
 
+- (void)seeAppActive:(NSNotification *)note {
+    NSRunningApplication* currentApp = [[NSWorkspace sharedWorkspace] frontmostApplication];
+    unsigned long index = [self indexOfAppWithApplicationName: currentApp.localizedName];
+    if (index != NSNotFound) {
+        NSDictionary *d = [[self apps] objectAtIndex: index];
+        if (![[d objectForKey:@"NSApplicationName"] isEqualToString:[self applicationName]]) {
+            [self setTargetAppInfo: d];
+        }
+    }
+}
+
 - (void)registerNotifications {
   NSWorkspace *w = [NSWorkspace sharedWorkspace];
   NSNotificationCenter *nc = [w notificationCenter];
   [nc addObserver:self selector:@selector(seeAppLaunch:) name:NSWorkspaceDidLaunchApplicationNotification object:nil];
   [nc addObserver:self selector:@selector(seeAppDie:) name:NSWorkspaceDidTerminateApplicationNotification object:nil];
+  [nc addObserver:self selector:@selector(seeAppActive:) name:NSWorkspaceDidActivateApplicationNotification object:nil];
 }
 
 - (NSMutableArray *)apps {
@@ -137,9 +160,44 @@
   if (_targetAppInfo != newTargetAppInfo) {
     [_targetAppInfo release];
     _targetAppInfo = [newTargetAppInfo retain];
+    
+    if (_targetAppInfo != nil && self.directMode) {
+      pid_t pid = [[_targetAppInfo valueForKey:@"NSApplicationProcessIdentifier"] intValue];
+
+      [self openAppByPid: pid];
+    }
   }
 }
 
+- (void)openAppByPid: (pid_t) appPID {
+    //Create event target.
+    NSAppleEventDescriptor* targetDescriptor
+     = [NSAppleEventDescriptor descriptorWithDescriptorType:typeKernelProcessID
+                                                      bytes:&appPID
+                                                     length:sizeof(appPID)];
+
+    //Create "reopen" event.
+    NSAppleEventDescriptor* reopenDescriptor
+     = [NSAppleEventDescriptor appleEventWithEventClass:kCoreEventClass
+                                                eventID:kAEReopenApplication
+                                       targetDescriptor:targetDescriptor
+                                               returnID:kAutoGenerateReturnID
+                                          transactionID:kAnyTransactionID];
+
+    //Create "activate" event.
+    NSAppleEventDescriptor* activateDescriptor
+     = [NSAppleEventDescriptor appleEventWithEventClass:kAEMiscStandards
+                                                eventID:kAEActivate
+                                       targetDescriptor:targetDescriptor
+                                               returnID:kAutoGenerateReturnID
+                                          transactionID:kAnyTransactionID];
+
+    //Send "activate" followed by "reopen".
+    AESendMessage([activateDescriptor aeDesc], NULL, kAENoReply, kAEDefaultTimeout);
+    AESendMessage([reopenDescriptor   aeDesc], NULL, kAENoReply, kAEDefaultTimeout);
+
+}
+ 
 - (void)dealloc {
   [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
   [_apps release];

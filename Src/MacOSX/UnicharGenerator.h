@@ -18,7 +18,7 @@
 + (id)sharedInstance;
 
 - (void)postKeyboardEventsToUIElementRef:(AXUIElementRef)aUIElementRef unicharString:(NSString *)aUnicharString;
-
+- (void)postKeyboardEventsToPID:(int)pid unicharString:(NSString *)aUnicharString;
 - (void)fillWithDeadKeyState:(UInt32)aDeadKeyState keyCodes:(UInt16 *)aKeyCodeList modifierStates:(UInt32 *)aModiferStateList count:(int)anEventCount;
 
 - (void)populateUnicharLookup;

@@ -18,9 +18,9 @@
 }
 
 - (void)postToUIElementRef:(AXUIElementRef)aUIElementRef charCode:(CGCharCode)aCharCode keyCode:(CGKeyCode)aKeyCode keyDown:(Boolean)isKeyDown;
-
+- (void)postToPID:(int)pid keyCode:(CGKeyCode)aKeyCode modifierKeyCode:(CGKeyCode)modifyCode keyDown:(BOOL)isKeyDown;
 - (void)postToUIElementRef:(AXUIElementRef)aUIElementRef;
-
+- (void)postToPID: (int)pid;
 + (id)keyboardEventWithUnicharString:(NSString *)aUnicharSring keyCodes:(UInt16 *)aKeyCodeList modifierStates:(UInt32 *)aModiferStateList count:(int)aCount;
 
 - (id)initWithUnicharString:(NSString *)aUnicharSring keyCodes:(UInt16 *)aKeyCodeList modifierStates:(UInt32 *)aModiferStateList count:(int)aCount;

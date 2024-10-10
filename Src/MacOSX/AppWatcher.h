@@ -8,14 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 
-
 @interface AppWatcher : NSObject {
   NSMutableArray *_apps;
   NSDictionary *_targetAppInfo;
   IBOutlet NSArrayController *appsController;
 }
+@property BOOL directMode;
 
 - (AXUIElementRef)targetAppUIElementRef;
+- (int)targetAppPid;
 - (BOOL)psnOfAppInfo:(NSDictionary *)appInfo1 isEqualToPsnOfAppInfo:(NSDictionary *)appInfo2;
 - (id)init;
 - (void)awakeFromNib;

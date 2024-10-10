@@ -49,6 +49,45 @@ static UnicharGenerator *_sharedInstance = NULL;
   [[[self unicharLookup] objectForKey:aUnicharString] postToUIElementRef:aUIElementRef];
 }
 
+- (void)postKeyboardEventsToPID:(int)pid unicharString:(NSString *)aUnicharString
+{
+  if (keyboardMappingHasChanged())
+  {
+    [self populateUnicharLookup];
+  }
+  
+  NSLog(@"aUnicharString: %@", aUnicharString);
+  if (aUnicharString && aUnicharString.length > 0) {
+    
+    // For most symbols, we look up the keyboard event corresponding to the unicode and send that to the target process.
+    // This generally works well across all alphabets, regardless of the computer's keyboard layout.
+    // However, for certain symbols listed here, this method produces incorrect results, e.g. two characters instead of one. For these,
+    // we use a keydown/keyup approach instead.
+    NSArray *symbols = [NSArray arrayWithObjects: @"€", @"›", @"‹", @"’", @"·", @"”", @"«", @"»", @"„", @"‚", @"Ç", @"Í", @"Ï", @"Î", @"Ó", @"Ò", @"Æ", @"Ø", @"Å", @"¿", @"°", @"—", nil];
+    
+    NSMutableDictionary *dict = [self unicharLookup];
+    KeyboardEvent *event = [dict objectForKey:aUnicharString];
+
+    if (event && ![symbols containsObject: aUnicharString]) {
+      [event postToPID: pid];
+    } else {
+      
+      // If we can't find keyboard event for unichar, we will convert unicode using compsedRange and send it to the active process with keydown & keyup.
+      NSRange composedRange = [aUnicharString rangeOfComposedCharacterSequencesForRange:NSMakeRange(0, aUnicharString.length)];
+      unichar *characters = malloc(sizeof(unichar) * composedRange.length);
+      [aUnicharString getCharacters:characters range:composedRange];
+  
+      CGEventRef keyDownEvent = CGEventCreateKeyboardEvent( nil, 0, true );
+      CGEventKeyboardSetUnicodeString(keyDownEvent, composedRange.length, characters);
+      CGEventPostToPid(pid, keyDownEvent);
+      CFRelease(keyDownEvent);
+      CGEventRef keyUpEvent = CGEventCreateKeyboardEvent( nil, 0, false);
+      CGEventKeyboardSetUnicodeString(keyUpEvent, composedRange.length, characters);
+      CGEventPostToPid(pid, keyUpEvent);
+      CFRelease(keyUpEvent);
+    }
+  }
+}
 
 - (void)populateUnicharLookup
 {
@@ -77,9 +116,9 @@ static UnicharGenerator *_sharedInstance = NULL;
 // for our purposes, we don't need to generate control characters
   static UInt32 allModifierStates[] = {0, shiftKey, optionKey, optionKey | shiftKey};
   
-  for (keyCode = 0; keyCode < 128; keyCode++) 
+  for (keyCode = 0; keyCode < 128; keyCode++)
    {
-    for (modifierStateIndex = 0; modifierStateIndex < sizeof(allModifierStates)/sizeof(UInt32); modifierStateIndex++) 
+    for (modifierStateIndex = 0; modifierStateIndex < sizeof(allModifierStates)/sizeof(UInt32); modifierStateIndex++)
      {
       UInt32 newDeadKeyState = aDeadKeyState;
       
@@ -91,8 +130,8 @@ static UnicharGenerator *_sharedInstance = NULL;
       
 //      NSLog(@"%@ kc = %d, mod = %x, dead in = %d dead out = %d, len = %d, uni = %C (%x)", [@"-----" substringToIndex:anEventCount], keyCode, allModifierStates[modifierStateIndex], aDeadKeyState, newDeadKeyState, len, len > 0 ? uniChars[0] : 32, uniChars[0]);
       
-      if (len <= 1) 
-       {        
+      if (len <= 1)
+       {
         aKeyCodeList[anEventCount] = keyCode;
         aModiferStateList[anEventCount] = allModifierStates[modifierStateIndex];
         
@@ -113,7 +152,7 @@ static UnicharGenerator *_sharedInstance = NULL;
        }
      }
    }
-} 
+}
 
 
 
@@ -148,4 +187,5 @@ static UnicharGenerator *_sharedInstance = NULL;
 }
 
 @end
+
 
