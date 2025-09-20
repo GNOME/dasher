@@ -6,34 +6,32 @@
 # YunQiang Su <wzssyqa@gmail.com>, 2010
 # Aron Xu <aronxu@gnome.org>, 2010.
 # Tao Wang <dancefire@gmail.com>, 2010.
+# lumingzh <lumingzh@qq.com>, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dasher/issues\n"
-"POT-Creation-Date: 2022-09-06 15:22+0000\n"
-"PO-Revision-Date: 2023-08-04 16:47-0400\n"
-"Last-Translator: Tao Wang <dancefire@gmail.com>\n"
-"Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/dasher/issues/\n"
+"POT-Creation-Date: 2025-09-10 11:44+0000\n"
+"PO-Revision-Date: 2025-09-21 07:51+0800\n"
+"Last-Translator: lumingzh <lumingzh@qq.com>\n"
+"Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.4.3\n"
+"X-Generator: Gtranslator 49.0\n"
 
-#. Note to translators: This is the name of the dasher program as it appears
-#. in a window title.
-#: Data/dasher.desktop.in.in:3 Data/GUI/dasher.traditional.ui:196
-#: Src/Gtk2/dasher_main.cpp:736
+#: Data/dasher.desktop.in.in:2 Data/GUI/dasher.traditional.ui:196
 msgid "Dasher"
 msgstr "Dasher"
 
-#: Data/dasher.desktop.in.in:4
+#: Data/dasher.desktop.in.in:3
 msgid "Predictive text entry"
 msgstr "预测型文本输入"
 
-#: Data/dasher.desktop.in.in:5
+#: Data/dasher.desktop.in.in:4
 msgid "Enter text without a keyboard"
 msgstr "不使用键盘输入文本"
 
@@ -321,7 +319,7 @@ msgstr "追加到文件(_P)…"
 msgid "_Import Training Text…"
 msgstr "导入训练文本(_I)…"
 
-#: Data/GUI/dasher.traditional.ui:65 Src/Gtk2/dasher_main.cpp:835
+#: Data/GUI/dasher.traditional.ui:65
 msgid "Quit"
 msgstr "退出"
 
@@ -370,7 +368,6 @@ msgid "_About…"
 msgstr "关于(_A)…"
 
 #: Data/GUI/dasher.traditional.ui:134
-#: Src/DasherCore/DasherInterfaceBase.cpp:797
 msgid "Direct Mode"
 msgstr "直接模式"
 
@@ -394,227 +391,6 @@ msgstr "字母："
 msgid "Please Wait…"
 msgstr "请稍候…"
 
-#. think XML_LChar==char, depends on preprocessor variables...
-#. /TRANSLATORS: the first string is the error message from the XML Parser;
-#. / the second is the URL of the file we're trying to read.
-#: Src/DasherCore/AbstractXMLParser.cpp:63
-#, c-format
-msgid "XML Error %s in file %s "
-msgstr "XML 错误 %s，位于文件 %s "
-
-#: Src/DasherCore/Alphabet/AlphabetMap.cpp:116
-#, c-format
-msgid ""
-"File ends with incomplete UTF-8 character beginning 0x%x (expecting %i bytes "
-"but only %i)"
-msgstr ""
-"文件末尾终结于不完整的 UTF-8 字符，开头为 0x%x（期望得到 %i 字节但仅有 %i）"
-
-#: Src/DasherCore/Alphabet/AlphabetMap.cpp:127
-#, c-format
-msgid "Read invalid UTF-8 character 0x%x"
-msgstr "读取无效的 UTF-8 字符 0x%x"
-
-#. /TRANSLATORS: the string "GameTextFile" is the name of a setting in gsettings
-#. / (or equivalent), and should not be translated. The %s is the value of that
-#. / setting (this message displayed only if the user has provided a value)
-#: Src/DasherCore/AlphabetManager.cpp:213
-#, c-format
-msgid ""
-"Note: GameTextFile setting specifies game sentences file '%s' but this does "
-"not exist"
-msgstr ""
-
-#. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
-#: Src/DasherCore/AlternatingDirectMode.cpp:28 Src/DasherCore/ButtonMode.cpp:28
-#: Src/DasherCore/CompassMode.cpp:28 Src/DasherCore/StylusFilter.cpp:11
-#, fuzzy
-#| msgid "Factor by which to zoom in"
-msgid "Frames over which to perform zoom"
-msgstr "放大的倍数"
-
-#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
-#: Src/DasherCore/AlternatingDirectMode.cpp:30 Src/DasherCore/ButtonMode.cpp:39
-#: Src/DasherCore/CompassMode.cpp:32
-msgid "Global keyboard grab"
-msgstr "全局键盘抓取"
-
-#. menu
-#: Src/DasherCore/AlternatingDirectMode.cpp:34
-msgid "Alternating Direct Mode"
-msgstr "交替直接模式"
-
-#: Src/DasherCore/ButtonMode.cpp:29
-msgid "Scan time in menu mode (0 to not scan)"
-msgstr "菜单模式的扫描时间 (0 表示不扫描)"
-
-#: Src/DasherCore/ButtonMode.cpp:30
-#, fuzzy
-#| msgid "Number of boxes"
-msgid "Number of forward boxes"
-msgstr "框数"
-
-#: Src/DasherCore/ButtonMode.cpp:31
-msgid "Safety margin"
-msgstr "安全空白"
-
-#. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
-#. XXX PRLW: 128 log(2) = 89, where 2 is the ratio of adjacent boxes
-#. * however the code seems to use ratio = (129/127)^-r, instead of
-#. * ratio = exp(r/128) used in the design document
-#.
-#: Src/DasherCore/ButtonMode.cpp:37
-msgid "Box non-uniformity"
-msgstr "框体非一致性"
-
-#: Src/DasherCore/ClickFilter.cpp:9
-msgid "Maximum Zoom"
-msgstr "放到最大"
-
-#. TRANSLATORS: In click mode, when you click with the mouse, you select
-#. a piece of y-axis to be zoomed to, based on the mouse coordinates. The
-#. "guides" are lines from the mouse position to the edges of the piece of
-#. y-axis.
-#: Src/DasherCore/ClickFilter.cpp:15
-msgid "Draw guides on screen to show area into which a click will zoom"
-msgstr "在屏幕上绘制参考线，以显示哪个区域在点击后会放大"
-
-#. TRANSLATORS: As dasher's on-screen coordinate space is not flat,
-#. the straight guide lines should in fact really be curved. This option
-#. draws the guides as correct, though possibly more confusing, curves.
-#: Src/DasherCore/ClickFilter.cpp:19
-msgid "Curve lines to follow the non-linearity of the view transform"
-msgstr "要跟随非线性视角转换的曲线"
-
-#: Src/DasherCore/ClickFilter.h:23
-msgid "Click Mode"
-msgstr "单击模式"
-
-#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
-#: Src/DasherCore/CompassMode.cpp:30
-msgid "Right zoom"
-msgstr "右缩放因子"
-
-#. bMenu
-#: Src/DasherCore/CompassMode.cpp:38
-msgid "Compass Mode"
-msgstr "罗盘模式"
-
-#. /TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
-#. / refers to a setting name in gsettings or equivalent, and should not be translated.
-#: Src/DasherCore/DasherInterfaceBase.cpp:316
-#, c-format
-msgid ""
-"Could not find game sentences file for %s - check alphabet definition, or "
-"override with GameTextFile setting"
-msgstr ""
-
-#: Src/DasherCore/DasherInterfaceBase.cpp:786
-msgid "Normal Control"
-msgstr "普通控制"
-
-#. TODO: specialist factory for button mode
-#: Src/DasherCore/DasherInterfaceBase.cpp:796
-msgid "Menu Mode"
-msgstr "菜单模式"
-
-#: Src/DasherCore/DefaultFilter.cpp:14
-msgid "Vertical distance from mouse/gaze to target (400=screen height)"
-msgstr ""
-
-#: Src/DasherCore/DefaultFilter.cpp:15
-msgid "Learn offset (previous) automatically, e.g. gazetrackers"
-msgstr ""
-
-#: Src/DasherCore/DefaultFilter.cpp:16
-msgid ""
-"At top and bottom, scroll more and translate less (makes error-correcting "
-"easier)"
-msgstr ""
-
-#: Src/DasherCore/DefaultFilter.cpp:17
-msgid ""
-"Screen geometry (mostly for tall thin screens) - 0=old-style, 1=square no-"
-"xhair, 2=squish, 3=squish+log"
-msgstr ""
-
-#: Src/DasherCore/DefaultFilter.cpp:18
-msgid ""
-"Shape type: 0=disjoint rects, 1=overlapping, 2=triangles, 3=trunc-tris, "
-"4=quadrics, 5=circles"
-msgstr ""
-
-#: Src/DasherCore/DefaultFilter.cpp:19
-msgid ""
-"Distance from right-hand-side Y-axis, at which maximum speed is reached. "
-"(2048=xhair)"
-msgstr ""
-
-#: Src/DasherCore/DefaultFilter.cpp:20
-msgid "Hold right mouse button / key 1 to go 3/4 faster"
-msgstr ""
-
-#: Src/DasherCore/DefaultFilter.cpp:21
-msgid "Use exact computation of per-frame movement (slower)"
-msgstr "使用精确的逐帧移动计算（较慢）"
-
-#: Src/DasherCore/DemoFilter.cpp:15
-msgid "Demo Mode (no input)"
-msgstr "演示模式（无输入）"
-
-#: Src/DasherCore/GameModule.cpp:8
-msgid "Filename of sentences to enter"
-msgstr ""
-
-#: Src/DasherCore/GameModule.cpp:9
-msgid "Distance of sentence from center to decide user needs help"
-msgstr ""
-
-#: Src/DasherCore/GameModule.cpp:10
-msgid "Time for which user must need help before help drawn"
-msgstr ""
-
-#: Src/DasherCore/GameModule.cpp:11
-msgid "When we give help, show the shortest path to the target sentence?"
-msgstr ""
-
-#: Src/DasherCore/MandarinAlphMgr.cpp:176 Src/DasherCore/RoutingAlphMgr.cpp:128
-#, c-format
-msgid ""
-"Warning: faulty alphabet definition: training-start delimiter %s must be a "
-"single unicode character. May be unable to process training file."
-msgstr ""
-
-#: Src/DasherCore/MandarinAlphMgr.cpp:186
-#, c-format
-msgid ""
-"Warning: training file contains character '%s' as member of group '%s', but "
-"no group of that name contains the character; ignoring group specifier"
-msgstr ""
-
-#: Src/DasherCore/MandarinAlphMgr.cpp:199
-#, c-format
-msgid ""
-"Warning: training file contains character '%s' as member of group '%s', but "
-"no group of that name contains the character. Dasher will not be able to "
-"learn how you want to write this character."
-msgstr ""
-
-#: Src/DasherCore/MandarinAlphMgr.cpp:200 Src/DasherCore/RoutingAlphMgr.cpp:147
-#, c-format
-msgid ""
-"Warning: training file contains character '%s' as member of group '%s', but "
-"alphabet contains several such groups. Dasher will not be able to learn how "
-"you want to write this character."
-msgstr ""
-
-#: Src/DasherCore/MandarinAlphMgr.cpp:220 Src/DasherCore/RoutingAlphMgr.cpp:164
-#, c-format
-msgid ""
-"Warning: in training file, annotation '<%s>' is followed by another "
-"annotation and will be ignored"
-msgstr ""
-
 #: Src/DasherCore/MandarinAlphMgr.cpp:247
 #, c-format
 msgid ""
@@ -626,518 +402,376 @@ msgid_plural ""
 "they should be entered, but each can be entered in several ways. Dasher will "
 "not be able to learn how you want to enter these symbols:"
 msgstr[0] ""
+"在文件 %s 中，出现的下列 %i 符号未附带说明如何输入这些符号的注解，但其可以多"
+"种方式输入。Dasher 无法学习您输入这些符号的方式："
 
-#: Src/DasherCore/MandarinAlphMgr.cpp:251
 #, c-format
-msgid ""
-"In file %s, the following %i symbols appeared without annotations saying how "
-"they should be entered, but each can be entered in several ways. Dasher will "
-"not be able to learn how you want to enter these symbols:"
-msgstr ""
+#~ msgid "XML Error %s in file %s "
+#~ msgstr "XML 错误 %s，位于文件 %s "
 
-#: Src/DasherCore/NodeCreationManager.cpp:33
+#, c-format
+#~ msgid ""
+#~ "File ends with incomplete UTF-8 character beginning 0x%x (expecting %i "
+#~ "bytes but only %i)"
+#~ msgstr ""
+#~ "文件末尾终结于不完整的 UTF-8 字符，开头为 0x%x（期望得到 %i 字节但仅有 "
+#~ "%i）"
+
+#, c-format
+#~ msgid "Read invalid UTF-8 character 0x%x"
+#~ msgstr "读取无效的 UTF-8 字符 0x%x"
+
 #, fuzzy
-#| msgid "_Import Training Text"
-msgid "Training on User Text"
-msgstr "导入训练文本(_I)"
+#~| msgid "Factor by which to zoom in"
+#~ msgid "Frames over which to perform zoom"
+#~ msgstr "放大的倍数"
 
-#: Src/DasherCore/NodeCreationManager.cpp:33
-msgid "Training on System Text"
-msgstr ""
+#~ msgid "Global keyboard grab"
+#~ msgstr "全局键盘抓取"
 
-#. /TRANSLATORS: These 3 messages will be displayed when the user has just chosen a new alphabet. The %s parameter will be the name of the alphabet.
-#: Src/DasherCore/NodeCreationManager.cpp:90
+#~ msgid "Alternating Direct Mode"
+#~ msgstr "交替直接模式"
+
+#~ msgid "Scan time in menu mode (0 to not scan)"
+#~ msgstr "菜单模式的扫描时间 (0 表示不扫描)"
+
+#, fuzzy
+#~| msgid "Number of boxes"
+#~ msgid "Number of forward boxes"
+#~ msgstr "框数"
+
+#~ msgid "Safety margin"
+#~ msgstr "安全空白"
+
+#~ msgid "Box non-uniformity"
+#~ msgstr "框体非一致性"
+
+#~ msgid "Maximum Zoom"
+#~ msgstr "放到最大"
+
+#~ msgid "Draw guides on screen to show area into which a click will zoom"
+#~ msgstr "在屏幕上绘制参考线，以显示哪个区域在点击后会放大"
+
+#~ msgid "Curve lines to follow the non-linearity of the view transform"
+#~ msgstr "要跟随非线性视角转换的曲线"
+
+#~ msgid "Click Mode"
+#~ msgstr "单击模式"
+
+#~ msgid "Right zoom"
+#~ msgstr "右缩放因子"
+
+#~ msgid "Compass Mode"
+#~ msgstr "罗盘模式"
+
+#~ msgid "Normal Control"
+#~ msgstr "普通控制"
+
+#~ msgid "Menu Mode"
+#~ msgstr "菜单模式"
+
+#~ msgid "Use exact computation of per-frame movement (slower)"
+#~ msgstr "使用精确的逐帧移动计算（较慢）"
+
+#~ msgid "Demo Mode (no input)"
+#~ msgstr "演示模式（无输入）"
+
+#, fuzzy
+#~| msgid "_Import Training Text"
+#~ msgid "Training on User Text"
+#~ msgstr "导入训练文本(_I)"
+
+#~ msgid "Long press time"
+#~ msgstr "长按时限"
+
+#~ msgid "Double-press time"
+#~ msgstr "双按时限"
+
+#~ msgid "Enable backoff button"
+#~ msgstr "启用回退按钮"
+
+#~ msgid "Slow startup"
+#~ msgstr "缓慢启动"
+
+#~ msgid "Startup time"
+#~ msgstr "启动时间"
+
+#~ msgid "Percentage by which to automatically increase speed"
+#~ msgstr "表示自动增长速度的百分数"
+
+#~ msgid "Time after which to automatically increase speed (secs)"
+#~ msgstr "用来表示自动增长速度的等待时间(秒)"
+
+#~ msgid "Percentage by which to decrease speed upon reverse"
+#~ msgstr "在反方向减速的百分比"
+
+#~ msgid "One Button Dynamic Mode"
+#~ msgstr "一键动态模式"
+
+#~ msgid "Scan time (each direction), in ms"
+#~ msgstr "扫描时间(每个方向)，以毫秒为单位"
+
+#~ msgid "Factor by which to zoom in"
+#~ msgstr "放大的倍数"
+
+#~ msgid "Lag before user actually pushes button (ms)"
+#~ msgstr "在用户实际按键之前延迟时间(毫秒)"
+
+#~ msgid "One Dimensional Mode"
+#~ msgstr "一维模式"
+
+#~ msgid "true"
+#~ msgstr "true"
+
+#~ msgid "True"
+#~ msgstr "真"
+
+#~ msgid "false"
+#~ msgstr "false"
+
+#~ msgid "False"
+#~ msgstr "假"
+
+#~ msgid "boolean value must be specified as 'true' or 'false'."
+#~ msgstr "布尔值必须被指定为“true”或者“false”。"
+
+#~ msgid "unknown option, use \"--help-options\" for more information."
+#~ msgstr "未知选项，用“--help-options”获取更多信息。"
+
+#~ msgid "Port:"
+#~ msgstr "端口："
+
+#~ msgid "X label:"
+#~ msgstr "X 标签："
+
+#~ msgid "X minimum:"
+#~ msgstr "X 最小值："
+
+#~ msgid "X maximum:"
+#~ msgstr "X 最大值："
+
+#~ msgid "Y label:"
+#~ msgstr "Y 标签："
+
+#~ msgid "Y minimum:"
+#~ msgstr "Y 最小值："
+
+#~ msgid "Y maximum:"
+#~ msgstr "Y 最大值："
+
+#~ msgid "Print socket-related debugging information to console:"
+#~ msgstr "打印 Socket 相关的调试信息到控制台："
+
+#~ msgid "Socket Input"
+#~ msgstr "套接字输入"
+
+#~ msgid "Error creating socket"
+#~ msgstr "创建套接字出错"
+
+#~ msgid "Error binding to socket - already in use?"
+#~ msgstr "对套接字进行 bind 操作出错 - 是否已被使用？"
+
 #, c-format
-msgid ""
-"No user training text found - if you have written in \"%s\" before, this "
-"means Dasher may not be learning from previous sessions"
-msgstr ""
+#~ msgid "Warning truncating socket input label '%s' to %i characters."
+#~ msgstr "警告，将套接字输入标签“%s”截断至 %i 个字符。"
 
-#: Src/DasherCore/NodeCreationManager.cpp:91
+#~ msgid "Socket input: Error reading from socket"
+#~ msgstr "套接字输入：从套接字读取时出错"
+
 #, c-format
-msgid ""
-"No training text (user or system) found for \"%s\". Dasher will still work "
-"but entry will be slower. We suggest downloading a training text file from "
-"the Dasher website, or constructing your own."
-msgstr ""
+#~ msgid "Dasher Socket Input error: %s: %s"
+#~ msgstr "Dash 套接字输入错误：%s：%s"
 
-#: Src/DasherCore/NodeCreationManager.cpp:97
+#~ msgid "Dasher socket input: failed to launch reader thread."
+#~ msgstr "Dasher 套接字输入：调用阅读器线程失败。"
+
+#~ msgid "Max time for a 'tap' (anything longer is held)"
+#~ msgstr "一次敲击（“tap”）的最长时间（更长的操作将被识别为长按）"
+
+#~ msgid "Stylus Control"
+#~ msgstr "手写笔控制"
+
 #, c-format
-msgid ""
-"\"%s\" does not specify training file. Dasher will work but entry will be "
-"slower. Check you have the latest version of the alphabet definition."
-msgstr ""
+#~ msgid "Unable to open file \"%s\" for reading"
+#~ msgstr "无法打开文件“%s”进行读取"
 
-#. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
-#: Src/DasherCore/OneButtonDynamicFilter.cpp:31
-#: Src/DasherCore/TwoButtonDynamicFilter.cpp:32
-msgid "Long press time"
-msgstr "长按时限"
+#~ msgid "Button offset"
+#~ msgstr "按钮偏移量"
 
-#. TRANSLATORS: Double-clicks are special in some situations (they cause us to start reversing). This is the time in which the button must be pressed twice to count.
-#: Src/DasherCore/OneButtonDynamicFilter.cpp:33
-msgid "Double-press time"
-msgstr "双按时限"
+#~ msgid "Multiple press interval"
+#~ msgstr "多按间隔"
 
-#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
-#: Src/DasherCore/OneButtonDynamicFilter.cpp:35
-msgid "Enable backoff button"
-msgstr "启用回退按钮"
+#~ msgid "Enable backoff and start/stop buttons"
+#~ msgstr "启用回退和开始/停止按钮"
 
-#: Src/DasherCore/OneButtonDynamicFilter.cpp:36
-#: Src/DasherCore/TwoButtonDynamicFilter.cpp:43
-#: Src/DasherCore/TwoPushDynamicFilter.cpp:37
-msgid "Slow startup"
-msgstr "缓慢启动"
+#~ msgid "Reverse up and down buttons"
+#~ msgstr "翻转向上和向下按钮"
 
-#: Src/DasherCore/OneButtonDynamicFilter.cpp:37
-#: Src/DasherCore/TwoButtonDynamicFilter.cpp:44
-msgid "Startup time"
-msgstr "启动时间"
+#~ msgid "Double-click is opposite up/down — triple to reverse"
+#~ msgstr "双击相反向上/向下，连击三下反向"
 
-#: Src/DasherCore/OneButtonDynamicFilter.cpp:38
-#: Src/DasherCore/TwoButtonDynamicFilter.cpp:46
-#: Src/DasherCore/TwoPushDynamicFilter.cpp:39
-msgid "Percentage by which to automatically increase speed"
-msgstr "表示自动增长速度的百分数"
+#~ msgid "Two Button Dynamic Mode"
+#~ msgstr "两按钮动态模式"
 
-#: Src/DasherCore/OneButtonDynamicFilter.cpp:39
-#: Src/DasherCore/TwoButtonDynamicFilter.cpp:47
-#: Src/DasherCore/TwoPushDynamicFilter.cpp:40
-msgid "Time after which to automatically increase speed (secs)"
-msgstr "用来表示自动增长速度的等待时间(秒)"
+#~ msgid "Offset for outer (second) button"
+#~ msgstr "外部(第二个)按钮的位移"
 
-#: Src/DasherCore/OneButtonDynamicFilter.cpp:40
-#: Src/DasherCore/TwoButtonDynamicFilter.cpp:48
-#: Src/DasherCore/TwoPushDynamicFilter.cpp:41
-msgid "Percentage by which to decrease speed upon reverse"
-msgstr "在反方向减速的百分比"
+#~ msgid "Tolerance for inaccurate timing of button pushes (in ms)"
+#~ msgstr "对按键时间不精确的容忍程度(毫秒)"
 
-#: Src/DasherCore/OneButtonDynamicFilter.cpp:44
-msgid "One Button Dynamic Mode"
-msgstr "一键动态模式"
+#~ msgid "Slow startup time"
+#~ msgstr "减慢启动时间"
 
-#: Src/DasherCore/OneButtonFilter.cpp:12
-msgid "Scan time (each direction), in ms"
-msgstr "扫描时间(每个方向)，以毫秒为单位"
+#~ msgid "Two-push Dynamic Mode (New One Button)"
+#~ msgstr "按两下动态模式(新的一键功能)"
 
-#: Src/DasherCore/OneButtonFilter.cpp:13
-msgid "Factor by which to zoom in"
-msgstr "放大的倍数"
+#~ msgid "Boolean parameters"
+#~ msgstr "布尔型参数"
 
-#: Src/DasherCore/OneButtonFilter.cpp:14
-#: Src/DasherCore/TwoButtonDynamicFilter.cpp:45
-#: Src/DasherCore/TwoPushDynamicFilter.cpp:42
-msgid "Lag before user actually pushes button (ms)"
-msgstr "在用户实际按键之前延迟时间(毫秒)"
+#~ msgid "Default"
+#~ msgstr "默认"
 
-#. COneDimensionalFilter(CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
-#: Src/DasherCore/OneDimensionalFilter.h:12
-msgid "One Dimensional Mode"
-msgstr "一维模式"
+#~ msgid "Description"
+#~ msgstr "描述"
 
-#: Src/DasherCore/RoutingAlphMgr.cpp:146
+#~ msgid "Integer parameters"
+#~ msgstr "整形参数"
+
+#~ msgid "String parameters"
+#~ msgstr "字符串参数"
+
+#~ msgid "Version"
+#~ msgstr "版本"
+
+#~ msgid "License"
+#~ msgstr "许可证"
+
+#~ msgid "Select File"
+#~ msgstr "选择文件"
+
+#~ msgid "_Open"
+#~ msgstr "打开 (_O)"
+
+#~ msgid "_Cancel"
+#~ msgstr "取消(_C)"
+
+#~ msgid "_Save"
+#~ msgstr "保存(_S)"
+
+#~ msgid "option setting is missing \"=\"."
+#~ msgstr "选项设置缺少“=”。"
+
+#~ msgid "Invalid option string specified"
+#~ msgstr "无效的选项"
+
+#~ msgid "Use Default"
+#~ msgstr "使用默认值"
+
+#~ msgid "Choose File..."
+#~ msgstr "选择文件…"
+
+#~ msgid "Cancel"
+#~ msgstr "取消"
+
+#~ msgid ""
+#~ "Are you sure you wish to turn off game mode? All unsaved changes will be "
+#~ "lost."
+#~ msgstr "您确定要关闭游戏模式吗？所有未保存的更改将丢失。"
+
+#~ msgid "No"
+#~ msgstr "否"
+
+#~ msgid "Yes"
+#~ msgstr "是"
+
 #, c-format
-msgid ""
-"Warning: training file contains character '%s' as member of group '%s', but "
-"no group of that name contains the character. Ignoring group specifier."
-msgstr ""
+#~ msgid ""
+#~ "Do you want to save your changes to %s?\n"
+#~ "\n"
+#~ "Your changes will be lost if you don't save them."
+#~ msgstr ""
+#~ "您是否想要保存您对 %s 的更改？\n"
+#~ "\n"
+#~ "如果您不保存的话，所作的更改将丢失。"
 
-#: Src/DasherCore/SettingsStore.cpp:100 Src/Gtk2/DasherAppSettings.cpp:127
-#: Src/Gtk2/DasherAppSettings.cpp:131
-msgid "true"
-msgstr "true"
+#~ msgid ""
+#~ "Do you want to save your changes?\n"
+#~ "\n"
+#~ "Your changes will be lost if you don't save them."
+#~ msgstr ""
+#~ "您是否想要保存您的更改？\n"
+#~ "\n"
+#~ "如果您不保存的话，所作的更改将丢失。"
 
-#: Src/DasherCore/SettingsStore.cpp:100
-msgid "True"
-msgstr "真"
+#~ msgid "Quit without saving"
+#~ msgstr "不保存并退出"
 
-#: Src/DasherCore/SettingsStore.cpp:102 Src/Gtk2/DasherAppSettings.cpp:127
-#: Src/Gtk2/DasherAppSettings.cpp:131
-msgid "false"
-msgstr "false"
+#~ msgid "Don't quit"
+#~ msgstr "不退出"
 
-#: Src/DasherCore/SettingsStore.cpp:102
-msgid "False"
-msgstr "假"
+#~ msgid "Save and quit"
+#~ msgstr "保存并退出"
 
-#. Note to translators: This message will be output for a command line
-#. with "--options foo=VAL" and foo is a boolean valued parameter, but
-#. "VAL" is not true or false.
-#: Src/DasherCore/SettingsStore.cpp:108
-msgid "boolean value must be specified as 'true' or 'false'."
-msgstr "布尔值必须被指定为“true”或者“false”。"
+#~ msgid "Are you sure you wish to quit?"
+#~ msgstr "您确定想要退出吗？"
 
-#. Note to translators: This is output when command line "--options" doesn't
-#. specify a known option.
-#: Src/DasherCore/SettingsStore.cpp:130
-msgid "unknown option, use \"--help-options\" for more information."
-msgstr "未知选项，用“--help-options”获取更多信息。"
+#~ msgid "Unable to open help file"
+#~ msgstr "无法打开帮助文件"
 
-#: Src/DasherCore/SocketInputBase.cpp:27
-msgid "Port:"
-msgstr "端口："
+#~ msgid "Dasher is a predictive text entry application"
+#~ msgstr "Dasher 是预测型文本输入应用程序"
 
-#: Src/DasherCore/SocketInputBase.cpp:28
-msgid "X label:"
-msgstr "X 标签："
+#~ msgid "translator-credits"
+#~ msgstr ""
+#~ "Funda Wang <fundawang@linux.net.cn>, 2005\n"
+#~ "Yang Zhang <zyangmath@gmail.com>, 2007\n"
+#~ "Yaoms <yms541@gmail.com>, 2009\n"
+#~ "YunQiang Su <wzssyqa@gmail.com>, 2010\n"
+#~ "Aron Xu <aronxu@gnome.org>, 2010\n"
+#~ "Tao Wang <dancefire@gmail.com>, 2010"
 
-#: Src/DasherCore/SocketInputBase.cpp:29
-msgid "X minimum:"
-msgstr "X 最小值："
+#~ msgid "_Close"
+#~ msgstr "关闭(_C)"
 
-#: Src/DasherCore/SocketInputBase.cpp:30
-msgid "X maximum:"
-msgstr "X 最大值："
+#~ msgid "Dasher Module Options"
+#~ msgstr "Dasher 模块选项"
 
-#: Src/DasherCore/SocketInputBase.cpp:31
-msgid "Y label:"
-msgstr "Y 标签："
-
-#: Src/DasherCore/SocketInputBase.cpp:32
-msgid "Y minimum:"
-msgstr "Y 最小值："
-
-#: Src/DasherCore/SocketInputBase.cpp:33
-msgid "Y maximum:"
-msgstr "Y 最大值："
-
-#: Src/DasherCore/SocketInputBase.cpp:34
-msgid "Print socket-related debugging information to console:"
-msgstr "打印 Socket 相关的调试信息到控制台："
-
-#: Src/DasherCore/SocketInputBase.cpp:38
-msgid "Socket Input"
-msgstr "套接字输入"
-
-#. TODO This is not a very good error message even in English...???
-#: Src/DasherCore/SocketInputBase.cpp:108
-msgid "Error creating socket"
-msgstr "创建套接字出错"
-
-#: Src/DasherCore/SocketInputBase.cpp:116
-msgid "Error binding to socket - already in use?"
-msgstr "对套接字进行 bind 操作出错 - 是否已被使用？"
-
-#: Src/DasherCore/SocketInputBase.cpp:169
 #, c-format
-msgid "Warning truncating socket input label '%s' to %i characters."
-msgstr "警告，将套接字输入标签“%s”截断至 %i 个字符。"
+#~ msgid "%s Options:"
+#~ msgstr "%s 选项："
 
-#: Src/DasherCore/SocketInputBase.cpp:195
-msgid "Socket input: Error reading from socket"
-msgstr "套接字输入：从套接字读取时出错"
+#~ msgid "Mouse Input"
+#~ msgstr "鼠标输入"
 
-#: Src/DasherCore/SocketInputBase.cpp:297
-#, c-format
-msgid "Dasher Socket Input error: %s: %s"
-msgstr "Dash 套接字输入错误：%s：%s"
+#~ msgid "Pixels covering Y range"
+#~ msgstr "垂直像素覆盖范围"
 
-#. TODO should probably pop up a Gtk error message and think about how to do i18n:
-#: Src/DasherCore/SocketInput.cpp:31
-msgid "Dasher socket input: failed to launch reader thread."
-msgstr "Dasher 套接字输入：调用阅读器线程失败。"
+#~ msgid "One Dimensional Mouse Input"
+#~ msgstr "一维鼠标输入"
 
-#: Src/DasherCore/StylusFilter.cpp:10
-msgid "Max time for a 'tap' (anything longer is held)"
-msgstr "一次敲击（“tap”）的最长时间（更长的操作将被识别为长按）"
+#~ msgid "Action"
+#~ msgstr "动作"
 
-#: Src/DasherCore/StylusFilter.h:12
-msgid "Stylus Control"
-msgstr "手写笔控制"
+#~ msgid "Application style (traditional, direct, compose or fullscreen)"
+#~ msgstr "应用程序类型 (traditional, direct, compose or fullscreen)"
 
-#. no context switch commands will be executed!
-#: Src/DasherCore/Trainer.cpp:34
-#, c-format
-msgid ""
-"Warning: faulty alphabet definition, escape sequence %s must be a single "
-"unicode character. This may worsen Dasher's text prediction."
-msgstr ""
+#~ msgid "Override stored options"
+#~ msgstr "覆盖已存储的选项"
 
-#: Src/DasherCore/Trainer.cpp:101
-#, c-format
-msgid "Unable to open file \"%s\" for reading"
-msgstr "无法打开文件“%s”进行读取"
+#~ msgid "XML configuration file name"
+#~ msgstr "XML 配置文件名"
 
-#: Src/DasherCore/TwoButtonDynamicFilter.cpp:30
-msgid "Button offset"
-msgstr "按钮偏移量"
+#~ msgid "Describe \"--options\"."
+#~ msgstr "描述 “--options”。"
 
-#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the maximum time between two presses to count as _part_of_ a multi-press gesture
-#. (potentially more than two presses).
-#: Src/DasherCore/TwoButtonDynamicFilter.cpp:35
-msgid "Multiple press interval"
-msgstr "多按间隔"
+#~ msgid "Show the version details."
+#~ msgstr "显示版本详细信息。"
 
-#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
-#: Src/DasherCore/TwoButtonDynamicFilter.cpp:37
-#: Src/DasherCore/TwoPushDynamicFilter.cpp:36
-msgid "Enable backoff and start/stop buttons"
-msgstr "启用回退和开始/停止按钮"
+#~ msgid "- A text input application honouring accessibility"
+#~ msgstr "- 一个致力于帮助残障人士进行文字输入的应用程序"
 
-#. TRANSLATORS: What is normally the up button becomes the down button etc.
-#: Src/DasherCore/TwoButtonDynamicFilter.cpp:39
-msgid "Reverse up and down buttons"
-msgstr "翻转向上和向下按钮"
-
-#. TRANSLATORS: Pushing the up/down button twice quickly has the same effect as pushing the other
-#. button once; in this case, one must push three times (or push-and-hold) to reverse.
-#: Src/DasherCore/TwoButtonDynamicFilter.cpp:42
-msgid "Double-click is opposite up/down — triple to reverse"
-msgstr "双击相反向上/向下，连击三下反向"
-
-#: Src/DasherCore/TwoButtonDynamicFilter.cpp:52
-msgid "Two Button Dynamic Mode"
-msgstr "两按钮动态模式"
-
-#: Src/DasherCore/TwoPushDynamicFilter.cpp:30
-msgid "Offset for outer (second) button"
-msgstr "外部(第二个)按钮的位移"
-
-#. divisor
-#. step
-#: Src/DasherCore/TwoPushDynamicFilter.cpp:31
-msgid "Distance between down markers (long gap)"
-msgstr ""
-
-#: Src/DasherCore/TwoPushDynamicFilter.cpp:32
-msgid "Distance between up markers, as percentage of long gap"
-msgstr ""
-
-#: Src/DasherCore/TwoPushDynamicFilter.cpp:33
-msgid "Tolerance for inaccurate timing of button pushes (in ms)"
-msgstr "对按键时间不精确的容忍程度(毫秒)"
-
-#: Src/DasherCore/TwoPushDynamicFilter.cpp:34
-msgid ""
-"Use push and release times of single press rather than push times of two "
-"presses"
-msgstr ""
-
-#: Src/DasherCore/TwoPushDynamicFilter.cpp:38
-msgid "Slow startup time"
-msgstr "减慢启动时间"
-
-#: Src/DasherCore/TwoPushDynamicFilter.cpp:46
-msgid "Two-push Dynamic Mode (New One Button)"
-msgstr "按两下动态模式(新的一键功能)"
-
-#: Src/Gtk2/DasherAppSettings.cpp:124
-msgid "Boolean parameters"
-msgstr "布尔型参数"
-
-#: Src/Gtk2/DasherAppSettings.cpp:124 Src/Gtk2/DasherAppSettings.cpp:135
-#: Src/Gtk2/DasherAppSettings.cpp:146
-msgid "Default"
-msgstr "默认"
-
-#: Src/Gtk2/DasherAppSettings.cpp:124 Src/Gtk2/DasherAppSettings.cpp:135
-#: Src/Gtk2/DasherAppSettings.cpp:146
-msgid "Description"
-msgstr "描述"
-
-#: Src/Gtk2/DasherAppSettings.cpp:135
-msgid "Integer parameters"
-msgstr "整形参数"
-
-#: Src/Gtk2/DasherAppSettings.cpp:146
-msgid "String parameters"
-msgstr "字符串参数"
-
-#. Note to translators: This is the version keyword showing for the command line option "--version"
-#: Src/Gtk2/DasherAppSettings.cpp:161
-msgid "Version"
-msgstr "版本"
-
-#. Note to translators: This is the license keyword showing for the command line option "--version"
-#: Src/Gtk2/DasherAppSettings.cpp:163
-msgid "License"
-msgstr "许可证"
-
-#: Src/Gtk2/dasher_editor.cpp:796 Src/Gtk2/dasher_editor.cpp:830
-#: Src/Gtk2/dasher_main.cpp:751
-msgid "Select File"
-msgstr "选择文件"
-
-#: Src/Gtk2/dasher_editor.cpp:799 Src/Gtk2/dasher_main.cpp:448
-#: Src/Gtk2/dasher_main.cpp:754
-msgid "_Open"
-msgstr "打开 (_O)"
-
-#: Src/Gtk2/dasher_editor.cpp:801 Src/Gtk2/dasher_editor.cpp:835
-#: Src/Gtk2/dasher_main.cpp:447 Src/Gtk2/dasher_main.cpp:755
-msgid "_Cancel"
-msgstr "取消(_C)"
-
-#: Src/Gtk2/dasher_editor.cpp:833
-msgid "_Save"
-msgstr "保存(_S)"
-
-#. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
-#: Src/Gtk2/dasher_main.cpp:225
-msgid "option setting is missing \"=\"."
-msgstr "选项设置缺少“=”。"
-
-#. Note to translators: This string will be output when --options= specifies an unknown option.
-#: Src/Gtk2/dasher_main.cpp:241
-msgid "Invalid option string specified"
-msgstr "无效的选项"
-
-#: Src/Gtk2/dasher_main.cpp:505
-msgid ""
-"Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering "
-"text in Dasher. Please select a training text to play with:"
-msgstr ""
-
-#: Src/Gtk2/dasher_main.cpp:507
-msgid "Use Default"
-msgstr "使用默认值"
-
-#: Src/Gtk2/dasher_main.cpp:508
-msgid "Choose File..."
-msgstr "选择文件…"
-
-#: Src/Gtk2/dasher_main.cpp:509
-msgid "Cancel"
-msgstr "取消"
-
-#: Src/Gtk2/dasher_main.cpp:532
-msgid ""
-"Are you sure you wish to turn off game mode? All unsaved changes will be "
-"lost."
-msgstr "您确定要关闭游戏模式吗？所有未保存的更改将丢失。"
-
-#: Src/Gtk2/dasher_main.cpp:534
-msgid "No"
-msgstr "否"
-
-#: Src/Gtk2/dasher_main.cpp:535
-msgid "Yes"
-msgstr "是"
-
-#: Src/Gtk2/dasher_main.cpp:797
-#, c-format
-msgid ""
-"Do you want to save your changes to %s?\n"
-"\n"
-"Your changes will be lost if you don't save them."
-msgstr ""
-"您是否想要保存您对 %s 的更改？\n"
-"\n"
-"如果您不保存的话，所作的更改将丢失。"
-
-#: Src/Gtk2/dasher_main.cpp:804
-msgid ""
-"Do you want to save your changes?\n"
-"\n"
-"Your changes will be lost if you don't save them."
-msgstr ""
-"您是否想要保存您的更改？\n"
-"\n"
-"如果您不保存的话，所作的更改将丢失。"
-
-#: Src/Gtk2/dasher_main.cpp:810
-msgid "Quit without saving"
-msgstr "不保存并退出"
-
-#: Src/Gtk2/dasher_main.cpp:811 Src/Gtk2/dasher_main.cpp:834
-msgid "Don't quit"
-msgstr "不退出"
-
-#: Src/Gtk2/dasher_main.cpp:812
-msgid "Save and quit"
-msgstr "保存并退出"
-
-#: Src/Gtk2/dasher_main.cpp:831
-msgid "Are you sure you wish to quit?"
-msgstr "您确定想要退出吗？"
-
-#: Src/Gtk2/dasher_main.cpp:877
-msgid "Unable to open help file"
-msgstr "无法打开帮助文件"
-
-#: Src/Gtk2/dasher_main.cpp:928
-msgid "Dasher is a predictive text entry application"
-msgstr "Dasher 是预测型文本输入应用程序"
-
-#: Src/Gtk2/dasher_main.cpp:933
-msgid "translator-credits"
-msgstr ""
-"Funda Wang <fundawang@linux.net.cn>, 2005\n"
-"Yang Zhang <zyangmath@gmail.com>, 2007\n"
-"Yaoms <yms541@gmail.com>, 2009\n"
-"YunQiang Su <wzssyqa@gmail.com>, 2010\n"
-"Aron Xu <aronxu@gnome.org>, 2010\n"
-"Tao Wang <dancefire@gmail.com>, 2010"
-
-#: Src/Gtk2/module_settings_window.cpp:77
-msgid "_Close"
-msgstr "关闭(_C)"
-
-#: Src/Gtk2/module_settings_window.cpp:88
-msgid "Dasher Module Options"
-msgstr "Dasher 模块选项"
-
-#: Src/Gtk2/module_settings_window.cpp:94
-#, c-format
-msgid "%s Options:"
-msgstr "%s 选项："
-
-#: Src/Gtk2/mouse_input.h:14
-msgid "Mouse Input"
-msgstr "鼠标输入"
-
-#: Src/Gtk2/mouse_input.h:44
-msgid "Pixels covering Y range"
-msgstr "垂直像素覆盖范围"
-
-#. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
-#: Src/Gtk2/mouse_input.h:51
-msgid "One Dimensional Mouse Input"
-msgstr "一维鼠标输入"
-
-#: Src/Gtk2/Preferences.cpp:402
-msgid "Action"
-msgstr "动作"
-
-#. {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
-#. {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
-#. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
-#. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
-#. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
-#: Src/main.cc:133
-msgid "Application style (traditional, direct, compose or fullscreen)"
-msgstr "应用程序类型 (traditional, direct, compose or fullscreen)"
-
-#. Note to translators: This is the help string for "--options"
-#: Src/main.cc:135
-msgid "Override stored options"
-msgstr "覆盖已存储的选项"
-
-#: Src/main.cc:136
-msgid "XML configuration file name"
-msgstr "XML 配置文件名"
-
-#. Note to translators: This is the help string for "--help-options"
-#: Src/main.cc:138
-msgid "Describe \"--options\"."
-msgstr "描述 “--options”。"
-
-#. Note to translators: This is the help string for "--version"
-#: Src/main.cc:140
-msgid "Show the version details."
-msgstr "显示版本详细信息。"
-
-#. parse command line options
-#. Note to translators: This is the "--help" description of dasher.
-#: Src/main.cc:146
-msgid "- A text input application honouring accessibility"
-msgstr "- 一个致力于帮助残障人士进行文字输入的应用程序"
-
-#. Note to translators: This is the help string for unrecognized command line options. Do not translate 'dasher --help' part.
-#: Src/main.cc:153
-msgid "Try 'dasher --help' for more information."
-msgstr "请尝试使用“dasher --help”获取更多信息。"
+#~ msgid "Try 'dasher --help' for more information."
+#~ msgstr "请尝试使用“dasher --help”获取更多信息。"
 
 #~ msgid "A_ppend to file"
 #~ msgstr "追加到文件(_P)"
